@@ -1,0 +1,49 @@
+---
+title: Wie fragt Arbeit - EF Core
+author: rowanmiller
+ms.author: divega
+ms.date: 10/27/2016
+ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
+ms.technology: entity-framework-core
+uid: core/querying/overview
+ms.openlocfilehash: 7fd2940d559f82016d7a8fc3fdcf3af0d5b8bc8f
+ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.translationtype: MT
+ms.contentlocale: de-DE
+ms.lasthandoff: 10/27/2017
+---
+# <a name="how-queries-work"></a><span data-ttu-id="cfd6b-102">Funktionsweise von Abfragen</span><span class="sxs-lookup"><span data-stu-id="cfd6b-102">How Queries Work</span></span>
+
+<span data-ttu-id="cfd6b-103">Entity Framework Core verwendet Language integrieren Query (LINQ) zum Abfragen von Daten aus der Datenbank.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-103">Entity Framework Core uses Language Integrate Query (LINQ) to query data from the database.</span></span> <span data-ttu-id="cfd6b-104">LINQ ermöglicht Ihnen die Verwendung von c# (oder Ihre Sprache .NET) um stark typisierte Abfragen basierend auf Ihren abgeleiteten Klassen von Kontext und die Entität zu schreiben.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-104">LINQ allows you to use C# (or your .NET language of choice) to write strongly typed queries based on your derived context and entity classes.</span></span>
+
+## <a name="the-life-of-a-query"></a><span data-ttu-id="cfd6b-105">Die Lebensdauer einer Abfrage</span><span class="sxs-lookup"><span data-stu-id="cfd6b-105">The life of a query</span></span>
+
+<span data-ttu-id="cfd6b-106">Der folgende Code ist eine grobe Übersicht des Prozesses, der bei jeder Abfrage durchläuft.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-106">The following is a high level overview of the process each query goes through.</span></span>
+
+1. <span data-ttu-id="cfd6b-107">Die LINQ-Abfrage wird vom Entity Framework Core eine Darstellung zu erstellen, die von dem Datenbankanbieter verarbeitet werden kann</span><span class="sxs-lookup"><span data-stu-id="cfd6b-107">The LINQ query is processed by Entity Framework Core to build a representation that is ready to be processed by the database provider</span></span>
+   1. <span data-ttu-id="cfd6b-108">Das Ergebnis wird diese Verarbeitung muss nicht ausgeführt werden, jedes Mal, wenn die Abfrage ausgeführt wird, zwischengespeichert.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-108">The result is cached so that this processing does not need to be done every time the query is executed</span></span>
+2. <span data-ttu-id="cfd6b-109">Das Ergebnis wird an den Datenbankanbieter übergeben.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-109">The result is passed to the database provider</span></span>
+   1. <span data-ttu-id="cfd6b-110">Der Datenbankanbieter identifiziert, welche Teile der Abfrage ausgewertet werden können, in der Datenbank</span><span class="sxs-lookup"><span data-stu-id="cfd6b-110">The database provider identifies which parts of the query can be evaluated in the database</span></span>
+   2. <span data-ttu-id="cfd6b-111">Diese Teile der Abfrage werden in bestimmten Abfragesprache für Datenbank (z. B. SQL für eine relationale Datenbank) übersetzt.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-111">These parts of the query are translated to database specific query language (e.g. SQL for a relational database)</span></span>
+   3. <span data-ttu-id="cfd6b-112">Eine oder mehrere Abfragen werden an die Datenbank und das zurückgegebene Resultset gesendet (Ergebnisse sind Werte aus der Datenbank, die keine Instanzen der Entität)</span><span class="sxs-lookup"><span data-stu-id="cfd6b-112">One or more queries are sent to the database and the result set returned (results are values from the database, not entity instances)</span></span>
+3. <span data-ttu-id="cfd6b-113">Für jedes Element im Resultset</span><span class="sxs-lookup"><span data-stu-id="cfd6b-113">For each item in the result set</span></span>
+   1. <span data-ttu-id="cfd6b-114">Ist dies einer Überwachungsabfrage, EF überprüft, wenn die Daten bereits in der änderungsnachverfolgung für die Kontextinstanz eine Entität darstellt</span><span class="sxs-lookup"><span data-stu-id="cfd6b-114">If this is a tracking query, EF checks if the data represents an entity already in the change tracker for the context instance</span></span>
+      * <span data-ttu-id="cfd6b-115">Wenn dies der Fall ist, wird die vorhandene Entität zurückgegeben.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-115">If so, the existing entity is returned</span></span>
+      * <span data-ttu-id="cfd6b-116">Wenn dies nicht der Fall ist, wird eine neue Entität erstellt, änderungsnachverfolgung eingerichtet ist und die neue Entität wird zurückgegeben.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-116">If not, a new entity is created, change tracking is setup, and the new entity is returned</span></span>
+   2. <span data-ttu-id="cfd6b-117">Ist dies ein ohne-Überwachungsabfrage überprüft EF, wenn die Daten bereits in das Resultset für diese Abfrage eine Entität darstellt</span><span class="sxs-lookup"><span data-stu-id="cfd6b-117">If this is a no-tracking query, EF checks if the data represents an entity already in the result set for this query</span></span>
+      * <span data-ttu-id="cfd6b-118">Wenn also die vorhandene Entität zurückgegeben wird <sup>(1)</sup></span><span class="sxs-lookup"><span data-stu-id="cfd6b-118">If so, the existing entity is returned <sup>(1)</sup></span></span>
+      * <span data-ttu-id="cfd6b-119">Wenn nicht, eine neue Entität erstellt und zurückgegeben wird</span><span class="sxs-lookup"><span data-stu-id="cfd6b-119">If not, a new entity is created and returned</span></span>
+
+<span data-ttu-id="cfd6b-120"><sup>(1) </sup> Keine Überwachungsabfragen verwenden schwache Verweise zum Nachverfolgen Entitäten, die bereits zurückgegeben wurden.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-120"><sup>(1)</sup> No tracking queries use weak references to keep track of entities that have already been returned.</span></span> <span data-ttu-id="cfd6b-121">Wenn ein vorheriges Ergebnis mit derselben Identität den Gültigkeitsbereich verlässt, und die Garbagecollection ausführt, können Sie eine neue Entitätsinstanz abrufen.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-121">If a previous result with the same identity goes out of scope, and garbage collection runs, you may get a new entity instance.</span></span>
+
+## <a name="when-queries-are-executed"></a><span data-ttu-id="cfd6b-122">Wenn Abfragen ausgeführt werden</span><span class="sxs-lookup"><span data-stu-id="cfd6b-122">When queries are executed</span></span>
+
+<span data-ttu-id="cfd6b-123">Wenn Sie LINQ-Operatoren aufrufen, erstellen Sie einfach eine in-Memory-Darstellung der Abfrage.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-123">When you call LINQ operators, you are simply building up an in-memory representation of the query.</span></span> <span data-ttu-id="cfd6b-124">Die Abfrage wird nur an die Datenbank gesendet, wenn die Ergebnisse verarbeitet werden.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-124">The query is only sent to the database when the results are consumed.</span></span>
+
+<span data-ttu-id="cfd6b-125">Die allgemeinsten Vorgänge, die in der Abfrage wird an die Datenbank gesendet werden:</span><span class="sxs-lookup"><span data-stu-id="cfd6b-125">The most common operations that result in the query being sent to the database are:</span></span>
+* <span data-ttu-id="cfd6b-126">Durchlaufen die Ergebnisse in einem `for` Schleife</span><span class="sxs-lookup"><span data-stu-id="cfd6b-126">Iterating the results in a `for` loop</span></span>
+* <span data-ttu-id="cfd6b-127">Mit einem anderen Operator wie z. B. `ToList`, `ToArray`, `Single`,`Count`</span><span class="sxs-lookup"><span data-stu-id="cfd6b-127">Using an operator such as `ToList`, `ToArray`, `Single`, `Count`</span></span>
+* <span data-ttu-id="cfd6b-128">DataBinding die Ergebnisse einer Abfrage an eine Benutzeroberfläche</span><span class="sxs-lookup"><span data-stu-id="cfd6b-128">Databinding the results of a query to a UI</span></span>
+
+> [!WARNING]  
+> <span data-ttu-id="cfd6b-129">**Überprüfen Sie immer alle Benutzereingaben:** während EF bietet Schutz vor SQL Injection-Angriffen, aber keine allgemeinen Überprüfung der Eingabe.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-129">**Always validate user input:** While EF does provide protection from SQL injection attacks, it does not do any general validation of input.</span></span> <span data-ttu-id="cfd6b-130">Aus diesem Grund Werte, die APIs, die in LINQ-Abfragen zugewiesen Entitätseigenschaften usw., verwendet übergeben werden entsprechende Überprüfung pro den Anforderungen Ihrer Anwendung aus einer nicht vertrauenswürdigen Quelle stammt muss ausgeführt werden.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-130">Therefore if values being passed to APIs, used in LINQ queries, assigned to entity properties, etc., come from an untrusted source then appropriate validation, per your application requirements, should be performed.</span></span> <span data-ttu-id="cfd6b-131">Dies schließt alle Benutzereingaben verwendet, um Abfragen dynamisch zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-131">This includes any user input used to dynamically construct queries.</span></span> <span data-ttu-id="cfd6b-132">Selbst wenn LINQ verwendet, wenn Sie zulassen, dass Benutzereingaben, zum Erstellen von Ausdrücken als nur beabsichtigte Ausdrücke sicherzustellen, müssen Sie erstellt werden kann.</span><span class="sxs-lookup"><span data-stu-id="cfd6b-132">Even when using LINQ, if you are accepting user input to build expressions you need to make sure than only intended expressions can be constructed.</span></span>
