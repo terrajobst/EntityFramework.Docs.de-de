@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: ddf3a841800684688d50dcf9323f4d83c851222f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 79894c7b9fd9e40cdf14460abf5d872ee2f4b9f0
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="raw-sql-queries"></a>RAW-SQL-Abfragen
 
 Entity Framework Core können Sie SQL-Abfragen, die unformatierten Dropdown, bei der Arbeit mit einer relationalen Datenbank. Dies kann nützlich sein, wenn die Abfrage, die Sie ausführen möchten mit LINQ ausgedrückt werden kann, oder wenn eine LINQ-Abfrage mit keine ineffizienten SQL, die an die Datenbank dazu führte, ist.
 
 > [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
 
 ## <a name="limitations"></a>Einschränkungen
 
@@ -29,6 +29,13 @@ Es gibt einige Einschränkungen bei Verwendung von SQL-Abfragen, die unformatier
 * Die Spaltennamen im Resultset müssen die Spaltennamen entsprechen, denen Eigenschaften zugeordnet werden. Beachten Sie, dass dieser vom EF6 unterscheidet, in denen Eigenschaft/spaltenzuordnung für unformatierte SQL-Abfragen wurde ignoriert, und Resultsetspalte mussten Namen der Eigenschaft entsprechen.
 
 * Die SQL-Abfrage kann nicht verknüpfte Daten enthalten. Allerdings in vielen Fällen machen Sie auf die Abfrage mithilfe der `Include` Operator, um verwandte Daten zurückzugeben (finden Sie unter [einschließlich der zugehörige Daten](#including-related-data)).
+
+* `SELECT`Anweisungen, die an diese Methode übergebenen sollte im Allgemeinen zusammensetzbar sein: Wenn EF Core muss zusätzliche Abfrageoperatoren auf dem Server ausgewertet (z. B. zum Übersetzen von LINQ-Operatoren angewendet, nachdem `FromSql`), die angegebene SQL als eine Unterabfrage behandelt werden. Dies bedeutet, dass die übergebene SQL nicht enthalten soll, alle Zeichen oder die Optionen, die nicht wie für eine Unterabfrage gültig sind:
+  * nachfolgende Semikolons
+  * Auf SQL Server eine nachfolgende Abfrageebene-Hinweis, z. B.`OPTION (HASH JOIN)`
+  * Auf SQL Server ein `ORDER BY` -Klausel, die nicht von begleitet wird `TOP 100 PERCENT` in die `SELECT` Klausel
+
+* SQL-Anweisungen außer `SELECT` werden als nicht zusammensetzbare automatisch erkannt. Daher die vollständigen Ergebnisse der gespeicherten Prozeduren werden immer an den Client zurückgegeben und LINQ-Operatoren angewendet, nachdem `FromSql` werden im Arbeitsspeicher ausgewertet. 
 
 ## <a name="basic-raw-sql-queries"></a>Grundlegende unformatierten SQL-Abfragen
 

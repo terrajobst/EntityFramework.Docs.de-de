@@ -6,11 +6,11 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 0bd1ea2476621f826cca7d4a526a49a1b902acf8
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: 380f27c9f00943a2909ec7b876e151572a67dc37
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Aktualisieren von Anwendungen aus früheren Versionen von EF Core 2.0
 
@@ -31,9 +31,9 @@ Aktualisieren einer vorhandenen Anwendung zu EF Core 2.0 erfordern:
 1. Insbesondere finden Sie in der [neues Muster für die Initialisierung der Anwendung Dienstanbieter](#new-way-of-getting-application-services) unten beschriebenen.
 
 > [!TIP]  
-> Die Übernahme von diesem neuen Muster beim Aktualisieren von Anwendungen auf 2.0 wird dringend empfohlen, und ist erforderlich, damit für Produktfeatures wie Entity Framework Core Migrationen funktioniert. Die allgemeine andere Alternative besteht darin, [implementieren *IDesignTimeDbContextFactory\<TContext >*](configuring-dbcontext.md#using-idesigntimedbcontextfactorytcontext).
+> Die Übernahme von diesem neuen Muster beim Aktualisieren von Anwendungen auf 2.0 wird dringend empfohlen, und ist erforderlich, damit für Produktfeatures wie Entity Framework Core Migrationen funktioniert. Die allgemeine andere Alternative besteht darin, [implementieren *IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory).
 
-2. Anwendungen für ASP.NET Core 2.0 können EF Core 2.0 ohne zusätzliche Abhängigkeiten neben dem Datenbank-Anbieter von Drittanbietern verwenden. Allerdings müssen Anwendungen, die für frühere Versionen von ASP.NET Core zu ASP.NET Core 2.0 aktualisieren, um EF Core 2.0 zu verwenden. Weitere Informationen zum Aktualisieren von ASP.NET Core Anwendungen 2.0 finden Sie unter [der ASP.NET Core-Dokumentation auf der das Subjekt](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/).
+2. Anwendungen, deren Zielversionen für ASP.NET Core 2.0 festgelegt sind, können neben Datenbankanbietern von Drittanbietern EF Core 2.0 ohne zusätzliche Abhängigkeiten nutzen. Allerdings müssen Anwendungen, die für frühere Versionen von ASP.NET Core zu ASP.NET Core 2.0 aktualisieren, um EF Core 2.0 zu verwenden. Weitere Informationen zum Aktualisieren von ASP.NET Core Anwendungen 2.0 finden Sie unter [der ASP.NET Core-Dokumentation auf der das Subjekt](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/).
 
 ## <a name="breaking-changes"></a>Die Lauffähigkeit der Anwendung beeinträchtigende Änderungen
 
@@ -102,9 +102,9 @@ Die SQL Server- und SQLite-Anbieter werden vom Team EF ausgeliefert und 2.0-Vers
 
 Hinweis: diese Änderungen sollte nicht Großteil des Anwendungscodes beeinträchtigt werden.
 
-Die Ereignis-IDs für Nachrichten an eine [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs) 2.0 geändert wurden. Die Ereignis-IDs sind jetzt für EF Kerncode eindeutig. Diese Nachrichten folgen nun auch das Standardmuster für strukturierte Protokollierung von, z. B. MVC verwendet.
+Die Ereignis-IDs für Nachrichten an eine [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs) 2.0 geändert wurden. Die Ereignis-IDs sind nun für alle EF Core-Codes eindeutig. Diese Nachrichten entsprechen nun auch dem Standardmuster für die strukturierte Protokollierung, das z.B. von MVC eingesetzt wird.
 
-Kategorien von Protokollierung sich ebenfalls geändert haben. Wird nun Zugriff auf ein bekannter Satz von Kategorien über [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
+Die Protokollierungskategorien haben sich ebenfalls geändert. Nun gibt es eine bekannte Gruppe von Kategorien, auf die über [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs) zugegriffen werden kann.
 
 [DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) Ereignisse verwenden nun die gleichnamigen der Ereignis-ID als die entsprechenden `ILogger` Nachrichten. Die ereignisnutzlasten sind alle Nominale Typen abgeleitet [EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs).
 
@@ -114,7 +114,7 @@ IDs verfügen auch vom Microsoft.EntityFrameworkCore.Infraestructure auf dem neu
 
 ### <a name="ef-core-relational-metadata-api-changes"></a>EF Core relationalen Metadaten-API-Änderungen
 
-EF Core 2.0 wird jetzt erstellen Sie ein anderes [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) für jeden anderen Anbieter verwendet wird. Dies ist in der Regel für die Anwendung transparent. Dies hat eine Vereinfachung des Metadaten-APIs auf niedrigerer Ebene genutzt, sodass alle Zugriff auf _allgemeine Metadatenkonzepte von relationalen_ erfolgt immer über einen Aufruf von `.Relational` anstelle von `.SqlServer`, `.Sqlite`usw. Z. B. 1.1.x Code wie folgt:
+EF Core 2.0 erstellt nun eine andere [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs)-Klasse für die verschiedenen verwendeten Anbieter. Dies geschieht in der Regel auf eine für die Anwendung transparente Weise. Dies hat eine Vereinfachung der untergeordneten Metadaten-APIs ermöglicht, sodass Zugriffe auf _gemeinsame relationale Metadatenkonzepte_ immer durch Aufrufen von `.Relational` statt `.SqlServer`, `.Sqlite` usw. erfolgen. Z. B. 1.1.x Code wie folgt:
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;

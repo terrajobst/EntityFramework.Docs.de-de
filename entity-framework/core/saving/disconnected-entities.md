@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: b9d9662ce277e4f7b3d6f997a5117a0592f59fa3
-ms.sourcegitcommit: c72d85805db0aa95f980514a18381fdc5e17c786
+ms.openlocfilehash: 0ea02876b9594d54c971a7b70fcf7ce591e56ba0
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/01/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="disconnected-entities"></a>Getrennte Entitäten
 
@@ -19,7 +19,7 @@ Eine Instanz von ' DbContext ' verfolgt automatisch Entitäten, die aus der Date
 Allerdings sind manchmal Entitäten abgefragt werden mehrere Instanzen von Kontext verwenden, und klicken Sie dann gespeichert mit einer anderen Instanz. Dies geschieht häufig in "getrennt" Szenarien, z. B. eine Webanwendung, in denen die Entitäten werden abgefragt, an den Client gesendet, geändert, zurück an den Server in einer Anforderung gesendet und anschließend gespeichert. In diesem Fall der zweiten Kontext Instanz muss wissen, ob die Entitäten nicht vertraut sind (sollte nun eingefügt sein), oder vorhandene (sollte aktualisiert werden).
 
 > [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/) auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/) finden Sie auf GitHub.
 
 ## <a name="identifying-new-entities"></a>Identifizieren neue Entitäten
 
@@ -46,7 +46,7 @@ EF hat jedoch auch eine integrierten Möglichkeit hierzu für jede Entitätstyp 
 
 ### <a name="with-other-keys"></a>Mit anderen Schlüsseln
 
-Ein anderen Mechanismus ist für neue Entitäten Identität erforderlich, wenn Schlüsselwerte nicht automatisch generiert werden. Es gibt zwei allgemeine Vorgehensweisen beim dies:
+Ein anderen Mechanismus ist erforderlich, um neue Entitäten zu identifizieren, wenn die Schlüsselwerte nicht automatisch generiert werden. Es gibt zwei allgemeine Vorgehensweisen beim dies:
  * Abfrage für die Entität
  * Übergeben Sie ein Flag vom client
 
