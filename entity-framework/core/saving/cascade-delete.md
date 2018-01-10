@@ -16,7 +16,7 @@ ms.lasthandoff: 11/08/2017
 
 Kaskadierte Löschung wird häufig in der Terminologie von Datenbanken verwendet, um ein Merkmal beschreiben, die das Löschen einer Zeile automatisch verknüpfte Zeilen gelöscht auslösen können. Ein eng verwandtes Konzept gehörig von EF Core Delete Verhalten ist das automatische Löschen von einer untergeordneten Entität wird die Beziehung zu einem übergeordneten Element unterbrochen wurde – dies geht im Allgemeinen als "verwaiste löschen" bezeichnet.
 
-EF Core implementiert mehrere unterschiedliche Delete Verhaltensweisen und ermöglicht die Konfiguration der Delete-Verhalten von einzelnen Beziehungen. EF Core implementiert auch Konventionen, die hilfreich, löschen Sie das Standardverhalten für jede Beziehung auf Basis der [Requiredness der Beziehung] automatisch zu konfigurieren (.. /Modeling/Relationships.MD#Required-and-optional-Relationships).
+EF Core implementiert mehrere unterschiedliche Delete Verhaltensweisen und ermöglicht die Konfiguration der Delete-Verhalten von einzelnen Beziehungen. EF Core implementiert auch Konventionen, die hilfreich, löschen Sie das Standardverhalten für jede Beziehung auf Basis der [Requiredness der Beziehung](.. /Modeling/Relationships.MD#Required-and-optional-Relationships) automatisch zu konfigurieren .
 
 ## <a name="delete-behaviors"></a>Löschen von Verhalten
 Löschen Verhalten wird definiert, der *deleteBehavior()* Enumerator geben, und übergeben werden kann, um die *OnDelete* fluent-API, um zu steuern, ob das Löschen einer Entität Prinzipal/im übergeordneten Element oder das Trennen von der Beziehung zu abhängige/untergeordneter Entitäten sollten einen Nebeneffekt auf abhängige/untergeordnete Entitäten enthalten.
