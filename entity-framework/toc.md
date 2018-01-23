@@ -55,7 +55,7 @@
 ##### [Sequenzen](core/modeling/relational/sequences.md)
 ##### [Standardwerte](core/modeling/relational/default-values.md)
 ##### [Indizes](core/modeling/relational/indexes.md)
-##### [Foreign Key Constraints](core/modeling/relational/fk-constraints.md)
+##### [Fremdschlüsseleinschränkungen](core/modeling/relational/fk-constraints.md)
 ##### [Alternativschlüssel (Unique-Einschränkungen)](core/modeling/relational/unique-constraints.md)
 ##### [Vererbung (relationale Datenbank)](core/modeling/relational/inheritance.md)
 
@@ -83,7 +83,7 @@
 
 ### [Datenbankanbieter](core/providers/index.md)
 #### [Microsoft SQL Server](core/providers/sql-server/index.md)
-##### [Memory-Optimized Tables](core/providers/sql-server/memory-optimized-tables.md)
+##### [Speicheroptimierte Tabellen](core/providers/sql-server/memory-optimized-tables.md)
 #### [SQLite](core/providers/sqlite/index.md)
 ##### [SQLite-Einschränkungen](core/providers/sqlite/limitations.md)
 #### [PostgreSQL (Npgsql)](core/providers/npgsql/index.md)
@@ -108,7 +108,7 @@
 #### [🔧 Erstellen und Löschen von APIs](core/managing-schemas/ensure-created.md)
 #### [🔧 Reverse Engineering](core/managing-schemas/scaffolding.md)
 
-### [Command-Line Reference](core/miscellaneous/cli/index.md) (MSBuild-Befehlszeilenreferenz)
+### [MSBuild-Befehlszeilenreferenz](core/miscellaneous/cli/index.md)
 #### [Paket-Manager-Konsole (Visual Studio)](core/miscellaneous/cli/powershell.md)
 #### [.NET Core-CLI](core/miscellaneous/cli/dotnet.md)
 #### [DbContext-Instanzerstellung zur Entwurfszeit](core/miscellaneous/cli/dbcontext-creation.md)
@@ -129,11 +129,12 @@
 #### [Microsoft.EntityFrameworkCore.AutoHistory](core/extensions/autohistory.md)
 #### [Microsoft.EntityFrameworkCore.DynamicLinq](core/extensions/dynamiclinq.md)
 #### [Microsoft.EntityFrameworkCore.UnitOfWork](core/extensions/unitofwork.md)
+#### [NeinLinq.EntityFrameworkCore](core/extensions/neinlinq.md)
 
 ### Verschiedenes
 #### [Verbindungszeichenfolgen](core/miscellaneous/connection-strings.md)
 #### [Logging (Protokollierung)](core/miscellaneous/logging.md)
-#### [Verbindungsstabilität](core/miscellaneous/connection-resiliency.md)
+#### [Verbindungsresilienz](core/miscellaneous/connection-resiliency.md)
 #### [Testen](core/miscellaneous/testing/index.md)
 ##### [Testen mit SQLite](core/miscellaneous/testing/sqlite.md)
 ##### [Testen mit InMemory](core/miscellaneous/testing/in-memory.md)
