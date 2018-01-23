@@ -6,17 +6,17 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: a9481fe851cc264ab3eaecad052c2e683ae57a44
-ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
-ms.translationtype: HT
+ms.openlocfilehash: e1cb194d7c7472af59eb44fe2a084fa16c40c186
+ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/08/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="cascade-delete"></a>Kaskadierte Löschung
 
 Kaskadierte Löschung wird häufig in der Terminologie von Datenbanken verwendet, um ein Merkmal beschreiben, die das Löschen einer Zeile automatisch verknüpfte Zeilen gelöscht auslösen können. Ein eng verwandtes Konzept gehörig von EF Core Delete Verhalten ist das automatische Löschen von einer untergeordneten Entität wird die Beziehung zu einem übergeordneten Element unterbrochen wurde – dies geht im Allgemeinen als "verwaiste löschen" bezeichnet.
 
-EF Core implementiert mehrere unterschiedliche Delete Verhaltensweisen und ermöglicht die Konfiguration der Delete-Verhalten von einzelnen Beziehungen. EF Core implementiert auch Konventionen, die hilfreich, löschen Sie das Standardverhalten für jede Beziehung auf Basis der [Requiredness der Beziehung] (../modeling/relationships.md#required-and-optional-relationships) automatisch zu konfigurieren .
+EF Core implementiert mehrere unterschiedliche Delete Verhaltensweisen und ermöglicht die Konfiguration der Delete-Verhalten von einzelnen Beziehungen. EF Core implementiert auch Konventionen, die hilfreich, löschen Sie das Standardverhalten für jede Beziehung auf Basis der [Requiredness der Beziehung] automatisch zu konfigurieren (.. /Modeling/Relationships.MD#Required-and-optional-Relationships).
 
 ## <a name="delete-behaviors"></a>Löschen von Verhalten
 Löschen Verhalten wird definiert, der *deleteBehavior()* Enumerator geben, und übergeben werden kann, um die *OnDelete* fluent-API, um zu steuern, ob das Löschen einer Entität Prinzipal/im übergeordneten Element oder das Trennen von der Beziehung zu abhängige/untergeordneter Entitäten sollten einen Nebeneffekt auf abhängige/untergeordnete Entitäten enthalten.
@@ -35,19 +35,19 @@ Es gibt vier Verhaltensweisen, löschen, wie in den folgenden Tabellen aufgefüh
 
 | Verhaltensname | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher | Auswirkungen auf abhängige/untergeordnete Datenbank
 |-|-|-
-| **CASCADE** | Entitäten werden gelöscht. | Entitäten werden gelöscht.
-| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften festgelegt werden auf Null | Keine
+| **Cascade** | Entitäten werden gelöscht. | Entitäten werden gelöscht.
+| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften festgelegt werden auf Null | Keiner
 | **SetNull** | Fremdschlüsseleigenschaften festgelegt werden auf Null | Fremdschlüsseleigenschaften festgelegt werden auf Null
-| **Einschränken** | Keine | Keine
+| **Restrict** | Keiner | Keiner
 
 Für die erforderlichen Beziehungen (null-Fremdschlüssel) ist es _nicht_ möglich, einen null Fremdschlüsselwert speichern vortäuschen folgenden Auswirkungen:
 
 | Verhaltensname | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher | Auswirkungen auf abhängige/untergeordnete Datenbank
 |-|-|-
 | **CASCADE** (Standard) | Entitäten werden gelöscht. | Entitäten werden gelöscht.
-| **ClientSetNull** | SaveChanges löst aus | Keine
+| **ClientSetNull** | SaveChanges löst aus | Keiner
 | **SetNull** | SaveChanges löst aus | SaveChanges löst aus
-| **Einschränken** | Keine | Keine
+| **Restrict** | Keiner | Keiner
 
 In den obigen Tabellen *keine* kann zu einer Verletzung einer Einschränkung führen. Z. B. wenn eine Prinzipal/untergeordnete Entität wird gelöscht, jedoch keine Aktion ausgeführt wird, um den Fremdschlüssel einer abhängigen/untergeordneten zu ändern, löst klicken Sie dann die Datenbank wahrscheinlich auf SaveChanges aufgrund einer einschränkungsverletzung foreign.
 
@@ -67,7 +67,7 @@ Auf hoher Ebene:
 
 ## <a name="entity-deletion-examples"></a>Beispiele für das Löschen von Entitäten
 
-Der folgende Code ist Teil einer [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , kann eine Ausführung heruntergeladen werden. Im Beispiel wird gezeigt, was geschieht für jede Löschverhalten für optionale und notwendige Beziehungen, wenn eine übergeordnete Entität gelöscht wird.
+Der folgende Code ist Teil einer [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , heruntergeladen und ausgeführt werden können. Im Beispiel wird gezeigt, was geschieht für jede Löschverhalten für optionale und notwendige Beziehungen, wenn eine übergeordnete Entität gelöscht wird.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
