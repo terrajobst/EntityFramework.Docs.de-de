@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: 0d0590f1-1ea3-4d5c-8f44-db17395cd3f3
 ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/in-memory
-ms.openlocfilehash: c5c48c575e9fd693d1f28d1a6d10eb83ebbc9d70
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: 33690e3424d0777930d3cb8167575fb0f4ddd8f7
+ms.sourcegitcommit: d096484dcf9eff73d9943fa60db7a418b10ca0b3
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="testing-with-inmemory"></a>Testen mit InMemory
 
 Der Anbieter InMemory ist nützlich, wenn Sie Komponenten mithilfe von etwas, das Herstellen einer Verbindung mit der real-Datenbank, ohne den Aufwand für die tatsächliche Datenbankvorgänge entspricht in etwa testen möchten.
 
 > [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) finden Sie auf GitHub.
 
 ## <a name="inmemory-is-not-a-relational-database"></a>InMemory ist nicht mit einer relationalen Datenbank
 
