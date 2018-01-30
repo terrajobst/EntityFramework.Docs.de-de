@@ -17,7 +17,7 @@ ms.lasthandoff: 10/27/2017
 Asynchrones Speichern vermeidet, dass ein Thread blockiert, während die Änderungen in die Datenbank geschrieben werden. Dies kann nützlich, um zu vermeiden, dass die Oberfläche einer Rich-Client Anwendung blockiert wird. Asynchrone Vorgänge können auch in einer Web-Anwendung den Durchsatz erhöhen, indem der Thread freigegeben werden kann, um andere Anforderungen zu verarbeiten, während der Datenbankvorgang ausgeführt wird. Weitere Informationen finden Sie unter [asynchrone Programmierung in c#](https://docs.microsoft.com/dotnet/csharp/async).
 
 > [!WARNING]  
-> EF Core unterstützt nicht mehrere parallele Vorgänge, die auf derselben Kontextinstanz ausgeführt werden. Sie sollten immer vor dem nächsten Vorgang auf den Abschluss eines Vorgangs zu warten. Dies erfolgt in der Regel mithilfe des `await` Schlüsselwortes bei jedem asynchronen Vorgang.
+> EF Core unterstützt die Ausführung mehrerer paralleler Vorgänge in derselben Kontextinstanz nicht. Warten Sie immer, bis ein Vorgang abgeschlossen ist, bevor Sie den nächsten starten. Dies erfolgt in der Regel durch Angabe des `await` Schlüsselwortes bei jedem asynchronen Vorgang.
 
 Entity Framework Core bietet `DbContext.SaveChangesAsync()` als Alternative zur asynchronen `DbContext.SaveChanges()`.
 
