@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 06f1f18b-3267-4f79-b94e-173f9db0a7cb
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/index
-ms.openlocfilehash: c69c851e8e2cda944fdf1901c19b0c45cf9ac942
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b6b265ed8742459921b7ba4f3f04720eb43d06da
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="getting-started-with-ef-core-on-net-framework"></a>Erste Schritte mit EF Core im .NET Framework
 
@@ -19,4 +19,4 @@ Für diese grundlegenden Tutorials werden keine Vorkenntnisse zu Entity Framewor
 Sie können die in diesen Tutorials erlernten Methoden in jeder Anwendung verwenden, deren Zielversion für das .NET Framework festgelegt ist (einschließlich WPF und Windows Forms).
 
 > [!NOTE]  
-> Diese Tutorials und die dazugehörigen Beispiele wurden für die Verwendung von EF Core 2.0 aktualisiert (mit Ausnahme des UWP-Tutorials, das noch EF Core 1.1 verwendet). In den meisten Fällen sollte es jedoch möglich sein, Anwendungen früherer Releases mit minimalen Änderungen an den Anweisungen zu erstellen.
+> Diese Tutorials sowie die zugehörigen Beispiele wurden aktualisiert und verwenden nun EF Core 2.0. In den meisten Fällen sollte es jedoch möglich sein, Anwendungen früherer Releases mit minimalen Änderungen an den Anweisungen zu erstellen.
