@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 ms.technology: entity-framework-core
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: de26e3b28851d4dc4e50f0490093dd05ad489b31
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 6980acd53b0a74055af7a1e04b476f4625c327c9
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurieren ein ' DbContext '
 
@@ -18,15 +18,15 @@ In diesem Artikel erfahren Grundmuster für die Konfiguration einer `DbContext` 
 
 ## <a name="design-time-dbcontext-configuration"></a>Zur Entwurfszeit DbContext-Konfiguration
 
-EF Core Entwurfszeit-tools, z. B. [Migrationen](xref:core/managing-schemas/migrations/index) müssen in der Lage zu ermitteln, und erstellen Sie eine funktionierende Instanz von einer `DbContext` Typ, um Details über der Anwendungsverzeichnis Entitätstypen und deren Zuordnung zum Schema einer sammeln. Dieser Vorgang kann automatische sein, solange das Tool leicht erstellen kann die `DbContext` so, dass er auf ähnliche Weise konfiguriert wird, wie diese zum Zeitpunkt der Runt konfiguriert werden würde.
+EF Core Entwurfszeit-tools, z. B. [Migrationen](xref:core/managing-schemas/migrations/index) müssen in der Lage zu ermitteln, und erstellen Sie eine funktionierende Instanz von einer `DbContext` Typ, um Details über der Anwendungsverzeichnis Entitätstypen und deren Zuordnung zum Schema einer sammeln. Dieser Vorgang kann automatische sein, solange das Tool leicht erstellen kann die `DbContext` so, dass sie auf ähnliche Weise konfiguriert werden soll, wie es zur Laufzeit konfiguriert werden würde.
 
 Jedes Muster, die die erforderlichen Informationen bereitstellt, während die `DbContext` können zur Laufzeit, Tools, die für die Verwendung erforderlich arbeiten eine `DbContext` zur Entwurfszeit funktionieren nur mit einer begrenzten Anzahl von Mustern. Diese werden in ausführlicher behandelt die [zur Entwurfszeit Kontext Erstellung](xref:core/miscellaneous/cli/dbcontext-creation) Abschnitt.
 
 ## <a name="configuring-dbcontextoptions"></a>Konfigurieren von DbContextOptions
 
-`DbContext`eine Instanz des `DbContextOptions` um alle Tasks auszuführen. Die `DbContextOptions` Instanz führt Konfigurationsinformationen wie z. B.:
+`DbContext` eine Instanz des `DbContextOptions` um alle Tasks auszuführen. Die `DbContextOptions` Instanz führt Konfigurationsinformationen wie z. B.:
 
-- Der Datenbankanbieter verwendet, in der Regel durch Aufrufen einer Methode wie z. B. ausgewählt `UseSqlServer` oder`UseSqlite`
+- Der Datenbankanbieter verwendet, in der Regel durch Aufrufen einer Methode wie z. B. ausgewählt `UseSqlServer` oder `UseSqlite`
 - Eine erforderliche Verbindungszeichenfolge oder die ID der Datenbankinstanz, in der Regel als Argument übergeben, die oben genannten Anbieter Auswahlmethode
 - Alle auf Anbieterebene optionales Verhalten Selektoren, die in der Regel auch innerhalb des Aufrufs an den Anbieter Auswahlmethode verkettet
 - Alle allgemeinen Selektoren zur EF-Core-Verhalten, verkettet in der Regel nach oder vor der Anbieter-Selektor-Methode
@@ -108,7 +108,7 @@ using (var context = new BloggingContext())
 
 EF Core unterstützt die Verwendung von `DbContext` mit einen abhängigkeitseinschleusungscontainer. Die DbContext-Typ kann dem Dienstcontainer hinzugefügt werden, mithilfe der `AddDbContext<TContext>` Methode.
 
-`AddDbContext<TContext>`veranlasst, dass sowohl die DbContext-Typ `TContext`, und die entsprechende `DbContextOptions<TContext>` für Injection aus dem Dienstcontainer verfügbar.
+`AddDbContext<TContext>` veranlasst, dass sowohl die DbContext-Typ `TContext`, und die entsprechende `DbContextOptions<TContext>` für Injection aus dem Dienstcontainer verfügbar.
 
 Finden Sie unter [Weitere lesen](#more-reading) unten für Weitere Informationen zu Abhängigkeitsinjektion.
 

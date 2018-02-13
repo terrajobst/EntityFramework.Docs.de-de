@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 0ea02876b9594d54c971a7b70fcf7ce591e56ba0
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="disconnected-entities"></a>Getrennte Entitäten
 
@@ -20,6 +20,9 @@ Allerdings sind manchmal Entitäten abgefragt werden mehrere Instanzen von Konte
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/) finden Sie auf GitHub.
+
+> [!TIP]
+> EF Core kann nur eine Instanz des eine Entität mit einem angegebenen primären Schlüsselwert überwachen. Die beste Möglichkeit zur Vermeidung dieses wird, die ein Problem ist die Verwendung einen kurzlebigen Kontext für jede Unit of Work, dass der Kontext leer ist, startet verfügt über Entitäten angefügt, und speichert die Entitäten an, und klicken Sie dann den Kontext verworfen und verworfen.
 
 ## <a name="identifying-new-entities"></a>Identifizieren neue Entitäten
 
@@ -85,6 +88,10 @@ Bei den folgenden Schritten werden:
 > SetValues kennzeichnet nur, wie die Eigenschaften geändert werden, die über unterschiedliche Werte in die nachverfolgte Entität verfügen. Dies bedeutet, dass das Update gesendet werden, wird nur die Spalten, die tatsächlich geändert wurden aktualisiert. (Und wenn nichts geändert wurde, wird kein Update auf allen gesendet,.)
 
 ## <a name="working-with-graphs"></a>Arbeiten mit Diagrammen
+
+### <a name="identity-resolution"></a>Identitätsauflösung
+
+Wie oben bereits erwähnt, können EF Core nur eine Instanz des eine Entität mit einem angegebenen primären Schlüsselwert überwachen. Beim Arbeiten mit Diagrammen sollte das Diagramm im Idealfall erstellt werden, dass diese invariante wird beibehalten, und der Kontext für nur eine Unit of Work verwendet werden soll. Wenn das Diagramm Duplikate enthält, wird zum Diagramm zu verarbeiten, sendet sie an EF konsolidieren mehrere Instanzen in einem sein. Dies kann nicht triviale sein, in dem Instanzen in Konflikt stehenden Werte und Beziehungen, verfügen, damit die Konsolidierung von Duplikaten in Ihrer anwendungspipeline Auflösung des Konflikts zwischen vermeiden so bald wie möglich ausgeführt werden soll.
 
 ### <a name="all-newall-existing-entities"></a>Alle neuen Eigenschaft bzw. alle vorhandenen Entitäten
 
