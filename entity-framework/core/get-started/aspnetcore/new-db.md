@@ -8,11 +8,11 @@ ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 7e7ecaff29e9830bf3bcf742e6a5d54e1ced24de
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: f6ed19d3c5d2ae8d1f5756558e50c1f0dddd2f07
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer neuen Datenbank
 
@@ -47,15 +47,15 @@ Installieren Sie das Paket für den (oder die) gewünschten EF Core-Datenbankanb
 
 * Wählen Sie **Tools > NuGet-Paket-Manager > Paket-Manager-Konsole** aus.
 
-* Führen Sie `Install-Package Microsoft.EntityFrameworkCore.SqlServer` aus.
+* Ausführen von `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 Wir werden einige Entity Framework Core-Tools verwenden, um eine Datenbank aus Ihrem EF Core-Modell zu erstellen. Deshalb installieren wir auch das Toolpaket:
 
-* Führen Sie `Install-Package Microsoft.EntityFrameworkCore.Tools` aus.
+* Ausführen von `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 Später verwenden wir einige ASP.NET Core-Gerüsttools, um Controller und Ansichten zu erstellen. Deshalb installieren wird auch dieses Entwurfspaket:
 
-* Führen Sie `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design` aus.
+* Ausführen von `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## <a name="create-the-model"></a>Erstellen des Modells
 
@@ -121,9 +121,9 @@ Drücken Sie F5, um die App auszuführen und zu testen.
 * Navigieren Sie zu `/Blogs`.
 * Verwenden Sie den Link zum Erstellen, um einige Blogeinträge zu erstellen. Testen Sie die Links zum Anzeigen von Details und zum Löschen.
 
-![image](_static/create.png)
+![Bild](_static/create.png)
 
-![image](_static/index-new-db.png)
+![Bild](_static/index-new-db.png)
 
 ## <a name="additional-resources"></a>Zusätzliche Ressourcen
 
