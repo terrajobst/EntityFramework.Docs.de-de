@@ -6,21 +6,21 @@ ms.date: 10/27/2016
 ms.assetid: 1165e2ec-e421-43fc-92ab-d92f9ab3c494
 ms.technology: entity-framework-core
 uid: core/providers/writing-a-provider
-ms.openlocfilehash: 9d6d3748a9097b3b8eeee2a8a516c53f3b2afa58
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 4bddf5858ab2c6b2fd22571a20edb3f7c85e2853
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="writing-a-database-provider"></a>Schreiben eines Datenbank-Anbieters
 
 Informationen über das Schreiben eines Entity Framework Core-Datenbank-Anbieters finden Sie unter [, damit Sie einen Core EF-Anbieter schreiben möchten](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/) von [Arthur Vickers](https://github.com/ajcvickers).
 
-Die Codebasis EF Core ist eine open Source und enthält mehrere Datenbankanbieter, die als Verweis verwendet werden können. Sie finden den Quellcode zur https://github.com/aspnet/EntityFramework.
+Die Codebasis EF Core ist eine open Source und enthält mehrere Datenbankanbieter, die als Verweis verwendet werden können. Sie finden den Quellcode zur https://github.com/aspnet/EntityFrameworkCore.
 
 ## <a name="the-providers-beware-label"></a>Der Anbieter Vorsicht vor Bezeichnung
 
-Nachdem Sie die Arbeit für einen Anbieter beginnen, sehen Sie sich für die [ `providers-beware` ](https://github.com/aspnet/EntityFramework/labels/providers-beware) Bezeichnung auf unserer GitHub-Problemen und Pull-Anforderungen. Wir verwenden diese Bezeichnung zum Identifizieren von Änderungen, die Anbieterwriter auswirken können.
+Nachdem Sie die Arbeit für einen Anbieter beginnen, sehen Sie sich für die [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) Bezeichnung auf unserer GitHub-Problemen und Pull-Anforderungen. Wir verwenden diese Bezeichnung zum Identifizieren von Änderungen, die Anbieterwriter auswirken können.
 
 ## <a name="suggested-naming-of-third-party-providers"></a>Vorgeschlagene Benennung von Service-Drittanbietern
 

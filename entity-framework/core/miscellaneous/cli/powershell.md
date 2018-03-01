@@ -4,16 +4,16 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: b4ecb27edf94e7b9ad6c7fe65a891dcbf1593309
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: aacf8c8564a3966db6202c9ff1c1c02a19a10814
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 <a name="ef-core-package-manager-console-tools"></a>EF-Core-Paket-Manager-Konsole Tools
 =====================================
 Die Tools EF Core Paket-Manager-Konsole (PMC) ausführen, in Visual Studio mithilfe von NuGet [Package Manager Console][2].
-Diese Tools funktionieren mit .NET Framework und .NET Core-Projekten.
+Diese Tools funktionieren sowohl mit .NET Framework- als auch mit .NET Core-Projekten.
 
 > [!TIP]
 > Verwenden Sie nicht Visual Studio? Die [EF Core-Befehlszeilentools] [ 1] über Plattformen hinweg und in einer Eingabeaufforderung ausgeführt werden.
@@ -42,14 +42,14 @@ Get-Help about_EntityFrameworkCore
 ---------------
 Bei jedem eines Befehls aufrufen umfasst zwei Projekte:
 
-Das Zielprojekt ist keine Dateien hinzugefügt werden (oder in einigen Fällen entfernt). Das Zielprojekt wird standardmäßig auf die **Standardprojekt** in Paket-Manager-Konsole ausgewählt, aber kann auch mit angegeben werden-Projektparameter.
+Dem Zielprojekt werden Dateien hinzugefügt (oder sie werden in einigen Fällen aus diesem entfernt). Das Zielprojekt wird standardmäßig auf die **Standardprojekt** in Paket-Manager-Konsole ausgewählt, aber kann auch mit angegeben werden-Projektparameter.
 
-Das Startprojekt wird von den Tools emuliert wird, wenn der Code des Projekts ausführen. Wird standardmäßig eine **als Startprojekt festlegen** im Projektmappen-Explorer. Sie können auch mit dem StartupProject - Parameter angegeben werden.
+Das Startprojekt wird bei Ausführung des Projektcodes von den Tools emuliert. Wird standardmäßig eine **als Startprojekt festlegen** im Projektmappen-Explorer. Sie können auch mit dem StartupProject - Parameter angegeben werden.
 
 Allgemeine Parameter:
 
 |                           |                             |
-| ------------------------- | --------------------------- |
+|:--------------------------|:----------------------------|
 | -Kontext \<Zeichenfolge >        | Die DbContext verwenden.       |
 | -Projekt \<Zeichenfolge >        | Das Projekt verwendet werden soll.         |
 | -StartupProject \<Zeichenfolge > | Das Startup-Projekt verwenden. |
@@ -72,23 +72,23 @@ Fügt eine neue Migration.
 
 Parameter:
 
-|                                    |                                                                                 |
-| ---------------------------------- | ------------------------------------------------------------------------------- |
-| ***-Namen*** \<Zeichenfolge >              | Der Name der Migration.                                                      |
-| <nobr>-OutputDir \<Zeichenfolge ></nobr>  | Das Verzeichnis (und Sub-Namespace) zu verwenden. Pfade sind relativ zum Projektverzeichnis an. Der Standardwert ist "Migration". |
+|                                   |                                                                                                                  |
+|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| ***-Name*** \<String>             | Der Name der Migration.                                                                                       |
+| <nobr>-OutputDir \<String></nobr> | Das Verzeichnis (und Sub-Namespace) zu verwenden. Pfade sind relativ zum Projektverzeichnis an. Der Standardwert ist "Migration". |
 
 > [!NOTE]
 > Parameter in **fett** sind erforderlich, und diejenigen *Kursiv* sind mit Feldern fester Breite.
 
-### <a name="drop-database"></a>Drop-Datenbank
+### <a name="drop-database"></a>Drop-Database
 
 Löscht die Datenbank.
 
 Parameter:
 
-|          |                                                          |
-| -------- | -------------------------------------------------------- |
-| "-WhatIf"  | Anzeigen, welche Datenbank verworfen werden, jedoch nicht, legen Sie sie. |
+|         |                                                          |
+|:--------|:---------------------------------------------------------|
+| -WhatIf | Anzeigen, welche Datenbank verworfen werden, jedoch nicht, legen Sie sie. |
 
 ### <a name="get-dbcontext"></a>Get-DbContext
 
@@ -101,26 +101,26 @@ Entfernt die letzte Migration.
 Parameter:
 
 |        |                                                                       |
-| ------ | --------------------------------------------------------------------- |
+|:-------|:----------------------------------------------------------------------|
 | -Force | Überprüfen Sie nicht, um festzustellen, ob die Migration der Datenbank angewendet wurde. |
 
-### <a name="scaffold-dbcontext"></a>Gerüst DbContext
+### <a name="scaffold-dbcontext"></a>Scaffold-DbContext
 
 Gerüste ein ' DbContext ' und Entität Typen für eine Datenbank.
 
 Parameter:
 
-|                                          |                                                                           |
-| ---------------------------------------- | ------------------------------------------------------------------------- |
-| <nobr>***-Verbindung*** \<Zeichenfolge ></nobr> | Die Verbindungszeichenfolge zur Datenbank.                                    |
-| ***-Anbieter*** \<Zeichenfolge >                | Die zu verwendenden Anbieter an. (D. h. Microsoft.EntityFrameworkCore.SqlServer)       |
-| -OutputDir \<Zeichenfolge >                     | Das Verzeichnis in den Dateien versetzt. Pfade sind relativ zum Projektverzeichnis an. |
-| -Kontext \<Zeichenfolge >                       | Der Name von ' DbContext ' zu generieren.                                    |
-| -Schemas \<String [] >                     | Die Schemas der Tabellen zur Generierung von Entitätstypen für.                       |
-| -Tabellen \<String [] >                      | Die Tabellen für Entitätstypen generieren.                                  |
-| DataAnnotations-                         | Verwenden Sie Attribute, um das Modell (sofern möglich) konfigurieren. Wenn nicht angegeben, wird nur die fluent-API verwendet. |
-| -UseDatabaseNames                        | Verwenden Sie die Tabellen- und Spaltennamen direkt aus der Datenbank.                    |
-| -Force                                   | Überschreiben Sie vorhandene Dateien.                                                 |
+|                                          |                                                                                                  |
+|:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
+| <nobr>***-Verbindung*** \<Zeichenfolge ></nobr> | Die Verbindungszeichenfolge zur Datenbank.                                                           |
+| ***-Provider*** \<String>                | Die zu verwendenden Anbieter an. (Z. B. Microsoft.EntityFrameworkCore.SqlServer)                              |
+| -OutputDir \<Zeichenfolge >                     | Das Verzeichnis in den Dateien versetzt. Pfade sind relativ zum Projektverzeichnis an.                      |
+| -Kontext \<Zeichenfolge >                       | Der Name von ' DbContext ' zu generieren.                                                           |
+| -Schemas \<String[]>                     | Die Schemas der Tabellen zur Generierung von Entitätstypen für.                                              |
+| -Tables \<String[]>                      | Die Tabellen für Entitätstypen generieren.                                                         |
+| -DataAnnotations                         | Verwenden Sie Attribute, um das Modell (sofern möglich) konfigurieren. Wenn nicht angegeben, wird nur die fluent-API verwendet. |
+| -UseDatabaseNames                        | Verwenden Sie die Tabellen- und Spaltennamen direkt aus der Datenbank.                                           |
+| -Force                                   | Überschreiben Sie vorhandene Dateien.                                                                        |
 
 ### <a name="script-migration"></a>Skript-Migration
 
@@ -129,8 +129,8 @@ Generiert ein SQL-Skript von Migrationen.
 Parameter:
 
 |                   |                                                                    |
-| ----------------- | ------------------------------------------------------------------ |
-| *-From* \<Zeichenfolge > | Der Start Migration. Der Standardwert ist 0 (die ursprüngliche Datenbank).      |
+|:------------------|:-------------------------------------------------------------------|
+| *-From* \<String> | Der Start Migration. Der Standardwert ist 0 (die ursprüngliche Datenbank).      |
 | *-Zu* \<Zeichenfolge >   | Der Endwert Migration. Standardmäßig bis zum letzten Migration.              |
 | -Idempotent       | Generiert ein Skript, das für eine Datenbank bei jeder Migration verwendet werden kann. |
 | -Output \<Zeichenfolge > | Die Datei, schreibt das Ergebnis.                                   |
@@ -140,8 +140,8 @@ Parameter:
 
 ### <a name="update-database"></a>Datenbank aktualisieren
 
-|                                     |                                                                                |
-| ----------------------------------- | ------------------------------------------------------------------------------ |
+|                                     |                                                                                                |
+|:------------------------------------|:-----------------------------------------------------------------------------------------------|
 | <nobr>*-Migration* \<Zeichenfolge ></nobr> | Der zielmigration. Bei "0" werden bei allen Migrationen rückgängig gemacht werden. Standardmäßig bis zum letzten Migration. |
 
 > [!TIP]

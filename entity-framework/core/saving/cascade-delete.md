@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: e1cb194d7c7472af59eb44fe2a084fa16c40c186
-ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.openlocfilehash: 1ab9d114e27aac0bec972df631a426c8ce87a518
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/22/2018
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="cascade-delete"></a>Kaskadierte Löschung
 
@@ -33,21 +33,21 @@ Für die zweite Aktion ist einen foreign Key-Wert auf null festlegen ungültig, 
 
 Es gibt vier Verhaltensweisen, löschen, wie in den folgenden Tabellen aufgeführt. Für optionale Beziehungen (nullable Fremdschlüssel) es _ist_ möglich, einen null Fremdschlüsselwert speichern vortäuschen folgenden Auswirkungen:
 
-| Verhaltensname | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher | Auswirkungen auf abhängige/untergeordnete Datenbank
-|-|-|-
-| **Cascade** | Entitäten werden gelöscht. | Entitäten werden gelöscht.
-| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften festgelegt werden auf Null | Keiner
-| **SetNull** | Fremdschlüsseleigenschaften festgelegt werden auf Null | Fremdschlüsseleigenschaften festgelegt werden auf Null
-| **Restrict** | Keiner | Keiner
+| Verhaltensname               | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher    | Auswirkungen auf abhängige/untergeordnete Datenbank  |
+|:----------------------------|:---------------------------------------|:---------------------------------------|
+| **Cascade**                 | Entitäten werden gelöscht.                   | Entitäten werden gelöscht.                   |
+| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften festgelegt werden auf Null | Keiner                                   |
+| **SetNull**                 | Fremdschlüsseleigenschaften festgelegt werden auf Null | Fremdschlüsseleigenschaften festgelegt werden auf Null |
+| **Restrict**                | Keiner                                   | Keiner                                   |
 
 Für die erforderlichen Beziehungen (null-Fremdschlüssel) ist es _nicht_ möglich, einen null Fremdschlüsselwert speichern vortäuschen folgenden Auswirkungen:
 
-| Verhaltensname | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher | Auswirkungen auf abhängige/untergeordnete Datenbank
-|-|-|-
-| **CASCADE** (Standard) | Entitäten werden gelöscht. | Entitäten werden gelöscht.
-| **ClientSetNull** | SaveChanges löst aus | Keiner
-| **SetNull** | SaveChanges löst aus | SaveChanges löst aus
-| **Restrict** | Keiner | Keiner
+| Verhaltensname         | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher | Auswirkungen auf abhängige/untergeordnete Datenbank |
+|:----------------------|:------------------------------------|:--------------------------------------|
+| **CASCADE** (Standard) | Entitäten werden gelöscht.                | Entitäten werden gelöscht.                  |
+| **ClientSetNull**     | SaveChanges löst aus                  | Keiner                                  |
+| **SetNull**           | SaveChanges löst aus                  | SaveChanges löst aus                    |
+| **Restrict**          | Keiner                                | Keiner                                  |
 
 In den obigen Tabellen *keine* kann zu einer Verletzung einer Einschränkung führen. Z. B. wenn eine Prinzipal/untergeordnete Entität wird gelöscht, jedoch keine Aktion ausgeführt wird, um den Fremdschlüssel einer abhängigen/untergeordneten zu ändern, löst klicken Sie dann die Datenbank wahrscheinlich auf SaveChanges aufgrund einer einschränkungsverletzung foreign.
 
