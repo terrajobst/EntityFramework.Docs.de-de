@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 2d79bf1339ebe522c39fe8971d908c30e1f4dca0
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="generated-values"></a>Generierten Werte
 
@@ -50,7 +50,7 @@ Wie `value generated on add`, wenn Sie einen Wert für die Eigenschaft auf eine 
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention werden Primärschlüsseln, die eine ganze Zahl oder eine GUID-Datentyp sind Setup hinzufügen auf generierten Werte aufweisen. Alle anderen Eigenschaften werden Setup mit kein Wert generiert werden.
+Gemäß der Konvention nicht zusammengesetzte Primärschlüssel vom Typ short Int, long oder Guid werden Setup hinzufügen auf generierten Werte aufweisen. Alle anderen Eigenschaften werden Setup mit kein Wert generiert werden.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
@@ -85,7 +85,7 @@ Sie können die Fluent-API verwenden, so ändern Sie das Value-Generation-Muster
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> `ValueGeneratedOnAdd()`können nur EF wissen, dass die Werte für hinzugefügte Elemente generiert werden, es kann nicht garantiert, dass EF setup wird für den eigentlichen Mechanismus, um Werte zu generieren.  Finden Sie unter [hinzufügen generierter auf](#value-generated-on-add) Abschnitt, um weitere Details.
+> `ValueGeneratedOnAdd()` können nur EF wissen, dass die Werte für hinzugefügte Elemente generiert werden, es kann nicht garantiert, dass EF setup wird für den eigentlichen Mechanismus, um Werte zu generieren.  Finden Sie unter [hinzufügen generierter auf](#value-generated-on-add) Abschnitt, um weitere Details.
 
 ### <a name="value-generated-on-add-or-update-fluent-api"></a>Auf generierten Wert hinzufügen oder aktualisieren (Fluent-API)
 

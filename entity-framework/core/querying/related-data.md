@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: ec69bb128890a1e0b72fe77014f37747585bb5a5
-ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.openlocfilehash: dadc6235c3879ae27ad5c99988a5e594872045df
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/22/2018
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="loading-related-data"></a>Laden von verknüpften Daten
 
 Entity Framework Core können Sie die Navigationseigenschaften zum Laden verknüpfter Entitäten im Modell zu verwenden. Es gibt drei allgemeine O/RM-Muster, die zum Laden von verknüpften Daten verwendet.
 * **Unverzüglichem Laden** bedeutet, dass die verknüpften Daten aus der Datenbank als Teil der ursprünglichen Abfrage geladen werden.
 * **Explizites Laden** bedeutet, dass die verwandten Daten explizit aus der Datenbank zu einem späteren Zeitpunkt geladen werden.
-* **Verzögertes Laden** bedeutet, dass die verwandten Daten transparent aus der Datenbank geladen werden, wenn die Navigationseigenschaft zugegriffen wird. Verzögertes Laden ist noch nicht mit EF Core möglich.
+* **Verzögertes Laden** bedeutet, dass die verwandten Daten transparent aus der Datenbank geladen werden, wenn die Navigationseigenschaft zugegriffen wird.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
@@ -57,6 +57,61 @@ Möglicherweise sollen mehrere verknüpfte Entitäten für eine der Entitäten, 
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
+### <a name="include-on-derived-types"></a>Abgeleitete Typen enthalten
+
+Zählen Sie aufeinander bezogene Daten in Navigationen, die nur für einen abgeleiteten Typ verwenden definiert `Include` und `ThenInclude`. 
+
+Betrachten Sie das folgende Modell:
+
+```Csharp
+    public class SchoolContext : DbContext
+    {
+        public DbSet<Person> People { get; set; }
+        public DbSet<School> Schools { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<School>().HasMany(s => s.Students).WithOne(s => s.School);
+        }
+    }
+
+    public class Person
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Student : Person
+    {
+        public School School { get; set; }
+    }
+
+    public class School
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public List<Student> Students { get; set; }
+    }
+```
+
+Inhalt der `School` Navigation für alle Personen, die Studenten kann vorzeitig über eine Reihe von Mustern geladen werden:
+
+- Verwenden von cast
+```Csharp
+context.People.Include(person => ((Student)person).School).ToList()
+```
+
+- Mithilfe von `as` Operator
+```Csharp
+context.People.Include(person => (person as Student).School).ToList()
+```
+
+- Mithilfe der Überladung der `Include` , akzeptiert Parameter vom Typ `string`
+```Csharp
+context.People.Include("Student").ToList()
+```
+
 ### <a name="ignored-includes"></a>Ignoriert enthält
 
 Wenn Sie die Abfrage ändern, sodass sie nicht mehr Instanzen des Entitätstyps, die zurückgibt mit der Abfrage wurde gestartet, werden die Operatoren Include ignoriert.
@@ -94,13 +149,174 @@ Sie können auch filtern, welche verknüpften Entitäten in den Arbeitsspeicher 
 
 ## <a name="lazy-loading"></a>Lazy Loading
 
-Verzögertes Laden wird noch von EF Core nicht unterstützt. Sehen Sie die [verzögertes Laden Element auf unseren nachholbedarf](https://github.com/aspnet/EntityFramework/issues/3797) dieses Feature zu verfolgen.
+> [!NOTE]  
+> Diese Funktion wurde in der EF Core 2.1 eingeführt.
+
+Die einfachste Methode zum Verwenden der verzögerten Laden wird durch die Installation der [Microsoft.EntityFramworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) Paket, und aktivieren es mit einem Aufruf von `UseLazyLoadingProxies`. Zum Beispiel:
+```Csharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseLazyLoadingProxies()
+        .UseSqlServer(myConnectionString);
+```
+Oder bei der Verwendung von AddDbContext:
+```Csharp
+    .AddDbContext<BloggingContext>(
+        b => b.UseLazyLoadingProxies()
+              .UseSqlServer(myConnectionString));
+```
+EF Core wird verzögerte Laden von für eine Navigationseigenschaft, die überschrieben werden können –, dann aktivieren, muss er `virtual` und für eine Klasse, die vom geerbt werden kann. In den folgenden Entitäten, z. B. die `Post.Blog` und `Blog.Posts` Navigationseigenschaften lazy geladen werden.
+```Csharp
+public class Blog
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public virtual ICollection<Post> Posts { get; set; }
+}
+
+public class Post
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public virtual Blog Blog { get; set; }
+}
+```
+### <a name="lazy-loading-without-proxies"></a>Lazy-laden, ohne Proxys
+
+Lazy Automatisches Laden von Proxys arbeiten möchten, indem Sie Räumen der `ILazyLoader` service in einer Entität, wie in beschrieben [Entitätstypkonstruktoren](../modeling/constructors.md). Zum Beispiel:
+```Csharp
+public class Blog
+{
+    private ICollection<Post> _posts;
+
+    public Blog()
+    {
+    }
+
+    private Blog(ILazyLoader lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private ILazyLoader LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public ICollection<Post> Posts
+    {
+        get => LazyLoader?.Load(this, ref _posts);
+        set => _posts = value;
+    }
+}
+
+public class Post
+{
+    private Blog _blog;
+
+    public Post()
+    {
+    }
+
+    private Post(ILazyLoader lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private ILazyLoader LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public Blog Blog
+    {
+        get => LazyLoader?.Load(this, ref _blog);
+        set => _blog = value;
+    }
+}
+```
+Dadurch erfordert nicht das Entitätstypen werden von der geerbt oder Navigationseigenschaften virtuell sein, und erstellte mit Instanzen der Entität `new` verzögerte-einmal laden an einen Kontext angefügt. Allerdings muss einen Verweis auf die `ILazyLoader` Dienst, der Entitätstypen der EF-Core-Assembly verbindet. Dieser Kern EF zu vermeiden, kann die `ILazyLoader.Load` Methode, um die Form eines Delegaten eingefügt werden. Zum Beispiel:
+```Csharp
+public class Blog
+{
+    private ICollection<Post> _posts;
+
+    public Blog()
+    {
+    }
+
+    private Blog(Action<object, string> lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private Action<object, string> LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public ICollection<Post> Posts
+    {
+        get => LazyLoader?.Load(this, ref _posts);
+        set => _posts = value;
+    }
+}
+
+public class Post
+{
+    private Blog _blog;
+
+    public Post()
+    {
+    }
+
+    private Post(Action<object, string> lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private Action<object, string> LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public Blog Blog
+    {
+        get => LazyLoader?.Load(this, ref _blog);
+        set => _blog = value;
+    }
+}
+```
+Der Code oben verwendet eine `Load` Extension-Methode zum Erstellen von Delegaten ein wenig cleaner verwenden:
+```Csharp
+public static class PocoLoadingExtensions
+{
+    public static TRelated Load<TRelated>(
+        this Action<object, string> loader,
+        object entity,
+        ref TRelated navigationField,
+        [CallerMemberName] string navigationName = null)
+        where TRelated : class
+    {
+        loader?.Invoke(entity, navigationName);
+
+        return navigationField;
+    }
+}
+```
+> [!NOTE]  
+> Der-Parameter des Konstruktors für den Delegaten verzögertes Laden muss "LazyLoader" aufgerufen werden. Konfiguration, um einen anderen Namen, den diese geplant wurde für eine künftige Version verwenden.
 
 ## <a name="related-data-and-serialization"></a>Daten und Serialisierung
 
 Da EF Core wird automatisch ein Fixup-Navigationseigenschaften, Sie Zyklen in Ihre Objektdiagramm ergeben können. Z. B. beim Laden eines Blogs und bezieht sich Beiträge in einem Blog Objekt führt, die eine Auflistung von Beiträgen verweist. Jedes dieser Beiträge weist einen Verweis zurück auf den Blog.
 
-Einige serialisierungsframeworks lassen sich nicht auf solche Zyklen aus. Json.NET wird z. B. die folgende Ausnahme ausgelöst, ist ein Zyklus auftritt.
+Einige serialisierungsframeworks lassen sich nicht auf solche Zyklen aus. Json.NET wird z. B. die folgende Ausnahme ausgelöst, wenn eine Schleife festgestellt wird.
 
 > Newtonsoft.Json.JsonSerializationException: Self referencing loop detected for property 'Blog' with type 'MyApplication.Models.Blog'.
 
