@@ -6,11 +6,11 @@ ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 ms.technology: entity-framework-core
 uid: core/modeling/constructors
-ms.openlocfilehash: 2632488569c538a11c7a31a9a866d2fadb29eeb5
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 38ab0c1c3cd8c490875abf30b8478c99bc58630f
+ms.sourcegitcommit: 60b831318c4f5ec99061e8af6a7c9e7c03b3469c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/02/2018
 ---
 # <a name="entity-types-with-constructors"></a>Entitätstypen mit Konstruktoren
 
@@ -96,7 +96,7 @@ Einige Aspekte zu beachten:
 ### <a name="read-only-properties"></a>Schreibschutzeigenschaften
 
 Nach Eigenschaften über den Konstruktor festgelegt werden, kann es sinnvoll, von denen einige schreibgeschützt machen. EF Core unterstützt, aber es gibt einige Dinge, um nach zu suchen:
-* Eigenschaften ohne Getter werden gemäß der Konvention nicht zugeordnet. (Auf diese Weise tendenziell Eigenschaften zugeordnet werden, die nicht, z. B. berechnete Eigenschaften zugeordnet werden soll.)
+* Eigenschaften ohne Settern für Eigenschaften werden nicht gemäß der Konvention zugeordnet werden. (Auf diese Weise tendenziell Eigenschaften zugeordnet werden, die nicht, z. B. berechnete Eigenschaften zugeordnet werden soll.)
 * Die Verwendung von automatisch generierten Schlüsselwerte erfordert eine Schlüsseleigenschaft, die Lese-/ Schreibzugriff, da der Schlüsselwert muss von der Schlüssel-Generator festgelegt werden, wenn Sie neue Entitäten einfügen.
 
 Eine einfache Möglichkeit, vermeiden Sie die folgenden Schritte ist die Verwendung von privaten Settern für Eigenschaften. Zum Beispiel:
