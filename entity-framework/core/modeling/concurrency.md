@@ -2,35 +2,22 @@
 title: "Parallelitätstoken - EF Core"
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
+ms.date: 03/03/2018
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 ms.technology: entity-framework-core
 uid: core/modeling/concurrency
-ms.openlocfilehash: 6574a9098d38c4aa525ffb4896adb01082420b5f
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: f3cf28d5c54e63aa76058e9fe1d9f3de5b37d579
+ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 03/05/2018
 ---
 # <a name="concurrency-tokens"></a>Parallelitätstoken
 
-Wenn eine Eigenschaft als ein parallelitätstoken konfiguriert ist prüft EF dann, dass kein anderer Benutzer beim Speichern der Änderungen an diesen Datensatz der Wert in der Datenbank nicht geändert wurde. EF ein Muster für die vollständige Parallelität verwendet, d. h. sie wird wird davon ausgegangen, dass der Wert nicht geändert hat und versuchen Sie es, speichern Sie die Daten auszulösen, wenn es feststellt, dass der Wert geändert wurde.
-
-Wir möchten z. B. konfigurieren `LastName` auf `Person` ein parallelitätstoken ist. Dies bedeutet, dass, wenn ein Benutzer versucht, speichern einige Änderungen an einer `Person`, jedoch einem anderen Benutzer geändert wurde die `LastName` und dann eine Ausnahme ausgelöst wird. Dies kann wünschenswert sein, damit Ihre Anwendung kann der Benutzer aufgefordert, stellen Sie sicher, dass dieser Datensatz weiterhin dieselbe tatsächlichen Person darstellt, bevor Sie ihre Änderungen speichern.
-
 > [!NOTE]
-> Auf dieser Seite dokumentiert, wie Sie parallelitätstoken zu konfigurieren. Finden Sie unter [Behandeln von Parallelität](../saving/concurrency.md) für Beispiele für vollständige Parallelität in Ihrer Anwendung verwenden.
+> Auf dieser Seite dokumentiert, wie Sie parallelitätstoken zu konfigurieren. Finden Sie unter [Behandlung von Parallelitätskonflikten](../saving/concurrency.md) für eine ausführliche Erklärung der Funktionsweise der parallelitätssteuerung auf EF-Kern- und Beispiele zum Parallelitätskonflikte in Ihrer Anwendung zu behandeln.
 
-## <a name="how-concurrency-tokens-work-in-ef"></a>Funktionsweise von parallelitätstoken in EF
-
-Datenspeicher können parallelitätstoken erzwingen, indem Sie überprüfen, dass ein Datensatz, aktualisieren oder löschen noch den gleichen Wert für die parallelitätstoken, der zugewiesen wurde verfügt, wenn der Kontext ursprünglich die Daten aus der Datenbank geladen.
-
-Z. B. relationale Datenbanken erreichen, indem z. B. im parallelitätstoken in der `WHERE` Klausel beliebiger `UPDATE` oder `DELETE` Befehle und überprüfen die Anzahl der Zeilen, die betroffen sind. Wenn immer noch im parallelitätstoken übereinstimmt, wird eine Zeile aktualisiert werden. Wenn der Wert in der Datenbank geändert wurde, werden keine Zeilen aktualisiert.
-
-```sql
-UPDATE [Person] SET [FirstName] = @p1
-WHERE [PersonId] = @p0 AND [LastName] = @p2;
-```
+Eigenschaften, die als parallelitätstoken verwendet werden, um die Steuerung durch vollständige Parallelität implementieren konfiguriert werden.
 
 ## <a name="conventions"></a>Konventionen
 

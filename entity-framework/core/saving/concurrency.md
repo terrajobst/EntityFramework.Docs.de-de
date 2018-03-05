@@ -1,33 +1,61 @@
 ---
-title: "Behandeln von Parallelität - EF Core"
+title: "Parallelitätskonflikte - EF Core"
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
-ms.assetid: bce0539d-b0cd-457d-be71-f7ca16f3baea
+ms.date: 03/03/2018
 ms.technology: entity-framework-core
 uid: core/saving/concurrency
-ms.openlocfilehash: bbd3e154c1b27b16c7d8f8fbf9ed51df0849795c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 288d9c6fced5ebbaa2c366248c68547502c3698e
+ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/05/2018
 ---
-# <a name="handling-concurrency"></a>Behandeln von Parallelität
+# <a name="handling-concurrency-conflicts"></a>Behandlung von Parallelitätskonflikten
 
-Wenn eine Eigenschaft als ein parallelitätstoken konfiguriert ist prüft EF dann, dass kein anderer Benutzer beim Speichern der Änderungen an diesen Datensatz der Wert in der Datenbank nicht geändert wurde.
+> [!NOTE]
+> Auf dieser Seite werden die Funktionsweise von Parallelität in EF Core und Parallelitätskonflikte in Ihrer Anwendung zu behandeln. Finden Sie unter [Parallelitätstoken](xref:core/modeling/concurrency) Weitere Informationen zum Konfigurieren von parallelitätstoken in Ihrem Modell.
 
-> [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Concurrency/) auf GitHub.
+> [!TIP]
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Concurrency/) finden Sie auf GitHub.
 
-## <a name="how-concurrency-handling-works-in-ef-core"></a>Funktionsweise der Parallelitätsbehandlung in EF Core
+_Datenbankparallelität_ bezieht sich auf Situationen, in dem mehrere Prozesse oder Benutzer Zugriff auf ein, oder ändern die gleichen Daten in einer Datenbank zur gleichen Zeit. _Parallelitätssteuerung_ bezieht sich auf bestimmte Mechanismen verwendet, um die Datenkonsistenz in Anwesenheit von gleichzeitigen Änderungen sicherzustellen.
 
-Eine ausführliche Beschreibung der Funktionsweise der Parallelitätsbehandlung in Entity Framework Core, finden Sie unter [Parallelitätstoken](../modeling/concurrency.md).
+EF Core implementiert _Steuerung durch vollständige Parallelität_, d. h., es mehrere Prozesse können oder Änderungen für Benutzer unabhängig ohne den Aufwand für die Synchronisierung oder sperren. Im Idealfall werden diese Änderungen wirkt sich nicht miteinander und aus diesem Grund werden in der Lage erfolgreich ausgeführt werden kann. Im schlimmsten Fall kann zwei oder mehr Prozesse versucht, die in Konflikt stehenden Änderungen vornehmen, und nur eine Kopie sollte erfolgreich sein.
+
+## <a name="how-concurrency-control-works-in-ef-core"></a>Funktionsweise der parallelitätssteuerung in EF Core
+
+Eigenschaften, die als parallelitätstoken verwendet werden, um die Steuerung durch vollständige Parallelität implementieren konfiguriert: immer ein Update- oder Delete-Vorgang ausgeführt wird, während der `SaveChanges`, der Wert des parallelitätstokens für die Datenbank mit der ursprünglichen verglichen wird der Wert von EF Core gelesen werden.
+
+- Wenn die Werte übereinstimmen, kann der Vorgang abgeschlossen.
+- Wenn die Werte nicht übereinstimmen, wird EF Core davon ausgegangen, dass ein anderer Benutzer einen Konflikt beteiligte Vorgang ausgeführt hat und bricht die aktuelle Transaktion ab.
+
+Die Situation, wenn ein anderer Benutzer einen Vorgang, der in Konflikt steht, mit der aktuelle Vorgang ausgeführt hat, wird als bezeichnet _Parallelitätskonflikt_.
+
+Datenbankanbieter sind verantwortlich für den Vergleich von Tokenwerten Parallelität implementieren.
+
+Für relationale Datenbanken EF Core umfasst eine Überprüfung der für den Wert des parallelitätstokens in der `WHERE` Klausel beliebiger `UPDATE` oder `DELETE` Anweisungen. Nach dem Ausführen der Anweisungen, liest EF Core die Anzahl der Zeilen, die betroffen sind.
+
+Wenn keine Zeilen betroffen sind, ein Parallelitätskonflikt erkannt wird, und EF Core löst `DbUpdateConcurrencyException`.
+
+Angenommen, wir möchten konfigurieren `LastName` auf `Person` ein parallelitätstoken ist. Alle Update-Vorgang auf Person die Überprüfung auf Parallelität in einschließen, wird die `WHERE` Klausel:
+
+``` sql
+UPDATE [Person] SET [FirstName] = @p1
+WHERE [PersonId] = @p0 AND [LastName] = @p2;
+```
 
 ## <a name="resolving-concurrency-conflicts"></a>Auflösen von Parallelitätskonflikten
 
-Auflösen von einem Parallelitätskonflikt umfasst mithilfe eines Algorithmus, um die ausstehenden Änderungen aus dem aktuellen Benutzer mit den Änderungen in der Datenbank zusammenzuführen. Die genaue Vorgehensweise richten sich nach der Anwendung, aber eine gängige Methode ist die Werte für den Benutzer anzeigen und entscheiden, die richtigen Werte in der Datenbank gespeichert werden.
+Im vorherigen Beispiel fortsetzen, wenn ein Benutzer versucht, speichern einige Änderungen an einer `Person`, jedoch bereits einem anderen Benutzer geändert wurde die `LastName` der wird eine Ausnahme ausgelöst werden.
 
-**Es gibt drei Gruppen von Werten verfügbar, in denen einen Parallelitätskonflikt gelöst wird.**
+Die Anwendung konnte zu diesem Zeitpunkt einfach informiert den Benutzer darüber, dass das Update nicht aufgrund von in Konflikt stehenden Änderungen erfolgreich war und verschieben. Aber es kann wünschenswert sein, fordert den Benutzer aus, um sicherzustellen, dass dieser Datensatz weiterhin dieselbe tatsächlichen Person darstellt, und wiederholen den Vorgang.
+
+Dieser Vorgang ist ein Beispiel für _Auflösen von einem Parallelitätskonflikt_.
+
+Lösen eines Parallelitätskonflikts umfasst das Zusammenführen von die ausstehenden Änderungen aus dem aktuellen `DbContext` mit den Werten in der Datenbank. Welche Werte zusammengeführt abrufen variiert, je nachdem, auf die Anwendung, und durch die Benutzereingabe gerichtet sein.
+
+**Es gibt drei Gruppen von Werten verfügbar, in denen einen Parallelitätskonflikt gelöst wird:**
 
 * **Aktuelle Werte** sind die Werte, die die Anwendung versucht hat, in die Datenbank geschrieben.
 
@@ -35,106 +63,13 @@ Auflösen von einem Parallelitätskonflikt umfasst mithilfe eines Algorithmus, u
 
 * **Datenbank-Werte** sind die Werte, die derzeit in der Datenbank gespeichert.
 
-Behandeln Sie einen Parallelitätskonflikt Abfangen einer `DbUpdateConcurrencyException` während `SaveChanges()`, verwenden `DbUpdateConcurrencyException.Entries` einen neuen Satz von Änderungen für die betroffenen Entitäten vorbereiten, und wiederholen dann die `SaveChanges()` Vorgang.
+Die allgemeine Vorgehensweise zum Behandeln einer Parallelitätskonflikte ist:
 
-Im folgenden Beispiel `Person.FirstName` und `Person.LastName` Setup als parallelitätstoken sind. Es ist ein `// TODO:` Kommentar in den Speicherort, in denen schließen Sie anwendungsspezifische Logik zum Auswählen des Wert in der Datenbank gespeichert werden sollen.
+1. Abfangen `DbUpdateConcurrencyException` während `SaveChanges`.
+2. Verwendung `DbUpdateConcurrencyException.Entries` So bereiten Sie einen neuen Satz von Änderungen für die betroffenen Entitäten vor.
+3. Aktualisieren Sie die ursprünglichen Werte der im parallelitätstoken, die aktuellen Werte in der Datenbank widerspiegeln.
+4. Wiederholen Sie den Prozess aus, bis keine Konflikte auftreten.
 
-<!-- [!code-csharp[Main](samples/core/Saving/Saving/Concurrency/Sample.cs?highlight=53,54)] -->
-``` csharp
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+Im folgenden Beispiel `Person.FirstName` und `Person.LastName` Setup als parallelitätstoken sind. Es ist ein `// TODO:` Kommentar in den Speicherort, bei denen Sie enthalten anwendungsspezifische Logik zum Auswählen des Wert gespeichert werden soll.
 
-namespace EFSaving.Concurrency
-{
-    public class Sample
-    {
-        public static void Run()
-        {
-            // Ensure database is created and has a person in it
-            using (var context = new PersonContext())
-            {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-
-                context.People.Add(new Person { FirstName = "John", LastName = "Doe" });
-                context.SaveChanges();
-            }
-
-            using (var context = new PersonContext())
-            {
-                // Fetch a person from database and change phone number
-                var person = context.People.Single(p => p.PersonId == 1);
-                person.PhoneNumber = "555-555-5555";
-
-                // Change the persons name in the database (will cause a concurrency conflict)
-                context.Database.ExecuteSqlCommand("UPDATE dbo.People SET FirstName = 'Jane' WHERE PersonId = 1");
-
-                try
-                {
-                    // Attempt to save changes to the database
-                    context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    foreach (var entry in ex.Entries)
-                    {
-                        if (entry.Entity is Person)
-                        {
-                            // Using a NoTracking query means we get the entity but it is not tracked by the context
-                            // and will not be merged with existing entities in the context.
-                            var databaseEntity = context.People.AsNoTracking().Single(p => p.PersonId == ((Person)entry.Entity).PersonId);
-                            var databaseEntry = context.Entry(databaseEntity);
-
-                            foreach (var property in entry.Metadata.GetProperties())
-                            {
-                                var proposedValue = entry.Property(property.Name).CurrentValue;
-                                var originalValue = entry.Property(property.Name).OriginalValue;
-                                var databaseValue = databaseEntry.Property(property.Name).CurrentValue;
-
-                                // TODO: Logic to decide which value should be written to database
-                                // entry.Property(property.Name).CurrentValue = <value to be saved>;
-
-                                // Update original values to
-                                entry.Property(property.Name).OriginalValue = databaseEntry.Property(property.Name).CurrentValue;
-                            }
-                        }
-                        else
-                        {
-                            throw new NotSupportedException("Don't know how to handle concurrency conflicts for " + entry.Metadata.Name);
-                        }
-                    }
-
-                    // Retry the save operation
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        public class PersonContext : DbContext
-        {
-            public DbSet<Person> People { get; set; }
-
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFSaving.Concurrency;Trusted_Connection=True;");
-            }
-        }
-
-        public class Person
-        {
-            public int PersonId { get; set; }
-
-            [ConcurrencyCheck]
-            public string FirstName { get; set; }
-
-            [ConcurrencyCheck]
-            public string LastName { get; set; }
-
-            public string PhoneNumber { get; set; }
-        }
-
-    }
-}
-```
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]
