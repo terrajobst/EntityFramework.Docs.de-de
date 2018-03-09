@@ -6,11 +6,11 @@ ms.date: 2/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 ms.technology: entity-framework-core
 uid: core/providers/index
-ms.openlocfilehash: 520afe85af5a2eacbfc2764fdc0a8addb78c07ab
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 6311f6a336198b45d307fa8c4318abd2e64e9df0
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/08/2018
 ---
 # <a name="database-providers"></a>Datenbankanbieter
 
@@ -71,7 +71,8 @@ install-package provider_package_name
 Nach Abschluss der Installation konfigurieren Sie den Anbieter in `DbContext` entweder in der `OnConfiguring`-Methode oder in der `AddDbContext`-Methode, wenn Sie einen Abhängigkeitsinjektionscontainer verwenden. Die folgende Zeile konfiguriert z.B. den SQL Server-Anbieter mit der übergebenen Verbindungszeichenfolge:
 
 ``` csharp
-  optionsBuilder.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
+optionsBuilder.UseSqlServer(
+    "Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
 ```  
 
 Datenbankanbieter können EF Core erweitern, um datenbankspezifische Funktionen zu aktivieren. Einige Konzepte gelten für die meisten Datenbanken und sind im Leistungsumfang der primären EF Core-Komponenten inbegriffen. Zu diesen Konzepten gehören das Ausdrücken von Abfragen in LINQ, Transaktionen und das Nachverfolgen von Änderungen an Objekten, nachdem sie aus der Datenbank geladen wurden. Einige Konzepte gelten speziell für einen bestimmten Anbieter. Der SQL Server-Anbieter ermöglicht es Ihnen beispielsweise, [speicheroptimierte Tabellen (ein für SQL Server spezifisches Feature) zu konfigurieren](xref:core/providers/sql-server/memory-optimized-tables). Andere Konzepte gelten speziell für eine Klasse von Anbietern. Beispielsweise bauen EF Core-Anbieter für relationale Datenbanken auf der gemeinsamen `Microsoft.EntityFrameworkCore.Relational`-Bibliothek auf, die u.a. APIs für die Konfiguration von Tabellen- und Spaltenzuordnungen und Fremdschlüsseleinschränkungen bereitstellt. Anbieter werden in der Regel als NuGet-Pakete verteilt.
