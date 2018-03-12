@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 076e9251850ba10df323cd25922aa8b95b3a5491
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db25ed55e3724ee71743e563f39a6e4b16c17589
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/08/2018
 ---
 <a name="entity-framework-core-tools"></a>Entity Framework Core Tools
 ===========================
@@ -24,15 +24,9 @@ Beide Tools bieten dieselbe Funktionalität. Für die Entwicklung in Visual Stud
 ----------
 Die Tools unterstützen Projekte, deren Zielversionen für das .NET Framework oder .NET Core festgelegt sind.
 
-Wenn für Ihr Projekt eine Zielversion für ein anderes Framework (z.B. das universelle Windows- oder Xamarin-Framework) festgelegt ist, empfehlen wir Ihnen, ein separates .NET Standard-Projekt zu erstellen und plattformübergreifend eine Zielversion für eines der unterstützten Frameworks festzulegen.
+Wenn Sie eine Klassenbibliothek verwenden möchten, sollten Sie gegebenenfalls die Verwendung der Klassenbibliothek von .NET Core oder .NET Framework in Erwägung ziehen. Dies führt zu den geringsten Problemen mit .NET-Tools. Wenn Sie stattdessen eine .NET Standard-Klassenbibliothek verwenden möchten, müssen Sie ein Startprojekt verwenden, das auf .NET Framework oder .NET Core ausgerichtet ist, sodass das Tool eine Zielplattform hat, in die es Ihre Klassenbibliothek laden kann. Dieses Startprojekt kann ein Dummyprojekt ohne realen Code sein. Es wird nur zur Bereitstellung eines Ziels für Tools benötigt.
 
-Um z.B. plattformübergreifend die Zielversion für .NET Core festzulegen, klicken Sie mit der rechten Maustaste auf das Projekt und wählen **\*.csproj bearbeiten**. Aktualisieren Sie im Folgenden die Eigenschaft `TargetFramework`. (Beachten Sie, dass der Eigenschaftenname zum Plural wird.)
-
-``` xml
-<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>
-```
-
-Wenn Sie eine .NET Standard-Klassenbibliothek verwenden und die Zielversionen für das .NET Framework oder .NET Core für Ihr Startprojekt festgelegt sind, müssen Sie nicht plattformübergreifend eine Zielversionen festlegen.
+Wenn Ihr Projekt ein anderes Framework, wie z.B. Universal Windows oder Xamarin, verwendet, müssen Sie eine separate .NET Standard-Klassenbibliothek erstellen. In diesem Fall folgen Sie dem oben angeführten Leitfaden zum Erstellen eines Startprojekts, das von Tools verwendet werden kann.
 
 <a name="startup-and-target-projects"></a>Start- und Zielprojekte
 ---------------------------
