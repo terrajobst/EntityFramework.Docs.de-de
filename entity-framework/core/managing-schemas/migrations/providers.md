@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/8/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 6b278a5ae270b6a84269dffd72eeca609b168cdd
-ms.sourcegitcommit: 3b6159db8a6c0653f13c7b528367b4e69ac3d51e
+ms.openlocfilehash: d950e74ed4cef7d4274aabcf3eda7b0b735574c6
+ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/28/2017
+ms.lasthandoff: 03/20/2018
 ---
 <a name="migrations-with-multiple-providers"></a>Migrationen mit mehreren Anbietern
 ==================================
@@ -20,7 +20,7 @@ In der ersten Methode generieren Sie zwei Migrationen für jedes Modell ändern.
 
 Eine Möglichkeit hierfür dies darin, jeden Satz Migration [in einer separaten Assembly] [ 2] und manuell die aktiven Anbieter (und Migrationen Assembly) zwischen dem Hinzufügen von zwei Migrationen wechseln.
 
-Ein anderer Ansatz vereinfacht die Verwendung mit den Tools einfacher ist, zum Erstellen eines neuen Typs von Ihrem ' DbContext ' abgeleitet und überschreibt den aktiven Anbieter. Dieser Typ dient zur Entwurfszeit Zeit beim Hinzufügen oder Migrationen anwenden.
+Ein anderer Ansatz, die vereinfacht die Verwendung mit den Tools vereinfachen das Erstellen eines neuen Typs, das von Ihrem ' DbContext ' abgeleitet und überschreibt den aktiven Anbieter. Dieser Typ dient zur Entwurfszeit Zeit beim Hinzufügen oder Migrationen anwenden.
 
 ``` csharp
 class MySqliteDbContext : MyDbContext
