@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 ms.technology: entity-framework-core
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 7a1d85949a5f9e1ad7efdbf585a608d815e8ce63
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 4bb4c5736708413f6581cad250b089b7bc22a559
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Aktualisieren von EF Core 1.0 RC2 auf RTM-Version
 
@@ -38,7 +38,7 @@ Diese Änderung wirkt sich auf Projekte, die ASP.NET Identity verwendet und erst
 
 *  **AspNetRoles**
 
-    * Name
+    * name
 
     * NormalizedName
 
@@ -69,6 +69,9 @@ Bei der Ausrichtung auf .NET Core mit RC2 wurden benötigt hinzuzufügende `impo
   }
 }
 ```
+
+> [!NOTE]  
+> Ab Version 1.0 RTM-Version, die [.NET Core SDK](https://www.microsoft.com/net/download/core) nicht mehr unterstützt `project.json` oder .NET Core-Anwendungen, die mit Visual Studio 2015 entwickeln. Es wird empfohlen, [eine Migration von „project.json“ zu „csproj“ durchzuführen](https://docs.microsoft.com/dotnet/articles/core/migration/). Wenn Sie Visual Studio verwenden, sollten Sie Sie ein upgrade auf [Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
 ## <a name="uwp-add-binding-redirects"></a>Universelle Windows-Plattform: Fügen Sie bindungsumleitungen hinzu
 
