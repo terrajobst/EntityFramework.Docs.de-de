@@ -1,21 +1,18 @@
 ---
-title: "Erste Schritte in ASP.NET Core – Vorhandene Datenbank – EF Core"
+title: Erste Schritte in ASP.NET Core – Vorhandene Datenbank – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: afd99d68d2ba25ce58a21dc48d2c7ce27f208807
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db2469d0badd428734425c1f568667f00bef2f4f
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer vorhandenen Datenbank
-
-> [!IMPORTANT]  
-> `project.json` oder Visual Studio 2015 werden vom [.NET Core SDK](https://www.microsoft.com/net/download/core) nicht mehr unterstützt. Allen .NET Core-Entwicklern wird empfohlen, eine [Migration von „project.json“ zu „csproj“](https://docs.microsoft.com/dotnet/articles/core/migration/) und [Visual Studio 2017](https://www.visualstudio.com/downloads/) durchzuführen.
 
 In dieser exemplarischen Vorgehensweise entwickeln Sie eine ASP.NET Core MVC-Anwendung, die einen grundlegenden Datenzugriff mit Entity Framework durchführt. Sie erstellen per Reverse Engineering ein Entity Framework-Modell, das auf einer vorhandenen Datenbank basiert.
 
@@ -51,7 +48,7 @@ In diesem Tutorial wird als vorhandene Datenbank eine **Blogging**-Datenbank in 
 
 [!code-sql[Main](../_shared/create-blogging-database-script.sql)]
 
-## <a name="create-a-new-project"></a>Erstellen eines neuen Projekts
+## <a name="create-a-new-project"></a>Erstellt ein neues Projekt
 
 * Öffnen Sie Visual Studio 2017.
 * Klicken Sie auf **Datei > Neu > Projekt**.
@@ -69,15 +66,15 @@ Installieren Sie zur Verwendung von EF Core das Paket für den (oder die) gewün
 
 * Wählen Sie **Tools > NuGet-Paket-Manager > Paket-Manager-Konsole** aus.
 
-* Führen Sie `Install-Package Microsoft.EntityFrameworkCore.SqlServer` aus.
+* Ausführen von `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 Wir werden einige Entity Framework-Tools verwenden, um ein Modell aus der Datenbank zu erstellen. Deshalb installieren wir auch das Toolpaket:
 
-* Führen Sie `Install-Package Microsoft.EntityFrameworkCore.Tools` aus.
+* Ausführen von `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 Später verwenden wir einige ASP.NET Core-Gerüsttools, um Controller und Ansichten zu erstellen. Deshalb installieren wird auch dieses Entwurfspaket:
 
-* Führen Sie `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design` aus.
+* Ausführen von `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## <a name="reverse-engineer-your-model"></a>Zurückentwickeln (Reverse Engineering) Ihres Modells
 
@@ -93,7 +90,7 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 Wenn Sie den Fehler `The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet` erhalten, schließen Sie Visual Studio, und öffnen Sie es erneut.
 
 > [!TIP]  
-> Indem Sie das `-Tables`-Argument zum obigen Befehl hinzufügen, können Sie angeben, für welche Tabellen Sie Entitäten generieren möchten. Beispiel: `-Tables Blog,Post`.
+> Indem Sie das `-Tables`-Argument zum obigen Befehl hinzufügen, können Sie angeben, für welche Tabellen Sie Entitäten generieren möchten. Beispiel: `-Tables Blog,Post`
 
 Der Reverse Engineering-Prozess hat Entitätsklassen (`Blog.cs` & `Post.cs`) und einen abgeleiteten Kontext (`BloggingContext.cs`) basierend auf dem Schema der vorhandenen Datenbank erstellt.
 
@@ -202,6 +199,6 @@ Sie können die Anwendung jetzt ausführen, um sie in Aktion zu sehen.
 * Klicken Sie auf **Neu erstellen**.
 * Geben Sie eine **URL** für den neuen Blog ein, und klicken Sie auf **Erstellen**.
 
-![image](_static/create.png)
+![Bild](_static/create.png)
 
-![image](_static/index-existing-db.png)
+![Bild](_static/index-existing-db.png)
