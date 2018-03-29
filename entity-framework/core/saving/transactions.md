@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 ms.technology: entity-framework-core
 uid: core/saving/transactions
-ms.openlocfilehash: 2dda7b7d58ae058fc2aa89fe16fbf46adc8c6bdc
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: fe4c0d6ad7ccb2e97dc94fbf2eb26a41e7fbcb19
+ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/28/2018
 ---
 # <a name="using-transactions"></a>Verwenden von Transaktionen
 
@@ -133,4 +133,4 @@ Es ist auch möglich, die in einer expliziten Transaktion eintragen.
    > [!IMPORTANT]  
    > Es wird empfohlen, dass Sie testen, ob die API ordnungsgemäß mit Ihrem Anbieter verhält, bevor Sie sich darauf beziehen, für die Verwaltung von Transaktionen. Es wird empfohlen, wenden Sie sich an den Maintainer des Datenbank-Anbieters an, wenn dies nicht der Fall. 
 
-2. Ab Version 2.1, die System.Transactions-Implementierung in .NET Core bietet keine Unterstützung für verteilte Transaktionen, die aus diesem Grund können keine `TransactionScope` oder `CommitableTransaction`Transaktionen über mehrere Ressourcen-Manager koordiniert. 
+2. Ab Version 2.1, die System.Transactions-Implementierung in .NET Core bietet keine Unterstützung für verteilte Transaktionen, die aus diesem Grund können keine `TransactionScope` oder `CommitableTransaction` Transaktionen über mehrere Ressourcen-Manager koordiniert. 
