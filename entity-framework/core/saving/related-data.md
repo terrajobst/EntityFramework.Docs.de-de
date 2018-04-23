@@ -1,23 +1,23 @@
 ---
-title: "Speichern im Zusammenhang, Daten per Push – EF Core"
+title: Speichern im Zusammenhang, Daten per Push – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 ms.technology: entity-framework-core
 uid: core/saving/related-data
-ms.openlocfilehash: 078879163002cb66e0f0f439415789963181ec15
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b0ed25267c85e82db18d8a89693b6040db7e4b34
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="saving-related-data"></a>Speichern verwandter Daten
 
 Sie können auch vornehmen, zusätzlich zu den isolierten Entitäten verwenden, der im Modell definierten Beziehungen.
 
 > [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/) auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/) finden Sie auf GitHub.
 
 ## <a name="adding-a-graph-of-new-entities"></a>Hinzufügen von neuen Entitäten in einem Diagramm
 
@@ -26,6 +26,9 @@ Wenn Sie mehrere neue verknüpfte Entitäten erstellen, verursacht Hinzufügen v
 Im folgenden Beispiel werden im Blog und drei verwandten Beiträge alle in der Datenbank eingefügt. Die Beiträge gefunden und hinzugefügt werden, da es über erreichbar sind, werden die `Blog.Posts` Navigationseigenschaft.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
+
+> [!TIP]  
+> Verwenden Sie die EntityEntry.State-Eigenschaft zum Festlegen des Status von nur einer einzelnen Entität. Beispielsweise `context.Entry(blog).State = EntityState.Modified`.
 
 ## <a name="adding-a-related-entity"></a>Hinzufügen einer verknüpften Entität
 

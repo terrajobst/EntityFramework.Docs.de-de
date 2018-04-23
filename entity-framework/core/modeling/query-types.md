@@ -6,40 +6,43 @@ ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: dfd08cd1c30debddc79740bbf05c39c22e973855
-ms.sourcegitcommit: 01b5cf3b7c983bcced91e7cc4c78391ced2d2caa
+ms.openlocfilehash: 4e02f106e086d243b23a60c02838f32555be210e
+ms.sourcegitcommit: 26f33758c47399ae933f22fec8e1d19fa7d2c0b7
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/17/2018
+ms.lasthandoff: 04/19/2018
 ---
 # <a name="query-types"></a>Abfragetypen
 > [!NOTE]
 > Dieses Feature ist neu in EF Core 2.1
 
-Abfragetypen können nur-Lese Abfrage Ergebnistypen, die dem EF-Core-Modell hinzugefügt werden können. Abfragetypen aktivieren die Ad-hoc-Abfragen (z. B. anonyme Typen), sondern sind flexibler, da sie die angegebene Zuordnungskonfiguration aufweisen können.
+Zusätzlich zu den Entitätstypen, kann ein Modell EF Core enthalten _Abfragen Typen_, die zum Ausführen von Datenbankabfragen für Daten, die Entitätstypen zugeordnet wird nicht verwendet werden können.
 
-Sie sind konzeptionell identisch mit Entitätstypen:
+Abfragetypen haben viele ähnlichkeiten mit Entitätstypen:
 
-- Sie sind POCO C#-Typen, die entweder im Modell hinzugefügt werden ```OnModelCreating``` mithilfe der ```ModelBuilder.Query``` -Methode, oder über eine DbContext ""-seteigenschaft (Abfrage eine solche Eigenschaft Datentypen als typisiert ist ```DbQuery<T>``` statt ```DbSet<T>```).
-- Sie unterstützt viele der gleichen Mappingfunktionen als reguläre Entitätstypen. Z. B. Vererbungsmapping, Navigationen (siehe unten Limitiations) und auf den relationalen Speicher, die Möglichkeit, die Ziel-Datenbank-Schemaobjekten über konfigurieren ```ToTable```, ```HasColumn``` fluent-API-Methoden (oder datenanmerkungen).
+- Sie können auch hinzugefügt werden, das Modell entweder in `OnModelCreating`, oder über eine "set"-Eigenschaft auf eine abgeleitete _DbContext_.
+- Sie unterstützen viele derselben Mappingfunktionen, wie Vererbung, Zuordnen von Navigationseigenschaften (siehe unten Einschränkungen) und auf den relationalen Speicher, die Möglichkeit, die Ziel-Datenbankobjekte und Spalten über die fluent-API-Methoden oder datenanmerkungen konfigurieren.
 
-Abfragetypen unterscheiden sich von der Entität Typen in, das sie:
+Jedoch Typen verschieden von Entität in, das sie:
 
 - Benötigen Sie keinen Schlüssel definiert werden.
-- Durch das System zur Änderungsnachverfolgung werden nie nachverfolgt werden.
+- Nie für Änderungen nachverfolgt werden, auf die _DbContext_ und daher nie eingefügt, aktualisiert oder gelöscht werden in der Datenbank.
 - Gemäß der Konvention werden nie ermittelt werden.
 - Unterstützen nur eine Teilmenge der Navigation Mappingfunktionen – insbesondere, die sie möglicherweise nie dienen als das prinzipalende der Beziehung.
-- Zugeordnet werden kann, um eine _Abfrage definieren_ -eine definierende Abfrage ist eine sekundäre Abfrage, die eine Datenquelle für den Abfragetyp dient.
+- Adressiert sind, auf die _ModelBuilder_ mithilfe der `Query` Methode statt über das `Entity` Methode.
+- Zugeordnet sind, auf die _DbContext_ über Eigenschaften des Typs `DbQuery<T>` statt `DbSet<T>`
+- Zugeordnet sind, auf der Datenbankobjekte, die mit der `ToView` -Methode, anstatt `ToTable`.
+- Zugeordnet werden kann ein _Abfrage definieren_ – eine Abfrage definieren einer sekundären Abfrage, die im Modell, die eine Datenquelle für den Abfragetyp fungiert deklariert ist.
 
 Einige der wichtigsten Verwendungsszenarien für Abfragetypen sind:
 
+- Dient als Rückgabetyp für ad-hoc- `FromSql()` Abfragen.
 - Zuordnung zu Datenbanksichten.
 - Zuordnung zu Tabellen, die nicht über einen definierten Primärschlüssel verfügen.
-- Dient als Rückgabetyp für ad-hoc- ```FromSql()``` Abfragen.
 - Zuordnen zu Abfragen, die im Modell definiert.
 
 > [!TIP]
-> Zuordnen von Abfragetyp zu einer Datenbankansicht erfolgt mithilfe der ```ToTable``` fluent-API.
+> Zuordnungstyp eine Abfrage mit einem Datenbankobjekt erfolgt mithilfe der `ToView` fluent-API. Aus der Perspektive des Kerns EF wird in dieser Methode angegebene Datenbankobjekt ist eine _Ansicht_, dies bedeutet, dass es als Abfragequelle für nur-Lese behandelt kann nicht Ziel von Updates, insert oder delete-Operationen. Dies bedeutet jedoch nicht, dass das Datenbankobjekt tatsächlich erforderlich ist, damit eine Datenbanksicht werden - es kann auch eine Datenbanktabelle, die als schreibgeschützt behandelt werden. Umgekehrt für Entitätstypen, EF Core setzt voraus, dass ein Datenbankobjekt in angegeben die `ToTable` Methode behandelt werden kann, als ein _Tabelle_, was bedeutet, dass es als Abfragequelle für verwendet werden können, aber auch das Ziel aktualisieren, löschen und einfügen DDL-Vorgänge. Sie können in der Tat Geben Sie den Namen einer Datenbanksicht in `ToTable` und alles sollte einwandfrei funktionieren, solange die Ansicht für die Datenbank aktualisierbar konfiguriert ist.
 
 ## <a name="example"></a>Beispiel
 
@@ -60,7 +63,7 @@ Als Nächstes definieren wir eine Klasse, um das Ergebnis aus der Datenbankansic
 
 [!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#QueryType)]
 
-Als Nächstes konfigurieren wir den Abfragetyp in _OnModelCreating_ mithilfe der ```modelBuilder.Query<T>``` API.
+Als Nächstes konfigurieren wir den Abfragetyp in _OnModelCreating_ mithilfe der `modelBuilder.Query<T>` API.
 Wir verwenden standard fluent-Konfigurations-APIs, um die Zuordnung für den Abfragetyp zu konfigurieren:
 
 [!code-csharp[Main](../../../efcore-dev/samples/QueryTypes/Program.cs#Configuration)]

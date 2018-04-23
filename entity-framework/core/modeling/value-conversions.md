@@ -6,11 +6,11 @@ ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 50acba39cdec16caa9300fcaf47ab6242a4f69fb
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 329d2757059462468ca30772d37789343c03ba7b
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="value-conversions"></a>Wertkonvertierungen
 
@@ -137,6 +137,6 @@ Anschließend werden die Enumerationswerte als Zeichenfolgen in der Datenbank oh
 
 Es gibt einige bekannte aktuelle Einschränkungen des Systems Wert konvertiert:
 * Wie bereits erwähnt `null` kann nicht konvertiert werden.
-* Zurzeit besteht keine Möglichkeit, um eine Konvertierung einer Eigenschaft in Multuple Spalten oder umgekehrt zu verteilen.
+* Zurzeit besteht keine Möglichkeit, um eine Konvertierung einer Eigenschaft in mehrere Spalten oder umgekehrt zu verteilen.
 * Verwendung von wertkonvertierungen kann die Fähigkeit des EF Core, die in SQL übersetzen auswirken. In solchen Fällen wird eine Warnung protokolliert.
 Entfernen von diesen Einschränkungen wird für eine künftige Version berücksichtigt wird.

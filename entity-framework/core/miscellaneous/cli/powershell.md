@@ -1,14 +1,14 @@
 ---
-title: "Paket-Manager-Konsole (Visual Studio) – EF Core"
+title: Paket-Manager-Konsole (Visual Studio) – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: aacf8c8564a3966db6202c9ff1c1c02a19a10814
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: a53455a78db4bc504c45abafdacf9a15381f608e
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 <a name="ef-core-package-manager-console-tools"></a>EF-Core-Paket-Manager-Konsole Tools
 =====================================
@@ -74,13 +74,13 @@ Parameter:
 
 |                                   |                                                                                                                  |
 |:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| ***-Name*** \<String>             | Der Name der Migration.                                                                                       |
-| <nobr>-OutputDir \<String></nobr> | Das Verzeichnis (und Sub-Namespace) zu verwenden. Pfade sind relativ zum Projektverzeichnis an. Der Standardwert ist "Migration". |
+| ***-Namen*** \<Zeichenfolge >             | Der Name der Migration.                                                                                       |
+| <nobr>-OutputDir \<Zeichenfolge ></nobr> | Das Verzeichnis (und Sub-Namespace) zu verwenden. Pfade sind relativ zum Projektverzeichnis an. Der Standardwert ist "Migration". |
 
 > [!NOTE]
 > Parameter in **fett** sind erforderlich, und diejenigen *Kursiv* sind mit Feldern fester Breite.
 
-### <a name="drop-database"></a>Drop-Database
+### <a name="drop-database"></a>Drop-Datenbank
 
 Löscht die Datenbank.
 
@@ -100,11 +100,11 @@ Entfernt die letzte Migration.
 
 Parameter:
 
-|        |                                                                       |
-|:-------|:----------------------------------------------------------------------|
-| -Force | Überprüfen Sie nicht, um festzustellen, ob die Migration der Datenbank angewendet wurde. |
+|        |                                                              |
+|:-------|:-------------------------------------------------------------|
+| -Force | Die Migration zurückgesetzt werden, wenn es auf die Datenbank angewendet wurde. |
 
-### <a name="scaffold-dbcontext"></a>Scaffold-DbContext
+### <a name="scaffold-dbcontext"></a>Gerüst DbContext
 
 Gerüste ein ' DbContext ' und Entität Typen für eine Datenbank.
 
@@ -113,12 +113,13 @@ Parameter:
 |                                          |                                                                                                  |
 |:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
 | <nobr>***-Verbindung*** \<Zeichenfolge ></nobr> | Die Verbindungszeichenfolge zur Datenbank.                                                           |
-| ***-Provider*** \<String>                | Die zu verwendenden Anbieter an. (Z. B. Microsoft.EntityFrameworkCore.SqlServer)                              |
+| ***-Anbieter*** \<Zeichenfolge >                | Die zu verwendenden Anbieter an. (z. B. Microsoft.EntityFrameworkCore.SqlServer)                              |
 | -OutputDir \<Zeichenfolge >                     | Das Verzeichnis in den Dateien versetzt. Pfade sind relativ zum Projektverzeichnis an.                      |
+| -ContextDir \<Zeichenfolge >                    | Das Verzeichnis DbContext-Datei in den versetzt. Pfade sind relativ zum Projektverzeichnis an.             |
 | -Kontext \<Zeichenfolge >                       | Der Name von ' DbContext ' zu generieren.                                                           |
-| -Schemas \<String[]>                     | Die Schemas der Tabellen zur Generierung von Entitätstypen für.                                              |
-| -Tables \<String[]>                      | Die Tabellen für Entitätstypen generieren.                                                         |
-| -DataAnnotations                         | Verwenden Sie Attribute, um das Modell (sofern möglich) konfigurieren. Wenn nicht angegeben, wird nur die fluent-API verwendet. |
+| -Schemas \<String [] >                     | Die Schemas der Tabellen zur Generierung von Entitätstypen für.                                              |
+| -Tabellen \<String [] >                      | Die Tabellen für Entitätstypen generieren.                                                         |
+| DataAnnotations-                         | Verwenden Sie Attribute, um das Modell (sofern möglich) konfigurieren. Wenn nicht angegeben, wird nur die fluent-API verwendet. |
 | -UseDatabaseNames                        | Verwenden Sie die Tabellen- und Spaltennamen direkt aus der Datenbank.                                           |
 | -Force                                   | Überschreiben Sie vorhandene Dateien.                                                                        |
 
@@ -130,7 +131,7 @@ Parameter:
 
 |                   |                                                                    |
 |:------------------|:-------------------------------------------------------------------|
-| *-From* \<String> | Der Start Migration. Der Standardwert ist 0 (die ursprüngliche Datenbank).      |
+| *-From* \<Zeichenfolge > | Der Start Migration. Der Standardwert ist 0 (die ursprüngliche Datenbank).      |
 | *-Zu* \<Zeichenfolge >   | Der Endwert Migration. Standardmäßig bis zum letzten Migration.              |
 | -Idempotent       | Generiert ein Skript, das für eine Datenbank bei jeder Migration verwendet werden kann. |
 | -Output \<Zeichenfolge > | Die Datei, schreibt das Ergebnis.                                   |
