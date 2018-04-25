@@ -1,22 +1,22 @@
 ---
-title: "Neue Features in EF Core 2.1 – EF Core"
+title: Neue Features in EF Core 2.1 – EF Core
 author: divega
 ms.author: divega
 ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: bb1e691e0f22bd36467d58c02bde22c63067207e
-ms.sourcegitcommit: fcaeaf085171dfb5c080ec42df1d1df8dfe204fb
+ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/15/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="new-features-in-ef-core-21"></a>Neue Features in EF Core 2.1
 > [!NOTE]  
 > Dieses Release befindet sich weiterhin in der Vorschauversion.
 
-Neben zahlreichen geringfügigen Verbesserungen und über 100 Fehlerbehebungen weist EF Core 2.1 mehrere neue Features auf:
+Neben zahlreichen Fehlerbehebungen und kleinen Funktions- und Leistungsverbesserungen umfasst EF Core 2.1 einige interessante neue Features:
 
 ## <a name="lazy-loading"></a>Lazy Loading
 EF Core enthält nun die erforderlichen Bausteine für Benutzer, die Entitätsklassen zum bedarfsgesteuerten Laden ihrer Navigationseigenschaften erstellen möchten. Wir haben zudem das neue Paket „Microsoft.EntityFrameworkCore.Proxies“ erstellt, das mithilfe dieser Bausteine Proxyklassen zum Lazy Loading auf Grundlage minimal geänderter Entitätsklassen (z.B. Klassen mit virtuellen Navigationseigenschaften) erzeugt.
@@ -71,7 +71,7 @@ Mit dem neuen Release ist es möglich, die ursprünglichen Daten zum Auffüllen 
 Beispielsweise können Sie damit Seeddaten für ein Post-Element in `OnModelCreating` konfigurieren:
 
 ``` csharp
-modelBuilder.Entity<Post>().SeedData(new Post{ Id = 1, Text = "Hello World!" });
+modelBuilder.Entity<Post>().HasData(new Post{ Id = 1, Text = "Hello World!" });
 ```
 
 Weitere Informationen zu diesem Thema finden Sie im [Abschnitt zum Datenseeding](xref:core/modeling/data-seeding).  
@@ -143,9 +143,29 @@ public class Order
 }
 ```
 
+## <a name="new-dotnet-ef-global-tool"></a>Neues globales Tool „dotnet-ef“
+
+Die _dotnet-ef_-Befehle wurden in ein globales .NET-CLI-Tool konvertiert, deshalb ist es nicht mehr erforderlich, für Migrationen oder zum DbContext-Gerüstbau aus einer vorhandenen Datenbank „DotNetCliToolReference“ im Projekt zu verwenden.
+
+## <a name="microsoftentityframeworkcoreabstractions-package"></a>Paket „Microsoft.EntityFrameworkCore.Abstractions“
+Das neue Paket enthält Attribute und Schnittstellen, mit denen Sie EF Core-Features in Ihren Projekten aktivieren können, ohne eine Abhängigkeit von EF Core insgesamt einzugehen. Beispiel: Das in Vorschau 1 eingeführte [Owned]-Attribut wurde hierher verschoben.
+
+## <a name="state-change-events"></a>Zustandsänderungsereignisse
+
+Die neuen Ereignisse `Tracked` und `StateChanged` für `ChangeTracker` können verwendet werden, um Logik zur Reaktion auf Entitäten zu schreiben, die in den DbContext wechseln oder ihren Zustand ändern.
+
+## <a name="raw-sql-parameter-analyzer"></a>Raw-SQL-Parameteranalyse
+
+EF Core umfasst ein neues Tool für die Codeanalyse, mit der potenziell unsichere Verwendungen unserer Raw-SQL-APIs erkannt werden, z.B. `FromSql` oder `ExecuteSqlCommand`. Beispiel: Für die folgende Abfrage wird eine Warnung angezeigt, weil _minAge_ nicht parametrisiert ist:
+
+``` csharp
+var sql = $"SELECT * FROM People WHERE Age > {minAge}";
+var query = context.People.FromSql(sql);
+```
+
 ## <a name="database-provider-compatibility"></a>Kompatibilität mit Datenbankanbietern
 
-EF Core 2.1 wurde zur Bereitstellung von Kompatibilität mit Datenbankanbietern für EF Core 2.0 entwickelt. Während einige der oben beschriebenen Features (z.B. Wertkonvertierungen) einen aktualisierten Anbieter erfordern, sind andere Features (z.B. das Lazy Loading) mit den vorhandenen Anbietern kompatibel.
+EF Core 2.1 wurde zur Bereitstellung von Kompatibilität mit Datenbankanbietern für EF Core 2.0 entwickelt, oder erfordert nur minimale Änderungen. Während einige der oben beschriebenen Features (z.B. Wertkonvertierungen) einen aktualisierten Anbieter erfordern, sind andere Features (z.B. das Lazy Loading) mit den vorhandenen Anbietern kompatibel.
 
 > [!TIP]
 > Falls unerwarteterweise keine Kompatibilität besteht oder Probleme mit den neuen Features auftreten, oder falls Sie uns Ihre Feedback mitteilen möchten, melden Sie uns dies über [unsere Problemverfolgung](https://github.com/aspnet/EntityFrameworkCore/issues/new).
