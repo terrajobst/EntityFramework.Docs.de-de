@@ -1,16 +1,16 @@
 ---
-title: "Laden von verknüpften Daten - EF Core"
+title: Laden von verknüpften Daten - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: 0d7705e0e5368435536e98d319c853ea8c732643
-ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
+ms.openlocfilehash: 5f1fb9376300739ab0e306d9d60e7ec71aa2d2e7
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/05/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="loading-related-data"></a>Laden von verknüpften Daten
 
@@ -43,7 +43,7 @@ Drilldown kann über Beziehungen zu mehrere Stufen der verknüpften Daten mithil
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
 
 > [!NOTE]  
-> Aktuelle Versionen von Visual Studio bieten eine falsche Code Abschluss Optionen und können dazu führen, dass das richtige Ausdrücke mit Syntaxfehler gekennzeichnet wird, bei Verwendung der `ThenInclude` Methode auf, nachdem eine auflistungsnavigationseigenschaft. Dies ist ein Symptom für ein IntelliSense-Fehler auf https://github.com/dotnet/roslyn/issues/8237 nachverfolgt. Sie können ruhig, um diese unbegründete Syntaxfehler zu ignorieren, solange der Code korrekt ist und erfolgreich kompiliert werden. 
+> Aktuelle Versionen von Visual Studio bieten eine falsche Code Abschluss Optionen und können dazu führen, dass das richtige Ausdrücke mit Syntaxfehler gekennzeichnet wird, bei Verwendung der `ThenInclude` Methode auf, nachdem eine auflistungsnavigationseigenschaft. Dies ist ein Symptom für ein IntelliSense-Fehler überwachten https://github.com/dotnet/roslyn/issues/8237. Sie können ruhig, um diese unbegründete Syntaxfehler zu ignorieren, solange der Code korrekt ist und erfolgreich kompiliert werden. 
 
 Sie können mehrere Aufrufe verkettet `ThenInclude` zu fortfahren, einschließlich der weiteren Ebenen verknüpfter Daten.
 
@@ -98,19 +98,19 @@ Betrachten Sie das folgende Modell:
 Inhalt der `School` Navigation für alle Personen, die Studenten kann vorzeitig über eine Reihe von Mustern geladen werden:
 
 - Verwenden von cast
-```Csharp
-context.People.Include(person => ((Student)person).School).ToList()
-```
+  ```Csharp
+  context.People.Include(person => ((Student)person).School).ToList()
+  ```
 
 - Mithilfe von `as` Operator
-```Csharp
-context.People.Include(person => (person as Student).School).ToList()
-```
+  ```Csharp
+  context.People.Include(person => (person as Student).School).ToList()
+  ```
 
 - Mithilfe der Überladung der `Include` , akzeptiert Parameter vom Typ `string`
-```Csharp
-context.People.Include("Student").ToList()
-```
+  ```Csharp
+  context.People.Include("Student").ToList()
+  ```
 
 ### <a name="ignored-includes"></a>Ignoriert enthält
 
@@ -318,7 +318,7 @@ Da EF Core wird automatisch ein Fixup-Navigationseigenschaften, Sie Zyklen in Ih
 
 Einige serialisierungsframeworks lassen sich nicht auf solche Zyklen aus. Json.NET wird z. B. die folgende Ausnahme ausgelöst, wenn eine Schleife festgestellt wird.
 
-> Newtonsoft.Json.JsonSerializationException: Self referencing loop detected for property 'Blog' with type 'MyApplication.Models.Blog'.
+> Newtonsoft.Json.JsonSerializationException: Self-Service verweisen auf Schleife, die mit Typ 'MyApplication.Models.Blog' für Eigenschaft "Blog" erkannt.
 
 Wenn Sie ASP.NET Core verwenden, können Sie Json.NET um Zyklen zu ignorieren, die im Objektdiagramm gefunden konfigurieren. Dies erfolgt in der `ConfigureServices(...)` Methode in `Startup.cs`.
 

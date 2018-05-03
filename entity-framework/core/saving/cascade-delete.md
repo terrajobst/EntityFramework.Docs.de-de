@@ -1,22 +1,22 @@
 ---
-title: "Löschweitergabe - EF Core"
+title: Löschweitergabe - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 1ab9d114e27aac0bec972df631a426c8ce87a518
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="cascade-delete"></a>Kaskadierte Löschung
 
-Kaskadierte Löschung wird häufig in der Terminologie von Datenbanken verwendet, um ein Merkmal beschreiben, die das Löschen einer Zeile automatisch verknüpfte Zeilen gelöscht auslösen können. Ein eng verwandtes Konzept gehörig von EF Core Delete Verhalten ist das automatische Löschen von einer untergeordneten Entität wird die Beziehung zu einem übergeordneten Element unterbrochen wurde – dies geht im Allgemeinen als "verwaiste löschen" bezeichnet.
+Kaskadierte Löschung wird häufig in der Terminologie von Datenbanken verwendet, um ein Merkmal beschreiben, die das Löschen einer Zeile automatisch verknüpfte Zeilen gelöscht auslösen können. Ein eng verwandtes Konzept gehörig von EF Core Delete Verhalten ist das automatische Löschen von einer untergeordneten Entität aus, wenn deren Beziehung zu einem übergeordneten Element unterbrochen wurde – wird dies häufig bezeichnet als "verwaiste löschen".
 
-EF Core implementiert mehrere unterschiedliche Delete Verhaltensweisen und ermöglicht die Konfiguration der Delete-Verhalten von einzelnen Beziehungen. EF Core implementiert auch Konventionen, die hilfreich, löschen Sie das Standardverhalten für jede Beziehung auf Basis der [Requiredness der Beziehung] automatisch zu konfigurieren (../modeling/relationships.md#required-and-optional-relationships).
+EF Core implementiert mehrere unterschiedliche Delete Verhaltensweisen und ermöglicht die Konfiguration der Delete-Verhalten von einzelnen Beziehungen. EF Core implementiert auch angeben, die automatisch konfiguriert werden nützlich, löschen Sie das Standardverhalten für jede Beziehung auf Grundlage der [Requiredness der Beziehung](../modeling/relationships.md#required-and-optional-relationships).
 
 ## <a name="delete-behaviors"></a>Löschen von Verhalten
 Löschen Verhalten wird definiert, der *deleteBehavior()* Enumerator geben, und übergeben werden kann, um die *OnDelete* fluent-API, um zu steuern, ob das Löschen einer Entität Prinzipal/im übergeordneten Element oder das Trennen von der Beziehung zu abhängige/untergeordneter Entitäten sollten einen Nebeneffekt auf abhängige/untergeordnete Entitäten enthalten.
@@ -38,7 +38,7 @@ Es gibt vier Verhaltensweisen, löschen, wie in den folgenden Tabellen aufgefüh
 | **Cascade**                 | Entitäten werden gelöscht.                   | Entitäten werden gelöscht.                   |
 | **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften festgelegt werden auf Null | Keiner                                   |
 | **SetNull**                 | Fremdschlüsseleigenschaften festgelegt werden auf Null | Fremdschlüsseleigenschaften festgelegt werden auf Null |
-| **Restrict**                | Keiner                                   | Keiner                                   |
+| **Einschränken**                | Keiner                                   | Keiner                                   |
 
 Für die erforderlichen Beziehungen (null-Fremdschlüssel) ist es _nicht_ möglich, einen null Fremdschlüsselwert speichern vortäuschen folgenden Auswirkungen:
 
@@ -47,7 +47,7 @@ Für die erforderlichen Beziehungen (null-Fremdschlüssel) ist es _nicht_ mögli
 | **CASCADE** (Standard) | Entitäten werden gelöscht.                | Entitäten werden gelöscht.                  |
 | **ClientSetNull**     | SaveChanges löst aus                  | Keiner                                  |
 | **SetNull**           | SaveChanges löst aus                  | SaveChanges löst aus                    |
-| **Restrict**          | Keiner                                | Keiner                                  |
+| **Einschränken**          | Keiner                                | Keiner                                  |
 
 In den obigen Tabellen *keine* kann zu einer Verletzung einer Einschränkung führen. Z. B. wenn eine Prinzipal/untergeordnete Entität wird gelöscht, jedoch keine Aktion ausgeführt wird, um den Fremdschlüssel einer abhängigen/untergeordneten zu ändern, löst klicken Sie dann die Datenbank wahrscheinlich auf SaveChanges aufgrund einer einschränkungsverletzung foreign.
 

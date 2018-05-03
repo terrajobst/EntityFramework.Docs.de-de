@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: 88ccc2da3c2b6cbba8920d7113c82e769b459897
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="generated-values"></a>Generierten Werte
 
@@ -28,7 +28,7 @@ Auf generierten Wert hinzufügen bedeutet, der ein Wert für neue Entitäten gen
 
 Abhängig von der Datenbankanbieter verwendet wird, können Werte sein Clientseite von EF oder in der Datenbank generiert. Wenn der Wert von der Datenbank generiert wird, möglicherweise EF einen temporären Wert zuweisen, wenn Sie den Kontext die Entität hinzufügen. Diese temporäre Wert dann ersetzt werden durch den Wert der Datenbank generierte während `SaveChanges()`.
 
-Wenn Sie den Kontext eine Entität, dessen Wert der Eigenschaft zugewiesen hinzufügen, versucht EF, legen Sie diesen Wert, sondern einen neuer Typ generiert. Eine Eigenschaft gilt ein Wert zugewiesen, wenn er nicht den CLR-Standardwert zugewiesen ist (`null` für `string`, `0` für `int`, `Guid.Empty` für `Guid`usw..). Weitere Informationen finden Sie unter [expliziten Werte für die generierten Eigenschaften](..\saving\explicit-values-generated-properties.md).
+Wenn Sie den Kontext eine Entität, dessen Wert der Eigenschaft zugewiesen hinzufügen, versucht EF, legen Sie diesen Wert, sondern einen neuer Typ generiert. Eine Eigenschaft gilt ein Wert zugewiesen, wenn er nicht den CLR-Standardwert zugewiesen ist (`null` für `string`, `0` für `int`, `Guid.Empty` für `Guid`usw..). Weitere Informationen finden Sie unter [expliziten Werte für die generierten Eigenschaften](../saving/explicit-values-generated-properties.md).
 
 > [!WARNING]  
 > Wie der Wert für die hinzugefügten Entitäten generiert wird, hängen für den Datenbankanbieter verwendet wird. Datenbankanbieter möglicherweise automatisch Wert Generation für bestimmte Eigenschaftentypen einrichten, aber andere müssen Sie möglicherweise manuell einrichten, wie der Wert generiert wird.
@@ -39,13 +39,13 @@ Wenn Sie den Kontext eine Entität, dessen Wert der Eigenschaft zugewiesen hinzu
 
 Generierter Wert hinzufügen oder Update bedeutet, dass ein neuer Wert generiert wird, jedes Mal, wenn der Datensatz (INSERT- oder Update) gespeichert wird.
 
-Wie `value generated on add`, wenn Sie einen Wert für die Eigenschaft auf eine neu hinzugefügte Instanz einer Entität angeben, dass der Wert eingefügt werden soll, anstatt einen Wert generiert wird. Es ist auch möglich, einen expliziten Wert festzulegen, bei der Aktualisierung. Weitere Informationen finden Sie unter [expliziten Werte für die generierten Eigenschaften](..\saving\explicit-values-generated-properties.md).
+Wie `value generated on add`, wenn Sie einen Wert für die Eigenschaft auf eine neu hinzugefügte Instanz einer Entität angeben, dass der Wert eingefügt werden soll, anstatt einen Wert generiert wird. Es ist auch möglich, einen expliziten Wert festzulegen, bei der Aktualisierung. Weitere Informationen finden Sie unter [expliziten Werte für die generierten Eigenschaften](../saving/explicit-values-generated-properties.md).
 
-> [!WARNING]  
+> [!WARNING]
 > Wie der Wert für die hinzugefügten und aktualisierten Entitäten generiert wird, hängen für den Datenbankanbieter verwendet wird. Datenbankanbieter möglicherweise automatisch Wert Generation für bestimmte Eigenschaftentypen einrichten, während andere Benutzer müssen Sie manuell einrichten, wie der Wert generiert wird.
->
+> 
 > Bei Verwendung von SQL Server, beispielsweise `byte[]` auf generiert festgelegt hinzuzufügen oder zu aktualisieren und markiert als parallelitätstoken, wird Setup mit der `rowversion` -Datentyp - so, dass die Werte in der Datenbank generiert werden sollen. Jedoch, wenn Sie, dass angeben eine `DateTime` Eigenschaft generiert wird auf hinzuzufügen oder zu aktualisieren, dann müssen Sie richten Sie eine Möglichkeit für die Werte generiert werden soll. Eine Möglichkeit hierzu ist, so konfigurieren Sie den Standardwert `GETDATE()` (siehe [Standardwerte](relational/default-values.md)) zum Generieren von Werten für neue Zeilen. Klicken Sie dann können einen Trigger auf Datenbankebene Sie zum Generieren von Werten während eines Updates (z. B. das folgende Beispieltrigger).
->
+> 
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.sql)]
 
 ## <a name="conventions"></a>Konventionen
