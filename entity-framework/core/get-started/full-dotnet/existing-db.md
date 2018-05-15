@@ -1,5 +1,5 @@
 ---
-title: "Erste Schritte in .NET Framework – Vorhandene Datenbank – EF Core"
+title: Erste Schritte in .NET Framework – Vorhandene Datenbank – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -7,10 +7,10 @@ ms.assetid: a29a3d97-b2d8-4d33-9475-40ac67b3b2c6
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/existing-db
 ms.openlocfilehash: 3cd69109e3cf8dbc103f9eea6e2553df17f29a98
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="getting-started-with-ef-core-on-net-framework-with-an-existing-database"></a>Erste Schritte mit EF Core in .NET Framework mit einer vorhandenen Datenbank
 
@@ -58,7 +58,7 @@ In diesem Tutorial wird als vorhandene Datenbank eine **Blogging**-Datenbank in 
 
 [!code-sql[Main](../_shared/create-blogging-database-script.sql)]
 
-## <a name="create-a-new-project"></a>Erstellen eines neuen Projekts
+## <a name="create-a-new-project"></a>Erstellt ein neues Projekt
 
 * Öffnen Sie Visual Studio.
 
@@ -78,11 +78,11 @@ Installieren Sie zur Verwendung von EF Core das Paket für den (oder die) gewün
 
 * Wählen Sie „Tools“ > „NuGet-Paket-Manager“ > „Paket-Manager-Konsole“ aus.
 
-* Führen Sie `Install-Package Microsoft.EntityFrameworkCore.SqlServer` aus.
+* Ausführen von `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 Um das Reverse Engineering aus einer vorhandenen Datenbank zu aktivieren, müssen einige weitere Pakete installiert werden.
 
-* Führen Sie `Install-Package Microsoft.EntityFrameworkCore.Tools` aus.
+* Ausführen von `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 ## <a name="reverse-engineer-your-model"></a>Zurückentwickeln (Reverse Engineering) Ihres Modells
 
@@ -198,4 +198,4 @@ namespace EFGetStarted.ConsoleApp.ExistingDb
 
 Sie werden sehen, dass ein Blog in der Datenbank gespeichert wird und dann die Details zu allen Blogs an die Konsole ausgegeben werden.
 
-![image](_static/output-existing-db.png)
+![Bild](_static/output-existing-db.png)

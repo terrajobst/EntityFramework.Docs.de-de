@@ -1,5 +1,5 @@
 ---
-title: "Erste Schritte in ASP.NET Core – Neue Datenbank – EF Core"
+title: Erste Schritte in ASP.NET Core – Neue Datenbank – EF Core
 author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
@@ -8,11 +8,11 @@ ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: f6ed19d3c5d2ae8d1f5756558e50c1f0dddd2f07
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 80477ca57b8b3df6de8ba3595c9056c6b8412040
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/12/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer neuen Datenbank
 
@@ -65,7 +65,7 @@ Definieren Sie einen Kontext und Entitätsklassen für das Modell:
 * Geben Sie als Name **Model.cs** ein, und klicken Sie auf **OK**.
 * Ersetzen Sie den Inhalt der Datei durch den folgenden Code:
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
 
 Hinweis: In einer echten Anwendung würden Sie jede Klasse Ihres Modells typischerweise in einer separaten Datei platzieren. Der Einfachheit halber werden in diesem Tutorial alle Klassen in einer Datei zusammengefasst.
 
@@ -78,13 +78,13 @@ Damit unsere MVC-Controller `BloggingContext` nutzen können, werden wir sie als
 * Öffnen Sie **Startup.cs**.
 * Fügen Sie die folgenden `using` -Anweisungen hinzu:
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
 
 Fügen Sie die `AddDbContext`-Methode hinzu, um sie als Dienst zu registrieren:
 
 * Fügen Sie der `ConfigureServices`-Methode den folgenden Code hinzu:
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
 
 Hinweis: In einer echten Anwendung wird die Verbindungszeichenfolge im Allgemeinen in eine Konfigurationsdatei eingefügt. Der Einfachheit halber definieren wir sie hier im Code. Weitere Informationen finden Sie in [Verbindungszeichenfolgen](../../miscellaneous/connection-strings.md).
 

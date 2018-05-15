@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 396d31c9d0c0f47d299f49e82e557ed29b8420e7
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: d053d53bd50d2e7d16223c5b4e4009c9bb2298bb
+ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/14/2018
 ---
 <a name="ef-core-net-command-line-tools"></a>EF Core .NET-Befehlszeilentools
 ===============================
@@ -19,14 +19,18 @@ Das Entity Framework Core .NET Befehlszeilentools sind eine Erweiterung für die
 
 <a name="installing-the-tools"></a>Installieren der Tools
 --------------------
-Installieren Sie die EF Core .NET-Befehlszeilentools mithilfe der folgenden Schritte:
+> [!NOTE]
+> .NET Core SDK, Version 2.1.300 und enthält neuere **Dotnet Ef** Befehle, die mit EF Core 2.0 und höheren Versionen kompatibel sind. Daher wird bei Verwendung von neueren Versionen von .NET Core SDK und die EF-Core-Laufzeit ist keine Installation erforderlich und können Sie die restlichen Teil dieses Abschnitts ignorieren.
+>
+> Auf der anderen Seite der **Dotnet Ef** Tool in .NET Core SDK-Version 2.1.300 enthalten und höher ist nicht kompatibel mit EF-Core-Version 1.0 und 1.1. Bevor Sie kann für ein Projekt, das dieser früheren Versionen von EF Core auf einem Computer verwendet, die .NET Core SDK 2.1.300 verfügt oder höher installiert ist, müssen Sie auch Version 2.1.200 installieren oder eine ältere des SDK und konfigurieren Sie die Anwendung zur Verwendung dieser älteren Version durch Ändern der  [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) Datei. Diese Datei ist normalerweise in dem Projektmappenverzeichnis (eine oberhalb des Projekts) enthalten. Anschließend können Sie mit der Installlation-Anweisung unten fortfahren.
+
+Für frühere Versionen von .NET Core SDK können Sie die EF Core .NET-Befehlszeilentools mithilfe der folgenden Schritte installieren:
 
 1. Bearbeiten der Projektdatei, und fügen Sie Microsoft.EntityFrameworkCore.Tools.DotNet als DotNetCliToolReference-Element (siehe unten)
 2. Führen Sie die folgenden Befehle aus:
 
        dotnet add package Microsoft.EntityFrameworkCore.Design
        dotnet restore
-
 
 Das daraus resultierende Projekt sollte etwa wie folgt aussehen:
 
