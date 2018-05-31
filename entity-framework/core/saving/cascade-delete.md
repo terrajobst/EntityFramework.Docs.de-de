@@ -1,5 +1,5 @@
 ---
-title: Löschweitergabe - EF Core
+title: Kaskadierendes Delete – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,72 +8,73 @@ ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
 ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
 ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812676"
 ---
 # <a name="cascade-delete"></a>Kaskadierte Löschung
 
-Kaskadierte Löschung wird häufig in der Terminologie von Datenbanken verwendet, um ein Merkmal beschreiben, die das Löschen einer Zeile automatisch verknüpfte Zeilen gelöscht auslösen können. Ein eng verwandtes Konzept gehörig von EF Core Delete Verhalten ist das automatische Löschen von einer untergeordneten Entität aus, wenn deren Beziehung zu einem übergeordneten Element unterbrochen wurde – wird dies häufig bezeichnet als "verwaiste löschen".
+Kaskadierendes Delete wird in der Datenbankterminologie häufig für die Beschreibung eines Merkmals verwendet, durch das beim Löschen einer Zeile automatisch das Löschen verknüpfter Zeilen ausgelöst wird. Ein eng damit verbundenes Löschverhalten, das ebenfalls von EF Core abgedeckt wird, besteht im automatischen Löschen einer untergeordneten Entität, wenn ihre Beziehung zu einer übergeordneten Entität getrennt wurde. Dies ist allgemein bekannt unter „Löschen verwaister Entitäten“.
 
-EF Core implementiert mehrere unterschiedliche Delete Verhaltensweisen und ermöglicht die Konfiguration der Delete-Verhalten von einzelnen Beziehungen. EF Core implementiert auch angeben, die automatisch konfiguriert werden nützlich, löschen Sie das Standardverhalten für jede Beziehung auf Grundlage der [Requiredness der Beziehung](../modeling/relationships.md#required-and-optional-relationships).
+EF Core implementiert mehrere unterschiedliche Verhaltensweisen zum Löschen und ermöglicht die Konfiguration dieser Verhaltensweisen für einzelne Beziehungen. Darüber hinaus implementiert EF Core Konventionen, mit denen basierend auf der [Erforderlichkeit der Beziehung](../modeling/relationships.md#required-and-optional-relationships) automatisch hilfreiches Standardlöschverhalten für die einzelnen Beziehungen konfiguriert wird.
 
-## <a name="delete-behaviors"></a>Löschen von Verhalten
-Löschen Verhalten wird definiert, der *deleteBehavior()* Enumerator geben, und übergeben werden kann, um die *OnDelete* fluent-API, um zu steuern, ob das Löschen einer Entität Prinzipal/im übergeordneten Element oder das Trennen von der Beziehung zu abhängige/untergeordneter Entitäten sollten einen Nebeneffekt auf abhängige/untergeordnete Entitäten enthalten.
+## <a name="delete-behaviors"></a>Löschverhalten
+Das Löschverhalten wird im Enumeratortyp *DeleteBehavior* definiert und kann an die Fluent-API *OnDelete* übergeben werden, um zu steuern, ob das Löschen einer Prinzipalentität/übergeordneten Entität oder die Trennung der Beziehung zu abhängigen/untergeordneten Entitäten eine Nebenwirkung auf die abhängigen/untergeordneten Entitäten haben soll.
 
-Es gibt drei Aktionstypen, die EF ergreifen kann, wenn eine Entität Prinzipal/im übergeordneten Element gelöscht wird oder die Beziehung zum untergeordneten Element unterbrochen wird:
-* Die untergeordneten/abhängigen können gelöscht werden
-* Fremdschlüsselwerte des untergeordneten Standorts können festgelegt werden, auf Null
-* Das untergeordnete Element unverändert.
+EF kann drei Aktionen ausführen, wenn eine Prinzipalentität/übergeordnete Entität gelöscht oder die Beziehung zur untergeordneten Entität gelöscht wird:
+* Die untergeordnete/abhängige Entität kann gelöscht werden
+* Die Fremdschlüsselwerte der untergeordneten Entität können auf NULL festgelegt werden
+* Die untergeordnete Entität bleibt unverändert
 
 > [!NOTE]  
-> Das Löschverhalten konfiguriert in der EF-Core-Modell wird nur angewendet, wenn prinzipalentität wird mithilfe von EF Core gelöscht, und der abhängigen Entitäten (d. h. für überwachte Nachfolger) im Arbeitsspeicher geladen werden. Eine entsprechende überlappungsverhalten muss sein, dass Setup in der Datenbank, um sicherzustellen, dass Daten, die nicht vom Kontext nachverfolgt wird die erforderliche Aktion angewendet wurde. Wenn Sie EF Core verwenden, um die Datenbank zu erstellen, wird dieses Verhalten Cascade für Sie eingerichtet werden.
+> Das im EF Core-Modell konfigurierte Löschverhalten wird nur angewendet, wenn die Prinzipalentität mit EF Core gelöscht wird und die abhängigen Entitäten in den Speicher geladen werden (d.h. für nachverfolgte abhängige Entitäten). In der Datenbank muss ein entsprechendes kaskadierendes Verhalten eingerichtet werden, um sicherzustellen, dass auf Daten, die nicht vom Kontext nachverfolgt werden, die erforderliche Aktion angewendet wird. Wenn Sie die Datenbank mit EF Core erstellen, wird dieses kaskadierende Verhalten für Sie eingerichtet.
 
-Für die zweite Aktion ist einen foreign Key-Wert auf null festlegen ungültig, wenn Fremdschlüssel nicht zulässig ist. (Ein NULL-Fremdschlüssel entspricht eine erforderliche Beziehung). In diesen Fällen verfolgt EF Core an, dass die Fremdschlüsseleigenschaft bis SaveChanges aufgerufen wird zu diesem Zeitpunkt eine Ausnahme ausgelöst wird, da die Änderung in der Datenbank dauerhaft gespeichert werden kann, als null markiert wurde. Dies ist vergleichbar mit dem eine einschränkungsverletzung aus der Datenbank abrufen.
+Bei der zweiten, oben aufgeführten Aktion ist das Festlegen eines Fremdschlüsselwerts nicht gültig, wenn der Fremdschlüssel keine NULL-Werte zulässt. (Ein Fremdschlüssel, der keine NULL-Werte zulässt, entspricht einer erforderlichen Beziehung.) In diesen Fällen verfolgt EF Core nach, ob die Fremdschlüsseleigenschaft bis zum Aufrufen von SaveChanges mit NULL markiert wurde. Zu diesem Zeitpunkt wird eine Ausnahme ausgelöst, da die Änderung in der Datenbank nicht beibehalten werden kann. Dies ist vergleichbar mit dem Abrufen einer Einschränkungsverletzung aus der Datenbank.
 
-Es gibt vier Verhaltensweisen, löschen, wie in den folgenden Tabellen aufgeführt. Für optionale Beziehungen (nullable Fremdschlüssel) es _ist_ möglich, einen null Fremdschlüsselwert speichern vortäuschen folgenden Auswirkungen:
+Es gibt vier Verhaltensweisen zum Löschen, die in der nachfolgenden Tabelle aufgeführt werden. Bei optionalen Beziehungen (NULL-Werte zulassender Fremdschlüssel) _kann_ ein NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
 
-| Verhaltensname               | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher    | Auswirkungen auf abhängige/untergeordnete Datenbank  |
+| Name des Verhaltens               | Auswirkung auf abhängige/untergeordnete Entität im Speicher    | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
-| **Cascade**                 | Entitäten werden gelöscht.                   | Entitäten werden gelöscht.                   |
-| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften festgelegt werden auf Null | Keiner                                   |
-| **SetNull**                 | Fremdschlüsseleigenschaften festgelegt werden auf Null | Fremdschlüsseleigenschaften festgelegt werden auf Null |
-| **Einschränken**                | Keiner                                   | Keiner                                   |
+| **Cascade**                 | Entitäten werden gelöscht                   | Entitäten werden gelöscht                   |
+| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften werden auf NULL festgelegt | Keiner                                   |
+| **SetNull**                 | Fremdschlüsseleigenschaften werden auf NULL festgelegt | Fremdschlüsseleigenschaften werden auf NULL festgelegt |
+| **Restrict**                | Keiner                                   | Keiner                                   |
 
-Für die erforderlichen Beziehungen (null-Fremdschlüssel) ist es _nicht_ möglich, einen null Fremdschlüsselwert speichern vortäuschen folgenden Auswirkungen:
+Bei erforderlichen Beziehungen (keine NULL-Werte zulassender Fremdschlüssel) kann _kein_ NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
 
-| Verhaltensname         | Auswirkungen auf abhängige und untergeordneten Elementen im Arbeitsspeicher | Auswirkungen auf abhängige/untergeordnete Datenbank |
+| Name des Verhaltens         | Auswirkung auf abhängige/untergeordnete Entität im Speicher | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank |
 |:----------------------|:------------------------------------|:--------------------------------------|
-| **CASCADE** (Standard) | Entitäten werden gelöscht.                | Entitäten werden gelöscht.                  |
-| **ClientSetNull**     | SaveChanges löst aus                  | Keiner                                  |
-| **SetNull**           | SaveChanges löst aus                  | SaveChanges löst aus                    |
-| **Einschränken**          | Keiner                                | Keiner                                  |
+| **Cascade** (Standard) | Entitäten werden gelöscht                | Entitäten werden gelöscht                  |
+| **ClientSetNull**     | Auslösung durch SaveChanges                  | Keiner                                  |
+| **SetNull**           | Auslösung durch SaveChanges                  | Auslösung durch SaveChanges                    |
+| **Restrict**          | Keiner                                | Keiner                                  |
 
-In den obigen Tabellen *keine* kann zu einer Verletzung einer Einschränkung führen. Z. B. wenn eine Prinzipal/untergeordnete Entität wird gelöscht, jedoch keine Aktion ausgeführt wird, um den Fremdschlüssel einer abhängigen/untergeordneten zu ändern, löst klicken Sie dann die Datenbank wahrscheinlich auf SaveChanges aufgrund einer einschränkungsverletzung foreign.
+In den obigen Tabellen kann *Keiner* zu einer Einschränkungsverletzung führen. Wenn beispielsweise eine Prinzipalentität/untergeordnete Entität gelöscht wird, jedoch keine Maßnahmen zum Ändern des Fremdschlüssels einer abhängigen/untergeordneten Entität ergriffen werden, ist die Wahrscheinlichkeit groß, dass es in der Datenbank aufgrund einer Einschränkungsverletzung zu einer Auslösung durch SaveChanges kommt.
 
-Auf hoher Ebene:
-* Wenn Sie Entitäten, die ohne ein übergeordnetes Element vorhanden sein können, und Sie EF, achten Sie darauf für die untergeordneten Elemente automatisch gelöscht werden soll, verwenden Sie *Cascade*.
-  * Entitäten, die vorhanden sein können, ohne ein übergeordnetes Element in der Regel stellen für die erforderlichen Beziehungen nutzen *Cascade* ist die Standardeinstellung.
-* Wenn Sie die Entitäten, die möglicherweise verfügen möglicherweise nicht über ein übergeordnetes Element haben, und Sie EF zu kümmern, des Fremdschlüssels für Sie erheblich werden soll, verwenden Sie *ClientSetNull*
-  * Entitäten, die vorhanden sein können, ohne ein übergeordnetes Element in der Regel stellen Verwenden von optionalen Beziehungen für die *ClientSetNull* ist die Standardeinstellung.
-  * Wenn Sie die Datenbank auch versuchen, die null-Werte zu Fremdschlüsseln untergeordneten auch weitergeben soll bei die untergeordneten Entität nicht geladen wird, verwenden Sie dann *SetNull*. Beachten Sie jedoch, dass die Datenbank muss dies unterstützen, und Konfigurieren der Datenbank wie folgt dazu, andere Einschränkungen führen kann, die in der Praxis eignet sich oft diese Option nicht. Deswegen *SetNull* ist nicht der Standard.
-* Wenn Sie nicht möchten, dass EF Core jemals Löschen einer Entität automatisch oder automatisch, die den Fremdschlüssel null, dann verwenden *beschränken*. Beachten Sie, dass dies erfordert, dass Ihr Code untergeordneten Entitäten und deren Fremdschlüsselwerte manuell synchronisieren werden andernfalls Einschränkung Ausnahmen ausgelöst werden.
+Allgemein:
+* Verwenden Sie *Cascade*, wenn es Entitäten gibt, die ohne übergeordnete Entität nicht vorhanden sein können und EF die untergeordnete Entität automatisch löschen soll.
+  * Entitäten, die ohne übergeordnete Entität nicht vorhanden sein können, verwenden in der Regel erforderliche Beziehungen. Hierfür gilt *Cascade* als Standard.
+* Verwenden Sie *ClientSetNull*, wenn es Entitäten gibt, die möglicherweise über eine übergeordnete Entität verfügen und EF den Fremdschlüssel für Sie auf NULL festlegen soll
+  * Entitäten, die ohne übergeordnete Entität vorhanden sein können, verwenden in der Regel optionale Beziehungen. Hierfür gilt *ClientSetNull* als Standard.
+  * Verwenden Sie *SetNull*, wenn in der Datenbank auch versucht werden soll, NULL-Werte an untergeordnete Fremdschlüssel zu verteilen, selbst wenn die untergeordnete Entität nicht geladen wurde. Beachten Sie jedoch, dass dieser Vorgang von der Datenbank unterstützt werden muss. Zudem kann eine derartige Konfiguration der Datenbank zu anderen Einschränkungen führen. Dadurch erweist sich diese Option in der Praxis häufig als unpraktisch. Aus diesem Grund ist *SetNull* nicht der Standard.
+* Verwenden Sie *Restrict*, wenn EF Core eine Entität niemals automatisch löschen oder den Fremdschlüssel automatisch auf NULL festlegen soll. Beachten Sie, dass untergeordnete Entitäten und die zugehörigen Fremdschlüsselwerte hierfür in Ihrem Code manuell synchron gehalten werden müssen. Andernfalls werden Einschränkungsausnahmen ausgelöst.
 
 > [!NOTE]
-> In EF Kern ausgeführt, im Gegensatz zu EF6 führen Sie kaskadierende Effekte nicht sofort, sondern stattdessen erfolgen nur, wenn SaveChanges aufgerufen wird.
+> Anders als bei EF 6 treten kaskadierende Effekte in EF Core nicht automatisch auf, sondern nur, wenn SaveChanges aufgerufen wird.
 
 > [!NOTE]  
-> **Änderungen in EF Core 2.0:** In früheren Versionen *beschränken* würde optionale Fremdschlüsseleigenschaften in überwachten abhängigen Entitäten festgelegt werden, null und wurde die Standardeinstellung Verhalten für optionale Beziehungen zu löschen. In EF Core 2.0 die *ClientSetNull* wurde eingeführt, um dieses Verhalten darstellen, und stattdessen der Standardwert für optionale Beziehungen. Das Verhalten des *beschränken* wurde angepasst, um keine Nebeneffekte nie auf abhängige Entitäten haben.
+> **Änderungen in EF Core 2.0:** In vorherigen Releases hat *Restrict* dazu geführt, dass Eigenschaften optionaler Fremdschlüssel in nachverfolgten abhängigen Entitäten auf NULL festgelegt wurden. Dies war das Standardverhalten für optionale Beziehungen. In EF Core 2.0 wurde zur Darstellung dieses Verhaltens *ClientSetNull* eingeführt und als Standard für optionale Beziehungen festgelegt. Das Verhalten von *Restrict* wurde so angepasst, dass niemals Nebenwirkungen bei abhängigen Entitäten auftreten.
 
 ## <a name="entity-deletion-examples"></a>Beispiele für das Löschen von Entitäten
 
-Der folgende Code ist Teil einer [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , heruntergeladen und ausgeführt werden können. Im Beispiel wird gezeigt, was geschieht für jede Löschverhalten für optionale und notwendige Beziehungen, wenn eine übergeordnete Entität gelöscht wird.
+Der folgende Code ist Teil eines [Beispiels](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/), das heruntergeladen und ausgeführt werden kann. Das Beispiel zeigt, was bei jedem Löschverhalten bei optionalen und erforderlichen Beziehungen geschieht, wenn eine übergeordnete Entität gelöscht wird.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
-Wir führen Sie durch jede Variante zu verstehen, was geschieht.
+Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betrachtet.
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade mit erforderlichen oder optionalen Beziehung
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade mit erforderlicher oder optionaler Beziehung
 
 ```
   After loading entities:
@@ -97,12 +98,12 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
       Post '1' is in state Detached with FK '1' and no reference to a blog.
 ```
 
-* Blog wird als gelöscht markiert.
-* Beiträge bleiben anfänglich unverändert, da sich bis SaveChanges nicht überlappend ausgeführt werden
-* SaveChanges sendet löschungen für sowohl Dependents/untergeordnete Elemente (Beiträge), und klicken Sie dann den Prinzipal/im übergeordneten Element (Blog)
-* Nach dem Speichern, werden alle Entitäten getrennt, da sie jetzt aus der Datenbank gelöscht wurden
+* Blog ist als gelöscht markiert
+* Beiträge bleiben anfangs unverändert, da es erst durch SaveChanges zu kaskadierendem Verhalten kommt
+* SaveChanges sendet Löschvorgänge für abhängige/untergeordnete Entitäten (Beiträge) und anschließend für die Prinzipalentität/übergeordnete Entität (Blog)
+* Nach dem Speichern werden alle Entitäten getrennt, da sie jetzt aus der Datenbank gelöscht wurden
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit erforderliche Beziehung
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit erforderlicher Beziehung
 
 ```
   After loading entities:
@@ -121,11 +122,11 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
   SaveChanges threw DbUpdateException: Cannot insert the value NULL into column 'BlogId', table 'EFSaving.CascadeDelete.dbo.Posts'; column does not allow nulls. UPDATE fails. The statement has been terminated.
 ```
 
-* Blog wird als gelöscht markiert.
-* Beiträge bleiben anfänglich unverändert, da sich bis SaveChanges nicht überlappend ausgeführt werden
-* SaveChanges versucht Post-FK auf null festgelegt, aber dies schlägt fehl, da die '-fk ' nicht auf NULL festlegbar ist.
+* Blog ist als gelöscht markiert
+* Beiträge bleiben anfangs unverändert, da es erst durch SaveChanges zu kaskadierendem Verhalten kommt
+* SaveChanges versucht, den FS des Beitrags auf NULL festzulegen. Dieser Vorgang schlägt jedoch fehl, da der FS nicht auf NULL festgelegt werden kann
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit optionale Beziehung
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit optionaler Beziehung
 
 ```
   After loading entities:
@@ -149,13 +150,13 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
       Post '1' is in state Unchanged with FK 'null' and no reference to a blog.
 ```
 
-* Blog wird als gelöscht markiert.
-* Beiträge bleiben anfänglich unverändert, da sich bis SaveChanges nicht überlappend ausgeführt werden
-* SaveChanges Versuche Legt die FK der abhängigen Elemente/untergeordnete Elemente (Beiträge) auf null fest, vor dem Löschen der Prinzipal/im übergeordneten Element (Blog)
-* Nach dem Speichern der Prinzipal/im übergeordneten Element (Blog) gelöscht, jedoch werden weiterhin die abhängigen Elemente/untergeordneten Elemente (Beiträge) nachverfolgt.
-* Die nachverfolgte Dependents/untergeordneten Elemente (Beiträge) haben jetzt FK Nullwerte und ihre Verweis auf die gelöschte Prinzipal/im übergeordneten Element (Blog) wurde entfernt
+* Blog ist als gelöscht markiert
+* Beiträge bleiben anfangs unverändert, da es erst durch SaveChanges zu kaskadierendem Verhalten kommt
+* SaveChanges versucht, den FS von abhängigen/untergeordneten Entitäten (Beiträgen) vor dem Löschen der Prinzipalentität/übergeordneten Entität (Blog) auf NULL festzulegen
+* Nach dem Speichern wird die Prinzipalentität/übergeordnete Entität (Blog) gelöscht, die abhängigen/untergeordneten Entitäten (Beiträge) werden jedoch weiter nachverfolgt
+* Die nachverfolgten abhängigen/untergeordneten Entitäten (Beiträge) verfügen jetzt über NULL-FS-Werte und ihr Verweis auf die gelöschte Prinzipalentität/übergeordnete Entität (Blog) wurde entfernt
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict mit erforderlichen oder optionalen Beziehung
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict mit erforderlicher oder optionaler Beziehung
 
 ```
   After loading entities:
@@ -172,19 +173,19 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
   SaveChanges threw InvalidOperationException: The association between entity types 'Blog' and 'Post' has been severed but the foreign key for this relationship cannot be set to null. If the dependent entity should be deleted, then setup the relationship to use cascade deletes.
 ```
 
-* Blog wird als gelöscht markiert.
-* Beiträge bleiben anfänglich unverändert, da sich bis SaveChanges nicht überlappend ausgeführt werden
-* Da *beschränken* teilt EF auf die '-fk ' nicht automatisch auf null festlegen, bleibt es ungleich Null und SaveChanges löst aus, ohne zu speichern
+* Blog ist als gelöscht markiert
+* Beiträge bleiben anfangs unverändert, da es erst durch SaveChanges zu kaskadierendem Verhalten kommt
+* Da *Restrict* EF die Anweisung gibt, den FS nicht automatisch auf NULL festzulegen, bleibt der Wert ungleich NULL; es kommt zu einer Auslösung durch SaveChanges ohne Speichern
 
-## <a name="delete-orphans-examples"></a>Beispiele für die verwaisten Objekte löschen
+## <a name="delete-orphans-examples"></a>Beispiele für das Löschen verwaister Entitäten
 
-Der folgende Code ist Teil einer [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , kann eine Ausführung heruntergeladen werden. Im Beispiel wird gezeigt, was geschieht, für jede Löschverhalten für optionale und notwendige Beziehungen, wenn die Beziehung zwischen einem übergeordneten/Prinzipal und seine untergeordneten Elemente/Dependents unterbrochen wird. In diesem Beispiel wird die Beziehung abgetrennt werden durch das Entfernen der abhängigen Elemente/untergeordnete Elemente (Beiträge) aus der auflistungsnavigationseigenschaft für den Prinzipal/im übergeordneten Element (Blog). Allerdings ist das Verhalten identisch, wenn der Verweis von abhängigen und untergeordneten Elementen auf Prinzipal/im übergeordneten Element stattdessen out gelöscht wird.
+Der folgende Code ist Teil eines [Beispiels](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/), das heruntergeladen und ausgeführt werden kann. Im Beispiel wird gezeigt, was bei jedem Löschverhalten bei optionalen und erforderlichen Beziehungen geschieht, wenn die Beziehung zwischen einer Prinzipalentität/übergeordneten Entität und den zugehörigen abhängigen/untergeordneten Entitäten getrennt wird. In diesem Beispiel wird die Beziehung durch Entfernen der abhängigen/untergeordneten Entitäten (Beiträge) aus der Navigationseigenschaft der Sammlung in der Prinzipalentität/übergeordneten Entität (Blog) getrennt. Das Verhalten ist jedoch identisch, wenn der Verweis von abhängigen/untergeordneten Entitäten auf die Prinzipalentität/übergeordnete Entität stattdessen auf NULL festgelegt wird.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 
-Wir führen Sie durch jede Variante zu verstehen, was geschieht.
+Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betrachtet.
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade mit erforderlichen oder optionalen Beziehung
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade mit erforderlicher oder optionaler Beziehung
 
 ```
   After loading entities:
@@ -207,12 +208,12 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
       Post '1' is in state Detached with FK '1' and no reference to a blog.
 ```
 
-* Beiträge werden als geändert markiert, da das Trennen der Beziehung der FK als null markiert sein verursacht werden.
-  * Ist der Fremdschlüssel keine NULL-Werte zulässt, klicken Sie dann ändert der tatsächliche Wert sich nicht, obwohl sie als null markiert ist
-* SaveChanges sendet löschungen für abhängige Dateien/untergeordnete Elemente (Beiträge)
-* Nach dem Speichern, werden die abhängigen Elemente/untergeordneten Elemente (Beiträge) getrennt, da sie jetzt aus der Datenbank gelöscht wurden
+* Beiträge werden als „Geändert“ markiert, da der FS durch die Trennung der Beziehung als NULL markiert wurde
+  * Wenn der FS nicht auf NULL festgelegt werden kann, wird der eigentliche Wert nicht geändert, auch wenn er als NULL markiert ist
+* SaveChanges sendet Löschvorgänge für abhängige/untergeordnete Entitäten (Beiträge)
+* Nach dem Speichern werden die abhängigen/untergeordneten Entitäten (Beiträge) getrennt, da sie jetzt aus der Datenbank gelöscht wurden
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit erforderliche Beziehung
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit erforderlicher Beziehung
 
 ```
   After loading entities:
@@ -231,11 +232,11 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
   SaveChanges threw DbUpdateException: Cannot insert the value NULL into column 'BlogId', table 'EFSaving.CascadeDelete.dbo.Posts'; column does not allow nulls. UPDATE fails. The statement has been terminated.
 ```
 
-* Beiträge werden als geändert markiert, da das Trennen der Beziehung der FK als null markiert sein verursacht werden.
-  * Ist der Fremdschlüssel keine NULL-Werte zulässt, klicken Sie dann ändert der tatsächliche Wert sich nicht, obwohl sie als null markiert ist
-* SaveChanges versucht Post-FK auf null festgelegt, aber dies schlägt fehl, da die '-fk ' nicht auf NULL festlegbar ist.
+* Beiträge werden als „Geändert“ markiert, da der FS durch die Trennung der Beziehung als NULL markiert wurde
+  * Wenn der FS nicht auf NULL festgelegt werden kann, wird der eigentliche Wert nicht geändert, auch wenn er als NULL markiert ist
+* SaveChanges versucht, den FS des Beitrags auf NULL festzulegen. Dieser Vorgang schlägt jedoch fehl, da der FS nicht auf NULL festgelegt werden kann
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit optionale Beziehung
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit optionaler Beziehung
 
 ```
   After loading entities:
@@ -258,12 +259,12 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
       Post '1' is in state Unchanged with FK 'null' and no reference to a blog.
 ```
 
-* Beiträge werden als geändert markiert, da das Trennen der Beziehung der FK als null markiert sein verursacht werden.
-  * Ist der Fremdschlüssel keine NULL-Werte zulässt, klicken Sie dann ändert der tatsächliche Wert sich nicht, obwohl sie als null markiert ist
-* SaveChanges legt die FK der abhängigen Elemente/untergeordnete Elemente (Beiträge) auf null fest.
-* Nach dem Speichern, die abhängigen Elemente/untergeordneten Elemente (Beiträge) jetzt Nullwerte FK haben und ihre Verweis auf die gelöschte Prinzipal/im übergeordneten Element (Blog) entfernt wurde
+* Beiträge werden als „Geändert“ markiert, da der FS durch die Trennung der Beziehung als NULL markiert wurde
+  * Wenn der FS nicht auf NULL festgelegt werden kann, wird der eigentliche Wert nicht geändert, auch wenn er als NULL markiert ist
+* SaveChanges legt den FS von abhängigen/untergeordneten Entitäten auf NULL fest
+* Nach dem Speichern verfügen die nachverfolgten abhängigen/untergeordneten Entitäten (Beiträge) jetzt über NULL-FS-Werte und ihr Verweis auf die gelöschte Prinzipalentität/übergeordnete Entität (Blog) wurde entfernt
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict mit erforderlichen oder optionalen Beziehung
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict mit erforderlicher oder optionaler Beziehung
 
 ```
   After loading entities:
@@ -280,13 +281,13 @@ Wir führen Sie durch jede Variante zu verstehen, was geschieht.
   SaveChanges threw InvalidOperationException: The association between entity types 'Blog' and 'Post' has been severed but the foreign key for this relationship cannot be set to null. If the dependent entity should be deleted, then setup the relationship to use cascade deletes.
 ```
 
-* Beiträge werden als geändert markiert, da das Trennen der Beziehung der FK als null markiert sein verursacht werden.
-  * Ist der Fremdschlüssel keine NULL-Werte zulässt, klicken Sie dann ändert der tatsächliche Wert sich nicht, obwohl sie als null markiert ist
-* Da *beschränken* teilt EF auf die '-fk ' nicht automatisch auf null festlegen, bleibt es ungleich Null und SaveChanges löst aus, ohne zu speichern
+* Beiträge werden als „Geändert“ markiert, da der FS durch die Trennung der Beziehung als NULL markiert wurde
+  * Wenn der FS nicht auf NULL festgelegt werden kann, wird der eigentliche Wert nicht geändert, auch wenn er als NULL markiert ist
+* Da *Restrict* EF die Anweisung gibt, den FS nicht automatisch auf NULL festzulegen, bleibt der Wert ungleich NULL; es kommt zu einer Auslösung durch SaveChanges ohne Speichern
 
-## <a name="cascading-to-untracked-entities"></a>Kaskadierende verfolgte Entitäten
+## <a name="cascading-to-untracked-entities"></a>Weitergabe an nicht verfolgte Entitäten
 
-Beim Aufruf *SaveChanges*, die Delete Cascade-Regeln gelten für alle Entitäten, die vom Kontext nachverfolgt werden. Dies ist die Situation, in der alle oben genannten Beispiele, ist SQL zum Löschen der Prinzipal/im übergeordneten Element (Blog) und alle abhängigen Elemente/untergeordneten Elemente (Beiträge) generiert wurde:
+Beim Aufruf von *SaveChanges* werden die Regeln des kaskadierenden Delete auf alle Entitäten angewendet, die vom Kontext nachverfolgt werden. Dies ist in allen oben aufgeführten Beispielen der Fall. Deshalb wurde SQL generiert, um die Prinzipalentität/übergeordnete Entität (Blog) und sämtliche abhängigen/untergeordneten Entitäten (Beiträge) zu löschen:
 
 ```sql
     DELETE FROM [Posts] WHERE [PostId] = 1
@@ -294,10 +295,10 @@ Beim Aufruf *SaveChanges*, die Delete Cascade-Regeln gelten für alle Entitäten
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Wenn nur der Prinzipalserver geladen – ist z. B. wenn eine Abfrage erfolgt für einen Blog ohne eine `Include(b => b.Posts)` auch Beiträge--enthalten dann SaveChanges generiert nur SQL aus, um den Prinzipal/im übergeordneten Element löschen:
+Wenn nur die Prinzipalentität geladen wird – beispielsweise beim Ausführen einer Abfrage für einen Blog ohne `Include(b => b.Posts)` zum Einbeziehen von Beiträgen – generiert SaveChanges SQL nur zum Löschen der Prinzipalentität/übergeordneten Entität:
 
 ```sql
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Die abhängigen Elemente/untergeordneten Elemente (Beiträge) wird nur gelöscht werden, wenn die Datenbank eine entsprechende überlappungsverhalten konfiguriert wurde. Wenn Sie EF verwenden, um die Datenbank zu erstellen, wird dieses Verhalten Cascade für Sie eingerichtet werden.
+Die abhängigen/untergeordneten Entitäten (Beiträge) werden nur gelöscht, wenn in der Datenbank ein entsprechendes kaskadierendes Verhalten konfiguriert wurde. Wenn Sie die Datenbank mit EF erstellen, wird dieses kaskadierende Verhalten für Sie eingerichtet.

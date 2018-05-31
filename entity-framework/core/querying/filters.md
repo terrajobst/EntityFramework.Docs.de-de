@@ -1,5 +1,5 @@
 ---
-title: Globale Abfragefilter - EF Core
+title: 'Globale Abfragefilter: EF Core'
 author: anpete
 ms.author: anpete
 ms.date: 11/03/2017
@@ -7,48 +7,49 @@ ms.technology: entity-framework-core
 uid: core/querying/filters
 ms.openlocfilehash: 4e3c3c99d155f69e00fed99c415f519808ea1a68
 ms.sourcegitcommit: 6e379265e4f087fb7cf180c824722c81750554dc
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26053900"
 ---
 # <a name="global-query-filters"></a>Globale Abfragefilter
 
-Globale Abfragefilter werden LINQ-Abfrage-Prädikate (ein boolescher Ausdruck in der Regel übergeben wird, in der LINQ *, in denen* -Abfrage-Operator) auf Entitätstypen im Metadatenmodell angewendet (in der Regel in *OnModelCreating*). Solche Filter werden automatisch an alle LINQ-Abfragen im Zusammenhang mit diesen Entitätstypen, einschließlich von Entitätstypen indirekt, z. B. durch die Verwendung von Include verwiesen wird oder direkte Navigation Eigenschaftenverweise angewendet. Einige allgemeine Anwendungen diese Funktion sind:
+Globale Abfragefilter sind LINQ-Abfrageprädikate (ein boolescher Ausdruck, der in der Regel an den LINQ-Abfrageoperator *Where* übergeben wird), die auf Entitätstypen im Metadatenmodell (normalerweise in *OnModelCreating*) angewendet werden. Solche Filter werden automatisch auf alle diese Entitätstypen betreffenden LINQ-Abfragen (z.B. indirekt referenzierte Entitätstypen) angewendet, beispielsweise durch include-Verweise oder direkte Verweise auf Navigationseigenschaften. Zu den häufigsten Anwendungsfällen dieses Features zählen Folgende:
 
-* **Vorläufigen löschen** -ein Entitätstyp definiert ein *IsDeleted* Eigenschaft.
-* **Mehrinstanzenfähigkeit** -ein Entitätstyp definiert eine *"tenantid"* Eigenschaft.
+* **Vorläufiges Löschen:** Ein Entitätstyp definiert eine *IsDeleted*-Eigenschaft.
+* **Mehrinstanzenfähigkeit:** Ein Entitätstyp definiert eine *TenantId*-Eigenschaft.
 
 ## <a name="example"></a>Beispiel
 
-Im folgende Beispiel wird gezeigt, wie mit globalen Abfragefilter weiche löschen und mehrinstanzenfähigkeit Abfrage Verhalten in einem einfachen Blogging-Modell implementiert wird.
+Im folgenden Beispiel wird in einem einfachen Blogmodell dargestellt, wie globale Abfragefilter zum Implementieren des Abfrageverhaltens für das vorläufige Löschen und die Mehrinstanzenfähigkeit verwendet werden.
 
 > [!TIP]
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryFilters) auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryFilters) finden Sie auf GitHub.
 
-Zuerst definieren Sie die Entitäten an:
+Definieren Sie zunächst die Entitäten:
 
 [!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#Entities)]
 
-Beachten Sie die Deklaration einer __"tenantid"_ Feld der _Blog_ Entität. Dies wird verwendet, einen bestimmten Mandanten jede Blog-Instanz zugeordnet werden soll. Wird auch definiert ein _IsDeleted_ Eigenschaft auf die _Post_ Entitätstyp. Wird verwendet, diese Option, um nachverfolgen, ob ein _Post_ "vorläufig gelöschte" ist die Instanz wurde. D. h. Die Instanz wird als gelöschte Withouth physisch entfernt die zugrunde liegenden Daten gekennzeichnet.
+Beachten Sie die Deklaration eines __tenantId_-Felds in der Entität _Blog_. Dies wird dazu verwendet, jede Bloginstanz einem bestimmten Mandanten zuzuordnen. Außerdem wird eine _IsDeleted_-Eigenschaft auf dem Entitätstyp _Post_ definiert. Damit wird nachverfolgt, ob eine _Post_-Instanz „vorläufig gelöscht“ wurde. Das bedeutet, dass die Instanz als „gelöscht“ gekennzeichnet wird, ohne dass die zugrundeliegenden Daten physisch entfernt werden.
 
-Als Nächstes konfigurieren Sie die Abfragefilter in _OnModelCreating_ mithilfe der ```HasQueryFilter``` API.
+Konfigurieren Sie als nächstes die Abfragefilter in _OnModelCreating_ mithilfe der ```HasQueryFilter```-API.
 
 [!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#Configuration)]
 
-Die Prädikatausdrücke übergeben, um die _HasQueryFilter_ Aufrufe jetzt automatisch gelten für alle LINQ-Abfragen für diese Typen.
+Die Prädikatausdrücke, die an _HasQueryFilter_ weitergegeben werden, werden nun automatisch auf alle LINQ-Abfragen dieser Typen angewendet.
 
 > [!TIP]
-> Beachten Sie die Verwendung einer Ebene DbContext Instanzenfelds: ```_tenantId``` verwendet, um den aktuellen Mandanten festzulegen. Ebene des Modells Filter werden den Wert aus der Instanz des richtigen Kontexts verwendet. D. h. Die Instanz, die die Abfrage ausgeführt wird.
+> Beachten Sie die Verwendung eines DbContext-Instanzfelds: ```_tenantId``` wird zum Festlegen des aktuellen Mandanten verwendet. Filter auf Modellebene verwenden den Wert aus der entsprechenden Kontextinstanz. Das bedeutet, dass die Instanz die Abfrage ausführt.
 
-## <a name="disabling-filters"></a>Deaktivieren der Filter
+## <a name="disabling-filters"></a>Deaktivieren von Filtern
 
-Filter können für einzelne LINQ-Abfragen deaktiviert werden, mithilfe der ```IgnoreQueryFilters()``` Operator.
+Filter können für einzelne LINQ-Abfragen mit dem ```IgnoreQueryFilters()```-Operator deaktiviert werden.
 
 [!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#IgnoreFilters)]
 
 ## <a name="limitations"></a>Einschränkungen
 
-Globale Abfragefilter weisen die folgenden Einschränkungen:
+Globale Abfragefilter unterliegen den folgenden Einschränkungen:
 
-* Filter sind keine Verweise auf Navigationseigenschaften.
-* Filter können nur für den Stamm einer Vererbungshierarchie Entitätstyp definiert werden.
+* Filter können keine Verweise auf Navigationseigenschaften enthalten.
+* Filter können nur für den Stammentitätstyp einer Vererbungshierarchie definiert werden.

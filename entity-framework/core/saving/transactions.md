@@ -1,5 +1,5 @@
 ---
-title: Transaktionen - EF Core
+title: Transaktionen – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,28 +8,29 @@ ms.technology: entity-framework-core
 uid: core/saving/transactions
 ms.openlocfilehash: fe4c0d6ad7ccb2e97dc94fbf2eb26a41e7fbcb19
 ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 03/28/2018
+ms.locfileid: "30202496"
 ---
 # <a name="using-transactions"></a>Verwenden von Transaktionen
 
-Transaktionen können mehrere Datenbankvorgänge in eine atomare Weise verarbeitet werden. Wenn die Transaktion ein Commit ausgeführt wird, werden alle Vorgänge erfolgreich auf die Datenbank angewendet. Wenn die Transaktion ein Rollback ausgeführt wird, werden keiner der Vorgänge auf die Datenbank angewendet.
+Mit Transaktionen können mehrere Datenbankvorgänge einzeln verarbeitet werden. Wenn die Transaktion committet wird, werden alle Vorgänge erfolgreich auf die Datenbank angewendet. Falls für die Transaktion ein Rollback ausgeführt wird, wird keiner der Vorgänge für die Datenbank übernommen.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Transactions/) finden Sie auf GitHub.
 
-## <a name="default-transaction-behavior"></a>Standardverhalten für die Transaktion
+## <a name="default-transaction-behavior"></a>Standardtransaktionsverhalten
 
-Standardmäßig, wenn der Anbieter Transaktionen unterstützt alle Änderungen in einem einzigen Aufruf `SaveChanges()` in einer Transaktion angewendet werden. Wenn einer der Änderungen fehlschlägt, wird ein Rollback für die Transaktion, und keine der Änderungen auf die Datenbank angewendet werden. Dies bedeutet, dass `SaveChanges()` wird sichergestellt, dass entweder vollständig erfolgreich ausgeführt werden, oder lassen Sie die Datenbank, die unverändert bleiben sollen, wenn ein Fehler auftritt.
+Wenn der Datenbankanbieter Transaktionen unterstützt, werden standardmäßig alle Änderungen in einem einzigen Aufruf von `SaveChanges()` in einer Transaktion angewendet. Wenn bei einer der Änderungen ein Fehler auftritt, wird ein Rollback ausgeführt, und keine der Änderungen wird für die Datenbank übernommen. `SaveChanges()` wird also entweder vollständig ausgeführt oder überhaupt nicht, wenn ein Fehler auftritt. Die Datenbank bleibt in diesem Fall unverändert.
 
-Für die meisten Anwendungen ist dieses Standardverhalten ausreichend. Transaktionen sollten nur manuell gesteuert werden, wenn die Anforderungen an Ihre Anwendung erforderlichen aufgefasst.
+Bei den meisten Anwendungen ist dieses Standardverhalten ausreichend. Sie sollten Transaktionen nur manuell steuern, wenn die Anforderungen Ihrer Anwendung dies notwendig machen.
 
 ## <a name="controlling-transactions"></a>Steuern von Transaktionen
 
-Sie können die `DbContext.Database` -API zum Starten der commit und Rollback-Transaktionen. Das folgende Beispiel zeigt zwei `SaveChanges()` Vorgänge und eine LINQ-Abfrage in einer einzelnen Transaktion ausgeführt wird.
+Mit der `DbContext.Database`-API können Sie Transaktionen beginnen, committen und ein Rollback dafür ausführen. Im folgenden Beispiel werden zwei `SaveChanges()`-Vorgänge und eine LINQ-Abfrage dargestellt, die in einer einzelnen Transaktion ausgeführt wird.
 
-Nicht alle Datenbankanbieter unterstützen Transaktionen. Einige Anbieter auslösen oder ohne-Op Wenn Transaktion APIs aufgerufen werden.
+Nicht alle Datenbankanbieter unterstützen Transaktionen. In diesem Fall wird ein Fehler ausgelöst oder kein Vorgang gestartet, wenn Transaktions-APIs aufgerufen werden.
 
 <!-- [!code-csharp[Main](samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?highlight=3,17,18,19)] -->
 ``` csharp
@@ -61,24 +62,24 @@ Nicht alle Datenbankanbieter unterstützen Transaktionen. Einige Anbieter auslö
         }
 ```
 
-## <a name="cross-context-transaction-relational-databases-only"></a>Cross-Kontexttransaktion (nur bei relationalen Datenbanken)
+## <a name="cross-context-transaction-relational-databases-only"></a>Kontextübergreifende Transaktionen (nur relationale Datenbanken)
 
-Sie können auch eine Transaktion über mehrere Instanzen von Kontext freigeben. Diese Funktion ist nur verfügbar, wenn einen relationale Datenbank-Anbieter verwenden, da es erfordert, dass die Verwendung von `DbTransaction` und `DbConnection`, die speziell für relationale Datenbanken sind.
+Sie können Transaktionen auch für mehrere Kontextinstanzen freigeben. Diese Funktion ist nur bei Anbietern von relationalen Datenbanken verfügbar, da `DbTransaction` und `DbConnection` verwendet werden müssen, die charakteristisch für relationale Datenbanken sind.
 
-Um eine Transaktion gemeinsam nutzen, müssen die Kontexte verwenden beide eine `DbConnection` und ein `DbTransaction`.
+Um eine Transaktion freigeben zu können, müssen die Kontexte `DbConnection` und `DbTransaction` verwenden.
 
-### <a name="allow-connection-to-be-externally-provided"></a>Lassen Sie Verbindung mit extern bereitgestellt werden zu
+### <a name="allow-connection-to-be-externally-provided"></a>Zulassen von extern bereitgestellten Verbindungen
 
-Freigeben einer `DbConnection` erfordert die Möglichkeit, eine Verbindung in einem Kontext übergeben wird, wenn es zu erstellen.
+Um `DbConnection` freigeben zu können, muss eine Verbindung an einen Kontext übergeben werden können, während dieser erstellt wird.
 
-Die einfachste Möglichkeit zum Zulassen `DbConnection` extern bereitgestellt werden, ist, Beenden der Verwendung der `DbContext.OnConfiguring` Methode so extern erstellen und konfigurieren den Kontext `DbContextOptions` und an den Kontext Konstruktor zu übergeben.
+Die einfachste Möglichkeit, eine externe Bereitstellung von `DbConnection` zuzulassen, ist, den Kontext nicht mehr mit der `DbContext.OnConfiguring`-Methode zu konfigurieren, sondern extern `DbContextOptions` zu erstellen und es an den Kontextkonstruktor zu übergeben.
 
 > [!TIP]  
-> `DbContextOptionsBuilder` ist die API im verwendet haben `DbContext.OnConfiguring` um den Kontext zu konfigurieren, Sie sind nun damit extern erstellen mit `DbContextOptions`.
+> `DbContextOptionsBuilder` ist die API, die Sie in `DbContext.OnConfiguring` zum Konfigurieren des Kontexts verwendet haben. Jetzt werden Sie es extern verwenden und `DbContextOptions` erstellen.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
 
-Eine Alternative besteht darin, die weitere Verwendung `DbContext.OnConfiguring`, akzeptieren jedoch eine `DbConnection` , gespeichert und dann im verwendet `DbContext.OnConfiguring`.
+Alternativ können Sie weiterhin `DbContext.OnConfiguring` verwenden und eine `DbConnection` akzeptieren, die gespeichert und dann in `DbContext.OnConfiguring` verwendet wird.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -99,38 +100,38 @@ public class BloggingContext : DbContext
 }
 ```
 
-### <a name="share-connection-and-transaction"></a>Freigabe-Verbindung und der Transaktionsstatus
+### <a name="share-connection-and-transaction"></a>Freigeben der Verbindung und der Transaktion
 
-Sie können nun mehrere Kontext Instanzen erstellen, die die gleiche Verbindung verwenden. Verwenden Sie dann die `DbContext.Database.UseTransaction(DbTransaction)` -API, um beide Kontexte in derselben Transaktion eintragen.
+Sie können nun mehrere Kontextinstanzen erstellen, die die gleiche Verbindung verwenden. Anschließend tragen Sie mit der `DbContext.Database.UseTransaction(DbTransaction)`-API beide Kontexte in derselben Transaktion ein.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
 
-## <a name="using-external-dbtransactions-relational-databases-only"></a>Verwenden von externen DbTransactions (nur bei relationalen Datenbanken)
+## <a name="using-external-dbtransactions-relational-databases-only"></a>Verwenden von externen DbTransactions (nur relationale Datenbanken)
 
-Wenn Sie mehrere datenzugriffstechnologien Zugriff auf eine relationale Datenbank verwenden, empfiehlt es sich, eine Transaktion zwischen Operationen, die von diesen anderen Technologien gemeinsam nutzen.
+Wenn Sie mit verschiedenen Datenzugriffstechnologien auf eine relationale Datenbank zugreifen, sollten Sie eine gemeinsame Transaktion für die Vorgänge einrichten, die von diesen verschiedenen Technologien ausgeführt werden.
 
-Im folgenden Beispiel wird gezeigt, wie ein ADO.NET SqlClient-Vorgang und ein Entity Framework Core-Vorgang in derselben Transaktion ausgeführt.
+Im folgenden Beispiel wird gezeigt, wie ein ADO.NET SqlClient-Vorgang und ein Entity Framework Core-Vorgang in derselben Transaktion ausgeführt werden.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
 
-## <a name="using-systemtransactions"></a>Using System.Transactions
+## <a name="using-systemtransactions"></a>Verwenden von System.Transactions
 
 > [!NOTE]  
 > Dieses Feature ist neu in EF Core 2.1.
 
-Es ist möglich, die Ambiente-Transaktionen verwenden, wenn Sie über einen größeren Bereich koordinieren müssen.
+Es ist möglich, Ambient-Transaktionen zu verwenden, wenn Sie einen größeren Bereich koordinieren müssen.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,24,25,26)]
 
-Es ist auch möglich, die in einer expliziten Transaktion eintragen.
+Sie können auch eine Eintragung in einer expliziten Transaktion vornehmen.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,13,26,27,28)]
 
-### <a name="limitations-of-systemtransactions"></a>Einschränkungen von ' System.Transactions '  
+### <a name="limitations-of-systemtransactions"></a>Einschränkungen von System.Transactions  
 
-1. EF Core basiert auf Datenbankanbietern zum Implementieren der Unterstützung für System.Transactions hinzu. Zwar Unterstützung für .NET Framework, die API nur wurde vor kurzem hinzugefügt, um .NET Core und unterstützen daher üblich, das zwischen ADO.NET-Anbietern ist ist nicht weit verbreitet ist. Wenn ein Anbieter keine Unterstützung für System.Transactions implementiert, ist es möglich, dass Aufrufe dieser APIs werden vollständig ignoriert. SqlClient für .NET Core unterstützt aus 2.1 oder höher. Für .NET Core 2.0 SqlClient löst eine Ausnahme des Sie versuchen, das Feature zu verwenden. 
+1. In EF Core müssen die Datenbankanbieter die Unterstützung für System.Transactions implementieren. Unterstützung ist unter den ADO.NET-Anbietern für .NET Framework zwar recht üblich, die API wurde jedoch erst vor Kurzem zu .NET Core hinzugefügt. Daher ist die Unterstützung noch nicht weit verbreitet. Wenn ein Anbieter keine Unterstützung für System.Transactions implementiert, ist es möglich, dass Aufrufe dieser APIs vollständig ignoriert werden. SqlClient für .NET Core bietet Unterstützung ab Version 2.1. In SqlClient für .NET Core 2.0 wird eine Ausnahme ausgelöst, wenn Sie dieses Feature ausführen. 
 
    > [!IMPORTANT]  
-   > Es wird empfohlen, dass Sie testen, ob die API ordnungsgemäß mit Ihrem Anbieter verhält, bevor Sie sich darauf beziehen, für die Verwaltung von Transaktionen. Es wird empfohlen, wenden Sie sich an den Maintainer des Datenbank-Anbieters an, wenn dies nicht der Fall. 
+   > Daher sollten Sie testen, ob die API ordnungsgemäß mit Ihrem Anbieter funktioniert, bevor Sie sie für die Verwaltung von Transaktionen einsetzen. Sollte die API nicht funktionieren, wenden Sie sich bitte an den Maintainer des Datenbankanbieters. 
 
-2. Ab Version 2.1, die System.Transactions-Implementierung in .NET Core bietet keine Unterstützung für verteilte Transaktionen, die aus diesem Grund können keine `TransactionScope` oder `CommitableTransaction` Transaktionen über mehrere Ressourcen-Manager koordiniert. 
+2. Ab Version 2.1 enthält die System.Transactions-Implementierung in .NET Core keine Unterstützung für verteilte Transaktionen. Aus diesem Grund können Sie weder mit `TransactionScope` noch mit `CommitableTransaction` Transaktionen in mehreren Ressourcen-Managern koordinieren. 

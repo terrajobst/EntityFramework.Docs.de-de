@@ -1,5 +1,5 @@
 ---
-title: Laden von verknüpften Daten - EF Core
+title: Laden zugehöriger Daten – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,58 +8,59 @@ ms.technology: entity-framework-core
 uid: core/querying/related-data
 ms.openlocfilehash: 5f1fb9376300739ab0e306d9d60e7ec71aa2d2e7
 ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812650"
 ---
-# <a name="loading-related-data"></a>Laden von verknüpften Daten
+# <a name="loading-related-data"></a>Laden zugehöriger Daten
 
-Entity Framework Core können Sie die Navigationseigenschaften zum Laden verknüpfter Entitäten im Modell zu verwenden. Es gibt drei allgemeine O/RM-Muster, die zum Laden von verknüpften Daten verwendet.
-* **Unverzüglichem Laden** bedeutet, dass die verknüpften Daten aus der Datenbank als Teil der ursprünglichen Abfrage geladen werden.
-* **Explizites Laden** bedeutet, dass die verwandten Daten explizit aus der Datenbank zu einem späteren Zeitpunkt geladen werden.
-* **Verzögertes Laden** bedeutet, dass die verwandten Daten transparent aus der Datenbank geladen werden, wenn die Navigationseigenschaft zugegriffen wird.
+Mit Entity Framework Core können Sie die Navigationseigenschaften in Ihrem Modell zum Laden zugehöriger Entitäten verwenden. Es gibt drei allgemeine O/RM-Muster für das Laden zugehöriger Daten.
+* **Eager Loading** bedeutet, dass die zugehörigen Daten als Teil der ersten Abfrage aus der Datenbank geladen werden.
+* **Explizites Laden** bedeutet, dass die zugehörigen Daten zu einem späteren Zeitpunkt explizit aus der Datenbank geladen werden.
+* **Lazy Loading** bedeutet, dass die zugehörigen Daten bei Zugriff auf die Navigationseigenschaft transparent aus der Datenbank geladen werden.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
 
 ## <a name="eager-loading"></a>Eager Loading
 
-Sie können die `Include` Methode, um verwandte Daten angeben, die in den Ergebnissen enthalten sein. Im folgenden Beispiel müssen die Blogs, die in den Ergebnissen zurückgegeben werden ihre `Posts` Eigenschaft, die mit den zugehörigen Beiträgen aufgefüllt.
+Sie können mit der `Include`-Methode zugehörige Daten angeben, die in den Abfrageergebnissen enthalten sein sollen. Im folgenden Beispiel weisen die in den Ergebnissen zurückgegebenen Blogs ihre `Posts`-Eigenschaft auf, die mit den zugehörigen Beiträgen aufgefüllt wurden.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleInclude)]
 
 > [!TIP]  
-> Entity Framework Core wird automatisch ein Fixup-Navigationseigenschaften für alle anderen Entitäten, die zuvor in die Kontextinstanz geladen wurden. Damit auch, wenn Sie die Daten für eine Navigationseigenschaft explizit nicht einschließen, die Eigenschaft kann noch immer aufgefüllt werden, wenn einige oder alle verknüpften Entitäten wurden zuvor geladen.
+> Entity Framework Core korrigiert automatisch Navigationseigenschaften zur Korrektur für alle anderen Entitäten, die zuvor in die Kontextinstanz geladen wurden. Auch wenn Sie die Daten für eine Navigationseigenschaft nicht explizit eingeschlossen haben, kann die Eigenschaft folglich immer noch aufgefüllt werden, wenn einige oder alle zugehörigen Entitäten zuvor geladen wurden.
 
 
-Sie können aufeinander bezogene Daten in mehreren Beziehungen in einer einzelnen Abfrage einschließen.
+Sie können zugehörigen Daten aus mehreren Beziehungen in einer einzelnen Abfrage einschließen.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleIncludes)]
 
-### <a name="including-multiple-levels"></a>Einschließlich mehrere Ebenen
+### <a name="including-multiple-levels"></a>Einschließen mehrerer Ebenen
 
-Drilldown kann über Beziehungen zu mehrere Stufen der verknüpften Daten mithilfe der `ThenInclude` Methode. Im folgende Beispiel lädt alle Blogs, Verwandte Beiträge und der Autor jedes Post.
+Sie können mit der `ThenInclude`-Methode einen Drilldown für Beziehungen ausführen, um mehrere Ebenen zugehöriger Daten einzuschließen. Im folgenden Beispiel werden sämtliche Blogs, die zugehörigen Beiträge und die Autoren der einzelnen Beiträge geladen.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
 
 > [!NOTE]  
-> Aktuelle Versionen von Visual Studio bieten eine falsche Code Abschluss Optionen und können dazu führen, dass das richtige Ausdrücke mit Syntaxfehler gekennzeichnet wird, bei Verwendung der `ThenInclude` Methode auf, nachdem eine auflistungsnavigationseigenschaft. Dies ist ein Symptom für ein IntelliSense-Fehler überwachten https://github.com/dotnet/roslyn/issues/8237. Sie können ruhig, um diese unbegründete Syntaxfehler zu ignorieren, solange der Code korrekt ist und erfolgreich kompiliert werden. 
+> Aktuelle Versionen von Visual Studio bieten falsche Codevervollständigungsoptionen an. Diese können verursachen, dass bei Verwendung der `ThenInclude`-Methode gemäß der Navigationseigenschaft einer Sammlung korrekte Ausdrücke mit Syntaxfehler gekennzeichnet werden. Dies ist ein Symptom für einen unter https://github.com/dotnet/roslyn/issues/8237 nachverfolgten IntelliSense-Fehler. Diese unbegründeten Syntaxfehler können ohne Bedenken ignoriert werden, solange der Code korrekt ist und erfolgreich kompiliert werden kann. 
 
-Sie können mehrere Aufrufe verkettet `ThenInclude` zu fortfahren, einschließlich der weiteren Ebenen verknüpfter Daten.
+Sie können mehrere Aufrufe mit `ThenInclude` verbinden, um mit dem Einschließen weiterer Ebenen zugehöriger Daten fortzufahren.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleThenIncludes)]
 
-Sie können diese Option, um verwandte Daten aus mehreren Ebenen und mehrere Stämme in derselben Abfrage umfassen alle kombinieren.
+Sie können all dies kombinieren, um zugehörige Daten aus mehreren Ebenen und mehreren Stämmen in derselben Abfrage einzuschließen.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-Möglicherweise sollen mehrere verknüpfte Entitäten für eine der Entitäten, die gerade enthalten ist. Beispielsweise beim Abfragen von `Blog`e, Sie enthalten `Posts` , und klicken Sie dann beide einschließen möchten die `Author` und `Tags` von der `Posts`. Zu diesem Zweck müssen Sie angeben, angefangen beim Stamm Pfad enthalten. Beispielsweise `Blog -> Posts -> Author` und `Blog -> Posts -> Tags`. Dies bedeutet nicht, dass erhalten Sie redundante Joins, in den meisten Fällen, die EF zu konsolidieren, werden, die Joins beim Generieren von SQL.
+Für eine der Entitäten, die eingeschlossen wird, sollten Sie mehrere zugehörige Entitäten einschließen. Beispiel: Beim Abfragen von `Blog`s schließen Sie `Posts` ein und möchten anschließend `Author` und `Tags` von `Posts` einschließen. Hierzu müssen Sie die einzelnen Includepfade beginnend beim Stamm angeben. Beispiel: `Blog -> Posts -> Author` und `Blog -> Posts -> Tags`. Dies bedeutet nicht, dass Sie redundante Verknüpfungen erhalten. In den meisten Fällen konsolidiert EF die Verknüpfungen beim Generieren von SQL.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
-### <a name="include-on-derived-types"></a>Abgeleitete Typen enthalten
+### <a name="include-on-derived-types"></a>Einschließen in abgeleiteten Typen
 
-Zählen Sie aufeinander bezogene Daten in Navigationen, die nur für einen abgeleiteten Typ verwenden definiert `Include` und `ThenInclude`. 
+Sie können zugehörige Daten aus Navigationen einschließen, die nur in einem abgeleiteten Typ mit `Include` und `ThenInclude` definiert werden. 
 
 Betrachten Sie das folgende Modell:
 
@@ -95,77 +96,77 @@ Betrachten Sie das folgende Modell:
     }
 ```
 
-Inhalt der `School` Navigation für alle Personen, die Studenten kann vorzeitig über eine Reihe von Mustern geladen werden:
+Inhalte der `School`-Navigation für alle Personen, die Studenten sind, können mit einer Reihe von Mustern vorzeitig geladen werden:
 
-- Verwenden von cast
+- Mit cast
   ```Csharp
   context.People.Include(person => ((Student)person).School).ToList()
   ```
 
-- Mithilfe von `as` Operator
+- Mit dem Operator `as`
   ```Csharp
   context.People.Include(person => (person as Student).School).ToList()
   ```
 
-- Mithilfe der Überladung der `Include` , akzeptiert Parameter vom Typ `string`
+- Mit einer Überladung von `Include`, die Parameter vom Typ `string` akzeptiert
   ```Csharp
   context.People.Include("Student").ToList()
   ```
 
-### <a name="ignored-includes"></a>Ignoriert enthält
+### <a name="ignored-includes"></a>Ignorierte Include-Operatoren
 
-Wenn Sie die Abfrage ändern, sodass sie nicht mehr Instanzen des Entitätstyps, die zurückgibt mit der Abfrage wurde gestartet, werden die Operatoren Include ignoriert.
+Wenn Sie die Abfrage so ändern, dass keine Instanzen des Entitätstyps mehr zurückgegeben werden, mit dem die Abfrage gestartet wurde, werden die Include-Operatoren ignoriert.
 
-Im folgenden Beispiel werden die Include-Operatoren basierend auf den `Blog`, aber dann die `Select` Operator wird verwendet, so ändern Sie die Abfrage aus, um einen anonymen Typ zurückgegeben. Die Include-Operatoren haben in diesem Fall keine Auswirkungen.
+Im folgenden Beispiel basieren die Include-Operatoren auf dem Operator `Blog`. Die Abfrage wird jedoch dann mit dem Operator `Select` geändert, damit ein anonymer Typ zurückgegeben wird. In diesem Fall haben die Include-Operatoren keine Auswirkungen.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IgnoredInclude)]
 
-EF Core protokolliert standardmäßig eine Warnung bei enthalten Operatoren werden ignoriert. Finden Sie unter [Protokollierung](../miscellaneous/logging.md) für Weitere Informationen zur Anzeige von Protokollausgaben. Sie können das Verhalten ändern, wenn ein Operator Include ignoriert wird, entweder auslösen oder Unternehmen Sie nichts. Dies erfolgt, wenn Sie die Optionen für den Kontext - in der Regel in einrichten `DbContext.OnConfiguring`, oder im `Startup.cs` bei Verwendung von ASP.NET Core.
+EF Core protokolliert standardmäßig eine Warnung, wenn Include-Operatoren ignoriert werden. Weitere Informationen zum Anzeigen von Protokollierungsausgaben finden Sie unter [Protokollierung](../miscellaneous/logging.md). Sie können das Verhalten, wenn ein Include-Operator ignoriert wird, auslösen oder nichts unternehmen. Dies geschieht, wenn die Optionen für Ihren Kontext – normalerweise in `DbContext.OnConfiguring` oder `Startup.cs` – bei Verwendung von ASP.NET Core eingerichtet werden.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
 
 ## <a name="explicit-loading"></a>Explizites Laden
 
 > [!NOTE]  
-> Diese Funktion wurde in der EF Core 1.1 eingeführt.
+> Dieses Feature wurde in EF Core 1.1 eingeführt.
 
-Sie können explizit laden, eine Navigationseigenschaft über die `DbContext.Entry(...)` API.
+Sie können eine Navigationseigenschaft über die API `DbContext.Entry(...)` explizit laden.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#Eager)]
 
-Sie können auch explizit eine Navigationseigenschaft laden, durch Ausführen einer separaten Abfrage, die die verknüpften Entitäten zurückgibt. Wenn die änderungsnachverfolgung aktiviert ist, beim Laden einer Entität EF Core automatisch legen Sie die Navigationseigenschaften der neu geladenen workflowprozessinstanz zum Verweisen auf alle Entitäten, die bereits geladen, und legen Sie die Navigationseigenschaften der bereits geladene Entitäten zum Verweisen auf die Entität neu geladen.
+Sie können eine Navigationseigenschaft auch explizit laden, indem Sie eine separate Abfrage ausführen, welche die zugehörigen Entitäten zurückgibt. Wenn die Änderungsnachverfolgung aktiviert ist, legt EF Core beim Laden einer Entität die Navigationseigenschaften der neu geladenen Entität automatisch so fest, dass diese auf bereits geladene Entitäten verweisen, und die Navigationseigenschaften bereits geladener Entitäten so, dass diese auf die neu geladene Entität verweisen.
 
-### <a name="querying-related-entities"></a>Abfragen von verknüpften Entitäten
+### <a name="querying-related-entities"></a>Abfragen zugehöriger Entitäten
 
-Außerdem erhalten Sie eine LINQ-Abfrage, die den Inhalt einer Navigationseigenschaft darstellt.
+Sie können auch eine LINQ-Abfrage abrufen, welche die Inhalte einer Navigationseigenschaft darstellt.
 
-Dadurch können Sie Aktionen wie die aggregate-Operator über die verknüpften Entitäten ausführen, ohne sie in den Arbeitsspeicher laden ausgeführt werden.
+Dadurch können Sie Aktionen, wie z.B. das Ausführen eines Aggregatoperators, über die zugehörigen Entitäten ausführen, ohne diese in den Speicher laden zu müssen.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryAggregate)]
 
-Sie können auch filtern, welche verknüpften Entitäten in den Arbeitsspeicher geladen werden.
+Darüber hinaus können Sie filtern, welche zugehörigen Entitäten in den Speicher geladen werden.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryFiltered)]
 
 ## <a name="lazy-loading"></a>Lazy Loading
 
 > [!NOTE]  
-> Diese Funktion wurde in der EF Core 2.1 eingeführt.
+> Dieses Feature wurde in EF Core 2.1 eingeführt.
 
-Die einfachste Methode zum Verwenden der verzögerten Laden wird durch die Installation der [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) Paket, und aktivieren es mit einem Aufruf von `UseLazyLoadingProxies`. Zum Beispiel:
+Die einfachste Möglichkeit für die Verwendung von Lazy Loading besteht in der Installation des Pakets [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) und der Aktivierung dieses Pakets durch Aufrufen von `UseLazyLoadingProxies`. Zum Beispiel:
 ```Csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseLazyLoadingProxies()
         .UseSqlServer(myConnectionString);
 ```
-Oder bei der Verwendung von AddDbContext:
+Oder bei Verwendung von AddDbContext:
 ```Csharp
     .AddDbContext<BloggingContext>(
         b => b.UseLazyLoadingProxies()
               .UseSqlServer(myConnectionString));
 ```
-EF Core wird verzögerte Laden von für eine Navigationseigenschaft, die überschrieben werden können –, dann aktivieren, muss er `virtual` und für eine Klasse, die vom geerbt werden kann. In den folgenden Entitäten, z. B. die `Post.Blog` und `Blog.Posts` Navigationseigenschaften lazy geladen werden.
+EF Core aktiviert Lazy Loading anschließend für beliebige überschreibbare Navigationseigenschaften – diese müssen `virtual` sein und in einer Klasse enthalten sein, aus der sie geerbt werden können. In den folgenden Entitäten wird beispielsweise Lazy Loading für die Navigationseigenschaften `Post.Blog` und `Blog.Posts` durchgeführt.
 ```Csharp
 public class Blog
 {
@@ -184,9 +185,9 @@ public class Post
     public virtual Blog Blog { get; set; }
 }
 ```
-### <a name="lazy-loading-without-proxies"></a>Lazy-laden, ohne Proxys
+### <a name="lazy-loading-without-proxies"></a>Lazy Loading ohne Proxys
 
-Lazy Automatisches Laden von Proxys arbeiten möchten, indem Sie Räumen der `ILazyLoader` service in einer Entität, wie in beschrieben [Entitätstypkonstruktoren](../modeling/constructors.md). Zum Beispiel:
+Lazy Loading-Proxys funktionieren, indem der Dienst `ILazyLoader` in eine Entität eingefügt wird, wie unter [Entitätstypenkonstruktoren](../modeling/constructors.md) beschrieben. Zum Beispiel:
 ```Csharp
 public class Blog
 {
@@ -239,7 +240,7 @@ public class Post
     }
 }
 ```
-Dadurch erfordert nicht das Entitätstypen werden von der geerbt oder Navigationseigenschaften virtuell sein, und erstellte mit Instanzen der Entität `new` verzögerte-einmal laden an einen Kontext angefügt. Allerdings muss einen Verweis auf die `ILazyLoader` Dienst, der Entitätstypen der EF-Core-Assembly verbindet. Dieser Kern EF zu vermeiden, kann die `ILazyLoader.Load` Methode, um die Form eines Delegaten eingefügt werden. Zum Beispiel:
+Hierfür ist nicht erforderlich, dass aus Entitätstypen geerbt werden kann oder dass Navigationseigenschaften auf „virtual“ festgelegt sind. Es wird zugelassen, dass Lazy Loading für mit `new` erstellten Entitätsinstanzen durchgeführt wird, sobald diese an einen Kontext angefügt wurden. Allerdings muss auf den Dienst `ILazyLoader` verwiesen werden, der Entitätstypen mit der EF Core-Assembly verbindet. Dies kann vermieden werden, indem EF Core zulässt, dass die Methode `ILazyLoader.Load` als Delegat eingefügt wird. Zum Beispiel:
 ```Csharp
 public class Blog
 {
@@ -292,7 +293,7 @@ public class Post
     }
 }
 ```
-Der Code oben verwendet eine `Load` Extension-Methode zum Erstellen von Delegaten ein wenig cleaner verwenden:
+Der oben stehende Code verwendet eine `Load`-Erweiterungsmethode, um die Verwendung des Delegaten sauberer zu gestalten:
 ```Csharp
 public static class PocoLoadingExtensions
 {
@@ -310,17 +311,17 @@ public static class PocoLoadingExtensions
 }
 ```
 > [!NOTE]  
-> Der-Parameter des Konstruktors für den Delegaten verzögertes Laden muss "LazyLoader" aufgerufen werden. Konfiguration, um einen anderen Namen, den diese geplant wurde für eine künftige Version verwenden.
+> Der Konstruktorparameter für den Lazy Loading-Delegaten muss als „lazyLoader“ bezeichnet werden. Eine Konfiguration für die Verwendung eines anderen Namens ist für ein zukünftiges Release geplant.
 
-## <a name="related-data-and-serialization"></a>Daten und Serialisierung
+## <a name="related-data-and-serialization"></a>Zugehörige Daten und Serialisierung
 
-Da EF Core wird automatisch ein Fixup-Navigationseigenschaften, Sie Zyklen in Ihre Objektdiagramm ergeben können. Z. B. beim Laden eines Blogs und bezieht sich Beiträge in einem Blog Objekt führt, die eine Auflistung von Beiträgen verweist. Jedes dieser Beiträge weist einen Verweis zurück auf den Blog.
+Da EF Core Navigationseigenschaften automatisch korrigiert, können sich in Ihrem Objektgraph Zyklen ergeben. Das Laden eines Blogs und der zugehörigen Beiträge führt beispielsweise zu einem Blogobjekt, das auf eine Sammlung von Beiträgen verweist. Die einzelnen Beiträge verweisen wieder auf den Blog.
 
-Einige serialisierungsframeworks lassen sich nicht auf solche Zyklen aus. Json.NET wird z. B. die folgende Ausnahme ausgelöst, wenn eine Schleife festgestellt wird.
+Einige Serialisierungsframeworks lassen solche Zyklen nicht zu. Json.NET löst beispielsweise folgende Ausnahme aus, wenn ein Zyklus erkannt wird.
 
-> Newtonsoft.Json.JsonSerializationException: Self-Service verweisen auf Schleife, die mit Typ 'MyApplication.Models.Blog' für Eigenschaft "Blog" erkannt.
+> Newtonsoft.Json.JsonSerializationException: Für die Eigenschaft „Blog“ mit dem Typ „MyApplication.Models.Blog“ wurde eine auf sich selbst verweisende Schleife erkannt.
 
-Wenn Sie ASP.NET Core verwenden, können Sie Json.NET um Zyklen zu ignorieren, die im Objektdiagramm gefunden konfigurieren. Dies erfolgt in der `ConfigureServices(...)` Methode in `Startup.cs`.
+Wenn Sie ASP.NET Core verwenden, können Sie Json.NET so konfigurieren, dass im Objektgraph gefundene Zyklen ignoriert werden. Dies erfolgt in der Methode `ConfigureServices(...)` in `Startup.cs`.
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)

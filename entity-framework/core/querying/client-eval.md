@@ -1,5 +1,5 @@
 ---
-title: Client im Vergleich zu Evaluierung von Server - Core EF
+title: Clientauswertung im Vergleich zur Serverauswertung – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,20 +8,21 @@ ms.technology: entity-framework-core
 uid: core/querying/client-eval
 ms.openlocfilehash: e1852b780041e9e92fb4d25129175346e3a601a3
 ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052650"
 ---
-# <a name="client-vs-server-evaluation"></a>Client im Vergleich zu Server-Evaluierung
+# <a name="client-vs-server-evaluation"></a>Clientauswertung im Vergleich zur Serverauswertung
 
-Entity Framework Core unterstützt Teile der Abfrage ausgewertet wird, auf dem Client und Teile davon per Push an die Datenbank übermittelt. Es liegt im Ermessen der Datenbankanbieter, um zu bestimmen, welche Teile der Abfrage in der Datenbank ausgewertet werden.
+Entity Framework Core unterstützt Teile der Abfrage, die auf dem Client ausgewertet werden, und Teile der Abfrage, die mithilfe von Push in die Datenbank übertragen werden. Der Datenbankanbieter bestimmt, welche Teile der Abfrage in der Datenbank ausgewertet werden.
 
 > [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
 
-## <a name="client-evaluation"></a>Client-Evaluierung
+## <a name="client-evaluation"></a>Clientauswertung
 
-Im folgenden Beispiel wird eine Hilfsmethode verwendet, um URLs für Blogs zu standardisieren, die aus einer SQL Server-Datenbank zurückgegeben werden. Da SQL Server-Anbieter keine Einblick hat, wie diese Methode implementiert wird, ist es nicht möglich, die in SQL zu übersetzen. Alle anderen Aspekte der Abfrage ausgewertet werden in der Datenbank, übergeben Sie jedoch das zurückgegebene `URL` über diese Methode auf dem Client ausgeführt wird.
+Im folgenden Beispiel werden URLs für Blogs, die von einer SQL Server-Datenbank zurückgegeben werden, mit einer Hilfsmethode standardisiert. Da der SQL Server-Anbieter keinen Einblick darin hat, wie diese Methode implementiert wird, kann sie nicht in SQL verschoben werden. Alle anderen Aspekte der Abfrage werden in der Datenbank ausgewertet. Die Rückgabe der `URL` über diese Methode erfolgt jedoch über den Client.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/Sample.cs?highlight=6)] -->
 ``` csharp
@@ -50,9 +51,9 @@ public static string StandardizeUrl(string url)
 }
 ```
 
-## <a name="disabling-client-evaluation"></a>Deaktivieren des Client-Bewertung
+## <a name="disabling-client-evaluation"></a>Deaktivieren der Clientauswertung
 
-Auswertung der Client kann sehr nützlich sein, kann in einigen Fällen dies zu schlechten Leistungen führen. Betrachten Sie die folgende Abfrage, wobei die Hilfsmethode jetzt in einem Filter verwendet wird. Da dies in der Datenbank ausgeführt werden kann, werden alle Daten in den Arbeitsspeicher, und klicken Sie dann den Filter gezogen werden auf dem Client angewendet. Abhängig vom Umfang der Daten, und wie viel dieser Daten herausgefiltert wird könnte dies zu schlechten Leistungen führen.
+Die Clientauswertung kann sehr hilfreich sein, in manchen Fällen kann sie jedoch auch zu einer schlechten Leistung führen. Betrachten Sie die folgende Abfrage, in der die Hilfsmethode jetzt in einem Filter verwendet wird. Da dieser Vorgang nicht in der Datenbank durchgeführt werden kann, werden sämtliche Daten mithilfe von Pull in den Speicher übertragen. Anschließend wird der Filter auf den Client angewendet. Abhängig vom Umfang der Daten und davon, wie viele dieser Daten herausgefiltert werden, könnte dies zu einer schlechten Leistung führen.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/Sample.cs)] -->
 ``` csharp
@@ -61,7 +62,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Standardmäßig protokolliert EF Core eine Warnung, wenn Client Auswertung ausgeführt wird. Finden Sie unter [Protokollierung](../miscellaneous/logging.md) für Weitere Informationen zur Anzeige von Protokollausgaben. Sie können das Verhalten beim Client Auswertung erfolgt, entweder auslösen oder Unternehmen Sie nichts ändern. Dies erfolgt, wenn Sie die Optionen für den Kontext - in der Regel in einrichten `DbContext.OnConfiguring`, oder im `Startup.cs` bei Verwendung von ASP.NET Core.
+Standardmäßig protokolliert EF Core bei der Durchführung einer Auswertung eine Warnung. Weitere Informationen zum Anzeigen von Protokollierungsausgaben finden Sie unter [Protokollierung](../miscellaneous/logging.md). Sie können das Verhalten bei einer Clientauswertung auslösen oder nichts unternehmen. Dies geschieht, wenn die Optionen für Ihren Kontext – normalerweise in `DbContext.OnConfiguring` oder `Startup.cs` – bei Verwendung von ASP.NET Core eingerichtet werden.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
 ``` csharp

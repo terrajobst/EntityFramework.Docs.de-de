@@ -1,5 +1,5 @@
 ---
-title: "Explizite Werte festlegen für die generierten Eigenschaften – EF Core"
+title: 'Festlegen expliziter Werte für generierte Eigenschaften: EF Core'
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,85 +8,86 @@ ms.technology: entity-framework-core
 uid: core/saving/explicit-values-generated-properties
 ms.openlocfilehash: f34e92d9a3b10b6ff904257ccd047a8acdaad231
 ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26053700"
 ---
-# <a name="setting-explicit-values-for-generated-properties"></a>Explizite Werte festlegen für die generierten Eigenschaften
+# <a name="setting-explicit-values-for-generated-properties"></a>Festlegen expliziter Werte für generierte Eigenschaften
 
-Eine generierte Eigenschaft ist eine Eigenschaft, deren Wert generiert (entweder durch EF oder die Datenbank) Wenn die Entität hinzugefügt und/oder aktualisiert. Finden Sie unter [Eigenschaften generiert](../modeling/generated-properties.md) für Weitere Informationen.
+Eine generierte Eigenschaft ist eine Eigenschaft, deren Wert (über EF oder die Datenbank) generiert wird, wenn die Entität hinzugefügt oder aktualisiert wird. Weitere Informationen finden Sie unter [Generated Properties (Generierte Eigenschaften)](../modeling/generated-properties.md).
 
-Möglicherweise gibt es Situationen, in denen einen expliziten Wert für eine generierte Eigenschaft, anstatt ein generiertes festgelegt werden sollen.
+Es gibt möglicherweise Situationen, in denen Sie einen expliziten Wert für einen generierten Wert festlegen möchten, anstatt einen zu generieren.
 
 > [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/ExplicitValuesGenerateProperties/) auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/ExplicitValuesGenerateProperties/) finden Sie auf GitHub.
 
 ## <a name="the-model"></a>Das Modell
 
-In diesem Artikel verwendete Modell enthält ein einziges `Employee` Entität.
+Das in diesem Artikel verwendete Modell enthält eine einzelne `Employee`-Entität.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Employee.cs#Sample)]
 
-## <a name="saving-an-explicit-value-during-add"></a>Speichern einen expliziten Wert während hinzufügen
+## <a name="saving-an-explicit-value-during-add"></a>Speichern eines expliziten Werts während des Hinzufügens
 
-Die `Employee.EmploymentStarted` Eigenschaft ist so konfiguriert, dass die Werte, die von der Datenbank für die neue Entitäten (mit einem Standardwert) generiert haben.
+Die Eigenschaft `Employee.EmploymentStarted` ist so konfiguriert, dass ihre Werte von der Datenbank für neue Entitäten generiert werden (mithilfe eines Standardwerts).
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
 
-Der folgende Code fügt zwei Mitarbeiter in der Datenbank.
-* Für die erste Seite kein Wert zugewiesen wurde, um `Employee.EmploymentStarted` -Eigenschaft, sodass es weiterhin ist festgelegt auf den CLR-Standardwert für `DateTime`.
-* Für die zweite haben wir einen expliziten Wert von setzen `1-Jan-2000`.
+Der folgende Code fügt zwei Mitarbeiter in die Datenbank ein.
+* Für den ersten wird der Eigenschaft `Employee.EmploymentStarted` kein Wert zugewiesen, sodass sie weiterhin auf den CLR-Standardwert für `DateTime` festgelegt ist.
+* Für den zweiten wird der explizite Wert `1-Jan-2000` festgelegt.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmploymentStarted)]
 
-Ausgabe zeigt, dass die Datenbank einen Wert für den ersten Mitarbeiter generiert und unsere explizite Wert für die zweite verwendet wurde.
+Die Ausgabe zeigt, dass die Datenbank einen Wert für den ersten Mitarbeiter generiert hat und der explizite Wert für den zweiten Mitarbeiter verwendet wurde.
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM
 2: Jane Doe, 1/1/2000 12:00:00 AM
 ```
 
-### <a name="explicit-values-into-sql-server-identity-columns"></a>Explizite Werte in Identitätsspalten für SQL Server
+### <a name="explicit-values-into-sql-server-identity-columns"></a>Einfügen von expliziten Werten in IDENTITY-Spalten von SQL Server
 
-Gemäß der Konvention die `Employee.EmployeeId` Eigenschaft ist ein speichergenerierte `IDENTITY` Spalte.
+Gemäß der Konvention ist die Eigenschaft `Employee.EmployeeId` eine im Speicher generierte `IDENTITY`-Spalte.
 
-In den meisten Fällen funktioniert die oben gezeigte Ansatz für Schlüsseleigenschaften. Allerdings zum Einfügen von expliziter Werten in einer SQL Server `IDENTITY` Spalte müssen Sie manuell aktivieren `IDENTITY_INSERT` vor dem Aufruf `SaveChanges()`.
+In den meisten Fällen funktioniert der oben gezeigte Ansatz für Schlüsseleigenschaften. Zum Einfügen expliziter Werte in eine `IDENTITY`-Spalte von SQL Server müssen Sie jedoch `IDENTITY_INSERT` manuell aktivieren, bevor Sie `SaveChanges()` aufrufen.
 
 > [!NOTE]  
-> Wir haben eine [Funktionsanfrage](https://github.com/aspnet/EntityFramework/issues/703) auf unseren nachholbedarf automatisch in SQL Server-Anbieter dazu.
+> Die Automatisierung dieses Vorgangs im SQL Server-Anbieter ist eine [Featureanforderung](https://github.com/aspnet/EntityFramework/issues/703), die sich im Backlog befindet.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
 
-Ausgabe zeigt an, dass die angegebenen Ids in der Datenbank gespeichert wurden.
+Die Ausgabe zeigt an, dass die angegebenen IDs in der Datenbank gespeichert wurden.
 
 ``` Console
 100: John Doe
 101: Jane Doe
 ```
 
-## <a name="setting-an-explicit-value-during-update"></a>Einen expliziten Wert festlegen, während der Aktualisierung
+## <a name="setting-an-explicit-value-during-update"></a>Festlegen eines expliziten Werts während eines Updates
 
-Die `Employee.LastPayRaise` Eigenschaft ist so konfiguriert, dass die Werte, die von der Datenbank während eines Updates generiert haben.
+Die Eigenschaft `Employee.LastPayRaise` ist so konfiguriert, dass ihre Werte während Updates von der Datenbank generiert werden.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
 
 > [!NOTE]  
-> Standardmäßig wird EF Core eine Ausnahme ausgelöst, wenn Sie versuchen, einen expliziten Wert für eine Eigenschaft zu speichern, die so konfiguriert ist, dass während des Updates generiert werden. Um dies zu vermeiden, müssen Sie Dropdown-Liste auf der unteren Ebene Metadaten-API und Festlegen der `AfterSaveBehavior` (siehe oben).
+> EF Core löst standardmäßig eine Ausnahme aus, wenn Sie versuchen einen expliziten Wert für eine Eigenschaft zu speichern, die so konfiguriert ist, dass er während des Updates generiert wird. Sie können dies umgehen, indem Sie wie oben gezeigt `AfterSaveBehavior` in der Metadaten-API festlegen.
 
 > [!NOTE]  
-> **Änderungen in EF Core 2.0:** In früheren Versionen wurde das Verhalten After speichern gesteuert, über die `IsReadOnlyAfterSave` Flag. Dieses Flag veraltet und durch ersetzt wurde `AfterSaveBehavior`.
+> **Änderungen in EF Core 2.0:** In vorherigen Releases wurde das Verhalten nach dem Speichern durch das Flag `IsReadOnlyAfterSave` gesteuert. Das Flag ist veraltet und wurde durch `AfterSaveBehavior` ersetzt.
 
-Es gibt auch ein Trigger in der Datenbank zum Generieren von Werten für die `LastPayRaise` Spalte während der `UPDATE` Vorgänge.
+Außerdem gibt es in der Datenbank einen Trigger zum Generieren von Werten für die `LastPayRaise`-Spalte während `UPDATE`-Vorgängen.
 
 [!code-sql[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
 
-Im folgende Code wird das Gehalt von zwei Mitarbeiter in der Datenbank erhöht.
-* Für die erste Seite kein Wert zugewiesen wurde, um `Employee.LastPayRaise` -Eigenschaft, sodass es weiterhin festgelegt ist auf Null.
-* Für die zweite haben wir einen expliziten Wert für eine Woche vor (zurück, bis des Lohns lösen) festgelegt.
+Im folgenden Code wird das Gehalt von zwei Mitarbeitern in der Datenbank erhöht.
+* Für den ersten wird der Eigenschaft `Employee.LastPayRaise` kein Wert zugewiesen, sodass sie weiterhin auf NULL festgelegt ist.
+* Für den zweiten wird ein expliziter Wert von vor einer Woche festgelegt (Rückdatierung der Gehaltserhöhung).
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#LastPayRaise)]
 
-Ausgabe zeigt, dass die Datenbank einen Wert für den ersten Mitarbeiter generiert und unsere explizite Wert für die zweite verwendet wurde.
+Die Ausgabe zeigt, dass die Datenbank einen Wert für den ersten Mitarbeiter generiert hat und der explizite Wert für den zweiten Mitarbeiter verwendet wurde.
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM

@@ -1,5 +1,5 @@
 ---
-title: "Getrennte Entitäten – EF Core"
+title: Getrennte Entitäten – EF Core
 author: ajcvickers
 ms.author: avickers
 ms.date: 10/27/2016
@@ -8,133 +8,134 @@ ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
 ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
 ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152415"
 ---
 # <a name="disconnected-entities"></a>Getrennte Entitäten
 
-Eine Instanz von ' DbContext ' verfolgt automatisch Entitäten, die aus der Datenbank zurückgegeben. Änderungen an diesen Entitäten werden dann erkannt werden, wenn SaveChanges aufgerufen und die Datenbank aktualisiert werden, wenn erforderlich. Finden Sie unter [grundlegende speichern](basic.md) und [verknüpften Daten](related-data.md) für Details.
+Eine DbContext-Instanz verfolgt automatisch Entitäten nach, die von der Datenbank zurückgegeben wurden. An diesen Entitäten vorgenommene Änderungen werden nach dem Aufrufen von SaveChanges erkannt, und die Datenbank wird ggf. aktualisiert. Weitere Einzelheiten finden Sie unter [Grundlegendes zum Speichern](basic.md) und [Zugehörige Daten](related-data.md).
 
-Allerdings sind manchmal Entitäten abgefragt werden mehrere Instanzen von Kontext verwenden, und klicken Sie dann gespeichert mit einer anderen Instanz. Dies geschieht häufig in "getrennt" Szenarien, z. B. eine Webanwendung, in denen die Entitäten werden abgefragt, an den Client gesendet, geändert, zurück an den Server in einer Anforderung gesendet und anschließend gespeichert. In diesem Fall der zweiten Kontext Instanz muss wissen, ob die Entitäten nicht vertraut sind (sollte nun eingefügt sein), oder vorhandene (sollte aktualisiert werden).
+Entitäten werden jedoch manchmal mit einer Kontextinstanz abgefragt und anschließend mit einer anderen Instanz gespeichert. Dies geschieht häufig in „getrennten“ Szenarios, wie z.B. einer Webanwendung, in welcher die Entitäten abgefragt werden, an den Client gesendet werden, geändert werden, in einer Anforderung zurück an den Server gesendet werden und anschließend gespeichert werden. In diesem Fall muss der zweiten Kontextinstanz bekannt sein, ob die Entitäten neu (Einfügung erforderlich) oder bereits vorhanden (Aktualisierung erforderlich) sind.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/) finden Sie auf GitHub.
 
 > [!TIP]
-> EF Core kann nur eine Instanz des eine Entität mit einem angegebenen primären Schlüsselwert überwachen. Die beste Möglichkeit zur Vermeidung dieses wird, die ein Problem ist die Verwendung einen kurzlebigen Kontext für jede Unit of Work, dass der Kontext leer ist, startet verfügt über Entitäten angefügt, und speichert die Entitäten an, und klicken Sie dann den Kontext verworfen und verworfen.
+> EF Core kann nur eine Instanz einer Entität mit einem bestimmten primären Schlüsselwert nachverfolgen. Dass dies ein Problem darstellt, kann verhindert werden, indem für die einzelnen Arbeitseinheiten kurzlebiger Kontext verwendet wird, wie z.B. dass der Kontext leer beginnt, über angefügte Entitäten verfügt, diese Entitäten speichert und der Kontext anschließend verworfen wird.
 
-## <a name="identifying-new-entities"></a>Identifizieren neue Entitäten
+## <a name="identifying-new-entities"></a>Identifizieren neuer Entitäten
 
 ### <a name="client-identifies-new-entities"></a>Client identifiziert neue Entitäten
 
-Der einfachste Fall zu behandeln ist, wenn der Client dem Server informiert, ob die Entität neuen oder vorhandenen ist. Beispielsweise unterscheidet sich häufig die Anforderung an eine neue Entität einfügen aus der Anforderung zum Aktualisieren einer vorhandenen Entität.
+Am einfachsten ist, wenn der Client den Server darüber informiert, ob die Entität neu oder vorhanden ist. Die Anforderung zum Einfügen einer neuen Entität unterscheidet sich beispielsweise häufig von der Anforderung zum Aktualisieren einer vorhandenen Entität.
 
-Der übrige Teil dieses Abschnitts behandelt die Fälle, in denen es erforderlich, auf andere Weise zu ermitteln, ob zum Einfügen oder aktualisieren.
+Im restlichen Teil dieses Abschnitts werden die Fälle behandelt, bei denen auf andere Weise bestimmt werden muss, ob eine Einfügung oder ein Update erforderlich ist.
 
 ### <a name="with-auto-generated-keys"></a>Mit automatisch generierten Schlüsseln
 
-Der Wert von einem automatisch generierten Schlüssel kann häufig verwendet werden, um zu bestimmen, ob eine Entität eingefügt oder aktualisiert werden muss. Wenn der Schlüssel, nicht hat festgelegt (d. h. es immer noch den CLR-Standardwert von Null, 0 (null), usw.), wurde, wird die Entität neue muss und Einfügen benötigt. Andererseits, wenn der Schlüssel-Wert festgelegt wurde, dann muss wurden bereits zuvor gespeichert und ist jetzt ein Update erforderlich. Das heißt, wenn der Schlüssel einen Wert hat, klicken Sie dann Entität abgefragt wurde, an den Client gesendet und hat jetzt zurückkehren, um aktualisiert werden.
+Mit dem Wert eines automatisch generierten Schlüssels kann häufig bestimmt werden, ob eine Entität eingefügt oder aktualisiert werden muss. Wenn der Schlüssel nicht festgelegt worden ist (d.h., wenn er noch den CLR-Standardwert NULL, 0 (null) etc. aufweist), ist davon auszugehen, dass die Entität neu ist und eingefügt werden muss. Wenn der Schlüsselwert bereits festgelegt worden ist, muss er andererseits zuvor gespeichert worden sein und nun aktualisiert werden. Das heißt, wenn der Schlüssel einen Wert aufweist, wurde die Entität abgefragt, an den Client gesendet und nun für ein Update zurückgesendet.
 
-Es ist einfach, eine Festlegung Schlüssel überprüfen, wenn der Entitätstyp bekannt ist:
+Wenn der Entitätstyp bekannt ist, kann ohne großen Aufwand überprüft werden, ob ein nicht festgelegter Schlüssel vorhanden ist:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewSimple)]
 
-EF hat jedoch auch eine integrierten Möglichkeit hierzu für jede Entitätstyp und der Typ des Schlüssels:
+EF verfügt jedoch auch über eine integrierte Möglichkeit, diesen Vorgang für einen beliebigen Entitäts- und Schlüsseltyp durchzuführen:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewGeneral)]
 
 > [!TIP]  
-> Schlüssel werden als Entitäten vom Kontext, nachverfolgt werden festgelegt, selbst wenn die Entität im Zustand ' Added ' befindet. Dies ist hilfreich beim Durchlaufen von Entitäten und entscheiden Vorgehensweise mit einzelnen, z. B. bei Verwendung der TrackGraph-API in einem Diagramm. Der Schlüssel-Wert sollte nur verwendet werden, auf die Weise, die hier gezeigten _vor_ wird jeder Aufruf zum Nachverfolgen der Entität.
+> Schlüssel werden festgelegt, sobald Entitäten vom Kontext nachverfolgt werden, selbst dann, wenn die Entität den Status „Hinzugefügt“ aufweist. Dies ist hilfreich, wenn ein Graph mit Entitäten durchlaufen wird und entschieden wird, wie mit den einzelnen Entitäten umgegangen werden soll, z.B. bei der Verwendung der TrackGraph-API. Der Schlüsselwert sollte nur auf die hier dargestellte Weise verwendet werden, _bevor_ ein Aufruf zum Nachverfolgen der Entität durchgeführt wird.
 
 ### <a name="with-other-keys"></a>Mit anderen Schlüsseln
 
-Ein anderen Mechanismus ist erforderlich, um neue Entitäten zu identifizieren, wenn die Schlüsselwerte nicht automatisch generiert werden. Es gibt zwei allgemeine Vorgehensweisen beim dies:
+Zum Identifizieren neuer Entitäten sind einige andere Mechanismen erforderlich, wenn Schlüsselwerte nicht automatisch generiert werden. Hierfür gibt es zwei allgemeine Ansätze:
  * Abfrage für die Entität
- * Übergeben Sie ein Flag vom client
+ * Übergeben eines Flags vom Client
 
-Für die Entität eine Abfrage nur verwenden Sie die Find-Methode:
+Verwenden Sie für eine Abfrage für die Entität einfach die Find-Methode:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewQuery)]
 
-Es ist nicht Gegenstand dieses Dokuments, um den vollständigen Code für die Übergabe eines Flags von einem Client anzuzeigen. In einer Web-app bedeutet dies normalerweise, die verschiedene Anforderungen für unterschiedliche Aktionen, oder ein Zustand, der in der Anforderung übergeben, und extrahieren es im Controller.
+Die Anzeige des vollständigen Codes für die Übergabe eines Flags von einem Client ist nicht Gegenstand dieses Dokuments. In einer Web-App bedeutet dies in der Regel, dass für verschiedene Aktionen unterschiedliche Anforderungen durchgeführt werden, oder dass einige Status in der Anforderung übergeben und anschließend im Controller extrahiert werden.
 
-## <a name="saving-single-entities"></a>Speichern die einzelne Entitäten
+## <a name="saving-single-entities"></a>Speichern einzelner Entitäten
 
-Wenn es bekannt ist, unabhängig davon, ob eine INSERT- oder Update ist erforderlich, und klicken Sie dann hinzufügen oder aktualisieren ordnungsgemäß verwendet werden kann:
+Wenn bekannt ist, ob eine Einfügung oder ein Update erforderlich ist, kann entsprechend die Add- oder die Update-Methode verwendet werden:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertAndUpdateSingleEntity)]
 
-Jedoch, wenn die Entität automatisch generierten Schlüsselwerte verwendet wird, kann dann die Update-Methode für beide Fälle verwendet werden:
+Wenn die Entität automatisch generierte Schlüsselwerte verwendet, kann die Update-Methode in beiden Fällen verwendet werden:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntity)]
 
-Die Update-Methode markiert normalerweise die Entität für das Update nicht einfügen. Wenn die Entität einen automatisch generierten Schlüssel hat, und kein Schlüsselwert festgelegt wurde, und klicken Sie dann die Entität für stattdessen automatisch markiert ist allerdings fügen Sie zu können ein.
+Die Update-Methode markiert die Entität normalerweise für das Update, nicht für die Einfügung. Wenn die Entität über einen automatisch generierten Schlüssel verfügt und kein Schlüsselwert festgelegt wurde, wird die Entität jedoch stattdessen für eine Einfügung markiert.
 
 > [!TIP]  
-> Dieses Verhalten wurde in der EF Core 2.0 eingeführt. Bei früheren Versionen ist es immer erforderlich, um explizit anzugeben, hinzufügen oder aktualisieren.
+> Dieses Verhalten wurde in EF Core 2.0 eingeführt. Bei früheren Releases muss immer explizit die Add- oder die Update-Methode ausgewählt werden.
 
-Wenn die Entität wird nicht automatisch generierten Schlüssel verwenden, die Anwendung muss entscheiden Sie, ob die Entität eingefügt oder aktualisiert werden: Z. B.:
+Wenn die Entität keine automatisch generierten Schlüssel verwendet, muss die Anwendung entscheiden, ob die Entität eingefügt oder aktualisiert werden sollte. Beispiel:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
-Bei den folgenden Schritten werden:
-* Wenn suchen gibt null ist, und klicken Sie dann die Datenbank im Blog mit dieser ID bereits enthält, damit wir rufen hinzufügen markieren Sie es zum Einfügen.
-* Wenn suchen eine Entität zurückgibt, klicken sie in der Datenbank vorhanden ist und der Kontext verfolgt nun der vorhandenen Entität
-  * Klicken Sie dann verwenden wir SetValues, um die Werte für alle Eigenschaften für diese Entität, mit denen festgelegt wird, die vom Client stammen.
-  * Der Aufruf SetValues werden in der Entität aktualisiert werden, nach Bedarf gekennzeichnet.
+Folgende Schritte müssen ausgeführt werden:
+* Wenn die Find-Methode NULL zurückgibt, enthält die Datenbank den Blog mit dieser ID noch nicht. Daher wird die Add-Methode aufgerufen, um die Datenbank für eine Einfügung zu markieren.
+* Wenn die Find-Methode eine Entität zurückgibt, ist diese in der Datenbank vorhanden, und der Kontext verfolgt nun die vorhandene Entität nach
+  * Anschließend werden die Werte für sämtliche Eigenschaften dieser Entität mit der SetValues-Methode auf die vom Client stammenden Werte festgelegt.
+  * Beim SetValues-Aufruf wird die Entität entsprechend ihrer Markierung nach Bedarf aktualisiert.
 
 > [!TIP]  
-> SetValues kennzeichnet nur, wie die Eigenschaften geändert werden, die über unterschiedliche Werte in die nachverfolgte Entität verfügen. Dies bedeutet, dass das Update gesendet werden, wird nur die Spalten, die tatsächlich geändert wurden aktualisiert. (Und wenn nichts geändert wurde, wird kein Update auf allen gesendet,.)
+> SetValues markiert nur die Eigenschaften als geändert, die andere Werte aufweisen als die Eigenschaften in der verfolgten Entität. Das heißt, wenn das Update gesendet wird, werden nur die Spalten aktualisiert, die tatsächlich geändert wurden. (Und wenn keine Änderungen vorgenommen wurden, wird gar kein Update gesendet.)
 
-## <a name="working-with-graphs"></a>Arbeiten mit Diagrammen
+## <a name="working-with-graphs"></a>Arbeiten mit Graphen
 
 ### <a name="identity-resolution"></a>Identitätsauflösung
 
-Wie oben bereits erwähnt, können EF Core nur eine Instanz des eine Entität mit einem angegebenen primären Schlüsselwert überwachen. Beim Arbeiten mit Diagrammen sollte das Diagramm im Idealfall erstellt werden, dass diese invariante wird beibehalten, und der Kontext für nur eine Unit of Work verwendet werden soll. Wenn das Diagramm Duplikate enthält, wird zum Diagramm zu verarbeiten, sendet sie an EF konsolidieren mehrere Instanzen in einem sein. Dies kann nicht triviale sein, in dem Instanzen in Konflikt stehenden Werte und Beziehungen, verfügen, damit die Konsolidierung von Duplikaten in Ihrer anwendungspipeline Auflösung des Konflikts zwischen vermeiden so bald wie möglich ausgeführt werden soll.
+Wie oben bereits erwähnt, kann EF Core nur eine Instanz einer Entität mit einem bestimmten primären Schlüsselwert nachverfolgen. Bei der Arbeit mit Graphen sollte der Graph idealerweise so erstellt werden, dass diese Invariante beibehalten wird. Zudem sollte der Kontext nur für eine Arbeitseinheit verwendet werden. Wenn der Graph Duplikate enthält, muss dieser verarbeitet werden, bevor er an EF gesendet wird, um mehrere Instanzen in eine zu konsolidieren. Dies ist möglicherweise nicht einfach, wenn Instanzen in Konflikt stehende Werte und Beziehungen aufweisen. Zur Vermeidung einer Konfliktauflösung sollte die Konsolidierung von Duplikaten folglich so schnell wie möglich in Ihrer Anwendungspipeline erfolgen.
 
-### <a name="all-newall-existing-entities"></a>Alle neuen Eigenschaft bzw. alle vorhandenen Entitäten
+### <a name="all-newall-existing-entities"></a>Alle neuen/alle vorhandenen Entitäten
 
-Ein Beispiel für das Arbeiten mit Diagrammen wird einfügen oder aktualisieren ein Blogs zusammen mit ihrer Auflistung von zugehörigen Beiträge. Wenn alle Entitäten im Diagramm eingefügt werden soll, oder alle aktualisiert werden soll, ist der Prozess identisch für einzelne Entitäten wie oben beschrieben aus. Angenommen, ein Diagramm der Blogs und Beiträge, die wie folgt erstellt:
+Ein Beispiel für die Arbeit mit Graphen besteht in einer Einfügung oder Aktualisierung eines Blogs zusammen mit der zugehörigen Sammlung zugehöriger Beiträge. Wenn alle Entitäten im Graph eingefügt werden sollen, oder wenn alle Entitäten aktualisiert werden sollen, entspricht der Prozess dem oben beschriebenen Prozess für einzelne Entitäten. Beispiel: Ein wie folgt erstellter Graph mit Blogs und Beiträgen:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#CreateBlogAndPosts)]
 
-können wie folgt eingefügt werden:
+kann wie folgt eingefügt werden:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertGraph)]
 
-Der Aufruf von Add werden im Blog und alle Beiträge einzufügenden gekennzeichnet.
+Beim Aufruf zum Hinzufügen werden der Blog und sämtliche Beiträge für eine Einfügung markiert.
 
-Ebenso, wenn alle Entitäten in einem Diagramm aktualisiert werden müssen, kann dann Update verwendet werden:
+Gleichermaßen kann die Update-Methode verwendet werden, wenn sämtliche Entitäten in einem Graph aktualisiert werden müssen:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#UpdateGraph)]
 
-Im Blog und alle ihre Beiträge werden gekennzeichnet werden, um aktualisiert werden.
+Der Blog und alle zugehörigen Beiträge werden für ein Update markiert.
 
-### <a name="mix-of-new-and-existing-entities"></a>Mischung neue und vorhandene Entitäten
+### <a name="mix-of-new-and-existing-entities"></a>Mischung aus neuen und vorhandenen Entitäten
 
-Mit automatisch generierten Schlüssel kann Update erneut für einfügungen und Updates, verwendet werden, selbst wenn das Diagramm enthält eine Mischung aus Entitäten, die eingefügt werden müssen, auch solche, die aktualisiert werden müssen:
+Bei automatisch generierten Schlüsseln kann erneut für Einfügungen und Updates die Update-Methode verwendet werden. Dies gilt auch dann, wenn der Graph eine Mischung aus einzufügenden und zu aktualisierenden Entitäten enthält:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateGraph)]
 
-Update kennzeichnet jede Entität im Diagramm, Blog oder Post zum Einfügen, wenn sie einen Satz Schlüsselwert keinen während alle anderen Entitäten für Update markiert sind.
+Die Update-Methode markiert eine beliebige Entität im Graph, Blog oder Beitrag für eine Einfügung, wenn diese keinen festgelegten Schlüsselwert aufweist, während alle anderen Entitäten für eine Aktualisierung markiert werden.
 
-Wie vor, bei der automatisch generierten Schlüssel nicht mit einer Abfrage und einige Verarbeitungsschritte verwendet werden können:
+Wie bisher können eine Abfrage und eine Verarbeitungsschritte verwendet werden, wenn keine automatisch generierten Schlüssel verwendet werden:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateGraphWithFind)]
 
 ## <a name="handling-deletes"></a>Behandlung von Löschvorgängen
 
-Delete aufspüren zu kann, da behandeln das Fehlen einer Entität bedeutet häufig, dass sie gelöscht werden soll. Eine Möglichkeit für den Umgang mit Dies ist die Verwendung von "vorläufige Löschvorgänge", so, dass die Entität markiert ist, als gelöscht, statt Sie tatsächlich gelöscht werden. Löscht wird dann der Updates identisch. Vorläufige Löschvorgänge können implementiert werden, sich mit [Abfragen Filter](xref:core/querying/filters).
+Die Behandlung von Löschvorgängen kann kompliziert sein, da die Abwesenheit einer Entität häufig bedeutet, dass diese gelöscht werden sollte. Eine Möglichkeit für den Umgang hiermit besteht in der Verwendung von „vorläufigen Löschvorgängen“. Dabei wird die Entität als gelöscht markiert, statt tatsächlich gelöscht zu werden. Löschvorgänge entsprechen anschließend Updates. Vorläufige Löschvorgänge können mit [Abfragefiltern](xref:core/querying/filters) implementiert werden.
 
-Für "true" löscht wird ein allgemeines Muster um eine Erweiterung des Abfragemusters für eine durchführen, was im Wesentlichen ein Diagramm Diff. Zum Beispiel:
+Bei Löschvorgängen mit dem Wert „TRUE“ wird häufig eine Erweiterung des auszuführenden Abfragemusters verwendet. Dies ist im Grunde genommen eine GraphDiff-Methode. Zum Beispiel:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
 
 ## <a name="trackgraph"></a>TrackGraph
 
-Intern, Add-, Anfügen und Update verwenden Graph-Durchlauf mit einem Feststellung für jede Entität, gibt an, ob er als hinzugefügt (insert), "geändert" (zu aktualisieren), markiert werden soll Unchanged (keine), oder gelöschte (zu löschen). Dieser Mechanismus wird über die TrackGraph-API verfügbar gemacht. Nehmen wir beispielsweise an, sendet der Client wieder Entitäten in einem Diagramm wird einige Kennzeichen für jede Entität, der angibt, wie sie behandelt werden sollen. TrackGraph kann dann verwendet werden, um dieses Flag zu verarbeiten:
+Die Add-, Attach- und Update-Methoden verwenden intern einen Diagrammdurchlauf, in dem bestimmt wird, ob die einzelnen Entitäten als „Hinzugefügt“ (für Einfügung), „Geändert“ (für Update), „Unverändert“ (nichts unternehmen) oder als „Gelöscht“ (für Löschung) markiert werden sollen. Dieser Mechanismus wird über die TrackGraph-API verfügbar gemacht. Angenommen beispielsweise, der Client sendet einen Graph mit Entitäten zurück und legt für jede Entität ein Flag fest, das angibt, wie die Entität behandelt werden soll. Anschließend kann dieses Flag mit TrackGraph verarbeitet werden:
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#TrackGraph)]
 
-Die Flags werden nur als Teil der Entität aus Gründen der Einfachheit der im Beispiel angezeigt. In der Regel würden die Flags Teil einer DTO oder einem anderen Status in der Anforderung enthalten sein.
+Zur Vereinfachung des Beispiels werden die Flags nur als Teil der Entität angezeigt. Normalerweise wären die Flags Teil eines DTO oder eines anderen in der Anforderung enthaltenen Status.

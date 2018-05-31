@@ -1,5 +1,5 @@
 ---
-title: "Asynchrone Abfragen – EF Core"
+title: 'Asynchrone Abfragen: EF Core'
 author: rowanmiller
 ms.author: divega
 ms.date: 01/24/2017
@@ -8,20 +8,21 @@ ms.technology: entity-framework-core
 uid: core/querying/async
 ms.openlocfilehash: 6554f04d0edfe0ca2ee72ebed8b878a1997a9500
 ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052680"
 ---
 # <a name="asynchronous-queries"></a>Asynchrone Abfragen
 
-Asynchrone Abfragen vermeiden, einen Thread zu blockieren, während die Abfrage in der Datenbank ausgeführt wird. Dies kann nützlich, um zu vermeiden, fixieren die Benutzeroberfläche einer Anwendung dick-Client sein. Asynchrone Vorgänge können auch in einer Web-Anwendung Durchsatz zu erhöhen, in dem der Thread freigegeben werden kann, um andere Anforderungen zu verarbeiten, während die Datenbankvorgang abgeschlossen wird. Weitere Informationen finden Sie unter [asynchrone Programmierung in c#](https://docs.microsoft.com/dotnet/csharp/async).
+Asynchrone Abfragen vermeiden, dass ein Thread blockiert wird, während die Abfrage in der Datenbank ausgeführt wird. Dies hilft dabei, das Abstürzen der Benutzeroberfläche einer Thick-Client-Anwendung zu vermeiden. Asynchrone Vorgänge können außerdem den Durchsatz in Webanwendungen erhöhen, in denen der Thread für andere Anforderungen freigegeben werden kann, während der Datenbankvorgang abgeschlossen wird. Weitere Informationen finden Sie unter [Asynchrone Programmierung in C#](https://docs.microsoft.com/dotnet/csharp/async).
 
 > [!WARNING]  
-> EF Core unterstützt nicht mehrere parallele Vorgänge, die auf dieselbe Kontextinstanz ausgeführt werden. Sie sollten immer vor dem nächsten Vorgang Abschluss eines Vorgangs zu warten. Dies erfolgt in der Regel mithilfe der `await` Schlüsselwort bei jedem asynchronen Vorgang.
+> EF Core unterstützt nicht die Ausführung mehrerer paralleler Vorgänge, die auf derselben Kontextinstanz ausgeführt werden. Sie sollten immer auf den Abschluss eines Vorgangs warten, bevor Sie den nächsten starten. In der Regel erfolgt dies für alle asynchronen Vorgänge durch das Schlüsselwort `await`.
 
-Entity Framework Core bietet eine Reihe von asynchronen Erweiterungsmethoden, die verwendet werden können, als Alternative zu den LINQ-Methoden, die dazu führen, dass eine Abfrage ausgeführt werden und die Ergebnisse zurückgegeben. Beispiele hierfür sind `ToListAsync()`, `ToArrayAsync()`, `SingleAsync()`usw. Es sind nicht asynchronen Versionen der LINQ-Operatoren wie z. B. `Where(...)`, `OrderBy(...)`usw., da diese Methoden nur die LINQ-Ausdrucksbaumstruktur zu erstellen und führen nicht dazu, dass die Abfrage in der Datenbank ausgeführt werden.
+Entity Framework Core stellt eine Reihe von asynchronen Erweiterungsmethoden bereit, die alternativ zu den LINQ-Methoden verwendet werden können, die die Ausführung einer Abfrage und die Rückgabe von Ergebnissen auslösen. Beispiele dafür sind `ToListAsync()`, `ToArrayAsync()`, `SingleAsync()` usw. Es gibt nicht asynchrone Versionen von LINQ-Operatoren, z.B. `Where(...)`, `OrderBy(...)` usw., da diese Methoden nur die LINQ-Ausdrucksbaumstruktur erstellen und nicht die Abfrage in der Datenbank auslösen.
 
 > [!IMPORTANT]  
-> Die EF Core Async-Erweiterungsmethoden werden definiert, der `Microsoft.EntityFrameworkCore` Namespace. Dieser Namespace muss für die Methoden zur Verfügung stehen, importiert werden.
+> Die asynchronen Erweiterungsmethoden von EF Core werden im Namespace `Microsoft.EntityFrameworkCore` definiert. Dieser Namespace muss importiert werden, damit die Methoden verfügbar sind.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/Async/Sample.cs#Sample)]

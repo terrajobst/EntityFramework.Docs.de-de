@@ -1,5 +1,5 @@
 ---
-title: RAW-SQL-Abfragen - EF Core
+title: Unformatierte SQL-Abfragen – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,38 +8,39 @@ ms.technology: entity-framework-core
 uid: core/querying/raw-sql
 ms.openlocfilehash: 29b7e20e875bf791a88a92636c1df4bc4e31656b
 ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 05/14/2018
+ms.locfileid: "34163212"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 
-Entity Framework Core können Sie SQL-Abfragen, die unformatierten Dropdown, bei der Arbeit mit einer relationalen Datenbank. Dies kann nützlich sein, wenn die Abfrage, die Sie ausführen möchten mit LINQ ausgedrückt werden kann, oder wenn eine LINQ-Abfrage mit keine ineffizienten SQL, die an die Datenbank dazu führte, ist.
+Mit Entity Framework Core können Sie bei der Arbeit mit einer relationalen Datenbank die Struktur unformatierter SQL-Abfragen maximieren. Dies kann nützlich sein, wenn die durchzuführende Abfrage nicht mit LINQ formuliert werden kann oder wenn die Verwendung einer LINQ-Abfrage dazu führt, dass eine ineffiziente SQL-Abfrage an die Datenbank gesendet wird.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
 
 ## <a name="limitations"></a>Einschränkungen
 
-Es gibt einige Einschränkungen bei der Verwendung der unformatierte SQL-Abfragen verwenden, berücksichtigen:
-* SQL-Abfragen können nur auf Entitätstypen zurückgeben, die Teil des Modells verwendet werden. Es ist eine Erweiterung auf unseren nachholbedarf zu [aktivieren, die Ad-hoc-Typen von unformatierten SQL-Abfragen zurückgeben](https://github.com/aspnet/EntityFramework/issues/1862).
+Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkungen zu beachten:
+* SQL-Abfragen können nur für die Rückgabe von Entitätstypen verwendet werden, die Teil Ihres Modells sind. In unserem Backlog gibt es eine Erweiterung zum [Aktivieren der Rückgabe von Ad-hoc-Typen aus unformatierten SQL-Abfragen](https://github.com/aspnet/EntityFramework/issues/1862).
 
-* Die SQL-Abfrage muss es sich um Daten für alle Eigenschaften des Typs Entität oder Abfrage zurückgeben.
+* Die SQL-Abfrage muss Daten für sämtliche Eigenschaften des Entitäts- oder Abfragetyps zurückgeben.
 
-* Die Spaltennamen im Resultset müssen die Spaltennamen entsprechen, denen Eigenschaften zugeordnet werden. Beachten Sie, dass dieser vom EF6 unterscheidet, in denen Eigenschaft/spaltenzuordnung für unformatierte SQL-Abfragen wurde ignoriert, und Resultsetspalte mussten Namen der Eigenschaft entsprechen.
+* Die Spaltennamen im Resultset müssen mit den Spaltennamen übereinstimmen, denen Eigenschaften zugewiesen sind. Beachten Sie, dass sich dies von EF 6 unterscheidet. Dort wurde die Zuordnung von Eigenschaften/Spalten bei unformatierten SQL-Abfragen ignoriert, und Spaltennamen in einem Resultset mussten mit den Eigenschaftsnamen übereinstimmen.
 
-* Die SQL-Abfrage kann nicht verknüpfte Daten enthalten. Allerdings in vielen Fällen machen Sie auf die Abfrage mithilfe der `Include` Operator, um verwandte Daten zurückzugeben (finden Sie unter [einschließlich der zugehörige Daten](#including-related-data)).
+* Die SQL-Abfrage darf keine zugehörigen Daten enthalten. In vielen Fällen können Sie die Abfrage jedoch mit dem Operator `Include` zusammensetzen, damit zugehörige Daten zurückgegeben werden (siehe [Einschließen zugehöriger Daten](#including-related-data)).
 
-* `SELECT` Anweisungen, die an diese Methode übergebenen sollte im Allgemeinen zusammensetzbar sein: Wenn EF Core muss zusätzliche Abfrageoperatoren auf dem Server ausgewertet (z. B. zum Übersetzen von LINQ-Operatoren angewendet, nachdem `FromSql`), die angegebene SQL als eine Unterabfrage behandelt werden. Dies bedeutet, dass die übergebene SQL nicht enthalten soll, alle Zeichen oder die Optionen, die nicht wie für eine Unterabfrage gültig sind:
-  * nachfolgende Semikolons
-  * Auf SQL Server eine nachfolgende Abfrageebene-Hinweis, z. B. `OPTION (HASH JOIN)`
-  * Auf SQL Server ein `ORDER BY` -Klausel, die nicht von begleitet wird `TOP 100 PERCENT` in die `SELECT` Klausel
+* An diese Methode übergebene `SELECT`-Anweisungen sollten im Allgemeinen zusammensetzbar sein: Wenn EF Core weitere Abfrageoperatoren auf dem Server auswerten muss (z.B. nach `FromSql` angewendete LINQ-Operatoren verschieben muss), wird die bereitgestellte SQL-Abfrage wie eine Unterabfrage behandelt. Das heißt, dass die übergebene SQL-Abfrage keine Zeichen oder Optionen enthalten sollte, die in einer Unterabfrage ungültig sind, wie z.B.:
+  * ein nachfolgendes Semikolon
+  * Auf SQL Server ein nachfolgender Hinweis auf Abfrageebene-Hinweis, z.B. `OPTION (HASH JOIN)`
+  * Auf SQL Server eine `ORDER BY`-Klausel, die nicht durch `TOP 100 PERCENT` in der `SELECT`-Klausel ergänzt wird
 
-* SQL-Anweisungen außer `SELECT` werden als nicht zusammensetzbare automatisch erkannt. Daher die vollständigen Ergebnisse der gespeicherten Prozeduren werden immer an den Client zurückgegeben und LINQ-Operatoren angewendet, nachdem `FromSql` werden im Arbeitsspeicher ausgewertet. 
+* Andere SQL-Anweisungen als `SELECT` werden automatisch als nicht zusammensetzbar erkannt. Die vollständigen Ergebnisse gespeicherter Prozeduren werden daher immer an den Client zurückgegeben, und sämtliche LINQ-Operatoren, die nach `FromSql` angewendet werden, werden speicherintern ausgewertet. 
 
-## <a name="basic-raw-sql-queries"></a>Grundlegende unformatierten SQL-Abfragen
+## <a name="basic-raw-sql-queries"></a>Grundlegende unformatierte SQL-Abfragen
 
-Sie können die *FromSql* Erweiterungsmethode, um eine LINQ-Abfrage basierend auf einer unformatierten SQL-Abfrage zu beginnen.
+Sie können die *FromSql*-Erweiterungsmethode verwenden, um eine LINQ-Abfrage basierend auf einer unformatierten SQL-Abfrage zu starten.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -48,7 +49,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-RAW-SQL-Abfragen können zum Ausführen einer gespeicherten Prozedur verwendet werden.
+Unformatierte SQL-Abfragen können für die Ausführung einer gespeicherten Prozedur verwendet werden.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -59,9 +60,9 @@ var blogs = context.Blogs
 
 ## <a name="passing-parameters"></a>Übergeben von Parametern
 
-Wie bei jeder API, die SQL akzeptiert, ist es wichtig, die zum Schutz vor SQL Injection-Angriff Eingabe durch den Benutzer zu parametrisieren. Sie können Platzhalter für Parameter in der SQL-Abfragezeichenfolge enthalten, und geben Sie dann Parameterwerte als zusätzliche Argumente. Alle Parameterwerte, die Sie angeben, werden automatisch konvertiert werden, um eine `DbParameter`.
+Wie bei jeder API, die von SQL akzeptiert wird, ist es wichtig, sämtliche Benutzereingaben zum Schutz vor Angriffen durch die Einschleusung von SQL-Befehlen zu parametrisieren. Sie können in der SQL-Abfragezeichenfolge Platzhalter für Parameter einschließen und anschließend Parameterwerte als zusätzliche Argumente bereitstellen. Sämtliche von Ihnen bereitgestellte Parameterwerte werden automatisch in einen `DbParameter` konvertiert.
 
-Das folgende Beispiel übergibt einen einzelnen Parameter an eine gespeicherte Prozedur. Während dies aussehen könnte z. B. `String.Format` -Syntax wird der angegebene Wert in umschlossen Parameter und den generierten Parameternamen eingefügt Where der `{0}` Platzhalter angegeben wurde.
+Im folgenden Beispiel wird ein einzelner Parameter an eine gespeicherte Prozedur übergeben. Obwohl dies `String.Format`-Syntax ähnelt, ist der bereitgestellte Wert in einen Parameter eingeschlossen. Der Name des generierten Parameters wird dort eingefügt, wo der Platzhalter `{0}` angegeben wurde.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -72,7 +73,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Dies ist die gleiche Abfrage jedoch mit einer Zeichenfolge Interpolation Syntax in EF Core 2.0 und höher unterstützt wird:
+Dies ist die gleiche Abfrage, jedoch mit einer Zeichenfolgeninterpolationssyntax, die ab EF Core 2.0 unterstützt wird:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -83,7 +84,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Sie können auch ein DbParameter-Objekt zu erstellen und als Parameterwert angeben. Dadurch können Sie benannte Parameter in der SQL-Abfragezeichenfolge verwendet werden.
+Sie können auch einen DbParameter erstellen und diesen als Parameterwert bereitstellen. Dadurch können Sie benannte Parameter in der SQL-Abfragezeichenfolge verwenden.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -94,11 +95,11 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-## <a name="composing-with-linq"></a>Verfassen von LINQ
+## <a name="composing-with-linq"></a>Zusammensetzen mit LINQ
 
-Wenn die SQL-Abfrage auf die Datenbank geschrieben werden kann, können Sie zusätzlich zu den anfänglichen raw SQL-Abfrage, die mithilfe von LINQ-Operatoren zusammenstellen. SQL-Abfragen, die zusammengesetzt werden können, auf die mit dem `SELECT` Schlüsselwort.
+Wenn die SQL-Abfrage in der Datenbank zusammengesetzt werden kann, können Sie die erste unformatierte SQL-Abfrage mit LINQ-Operatoren zusammensetzen. Zusammensetzbare SQL-Abfragen beginnen mit dem Schlüsselwort `SELECT`.
 
-Im folgenden Beispiel wird eine unformatierte SQL-Abfrage, die aus einem Tabellenwertparameter-Funktion (TVF) Wählt aus, und klicken Sie dann verfasst darauf verwenden LINQ zum Ausführen von Filtern und sortieren.
+Im folgenden Beispiel wird eine unformatierte SQL-Abfrage verwendet, die eine Auswahl aus einer Tabellenwertfunktion trifft und diese anschließend mit LINQ zur Durchführung einer Filterung und Sortierung zusammensetzt.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -111,9 +112,9 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-### <a name="including-related-data"></a>Einschließlich der zugehörige Daten
+### <a name="including-related-data"></a>Einschließen zugehöriger Daten
 
-Verfassen von LINQ-Operatoren kann verwendet werden, um verwandte Daten in der Abfrage enthalten.
+Das Zusammensetzen mit LINQ-Operatoren dient zum Einschließen zugehöriger Daten in der Abfrage.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -126,4 +127,4 @@ var blogs = context.Blogs
 ```
 
 > [!WARNING]  
-> **Verwenden Sie immer die Parametrisierung für unformatierte SQL-Abfragen:** APIs, die eine unformatierte SQL akzeptieren eine Zeichenfolge wie z. B. `FromSql` und `ExecuteSqlCommand` ermöglicht, dass Werte einfach als Parameter übergeben werden. Zusätzlich zum Validieren von Benutzereingaben, verwenden Sie immer Parametrisierung für eine beliebige Werte, die in einem unformatierten SQL-Abfrage/Befehl verwendet. Wenn Sie einen beliebigen Teil der Abfragezeichenfolge dynamisch zu erstellen, dann sind Sie verantwortlich für das Validieren von Eingaben zum Schutz vor SQL Injection-Angriffen Verketten von Zeichenfolgen verwenden.
+> **Für unformatierte SQL-Abfragen immer Parametrisierung verwenden:** APIs, die eine unformatierte SQL-Zeichenfolge wie `FromSql` und `ExecuteSqlCommand` akzeptieren, lassen zu, dass Werte problemlos als Parameter übergeben werden. Zusätzlich zum Überprüfen der Benutzereingabe sollten Sie die Parametrisierung für sämtliche Werte verwenden, die in unformatierten SQL-Abfragen/-Befehlen enthalten sind. Wenn Sie mit der Zeichenfolgenverkettung auf dynamische Weise Teile der Abfragezeichenfolge erstellen, müssen Sie zum Schutz vor Angriffen durch die Einschleusung von SQL-Befehlen jede Eingabe überprüfen.
