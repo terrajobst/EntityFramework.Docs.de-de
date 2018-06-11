@@ -1,15 +1,16 @@
 ---
-title: "Migrationen – EF Core"
+title: Migrationen – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 ms.technology: entity-framework-core
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 24fbe344eba9b99929d905ac2b9e49c68a1a4323
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: dd164125c053497af94773011127853ad10d27a6
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754508"
 ---
 <a name="migrations"></a>Migrationen
 ==========
@@ -177,7 +178,7 @@ myDbContext.Database.Migrate();
 ```
 
 > [!WARNING]
-> Rufen Sie `EnsureCreated()` nicht vor `Migrate()` auf. `EnsureCreated()` umgeht Migrationen zum Erstellen von Schemas und führt dazu, dass `Migrate()` fehlerhaft ist.
+> Rufen Sie `EnsureCreated()` nicht vor `Migrate()` auf. `EnsureCreated()` umgeht Migrationen zum Erstellen von Schemas, was dazu führt, dass `Migrate()` fehlerhaft ist.
 
 > [!NOTE]
 > Diese Methode basiert auf dem `IMigrator`-Dienst, der für erweiterte Szenarien verwendet werden kann. Verwenden Sie `DbContext.GetService<IMigrator>()`, um darauf zugreifen.
