@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052850"
 ---
 # <a name="required-and-optional-properties"></a><span data-ttu-id="9581b-102">Erforderliche und optionale Eigenschaften</span><span class="sxs-lookup"><span data-stu-id="9581b-102">Required and Optional Properties</span></span>
 

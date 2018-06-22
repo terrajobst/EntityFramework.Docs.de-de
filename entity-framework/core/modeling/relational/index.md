@@ -1,5 +1,5 @@
 ---
-title: "Modellierung relationaler Datenbanken – EF Core"
+title: Modellierung relationaler Datenbanken – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26048762"
 ---
 # <a name="relational-database-modeling"></a><span data-ttu-id="7bf35-102">Modellierung relationaler Datenbanken</span><span class="sxs-lookup"><span data-stu-id="7bf35-102">Relational Database Modeling</span></span>
 

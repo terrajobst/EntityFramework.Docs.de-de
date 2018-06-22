@@ -9,6 +9,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002804"
 ---
 <a name="migrations-with-multiple-providers"></a><span data-ttu-id="fc430-102">Migrationen mit mehreren Anbietern</span><span class="sxs-lookup"><span data-stu-id="fc430-102">Migrations with Multiple Providers</span></span>
 ==================================

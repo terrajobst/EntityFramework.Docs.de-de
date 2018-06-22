@@ -9,6 +9,7 @@ ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 12/22/2017
+ms.locfileid: "27161226"
 ---
 <a name="using-a-separate-project"></a><span data-ttu-id="c2bb6-102">Verwenden ein separates Projekt</span><span class="sxs-lookup"><span data-stu-id="c2bb6-102">Using a Separate Project</span></span>
 ========================

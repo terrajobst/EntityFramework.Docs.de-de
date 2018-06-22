@@ -10,6 +10,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002820"
 ---
 # <a name="ef-core-and-ef6-which-one-is-right-for-you"></a><span data-ttu-id="0977a-102">EF Core und EF6: Auswahl der geeigneten Version</span><span class="sxs-lookup"><span data-stu-id="0977a-102">EF Core and EF6: Which One Is Right for You</span></span>
 

@@ -11,6 +11,7 @@ ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152358"
 ---
 # <a name="inheritance-relational-database"></a><span data-ttu-id="8a5c1-102">Vererbung (relationale Datenbank)</span><span class="sxs-lookup"><span data-stu-id="8a5c1-102">Inheritance (Relational Database)</span></span>
 

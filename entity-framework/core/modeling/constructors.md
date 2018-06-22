@@ -11,6 +11,7 @@ ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812494"
 ---
 # <a name="entity-types-with-constructors"></a><span data-ttu-id="60dcc-102">Entitätstypen mit Konstruktoren</span><span class="sxs-lookup"><span data-stu-id="60dcc-102">Entity types with constructors</span></span>
 

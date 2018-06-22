@@ -11,6 +11,7 @@ ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 05/14/2018
+ms.locfileid: "34163199"
 ---
 # <a name="data-seeding"></a><span data-ttu-id="190f5-102">Datenseeding</span><span class="sxs-lookup"><span data-stu-id="190f5-102">Data Seeding</span></span>
 

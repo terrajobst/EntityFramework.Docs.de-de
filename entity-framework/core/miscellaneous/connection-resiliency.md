@@ -11,6 +11,7 @@ ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 11/05/2017
+ms.locfileid: "26053530"
 ---
 # <a name="connection-resiliency"></a><span data-ttu-id="5a897-102">Verbindungsstabilität</span><span class="sxs-lookup"><span data-stu-id="5a897-102">Connection Resiliency</span></span>
 

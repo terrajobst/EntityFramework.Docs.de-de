@@ -1,5 +1,5 @@
 ---
-title: "Einschließlich & Eigenschaften – EF Core ausschließen"
+title: Einschließlich & Eigenschaften – EF Core ausschließen
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052490"
 ---
 # <a name="including--excluding-properties"></a><span data-ttu-id="8d6b2-102">Einschließlich & Ausschließen von Eigenschaften</span><span class="sxs-lookup"><span data-stu-id="8d6b2-102">Including & Excluding Properties</span></span>
 

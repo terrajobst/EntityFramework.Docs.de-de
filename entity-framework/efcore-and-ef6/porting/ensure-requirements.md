@@ -1,5 +1,5 @@
 ---
-title: "Portieren von EF6 auf EF-Core - Anforderungen zu überprüfen"
+title: Portieren von EF6 auf EF-Core - Anforderungen zu überprüfen
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052860"
 ---
 # <a name="before-porting-from-ef6-to-ef-core-validate-your-applications-requirements"></a><span data-ttu-id="82297-102">Vor dem Portieren von EF6 auf EF Core: Überprüfen Sie den Anforderungen der Anwendung</span><span class="sxs-lookup"><span data-stu-id="82297-102">Before porting from EF6 to EF Core: Validate your Application's Requirements</span></span>
 

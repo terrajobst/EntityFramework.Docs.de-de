@@ -11,6 +11,7 @@ ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812520"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework-with-a-new-database"></a><span data-ttu-id="25b66-102">Erste Schritte mit EF Core in .NET Framework mit einer neuen Datenbank</span><span class="sxs-lookup"><span data-stu-id="25b66-102">Getting started with EF Core on .NET Framework with a New Database</span></span>
 

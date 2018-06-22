@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052750"
 ---
 # <a name="default-schema"></a><span data-ttu-id="2d960-102">Standardschema</span><span class="sxs-lookup"><span data-stu-id="2d960-102">Default Schema</span></span>
 

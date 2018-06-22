@@ -11,6 +11,7 @@ ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152389"
 ---
 # <a name="configuring-a-dbcontext"></a><span data-ttu-id="a5644-102">Konfigurieren ein ' DbContext '</span><span class="sxs-lookup"><span data-stu-id="a5644-102">Configuring a DbContext</span></span>
 

@@ -11,6 +11,7 @@ ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 03/23/2018
+ms.locfileid: "30151013"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a><span data-ttu-id="bb8c5-102">Erste Schritte mit EF Core in ASP.NET Core mit einer vorhandenen Datenbank</span><span class="sxs-lookup"><span data-stu-id="bb8c5-102">Getting Started with EF Core on ASP.NET Core with an Existing Database</span></span>
 

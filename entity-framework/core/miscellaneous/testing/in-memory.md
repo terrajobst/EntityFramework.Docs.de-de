@@ -11,6 +11,7 @@ ms.sourcegitcommit: d096484dcf9eff73d9943fa60db7a418b10ca0b3
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 01/22/2018
+ms.locfileid: "27995586"
 ---
 # <a name="testing-with-inmemory"></a><span data-ttu-id="14858-102">Testen mit InMemory</span><span class="sxs-lookup"><span data-stu-id="14858-102">Testing with InMemory</span></span>
 

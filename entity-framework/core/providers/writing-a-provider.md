@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678959"
 ---
 # <a name="writing-a-database-provider"></a><span data-ttu-id="07fbc-102">Schreiben eines Datenbank-Anbieters</span><span class="sxs-lookup"><span data-stu-id="07fbc-102">Writing a Database Provider</span></span>
 

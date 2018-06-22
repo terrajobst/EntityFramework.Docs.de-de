@@ -9,6 +9,7 @@ ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26053690"
 ---
 <a name="design-time-services"></a><span data-ttu-id="d6bff-102">Entwurfszeitdienste</span><span class="sxs-lookup"><span data-stu-id="d6bff-102">Design-time services</span></span>
 ====================

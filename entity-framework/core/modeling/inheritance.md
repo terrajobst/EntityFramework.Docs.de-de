@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052780"
 ---
 # <a name="inheritance"></a><span data-ttu-id="881a0-102">Vererbung</span><span class="sxs-lookup"><span data-stu-id="881a0-102">Inheritance</span></span>
 

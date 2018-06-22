@@ -1,5 +1,5 @@
 ---
-title: "Verwalten von Datenbankschemas – EF Core"
+title: Verwalten von Datenbankschemas – EF Core
 author: bricelam
 ms.author: divega
 ms.date: 10/30/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26049382"
 ---
 # <a name="managing-database-schemas"></a><span data-ttu-id="12f16-102">Verwalten von Datenbankschemas</span><span class="sxs-lookup"><span data-stu-id="12f16-102">Managing Database Schemas</span></span>
 <span data-ttu-id="12f16-103">EF Core bietet zwei wesentliche Möglichkeiten, wie Sie Ihr EF Core-Modell und Ihr Datenbankschema synchron halten können. Um zwischen den beiden Optionen zu wählen, legen Sie fest, ob Ihr EF Core-Modell oder das Datenbankschema die einzige zuverlässige Datenquelle darstellt.</span><span class="sxs-lookup"><span data-stu-id="12f16-103">EF Core provides two primary ways of keeping your EF Core model and database schema in sync. To choose between the two, decide whether your EF Core model or the database schema is the source of truth.</span></span>
