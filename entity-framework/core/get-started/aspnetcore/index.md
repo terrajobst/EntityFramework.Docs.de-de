@@ -1,5 +1,5 @@
 ---
-title: "Erste Schritte in ASP.NET Core – EF Core"
+title: Erste Schritte in ASP.NET Core – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26048892"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core"></a>Erste Schritte mit EF Core in ASP.NET Core
 

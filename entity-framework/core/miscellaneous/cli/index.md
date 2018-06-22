@@ -1,5 +1,5 @@
 ---
-title: "Befehlszeilenreferenz – EF Core"
+title: Befehlszeilenreferenz – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 03/08/2018
+ms.locfileid: "29769409"
 ---
 <a name="entity-framework-core-tools"></a>Entity Framework Core Tools
 ===========================

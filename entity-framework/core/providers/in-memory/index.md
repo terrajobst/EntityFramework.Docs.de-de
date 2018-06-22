@@ -1,5 +1,5 @@
 ---
-title: "In-Memory Database-Anbieter – EF Core"
+title: In-Memory Database-Anbieter – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678985"
 ---
 # <a name="ef-core-in-memory-database-provider"></a>EF Core-In-Memory Database-Anbieter
 

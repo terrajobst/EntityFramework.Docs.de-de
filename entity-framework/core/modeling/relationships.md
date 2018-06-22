@@ -1,5 +1,5 @@
 ---
-title: "Beziehungen – EF Core"
+title: Beziehungen – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26053030"
 ---
 # <a name="relationships"></a>Beziehungen
 

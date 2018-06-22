@@ -1,5 +1,5 @@
 ---
-title: "Neuigkeiten in EF Core 1.0 – EF Core"
+title: Neuigkeiten in EF Core 1.0 – EF Core
 author: divega
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26049683"
 ---
 # <a name="features-included-in-ef-core-10"></a>Features in EF Core 1.0
 
