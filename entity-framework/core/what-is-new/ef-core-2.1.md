@@ -6,15 +6,14 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 2372a6b2e3f3b7b1d9214a6ea321fe28cea45fff
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754424"
 ---
 # <a name="new-features-in-ef-core-21"></a>Neue Features in EF Core 2.1
-> [!NOTE]  
-> Dieses Release befindet sich weiterhin in der Vorschauversion.
 
 Neben zahlreichen Fehlerbehebungen und kleinen Funktions- und Leistungsverbesserungen umfasst EF Core 2.1 einige interessante neue Features:
 
@@ -38,7 +37,7 @@ Bislang konnte EF Core nur Eigenschaften von Typen zuordnen, die vom zugrunde li
 Weitere Informationen zu diesem Thema finden Sie im [Abschnitt zu Wertkonvertierungen](xref:core/modeling/value-conversions).  
 
 ## <a name="linq-groupby-translation"></a>LINQ-GroupBy-Übersetzung
-Vor Version 2.1 wurde der GroupBy-LINQ-Operator in EF Core immer in der In-Memory Database ausgewertet. Nun bieten wir in den meisten Fällen Unterstützung für dessen Übersetzung in die GROUP BY-SQL-Klausel.
+Vor Version 2.1 wurde der LINQ-Operator „GroupBy“ in EF Core immer im Arbeitsspeicher ausgewertet. Nun bieten wir in den meisten Fällen Unterstützung für dessen Übersetzung in die GROUP BY-SQL-Klausel.
 
 Dieses Beispiel zeigt eine Abfrage mit GroupBy zum Berechnen verschiedener Aggregatfunktionen:
 
@@ -124,7 +123,7 @@ var query = context.Customers.Select(
 
 Beachten Sie, dass diese Abfrage nur in zwei SQL-Abfragen übersetzt wird: eine für Kunden und die nächste für Aufträge.
 
-## <a name="ownedattribute"></a>OwnedAttribute
+## <a name="owned-attribute"></a>Das [Owned]-Attribut
 
 Nun können [Entitätstypen im Besitz](xref:core/modeling/owned-entities) konfiguriert werden, indem einfach der Typ mit `[Owned]` kommentiert und dann sichergestellt wird, dass die Besitzerentität zum Modell hinzugefügt wird:
 
@@ -143,12 +142,14 @@ public class Order
 }
 ```
 
-## <a name="new-dotnet-ef-global-tool"></a>Neues globales Tool „dotnet-ef“
+## <a name="command-line-tool-dotnet-ef-included-in-net-core-sdk"></a>dotnet-ef-Befehle des Befehlszeilentools im .NET Core SDK
 
-Die _dotnet-ef_-Befehle wurden in ein globales .NET-CLI-Tool konvertiert, deshalb ist es nicht mehr erforderlich, für Migrationen oder zum DbContext-Gerüstbau aus einer vorhandenen Datenbank „DotNetCliToolReference“ im Projekt zu verwenden.
+Die _dotnet-ef_-Befehle sind nun im .NET Core SDK enthalten. Deshalb ist es nicht mehr erforderlich, „DotNetCliToolReference“ für Migrationen oder den DbContext-Gerüstbau aus einer vorhandenen Datenbank im Projekt zu verwenden.
+
+Weitere Details zum Aktivieren der Befehlszeilentools für verschiedene Versionen des .NET Core SDK und von EF Core finden Sie im Abschnitt zur [Installation der Tools](xref:core/miscellaneous/cli/dotnet#installing-the-tools).
 
 ## <a name="microsoftentityframeworkcoreabstractions-package"></a>Paket „Microsoft.EntityFrameworkCore.Abstractions“
-Das neue Paket enthält Attribute und Schnittstellen, mit denen Sie EF Core-Features in Ihren Projekten aktivieren können, ohne eine Abhängigkeit von EF Core insgesamt einzugehen. Beispiel: Das in Vorschau 1 eingeführte [Owned]-Attribut wurde hierher verschoben.
+Das neue Paket enthält Attribute und Schnittstellen, mit denen Sie EF Core-Features in Ihren Projekten aktivieren können, ohne eine Abhängigkeit von EF Core insgesamt einzugehen. Das [Owned]-Attribut und die ILazyLoader-Schnittstelle sind beispielsweise enthalten.
 
 ## <a name="state-change-events"></a>Zustandsänderungsereignisse
 
@@ -165,7 +166,7 @@ var query = context.People.FromSql(sql);
 
 ## <a name="database-provider-compatibility"></a>Kompatibilität mit Datenbankanbietern
 
-EF Core 2.1 wurde zur Bereitstellung von Kompatibilität mit Datenbankanbietern für EF Core 2.0 entwickelt, oder erfordert nur minimale Änderungen. Während einige der oben beschriebenen Features (z.B. Wertkonvertierungen) einen aktualisierten Anbieter erfordern, sind andere Features (z.B. das Lazy Loading) mit den vorhandenen Anbietern kompatibel.
+Es wird empfohlen, EF Core 2.1 mit Anbietern zu verwenden, die ein Update auf EF Core 2.1 durchgeführt oder EF Core 2.1 bereits getestet haben.
 
 > [!TIP]
 > Falls unerwarteterweise keine Kompatibilität besteht oder Probleme mit den neuen Features auftreten, oder falls Sie uns Ihre Feedback mitteilen möchten, melden Sie uns dies über [unsere Problemverfolgung](https://github.com/aspnet/EntityFrameworkCore/issues/new).
