@@ -6,35 +6,36 @@ ms.date: 10/27/2016
 ms.assetid: 0d0590f1-1ea3-4d5c-8f44-db17395cd3f3
 ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/in-memory
-ms.openlocfilehash: 33690e3424d0777930d3cb8167575fb0f4ddd8f7
-ms.sourcegitcommit: d096484dcf9eff73d9943fa60db7a418b10ca0b3
+ms.openlocfilehash: f814c8955e155688bb5e8d34b9c9f6d24dcc6601
+ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/22/2018
-ms.locfileid: "27995586"
+ms.lasthandoff: 07/07/2018
+ms.locfileid: "37900261"
 ---
 # <a name="testing-with-inmemory"></a>Testen mit InMemory
 
-Der Anbieter InMemory ist nützlich, wenn Sie Komponenten mithilfe von etwas, das Herstellen einer Verbindung mit der real-Datenbank, ohne den Aufwand für die tatsächliche Datenbankvorgänge entspricht in etwa testen möchten.
+Der InMemory-Anbieter ist nützlich, wenn Sie Komponenten verwenden, indem Sie die Verbindung zur echten Datenbank, ohne den Aufwand für die tatsächliche Datenbankvorgänge Tools, testen möchten.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) finden Sie auf GitHub.
 
 ## <a name="inmemory-is-not-a-relational-database"></a>InMemory ist nicht mit einer relationalen Datenbank
 
-EF Datenbank kernanbieter keine relationalen Datenbanken werden. InMemory dient als allgemeines Datenbank zum Testen und dient nicht zum Simulieren einer relationalen Datenbank.
+EF Core-Datenbankanbieter keine relationalen Datenbanken sein. InMemory fungiert als ein allgemeiner-Datenbank zu Testzwecken und dient nicht zum imitieren von einer relationalen Datenbank.
 
 Beispiele hierfür sind:
-* InMemory können Sie zum Speichern von Daten, die Einschränkungen der referenziellen Integrität in einer relationalen Datenbank verletzen würde.
 
+* InMemory können Sie zum Speichern von Daten, die Einschränkungen der referenziellen Integrität in einer relationalen Datenbank verletzen würde.
 * Wenn Sie DefaultValueSql(string) für eine Eigenschaft im Modell verwenden, dies ist eine relationale Datenbank-API und hat keine Auswirkungen, bei der Ausführung für InMemory.
+* [Parallelität über Zeitstempel/Zeilenversion](xref:core/modeling/concurrency#timestamprow-version) (`[Timestamp]` oder `IsRowVersion`) wird nicht unterstützt. Keine [DbUpdateConcurrencyException](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception) wird ausgelöst, wenn ein Update erfolgt mit einem alten Concurrency-Token.
 
 > [!TIP]  
-> Für viele Zwecke testen werden diese Unterschiede spielt keine Rolle. Allerdings gegebenenfalls für die Tests anhand etwas mehr Verhalten hat wie ein "true" relationale Datenbank sollten Sie die Verwendung [SQLite InMemory-Modus](sqlite.md).
+> Für viele Zwecke testen werden diese Unterschiede nicht wichtig. Wenn Sie mit dem Sie etwas zu testen, die mehr wie eine "true" relationale Datenbank verhält sich möchten, klicken Sie dann sollten Sie jedoch [SQLite-in-Memory-Modus](sqlite.md).
 
-## <a name="example-testing-scenario"></a>Beispiel-Testszenario
+## <a name="example-testing-scenario"></a>Beispiel-Szenario
 
-Betrachten Sie den folgenden Dienst, der Anwendungscode im Zusammenhang mit Blogs Eingriffe ermöglicht. Er verwendet intern eine `DbContext` , die eine Verbindung mit einer SQL Server-Datenbank her. Wäre es nützlich, um diesem Kontext die Verbindung mit einer InMemory-Datenbank, damit wir effiziente Tests für diesen Dienst schreiben, ohne den Code ändern können, oder viele Vorgänge zum Erstellen eines Tests führen Austauschen des Kontexts double.
+Betrachten Sie den folgenden Dienst, mit dem Anwendungscode zum Durchführen bestimmter Vorgänge im Zusammenhang mit Blogs zu können. Intern verwendet eine `DbContext` , die eine Verbindung mit SQL Server-Datenbank her. Es wäre nützlich, um diesem Kontext für die Verbindung eine InMemory-Datenbank, damit wir können effiziente Tests für diesen Dienst schreiben, ohne den Code ändern zu müssen, oder einen Großteil der Arbeit beim Erstellen eines Tests Austauschen des Kontexts double.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
 
@@ -42,29 +43,29 @@ Betrachten Sie den folgenden Dienst, der Anwendungscode im Zusammenhang mit Blog
 
 ### <a name="avoid-configuring-two-database-providers"></a>Vermeiden Sie die Konfiguration von zwei Datenbankanbieter
 
-In den Tests wirst du extern konfigurieren Sie den Kontext des InMemory-Anbieters verwenden. Wenn Sie einen Datenbankanbieter durch Außerkraftsetzen konfigurieren `OnConfiguring` in den Kontext, dann müssen Sie fügen Sie bedingte Code zum sicherstellen, dass Sie nur den Datenbankanbieter konfigurieren, wenn Sie noch nicht konfiguriert wurde.
+In den Tests wird den Kontext zum Verwenden des InMemory-Anbieters extern konfigurieren. Wenn Sie durch das Überschreiben ein Datenbankanbieters konfigurieren `OnConfiguring` im Kontext Ihrer müssen Sie fügen der bedingten Code, um sicherzustellen, dass Sie nur den Datenbankanbieter konfigurieren, wenn eine nicht bereits konfiguriert wurde.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
 
 > [!TIP]  
-> Bei Verwendung von ASP.NET Core sollte dann nicht mit diesem Code erforderlich, da der Datenbankanbieter bereits außerhalb des Kontexts (in "Startup.cs) konfiguriert ist.
+> Wenn Sie ASP.NET Core verwenden, sollten dann nicht dieser Code erforderlich, da Ihr Datenbankanbieter außerhalb des Kontexts (in "Startup.cs") bereits konfiguriert ist.
 
-### <a name="add-a-constructor-for-testing"></a>Fügen Sie einen Konstruktor zu Testzwecken
+### <a name="add-a-constructor-for-testing"></a>Fügen Sie einen Konstruktor für das Testen
 
-Die einfachste Methode zum Aktivieren von Tests mit einer anderen Datenbank so ändern Sie den Kontext, um einen Konstruktor verfügbar machen, das akzeptiert, wird eine `DbContextOptions<TContext>`.
+Die einfachste Möglichkeit zum Aktivieren von Tests mit einer anderen Datenbank ist so ändern Sie den Kontext, um einen Konstruktor verfügbar machen, die akzeptiert eine `DbContextOptions<TContext>`.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
 
 > [!TIP]  
-> `DbContextOptions<TContext>`Gibt dem Kontext alle zugehörigen Einstellungen, z. B. welche Datenbank für die Verbindung. Dies ist das gleiche Objekt, das erstellt wird, durch die OnConfiguring-Methode in Ihrem Kontext ausgeführt wird.
+> `DbContextOptions<TContext>` Gibt dem Kontext alle zugehörigen Einstellungen, z. B. welche Datenbank für die Verbindung. Dies ist das gleiche Objekt, das durch Ausführen der OnConfiguring-Methode im Kontext Ihrer basiert.
 
 ## <a name="writing-tests"></a>Schreiben von tests
 
-Der Schlüssel für das Testen von mit diesem Anbieter ist die Fähigkeit, teilen Sie den Kontext zum Verwenden des InMemory-Anbieters und Steuern des Bereichs der Datenbank im Arbeitsspeicher. Sie möchten in der Regel eine fehlerfreie Datenbank für jede Testmethode.
+Die Taste, um Tests mit dieser Anbieter ist die Möglichkeit, teilen Sie den Kontext den InMemory-Anbieter, und Steuern des Gültigkeitsbereichs der in-Memory-Datenbank. Möchten Sie in der Regel eine fehlerfreie Datenbank, für jede Testmethode.
 
-Hier ist ein Beispiel für eine Testklasse, die den InMemory-Datenbank verwendet. Jede Testmethode gibt einen eindeutigen Datenbanknamen an, was bedeutet, dass jede Methode ihre eigene InMemory-Datenbank hat.
+Hier ist ein Beispiel für eine Testklasse, die der InMemory-Datenbank verwendet. Jede Testmethode gibt einen eindeutigen Datenbanknamen an, was bedeutet, dass jede Methode ihre eigene InMemory-Datenbank verfügt.
 
 >[!TIP]
-> Verwenden der `.UseInMemoryDatabase()` Erweiterungsmethode, Verweis das NuGet-Paket `Microsoft.EntityFrameworkCore.InMemory`.
+> Verwenden der `.UseInMemoryDatabase()` Erweiterungsmethode Verweis das NuGet-Paket `Microsoft.EntityFrameworkCore.InMemory`.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/InMemory/BlogServiceTests.cs)]
