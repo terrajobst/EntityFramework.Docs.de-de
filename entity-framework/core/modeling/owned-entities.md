@@ -1,29 +1,30 @@
 ---
-title: Im Besitz Entitätstypen - EF Core
+title: Entitätstypen - EF Core im Besitz
 author: julielerman
 ms.author: divega
 ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: f2f05499a3e3494f420d916df2db19667a6f1e29
-ms.sourcegitcommit: 26f33758c47399ae933f22fec8e1d19fa7d2c0b7
+ms.openlocfilehash: 768429b857b09c1974f4ade31b5bbb6b1c7e15c3
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/19/2018
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "37911874"
 ---
-# <a name="owned-entity-types"></a>Im Besitz befindlichen Entitätstypen
+# <a name="owned-entity-types"></a>Entitätstypen im Besitz
 
 >[!NOTE]
 > Dieses Feature ist neu in EF Core 2.0.
 
-EF Core ermöglicht Ihnen das Modell Entitätstypen, die immer nur auf andere Entitätstypen Navigationseigenschaften angezeigt werden können. Diese heißen _im Besitz von Entitätstypen_. Die Entität, die im Besitz befindlichen Entitätstyp ist seine _Besitzer_.
+EF Core können Sie die Modell-Entitätstypen, die nur für Navigationseigenschaften von anderen Entitätstypen angezeigt werden können. Diese heißen _Entitätstypen im Besitz_. Die Entität, die einen eigener Entitätstyp enthält, ist die _Besitzer_.
 
 ## <a name="explicit-configuration"></a>Explizite Konfiguration
 
-Besitz befindliche Entität, die Typen nie gemäß der Konvention von EF Core im Modell enthalten sind. Können Sie die `OwnsOne` Methode im `OnModelCreating` oder kommentieren Sie den Typ mit `OwnedAttribute` (neu in EF Core 2.1) so konfigurieren Sie den Typ als Besitzer Typ.
+Im Besitz Entität, die Typen nicht gemäß der Konvention von EF Core im Modell enthalten sind. Sie können die `OwnsOne` -Methode in der `OnModelCreating` oder fügen Sie den Typ mit `OwnedAttribute` (neu in EF Core 2.1) so konfigurieren Sie den Typ als ein eigener Typ.
 
-In diesem Beispiel ist StreetAddress ein Typ mit keine Identity-Eigenschaft. Dieser Typ wird als Eigenschaft des Typs „Order“ verwendet, um die Lieferadresse für eine bestimmte Bestellung anzugeben. In `OnModelCreating`, verwenden wir die `OwnsOne` Methode, um anzugeben, dass die ShippingAddress-Eigenschaft einer Entität gehören, der den Auftragstyp ist.
+In diesem Beispiel ist die StreetAddress einen Typ ohne Identitätseigenschaft. Dieser Typ wird als Eigenschaft des Typs „Order“ verwendet, um die Lieferadresse für eine bestimmte Bestellung anzugeben. In `OnModelCreating`, verwenden wir die `OwnsOne` Methode, um anzugeben, dass die ShippingAddress Eigenschaft einer Entität im Besitz des Typs "Order".
 
 ``` csharp
 public class StreetAddress
@@ -42,13 +43,13 @@ public class Order
 modelBuilder.Entity<Order>().OwnsOne(p => p.ShippingAddress);
 ```
 
-Wenn die Eigenschaft ShippingAddress in den Auftragstyp privat ist, können Sie die Version der Zeichenfolge die `OwnsOne` Methode:
+Wenn die ShippingAddress-Eigenschaft in den Auftragstyp privat ist, können Sie die Version der Zeichenfolge die `OwnsOne` Methode:
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(typeof(StreetAddress), "ShippingAddress");
 ```
 
-In diesem Beispiel verwenden wir die `OwnedAttribute` auf das gleiche Ziel zu erreichen:
+In diesem Beispiel verwenden wir die `OwnedAttribute` um das gleiche Ziel zu erreichen:
 
 ``` csharp
 [Owned]
@@ -67,20 +68,20 @@ public class Order
 
 ## <a name="implicit-keys"></a>Implizite Schlüssel
 
-EF Core 2.0 und 2.1 können nur den Verweis Navigationseigenschaften im Besitz befindlichen Typen zeigen. Sammlungen im Besitz befindlichen Typen werden nicht unterstützt. Dieser Verweis gehört immer aufweisen: 1-Beziehung mit dem Besitzer, daher nicht benötigte ihren eigenen Werten. Im vorherigen Beispiel muss der StreetAddress-Typ nicht um eine Schlüsseleigenschaft definiert.  
+In EF Core 2.0 und 2.1 können nur die verweisnavigationseigenschaften auf eigene Typen verweisen. Auflistungen von eigenen Typen werden nicht unterstützt. Dieser Verweis gehört-Typen haben immer eine direkte Beziehung mit dem Besitzer, daher nicht benötigten ihre eigenen Werte. Im vorherigen Beispiel muss der StreetAddress-Typ nicht um eine Schlüsseleigenschaft definiert.  
 
-In der Reihenfolge für das Verständnis, wie diese Objekte von EF Core verfolgt nach, es ist sinnvoll, Sie glauben, dass ein Primärschlüssel, als erstellt wird ein [Shadowing Eigenschaft](xref:core/modeling/shadow-properties) für den Besitzer Typ. Der Wert des Schlüssels einer Instanz des Typs im Besitz befindlichen wird den Wert des Schlüssels der Besitzer Instanz identisch sein.      
+In der Reihenfolge, um zu verstehen, wie diese Objekte von EF Core nachverfolgt, es ist hilfreich, die glauben, dass ein Primärschlüssel, als erstellt wird eine [schatteneigenschaft](xref:core/modeling/shadow-properties) für den eigenen Typ. Der Wert des Schlüssels für eine Instanz des eigenen Typs wird der Wert des Schlüssels für die Besitzer-Instanz identisch sein.      
 
-## <a name="mapping-owned-types-with-table-splitting"></a>Zuordnung, die im Besitz von Typen mit Teilen der Tabelle
+## <a name="mapping-owned-types-with-table-splitting"></a>Zuordnung, die im Besitz von Typen mit tabellenaufteilung
 
-Bei relationalen Datenbanken, werden gemäß der Konvention, die im Besitz von Typen als Besitzer der gleichen Tabelle zugeordnet. Dies erfordert die Tabelle in zwei Teilen: einige Spalten zum Speichern der Daten des Besitzers verwendet werden, und einige Spalten zum Speichern von Daten, die im Besitz befindlichen Entität verwendet werden. Dies ist ein gängiges Feature als Tabelle Aufteilung bezeichnet.
+Verwendung von relationalen Datenbanken werden standardmäßig eigene Typen als Besitzer der gleichen Tabelle zugeordnet. Dies erfordert in der Tabelle in zwei Teilen: einige Spalten zum Speichern der Daten des Besitzers verwendet werden, und einige Spalten zum Speichern von Daten der Entität im Besitz des Benutzers verwendet werden. Dies ist eine Standardfunktion in tabellenaufteilung genannt.
 
 > [!TIP]
-> Besitzer können Typen mit Teilen der Tabelle gespeichert werden verwendet sehr ähnlich wie komplexe Typen in EF6 verwendet werden.
+> Besitzer des Typen, die mit der tabellenaufteilung gespeichert sein können wie komplexe Typen in EF 6 verwendeten sind sehr ähnlich wie verwendet.
 
-Gemäß der Konvention EF Core die Datenbankspalten für die Eigenschaften, die im Besitz befindlichen Entitätstyps, die nach dem Muster benennt _EntityProperty_OwnedEntityProperty_. Aus diesem Grund werden die StreetAddress-Eigenschaften in der Orders-Tabelle mit den Namen ShippingAddress_Street und ShippingAddress_City angezeigt.
+Gemäß der Konvention wird EF Core die Datenbankspalten für die Eigenschaften der eigene Entitätstyp mit dem folgenden Format benennen _EntityProperty_OwnedEntityProperty_. Aus diesem Grund werden die StreetAddress-Eigenschaften in der Orders-Tabelle mit den Namen ShippingAddress_Street und ShippingAddress_City angezeigt.
 
-Sie können den Anfügen der `HasColumnName` Methode, um diese Spalten umbenennen. In der Fall, in dem StreetAddress eine öffentliche Eigenschaft ist, wäre die Zuordnungen
+Sie können den Anfügen der `HasColumnName` Methode, um diese Spalten umzubenennen. In der Fall, in denen eine öffentliche Eigenschaft von StreetAddress ist, wäre die Zuordnungen
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(
@@ -92,13 +93,13 @@ modelBuilder.Entity<Order>().OwnsOne(
         });
 ```
 
-## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>Freigeben von .NET Typparameter für mehrere Besitzer
+## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>Freigabe desselben Typs .NET für mehrere im Besitz des Benutzers
 
-Entitätstyp im Besitz befindlichen möglich desselben Typs .NET als einen anderen Besitzer Entitätstyp daher, dass der .NET Typ möglicherweise nicht mit genug, um ein im Besitz befindlichen Typ zu identifizieren.
+Ein eigener Entitätstyp möglich des gleichen Typs .NET als einem anderen eigenen Entitätstyp, daher, dass der .NET Typ möglicherweise nicht mit ausreichend, um ein eigener Typ zu identifizieren.
 
-In diesen Fällen wird die Eigenschaft, die vom Besitzer auf die im Besitz befindlichen Entität zeigen die _Navigation definieren_ des Entitätstyps Eigentum ist. Aus der Perspektive des EF-Kerns stammt die definierende Navigation die Typidentität zusammen mit den Typ .NET.   
+In diesen Fällen wird die Eigenschaft, die auf die Entität im Besitz des Besitzers der _Definieren der Navigation_ des eigenen Entitätstyps. Aus der Perspektive von EF Core ist die definierende Navigation Teil der Identität für den Typ zusammen mit der .NET-Typ.   
 
-Beispielsweise sind in der folgenden Klasse ShippingAddress und BillingAddress vom gleichen .NET-Typ StreetAddress:
+Beispielsweise sind in der folgenden Klasse Shippingaddress- und BillingAddress des gleichen .NET-Typs, StreetAddress:
 
 ``` csharp
 public class Order
@@ -109,11 +110,11 @@ public class Order
 }
 ```
 
-Um zu erfahren, wie EF Core überwachte Instanzen dieser Objekte unterschieden wird, kann es nützlich sein, glauben, dass die definierende Navigation Teil des Schlüssels der Instanz zusammen mit dem Wert des Schlüssels des Besitzers und der .NET Typ des im Besitz befindlichen geworden ist.
+Um zu verstehen, wie EF Core für überwachte Instanzen dieser Objekte unterscheiden, wird, kann es hilfreich sein zu denken, dass die definierende Navigation Teil des Schlüssels der Instanz zusammen mit dem Wert des Schlüssels des Besitzers und der .NET-Typ des eigenen Typs geworden ist.
 
-## <a name="nested-owned-types"></a>Geschachtelte Typen im Besitz befindlichen
+## <a name="nested-owned-types"></a>Geschachtelte eigene Typen
 
-In diesem Beispiel besitzt OrderDetails BillingAddress und ShippingAddress, bei denen beide StreetAddress-Typen handelt. Klicken Sie dann gehört OrderDetails den Auftragstyp.
+In diesem Beispiel besitzt die OrderDetails BillingAddress und ShippingAddress, die beide StreetAddress-Typen sind. Wird der Auftrag vom Typ OrderDetails gehören.
 
 ``` csharp
 public class Order
@@ -129,6 +130,12 @@ public class OrderDetails
     public StreetAddress ShippingAddress { get; set; }
 }
 
+public enum OrderStatus
+{
+    Pending,
+    Shipped
+}
+
 public class StreetAddress
 {
     public string Street { get; set; }
@@ -136,7 +143,7 @@ public class StreetAddress
 }
 ```
 
-Es ist möglich, die Kette der `OwnsOne` Methode in einer fluent-Zuordnung zu diesem Modell zu konfigurieren:
+Es ist möglich, eine Verkettung der `OwnsOne` -Methode in eine fluentzuordnung so konfigurieren Sie dieses Modell:
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
@@ -146,9 +153,9 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
     });
 ```
 
-Es ist möglich, die gleiche Bedeutung mit erzielen `OwnedAttribute` OrderDetails und StreetAdress.
+Es ist möglich, die gleiche Sache mit `OwnedAttribute` auf OrderDetails und StreetAdress.
 
-Zusätzlich zu den geschachtelten Typen besitzt kann ein Typ im Besitz eine gewöhnlichen Entität verweisen. Im folgenden Beispiel wird Land einer gewöhnlichen Entität mit (d. h. nicht im Besitz der):
+Zusätzlich zu den geschachtelten Typen im Besitz des Benutzers kann ein eigener Typ eine normale Entität verweisen. Im folgenden Beispiel wird die Land eine reguläre (d. h. ohne Besitzer) Entität:
 
 ``` csharp
 public class StreetAddress
@@ -159,11 +166,11 @@ public class StreetAddress
 }
 ```
 
-Diese Funktion wird im Besitz befindlichen Entitätstypen abgesehen von komplexen Typen im EF6 festgelegt.
+Diese Funktion legt die Entitätstypen, die abgesehen von komplexen Typen im Besitz in EF 6 fest.
 
-## <a name="storing-owned-types-in-separate-tables"></a>Speichern von Typen in separaten Tabellen gehören
+## <a name="storing-owned-types-in-separate-tables"></a>Das Speichern von eigene Typen in separaten Tabellen
 
-Im Gegensatz zu EF6 komplexe Typen können auch im Besitz befindlichen Typen in einer separaten Tabelle vom Besitzer gespeichert werden. Sie können einfach aufrufen, um der Konvention zu überschreiben, die der gleichen Tabelle wie der Besitzer ein Eigentümer Typs zuordnet, `ToTable` , und geben Sie einen anderen Tabellennamen. Im folgende Beispiel wird in eine separate Tabelle OrderDetails und den beiden Adressen von Reihenfolge zugeordnet:
+Im Gegensatz zu EF6 komplexe Typen können auch eigene Typen in einer separaten Tabelle vom Besitzer gespeichert werden. Sie können einfach aufrufen, um die Konvention überschreiben, der einen eigenen Typ als Besitzer der gleichen Tabelle zugeordnet, `ToTable` , und geben Sie einen anderen Tabellennamen an. Im folgende Beispiel wird in eine separate Tabelle OrderDetails und die zwei Adressen von Reihenfolge zugeordnet:
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
@@ -173,9 +180,9 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
     }).ToTable("OrderDetails");
 ```
 
-## <a name="querying-owned-types"></a>Abfragen von im Besitz befindlichen Typen
+## <a name="querying-owned-types"></a>Abfragen von Typen im Besitz
 
-Beim Abfragen des Besitzers werden standardmäßig eigene Typen eingeschlossen. Es ist nicht notwendig, verwenden Sie die `Include` -Methode, auch wenn die im Besitz befindlichen Typen in einer separaten Tabelle gespeichert sind. Je nachdem welches Modell beschrieben vor, ruft die folgende Abfrage Order "," OrderDetails "und" der zwei im Besitz befindlichen StreeAddresses für alle ausstehenden Aufträge aus der Datenbank:
+Beim Abfragen des Besitzers werden standardmäßig eigene Typen eingeschlossen. Es ist nicht erforderlich, verwenden die `Include` -Methode, selbst wenn Sie eigenen Typen in einer separaten Tabelle gespeichert sind. Basierend auf das Modell beschrieben vor, wird die folgende Abfrage Order "," OrderDetails "und" die beiden im Besitz des Benutzers StreeAddresses für alle ausstehenden Aufträge aus der Datenbank abzurufen:
 
 ``` csharp
 var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
@@ -183,15 +190,17 @@ var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
 
 ## <a name="limitations"></a>Einschränkungen
 
-Hier sind einige Einschränkungen im Besitz befindlichen Entitätstypen. Diese Einschränkungen sind grundlegende wie im Besitz befindlichen Typen arbeiten, aber andere Point-in-Time-Einschränkungen, die wir in zukünftigen Versionen entfernt möchten werden:
+Einige dieser Einschränkungen ist die Grundlage wie die im Besitz des Benutzers Entität Typen arbeiten, aber einige andere werden Einschränkungen, die wir in zukünftigen Versionen entfernt werden kann:
 
+### <a name="shortcomings-in-previous-versions"></a>Mängel in früheren Versionen
+- In EF Core 2.0 gehören zu, dass die Entitätstypen können nicht in abgeleiteten Entitätstypen deklariert werden, es sei denn, die eigenen Entitäten explizit in eine separate Tabelle aus der Besitzerhierarchie zugeordnet sind. Diese Einschränkung wurde in EF Core 2.1 entfernt
+ 
 ### <a name="current-shortcomings"></a>Aktuelle Mängel
-- Vererbung von im Besitz befindlichen Typen wird nicht unterstützt.
-- Im Besitz befindlichen Typen können nicht auf eine auflistungsnavigationseigenschaft zeigt werden
-- Da sie die Tabelle durch Aufteilen verwenden gehören Standard, dass Typen auch die folgenden Einschränkungen verfügen, es sei denn, die explizit einer anderen Tabelle zugeordnet:
-   - Sie können nicht von einem abgeleiteten Typ Benutzer
-   - Die definierenden Navigationseigenschaft kann nicht festgelegt werden auf Null (d. h. gehören Typen in der gleichen Tabelle immer erforderlich)
+- Vererbungshierarchien, die enthalten, das im Besitz, Entitätstypen werden nicht unterstützt
+- Entitätstypen im Besitz des Benutzers können nicht auf durch eine auflistungsnavigationseigenschaft (nur Referenz, die derzeit Navigationen unterstützten) verwiesen werden
+- Zu den im Besitz von Entitätstypen darf nicht null sein, es sei denn, sie explizit in eine separate Tabelle vom Besitzer zugeordnet sind 
+- Instanzen von Entitätstypen im Besitz des Benutzers können nicht von mehreren Besitzern gemeinsam genutzt werden (Dies ist ein bekanntes Szenario für die Value-Objekte, die mithilfe von Entitätstypen im Besitz nicht implementiert werden kann.)
 
 ### <a name="by-design-restrictions"></a>Standardmäßig Einschränkungen
-- Sie können nicht erstellt werden ein `DbSet<T>`
-- Sie können nicht aufrufen `Entity<T>()` mit einem Datentyp auf, die im Besitz befindlichen `ModelBuilder`
+- Sie können keine erstellen ein `DbSet<T>`
+- Sie können nicht aufrufen `Entity<T>()` mit einem Datentyp auf, die im Besitz des Benutzers `ModelBuilder`
