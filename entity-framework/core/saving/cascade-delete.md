@@ -13,7 +13,7 @@ ms.contentlocale: de-DE
 ms.lasthandoff: 04/26/2018
 ms.locfileid: "31812676"
 ---
-# <a name="cascade-delete"></a>Kaskadierte Löschung
+# <a name="cascade-delete"></a>Kaskadierendes Delete
 
 Kaskadierendes Delete wird in der Datenbankterminologie häufig für die Beschreibung eines Merkmals verwendet, durch das beim Löschen einer Zeile automatisch das Löschen verknüpfter Zeilen ausgelöst wird. Ein eng damit verbundenes Löschverhalten, das ebenfalls von EF Core abgedeckt wird, besteht im automatischen Löschen einer untergeordneten Entität, wenn ihre Beziehung zu einer übergeordneten Entität getrennt wurde. Dies ist allgemein bekannt unter „Löschen verwaister Entitäten“.
 
