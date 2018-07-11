@@ -6,97 +6,97 @@ ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 ms.technology: entity-framework-core
 uid: core/modeling/relationships
-ms.openlocfilehash: 1732d32643effb0f12111191ed4ba3abb4182d93
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 0e60ade605ffb73b02934ea32f1c757affce970d
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26053030"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949217"
 ---
 # <a name="relationships"></a>Beziehungen
 
-Eine Beziehung definiert, wie zwei Entitäten aufeinander beziehen. In einer relationalen Datenbank wird dies durch eine foreign Key-Einschränkung dargestellt.
+Eine Beziehung definiert, wie zwei Entitäten miteinander verknüpfen. In einer relationalen Datenbank wird dies durch eine foreign Key-Einschränkung dargestellt.
 
 > [!NOTE]  
-> Die meisten der Beispiele in diesem Artikel verwenden eine 1: n-Beziehung Konzepte verdeutlicht. Beispiele für 1: 1- und m: n-Beziehungen finden Sie die [andere Beziehung Muster](#other-relationship-patterns) Abschnitt am Ende des Artikels.
+> Die meisten Beispiele in diesem Artikel verwenden Sie eine 1: n Beziehung zur Veranschaulichung der Konzepte. Weitere Beispiele für 1: 1- und m: n Beziehungen finden Sie unter den [andere Beziehung Muster](#other-relationship-patterns) Abschnitt am Ende des Artikels.
 
 ## <a name="definition-of-terms"></a>Begriffsdefinition
 
-Es gibt eine Reihe von Begriffen, die zum Beschreiben von Beziehungen
+Es gibt eine Reihe von Begriffen verwendet, um Beziehungen zu beschreiben
 
-* **Abhängige Entität:** Dies ist die Entität, die die foreign Schlüsseleigenschaften enthält. Manchmal bezeichnet als "Child" der Beziehung.
+* **Abhängige Entität:** Dies ist die Entität, die Fremdschlüsseleigenschaften enthält. Manchmal bezeichnet als "untergeordnetes" der Beziehung.
 
-* **Prinzipalentität:** Dies ist die Entität, die primäre/alternativen Schlüsseleigenschaften enthält. Manchmal bezeichnet als "Parent" der Beziehung.
+* **Prinzipalentität:** Dies ist die Entität, die bzw. der alternativen primären Schlüsseleigenschaften enthält. Manchmal bezeichnet als "Parent" der Beziehung.
 
-* **Fremdschlüssel:** der Eigenschaft(en) in der abhängigen Entität ab, das die Werte der Prinzipal Schlüsseleigenschaft zu speichern, die mit die Entität verknüpft ist.
+* **Fremdschlüssel:** der dazugehörigen Eigenschaften in der abhängigen Entität, die verwendet wird, um die Werte der Schlüsseleigenschaft Prinzipal zu speichern, die mit die Entität verknüpft ist.
 
-* **Principal-Schlüssel:** der Eigenschaft(en), die die prinzipalentität eindeutig identifiziert. Dies kann die primary key- oder ein alternativer Schlüssel sein.
+* **Prinzipalschlüssel:** der Eigenschaften, die die prinzipalentität eindeutig identifiziert. Dies kann der Primärschlüssel oder einen alternativen Schlüssel sein.
 
-* **Navigationseigenschaft:** eine Eigenschaft für die principal und/oder abhängige Entität mit einer Verweise auf die zugehörige Entity(s) definiert.
+* **Navigationseigenschaft:** eine Eigenschaft, die in der principal und/oder abhängige Entität, die enthält einen Verweise auf die entsprechenden Entity(s) definiert.
 
   * **Auflistungsnavigationseigenschaft:** eine Navigationseigenschaft, die Verweise auf viele verknüpfte Entitäten enthält.
 
-  * **Navigationseigenschaft verweisen:** eine Navigationseigenschaft, die einen Verweis auf eine einzelne verknüpfte Entität enthält.
+  * **Verweisnavigationseigenschaft:** eine Navigationseigenschaft, die einen Verweis auf eine einzelne verknüpfte Entität enthält.
 
-  * **Inverse Navigationseigenschaft:** im Zusammenhang mit eine bestimmten Navigationseigenschaft dieser Begriff bezieht sich, mit der Navigationseigenschaft am anderen Ende der Beziehung.
+  * **Inverse-Navigationseigenschaft:** im Zusammenhang mit eine bestimmten Navigationseigenschaft dieser Begriff bezieht sich, auf die Navigationseigenschaft am anderen Ende der Beziehung.
 
-Der folgende Code zeigt einer 1: n-Beziehung zwischen `Blog` und`Post`
+Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` und `Post`
 
-* `Post`die abhängige Entität ist
+* `Post` die abhängige Entität
 
-* `Blog`ist die prinzipalentität
+* `Blog` ist die prinzipalentität
 
-* `Post.BlogId`ist der Fremdschlüssel
+* `Post.BlogId` ist der Fremdschlüssel
 
-* `Blog.BlogId`ist der Dienstprinzipalname-Schlüssel (in diesem Fall ist es ein alternativer Schlüssel, statt einen Primärschlüssel)
+* `Blog.BlogId` der prinzipalschlüssel (in diesem Fall ist es ein primärer Schlüssel anstelle eines alternativen Schlüssels)
 
-* `Post.Blog`ist eine Navigationseigenschaft Verweis
+* `Post.Blog` ist eine verweisnavigationseigenschaft
 
-* `Blog.Posts`ist eine auflistungsnavigationseigenschaft
+* `Blog.Posts` ist eine auflistungsnavigationseigenschaft
 
-* `Post.Blog`wird von die inversen Navigationseigenschaft `Blog.Posts` (und umgekehrt)
+* `Post.Blog` ist die umgekehrte Navigationseigenschaft des `Blog.Posts` (und umgekehrt)
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/Full.cs#Entities)]
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention wird eine Beziehung erstellt werden, wenn es eine Navigationseigenschaft, die für einen Typ ermittelt ist. Eine Eigenschaft ist eine Navigationseigenschaft berücksichtigt, wenn der Typ, auf die verwiesen, als einen skalaren Typ durch den aktuellen Anbieter nicht zugeordnet werden kann.
+Gemäß der Konvention wird eine Beziehung erstellt werden, wenn eine Navigationseigenschaft, die ermittelt, die für einen Typ vorhanden ist. Eine Eigenschaft gilt eine Navigationseigenschaft, wenn der Typ, auf die verwiesen, durch den aktuellen Anbieter nicht als ein skalarer Typ zugeordnet werden kann.
 
 > [!NOTE]  
-> Beziehungen, die gemäß der Konvention ermittelt werden, werden immer den Primärschlüssel der prinzipalentität abzielen. Um einen alternativen Schlüssel als Ziel festzulegen, muss zusätzliche Konfiguration mithilfe der Fluent-API ausgeführt werden.
+> Beziehungen, die gemäß der Konvention ermittelt werden, werden immer den Primärschlüssel der prinzipalentität Ziel. Um einen alternativen Schlüssel als Ziel verwenden, muss zusätzliche Konfigurationsschritte mithilfe der Fluent-API ausgeführt werden.
 
 ### <a name="fully-defined-relationships"></a>Vollständig definierten Beziehungen
 
-Das bekannteste Muster für Beziehungen werden Navigationseigenschaften, die an beiden Enden der Beziehung und eine Fremdschlüsseleigenschaft definiert, in der abhängigen Entität-Klasse definiert haben.
+Das bekannteste Muster für Beziehungen werden Navigationseigenschaften, die definiert, die an beiden Enden der Beziehung und eine Fremdschlüsseleigenschaft in der abhängigen Entität-Klasse definiert haben.
 
-* Wenn ein Paar von Navigationseigenschaften zwischen zwei Typen gefunden wird, werden sie als inverse Navigationseigenschaften derselben Beziehung modellieren konfiguriert werden.
+* Wenn ein Paar von Navigationseigenschaften zwischen zwei Typen gefunden wird, werden sie als umgekehrte Navigationseigenschaften, die von der gleichen Beziehung konfiguriert werden.
 
-* Wenn die abhängige Entität eine Eigenschaft namens enthält `<primary key property name>`, `<navigation property name><primary key property name>`, oder `<principal entity name><primary key property name>` und dann als Fremdschlüssel konfiguriert wird.
+* Wenn die abhängige Entität eine Eigenschaft namens enthält `<primary key property name>`, `<navigation property name><primary key property name>`, oder `<principal entity name><primary key property name>` als Fremdschlüssel so konfiguriert werden, wird.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/Full.cs?name=Entities&highlight=6,15,16)]
 
 > [!WARNING]  
-> Wenn es mehrere Navigationseigenschaften, die zwischen zwei Typen definiert sind (d. h. mehr als ein distinct Spaltenpaar Navigationen, die aufeinander zeigen), gemäß der Konvention werden dann keine Beziehungen erstellt werden, und Sie müssen manuell konfigurieren, um sich zu identifizieren wie die Navigationseigenschaften koppeln einrichten.
+> Treten mehrere Navigationseigenschaften, die zwischen zwei Arten definiert (d. h. mehrere unterschiedliche Paar von Navigationen, die auf den jeweils anderen verweisen), gemäß der Konvention werden dann keine Beziehungen erstellt werden, und Sie müssen manuell konfigurieren, um sich zu identifizieren wie die Navigationseigenschaften, kombinieren Sie.
 
 ### <a name="no-foreign-key-property"></a>Keine Foreign Key-Eigenschaft
 
-Zwar wird empfohlen, eine Fremdschlüsseleigenschaft in der abhängigen Entität-Klasse definiert haben, ist es nicht erforderlich. Wenn keine foreign Key-Eigenschaft gefunden wird, wird eine Fremdschlüsseleigenschaft Schatten eingeleitet werden, mit dem Namen `<navigation property name><principal key property name>` (siehe [Shadowing von Eigenschaften](shadow-properties.md) für Weitere Informationen).
+Zwar wird empfohlen, eine Fremdschlüsseleigenschaft in der abhängigen Entität-Klasse definiert haben, ist es nicht erforderlich. Wenn keine foreign Key-Eigenschaft gefunden wird, wird eine Fremdschlüsseleigenschaft Volumeschattenkopie eingeführt werden, mit dem Namen `<navigation property name><principal key property name>` (finden Sie unter [Schatteneigenschaften](shadow-properties.md) Informationen).
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/NoForeignKey.cs?name=Entities&highlight=6,15)]
 
 ### <a name="single-navigation-property"></a>Einzelne Navigationseigenschaft
 
-Nur eine Navigationseigenschaft (keine umgekehrte Navigation und keine Fremdschlüsseleigenschaft) einschließlich ist ausreichend, um eine Beziehung definiert, die gemäß der Konvention verfügen. Sie können auch eine einzelne Navigationseigenschaft und eine foreign Key-Eigenschaft verfügen.
+Nur eine Navigationseigenschaft (keine umgekehrte Navigation und keine Fremdschlüsseleigenschaft) einschließlich ist ausreichend, um eine Beziehung, die gemäß der Konvention definiert haben. Sie können auch die Möglichkeit, eine einzelne Navigationseigenschaft und eine Fremdschlüsseleigenschaft haben.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/OneNavigation.cs?name=Entities&highlight=6)]
 
-### <a name="cascade-delete"></a>Kaskadierte Löschung
+### <a name="cascade-delete"></a>Kaskadierendes Delete
 
-Gemäß der Konvention kaskadierte Löschung festgelegt, um *Cascade* für die erforderlichen Beziehungen und *ClientSetNull* für optionale Beziehungen. *CASCADE* bedeutet, dass abhängige Entitäten werden ebenfalls gelöscht. *ClientSetNull* bedeutet, der abhängige Entitäten, die nicht in den Arbeitsspeicher geladen werden verbleibt unverändert und müssen manuell gelöscht oder aktualisiert, um auf eine gültige Prinzipal Entität verweisen. Für Entitäten, die in den Arbeitsspeicher geladen werden, versucht EF Core, die Fremdschlüsseleigenschaften auf null festgelegt.
+Gemäß der Konvention Löschweitergabe festgelegt *Cascade* für erforderliche Beziehungen und *ClientSetNull* für optionale Beziehungen. *CASCADE* bedeutet, dass abhängige Entitäten werden ebenfalls gelöscht. *ClientSetNull* bedeutet, der abhängigen Entitäten, die nicht in den Speicher geladen bleibt unverändert und müssen manuell gelöscht oder aktualisiert, um auf eine gültige Prinzipal Entität verweisen. Für Entitäten, die in den Arbeitsspeicher geladen werden, versucht EF Core, die die foreign Key-Eigenschaften auf null festgelegt.
 
-Finden Sie unter der [erforderlichen und optionalen Beziehungen](#required-and-optional-relationships) Abschnitt, um den Unterschied zwischen der erforderlichen und optionalen Beziehungen.
+Finden Sie unter den [erforderlichen und optionalen Beziehungen](#required-and-optional-relationships) Abschnitt für den Unterschied zwischen erforderlichen und optionalen Beziehungen.
 
-Finden Sie unter [Löschweitergabe](../saving/cascade-delete.md) für ausführliche Informationen zu den verschiedenen Verhalten und die Standardwerte, die gemäß der Konvention verwendet löschen.
+Finden Sie unter [Löschweitergabe](../saving/cascade-delete.md) für Weitere Informationen zu den verschiedenen Verhalten und die Standardwerte, die gemäß der Konvention verwendet löschen.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
@@ -104,48 +104,48 @@ Es gibt zwei datenanmerkungen, die verwendet werden können, so konfigurieren Si
 
 ### <a name="foreignkey"></a>[ForeignKey]
 
-Die Datenanmerkungen können Sie konfigurieren, welche Eigenschaft als foreign Key-Eigenschaft für eine bestimmte Beziehung verwendet werden soll. Dies erfolgt in der Regel zusammen mit der foreign Key-Eigenschaft gemäß der Konvention nicht ermittelt werden.
+Sie können die Datenanmerkungen verwenden, so konfigurieren Sie die Eigenschaft als die Fremdschlüsseleigenschaft für eine bestimmte Beziehung verwendet werden soll. Dies erfolgt normalerweise, wenn die Fremdschlüsseleigenschaft nicht gemäß der Konvention ermittelt wird.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?name=Entities&highlight=17)]
 
 > [!TIP]  
-> Die `[ForeignKey]` Anmerkung für eine Navigationseigenschaft in der Beziehung platziert werden kann. Es muss nicht wechseln auf die Navigationseigenschaft, die in der abhängigen Entität-Klasse.
+> Die `[ForeignKey]` Anmerkung in beiden Navigationseigenschaft in der Beziehung platziert werden kann. Es muss nicht für die Navigationseigenschaft in der abhängigen Entität-Klasse zu wechseln.
 
 ### <a name="inverseproperty"></a>[InverseProperty]
 
-Die Anmerkungen Daten können Sie konfigurieren, wie Navigationseigenschaften für Entitäten abhängigen und koppeln einrichten. Dies erfolgt normalerweise, wenn mehr als ein Paar von Navigationseigenschaften zwischen zwei Entitätstypen wird.
+Sie können die Datenanmerkungen verwenden, konfigurieren, wie Navigationseigenschaften für Entitäten abhängigen und der Prinzipaleigenschaft kombinieren Sie. Dies erfolgt normalerweise, wenn mehr als ein Paar von Navigationseigenschaften zwischen zwei Entitätstypen vorhanden ist.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?name=Entities&highlight=20,23)]
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Um eine Beziehung in der Fluent-API konfigurieren möchten, starten Sie durch Identifizieren der Navigationseigenschaften, aus denen die Beziehung besteht. `HasOne`oder `HasMany` identifiziert die Navigationseigenschaft für den Entitätstyp, der Sie die Konfiguration ab. Sie verketten, klicken Sie dann einen Aufruf von `WithOne` oder `WithMany` die umgekehrte Navigation zu identifizieren. `HasOne`/`WithOne`dienen zur Navigation Verweiseigenschaften und `HasMany` / `WithMany` werden für Navigationseigenschaften der Auflistung verwendet.
+Um eine Beziehung in der Fluent-API zu konfigurieren, starten Sie durch das Identifizieren der Navigationseigenschaften, die die Beziehung bilden. `HasOne` oder `HasMany` identifiziert die Navigationseigenschaft für den Entitätstyp, der Sie die Konfiguration ab. Sie verketten, klicken Sie dann einen Aufruf von `WithOne` oder `WithMany` die umgekehrte Navigation zu identifizieren. `HasOne`/`WithOne` werden verwendet, für die verweisnavigationseigenschaften und `HasMany` / `WithMany` werden für Navigationseigenschaften für Auflistungen verwendet.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?name=Model&highlight=8,9,10)]
 
 ### <a name="single-navigation-property"></a>Einzelne Navigationseigenschaft
 
-Wenn Ihnen nur einer Navigationseigenschaft sind parameterlose Überladungen der `WithOne` und `WithMany`. Dies gibt an, dass es ist im Grunde ein Verweis oder eine Auflistung am anderen Ende der Beziehung, aber es keine Navigationseigenschaft, die in die Entitätsklasse enthalten ist.
+Wenn Sie nur eine Navigationseigenschaft stehen die parameterlose Überladung von `WithOne` und `WithMany`. Dies bedeutet, dass im Prinzip ein Verweis oder eine Auflistung am anderen Ende der Beziehung vorhanden ist, aber es keine Navigationseigenschaft, die in der Entitätsklasse enthalten gibt.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?name=Model&highlight=10)]
 
 ### <a name="foreign-key"></a>Fremdschlüssel
 
-Sie können die Fluent-API verwenden, konfigurieren, welche Eigenschaft als foreign Key-Eigenschaft für eine bestimmte Beziehung verwendet werden soll.
+Sie können die Fluent-API verwenden, so konfigurieren Sie die Eigenschaft als die Fremdschlüsseleigenschaft für eine bestimmte Beziehung verwendet werden soll.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?name=Model&highlight=11)]
 
-Das folgende Codebeispiel zeigt, wie so konfigurieren Sie einen zusammengesetzten foreign Key.
+Das folgende Codebeispiel veranschaulicht einen zusammengesetzten Fremdschlüssel zu konfigurieren.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?name=Model&highlight=13)]
 
-Können Sie die zeichenfolgenüberladung der `HasForeignKey(...)` so konfigurieren Sie eine Schattenkopie-Eigenschaft als Fremdschlüssel (finden Sie unter [Shadowing von Eigenschaften](shadow-properties.md) für Weitere Informationen). Es wird empfohlen, das Modell explizit die Shadow-Eigenschaft hinzugefügt werden, bevor es als Fremdschlüssel verwendet wird (wie unten gezeigt).
+Können Sie die zeichenfolgenüberladung von `HasForeignKey(...)` so konfigurieren Sie eine schatteneigenschaft als Fremdschlüssel (finden Sie unter [Schatteneigenschaften](shadow-properties.md) Informationen). Es wird empfohlen, das Modell explizit die Shadow-Eigenschaft hinzugefügt werden, bevor es als Fremdschlüssel verwendet wird (siehe unten).
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ShadowForeignKey.cs#Sample)]
 
-### <a name="principal-key"></a>Prinzipal-Schlüssel
+### <a name="principal-key"></a>Dienstprinzipalschlüssel
 
-Wenn Sie den Fremdschlüssel auf eine Eigenschaft als Primärschlüssel verweisen möchten, können Sie die Fluent-API, so konfigurieren Sie die Dienstprinzipalname Schlüsseleigenschaft für die Beziehung. Die Eigenschaft, die Sie als Prinzipal Schlüssel wird automatisch konfiguriert werden, Setup als ein alternativer Schlüssel (siehe [Alternativschlüssel](alternate-keys.md) für Weitere Informationen).
+Wenn Sie den Fremdschlüssel auf eine Eigenschaft als Primärschlüssel verweisen möchten, können Sie die Fluent-API, so konfigurieren Sie die wichtigsten Prinzipaleigenschaft für die Beziehung. Die Eigenschaft, die Sie als Prinzipal Schlüssel wird automatisch konfigurieren, werden Setup als alternativer Schlüssel (finden Sie unter [Alternativschlüssel](alternate-keys.md) Informationen).
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/PrincipalKey.cs?highlight=11)] -->
 ``` csharp
@@ -184,7 +184,7 @@ public class RecordOfSale
 }
 ```
 
-Das folgende Codebeispiel zeigt, wie so konfigurieren Sie einen zusammengesetzten Schlüssel für Dienstprinzipalnamen.
+Das folgende Codebeispiel zeigt einen zusammengesetzten Schlüssel für Prinzipal zu konfigurieren.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/CompositePrincipalKey.cs?highlight=11)] -->
 ``` csharp
@@ -226,11 +226,11 @@ public class RecordOfSale
 ```
 
 > [!WARNING]  
-> Die Reihenfolge, in der Sie die Schlüsseleigenschaften für Dienstprinzipalname angeben, muss der Reihenfolge entsprechen, in der für den Fremdschlüssel angegeben werden.
+> Die Reihenfolge, in der Sie wichtige prinzipaleigenschaften angeben, muss der Reihenfolge entsprechen, in der sie für den Fremdschlüssel angegeben sind.
 
 ### <a name="required-and-optional-relationships"></a>Erforderliche und optionale Beziehungen
 
-Sie können die Fluent-API verwenden, konfigurieren Sie, ob die Beziehung erforderlich oder optional ist. Letztlich steuert diese Eigenschaft, ob die foreign Key-Eigenschaft erforderlich oder optional ist. Dies ist besonders hilfreich, bei Verwendung von Schatten Zustand Fremdschlüssel. Wenn Sie über eine Fremdschlüsseleigenschaft in Ihrer Entitätsklasse verfügen, und klicken Sie dann die Requiredness der Beziehung bestimmt wird, je nachdem, ob die foreign Key-Eigenschaft erforderlich oder optional ist (finden Sie unter [erforderliche und optionale Eigenschaften](required-optional.md) Weitere Informationen).
+Sie können die Fluent-API verwenden, konfigurieren Sie, ob die Beziehung erforderlich oder optional ist. Letzten Endes steuert, ob die Fremdschlüsseleigenschaft erforderlich oder optional ist. Dies ist besonders hilfreich, wenn Sie einen Fremdschlüssel für die Schattenkopien Zustand verwenden. Wenn Sie eine Fremdschlüsseleigenschaft in Ihrer Entitätsklasse verfügen, und klicken Sie dann die Requiredness der Beziehung bestimmt wird, je nachdem, ob die Fremdschlüsseleigenschaft erforderlich oder optional ist (finden Sie unter [erforderliche und optionale Eigenschaften](required-optional.md) Weitere (Informationen).
 
 <!-- [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/Required.cs?highlight=11)] -->
 ``` csharp
@@ -266,11 +266,11 @@ public class Post
 }
 ```
 
-### <a name="cascade-delete"></a>Kaskadierte Löschung
+### <a name="cascade-delete"></a>Kaskadierendes Delete
 
-Die Fluent-API können Sie um das Löschverhalten Cascade für eine bestimmte Beziehung explizit zu konfigurieren.
+Sie können die Fluent-API verwenden, das Cascade Löschverhalten für eine bestimmte Beziehung explizit zu konfigurieren.
 
-Finden Sie unter [Löschweitergabe](../saving/cascade-delete.md) für eine ausführliche Erläuterung der einzelnen Optionen im Abschnitt "Speichern von Daten".
+Finden Sie unter [Löschweitergabe](../saving/cascade-delete.md) im Abschnitt Speichern von Daten für eine detaillierte Erläuterung der einzelnen Optionen.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/CascadeDelete.cs?highlight=11)] -->
 ``` csharp
@@ -309,9 +309,9 @@ public class Post
 
 ## <a name="other-relationship-patterns"></a>Andere Beziehung-Muster
 
-### <a name="one-to-one"></a>1:1
+### <a name="one-to-one"></a>1: 1
 
-1: 1-Beziehungen haben eine Navigationseigenschaft für den Verweis auf beiden Seiten. Sie entsprechen die gleichen Konventionen wie n-Beziehungen, jedoch ein eindeutiger Index wird eingeführt, auf die Fremdschlüsseleigenschaft, um sicherzustellen, dass nur eine abhängige, der jedem Prinzipal verknüpft ist.
+1: 1-Beziehungen haben einer verweisnavigationseigenschaft auf beiden Seiten. Folgen sie die gleichen Konventionen wie 1: n Beziehungen, aber ein eindeutiger Index wird eingeführt, auf die Fremdschlüsseleigenschaft, um sicherzustellen, dass nur eine abhängige, der jedem Prinzipal verknüpft ist.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/Relationships/OneToOne.cs?highlight=6,15,16)] -->
 ``` csharp
@@ -335,11 +335,11 @@ public class BlogImage
 ```
 
 > [!NOTE]  
-> EF wählt eine der Entitäten, die basierend auf der Fähigkeit zum Erkennen einer Fremdschlüsseleigenschaft abhängig sein. Wenn die falsche Entität als die abhängigen ausgewählt wird, können Sie die Fluent-API, um dieses Problem zu beheben.
+> EF wählt eine der Entitäten, die basierend auf der Fähigkeit zum Erkennen von Fremdschlüsseleigenschaften abhängig sein. Wenn die falsche Entität als die abhängigen ausgewählt wird, können Sie die Fluent-API, um dies zu korrigieren.
 
 Wenn Sie die Beziehung mit der Fluent-API konfigurieren möchten, verwenden Sie die `HasOne` und `WithOne` Methoden.
 
-Wenn Sie den Fremdschlüssel konfigurieren, Sie den Typ der abhängigen Entität - angeben müssen, beachten Sie den generischen Parameter bereitgestellt, um `HasForeignKey` in der Liste unten. In einer 1: n-Beziehung ist klar, dass die Entität mit dem Verweis-Navigation der abhängigen und der Datensatz mit der Auflistung der Prinzipal ist. Dies ist jedoch nicht in einer 1: 1-Beziehung - daher so muss er explizit zu definieren.
+Wenn die foreign Key konfigurieren, Sie den abhängige Entitätstyp - angeben müssen, beachten Sie den generischen Parameter bereitgestellt, um `HasForeignKey` in der folgenden Liste. In einer 1: n Beziehung wird deutlich, dass die Entität mit dem die Navigation Verweis des abhängigen und der Auftrag mit dem die Auflistung der Prinzipal ist. Dies ist jedoch nicht in einer 1: 1-Beziehung – daher so müssen sie explizit zu definieren.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/OneToOne.cs?highlight=11)] -->
 ``` csharp
@@ -376,9 +376,9 @@ public class BlogImage
 }
 ```
 
-### <a name="many-to-many"></a>m:n
+### <a name="many-to-many"></a>M: n
 
-Viele-zu-viele-Beziehungen ohne eine Entitätsklasse zur Darstellung der Jointabelle werden noch nicht unterstützt. Sie können jedoch eine m: n-Beziehung darstellen, indem einschließlich einer Entitätsklasse für die Jointabelle und die Zuordnung zwei separaten 1: n-Beziehungen.
+M: n Beziehungen ohne eine Entitätsklasse zur Darstellung der Jointabelle werden noch nicht unterstützt. Allerdings können Sie eine m: n Beziehung darstellen, durch Einschließen einer Entitätsklasse für die Jointabelle und die Zuordnung zwei separate 1: n Beziehungen.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/ManyToMany.cs?highlight=11,12,13,14,16,17,18,19,39,40,41,42,43,44,45,46)] -->
 ``` csharp

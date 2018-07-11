@@ -1,69 +1,69 @@
 ---
-title: Portieren von EF6 auf EF-Core - Anforderungen zu überprüfen
+title: 'Portieren von EF6 auf EF Core: Überprüfen von Anforderungen'
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: d3b66f3c-9d10-4974-a090-8ad093c9a53d
 uid: efcore-and-ef6/porting/ensure-requirements
-ms.openlocfilehash: 2f45039e63546d266ec6ce0bfa66ef7e9fb3d7e7
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 65bdc8bb9574d37db697aa47c8e8c480cefcb4f7
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052860"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949113"
 ---
-# <a name="before-porting-from-ef6-to-ef-core-validate-your-applications-requirements"></a>Vor dem Portieren von EF6 auf EF Core: Überprüfen Sie den Anforderungen der Anwendung
+# <a name="before-porting-from-ef6-to-ef-core-validate-your-applications-requirements"></a>Vor dem Portieren von EF 6 nach EF Core: Überprüfen Sie die Anforderungen Ihrer Anwendung
 
-Bevor Sie mit der Portierung von beginnen ist es wichtig zu überprüfen, ob EF Core Anforderungen der Daten für Ihre Anwendung entspricht.
+Vor der Installation des portiervorgang ist es wichtig, um sicherzustellen, dass EF Core die Anforderungen für den Datenzugriff für Ihre Anwendung erfüllt.
 
-## <a name="missing-features"></a>Fehlende Funktionen
+## <a name="missing-features"></a>Fehlende features
 
-Stellen Sie sicher, dass EF Core alle Funktionen verfügt, die Sie in Ihrer Anwendung verwenden müssen. Finden Sie unter [Funktionsvergleich](../features.md) für einen ausführlichen Vergleich wie die Funktionen von EF-Core mit EF6 verglichen. Wenn alle erforderlichen Funktionen fehlen, stellen Sie sicher, dass für das Fehlen dieser Funktionen vor dem Portieren auf EF Core kompensiert werden können.
+Stellen Sie sicher, dass EF Core verfügt über alle Funktionen, die Sie in Ihrer Anwendung verwenden müssen. Finden Sie unter [Funktionsvergleich](../features.md) für einen detaillierten Vergleich wie der Features in EF Core im Vergleich zu EF6. Wenn alle erforderlichen Features fehlen, stellen Sie sicher, dass Sie den Mangel an diese Funktionen vor dem Portieren nach EF Core beheben können.
 
-## <a name="behavior-changes"></a>Verändertes Programmverhalten
+## <a name="behavior-changes"></a>Verhaltensänderungen
 
-Dies ist eine nicht erschöpfende Liste einiger Änderungen im Verhalten zwischen EF6 und EF Core. Es ist wichtig zu beachten Sie den Port die Anwendung halten sich ändernder wie können die Anwendung verhält sich aber wird nicht angezeigt werden, als Kompilierungsfehler nach dem Austausch und EF Core.
+Dies ist eine nicht erschöpfende Liste einiger Änderungen im Verhalten zwischen EF6 und EF Core. Es ist wichtig zu beachten Sie dies als den Port der Anwendung, wie sie die Art ändern können, die Ihre Anwendung verhält sich, die jedoch nicht angezeigt wie die Kompilierungsfehler nach dem Austausch zu EF Core.
 
 ### <a name="dbsetaddattach-and-graph-behavior"></a>DbSet.Add/Attach und Graph-Verhalten
 
-In EF6 Aufrufen von `DbSet.Add()` für eine Entität führt in eine rekursive Suche für alle Entitäten, die in die Navigationseigenschaften verwiesen wird. Alle benutzerentitäten, die gefunden werden, und nicht bereits vom Kontext, nachverfolgt werden auch als hinzugefügt markiert werden. `DbSet.Attach()`verhält sich, mit der Ausnahme alle Entitäten gekennzeichnet sind als unverändert.
+In EF6 Aufrufen `DbSet.Add()` auf eine Entität in einer rekursiven Suche für alle Entitäten, die in die Navigationseigenschaften verwiesen wird. Alle Entitäten, die gefunden werden und nicht bereits vom Kontext, nachverfolgt werden, sind auch markiert werden, wenn hinzugefügt. `DbSet.Attach()` verhält sich identisch, außer der alle Entitäten markiert sind als nicht geändert.
 
-**EF Core führt eine rekursive Suche in ähnlichen, jedoch mit einigen etwas anderen Regeln.**
+**EF Core führt eine rekursive Suche nach ähnlichen, jedoch mit einigen etwas anderen Regeln.**
 
-*  Die Stammentität befindet sich immer im angeforderten Status (für hinzugefügt `DbSet.Add` und unverändert `DbSet.Attach`).
+*  Die Stammentität ist immer im angeforderten Zustand (für hinzugefügt `DbSet.Add` und unverändert für `DbSet.Attach`).
 
 *  **Für Entitäten, die während der rekursiven Suche von Navigationseigenschaften gefunden werden:**
 
     *  **Wenn der Primärschlüssel der Entität speichern generierter ist**
 
-        * Wenn der Primärschlüssel nicht auf einen Wert festgelegt ist, wird der Status zu hinzugefügte festgelegt. Der Primärschlüsselwert gilt als "nicht konfiguriert", wenn es der CLR-Standardwert für den Eigenschaftentyp zugewiesen ist (d. h. `0` für `int`, `null` für `string`usw..).
+        * Wenn der Primärschlüssel nicht auf einen Wert festgelegt ist, wird der Status zu hinzugefügten festgelegt. Wert des Primärschlüssels gilt als "nicht festgelegt", wenn es der CLR-Standardwert für den Eigenschaftentyp zugewiesen ist (z. B. `0` für `int`, `null` für `string`usw..).
 
-        * Wenn der Primärschlüssel auf einen Wert festgelegt ist, wird der Status auf unverändert festgelegt.
+        * Wenn der primäre Schlüssel auf einen Wert festgelegt ist, wird der Status auf unchanged festgelegt.
 
-    *  Wenn der Primärschlüssel nicht datenbankgeneriert ist, wird die Entität im gleichen Zustand wie der Stamm gespeichert.
+    *  Wenn der Primärschlüssel nicht generierten Datenbank ist, wird die Entität im den gleichen Zustand wie der Stamm gespeichert.
 
-### <a name="code-first-database-initialization"></a>Initialisierung der ersten Datenbank Code
+### <a name="code-first-database-initialization"></a>Code des ersten Datenbankinitialisierung
 
-**EF6 verfügt über eine beträchtliche Menge an Magic, die ausgeführt wird, um die Verbindung mit der Datenbank auswählen und zum Initialisieren der Datenbank. Diese Regeln gehören:**
+**EF6 weist eine erhebliche Menge an Magic, die sie für das Auswählen von Verbindung mit der Datenbank, und Initialisieren der Datenbank ausführt. Zu diesen Regeln gehören:**
 
 * Wenn keine Konfiguration ausgeführt wird, wählt EF6 eine Datenbank auf SQL Express oder LocalDb.
 
-* Wenn eine Verbindungszeichenfolge mit dem gleichen Namen wie der Kontext in den Clientanwendungen ist `App/Web.config` -Datei wird diese Verbindung verwendet werden.
+* Wenn eine Verbindungszeichenfolge mit dem gleichen Namen wie der Kontext in den Anwendungen ist `App/Web.config` -Datei diese Verbindung verwendet werden.
 
-* Wenn die Datenbank nicht vorhanden ist, wird er erstellt.
+* Wenn die Datenbank nicht vorhanden ist, wird es erstellt.
 
-* Wenn keine der Tabellen aus dem Modell in der Datenbank vorhanden sind, wird das Schema für das aktuelle Modell mit der Datenbank hinzugefügt. Wenn es sich bei Migrationen aktiviert sind, werden sie verwendet, zum Erstellen der Datenbank.
+* Wenn keine der Tabellen aus dem Modell in der Datenbank vorhanden sind, wird das Schema für das aktuelle Modell der Datenbank hinzugefügt. Wenn Migrations aktiviert sind, werden sie verwendet, um die Datenbank zu erstellen.
 
-* Wenn die Datenbank vorhanden ist und EF6 hatte zuvor das Schema erstellt, wird das Schema für die Kompatibilität mit dem aktuellen Modell überprüft. Eine Ausnahme wird ausgelöst, wenn das Modell geändert hat, seit der Erstellung des Schemas.
+* Wenn die Datenbank vorhanden ist, und das Schema von EF6 hatten zuvor erstellt haben, ist Klicken Sie dann das Schema für die Kompatibilität mit dem aktuellen Modell aktiviert. Eine Ausnahme wird ausgelöst, wenn das Modell geändert wurde, da das Schema erstellt wurde.
 
-**EF Core führt keine dieser Magic.**
+**EF Core führt nicht zu, dass keines dieser Magic-Befehl.**
 
-* Verbindung mit der Datenbank muss explizit in Code konfiguriert werden.
+* Die datenbankverbindung muss explizit im Code konfiguriert werden.
 
-* Keine Initialisierung ausgeführt. Verwenden Sie `DbContext.Database.Migrate()` anzuwendende Migrationen (oder `DbContext.Database.EnsureCreated()` und `EnsureDeleted()` zu erstellen und die Datenbank löschen ohne Verwendung von Migrationen).
+* Es wird keine Initialisierung ausgeführt. Verwenden Sie `DbContext.Database.Migrate()` zum Anwenden von Migrationen (oder `DbContext.Database.EnsureCreated()` und `EnsureDeleted()` zu erstellen und die Datenbank löschen ohne Migrationen zu verwenden).
 
-### <a name="code-first-table-naming-convention"></a>Erste Tabelle Namenskonvention
+### <a name="code-first-table-naming-convention"></a>Erste Tabelle Benennungskonvention
 
-EF6, wird der Klassenname für die Entität über ein Pluralisierung-Dienst, um den Standardnamen für die Tabelle zu berechnen, dem die Entität zugeordnet ist.
+EF6 wird der Name der Entitätsklasse über eine pluralisierungsdienst den Standardnamen für die Tabelle zu berechnen, dem die Entität zugeordnet ist.
 
-EF Core verwendet den Namen des der `DbSet` -Eigenschaft, die die Entität für den abgeleiteten Kontext verfügbar gemacht werden. Wenn die Entität keine `DbSet` -Eigenschaft, und klicken Sie dann auf den Klassennamen verwendet wird.
+EF Core verwendet den Namen der `DbSet` -Eigenschaft, die die Entität für den abgeleiteten Kontext verfügbar gemacht wird. Wenn die Entität nicht verfügt eine `DbSet` -Eigenschaft, und klicken Sie dann auf den Namen der Klasse wird verwendet.
