@@ -1,41 +1,41 @@
 ---
-title: Aktualisieren von EF Core 1.0 RTM - RC2 EF Core
+title: Aktualisieren von EF Core 1.0 RC2 auf RTM – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 ms.technology: entity-framework-core
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 4bb4c5736708413f6581cad250b089b7bc22a559
-ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
+ms.openlocfilehash: 9561eac253517188251fece9a03f434482246051
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/23/2018
-ms.locfileid: "30151039"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949056"
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Aktualisieren von EF Core 1.0 RC2 auf RTM-Version
 
-Dieser Artikel enthält Hinweise zum Verschieben einer Anwendung erstellt, die mit den Paketen 1.0.0 RC2 RTM-Version.
+Dieser Artikel enthält Anleitungen zum Verschieben von einer Anwendung erstellt, mit dem RC2-Paketen auf 1.0.0 RTM-Version.
 
 ## <a name="package-versions"></a>Paketversionen
 
-Die Namen der obersten Ebene Pakete, die Sie in der Regel in einer Anwendung installieren möchten zwischen RC2 und RTM nicht ändern.
+Die Namen der Pakete auf oberster Ebene, die Sie in der Regel in eine Anwendung installieren würden wurde zwischen RC2 und RTM-Version nicht geändert werden.
 
-**Sie müssen die installierten Pakete auf die RTM-Versionen aktualisieren:**
+**Sie müssen die installierten Pakete auf die RTM-Versionen zu aktualisieren:**
 
-* Laufzeit-Pakete (z. B. `Microsoft.EntityFrameworkCore.SqlServer`) angebotskennzeichen `1.0.0-rc2-final` auf `1.0.0`.
+* Runtime-Pakete (z. B. `Microsoft.EntityFrameworkCore.SqlServer`) von geändert `1.0.0-rc2-final` zu `1.0.0`.
 
-* Die `Microsoft.EntityFrameworkCore.Tools` Paket angebotskennzeichen `1.0.0-preview1-final` auf `1.0.0-preview2-final`. Beachten Sie, dass die Tools sind immer noch eine Vorabversion ist.
+* Die `Microsoft.EntityFrameworkCore.Tools` Paket geändert `1.0.0-preview1-final` zu `1.0.0-preview2-final`. Beachten Sie, dass Tools immer noch eine Vorabversion.
 
 ## <a name="existing-migrations-may-need-maxlength-added"></a>Vorhandene Migrationen möglicherweise MaxLength hinzugefügt
 
-In RC2 die Spaltendefinition in einer Migration aussah `table.Column<string>(nullable: true)` und die Länge der Spalte in einige Metadaten wir in den Code für die Migration speichern nachgeschlagen wurde. In der RTM-Version, die Länge jetzt im scaffolded Code enthalten `table.Column<string>(maxLength: 450, nullable: true)`.
+In RC2, sah die Spaltendefinition in einer Migration `table.Column<string>(nullable: true)` und die Länge der Spalte in einige Metadaten wir in den Code hinter der Migration speichern gesucht wurde. In der RTM-Version ist jetzt die Länge in dem eingerüsteten Code enthalten `table.Column<string>(maxLength: 450, nullable: true)`.
 
-Alle vorhandenen Migrationen, bei denen vor der Verwendung von RTM Gerüstbau wurden keine der `maxLength` Argument wurde angegeben. Dies bedeutet, dass die maximale Länge, die von der Datenbank unterstützt werden kann (`nvarchar(max)` auf SQL Server). Dies ist möglicherweise für einige Spalten, jedoch die Spalten, die Teil eines Schlüssels, Fremdschlüssel, sind in Ordnung, oder Index muss aktualisiert werden, um eine maximale Länge enthalten. Gemäß der Konvention ist 450 die maximale Länge für Schlüssel, Fremdschlüssel, verwendet und volltextindizierte Spalten. Wenn Sie explizit eine Länge in das Modell konfiguriert haben, sollten Sie stattdessen diese Länge verwenden.
+Alle vorhandenen Migrationen, bei denen Gerüst erstellt wurden, vor der Verwendung von RTM-Version müssen nicht die `maxLength` Argument angegeben. Dies bedeutet, dass die maximale Länge, die von der Datenbank unterstützt werden kann (`nvarchar(max)` auf SQL Server). Dies ist möglicherweise für einige Spalten, aber die Spalten, die Teil eines Schlüssels, foreign key- oder Index müssen aktualisiert werden, um eine maximale Länge enthalten. Gemäß der Konvention ist 450, die maximale Länge für Schlüssel, Fremdschlüssel, verwendet und die indizierten Spalten. Wenn Sie eine Länge explizit in das Modell konfiguriert haben, sollten Sie stattdessen diese Länge verwenden.
 
 **ASP.NET Identity**
 
-Diese Änderung wirkt sich auf Projekte, die ASP.NET Identity verwendet und erstellt wurden, aus einer vor-RTM-Projektvorlage. Die Projektvorlage enthält eine Migration zum Erstellen der Datenbank verwendet. Diese Migration bearbeitet werden muss, zum Angeben einer maximalen Länge von `256` für die folgenden Spalten.
+Diese Änderung wirkt sich auf die Projekte, die aus einer vorab erstellten und Verwenden von ASP.NET Identity-RTM-Projektvorlage. Die Projektvorlage enthält eine Migration verwendet, um die Datenbank zu erstellen. Diese Migration muss bearbeitet werden, zum Angeben einer maximalen Länge von `256` für die folgenden Spalten.
 
 *  **AspNetRoles**
 
@@ -53,13 +53,13 @@ Diese Änderung wirkt sich auf Projekte, die ASP.NET Identity verwendet und erst
 
    * UserName
 
-Diese Änderung wird in der folgenden Ausnahme ansonsten bei die anfängliche Migration auf eine Datenbank angewendet wird.
+Fehler für diese Änderung führt in der folgenden Ausnahme, wenn die ursprüngliche Migration auf eine Datenbank angewendet wird.
 
     System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
 
 ## <a name="net-core-remove-imports-in-projectjson"></a>.NET Core: Entfernen von "Imports" in "Project.JSON"
 
-Bei der Ausrichtung auf .NET Core mit RC2 wurden benötigt hinzuzufügende `imports` auf "Project.JSON" als vorübergehende problemumgehung für einige der EF kernabhängigkeiten .NET Standard, nicht unterstützt. Diese können jetzt entfernt werden.
+Wenn Sie .NET Core mit RC2 verwenden wurden, mussten Sie fügen `imports` Datei "Project.JSON" als vorübergehende problemumgehung für einige der EF Core Abhängigkeiten, die nicht unterstützen .NET Standard. Diese können jetzt entfernt werden.
 
 ``` json
 {
@@ -72,15 +72,15 @@ Bei der Ausrichtung auf .NET Core mit RC2 wurden benötigt hinzuzufügende `impo
 ```
 
 > [!NOTE]  
-> Ab Version 1.0 RTM-Version, die [.NET Core SDK](https://www.microsoft.com/net/download/core) nicht mehr unterstützt `project.json` oder .NET Core-Anwendungen, die mit Visual Studio 2015 entwickeln. Es wird empfohlen, [eine Migration von „project.json“ zu „csproj“ durchzuführen](https://docs.microsoft.com/dotnet/articles/core/migration/). Wenn Sie Visual Studio verwenden, sollten Sie Sie ein upgrade auf [Visual Studio 2017](https://www.visualstudio.com/downloads/).
+> Ab Version 1.0 RTM-Version der [.NET Core SDK](https://www.microsoft.com/net/download/core) unterstützt nicht mehr `project.json` oder .NET Core-Anwendungen mit Visual Studio 2015 entwickeln. Es wird empfohlen, [eine Migration von „project.json“ zu „csproj“ durchzuführen](https://docs.microsoft.com/dotnet/articles/core/migration/). Wenn Sie Visual Studio verwenden, sollten Sie Sie ein upgrade auf [Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
-## <a name="uwp-add-binding-redirects"></a>Universelle Windows-Plattform: Fügen Sie bindungsumleitungen hinzu
+## <a name="uwp-add-binding-redirects"></a>UWP: Fügen Sie bindungsumleitungen hinzu
 
-Es wird versucht, EF-Befehle auf die universelle Windows-Plattform (UWP) Teamprojekten führt zu folgendem Fehler ausgeführt:
+Es wird versucht, EF-Befehle auf der universellen Windows-Plattform (UWP) von Teamprojekten führt zu folgendem Fehler ausgeführt:
 
     System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
 
-In diesem Fall müssen Sie eine uwp-Projekt manuell bindungsumleitungen hinzufügen. Erstellen Sie eine Datei mit dem Namen `App.config` im Projekt root-Ordner und die richtigen Assemblyversionen leitet hinzuzufügen.
+Sie müssen das UWP-Projekt manuell bindungsumleitungen hinzufügen. Erstellen Sie eine Datei mit dem Namen `App.config` im Projekt Stammordner, und die richtigen Assemblyversionen umleitungen hinzugefügt.
 
 ``` xml
 <configuration>
