@@ -1,31 +1,31 @@
 ---
-title: Verbindungsresilienz - EF Core
+title: Verbindungsresilienz – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 ms.technology: entity-framework-core
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: aec69577cd4b19fdebedb33ed6fd8f2665b0a032
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: 34ca1908257ed5544f2e134fa7686c9802fcebea
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/05/2017
-ms.locfileid: "26053530"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949296"
 ---
-# <a name="connection-resiliency"></a>Verbindungsstabilität
+# <a name="connection-resiliency"></a>Verbindungsresilienz
 
-Verbindungsresilienz führt automatisch Wiederholungsversuche für fehlerhafte Datenbankbefehle. Die Funktion kann mit einer beliebigen Datenbank verwendet werden, durch Angabe einer "Ausführungsstrategie", die die Logik zum Erkennen von Fehlern, und wiederholen die Befehle kapselt. EF-Core-Anbieter können auf ihre Datenbank fehlerbedingungen und optimale wiederholungsrichtlinien zugeschnittene Ausführungsstrategien angeben.
+Verbindungsresilienz versucht automatisch fehlerhaften Datenbankbefehle auszuführen. Die Funktion kann mit einer beliebigen Datenbank verwendet werden, um durch Angabe einer "Ausführungsstrategie", die erforderliche Logik zum Erkennen von Fehlern aus, und wiederholen die Befehle kapselt. EF Core-Anbieter können Ausführungsstrategien maßgeschneidert für ihre Datenbank fehlerbedingungen und optimale wiederholungsrichtlinien angeben.
 
-Beispielsweise enthält die SQL Server-Anbieter eine Ausführungsstrategie, die speziell auf SQL Server (einschließlich SQL Azure) zugeschnitten ist. Er erkennt die Ausnahmetypen, die wiederholt werden können und sensibler Standardwerte für die maximal Anzahl von Wiederholungen, Verzögerung zwischen Wiederholungen usw. enthält.
+Beispielsweise enthält den SQL Server-Anbieter eine Ausführungsstrategie, die speziell auf SQL Server (einschließlich SQL Azure) zugeschnitten ist. Es erkennt die Ausnahmetypen, die wiederholt werden können und verfügt über sinnvolle Standardwerte für maximale Wiederholungsversuche, Verzögerung zwischen Wiederholungen usw.
 
-Eine Ausführungsstrategie wird angegeben, wenn Sie die Optionen für den Kontext zu konfigurieren. Dies ist in der Regel in der `OnConfiguring` Methode von den abgeleiteten Kontext oder `Startup.cs` für eine ASP.NET Core-Anwendung.
+Eine Ausführungsstrategie für die wird angegeben, wenn Sie die Optionen für den Kontext zu konfigurieren. Dies ist in der Regel in der `OnConfiguring` Methode, die von Ihrem abgeleiteten Kontext oder `Startup.cs` für eine ASP.NET Core-Anwendung.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
 
 ## <a name="custom-execution-strategy"></a>Benutzerdefinierte Ausführungsstrategie
 
-Es ist ein Mechanismus zum Registrieren einer benutzerdefinierten Ausführungsstrategie Ihrer Wahl, wenn Sie die Standardwerte ändern möchten.
+Es gibt ein Mechanismus zum Registrieren einer benutzerdefinierten Ausführungsstrategie selbst, wenn Sie die Standardwerte ändern möchten.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,57 +39,57 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ## <a name="execution-strategies-and-transactions"></a>Ausführungsstrategien und Transaktionen
 
-Eine Ausführungsstrategie, die automatisch auf Fehler versucht werden soll, muss in der Lage, jeden Vorgang in einen wiederholungsversuchblock wiederzugeben, die nicht. Wenn Wiederholungen aktiviert sind, wird jeder Vorgang, die Sie über EF Core ausführen eigener wiederholbar Vorgang, d. h. jede Abfrage und jeder Aufruf von `SaveChanges()` wird als eine Einheit wiederholt, wenn ein vorübergehender Fehler auftritt.
+Eine Ausführungsstrategie, die automatisch bei Fehlern versucht werden soll, muss in der Lage, jeden Vorgang in einen wiederholungsversuchblock wiederzugeben, die nicht. Wenn Wiederholungen aktiviert sind, wird jeder Vorgang, die Sie über EF Core ausführen individuell wiederholbaren Vorgang. Das heißt, jede Abfrage und jeder Aufruf von `SaveChanges()` wird als eine Einheit wiederholt, wenn ein vorübergehender Fehler auftritt.
 
-Jedoch wenn Codes initiiert eine Transaktion mit `BeginTransaction()` definieren Sie eine eigene Gruppe von Vorgängen, die als Einheit behandelt werden müssen, d. h. müssen alles innerhalb der Transaktion wiedergegeben werden soll ein Fehler auftreten. Sie erhalten eine der folgenden vergleichbare Ausnahme, wenn Sie versuchen, dieses Verfahren, wenn eine Ausführungsstrategie verwenden.
+Aber wenn Ihr Code initiiert eine Transaktion mit `BeginTransaction()` definieren Sie Ihre eigene Gruppe von Vorgängen, die als Einheit behandelt werden müssen, und alles innerhalb der Transaktion wiedergegeben werden soll ein Fehler auftreten muss. Sie erhalten eine Ausnahme wie folgt, wenn Sie versuchen, dies zu tun, wenn Sie eine Ausführungsstrategie verwenden:
 
-> InvalidOperationException: Die konfigurierte Ausführungsstrategie 'SqlServerRetryingExecutionStrategy' unterstützt keine vom Benutzer initiierten Transaktionen. Verwenden Sie die Ausführungsstrategie "DbContext.Database.CreateExecutionStrategy()" zurückgegebene, um alle Vorgänge in der Transaktion als Einheit mit möglichem auszuführen.
+> "InvalidOperationException": Die konfigurierte Ausführungsstrategie "SqlServerRetryingExecutionStrategy" unterstützt keine vom Benutzer initiierte Transaktionen. Verwenden Sie die Ausführungsstrategie, die von „DbContext.Database.CreateExecutionStrategy()“ zurückgegeben wird, um alle Vorgänge in der Transaktion als wiederholbare Einheit auszuführen.
 
-Die Lösung besteht darin, manuell aufrufen Ausführungsstrategie mit einen Delegaten, die alle Elemente darstellt, die ausgeführt werden muss. Um ein vorübergehender Fehler auftritt, wird die Ausführungsstrategie den Delegaten erneut aufrufen.
+Die Lösung besteht darin, manuell die Ausführungsstrategie mit einem Delegaten, der alle Komponenten darstellt aufrufen, die ausgeführt werden muss. Die Ausführungsstrategie ruft den Delegaten erneut auf, wenn ein vorübergehender Fehler auftritt.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#ManualTransaction)]
 
 ## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>Fehler beim Commit der Transaktion und das Problem Idempotenz
 
-Im Allgemeinen wird, wenn ein Verbindungsfehler vorhanden ist die aktuelle Transaktion ein Rollback ausgeführt. Jedoch wenn die Verbindung getrennt wird, während die Transaktion wird wird ein Commit der resultierende Status der Transaktion ist unbekannt. Lesen Sie diese [Blogbeitrag](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) Weitere Details.
+Im Allgemeinen wird bei ein Verbindungsfehler die aktuelle Transaktion ein Rollback ausgeführt. Allerdings, wenn die Verbindung getrennt wird, während die Transaktion wird ein Commit der resultierende Status der Transaktion ist unbekannt. Finden Sie in diesem [Blogbeitrag](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) Weitere Details.
 
-Wird standardmäßig die Ausführungsstrategie wiederholt den Vorgang als ob Rollback der Transaktion, ist dies nicht der Fall Dies führt jedoch eine Ausnahme ausgelöst, wenn der neuen Datenbankstatus nicht kompatibel ist oder zur führen **datenbeschädigung** Wenn die Vorgang beruht nicht auf einem bestimmten Status, z. B. Wenn Sie eine neue Zeile mit automatisch generierten Schlüsselwerte einfügen.
+In der Standardeinstellung die Ausführungsstrategie wiederholt den Vorgang wurde ein Rollback für die Transaktion, wobei jedoch ist dies nicht der Fall dies zu einer Ausnahme führt, wenn der neue Datenbankstatus nicht kompatibel ist oder zu führen **datenbeschädigung** Wenn die Vorgang beruht nicht auf einem bestimmten Status, z. B. wenn eine neue Zeile mit automatisch generierter Schlüsselwerte einfügen.
 
-Es gibt mehrere Möglichkeiten, zu diesem Zweck verfügt.
+Es gibt mehrere Möglichkeiten, diese verarbeiten.
 
-### <a name="option-1---do-almost-nothing"></a>Option 1 – nothing (fast)
+### <a name="option-1---do-almost-nothing"></a>Option 1: nothing (fast)
 
-Die Wahrscheinlichkeit für einen Verbindungsfehler während des Transaktionscommits ist gering, sodass sie möglicherweise für Ihre Anwendung nur fehlschlägt, wenn tatsächlich diese Bedingung tritt ein akzeptabel.
+Die Wahrscheinlichkeit für einen Verbindungsfehler während des Transaktionscommits ist gering, sodass es für die Anwendung nur fehlschlägt, wenn diese Bedingung, tatsächlich eintritt gültig sein kann.
 
-Allerdings müssen Sie zur Vermeidung des Speicher generierte Schlüssel, um sicherzustellen, dass eine Ausnahme ausgelöst wird, anstatt eine doppelte Zeile hinzuzufügen. Erwägen Sie eine Client-generierte GUID-Wert oder einen für die clientseitige-wertgenerator.
+Allerdings müssen Sie zu vermeiden, vom Speicher generierte Schlüssel verwenden, um sicherzustellen, dass eine Ausnahme ausgelöst wird, anstatt eine Zeile mit doppelte hinzuzufügen. Sollten Sie einen Client generierter GUID-Wert oder einen für die clientseitige-wertgenerator.
 
-### <a name="option-2---rebuild-application-state"></a>Option 2: Rebuild-Anwendungsstatus
+### <a name="option-2---rebuild-application-state"></a>Option 2 – Rebuild-Anwendungsstatus
 
-1. Verwerfen den aktuellen `DbContext`.
-2. Erstellen Sie ein neues `DbContext` und Wiederherstellen des Zustands der Anwendung aus der Datenbank.
-3. Dem Benutzer zu informieren, dass der letzte Vorgang nicht erfolgreich abgeschlossen wurden wurden möglicherweise.
+1. Verwerfen der aktuellen `DbContext`.
+2. Erstellen Sie ein neues `DbContext` und Wiederherstellen des Zustands Ihrer Anwendung aus der Datenbank.
+3. Informieren Sie den Benutzer, dass der letzte Vorgang nicht erfolgreich abgeschlossen wurde haben kann.
 
 ### <a name="option-3---add-state-verification"></a>Option 3 - Status-Überprüfung hinzufügen
 
-Für die meisten Vorgänge, die den Status einer Datenbank ändern, ist es möglich, Code hinzufügen, der überprüft, ob es erfolgreich ausgeführt wurde. EF bietet eine Erweiterungsmethode zur - Vereinfachung `IExecutionStrategy.ExecuteInTransaction`.
+Für den Großteil der Vorgänge, die den Zustand der Datenbank zu ändern, ist es möglich, Code hinzuzufügen, die überprüft, ob es erfolgreich war. EF bietet eine Erweiterungsmethode zur - Vereinfachung `IExecutionStrategy.ExecuteInTransaction`.
 
-Diese Methode startet einen Commit für eine Transaktion und akzeptiert auch eine Funktion in der `verifySucceeded` Parameter, der aufgerufen wird, wenn ein vorübergehender Fehler beim Commit Transaktion auftritt.
+Diese Methode beginnt und führt einen Commit für eine Transaktion und akzeptiert auch eine Funktion in der `verifySucceeded` Parameter, der aufgerufen wird, wenn ein vorübergehender Fehler, während das Commit der Transaktion auftritt.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Verification)]
 
 > [!NOTE]
-> Hier `SaveChanges` mit aufgerufen wird `acceptAllChangesOnSuccess` festgelegt `false` zu vermeiden, Ändern des Status der `Blog` Entität `Unchanged` Wenn `SaveChanges` erfolgreich ausgeführt wird. Dies ermöglicht um den gleichen Vorgang zu wiederholen, wenn das Commit schlägt fehl, und die Transaktion ein Rollback.
+> Hier `SaveChanges` wird aufgerufen, mit `acceptAllChangesOnSuccess` festgelegt `false` um zu vermeiden, Ändern des Status der `Blog` Entität `Unchanged` Wenn `SaveChanges` erfolgreich ausgeführt wird. Dadurch können um den gleichen Vorgang zu wiederholen, wenn der Commit schlägt fehl, und die Transaktion ein Rollback.
 
 ### <a name="option-4---manually-track-the-transaction"></a>Option 4: die Transaktion manuell nachverfolgen
 
-Wenn Sie müssen Speicher generierte Schlüssel verwenden, oder benötigen eine generische Methode der Behandlung von commitfehlern, die nicht auf den ausgeführten Vorgang abhängig konnte jede Transaktion eine ID zugewiesen, die überprüft wird, wenn dies fehlschlägt.
+Wenn Sie müssen Speicher generierte Schlüssel oder eine generische Möglichkeit Commit Fehler zu beheben, die nicht von den ausgeführten Vorgang abhängig ist konnte jeder Transaktion eine ID zugewiesen werden, die überprüft wird, wenn der Commit schlägt fehl.
 
 1. Fügen Sie eine Tabelle mit der Datenbank verwendet, um den Status der Transaktionen nachzuverfolgen.
-2. In der Tabelle am Anfang jeder Transaktion eine Zeile eingefügt werden.
-3. Wenn die Verbindung während der Commit-fehlschlägt, überprüfen Sie das Vorhandensein der entsprechenden Zeile in der Datenbank.
-4. Wenn das Commit erfolgreich ausgeführt wurde, löschen Sie die entsprechende Zeile aus, um die Vergrößerung der Tabelle zu vermeiden.
+2. Eine Zeile in der Tabelle am Anfang jeder Transaktion eingefügt.
+3. Wenn die Verbindung während des Commits fehlschlägt, überprüfen Sie das Vorhandensein der entsprechenden Zeile in der Datenbank.
+4. Wenn der Commit erfolgreich ausgeführt wird, löschen Sie die entsprechende Zeile aus, um die Vergrößerung der Tabelle zu vermeiden.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Tracking)]
 
 > [!NOTE]
-> Stellen Sie sicher, dass der Kontext für die Überprüfung verwendet eine Ausführungsstrategie definiert, wie die Verbindung wahrscheinlich erneut bei der Überprüfung fehl ist, wenn während des Transaktionscommits aufgetreten ist.
+> Stellen Sie sicher, dass der Kontext für die Überprüfung verwendet, eine Ausführungsstrategie definiert wurde, wie die Verbindung vermutlich erneut bei der Überprüfung fehlschlägt ist, wenn während des Transaktionscommits aufgetreten ist.
