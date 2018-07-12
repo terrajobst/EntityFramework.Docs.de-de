@@ -5,12 +5,12 @@ ms.author: divega
 ms.date: 08/30/2017
 ms.technology: entity-framework-core
 uid: core/platforms/index
-ms.openlocfilehash: 02e9450cb0ead1701da9f58c51bef3031a3be4ed
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 790628c407cc4374fee4ebde8201783955afdcc3
+ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29678675"
+ms.lasthandoff: 07/07/2018
+ms.locfileid: "37900329"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>Von EF Core unterstützte .NET-Implementierungen
 
@@ -29,7 +29,7 @@ Die folgende Tabelle enthält Anweisungen zu den einzelnen .NET-Implementierunge
 
 <sup>(2)</sup> Weitere Informationen zum Auswählen der richtigen Technologie finden Sie unter [Vergleichen von EF Core und EF 6](../../efcore-and-ef6/index.md).
 
-<sup>(3)</sup> Bei Xamarin wurden Probleme und bekannte Einschränkungen verzeichnet, die die Funktionsweise einiger mit EF Core 2.0 entwickelten Anwendungen beeinträchtigen können. Überprüfen Sie die Liste der [aktiven Probleme] ([](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin) zur Problemumgehung.
+<sup>(3)</sup> Bei Xamarin wurden Probleme und bekannte Einschränkungen verzeichnet, die die Funktionsweise einiger mit EF Core 2.0 entwickelten Anwendungen beeinträchtigen können. Überprüfen Sie die Liste der [aktiven Probleme](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin) zur Problemumgehung.
 
 <sup>(4)</sup> Bei älteren Versionen der EF Core- und .NET-UWP sind zahlreiche Kompatibilitätsprobleme aufgetreten. Dies gilt besonders für Anwendungen, die mit der .NET Native-Toolkette kompiliert wurden. Die neue .NET-UWP-Version bietet Unterstützung für .NET Standard 2.0 und .NET Native 2.0, die einen Großteil der zuvor erwähnten Kompatibilitätsprobleme behebt. EF Core 2.0.1 wurde mit der UWP gründlicher getestet, die Tests sind jedoch nicht automatisiert.
 
