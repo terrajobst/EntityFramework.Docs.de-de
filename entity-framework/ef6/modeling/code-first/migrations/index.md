@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
 caps.latest.revision: 3
-ms.openlocfilehash: 1941337da55e5bb63efba42360c87c1c0f6ee325
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 5c7431985e2e404060197615bf281fcf3b318403
+ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911714"
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914283"
 ---
 # <a name="code-first-migrations"></a>Code First-Migrationen
 Code First-Migrationen ist die empfohlene Methode, das Datenbankschema einer Anwendung weiterzuentwickeln, wenn Sie den Code First-Workflow verwenden. Code First-Migrationen stellt eine Reihe von Tools bereit, mit denen Sie folgende Aktionen ausführen können:
@@ -310,7 +310,7 @@ Andere Entwickler können diese Änderungen auf ihren Computer übertragen, inde
 
 Code First-Migrationen führt die Migrationspipeline aus. Doch anstatt die Änderungen tatsächlich zu übernehmen, werden sie in eine SQL-Datei geschrieben. Nachdem das Skript generiert wurde, wird es in Visual Studio geöffnet. Dort können Sie es sich ansehen oder speichern.
 
-### <a name="generating-idempotent-scripts-ef6-onwards"></a>Generieren von idempotenten Skripts (EF6 oder höher)
+### <a name="generating-idempotent-scripts"></a>Generieren von idempotenten Skripts
 
 Ab EF6 wird mit der Angabe von **–SourceMigration $InitialDatabase** ein idempotentes Skript generiert. Mit idempotenten Skripts kann für eine Datenbank ein Upgrade von einer beliebigen Version auf die neueste Version (oder die angegebene Version, wenn Sie **–TargetMigration** verwenden) durchgeführt werden. Das generierte Skript enthält Logik zum Überprüfen der **\_\_MigrationsHistory**-Tabelle. Es werden nur Änderungen übernommen, die nicht schon zuvor übernommen wurden.
 

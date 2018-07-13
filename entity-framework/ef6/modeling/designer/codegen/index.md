@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
 caps.latest.revision: 3
-ms.openlocfilehash: e06dc1c35f8d74772e5c7d69b29553288fd652d0
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 8a656ca73a7e1a628f4053ff7ad47f5c1b17d878
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911724"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949178"
 ---
 # <a name="designer-code-generation-templates"></a>Designer-Vorlagen für die Codegenerierung
 Bei der Erstellung eines Modells mit dem Entity Framework Designer werden die Klassen und der abgeleitete Kontext automatisch für Sie generiert. Zusätzlich zur Standardcodegenerierung bieten wir auch verschiedene Vorlagen, mit denen sich der generierte Code anpassen lässt. Diese Vorlagen werden als T4-Textvorlagen bereitgestellt und sind daher bei Bedarf anpassbar.
@@ -151,7 +151,7 @@ Sie müssen beim Hinzufügen der Vorlage auf die Registerkarte **Online** klicke
 
 ### <a name="what-are-the-web-sites-templates"></a>Was sind die „Websites“-Vorlagen?
 
-Die „Websites“-Vorlagen, z.B. **EF 5.x DbContext Generator for C\# Web Sites**, werden in Websiteprojekten verwendet, die über **Datei &gt; Neu &gt; Website...** erstellt wurden. Diese unterscheiden sich von Webanwendungen, die über **Datei &gt; Neu &gt; Projekt...** erstellt wurden und die Standardvorlagen verwenden. Wir stellen separate Vorlagen bereit, da das Elementvorlagensystem in Visual Studio diese erfordert.
+Die „Websites“-Vorlagen, z.B. **EF 5.x DbContext Generator für C\#-Websites**, werden in Websiteprojekten verwendet, die über **Datei &gt; Neu &gt; Website...** erstellt wurden. Diese unterscheiden sich von Webanwendungen, die über **Datei &gt; Neu &gt; Projekt...** erstellt wurden und die Standardvorlagen verwenden. Wir stellen separate Vorlagen bereit, da das Elementvorlagensystem in Visual Studio diese erfordert.
 
 ## <a name="using-a-template"></a>Verwenden einer Vorlage
 
