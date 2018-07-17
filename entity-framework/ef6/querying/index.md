@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
 caps.latest.revision: 3
-ms.openlocfilehash: f0319e97d8ca8cfc9c90dac51d2ecbe7a29c1929
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 92467e1a93f576eca627cf7b7d2351054a882c2c
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911734"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067546"
 ---
 # <a name="querying-and-finding-entities"></a>Abfragen und Suchen von Entitäten
 Dieses Thema behandelt die verschiedenen Methoden, mit denen Sie Daten über Entity Framework abfragen können, einschließlich LINQ und der Find-Methode. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 Beachten Sie, dass DbSet und IDbSet immer Abfragen für die Datenbank erstellen und immer einen Roundtrip zur Datenbank mit sich bringen, auch wenn die zurückgegebenen Entitäten bereits im Kontext vorhanden sind. Eine Abfrage wird für die Datenbank ausgeführt, wenn:  
 
 - Sie durch eine **foreach**-Anweisung (C#) oder eine **ForEach**-Anweisung (Visual Basic) aufgezählt wird.  
-- Sie wird von einem Sammlungsvorgang wie [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary) oder [ToList](https://msdn.microsoft.com/library/bb342261) aufgelistet.  
+- Sie wird von einem Auflistungsvorgang wie [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary) oder [ToList](https://msdn.microsoft.com/library/bb342261) aufgelistet.  
 - LINQ-Operatoren, wie beispielsweise [First](https://msdn.microsoft.com/library/bb291976) oder [Any](https://msdn.microsoft.com/library/bb337697), werden im äußersten Teil der Abfrage angegeben.  
 - Die folgenden Methoden werden aufgerufen: die Erweiterungsmethode [Load](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) (auf einem DBSet), [DbEntityEntry.Reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx) und Database.ExecuteSqlCommand.  
 
