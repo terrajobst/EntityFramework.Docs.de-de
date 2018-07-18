@@ -5,38 +5,35 @@ ms.author: riande
 ms.author2: tdykstra
 description: Erste Schritte mit .NET Core unter Verwendung von Entity Framework Core
 keywords: .NET Core, Entity Framework Core, VS-Code, Visual Studio-Code, Mac, Linux
-ms.date: 04/05/2017
+ms.date: 06/05/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 ms.technology: entity-framework-core
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: fcace3c0f259b1a456d9ca1086e6a1549c070d57
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: e4eafed037325237345efbc3d7d42b32270a54e3
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812533"
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "37911501"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Erste Schritte mit EF Core in einer .NET Core-Konsolen-App mit einer neuen Datenbank
 
-In dieser exemplarischen Vorgehensweise entwickeln Sie eine .NET Core-Konsolen-App, die einen grundlegenden Datenzugriff auf eine SQLite-Datenbank mithilfe von Entity Framework Core durchführt. Sie verwenden Migrationen, um die Datenbank aus Ihrem Modell zu erstellen. Siehe [ASP.NET Core – Neue Datenbank](xref:core/get-started/aspnetcore/new-db) für eine Visual Studio-Version mit Verwendung von ASP.NET Core MVC.
+In dieser exemplarischen Vorgehensweise entwickeln Sie eine .NET Core-Konsolen-App, die einen Datenzugriff auf eine SQLite-Datenbank mithilfe von Entity Framework Core durchführt. Sie verwenden Migrationen, um die Datenbank aus dem Modell zu erstellen. Siehe [ASP.NET Core – Neue Datenbank](xref:core/get-started/aspnetcore/new-db) für eine Visual Studio-Version mit Verwendung von ASP.NET Core MVC.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite) finden Sie auf GitHub.
 
 ## <a name="prerequisites"></a>Erforderliche Komponenten
 
-Zum Ausführen dieser exemplarischen Vorgehensweise müssen folgende Voraussetzungen erfüllt sein:
-* Ein Betriebssystem mit Unterstützung von .NET Core.
-* [.NET Core SDK 2.0](https://www.microsoft.com/net/core) (wenngleich zum Verwenden einer Anwendung mit einer vorherigen Version die Anweisungen nur leicht geändert werden müssen).
+[Das .NET Core SDK](https://www.microsoft.com/net/core) 2.1
 
 ## <a name="create-a-new-project"></a>Erstellt ein neues Projekt
 
-* Erstellen Sie einen neuen Ordner `ConsoleApp.SQLite` für Ihr Projekt, und verwenden Sie den Befehl `dotnet`, um ihn mit einer .NET Core-App aufzufüllen.
+* Erstellen Sie ein neues Konsolenprojekt:
 
 ``` Console
-mkdir ConsoleApp.SQLite
+dotnet new console -o ConsoleApp.SQLite
 cd ConsoleApp.SQLite/
-dotnet new console
 ```
 
 ## <a name="install-entity-framework-core"></a>Installieren von Entity Framework Core
@@ -50,21 +47,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 
-* Führen Sie eine manuelle Bearbeitung von `ConsoleApp.SQLite.csproj` durch, um „DotNetCliToolReference“ zu „Microsoft.EntityFrameworkCore.Tools.DotNet“ hinzuzufügen:
-
-  ``` xml
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
-  </ItemGroup>
-  ```
-
-`ConsoleApp.SQLite.csproj` sollte jetzt Folgendes enthalten:
-
-[!code[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/ConsoleApp.SQLite.csproj)]
-
- Hinweis: Die oben verwendeten Versionsnummer waren zum Zeitpunkt der Veröffentlichung korrekt.
-
-*  Führen Sie `dotnet restore` aus, um die neuen Pakete zu installieren.
+* Führen Sie `dotnet restore` aus, um die neuen Pakete zu installieren.
 
 ## <a name="create-the-model"></a>Erstellen des Modells
 
@@ -74,7 +57,7 @@ Definieren Sie einen Kontext und Entitätsklassen für Ihr Modell.
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Model.cs)]
 
-Tipp: In einer echten Anwendung würden Sie jede Anwendung in einer separaten Datei platzieren und die Verbindungszeichenfolge eine Konfigurationsdatei einfügen. Der Einfachheit halber werden in diesem Tutorial alle Elemente in einer Datei zusammengefasst.
+Tipp: In einer echten Anwendung fügen Sie jede Klasse in eine separaten Datei und die Verbindungszeichenfolge in eine Konfigurationsdatei ein. Der Einfachheit halber sind in diesem Tutorial alle Elemente in einer Datei enthalten.
 
 ## <a name="create-the-database"></a>Erstellen der Datenbank
 
@@ -83,8 +66,7 @@ Da Sie jetzt über ein Modell verfügen, können Sie mithilfe von [Migrationen](
 * Führen Sie `dotnet ef migrations add InitialCreate` aus, um per Gerüstbau eine Migration einzurichten und den anfänglichen Tabellensatz für das Modell zu erstellen.
 * Führen Sie `dotnet ef database update` aus, um die neue Migration auf die Datenbank anzuwenden. Mit diesem Befehl wird die Datenbank erstellt, bevor Migrationen angewendet werden.
 
-> [!NOTE]  
-> Wenn Sie mit SQLite relative Pfade verwenden, sind diese Pfade relativ zur Hauptassembly der Anwendung. In diesem Beispiel ist `bin/Debug/netcoreapp2.0/ConsoleApp.SQLite.dll` die Hauptbinärdatei, deshalb befindet sich die SQLite-Datenbank in `bin/Debug/netcoreapp2.0/blogging.db`.
+Die SQLite-Datenbank *blogging.db** ist das Projektverzeichnis.
 
 ## <a name="use-your-model"></a>Verwenden Ihres Modells
 

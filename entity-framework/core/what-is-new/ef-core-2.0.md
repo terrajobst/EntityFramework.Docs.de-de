@@ -6,12 +6,12 @@ ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 02d0b6fe2956e819e08e08c9a0658008abd36c34
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 538458cf49ee86b9a5cba2f606adc04e583605e2
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29680021"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949126"
 ---
 # <a name="new-features-in-ef-core-20"></a>Neue Features in EF Core 2.0
 
@@ -93,7 +93,7 @@ public class BloggingContext : DbContext
     }
 }
 ```
-Wir definieren einen Filter auf Modellebene, der Mehrinstanzenfähigkeit sowie das vorläufige Löschen für Instanzen des Entitätstyps ```Post``` implementiert. Beachten Sie die Verwendung einer DbContext-Instanzeigenschaft: ```TenantId```. Filter auf Modellebene verwenden den Wert aus der entsprechenden Kontextinstanz. Damit ist die Instanz gemeint, die die Abfrage ausführt.
+Wir definieren einen Filter auf Modellebene, der Mehrinstanzenfähigkeit sowie das vorläufige Löschen für Instanzen des Entitätstyps ```Post``` implementiert. Beachten Sie die Verwendung einer DbContext-Instanzeigenschaft: ```TenantId```. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz (d.h. der Kontextinstanz, die die Abfrage ausführt).
 
 Filter können für einzelne LINQ-Abfragen mit dem IgnoreQueryFilters()-Operator deaktiviert werden.
 
@@ -134,7 +134,7 @@ Im Folgenden sollten Sie einige Aspekte berücksichtigen:
 
 - Der Name der Methode wird gemäß den Konventionen als Name einer Funktion (in diesem Fall einer benutzerdefinierten Funktion) bei der SQL-Generierung verwendet, Sie können den Namen und das Schema bei der Methodenregistrierung jedoch überschreiben.
 - Derzeit werden nur Skalarfunktionen unterstützt.
-- Sie müssen die zugeordnete Funktion in der Datenbank erstellen. Bei EF Core-Migrationen werden diese beispielsweise nicht erstellt.
+- Sie müssen die zugeordnete Funktion in der Datenbank erstellen. EF Core-Migrationen erstellen diese nicht.
 
 ### <a name="self-contained-type-configuration-for-code-first"></a>Eigenständige Typkonfiguration für den Code First
 
@@ -220,7 +220,7 @@ Durch diese Änderungen wird das SQL-Skript verbessert, das für Gruppenverknüp
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Zeichenfolgeninterpolation in FromSql und ExecuteSqlCommand
 
-Mit C# 6 wurde Zeichenfolgeninterpolation eingeführt, ein Feature, mit dem C#-Ausdrücke direkt in Zeichenfolgenliterale eingebettet werden können, was eine komfortable Möglichkeit zum Erstellen von Zeichenfolgen zur Runtime bietet. In EF Core 2.0 haben wir eine spezielle Unterstützung für interpolierte Zeichenfolgen zu unseren zwei primären APIs hinzugefügt, die SQL-Rohzeichenfolgen akzeptieren: ```FromSql``` und ```ExecuteSqlCommand```. Diese neue Unterstützung ermöglicht die sichere Verwendung von C#-Zeichenfolgeninterpolation. Denn es wird vor häufigen Fehlern durch Angriffe durch Einschleusung von SQL-Befehlen geschützt, die auftreten können, wenn SQL dynamisch zur Runtime erstellt wird.
+Mit C# 6 wurde Zeichenfolgeninterpolation eingeführt, ein Feature, mit dem C#-Ausdrücke direkt in Zeichenfolgenliterale eingebettet werden können, was eine komfortable Möglichkeit zum Erstellen von Zeichenfolgen zur Runtime bietet. In EF Core 2.0 haben wir eine spezielle Unterstützung für interpolierte Zeichenfolgen zu unseren zwei primären APIs hinzugefügt, die SQL-Rohzeichenfolgen akzeptieren: ```FromSql``` und ```ExecuteSqlCommand```. Diese neue Unterstützung ermöglicht die sichere Verwendung von C#-Zeichenfolgeninterpolation. Das heißt, sie wird vor häufigen Fehlern durch Angriffe durch Einschleusung von SQL-Befehlen geschützt, die auftreten können, wenn SQL dynamisch zur Laufzeit erstellt wird.
 
 Im Folgenden ein Beispiel:
 
@@ -259,7 +259,7 @@ Wir haben die EF.Functions-Eigenschaft hinzugefügt, mit denen EF Core oder Anbi
 ``` csharp
 var aCustomers =
     from c in context.Customers
-    where EF.Functions.Like(c.Name, "a%");
+    where EF.Functions.Like(c.Name, "a%")
     select c;
 ```
 

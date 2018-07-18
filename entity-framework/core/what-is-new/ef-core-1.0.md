@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-1.0
-ms.openlocfilehash: e5b9e57a01ff302b1d7bd0fc5419aa5b8213865e
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: af7cf490ef2b04afb02461279fbe67c1c7fa3d95
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26049683"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949021"
 ---
 # <a name="features-included-in-ef-core-10"></a>Features in EF Core 1.0
 
@@ -31,7 +31,7 @@ Diese bilden ein erstes Modell, das auf der Form der Entitätsklassen basiert.
 ### <a name="fluent-api"></a>Fluent-API
 Ermöglicht es Ihnen, die `OnModelCreating`-Methode für Ihren Kontext zu überschreiben, um das per Konvention erkannte Modell weiter zu konfigurieren.
 ### <a name="data-annotations"></a>Datenanmerkungen
-Dies sind Attribute, die zu Ihren Entitätsklassen/Eigenschaften hinzugefügt werden können und das EF-Modell beeinflussen (durch das Hinzufügen von [Required] beispielsweise wird EF darüber informiert, dass eine Eigenschaft erforderlich ist).
+Dies sind Attribute, die zu Ihren Entitätsklassen/Eigenschaften hinzugefügt werden können und das EF-Modell beeinflussen. Wenn Sie z.B. `[Required]` hinzufügen, informiert dies EF darüber, dass eine Eigenschaft erforderlich ist.
 ### <a name="relational-table-mapping"></a>Zuordnung in relationalen Tabellen
 Ermöglicht das Zuordnen von Entitäten zu Tabellen/Spalten.
 ### <a name="key-value-generation"></a>Generieren von Schlüsselwerten
@@ -79,7 +79,7 @@ Bietet die Möglichkeit, LINQ zum Abrufen von Daten aus der Datenbank zu verwend
 ### <a name="mixed-clientserver-evaluation"></a>Gemischte Client-/Serverauswertung
 Abfragen können Logik enthalten, die nicht in der Datenbank ausgewertet werden kann und deshalb eine Auswertung der Daten nach dem Abruf in den Speicher erfordern.
 ### <a name="notracking"></a>NoTracking
-Abfragen können schneller ausgeführt werden, wenn der Kontext nicht überwachen muss, ob Änderungen an den Entitätsinstanzen durchgeführt wurden (die Ergebnisse sind schreibgeschützt).
+Abfragen können schneller ausgeführt werden, wenn der Kontext nicht überwachen muss, ob Änderungen an den Entitätsinstanzen durchgeführt wurden (das ist nützlich, wenn die Ergebnisse schreibgeschützt sind).
 ### <a name="eager-loading"></a>Eager Loading
 Stellt die Methoden `Include` und `ThenInclude` bereit, um bezogene Daten zu identifizieren, die bei der Abfrage ebenfalls abgerufen werden sollten.
 ### <a name="async-query"></a>Asynchrone Abfrage
@@ -100,7 +100,7 @@ Richtet per Gerüstbau ein EF-Modell basierend auf einem vorhandenen relationale
 Stellt eine Verbindung mit Microsoft SQL Server 2008 und höher her.
 ### <a name="sqlite"></a>SQLite
 Stellt eine Verbindung mit einer SQLite 3-Datenbank her.
-### <a name="in-memory"></a>Speicherintern
+### <a name="in-memory"></a>Im Arbeitsspeicher
 Ist für das einfache Testen ohne Verbindung mit einer echten Datenbank konzipiert.
 ### <a name="3rd-party-providers"></a>Datenbankanbieter von Drittanbietern
-Es stehen verschiedene Anbieter für andere Datenbankmodule zur Verfügung. Eine vollständige Liste finden Sie unter [Datenbankanbieter](../providers/index.md).
+Es stehen verschiedene Anbieter für andere Datenbank-Engines zur Verfügung. Eine vollständige Liste finden Sie unter [Datenbankanbieter](../providers/index.md).

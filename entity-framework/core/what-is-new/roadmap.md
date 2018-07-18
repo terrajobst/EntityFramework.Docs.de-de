@@ -6,12 +6,12 @@ ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 ms.technology: entity-framework-core
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: e23f5d7b1ff95bead310fa8e618a88c161a4e10c
-ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
+ms.openlocfilehash: f319aabb53019e0f153c911dde5814328423081b
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34754443"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949165"
 ---
 # <a name="entity-framework-core-roadmap"></a>Wegweiser für Entity Framework Core
 
@@ -54,4 +54,4 @@ Es ist schwierig, den gesamten Prozess der Releaseplanung hier darzulegen. Einer
 
 6. **Welche Kompetenzen haben die Personen, die an dem Feature arbeiten, und wie lassen sich diese Ressourcen am besten einsetzen?** Alle Mitglieder des EF-Teams und alle Mitwirkenden aus der Community können auf unterschiedliche Erfahrungsschätze in verschiedenen Bereichen zurückgreifen. Dementsprechend muss geplant werden. Selbst wenn „alle mit anpacken“ und an einem bestimmten Feature wie z.B. GroupBy-Übersetzungen oder m:n arbeiten sollten, ist das nicht immer die beste Lösung.
 
-Wie zuvor erläutert, entwickelt sich der Prozess bei jedem Release auf eigene Weise. In der Zukunft möchten wir den Mitgliedern der Entwickler-Community mehr Möglichkeiten geben, ihre Ideen in die Releaseplanung einzubringen, indem beispielsweise der Code Review vorgeschlagener Features und des Releaseplans vereinfacht wird.
+Wie zuvor erläutert, entwickelt sich der Prozess bei jedem Release. In der Zukunft möchten wir den Mitgliedern der Entwickler-Community mehr Möglichkeiten geben, ihre Ideen in die Releaseplanung einzubringen, indem beispielsweise das Prüfen vorgeschlagener Features und des Releaseplans vereinfacht wird.
