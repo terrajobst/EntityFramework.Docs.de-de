@@ -6,12 +6,12 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: 44cbbc965755a694772dc4336ca2c1efc51fd6cd
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 660e2a9787b0a6d2544da785827caa20d51626c1
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949230"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067559"
 ---
 # <a name="new-features-in-ef-core-21"></a>Neue Features in EF Core 2.1
 
@@ -105,7 +105,7 @@ Weitere Informationen zu diesem Thema finden Sie im [Abschnitt zu System.Transac
 Basierend auf dem Feedback von Kunden haben wir Migrationen dahingehend aktualisiert, dass Spalten für Tabellen zunächst in der gleichen Reihenfolge wie die Deklaration von Eigenschaften in Klassen generiert werden. Beachten Sie, dass EF Core nicht die Reihenfolge ändern kann, wenn nach der Erstellung der ersten Tabelle neue Member hinzugefügt werden.
 
 ## <a name="optimization-of-correlated-subqueries"></a>Optimierung von korrelierten Unterabfragen
-Wir haben unsere Abfrageübersetzung dahingehend verbessert, dass die Ausführung von „N+1“-SQL-Abfragen in vielen gängigen Szenarien verhindert wird, in denen die Verwendung einer Navigationseigenschaft in der Projektion zum Verknüpfen von Daten aus der Stammabfrage mit Daten aus einer korrelierten Unterabfrage führt. Für die Optimierung ist das Puffern der Ergebnisse aus der Unterabfrage erforderlich. Zudem fordern wir Sie dazu auf, die Abfrage zum Auswählen des neuen Verhaltens zu ändern.
+Wir haben unsere Abfrageübersetzung dahingehend verbessert, dass die Ausführung von „N+1“-SQL-Abfragen in vielen gängigen Szenarien verhindert wird, in denen die Verwendung einer Navigationseigenschaft in der Projektion zum Verknüpfen von Daten aus der Stammabfrage mit Daten aus einer korrelierten Unterabfrage führt. Für die Optimierung ist das Puffern der Ergebnisse aus der Unterabfrage erforderlich. Zudem ist es erforderlich, die Abfrage zum Auswählen des neuen Verhaltens zu ändern.
 
 Die folgende Abfrage wird z.B. normalerweise in eine Abfrage für Kunden plus N separate Abfragen für Aufträge übersetzt („N“ steht hierbei für die Anzahl der zurückgegebenen Kunden):
 
