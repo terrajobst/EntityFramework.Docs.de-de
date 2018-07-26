@@ -250,6 +250,7 @@
 ### [Additional Resources](ef6/resources/index.md) (Zusätzliche MSBuild-Ressourcen)
 #### [Blogs](ef6/resources/blogs.md)
 #### [Fallstudien](ef6/resources/case-studies.md)
+#### [Mitwirken](ef6/resources/contribute.md)
 #### [Anzeigen der Hilfe](ef6/resources/get-help.md)
 #### [Glossar](ef6/resources/glossary.md)
 #### [Die Beispieldatenbank „School“](ef6/resources/school-database.md)
