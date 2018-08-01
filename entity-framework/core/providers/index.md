@@ -6,12 +6,12 @@ ms.date: 2/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 ms.technology: entity-framework-core
 uid: core/providers/index
-ms.openlocfilehash: 6f058698f78c787fc6c313486874b0af2183f97a
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: f51304a20bab2c80d2d546fc4685da0fa28d5f92
+ms.sourcegitcommit: 5c2634c546720902fe01935f4fc031d73aa3ebde
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949314"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39393749"
 ---
 # <a name="database-providers"></a>Datenbankanbieter
 
@@ -53,7 +53,7 @@ Wir haben einen Core EF-Anbieter für die DocumentDB-API in Cosmos DB entwickelt
 Das Oracle .NET-Team hat angekündigt, dass voraussichtlich ungefähr im dritten Quartal von 2018 einen Erstanbieter für EF Core 2.0 veröffentlichen wird. Weitere Informationen finden Sie in der [Absichtserklärung für .NET Core und Entity Framework Core](http://www.oracle.com/technetwork/topics/dotnet/tech-info/odpnet-dotnet-ef-core-sod-4395108.pdf).
 Bei Fragen zu diesem Anbieter, einschließlich der Releasezeitachse, besuchen Sie sich die [Website der Oracle-Community](https://community.oracle.com/).
 
-In der Zwischenzeit hat das EF-Team einen [EF Core-Beispielanbieter für Oracle-Datenbanken](https://github.com/aspnet/EntityFrameworkCore/blob/dev/samples/OracleProvider/README.md) erzeugt. Der Zweck des Projekts besteht nicht darin, einen im Besitz von Microsoft befindlichen EF Core-Anbieter zu erzeugen, sondern Lücken in den relationalen und Basisfunktionen von EF Core aufzudecken, die wir zur besseren Unterstützung für Oracle behandeln müssen, und die Entwicklung von anderen Oracle-Anbietern für EF Core durch Oracle oder durch Drittanbieter zu beschleunigen.
+In der Zwischenzeit hat das EF-Team einen [EF Core-Beispielanbieter für Oracle-Datenbanken](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/OracleProvider) erzeugt. Der Zweck des Projekts besteht nicht darin, einen im Besitz von Microsoft befindlichen EF Core-Anbieter zu erzeugen, sondern Lücken in den relationalen und Basisfunktionen von EF Core aufzudecken, die wir zur besseren Unterstützung für Oracle behandeln müssen, und die Entwicklung von anderen Oracle-Anbietern für EF Core durch Oracle oder durch Drittanbieter zu beschleunigen.
 
 Wir werden Beiträge berücksichtigen, die die Beispielimplementierung verbessern. Auch würden wir es begrüßen und unterstützen, wenn eine Communityinitiative zum Erstellen eines Open Source-basierten Oracle-Anbieters für EF Core mit dem Beispiel als Ausgangspunkt zustande käme.
 
