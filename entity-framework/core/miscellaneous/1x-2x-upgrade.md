@@ -6,12 +6,12 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: dca9a3fb9e514b6eb22281a0f0140539681efb71
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 9be2368159fe7ab7b6951cc14a84ee63762ce90c
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949255"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39388451"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Aktualisieren von Anwendungen aus früheren Versionen auf EF Core 2.0
 
@@ -154,7 +154,7 @@ Dies erstellt/verwendet eine Datenbank mit dem Namen "MyDatabase". Wenn `UseInMe
 
 ### <a name="read-only-api-changes"></a>Nur-Lese API-Änderungen
 
-`IsReadOnlyBeforeSave`, `IsReadOnlyAferSave`, und `IsStoreGeneratedAlways` "ist veraltet und durch ersetzt wurden [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) und [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Dieses Verhalten gelten für jede Eigenschaft (nicht nur vom Speicher generierte Eigenschaften) und zu bestimmen, wie der Wert der Eigenschaft verwendet werden soll, beim Einfügen in die Zeile in einer Datenbank (`BeforeSaveBehavior`) oder beim Aktualisieren einer vorhandenen Zeile (`AfterSaveBehavior`).
+`IsReadOnlyBeforeSave`, `IsReadOnlyAfterSave`, und `IsStoreGeneratedAlways` "ist veraltet und durch ersetzt wurden [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) und [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Dieses Verhalten gelten für jede Eigenschaft (nicht nur vom Speicher generierte Eigenschaften) und zu bestimmen, wie der Wert der Eigenschaft verwendet werden soll, beim Einfügen in die Zeile in einer Datenbank (`BeforeSaveBehavior`) oder beim Aktualisieren einer vorhandenen Zeile (`AfterSaveBehavior`).
 
 Eigenschaften, die als markiert [ValueGenerated.OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (z. B. für berechnete Spalten) werden standardmäßig alle derzeit für die Eigenschaft festgelegten Wert ignoriert. Dies bedeutet, dass ein Wert vom Speicher generierte immer abgerufen werden wird, unabhängig davon, ob einen beliebigen Wert festgelegt oder auf die nachverfolgte Entität geändert wurde. Dies kann geändert werden, durch Festlegen einer anderen `Before\AfterSaveBehavior`.
 
