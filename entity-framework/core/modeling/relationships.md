@@ -22,7 +22,7 @@ Eine Beziehung definiert, wie zwei Entitäten miteinander verknüpfen. In einer 
 
 ## <a name="definition-of-terms"></a>Begriffsdefinition
 
-Es gibt eine Reihe von Begriffen verwendet, um Beziehungen zu beschreiben
+Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu beschreiben
 
 * **Abhängige Entität:** Dies ist die Entität, die den Fremdschlüssel enthält. Auch "Child" genannt.
 
@@ -32,13 +32,13 @@ Es gibt eine Reihe von Begriffen verwendet, um Beziehungen zu beschreiben
 
 * **Primärschlüssel:** Die Eigenschaft, welche das primäre Attribut einer Entität eindeutig identifiziert. Dies kann der Primärschlüssel oder eine Alternativeschlüssel sein.
 
-* **Navigationseigenschaft:** eine Eigenschaft, die in der principal und/oder abhängige Entität, die enthält einen Verweise auf die entsprechenden Entity(s) definiert.
+* **Navigationseigenschaft:** eine Eigenschaft der Primären und/oder Abhängigen Entität, welche Hinweise zu den verbundenen Entitäten enthält.
 
   * **Auflistungsnavigationseigenschaft:** eine Navigationseigenschaft, die Verweise auf viele verknüpfte Entitäten enthält.
 
   * **Verweisnavigationseigenschaft:** eine Navigationseigenschaft, die einen Verweis auf eine einzelne verknüpfte Entität enthält.
 
-  * **Inverse-Navigationseigenschaft:** im Zusammenhang mit eine bestimmten Navigationseigenschaft dieser Begriff bezieht sich, auf die Navigationseigenschaft am anderen Ende der Beziehung.
+  * **Inverse-Navigationseigenschaft:** im Zusammenhang mit einer belibigen anderen Navigationseigenschaft, stellt diese Eigenschaft die Navigationseigenschaft am anderen Ende der Beziehung dar.
 
 Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` und `Post`
 
