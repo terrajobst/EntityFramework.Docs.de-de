@@ -24,13 +24,13 @@ Eine Beziehung definiert, wie zwei Entitäten miteinander verknüpfen. In einer 
 
 Es gibt eine Reihe von Begriffen verwendet, um Beziehungen zu beschreiben
 
-* **Abhängige Entität:** Dies ist die Entität, die Fremdschlüsseleigenschaften enthält. Manchmal bezeichnet als "untergeordnetes" der Beziehung.
+* **Abhängige Entität:** Dies ist die Entität, die den Fremdschlüssel enthält. Auch "Child" genannt.
 
-* **Prinzipalentität:** Dies ist die Entität, die bzw. der alternativen primären Schlüsseleigenschaften enthält. Manchmal bezeichnet als "Parent" der Beziehung.
+* **Primären Entität:** Dies ist die Entität, die den Primär-  bzw. Alternativschlüssel enthält.  Auch "Parent" genannt.
 
-* **Fremdschlüssel:** der dazugehörigen Eigenschaften in der abhängigen Entität, die verwendet wird, um die Werte der Schlüsseleigenschaft Prinzipal zu speichern, die mit die Entität verknüpft ist.
+* **Fremdschlüssel:**  Die Eigenschaft in einer Abhängigen Entität, welche die Inhalte des Primärschlüssels der Primären Entität enthält.
 
-* **Prinzipalschlüssel:** der Eigenschaften, die die prinzipalentität eindeutig identifiziert. Dies kann der Primärschlüssel oder einen alternativen Schlüssel sein.
+* **Primärschlüssel:** Die Eigenschaft, welche das primäre Attribut einer Entität eindeutig identifiziert. Dies kann der Primärschlüssel oder eine Alternativeschlüssel sein.
 
 * **Navigationseigenschaft:** eine Eigenschaft, die in der principal und/oder abhängige Entität, die enthält einen Verweise auf die entsprechenden Entity(s) definiert.
 
