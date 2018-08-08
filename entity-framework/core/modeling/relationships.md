@@ -50,9 +50,9 @@ Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` un
 
 * `Blog.BlogId` der Hauptschlüssel (in diesem Fall ist es ein Primärschlüssel anstelle eines Fremdschlüssels)
 
-* `Post.Blog` ist eine verweisnavigationseigenschaft
+* `Post.Blog` ist eine Verweisnavigationseigenschaft
 
-* `Blog.Posts` ist eine auflistungsnavigationseigenschaft
+* `Blog.Posts` ist eine Auflistungsnavigationseigenschaft
 
 * `Post.Blog` ist die umgekehrte Navigationseigenschaft des `Blog.Posts` (und umgekehrt)
 
