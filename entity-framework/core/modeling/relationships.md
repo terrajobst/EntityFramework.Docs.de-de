@@ -54,7 +54,7 @@ Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` un
 
 * `Blog.Posts` ist eine Auflistungsnavigationseigenschaft
 
-* `Post.Blog` ist die umgekehrte Navigationseigenschaft des `Blog.Posts` (und umgekehrt)
+* `Post.Blog` ist die umgekehrte Navigationseigenschaft des `Blog.Posts` (und andersherum)
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/Full.cs#Entities)]
 
