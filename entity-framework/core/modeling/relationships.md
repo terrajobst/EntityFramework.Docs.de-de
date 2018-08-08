@@ -38,7 +38,7 @@ Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu bes
 
   * **Verweisnavigationseigenschaft:** eine Navigationseigenschaft, die einen Verweis auf eine einzelne verknüpfte Entität enthält.
 
-  * **Inverse-Navigationseigenschaft:** im Zusammenhang mit einer belibigen anderen Navigationseigenschaft, stellt diese Eigenschaft die Navigationseigenschaft am anderen Ende der Beziehung dar.
+  * **Inverse-Navigationseigenschaft:** im Zusammenhang mit einer belibigen anderen Navigationseigenschaft, stellt diese Eigenschaft das anderen Ende der Beziehung dar.
 
 Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` und `Post`
 
