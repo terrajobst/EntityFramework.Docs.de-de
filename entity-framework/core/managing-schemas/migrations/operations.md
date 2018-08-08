@@ -1,21 +1,21 @@
 ---
-title: Benutzerdefinierte Migrationen Operations - EF Core
+title: Benutzerdefinierte Migrationsoperationen – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/7/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 84d80175e719c950844b13688e1a4992614f25d8
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: 510d585534b4809179c905ee5b77cab4209a2b8f
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/14/2018
-ms.locfileid: "34163141"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614284"
 ---
-<a name="custom-migrations-operations"></a>Benutzerdefinierte Migrationen-Vorgänge
+<a name="custom-migrations-operations"></a>Benutzerdefinierte Migrationsoperationen
 ============================
-Die MigrationBuilder-API ermöglicht Ihnen, viele verschiedene Arten von Vorgängen während einer Migration durchzuführen, aber zurückgelegt vollständig ist. Allerdings ist die API erweiterbar gestattet, eigene Vorgänge zu definieren. Es gibt zwei Methoden zum Erweitern von der API: Verwenden der `Sql()` -Methode, oder definieren benutzerdefinierte `MigrationOperation` Objekte.
+Die MigrationBuilder-API können Sie viele verschiedene Arten von Vorgängen bei der Migration ausführen, aber er ist längst nicht vollständig. Die API ist jedoch auch erweiterbar und ermöglichen Ihnen, Ihre eigenen Vorgänge zu definieren. Es gibt zwei Möglichkeiten, um die API zu erweitern: Verwenden der `Sql()` -Methode, oder durch Definieren von benutzerdefinierten `MigrationOperation` Objekte.
 
-Um zu veranschaulichen, sehen wir uns das Implementieren eines Vorgangs, das einen Datenbankbenutzer, der mit jeder Ansatz erstellt. In unserem Migrationen möchten wir ermöglichen, schreiben den folgenden Code:
+Um zu veranschaulichen, betrachten wir einen Vorgang, der erstellt einen Datenbankbenutzer, der mit jeder Ansatz, zu implementieren. In unserem Migrationen möchten wir aktivieren Sie den folgenden Code zu schreiben:
 
 ``` csharp
 migrationBuilder.CreateUser("SQLUser1", "Password");
@@ -23,8 +23,8 @@ migrationBuilder.CreateUser("SQLUser1", "Password");
 
 <a name="using-migrationbuildersql"></a>Verwenden von MigrationBuilder.Sql()
 ----------------------------
-Die einfachste Möglichkeit, einen Vorgang implementiert wird, um eine Erweiterungsmethode zu definieren, die aufruft `MigrationBuilder.Sql()`.
-Hier ist ein Beispiel, das die entsprechende Transact-SQL generiert.
+Die einfachste Möglichkeit zum Implementieren eines benutzerdefinierten Vorgangs ist eine Erweiterungsmethode zu definieren, die aufruft `MigrationBuilder.Sql()`.
+Hier ist ein Beispiel, das die entsprechenden Transact-SQL generiert.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -34,7 +34,7 @@ static MigrationBuilder CreateUser(
     => migrationBuilder.Sql($"CREATE USER {name} WITH PASSWORD '{password}';");
 ```
 
-Wenn Ihre Migrationen mehrere Datenbankanbieter unterstützen müssen, können Sie mithilfe der `MigrationBuilder.ActiveProvider` Eigenschaft. Hier ist ein Beispiel für Microsoft SQL Server und PostgreSQL unterstützen.
+Wenn Sie Ihre Migrationen mehrere Datenbankanbieter unterstützen müssen, können Sie mithilfe der `MigrationBuilder.ActiveProvider` Eigenschaft. Hier ist ein Beispiel für Unterstützung von Microsoft SQL Server und PostgreSQL.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -52,14 +52,16 @@ static MigrationBuilder CreateUser(
             return migrationBuilder
                 .Sql($"CREATE USER {name} WITH PASSWORD = '{password}';");
     }
+
+    return migrationBuilder;
 }
 ```
 
-Dieser Ansatz funktioniert nur, wenn Sie wissen, dass alle Anbieter, in denen Ihre benutzerdefinierte Vorgänge angewendet werden.
+Dieser Ansatz funktioniert nur, wenn Sie wissen, dass jeder Anbieter, wo der benutzerdefinierte Vorgang angewendet werden.
 
 <a name="using-a-migrationoperation"></a>Verwenden eine MigrationOperation
 ---------------------------
-Um den benutzerdefinierten Vorgang aus der SQL zu entkoppeln, können Sie definieren eine eigene `MigrationOperation` für die Darstellung. Der Vorgang wird dann an den Anbieter übergeben, sodass er die entsprechende SQL generieren ermitteln kann.
+Um der benutzerdefinierte Vorgang aus dem SQL zu entkoppeln, Sie können Ihren eigenen definieren `MigrationOperation` für die Darstellung. Der Vorgang wird dann an den Anbieter übergeben, damit sie die entsprechende SQL generieren bestimmen kann.
 
 ``` csharp
 class CreateUserOperation : MigrationOperation
@@ -69,7 +71,7 @@ class CreateUserOperation : MigrationOperation
 }
 ```
 
-Bei diesem Ansatz die Erweiterungsmethode benötigt nur einen dieser Vorgänge zum Hinzufügen `MigrationBuilder.Operations`.
+Bei diesem Ansatz die Erweiterungsmethode muss lediglich eine von diesen Vorgängen hinzufügen `MigrationBuilder.Operations`.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -88,7 +90,7 @@ static MigrationBuilder CreateUser(
 }
 ```
 
-Dieser Ansatz erfordert jeder Anbieter wissen, wie zum Generieren von SQL für diesen Vorgang in ihre `IMigrationsSqlGenerator` Dienst. Hier ist ein Beispiel für die SQL Server-Generator zum Verarbeiten der neuen Vorgangs überschreiben.
+Dieser Ansatz erfordert jeder Anbieter wissen, wie Sie für diesen Vorgang im SQL generieren die `IMigrationsSqlGenerator` Service. Hier ist ein Beispiel, das Überschreiben der SQL Server Generator aus, um den neuen Vorgang zu verarbeiten.
 
 ``` csharp
 class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator
