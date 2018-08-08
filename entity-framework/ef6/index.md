@@ -1,5 +1,5 @@
 ---
-title: 'Entity Framework 6: Kurze Übersicht'
+title: Übersicht – EF6
 author: divega
 ms.date: 2016-10-23
 ms.prod: entity-framework
@@ -10,14 +10,14 @@ ms.topic: article
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 caps.latest.revision: 5
 uid: ef6/index
-ms.openlocfilehash: 7bb51ea82640ef29bb376c2320ea29a81eeb175e
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: c74626593c4109badd75f2a0a4f051c840f7bc7f
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914340"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614374"
 ---
-# <a name="entity-framework-6-quick-overview"></a>Entity Framework 6: Kurze Übersicht
+# <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) ist ein bewährtes Framework für objektrelationale Abbildung (Object-Relational Mapping, ORM) für .NET, dessen Features im Laufe der Zeit immer weiter optimiert und stabilisiert wurden.
 
 Als ORM-Framework senkt EF6 die Inkongruenz zwischen dem relationalen und dem objektorientierten Bereich. Dadurch können Entwickler Anwendungen schreiben, die mit Daten interagieren, die in relationalen Datenbanken mit stark typisierten .NET-Objekten gespeichert wurden, die die Anwendungsdomäne darstellen. Außerdem ist es durch EF6 nicht mehr erforderlich, dass ein großer Teil der Daten auf Grundlagencode zugreifen muss, den sie normalerweise schreiben müssen.

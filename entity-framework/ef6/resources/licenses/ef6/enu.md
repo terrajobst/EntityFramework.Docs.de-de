@@ -67,7 +67,7 @@ für diese Software es sei denn, andere Begriffe diesen Artikel begleitet. Wenn 
 
 **4.    DOKUMENTATION.** Alle Personen, die über einen gültigen Zugriff auf Ihren Computer oder Ihr internes Netzwerk verfügen, dürfen die Dokumentation zu internen Referenzzwecken kopieren und verwenden.
 
-**5.    EXPORTEINSCHRÄNKUNGEN.** Die Software unterliegt den Vereinigten Staaten Gesetze und Bestimmungen einhalten. Sie müssen alle inländischen und internationalen Gesetze und Vorschriften, die für die Software gelten entsprechen. Zu diesen Gesetzen zählen Einschränkungen auf Bestimmungsorte, Endbenutzer und Endverwendung. Weitere Informationen finden Sie unter "www.microsoft.com/exporting".
+**5.    EXPORTEINSCHRÄNKUNGEN.** Die Software unterliegt den Vereinigten Staaten Gesetze und Bestimmungen einhalten. Sie müssen alle inländischen und internationalen Gesetze und Vorschriften, die für die Software gelten entsprechen. Zu diesen Gesetzen zählen Einschränkungen auf Bestimmungsorte, Endbenutzer und Endverwendung. Weitere Informationen finden Sie unter " www.microsoft.com/exporting ".
 
 **6.    SUPPORTDIENSTE.** Da diese Software "wie besehen", stellen wir möglicherweise keine Supportdienste für sie bereit.
 
