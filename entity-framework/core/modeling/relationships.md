@@ -30,7 +30,7 @@ Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu bes
 
 * **Fremdschlüssel:**  Die Eigenschaft in einer Abhängigen Entität, welche die Inhalte des Primärschlüssels der Primären Entität enthält.
 
-* **Primärschlüssel:** Die Eigenschaft, welche das primäre Attribut einer Entität eindeutig identifiziert. Dies kann der Primärschlüssel oder eine Alternativeschlüssel sein.
+* **Hauptschlüssel:** Die Eigenschaft, welche das primäre Attribut einer Entität eindeutig identifiziert. Dies kann ein Primär- oder  Alternativschlüssel sein.
 
 * **Navigationseigenschaft:** eine Eigenschaft der Primären und/oder Abhängigen Entität, welche Hinweise zu den verbundenen Entitäten enthält.
 
@@ -38,17 +38,17 @@ Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu bes
 
   * **Verweisnavigationseigenschaft:** eine Navigationseigenschaft, die einen Verweis auf eine einzelne verknüpfte Entität enthält.
 
-  * **Inverse-Navigationseigenschaft:** im Zusammenhang mit einer belibigen anderen Navigationseigenschaft, stellt diese Eigenschaft das anderen Ende der Beziehung dar.
+  * **umgekehrte Navigationseigenschaft:** im Zusammenhang mit einer belibigen anderen Navigationseigenschaft, stellt diese Eigenschaft das anderen Ende der Beziehung dar.
 
 Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` und `Post`
 
 * `Post` die abhängige Entität
 
-* `Blog` ist die prinzipalentität
+* `Blog` ist die primäre Entität
 
 * `Post.BlogId` ist der Fremdschlüssel
 
-* `Blog.BlogId` der prinzipalschlüssel (in diesem Fall ist es ein primärer Schlüssel anstelle eines alternativen Schlüssels)
+* `Blog.BlogId` der Hauptschlüssel (in diesem Fall ist es ein Primärschlüssel anstelle eines Fremdschlüssels)
 
 * `Post.Blog` ist eine verweisnavigationseigenschaft
 
