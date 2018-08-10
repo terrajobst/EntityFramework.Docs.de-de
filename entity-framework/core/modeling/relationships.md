@@ -24,37 +24,37 @@ Eine Beziehung definiert, wie zwei Entitäten miteinander verknüpfen. In einer 
 
 Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu beschreiben
 
-* **Abhängige Entität:** Dies ist die Entität, die den Fremdschlüssel enthält. Auch "Child" genannt.
+* **Abhängige Entität:** Dies ist die Entität, die Fremdschlüsseleigenschaften enthält. Auch "Child" genannt.
 
-* **Primären Entität:** Dies ist die Entität, die den Primär-  bzw. Alternativschlüssel enthält.  Auch "Parent" genannt.
+* **Primäre Entität:** Dies ist die Entität, die die Primär- bzw. Alternativschlüsseleigenschaft(en) enthält. Auch "Parent" genannt.
 
-* **Fremdschlüssel:**  Die Eigenschaft in einer Abhängigen Entität, welche die Inhalte des Primärschlüssels der Primären Entität enthält.
+* **Fremdschlüssel:** Die Eigenschaft(en) in einer abhängigen Entität, welche die Inhalte der Primärschlüsseleigenschaft enthält, mit der die Entität zusammenhängt.
 
-* **Hauptschlüssel:** Die Eigenschaft, welche das primäre Attribut einer Entität eindeutig identifiziert. Dies kann ein Primär- oder  Alternativschlüssel sein.
+* **Hauptschlüssel:** Die Eigenschaft(en), welche die Prinzipalentität eindeutig identifiziert. Dies kann ein Primär- oder Alternativschlüssel sein.
 
-* **Navigationseigenschaft:** eine Eigenschaft der Primären und/oder Abhängigen Entität, welche Hinweise zu den verbundenen Entitäten enthält.
+* **Navigationseigenschaft:** eine Eigenschaft der primären und/oder abhängigen Entität, welche Verweise zu den verbundenen Entitäten enthält.
 
   * **Auflistungsnavigationseigenschaft:** eine Navigationseigenschaft, die Verweise auf viele verknüpfte Entitäten enthält.
 
   * **Verweisnavigationseigenschaft:** eine Navigationseigenschaft, die einen Verweis auf eine einzelne verknüpfte Entität enthält.
 
-  * **umgekehrte Navigationseigenschaft:** im Zusammenhang mit einer belibigen anderen Navigationseigenschaft, stellt diese Eigenschaft das anderen Ende der Beziehung dar.
+  * **Inverse Navigationseigenschaft:** im Zusammenhang mit einer beliebigen anderen Navigationseigenschaft stellt diese Eigenschaft das anderen Ende der Beziehung dar.
 
 Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` und `Post`
 
 * `Post` die abhängige Entität
 
-* `Blog` ist die primäre Entität
+* `Blog` ist die Prinzipalentität
 
 * `Post.BlogId` ist der Fremdschlüssel
 
-* `Blog.BlogId` der Hauptschlüssel (in diesem Fall ist es ein Primärschlüssel anstelle eines Fremdschlüssels)
+* `Blog.BlogId` der Prinzipalschlüssel (in diesem Fall ist es ein Primärschlüssel anstelle eines Alternativschlüssels)
 
 * `Post.Blog` ist eine Verweisnavigationseigenschaft
 
 * `Blog.Posts` ist eine Auflistungsnavigationseigenschaft
 
-* `Post.Blog` ist die umgekehrte Navigationseigenschaft des `Blog.Posts` (und andersherum)
+* `Post.Blog`ist die inverse Navigationseigenschaft von `Blog.Posts`(und umgekehrt)	
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/Full.cs#Entities)]
 
