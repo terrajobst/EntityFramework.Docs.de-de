@@ -1,5 +1,5 @@
 ---
-title: 'Speichern relevanter Daten: EF Core'
+title: 'Speichern verwandter Daten: EF Core'
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
