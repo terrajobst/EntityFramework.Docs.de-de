@@ -26,7 +26,7 @@ Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu bes
 
 * **Abhängige Entität:** Dies ist die Entität, die Fremdschlüsseleigenschaften enthält. Auch "Child" genannt.
 
-* **Primäre Entität:** Dies ist die Entität, die die Primär- bzw. Alternativschlüsseleigenschaft(en) enthält. Auch "Parent" genannt.
+* **Prinzipalentität:** Dies ist die Entität, die bzw. der alternativen primären Schlüsseleigenschaften enthält. Manchmal bezeichnet als "Parent" der Beziehung.
 
 * **Fremdschlüssel:** Die Eigenschaft(en) in einer abhängigen Entität, welche die Inhalte der Primärschlüsseleigenschaft enthält, mit der die Entität zusammenhängt.
 
@@ -54,7 +54,7 @@ Das folgende Codebeispiel veranschaulicht eine 1: n Beziehung zwischen `Blog` un
 
 * `Blog.Posts` ist eine Auflistungsnavigationseigenschaft
 
-* `Post.Blog`ist die inverse Navigationseigenschaft von `Blog.Posts`(und umgekehrt)	
+* `Post.Blog`ist die inverse Navigationseigenschaft von `Blog.Posts`(und umgekehrt)
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/Full.cs#Entities)]
 
