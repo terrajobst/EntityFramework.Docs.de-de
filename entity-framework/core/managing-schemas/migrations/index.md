@@ -14,7 +14,7 @@ ms.locfileid: "34754508"
 ---
 <a name="migrations"></a>Migrationen
 ==========
-Migrationen stellen eine Möglichkeit dar, Schemaänderungen schrittweise auf die Datenbank anzuwenden, um diese mit Ihrem EF Core-Modell zu synchronisieren und gleichzeitig vorhandene Daten in der Datenbank zu speichern.
+Migrationen stellen eine Möglichkeit dar, Schemaänderungen schrittweise auf die Datenbank anzuwenden, um diese mit Ihrem EF Core-Modell zu synchronisieren und gleichzeitig vorhandene Daten in der Datenbank zu erhalten.
 
 <a name="creating-the-database"></a>Erstellen der Datenbank
 ---------------------
