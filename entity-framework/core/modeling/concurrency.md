@@ -1,54 +1,52 @@
 ---
-title: Parallelitätstoken - EF Core
+title: Parallelitätstoken – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 03/03/2018
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
-ms.technology: entity-framework-core
 uid: core/modeling/concurrency
-ms.openlocfilehash: f3cf28d5c54e63aa76058e9fe1d9f3de5b37d579
-ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
+ms.openlocfilehash: 0051d416544a11385f99d36e45843c5b20725af7
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/05/2018
-ms.locfileid: "29745480"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994225"
 ---
 # <a name="concurrency-tokens"></a>Parallelitätstoken
 
 > [!NOTE]
-> Auf dieser Seite dokumentiert, wie Sie parallelitätstoken zu konfigurieren. Finden Sie unter [Behandlung von Parallelitätskonflikten](../saving/concurrency.md) für eine ausführliche Erklärung der Funktionsweise der parallelitätssteuerung auf EF-Kern- und Beispiele zum Parallelitätskonflikte in Ihrer Anwendung zu behandeln.
+> Diese Seite dokumentiert parallelitätstoken zu konfigurieren. Finden Sie unter [Behandlung von Nebenläufigkeitskonflikten](../saving/concurrency.md) für eine ausführliche Erläuterung der Funktionsweise der parallelitätssteuerung in EF Core und Beispiel Behandlung von nebenläufigkeitskonflikten in Ihrer Anwendung.
 
-Eigenschaften, die als parallelitätstoken verwendet werden, um die Steuerung durch vollständige Parallelität implementieren konfiguriert werden.
+Eigenschaften, die als parallelitätstoken konfiguriert werden verwendet, um die Steuerung für optimistische Parallelität implementieren.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention werden die Eigenschaften nie als parallelitätstoken konfiguriert.
+Gemäß der Konvention werden Eigenschaften nicht als parallelitätstoken konfiguriert.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Sie können die Datenanmerkungen so konfigurieren Sie eine Eigenschaft als ein parallelitätstoken verwenden.
+Sie können die Datenanmerkungen verwenden, um eine Eigenschaft als ein parallelitätstoken zu konfigurieren.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Concurrency.cs#ConfigureConcurrencyAnnotations)]
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, so konfigurieren Sie eine Eigenschaft als ein parallelitätstoken.
+Sie können die Fluent-API verwenden, um eine Eigenschaft als ein parallelitätstoken zu konfigurieren.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Concurrency.cs#ConfigureConcurrencyFluent)]
 
-## <a name="timestamprow-version"></a>Timestamp/Zeilenversion
+## <a name="timestamprow-version"></a>Zeitstempel/Zeilenversion
 
-Ein Zeitstempel ist eine Eigenschaft, wird ein neuer Wert von der Datenbank generiert jedes Mal, wenn eine Zeile eingefügt oder aktualisiert wird. Die Eigenschaft wird auch als ein parallelitätstoken behandelt. Dadurch wird sichergestellt, dass eine Ausnahme erhalten Sie, wenn andere Benutzer eine Zeile geändert hat, die aktualisiert werden, weil Sie für die Daten abgefragt werden soll.
+Ein Zeitstempel ist eine Eigenschaft, wird ein neuer Wert von der Datenbank generiert jedes Mal, wenn eine Zeile eingefügt oder aktualisiert wird. Die Eigenschaft wird auch als ein parallelitätstoken behandelt. Dadurch wird sichergestellt, dass Sie eine Ausnahme angezeigt werden, wenn anderen Person eine Zeile, die Sie versuchen geändert hat, die aktualisiert werden, weil Sie für die Daten abgefragt.
 
-Wird dies erreicht ist, bis zu der Datenbankanbieter verwendet wird. Für SQL Server wird in der Regel Zeitstempel auf verwendet eine *Byte []* setup-Eigenschaft, die als eine *ROWVERSION* Spalte in der Datenbank.
+Wie dies erreicht wird, obliegt den Datenbankanbieter, der verwendet wird. Für SQL Server Zeitstempel wird in der Regel verwendet, auf eine *Byte []* setup-Eigenschaft, die wird als eine *ROWVERSION* Spalte in der Datenbank.
 
 ### <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention werden die Eigenschaften nie als Zeitstempel konfiguriert.
+Gemäß der Konvention werden Eigenschaften nicht als Zeitstempel konfiguriert.
 
 ### <a name="data-annotations"></a>Datenanmerkungen
 
-Datenanmerkungen können Sie eine Eigenschaft als Zeitstempel konfigurieren.
+Sie können Datenanmerkungen verwenden, so konfigurieren Sie eine Eigenschaft als einen Zeitstempel.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Timestamp.cs#ConfigureTimestampAnnotations)]
 

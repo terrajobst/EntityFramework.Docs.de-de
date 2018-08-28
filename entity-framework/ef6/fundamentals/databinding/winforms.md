@@ -2,19 +2,13 @@
 title: Datenbindung mit Windows Forms - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-caps.latest.revision: 3
-ms.openlocfilehash: b17bc91fd7d665f6d75bf5f1e5798ddd16aa345d
-ms.sourcegitcommit: 45494121254ad4fdcec613d1dd22d850068d6f39
+ms.openlocfilehash: 7ceb8e85fe3d8f5ab9a5e58ef9c84599585d8f77
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121315"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994528"
 ---
 # <a name="databinding-with-winforms"></a>Datenbindung mit Windows Forms
 Diese exemplarische Vorgehensweise veranschaulicht POCO-Typen an Windows Forms (WinForms) Steuerelemente in einem "Master / Detail-Formular zu binden. Die Anwendung verwendet Entity Framework-Objekte mit Daten aus der Datenbank zu füllen, Nachverfolgen von Änderungen und Beibehalten von Daten in der Datenbank.

@@ -1,28 +1,26 @@
 ---
-title: Erforderlich/optionalen Eigenschaften - EF Core
+title: Erforderliche bzw. optionale Eigenschaften – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ddaa0a54-9f43-4c34-aae3-f95c96c69842
-ms.technology: entity-framework-core
 uid: core/modeling/required-optional
-ms.openlocfilehash: 2af1d49e12ef980f81cb9c00556dee471673ccae
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b6716a5b03e1afc2933e317d606ef50f986c22c7
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052850"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995496"
 ---
 # <a name="required-and-optional-properties"></a>Erforderliche und optionale Eigenschaften
 
-Eine Eigenschaft ist optional, wenn es gültig ist, damit enthalten ist als `null`. Wenn `null` ist kein gültiger Wert, eine Eigenschaft zugewiesen werden soll, und klicken Sie dann dieses als betrachtet ist eine erforderliche Eigenschaft.
+Eine Eigenschaft ist optional, wenn er gültig ist, damit enthalten ist als `null`. Wenn `null` ist kein gültiger Wert, der einer Eigenschaft zugewiesen werden soll, und es gilt eine erforderliche Eigenschaft.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention, eine Eigenschaft, deren CLR-Typ Null darf, konfiguriert werden soll als optional (`string`, `int?`, `byte[]`usw..). Eigenschaften, deren CLR-Typ kann nicht Null enthalten, konfiguriert werden wie erforderlich (`int`, `decimal`, `bool`usw..).
+Gemäß der Konvention, eine Eigenschaft, dessen CLR-Typ Null darf, wird so konfiguriert, als optional (`string`, `int?`, `byte[]`usw..). Eigenschaften, deren CLR-Typ darf nicht Null enthalten, werden so konfiguriert, wie erforderlich (`int`, `decimal`, `bool`usw..).
 
 > [!NOTE]  
-> Eine Eigenschaft, deren CLR-Typ nicht null enthalten kann, kann nicht als optional konfiguriert werden. Die Eigenschaft wird immer erforderlich, die für Entity Framework berücksichtigt werden.
+> Eine Eigenschaft, dessen CLR-Typ nicht null enthalten kann, kann nicht als optional konfiguriert werden. Die Eigenschaft wird von Entity Framework benötigt immer berücksichtigt werden.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 

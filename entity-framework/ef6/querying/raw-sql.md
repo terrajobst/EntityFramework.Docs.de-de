@@ -2,19 +2,13 @@
 title: Unformatierte SQL-Abfragen – EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
-caps.latest.revision: 3
-ms.openlocfilehash: 1d968604cfa500784c4699b0923512572a06d773
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 99893ca1c634ce6f2e4cf9dcb70b1a1e43532c60
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121132"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995733"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 Entitätsframework können Sie Abfragen mithilfe von LINQ mit Ihrer Entitätsklassen. Allerdings gibt es möglicherweise Fälle, in denen Sie Abfragen mithilfe roher SQL direkt in der Datenbank ausführen möchten. Dazu gehört das Aufrufen von gespeicherter Prozeduren, die für die Code First-Modelle hilfreich sein können, die derzeit keine Zuordnung zu gespeicherten Prozeduren unterstützen. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  

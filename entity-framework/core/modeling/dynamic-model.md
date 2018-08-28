@@ -1,27 +1,25 @@
 ---
-title: Mehrere Modelle mit den gleichen DbContext-Typ – EF Core abwechselnd
+title: Wechsel zwischen mehreren Modellen mit demselben DbContext - EF Core
 author: AndriySvyryd
-ms.author: divega
 ms.date: 12/10/2017
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
-ms.technology: entity-framework-core
 uid: core/modeling/dynamic-model
-ms.openlocfilehash: 57136802001124ebf9ae7682e33f8dc7826fc2b0
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 1d87efb668c12a2862583fba16a6c444b3cda9de
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29678721"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994985"
 ---
-# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Wechsel zwischen mehrere Modelle mit den gleichen DbContext-Typ
+# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Wechsel zwischen mehrere Modelle mit den gleichen Typ von "DbContext"
 
-Das Modell integriert `OnModelCreating` eine Eigenschaft für den Kontext verwenden, so ändern, wie das Modell erstellt wird. Z. B. könnte verwendet werden, um eine bestimmte Eigenschaft ausschließen:
+Das Modell integriert `OnModelCreating` können eine Eigenschaft für den Kontext ändern, wie das Modell erstellt wurde. Es könnte z. B. verwendet werden, um eine bestimmte Eigenschaft ausschließen:
 
 [!code-csharp[Main](../../../samples/core/DynamicModel/DynamicContext.cs?name=Class)]
 
 ## <a name="imodelcachekeyfactory"></a>IModelCacheKeyFactory
-Jedoch wenn Sie versucht, die oben genannten ohne weitere Änderungen Sie das gleiche Modell erhalten würden jedes Mal, wenn ein neuer Kontext erstellt wird, für jeden Wert von `IgnoreIntProperty`. Dies wird durch das Modell Cachemechanismus EF verwendet wird, um die Leistung zu verbessern, indem Sie nur aufrufen verursacht `OnModelCreating` einmal und das Zwischenspeichern des Modells.
+Wenn Sie versucht, den oben genannten ohne weitere Änderungen Sie jedoch das gleiche Modell nutzen würden jedes Mal ein neuer Kontext, für jeden Wert von erstellt wird `IgnoreIntProperty`. Dies wird durch das Modell Cachemechanismus EF verwendet wird, um die Leistung zu verbessern, indem Sie nur aufrufen verursacht `OnModelCreating` einmal und Zwischenspeichern des Modells.
 
-Standardmäßig wird in EF davon ausgegangen, dass für jeden angegebenen Kontext Typ des Modells gleich bleiben. Um dies zu erreichen die standardmäßige Implementierung des `IModelCacheKeyFactory` gibt einen Schlüssel, die nur den Typ des enthält. Dazu Sie ersetzen müssen die `IModelCacheKeyFactory` Dienst. Die neue Implementierung muss ein Objekt, das verglichen werden kann, andere Modell-Schlüsseln mithilfe von Zurückgeben der `Equals` -Methode, die alle Variablen berücksichtigt, die das Modell beeinflussen:
+Standardmäßig wird in EF davon ausgegangen, dass für jeden angegebenen Kontext Typ des Modells identisch ist. Hierfür die standardmäßige Implementierung des `IModelCacheKeyFactory` gibt einen Schlüssel, der den Typ des gerade enthält. Dies ändern, Sie ersetzen müssen, die `IModelCacheKeyFactory` Service. Die neue Implementierung muss zurückgegeben wird ein Objekt, das verglichen werden soll, kann andere Modell Schlüssel mithilfe der `Equals` -Methode, die alle Variablen berücksichtigt, die das Modell auswirken:
 
 [!code-csharp[Main](../../../samples/core/DynamicModel/DynamicModelCacheKeyFactory.cs?name=Class)]

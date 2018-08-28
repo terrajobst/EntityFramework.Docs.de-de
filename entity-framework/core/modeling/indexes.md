@@ -1,21 +1,19 @@
 ---
-title: Indizes - EF Core
+title: Indizes – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 85b92003-b692-417d-ac1d-76d40dce664b
-ms.technology: entity-framework-core
 uid: core/modeling/indexes
-ms.openlocfilehash: f57b545d53613cec6887734bf434958ee8fff4d8
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 87fe893243377e3ab83d419ae9bedf813ca50c3f
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054884"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995479"
 ---
 # <a name="indexes"></a>Indizes
 
-Indizes sind ein Konzept gemein über viele Datenspeichern. Während ihre Implementierung in den Datenspeicher variieren kann, werden sie verwendet, um Suchvorgänge basierend auf einer Spalte (oder eine Gruppe von Spalten) machen effizient.
+Indizes sind ein gängiges Konzept für viele Datenspeicher. Obwohl deren Implementierung im Datenspeicher variieren kann, müssen sie dienen zum Suchen auf Grundlage einer Spalte (oder eine Gruppe von Spalten) stärker effizient.
 
 ## <a name="conventions"></a>Konventionen
 
@@ -27,7 +25,7 @@ Indizes können nicht mithilfe von datenanmerkungen erstellt werden.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Die Fluent-API können Sie einen Index für eine einzelne Eigenschaft angeben. Standardmäßig werden Indizes nicht eindeutig.
+Sie können die Fluent-API verwenden, um einen Index für eine einzelne Eigenschaft angeben. Standardmäßig sind die Indizes nicht eindeutig.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Index.cs?highlight=7,8)] -->
 ``` csharp
@@ -49,7 +47,7 @@ public class Blog
 }
 ```
 
-Sie können auch angeben, dass ein Index eindeutig ist, was bedeutet, dass keine zwei Entitäten die gleichen Werte für den angegebenen Eigenschaft(en) enthalten kann.
+Sie können auch angeben, dass ein Index muss eindeutig sein, was bedeutet, dass keine zwei Entitäten, die gleichen Werte für die angegebenen Eigenschaften verfügen können.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IndexUnique.cs?highlight=3)] -->
 ``` csharp
@@ -82,4 +80,4 @@ public class Person
 ```
 
 > [!TIP]  
-> Es ist nur eine Index pro Satz von Eigenschaften. Wenn Sie die Fluent-API verwenden, so konfigurieren Sie einen Index für eine Gruppe von Eigenschaften, die bereits einen Index definiert, indem entweder Konvention oder vorherige Konfiguration werden dann Sie die Definition dieses Indexes ändern. Dies ist nützlich, wenn Sie möchten, um einen Index zu konfigurieren, der gemäß der Konvention erstellt wurde.
+> Es gibt nur einen Index pro Satz von Eigenschaften. Wenn Sie die Fluent-API verwenden, so konfigurieren Sie einen Index für eine Gruppe von Eigenschaften, die bereits einen Index definiert wird, entweder durch Konventionen oder vorherigen Konfiguration werden dann Sie die Definition des Index ändern. Dies ist nützlich, wenn Sie möchten, um einen Index zu konfigurieren, der gemäß der Konvention erstellt wurde.

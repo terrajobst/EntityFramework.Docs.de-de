@@ -1,61 +1,59 @@
 ---
-title: SQLite-Datenbank-Anbieter - Einschränkungen - EF Core
+title: SQLite-Datenbank-Anbieter - Einschränkungen – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
-ms.technology: entity-framework-core
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 8a60ccfc61a5757df8ebedf257379d4d3dbffbf6
-ms.sourcegitcommit: 60b831318c4f5ec99061e8af6a7c9e7c03b3469c
+ms.openlocfilehash: 69c40fcd8b7ddb925728b1bad9992ad2a81e7540
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/02/2018
-ms.locfileid: "29719484"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994663"
 ---
-# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core Datenbank Anbietereinschränkungen
+# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core-Datenbank-Anbieter-Einschränkungen
 
-Der SQLite-Anbieter hat einige Migrationen Einschränkungen. Die meisten dieser Einschränkungen sind Beschränkungen in der zugrunde liegende Datenbankmodul SQLite zurückzuführen und sind nicht spezifisch für EF.
+Der SQLite-Anbieter hat einige Einschränkungen für Migrationen. Die meisten dieser Einschränkungen sind ein Ergebnis von Einschränkungen in der zugrunde liegenden SQLite-Datenbank-Engine und sind nicht spezifisch für EF.
 
-## <a name="modeling-limitations"></a>Modellieren von Einschränkungen
+## <a name="modeling-limitations"></a>Modellierungseinschränkungen
 
-Die allgemeine relationale Bibliothek (shared von Entity Framework, relationale Datenbank-Anbieter) definiert APIs für die Modellierung Konzepte, die für die meisten relationale Datenbankmodule gelten. Eine Reihe von dieser Konzepte werden von der SQLite-Anbieter nicht unterstützt.
+Die allgemeine relationale-Bibliothek, die (vom Anbieter für Entity Framework relationaler Datenbanken freigegeben) definiert die APIs für die Modellierung der Konzepte, die für die meisten relationalen Datenbank-Engines gelten. Eine Reihe von diese Konzepte werden von der SQLite-Anbieter nicht unterstützt.
 
 * Schemata
 * Sequenzen
 
-## <a name="migrations-limitations"></a>Migrationen von Einschränkungen
+## <a name="migrations-limitations"></a>Einschränkungen für Migrationen
 
-Die SQLite-Datenbank-Engine unterstützt nicht mehrere Schemavorgänge, die von der Mehrheit der andere relationalen Datenbanken unterstützt werden. Wenn Sie versuchen, einen nicht unterstützten Vorgänge anwenden auf eine SQLite-Datenbank wird eine `NotSupportedException` ausgelöst.
+Die SQLite-Datenbank-Engine unterstützt nicht mehrere Schemavorgänge, die von der Mehrheit der anderen relationalen Datenbanken unterstützt werden. Wenn Sie versuchen, eine nicht unterstützte Vorgänge auf eine SQLite-Datenbank anwenden und dann eine `NotSupportedException` ausgelöst.
 
 | Vorgang            | Unterstützt? | Erfordert version |
 |:---------------------|:-----------|:-----------------|
-| AddColumn            | ✔          | 1,0              |
+| AddColumn            | ✔          | 1.0              |
 | AddForeignKey        | ✗          |                  |
 | AddPrimaryKey        | ✗          |                  |
 | AddUniqueConstraint  | ✗          |                  |
 | AlterColumn          | ✗          |                  |
-| CreateIndex          | ✔          | 1,0              |
-| CreateTable          | ✔          | 1,0              |
+| CreateIndex          | ✔          | 1.0              |
+| CreateTable          | ✔          | 1.0              |
 | DropColumn           | ✗          |                  |
 | DropForeignKey       | ✗          |                  |
-| DropIndex            | ✔          | 1,0              |
+| DropIndex            | ✔          | 1.0              |
 | DropPrimaryKey       | ✗          |                  |
-| DropTable            | ✔          | 1,0              |
+| DropTable            | ✔          | 1.0              |
 | DropUniqueConstraint | ✗          |                  |
-| RenameColumn         | ✗          |                  |
+| "RenameColumn"         | ✗          |                  |
 | RenameIndex          | ✔          | 2.1              |
-| RenameTable          | ✔          | 1,0              |
+| RenameTable          | ✔          | 1.0              |
 | EnsureSchema         | ✔ (ohne-Op)  | 2.0              |
 | DropSchema           | ✔ (ohne-Op)  | 2.0              |
 | Insert               | ✔          | 2.0              |
 | Update               | ✔          | 2.0              |
 | Löschen               | ✔          | 2.0              |
 
-## <a name="migrations-limitations-workaround"></a>Migrationen Einschränkungen umgehen
+## <a name="migrations-limitations-workaround"></a>Migrationen Einschränkungen problemumgehung
 
-Sie können einige umgehen dieser Einschränkungen durch Schreiben von Code manuell in Ihrer Migrationen, führen Sie eine Tabelle neu erstellen. Eine Neuerstellung der Tabelle umfasst das Umbenennen der vorhandenen Tabelle, eine neue Tabelle erstellen, Kopieren von Daten in die neue Tabelle und löschen die alte Tabelle. Sie benötigen, verwenden Sie die `Sql(string)` Methode, um einige der folgenden Schritte ausführen.
+Sie können einige umgehen dieser Einschränkungen durch Schreiben von Code manuell in Ihre Migrationen zu führen Sie eine Tabelle neu zu erstellen. Eine tabellenneuerstellung umfasst das Umbenennen der vorhandenen Tabelle, eine neue Tabelle erstellen, Kopieren von Daten in die neue Tabelle und löschen die alte Tabelle. Sie benötigen, verwenden Sie die `Sql(string)` Methode, um einige dieser Schritte durchzuführen.
 
-Finden Sie unter [machen andere Arten von Tabelle Schemaänderungen](http://sqlite.org/lang_altertable.html#otheralter) in der Dokumentation SQLite Weitere Details.
+Finden Sie unter [machen andere Arten von Tabelle Schemaänderungen](http://sqlite.org/lang_altertable.html#otheralter) in der SQLite-Dokumentation für weitere Details.
 
-In der Zukunft EF einige dieser Vorgänge unterstützen möglicherweise mit der Tabelle Rebuild Ansatz im Hintergrund. Sie können [verfolgen Sie diese Funktion auf unserer GitHub-Projekt](https://github.com/aspnet/EntityFrameworkCore/issues/329).
+In Zukunft EF einige dieser Operationen unterstützen möglicherweise mit den Ansatz mit Tabelle Neuerstellung im Hintergrund. Sie können [verfolgen Sie dieses Feature auf unserem GitHub-Projekt](https://github.com/aspnet/EntityFrameworkCore/issues/329).
