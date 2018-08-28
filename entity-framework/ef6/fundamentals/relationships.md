@@ -2,19 +2,13 @@
 title: Beziehungen, Navigationseigenschaften und foreign key - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-caps.latest.revision: 3
-ms.openlocfilehash: 28dab25c7d19a117e594b1761f7bc745b684f7b3
-ms.sourcegitcommit: 5c2634c546720902fe01935f4fc031d73aa3ebde
+ms.openlocfilehash: c1d48f18a7dd25a6a48537f0de5379f861bf447a
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/01/2018
-ms.locfileid: "39393762"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998000"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Beziehungen, Navigationseigenschaften und Fremdschlüssel
 Dieses Thema bietet einen Überblick darüber, wie Beziehungen zwischen Entitäten von Entity Framework verwaltet. Außerdem erhalten hilfreiche Informationen zum Zuordnen und Bearbeiten von Beziehungen.

@@ -1,32 +1,30 @@
 ---
-title: Maximale Länge - EF Core
+title: 'Maximale Länge: EF Core'
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c39c5d43-018d-48b8-94f2-b8bc7c686c69
-ms.technology: entity-framework-core
 uid: core/modeling/max-length
-ms.openlocfilehash: 7325c0c3328477473392bf9e7c82f1696bb4f424
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: e54d3671f378b96a49eaf4cb312e72072813fc6d
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052670"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996190"
 ---
 # <a name="maximum-length"></a>Maximale Länge
 
-Konfigurieren einer maximalen Länge von enthält einen Hinweis für den Datenspeicher über den entsprechenden Datentyp, der für eine bestimmte Eigenschaft verwendet. Maximale Länge gilt nur für Arraytypen, z. B. `string` und `byte[]`.
+Konfigurieren eine maximale Länge enthält einen Hinweis für den Datenspeicher zu den entsprechenden Datentyp, der für eine bestimmte Eigenschaft verwendet. Maximale Länge gilt nur für Arraytypen, z. B. `string` und `byte[]`.
 
 > [!NOTE]  
-> Entity Framework führt keine Validierung maximale Länge, die vor der Übergabe von Daten an den Anbieter aus. Es liegt im Ermessen der Anbieter oder Datenspeicher So überprüfen Sie bei Bedarf. Z. B. unterbindet für SQL Server, überschreiten die maximale Länge in den Datentyp der zugrunde liegende Spalte eine Ausnahme führt nicht zu speichernden überschüssige Daten.
+> Entitätsframework führt keine Validierung einer maximalen Länge vor der Übergabe von Daten an den Anbieter aus. Es ist Aufgabe der Anbieter oder einem Datenspeicher gespeichert, um bei Bedarf zu überprüfen. Z. B. bei der Zielgruppenadressierung von SQL Server, die maximale Paketlänge führt zu einer Ausnahme mit dem Datentyp der zugrunde liegenden Spalte nicht überschüssige Daten gespeichert werden können.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention wird bis zu der Datenbankanbieter auf einen entsprechenden Datentyp für die Eigenschaften angezeigt. Für Eigenschaften, die eine Länge haben, wird der Datenbankanbieter im Allgemeinen einen Datentyp auswählen, der die längste Länge der Daten zulässt. Microsoft SQL Server wird verwendet, z. B. `nvarchar(max)` für `string` Eigenschaften (oder `nvarchar(450)` , wenn die Spalte als Schlüssel verwendet wird).
+Gemäß der Konvention wird es den Datenbankanbieter, wählen Sie einen entsprechenden Datentyp für Eigenschaften überlassen. Für Eigenschaften, die eine Länge aufweisen, wird der Anbieter in der Regel einen Datentyp auswählen, der die längste Länge der Daten ermöglicht. Microsoft SQL Server verwendet z. B. `nvarchar(max)` für `string` Eigenschaften (oder `nvarchar(450)` , wenn die Spalte als Schlüssel verwendet wird).
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Sie können die Datenanmerkungen verwenden, so konfigurieren Sie eine maximale Länge für eine Eigenschaft. In diesem Beispiel als Ziel in SQL Server dies würde die `nvarchar(500)` -Datentyp verwendet wird.
+Sie können die Datenanmerkungen verwenden, so konfigurieren Sie eine maximale Länge für eine Eigenschaft. In diesem Beispiel als Ziel in SQL Server führt dies zu den `nvarchar(500)` -Datentyp verwendet wird.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/MaxLength.cs?highlight=4)] -->
 ``` csharp
@@ -40,7 +38,7 @@ public class Blog
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, so konfigurieren Sie eine maximale Länge für eine Eigenschaft. In diesem Beispiel als Ziel in SQL Server dies würde die `nvarchar(500)` -Datentyp verwendet wird.
+Sie können die Fluent-API verwenden, so konfigurieren Sie eine maximale Länge für eine Eigenschaft. In diesem Beispiel als Ziel in SQL Server führt dies zu den `nvarchar(500)` -Datentyp verwendet wird.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/MaxLength.cs?highlight=7,8,9)] -->
 ``` csharp

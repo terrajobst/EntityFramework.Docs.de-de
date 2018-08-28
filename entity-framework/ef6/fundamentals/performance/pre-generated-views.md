@@ -2,19 +2,13 @@
 title: Vorab generierte Mapping-Ansichten – EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-caps.latest.revision: 3
-ms.openlocfilehash: 9e74176d02afc424118219eec8e016843333cbb8
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 397569ef374cb44d4938f9e201b588a26c408f6e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "39121351"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996471"
 ---
 # <a name="pre-generated-mapping-views"></a>Vorab generierte Mapping-Ansichten
 Bevor das Entity Framework einer Abfrage ausführen oder Änderungen an der Datenquelle speichern können, müssen sie einen Satz von Ansichten der Zuordnung Zugriff auf die Datenbank erstellen. Diese Zuordnung Ansichten sind eine Reihe von Entity SQL-Anweisung, die die Datenbank auf abstrakte Weise darstellen, und sind Teil der Metadaten, die pro Anwendungsdomäne zwischengespeichert wird. Wenn Sie mehrere Instanzen desselben Kontexts in der gleichen Anwendungsdomäne erstellen, werden diese Zuordnung Ansichten aus objektkontextinstanzen, statt die zwischengespeicherten Metadaten wiederverwendet. Da Zuordnung Generieren von Sichten einen signifikanten Teil der Gesamtkosten der Ausführung der ersten Abfrage ist, ermöglicht dem Entity Framework vorgenerieren von Ansichten der Zuordnung, und schließen Sie sie in das kompilierte Projekt an. Weitere Informationen finden Sie unter [Überlegungen zur Leistung (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).

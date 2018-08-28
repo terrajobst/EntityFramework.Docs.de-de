@@ -1,32 +1,30 @@
 ---
 title: Primärschlüssel - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c78f8f42-564a-45a4-aca7-3ede9f7ed2bc
-ms.technology: entity-framework-core
 uid: core/modeling/relational/primary-keys
-ms.openlocfilehash: fcb1871149c0f20a2576864028b4171904de1982
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 916f3adbcd08cb1037c7fbf68e99630feb321a61
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052720"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998067"
 ---
 # <a name="primary-keys"></a>Primärschlüssel
 
 > [!NOTE]  
-> Die Konfiguration in diesem Abschnitt ist im Allgemeinen gilt für relationale Datenbanken. Die Erweiterungsmethoden, die hier gezeigten werden verfügbar, wenn Sie einen relationale Datenbank-Anbieter installieren (aufgrund der freigegebenen *Microsoft.EntityFrameworkCore.Relational* Paket).
+> Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken. Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).
 
-Eine primary Key-Einschränkung wird für den Schlüssel für jeden Entitätstyp eingeführt.
+Eine primary Key-Einschränkung wird für den Schlüssel jedes Entitätstyps, eingeführt.
 
 ## <a name="conventions"></a>Konventionen
 
-Wird der Primärschlüssel in der Datenbank gemäß der Konvention benannt werden `PK_<type name>`.
+Gemäß der Konvention wird der Primärschlüssel in der Datenbank mit dem Namen werden `PK_<type name>`.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Keine relationalen Datenbank bestimmte Aspekte des Primärschlüssels, können mithilfe von Datenanmerkungen konfiguriert werden.
+Keine relationalen Datenbank bestimmte Aspekte eines Primärschlüssels können mithilfe von Datenanmerkungen konfiguriert werden.
 
 ## <a name="fluent-api"></a>Fluent-API
 

@@ -1,28 +1,26 @@
 ---
-title: Testen mit SQLite – EF Core
+title: Testen mit SQLite - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 7a2b75e2-1875-4487-9877-feff0651b5a6
-ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/sqlite
-ms.openlocfilehash: 8fcb4b1a37da6f52219ebe3c672160627fe28fab
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: bc9d6768a90ce17160c4126d2a68fddaa30d63de
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052700"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996867"
 ---
 # <a name="testing-with-sqlite"></a>Testen mit SQLite
 
 SQLite ist einen in-Memory-Modus, der Ihnen ermöglicht, SQLite verwenden, um Tests für eine relationale Datenbank, ohne den Aufwand für die tatsächliche Datenbankvorgänge zu schreiben.
 
 > [!TIP]  
-> Sie können anzeigen, dass dieser Artikel [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) auf GitHub
+> Sie finden dieses Artikels [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) auf GitHub
 
-## <a name="example-testing-scenario"></a>Beispiel-Testszenario
+## <a name="example-testing-scenario"></a>Beispiel-Szenario
 
-Betrachten Sie den folgenden Dienst, der Anwendungscode im Zusammenhang mit Blogs Eingriffe ermöglicht. Er verwendet intern eine `DbContext` , die eine Verbindung mit einer SQL Server-Datenbank her. Es wäre hilfreich zum Austauschen von diesem Kontext für die Verbindung mit einer in-Memory-SQLite-Datenbank, damit wir effiziente Tests für diesen Dienst schreiben, ohne den Code ändern, oder führen Sie einen Großteil der Arbeit, die zum Erstellen eines Tests können doppelte des Kontexts.
+Betrachten Sie den folgenden Dienst, mit dem Anwendungscode zum Durchführen bestimmter Vorgänge im Zusammenhang mit Blogs zu können. Intern verwendet eine `DbContext` , die eine Verbindung mit SQL Server-Datenbank her. Es wäre nützlich, um diesem Kontext für die Verbindung eine SQLite-Datenbank im Arbeitsspeicher, damit wir können effiziente Tests für diesen Dienst schreiben, ohne den Code ändern zu müssen, oder einen Großteil der Arbeit beim Erstellen eines Tests Austauschen des Kontexts double.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
 
@@ -30,24 +28,24 @@ Betrachten Sie den folgenden Dienst, der Anwendungscode im Zusammenhang mit Blog
 
 ### <a name="avoid-configuring-two-database-providers"></a>Vermeiden Sie die Konfiguration von zwei Datenbankanbieter
 
-In den Tests wirst du extern konfigurieren Sie den Kontext des InMemory-Anbieters verwenden. Wenn Sie einen Datenbankanbieter durch Außerkraftsetzen konfigurieren `OnConfiguring` in den Kontext, dann müssen Sie fügen Sie bedingte Code zum sicherstellen, dass Sie nur den Datenbankanbieter konfigurieren, wenn Sie noch nicht konfiguriert wurde.
+In den Tests wird den Kontext zum Verwenden des InMemory-Anbieters extern konfigurieren. Wenn Sie durch das Überschreiben ein Datenbankanbieters konfigurieren `OnConfiguring` im Kontext Ihrer müssen Sie fügen der bedingten Code, um sicherzustellen, dass Sie nur den Datenbankanbieter konfigurieren, wenn eine nicht bereits konfiguriert wurde.
 
 > [!TIP]  
-> Bei Verwendung von ASP.NET Core sollte dann nicht mit diesem Code erforderlich, da der Datenbankanbieter außerhalb des Kontexts (in "Startup.cs) konfiguriert ist.
+> Wenn Sie ASP.NET Core verwenden, sollte dann nicht dieser Code erforderlich, da Ihr Datenbankanbieter außerhalb des Kontexts (in "Startup.cs") konfiguriert ist.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
 
-### <a name="add-a-constructor-for-testing"></a>Fügen Sie einen Konstruktor zu Testzwecken
+### <a name="add-a-constructor-for-testing"></a>Fügen Sie einen Konstruktor für das Testen
 
-Die einfachste Methode zum Aktivieren von Tests mit einer anderen Datenbank so ändern Sie den Kontext, um einen Konstruktor verfügbar machen, das akzeptiert, wird eine `DbContextOptions<TContext>`.
+Die einfachste Möglichkeit zum Aktivieren von Tests mit einer anderen Datenbank ist so ändern Sie den Kontext, um einen Konstruktor verfügbar machen, die akzeptiert eine `DbContextOptions<TContext>`.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
 
 > [!TIP]  
-> `DbContextOptions<TContext>`Gibt dem Kontext alle zugehörigen Einstellungen, z. B. welche Datenbank für die Verbindung. Dies ist das gleiche Objekt, das erstellt wird, durch die OnConfiguring-Methode in Ihrem Kontext ausgeführt wird.
+> `DbContextOptions<TContext>` Gibt dem Kontext alle zugehörigen Einstellungen, z. B. welche Datenbank für die Verbindung. Dies ist das gleiche Objekt, das durch Ausführen der OnConfiguring-Methode im Kontext Ihrer basiert.
 
 ## <a name="writing-tests"></a>Schreiben von tests
 
-Der Schlüssel für das Testen von mit diesem Anbieter ist die Fähigkeit, teilen Sie den Kontext SQLite verwenden und Steuern des Gültigkeitsbereichs der Datenbank im Arbeitsspeicher. Der Bereich der Datenbank wird gesteuert, durch Öffnen und schließen die Verbindung. Die Datenbank ist auf die Dauer beschränkt, die die Verbindung geöffnet ist. Sie möchten in der Regel eine fehlerfreie Datenbank für jede Testmethode.
+Die Taste, um Tests mit dieser Anbieter ist die Möglichkeit, teilen Sie den Kontext, SQLite, und Steuern des Gültigkeitsbereichs der in-Memory-Datenbank. Der Bereich der Datenbank wird gesteuert, durch Öffnen und schließen die Verbindung. Die Datenbank ist für die Dauer beschränkt, die die Verbindung geöffnet ist. Möchten Sie in der Regel eine fehlerfreie Datenbank, für jede Testmethode.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]

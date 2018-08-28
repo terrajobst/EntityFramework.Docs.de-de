@@ -1,27 +1,26 @@
 ---
-title: Migrationen mit mehreren Anbietern - EF Core
+title: Migrationen mit mehreren Anbietern – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/8/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: d950e74ed4cef7d4274aabcf3eda7b0b735574c6
-ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
+ms.openlocfilehash: 7ae695037992323337a780cda29d8c8ed8a13458
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/20/2018
-ms.locfileid: "30002804"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997972"
 ---
 <a name="migrations-with-multiple-providers"></a>Migrationen mit mehreren Anbietern
 ==================================
-Die [EF Core Tools] [ 1] nur das Gerüst für Migrationen für den aktiven Anbieter erstellen. In einigen Fällen sollten Sie jedoch für die Verwendung von mehr als einen Anbieter (z. B. Microsoft SQL Server und SQLite) mit Ihrem DbContext. Es gibt zwei Möglichkeiten, dies mit Migrationen behandeln. Verwalten von zwei Sätze können Sie Migrationen – eine für jeden Anbieter-- oder Merge diese in einem einzelnen festlegen, die auf beiden arbeiten kann.
+Die [EF Core Tools] [ 1] Gerüst nur Migrationen für den aktiven Anbieter. In einigen Fällen sollten Sie jedoch mehrere Anbieter (z. B. Microsoft SQL Server und SQLite) mit Ihr "DbContext" verwenden. Es gibt zwei Möglichkeiten, dies mit Migrationen behandeln. Sie können zwei Gruppen verwalten für Migrationen – eine für jeden Anbieter-- oder zusammenführen, die sie in einem einzelnen festgelegt, kann die auf beide.
 
 <a name="two-migration-sets"></a>Zwei Sätze von migration
 ------------------
-In der ersten Methode generieren Sie zwei Migrationen für jedes Modell ändern.
+In der ersten Methode generieren Sie zwei livemigrationen für jede modelländerung.
 
-Eine Möglichkeit hierfür dies darin, jeden Satz Migration [in einer separaten Assembly] [ 2] und manuell die aktiven Anbieter (und Migrationen Assembly) zwischen dem Hinzufügen von zwei Migrationen wechseln.
+Eine Möglichkeit, Sie ist jede Migration Satz einzufügenden [in einer separaten Assembly] [ 2] und manuelles wechseln von der aktiven Anbieter (und Migrationen Assembly) zwischen die beiden Migrationen hinzufügen.
 
-Ein anderer Ansatz, die vereinfacht die Verwendung mit den Tools vereinfachen das Erstellen eines neuen Typs, das von Ihrem ' DbContext ' abgeleitet und überschreibt den aktiven Anbieter. Dieser Typ dient zur Entwurfszeit Zeit beim Hinzufügen oder Migrationen anwenden.
+Ein anderer Ansatz, der erleichtert die Arbeit mit den Tools vereinfachen das Erstellen eines neuen Typs, das Ihr "DbContext" abgeleitet und überschreibt die aktiven Anbieter. Dieser Typ wird verwendet, zur Entwurfszeit Zeit beim Hinzufügen oder Durchführen von Migrationen.
 
 ``` csharp
 class MySqliteDbContext : MyDbContext
@@ -32,9 +31,9 @@ class MySqliteDbContext : MyDbContext
 ```
 
 > [!NOTE]
-> Da jede Migration eigene DbContext-Typen verwendet werden, erforderlich nicht bei diesem Ansatz unter Verwendung einer separaten Migrationen-Assembly.
+> Da jede Migration ihre eigenen "DbContext"-Typen verwendet werden, erforderlich nicht bei diesem Ansatz mit einer Assembly separate Migrationen.
 
-Wenn neue Migration hinzufügen möchten, geben Sie die Kontexttypen.
+Wenn Sie neue Migration hinzufügen, wird Geben Sie die Kontexttypen an.
 
 ``` powershell
 Add-Migration InitialCreate -Context MyDbContext -OutputDir Migrations\SqlServerMigrations
@@ -46,13 +45,13 @@ dotnet ef migrations add InitialCreate --context MySqliteDbContext --output-dir 
 ```
 
 > [!TIP]
-> Sie müssen das Ausgabeverzeichnis für nachfolgende Migrationen angeben, da sie als gleichgeordnete Elemente, das letzte Lesezeichen erstellt werden.
+> Sie müssen nicht das Ausgabeverzeichnis für nachfolgende Migrationen angeben, da sie als gleichgeordnete Elemente bis zum letzten erstellt werden.
 
-<a name="one-migration-set"></a>Eine Migration festlegen
+<a name="one-migration-set"></a>Eine Migration Satz
 -----------------
-Wenn Sie nicht, müssen zwei Sätze von Migrationen möchten, können Sie diese manuell in einem Einzelsatz kombinieren, die auf beide Anbieter angewendet werden können.
+Wenn Sie nicht, müssen zwei Sätze von Migrationen möchten, können Sie sie manuell in einem einzigen Satz kombinieren, die auf beide Anbieter angewendet werden können.
 
-Anmerkungen können zusammen verwendet werden, da ein Anbieter alle Anmerkungen ignoriert, die es nicht verstanden hat. Beispielsweise kann eine Primärschlüsselspalte, die mit Microsoft SQL Server und SQLite funktioniert wie folgt aussehen.
+Anmerkungen können gleichzeitig verwendet werden, da es sich bei ein Anbieter alle Anmerkungen ignoriert, die sie nicht versteht. Beispielsweise könnte eine Primärschlüsselspalte, die mit Microsoft SQL Server- und SQLite funktioniert wie folgt aussehen.
 
 ``` csharp
 Id = table.Column<int>(nullable: false)
@@ -61,7 +60,7 @@ Id = table.Column<int>(nullable: false)
     .Annotation("Sqlite:Autoincrement", true),
 ```
 
-Wenn Vorgänge nur auf einen Anbieter angewendet werden können (oder sie unterschiedlich zwischen Anbietern sind), verwenden Sie die `ActiveProvider` Eigenschaft mitteilen, welche Anbieter aktiv ist.
+Wenn Vorgänge nur auf einem Anbieter angewendet werden können (oder sie unterschiedlich zwischen Anbietern sind), verwenden Sie die `ActiveProvider` Eigenschaft mitteilen, welche Anbieter aktiv ist.
 
 ``` csharp
 if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")

@@ -1,35 +1,33 @@
 ---
-title: Vererbung (Relational Database) - EF Core
+title: Vererbung (relationale Datenbank) – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
-ms.technology: entity-framework-core
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 22eed0002b5903d3cfd18a7e4af0fcd2d46a5c4c
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 019893ec8268ef9e59d581799a13d63610c80616
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/12/2018
-ms.locfileid: "29152358"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996321"
 ---
 # <a name="inheritance-relational-database"></a>Vererbung (relationale Datenbank)
 
 > [!NOTE]  
 > Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken. Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).
 
-Vererbung in der EF-Modell dient zum Steuern, wie Vererbung in Entitätsklassen in der Datenbank dargestellt wird.
+Vererbung in das EF-Modell dient zum Steuern, wie die Vererbung in Entitätsklassen in der Datenbank dargestellt wird.
 
 > [!NOTE]  
-> Derzeit wird nur das Tabelle pro Hierarchie (TPH)-Muster in EF Core implementiert. Weitere allgemeine Muster wie die Tabelle pro Typ (TPT) und Tabelle pro konkret-Typ (TPC) sind noch nicht verfügbar.
+> Derzeit wird nur die Tabelle pro Hierarchie (TPH)-Muster in EF Core implementiert. Weitere allgemeine Muster wie die Tabelle pro Typ (TPT) und Tabelle pro konkreten-Typ (TPC) sind noch nicht verfügbar.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention wird Vererbung mit dem Muster für die Tabelle pro Hierarchie (TPH) zugeordnet werden. TPH verwendet eine einzelne Tabelle zum Speichern der Daten für alle Typen in der Hierarchie. Eine Unterscheidungsspalte wird verwendet, um welche Art identifizieren jede Zeile stellt.
+Gemäß der Konvention wird Vererbung mit dem Muster für die Tabelle pro Hierarchie (TPH) zugeordnet werden. TPH verwendet eine einzelne Tabelle, um die Daten für alle Typen in der Hierarchie zu speichern. Eine Diskriminatorspalte wird verwendet, um welche Art zu identifizieren, jede Zeile steht.
 
-EF Core nur Vererbung richtet, wenn mindestens zwei geerbte Typen explizit in das Modell eingeschlossen sind (finden Sie unter [Vererbung](../inheritance.md) Weitere Details).
+EF Core wird nur die Vererbung eingerichtet, wenn mindestens zwei geerbte Typen explizit in das Modell enthalten sind (finden Sie unter [Vererbung](../inheritance.md) Weitere Details).
 
-Im folgenden Beispiel wird eine einfache Vererbungsszenario und die Daten in einer relationalen Datenbanktabelle TPH Muster gespeichert. Die *Unterscheidungseigenschaft* Spalte identifiziert, welche Art von *Blog* in jeder Zeile gespeichert wird.
+Im folgenden finden ein Beispiel für ein Szenario für die einfache Vererbung und die Daten, die in einer relationalen Datenbanktabelle, die mit dem TPH-Muster. Die *Diskriminator* Spalte identifiziert, welche Art von *Blog* in jeder Zeile gespeichert wird.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/Samples/InheritanceDbSets.cs)] -->
 ``` csharp
@@ -55,11 +53,11 @@ public class RssBlog : Blog
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Sie können keine Datenanmerkungen verwenden, um Vererbung zu konfigurieren.
+Sie können nicht von Datenanmerkungen verwenden, die Vererbung konfigurieren.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, so konfigurieren Sie den Namen und Typ der Diskriminatorspalte sowie die Werte, die verwendet werden, um jeden Typ in der Hierarchie zu identifizieren.
+Sie können die Fluent-API verwenden, konfigurieren Sie den Namen und Typ der Unterscheidungsspalte und die Werte, die verwendet werden, um jeden Typ in der Hierarchie zu identifizieren.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
 ``` csharp
@@ -88,9 +86,9 @@ public class RssBlog : Blog
 }
 ```
 
-## <a name="configuring-the-discriminator-property"></a>Konfigurieren die Unterscheidungseigenschaft
+## <a name="configuring-the-discriminator-property"></a>Konfigurieren von Unterscheidungseigenschaft
 
-In den Beispielen oben wird als Diskriminators erstellt eine [Shadowing Eigenschaft](xref:core/modeling/shadow-properties) auf der Basisentität der Hierarchie. Da es sich um eine Eigenschaft im Modell handelt, können sie genau wie andere Eigenschaften konfiguriert werden. Geben Sie beispielsweise Folgendes ein, um die maximale Länge festgelegt werden soll, wenn die standardmäßig von Konvention Unterscheidungseigenschaft verwendet wird:
+In den Beispielen oben wird als Diskriminator erstellt eine [schatteneigenschaft](xref:core/modeling/shadow-properties) auf der Basisentität der Hierarchie. Da es sich um eine Eigenschaft im Modell ist, können sie genau wie andere Eigenschaften konfiguriert werden. Geben Sie beispielsweise Folgendes ein, um die maximale Länge festgelegt werden, wenn die Standardeinstellung, nach Konvention Diskriminator verwendet wird:
 
 ```C#
 modelBuilder.Entity<Blog>()
@@ -98,7 +96,7 @@ modelBuilder.Entity<Blog>()
     .HasMaxLength(200);
 ```
 
-Diskriminators kann auch eine tatsächliche CLR-Eigenschaft in der Entität zugeordnet werden. Zum Beispiel:
+Die Unterscheidung kann auch auf eine tatsächliche CLR-Eigenschaft in der Entität zugeordnet werden. Zum Beispiel:
 ```C#
 class MyContext : DbContext
 {
@@ -124,7 +122,7 @@ public class RssBlog : Blog
 }
 ```
 
-Kombinieren diese zwei Dinge ist es möglich, sowohl eine reelle Eigenschaft Diskriminators zuordnen, und konfigurieren Sie ihn:
+Kombinieren diese beiden Schritte ist es möglich, sowohl die Unterscheidung einer Echtzeit-Eigenschaft zugeordnet, und konfigurieren Sie sie:
 ```C#
 modelBuilder.Entity<Blog>(b =>
 {

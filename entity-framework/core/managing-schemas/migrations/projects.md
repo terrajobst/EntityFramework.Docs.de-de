@@ -1,30 +1,30 @@
 ---
-title: Migrationen mit mehreren Projekten - EF Core
+title: Migrationen mit mehreren Projekten – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: 3684e86cce0005056380d89604d038c734054d14
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 76e88dd486b1c53dc69a24e35710511bf9cb673b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/22/2017
-ms.locfileid: "27161226"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997986"
 ---
-<a name="using-a-separate-project"></a>Verwenden ein separates Projekt
+<a name="using-a-separate-project"></a>Verwenden eines separaten Projekts
 ========================
-Empfiehlt es sich zum Speichern Ihrer Migrations in einer anderen Assembly als eine enthält die `DbContext`. Sie können auch diese Strategie mehrere Sätze von Migrationen, z. B. darin, dass für Entwicklung und andere für Upgrades von Version zu Version.
+Empfiehlt, speichern Ihre Migrationen in einer anderen Assembly als die mit Ihrer `DbContext`. Sie können auch diese Strategie, um mehrere Sätze von Migrationen zu verwalten, z. B., eine für die Entwicklung und eine andere Version-zu-Release-Upgrades verwenden.
 
 Aufgabe
 
 1. Erstellen Sie eine neue Klassenbibliothek.
 
-2. Fügen Sie einen Verweis auf die DbContext-Assembly hinzu.
+2. Fügen Sie einen Verweis auf die "DbContext"-Assembly hinzu.
 
-3. Verschieben Sie die Migrationen und Modelldateien für die Momentaufnahme auf die Klassenbibliothek.
-   * Wenn Sie alle noch nicht hinzugefügt, fügen Sie der DbContext-Projekt einen Verweis hinzu hinzu, und verschieben Sie sie.
+3. Verschieben Sie die Migrationen und Momentaufnahme-Modelldateien, die Klassenbibliothek.
+   > [!TIP]
+   > Wenn Sie keine vorhandenen Migrationen haben, generieren Sie, in dem die "DbContext", und verschieben Sie es. Dies ist wichtig, denn wenn die Assembly Migrationen nicht mit eine Migration von vorhandene enthält, der Befehl Add-Migration wurde nicht gefunden "DbContext".
 
-4. Die Assembly Migrationen zu konfigurieren:
+4. Konfigurieren Sie die Assembly Migrationen:
 
    ``` csharp
    options.UseSqlServer(
@@ -32,12 +32,12 @@ Aufgabe
        x => x.MigrationsAssembly("MyApp.Migrations"));
    ```
 
-5. Fügen Sie einen Verweis auf die Assembly Migrationen aus der Startassembly hinzu.
-   * Wenn dies bewirkt, eine zirkuläre Abhängigkeit dass, aktualisieren Sie den Ausgabepfad der Klassenbibliothek:
+5. Fügen Sie einen Verweis auf die Assembly für die Migration aus der Startassembly hinzu.
+   * Wenn dies bewirkt, eine ringabhängigkeit dass, aktualisieren Sie den Ausgabepfad der Klassenbibliothek:
 
      ``` xml
      <PropertyGroup>
-       <OutputPath>..\MyStarupProject\bin\$(Configuration)\</OutputPath>
+       <OutputPath>..\MyStartupProject\bin\$(Configuration)\</OutputPath>
      </PropertyGroup>
      ```
 
