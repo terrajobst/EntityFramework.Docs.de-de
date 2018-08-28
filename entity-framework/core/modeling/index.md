@@ -1,32 +1,30 @@
 ---
 title: Erstellen eines Modells – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
-ms.technology: entity-framework-core
 uid: core/modeling/index
-ms.openlocfilehash: 1ad0f6891fbc8ba2e4d102cc9997f053a9dddb66
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 9f702d5833b88e6eb77c0afefdae0ed3bc162ec8
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812436"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993932"
 ---
-# <a name="creating-a-model"></a><span data-ttu-id="fbe84-102">Erstellen eines Modells</span><span class="sxs-lookup"><span data-stu-id="fbe84-102">Creating a Model</span></span>
+# <a name="creating-a-model"></a><span data-ttu-id="2c231-102">Erstellen eines Modells</span><span class="sxs-lookup"><span data-stu-id="2c231-102">Creating a Model</span></span>
 
-<span data-ttu-id="fbe84-103">Entity Framework verwendet eine Reihe von Konventionen, um ein Modell basierend auf der Anordnung Ihrer Entitätsklassen zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="fbe84-103">Entity Framework uses a set of conventions to build a model based on the shape of your entity classes.</span></span> <span data-ttu-id="fbe84-104">Sie können zusätzliche Konfigurationen angeben, um die gemäß den Konventionen gewonnenen Ergebnisse zu ergänzen und/oder zu überschreiben.</span><span class="sxs-lookup"><span data-stu-id="fbe84-104">You can specify additional configuration to supplement and/or override what was discovered by convention.</span></span>
+<span data-ttu-id="2c231-103">Entity Framework verwendet eine Reihe von Konventionen, um ein Modell basierend auf der Anordnung Ihrer Entitätsklassen zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="2c231-103">Entity Framework uses a set of conventions to build a model based on the shape of your entity classes.</span></span> <span data-ttu-id="2c231-104">Sie können zusätzliche Konfigurationen angeben, um die gemäß den Konventionen gewonnenen Ergebnisse zu ergänzen und/oder zu überschreiben.</span><span class="sxs-lookup"><span data-stu-id="2c231-104">You can specify additional configuration to supplement and/or override what was discovered by convention.</span></span>
 
-<span data-ttu-id="fbe84-105">Dieser Artikel behandelt die Konfiguration, die auf ein Modell für einen beliebigen Datenspeicher und auf jede relationale Datenbank angewendet werden kann.</span><span class="sxs-lookup"><span data-stu-id="fbe84-105">This article covers configuration that can be applied to a model targeting any data store and that which can be applied when targeting any relational database.</span></span> <span data-ttu-id="fbe84-106">Anbieter können auch eine Konfiguration aktivieren, die speziell für einen bestimmten Datenspeicher gilt.</span><span class="sxs-lookup"><span data-stu-id="fbe84-106">Providers may also enable configuration that is specific to a particular data store.</span></span> <span data-ttu-id="fbe84-107">Dokumentation zu anbieterspezifischen Konfigurationen finden Sie im Abschnitt [Datenbankanbieter](../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="fbe84-107">For documentation on provider specific configuration see the [Database Providers](../providers/index.md) section.</span></span>
+<span data-ttu-id="2c231-105">Dieser Artikel behandelt die Konfiguration, die auf ein Modell für einen beliebigen Datenspeicher und auf jede relationale Datenbank angewendet werden kann.</span><span class="sxs-lookup"><span data-stu-id="2c231-105">This article covers configuration that can be applied to a model targeting any data store and that which can be applied when targeting any relational database.</span></span> <span data-ttu-id="2c231-106">Anbieter können auch eine Konfiguration aktivieren, die speziell für einen bestimmten Datenspeicher gilt.</span><span class="sxs-lookup"><span data-stu-id="2c231-106">Providers may also enable configuration that is specific to a particular data store.</span></span> <span data-ttu-id="2c231-107">Dokumentation zu anbieterspezifischen Konfigurationen finden Sie im Abschnitt [Datenbankanbieter](../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="2c231-107">For documentation on provider specific configuration see the [Database Providers](../providers/index.md) section.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="fbe84-108">Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) finden Sie auf GitHub.</span><span class="sxs-lookup"><span data-stu-id="fbe84-108">You can view this article’s [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) on GitHub.</span></span>
+> <span data-ttu-id="2c231-108">Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) finden Sie auf GitHub.</span><span class="sxs-lookup"><span data-stu-id="2c231-108">You can view this article’s [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) on GitHub.</span></span>
 
-## <a name="methods-of-configuration"></a><span data-ttu-id="fbe84-109">Konfigurationsmethoden</span><span class="sxs-lookup"><span data-stu-id="fbe84-109">Methods of configuration</span></span>
+## <a name="methods-of-configuration"></a><span data-ttu-id="2c231-109">Konfigurationsmethoden</span><span class="sxs-lookup"><span data-stu-id="2c231-109">Methods of configuration</span></span>
 
-### <a name="fluent-api"></a><span data-ttu-id="fbe84-110">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="fbe84-110">Fluent API</span></span>
+### <a name="fluent-api"></a><span data-ttu-id="2c231-110">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="2c231-110">Fluent API</span></span>
 
-<span data-ttu-id="fbe84-111">Sie können die `OnModelCreating`-Methode in Ihrem abgeleiteten Kontext überschreiben und mit `ModelBuilder API` Ihr Modell konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="fbe84-111">You can override the `OnModelCreating` method in your derived context and use the `ModelBuilder API` to configure your model.</span></span> <span data-ttu-id="fbe84-112">Dies ist die wirksamste Konfigurationsmethode und erlaubt die Angabe der Konfiguration, ohne die Entitätsklassen zu verändern.</span><span class="sxs-lookup"><span data-stu-id="fbe84-112">This is the most powerful method of configuration and allows configuration to be specified without modifying your entity classes.</span></span> <span data-ttu-id="fbe84-113">Die Fluent-API-Konfiguration hat die höchste Priorität und überschreibt Konventionen und Datenanmerkungen.</span><span class="sxs-lookup"><span data-stu-id="fbe84-113">Fluent API configuration has the highest precedence and will override conventions and data annotations.</span></span>
+<span data-ttu-id="2c231-111">Sie können die `OnModelCreating`-Methode in Ihrem abgeleiteten Kontext überschreiben und mit `ModelBuilder API` Ihr Modell konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="2c231-111">You can override the `OnModelCreating` method in your derived context and use the `ModelBuilder API` to configure your model.</span></span> <span data-ttu-id="2c231-112">Dies ist die wirksamste Konfigurationsmethode und erlaubt die Angabe der Konfiguration, ohne die Entitätsklassen zu verändern.</span><span class="sxs-lookup"><span data-stu-id="2c231-112">This is the most powerful method of configuration and allows configuration to be specified without modifying your entity classes.</span></span> <span data-ttu-id="2c231-113">Die Fluent-API-Konfiguration hat die höchste Priorität und überschreibt Konventionen und Datenanmerkungen.</span><span class="sxs-lookup"><span data-stu-id="2c231-113">Fluent API configuration has the highest precedence and will override conventions and data annotations.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Required.cs?range=5-15&highlight=5-10)] -->
 
@@ -44,9 +42,9 @@ ms.locfileid: "31812436"
     }
 ```
 
-### <a name="data-annotations"></a><span data-ttu-id="fbe84-114">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="fbe84-114">Data Annotations</span></span>
+### <a name="data-annotations"></a><span data-ttu-id="2c231-114">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="2c231-114">Data Annotations</span></span>
 
-<span data-ttu-id="fbe84-115">Sie können auch Attribute (sogenannte „Datenanmerkungen“) auf Ihre Klassen und Eigenschaften anwenden.</span><span class="sxs-lookup"><span data-stu-id="fbe84-115">You can also apply attributes (known as Data Annotations) to your classes and properties.</span></span> <span data-ttu-id="fbe84-116">Datenanmerkungen überschreiben Konventionen, werden aber von der Fluent-API-Konfiguration überschrieben.</span><span class="sxs-lookup"><span data-stu-id="fbe84-116">Data annotations will override conventions, but will be overwritten by Fluent API configuration.</span></span>
+<span data-ttu-id="2c231-115">Sie können auch Attribute (sogenannte „Datenanmerkungen“) auf Ihre Klassen und Eigenschaften anwenden.</span><span class="sxs-lookup"><span data-stu-id="2c231-115">You can also apply attributes (known as Data Annotations) to your classes and properties.</span></span> <span data-ttu-id="2c231-116">Datenanmerkungen überschreiben Konventionen, werden aber von der Fluent-API-Konfiguration überschrieben.</span><span class="sxs-lookup"><span data-stu-id="2c231-116">Data annotations will override conventions, but will be overwritten by Fluent API configuration.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/Required.cs?range=11-16&highlight=4)] -->
 ``` csharp
