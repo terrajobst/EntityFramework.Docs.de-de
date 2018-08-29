@@ -3,12 +3,12 @@ title: Asynchrone Abfragen und speichern – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 758f8bc3d14fc1f60f14ff14f4251aeed057c518
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 64051dea740b2183cb904d7fb4293d7048c218ca
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994462"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152436"
 ---
 # <a name="async-query-and-save"></a>Asynchrone Abfragen und speichern
 > [!NOTE]
@@ -137,7 +137,7 @@ Nun, da wir ein EF-Modell verfügen, einen Code zu schreiben, der er verwendet, 
 
 Dieser Code Ruft die **PerformDatabaseOperations** Methode hierdurch eine neue **Blog** mit der Datenbank und dann Ruft alle **Blogs** aus der Datenbank und gibt sie an der **Konsole**. Anschließend schreibt das Programm ein Zitat des Tages die **Konsole**.
 
-Da der Code Syncronous ist, können wir den folgende Ausführungsablauf beobachten, wenn das Programm ausgeführt wird:
+Da der Code synchron ausgeführt wird, können wir den folgende Ausführungsablauf beobachten, wenn das Programm ausgeführt wird:
 
 1.  **"SaveChanges"** beginnt mit der neuen push **Blog** in der Datenbank
 2.  **"SaveChanges"** abgeschlossen ist

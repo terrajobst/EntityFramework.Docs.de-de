@@ -1,21 +1,19 @@
 ---
-title: Schlüssel (primär) – EF Core
+title: Schlüssel (primär) - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
-ms.technology: entity-framework-core
 uid: core/modeling/keys
-ms.openlocfilehash: f3bf3c7f2a28e065b350fe000a5164406cd5ca08
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 9e6946100ebabc6ba57cb792b3672219098b1e21
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052570"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994020"
 ---
 # <a name="keys-primary"></a>Schlüssel (primär)
 
-Ein Schlüssel dient als der primäre eindeutige Bezeichner für jede Entitätsinstanz. Bei Verwendung eine relationale Datenbank entspricht dem das Konzept einer *Primärschlüssel*. Sie können auch einen eindeutigen Bezeichner, der nicht den Primärschlüssel konfigurieren (finden Sie unter [Alternativschlüssel](alternate-keys.md) für Weitere Informationen).
+Ein Schlüssel dient als primärer Eindeutiger Bezeichner für jede Entitätsinstanz. Bei Verwendung eine relationale Datenbank zugeordnet, das Konzept von einem *Primärschlüssel*. Sie können auch einen eindeutigen Bezeichner, die nicht den Primärschlüssel konfigurieren (finden Sie unter [Alternativschlüssel](alternate-keys.md) Informationen).
 
 ## <a name="conventions"></a>Konventionen
 
@@ -45,7 +43,7 @@ class Car
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Sie können Datenanmerkungen verwenden, so konfigurieren Sie eine einzelne Eigenschaft, um die Schlüssel einer Entität sein.
+Sie können Datenanmerkungen verwenden, so konfigurieren Sie eine einzelne Eigenschaft als Schlüssel einer Entität.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/KeySingle.cs?highlight=3,4)] -->
 ``` csharp
@@ -61,7 +59,7 @@ class Car
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, so konfigurieren Sie eine einzelne Eigenschaft, um die Schlüssel einer Entität sein.
+Sie können die Fluent-API verwenden, so konfigurieren Sie eine einzelne Eigenschaft als Schlüssel einer Entität.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/KeySingle.cs?highlight=7,8)] -->
 ``` csharp
@@ -85,7 +83,7 @@ class Car
 }
 ```
 
-Die Fluent-API können auch um mehrere Eigenschaften für den Schlüssel einer Entität (als einen zusammengesetzten Schlüssel bezeichnet) werden zu konfigurieren. Zusammengesetzte Schlüssel können nur konfiguriert werden mithilfe der Fluent-API - Konventionen richtet einen zusammengesetzten Schlüssel nie und Datenanmerkungen Konfiguration kann nicht verwendet.
+Sie können auch die Fluent-API verwenden, so konfigurieren Sie mehrere Eigenschaften als Schlüssel einer Entität (als einen zusammengesetzten Schlüssel bezeichnet). Zusammengesetzte Schlüssel können nur mithilfe der Fluent-API konfiguriert werden – Konventionen werden einen zusammengesetzten Schlüssel niemals eingerichtet und Datenanmerkungen Konfiguration kann nicht verwendet.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/KeyComposite.cs?highlight=7,8)] -->
 ``` csharp

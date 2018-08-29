@@ -1,31 +1,34 @@
 ---
-title: Schreiben eines Datenbank-Anbieters - EF Core
+title: Schreiben eine-Datenbankanbieter – EF Core
 author: anmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 1165e2ec-e421-43fc-92ab-d92f9ab3c494
-ms.technology: entity-framework-core
 uid: core/providers/writing-a-provider
-ms.openlocfilehash: 4bddf5858ab2c6b2fd22571a20edb3f7c85e2853
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: c7130b0d104cd26584d298da98eb3e7080ee7f3c
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29678959"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993665"
 ---
-# <a name="writing-a-database-provider"></a>Schreiben eines Datenbank-Anbieters
+# <a name="writing-a-database-provider"></a>Schreiben eines Datenbankanbieters
 
-Informationen über das Schreiben eines Entity Framework Core-Datenbank-Anbieters finden Sie unter [, damit Sie einen Core EF-Anbieter schreiben möchten](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/) von [Arthur Vickers](https://github.com/ajcvickers).
+Informationen zum Schreiben von einem Entity Framework Core-Datenbankanbieter, finden Sie unter [einen EF Core-Anbieter schreiben, empfiehlt sich daher](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/) von [Arthur Vickers](https://github.com/ajcvickers).
 
-Die Codebasis EF Core ist eine open Source und enthält mehrere Datenbankanbieter, die als Verweis verwendet werden können. Sie finden den Quellcode zur https://github.com/aspnet/EntityFrameworkCore.
+> [!NOTE]
+> Diese Beiträge seit EF Core 1.1 nicht aktualisiert wurden, und es wurden bedeutende Änderungen seit diesem Zeitpunkt [Problem 681](https://github.com/aspnet/EntityFramework.Docs/issues/681) Nachverfolgen von Aktualisierungen in dieser Dokumentation wird.
 
-## <a name="the-providers-beware-label"></a>Der Anbieter Vorsicht vor Bezeichnung
+Die Codebasis von EF Core ist open Source und enthält mehrere Datenbankanbietern, die als Verweis verwendet werden können. Sie finden den Quellcode auf https://github.com/aspnet/EntityFrameworkCore. Es kann auch hilfreich sein, z. B. den Code für häufig verwendete Drittanbieter betrachten [Npgsql](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL), [Pomelo-MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql), und [SQL Server Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact). Insbesondere werden diese Projekte erweitern aus, und führen Funktionstests, die wir Veröffentlichen in NuGet-Setup. Diese Art von Setup wird dringend empfohlen.
 
-Nachdem Sie die Arbeit für einen Anbieter beginnen, sehen Sie sich für die [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) Bezeichnung auf unserer GitHub-Problemen und Pull-Anforderungen. Wir verwenden diese Bezeichnung zum Identifizieren von Änderungen, die Anbieterwriter auswirken können.
+## <a name="keeping-up-to-date-with-provider-changes"></a>Behalten auf dem neuesten Stand mit Anbieter-Änderungen
 
-## <a name="suggested-naming-of-third-party-providers"></a>Vorgeschlagene Benennung von Service-Drittanbietern
+Starten mit der Arbeit nach der Version 2.1, wir haben eine [Änderungen protokolliert](provider-log.md) , die möglicherweise die entsprechenden Änderungen in den Anbietercode. Dies soll helfen bei der Aktualisierung eines vorhandenen Anbieters mit einer neuen Version von EF Core funktioniert.
 
-Es wird empfohlen, die folgenden Benennung für das NuGet-Pakete verwenden. Dies ist konsistent mit den Namen der Pakete, die vom Team EF Core übermittelt.
+Vor dem 2.1, verwendet der [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) und [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) Bezeichnungen auf unserer GitHub-Problemen und Pull Requests für einen ähnlichen Zweck. Wir werden Continiue, um diese zu Problemen mit dem eine Angabe über das erteilen, welche Arbeitsaufgaben in einer bestimmten Version ebenfalls im Anbieter auszuführenden Arbeit erfordern. Ein `providers-beware` Bezeichnung bedeutet normalerweise, dass es sich bei die Implementierung eines Arbeitselements Anbieter unterbrechen kann während einer `providers-fyi` Bezeichnung bedeutet normalerweise, dass Anbieter werden nicht beeinträchtigt, aber der Code möglicherweise dennoch, z. B. geändert werden, um neue Funktionen zu aktivieren.
+
+## <a name="suggested-naming-of-third-party-providers"></a>Empfohlene Benennung von Drittanbietern
+
+Es wird empfohlen, mit dem folgenden Namen für NuGet-Pakete. Dies ist konsistent mit den Namen der Pakete, die von der EF Core-Team bereitgestellt werden.
 
 `<Optional project/company name>.EntityFrameworkCore.<Database engine name>`
 

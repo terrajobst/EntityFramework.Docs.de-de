@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 81427b010f63bdd591ffb9117c1556722313c3fa
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c70003fc7e2c5381a22d26baacd3d76f32489328
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995296"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152413"
 ---
 <a name="ef-core-net-command-line-tools"></a>EF .NET Core-Befehlszeilentools
 ===============================
@@ -66,9 +66,9 @@ dotnet ef
 ---------------
 Wenn Sie einen Befehl aufrufen, sind zwei Projekte beteiligt:
 
-Dem Zielprojekt werden Dateien hinzugefügt (oder sie werden in einigen Fällen aus diesem entfernt). Das Zielprojekt standardmäßig auf das Projekt im aktuellen Verzeichnis, jedoch können geändert werden, mithilfe der <nobr> **– Projekt** </nobr> Option.
+Dem Zielprojekt werden Dateien hinzugefügt (oder sie werden in einigen Fällen aus diesem entfernt). Das Zielprojekt standardmäßig auf das Projekt im aktuellen Verzeichnis, jedoch können geändert werden, mithilfe der <nobr> **`--project`** </nobr> Option.
 
-Das Startprojekt wird bei Ausführung des Projektcodes von den Tools emuliert. Ebenfalls standardmäßig auf das Projekt im aktuellen Verzeichnis, sondern kann geändert werden, mithilfe der **--Startup-Projekt** Option.
+Das Startprojekt wird bei Ausführung des Projektcodes von den Tools emuliert. Ebenfalls standardmäßig auf das Projekt im aktuellen Verzeichnis, sondern kann geändert werden, mithilfe der **`--startup-project`** Option.
 
 > [!NOTE]
 > Z. B. Aktualisieren der Datenbank der Webanwendung, die EF Core-Installation in einem anderen Projekt sieht wie folgt: `dotnet ef database update --project {project-path}` (von Ihrem Web-app-Verzeichnis)
@@ -77,17 +77,17 @@ Allgemeine Optionen:
 
 |    |                                  |                             |
 |:---|:---------------------------------|:----------------------------|
-|    | --json                           | Zeigen Sie die JSON-Ausgabe.           |
-| -c | --Kontext \<"DbContext" >           | Die "DbContext" verwenden.       |
-| -p | --Projekt \<Projekt >             | Das Projekt zu verwenden.         |
-| -s | --Startup-Projekt \<Projekt >     | Das Startprojekt verwenden. |
-|    | --Framework \<FRAMEWORK >         | Das Zielframework.       |
-|    | – Konfiguration \<CONFIGURATION > | Die zu verwendende Konfiguration.   |
-|    | --Runtime \<ID >          | Die Laufzeit, die verwendet werden soll.         |
-| -h | – Hilfe                           | Anzeigen von Hilfeinformationen.      |
-| -v | --verbose                        | Zeigen Sie ausführlichen Ausgabe.        |
-|    | --ohne-Farben                       | Nicht farbig anzuzeigende Ausgabe aus.      |
-|    | --Präfix-Ausgabe                  | Das Präfix auf Ausgabe.   |
+|    | `--json`                           | Zeigen Sie die JSON-Ausgabe.           |
+| -c | `--context <DBCONTEXT>`           | Die "DbContext" verwenden.       |
+| -p | `--project <PROJECT>`             | Das Projekt zu verwenden.         |
+| -s | `--startup-project <PROJECT>`     | Das Startprojekt verwenden. |
+|    | `--framework <FRAMEWORK>`         | Das Zielframework.       |
+|    | `--configuration <CONFIGURATION>` | Die zu verwendende Konfiguration.   |
+|    | `--runtime <IDENTIFIER>`          | Die Laufzeit, die verwendet werden soll.         |
+| -h | `--help`                           | Anzeigen von Hilfeinformationen.      |
+| -v | `--verbose`                        | Zeigen Sie ausführlichen Ausgabe.        |
+|    | `--no-color`                       | Nicht farbig anzuzeigende Ausgabe aus.      |
+|    | `--prefix-output`                  | Das Präfix auf Ausgabe.   |
 
 
 > [!TIP]
@@ -104,8 +104,8 @@ Optionen:
 
 |    |           |                                                          |
 |:---|:----------|:---------------------------------------------------------|
-| -f | --erzwingen   | Bestätigen Sie nicht.                                           |
-|    | --Dry-Run | Anzeigen der Datenbank gelöscht werden würde, dies jedoch noch nicht. |
+| -f | `--force`   | Bestätigen Sie nicht.                                           |
+|    | `--dry-run` | Anzeigen der Datenbank gelöscht werden würde, dies jedoch noch nicht. |
 
 ### <a name="dotnet-ef-database-update"></a>Dotnet-Ef-Datenbankupdates
 
@@ -115,7 +115,7 @@ Argumente:
 
 |              |                                                                                              |
 |:-------------|:---------------------------------------------------------------------------------------------|
-| \<MIGRATION &GT; | Die Ziel-Migration. Wenn der Wert 0 ist, werden bei allen Migrationen rückgängig gemacht werden. Ist standardmäßig auf die letzte Migration ein. |
+| `<MIGRATION>` | Die Ziel-Migration. Wenn der Wert 0 ist, werden bei allen Migrationen rückgängig gemacht werden. Ist standardmäßig auf die letzte Migration ein. |
 
 ### <a name="dotnet-ef-dbcontext-info"></a>Dotnet Ef-Dbcontext-Informationen
 
@@ -133,21 +133,21 @@ Argumente:
 
 |               |                                                                             |
 |:--------------|:----------------------------------------------------------------------------|
-| \<VERBINDUNG &GT; | Die Verbindungszeichenfolge in der Datenbank.                                      |
-| \<ANBIETER &GT;   | Die zu verwendende Anbieter. (z. B. "Microsoft.entityframeworkcore.SqlServer") |
+| `<CONNECTION>` | Die Verbindungszeichenfolge in der Datenbank.                                      |
+| `<PROVIDER>`   | Die zu verwendende Anbieter. (z. B. "Microsoft.entityframeworkcore.SqlServer") |
 
 Optionen:
 
 |                 |                                         |                                                                                                  |
 |:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr> | --datenanmerkungen                      | Verwenden Sie Attribute, um das Modell (sofern möglich) zu konfigurieren. Wenn nicht angegeben, wird nur die fluent-API verwendet. |
-| -c              | --Kontext \<NAME >                       | Der Name von "DbContext".                                                                       |
-|                 | --Kontext-Dir \<Pfad >                   | Das Verzeichnis, fügen Sie in "DbContext"-Datei. Pfade sind relativ zum Projektverzeichnis.             |
-| -f              | --erzwingen                                 | Überschreiben Sie vorhandene Dateien.                                                                        |
-| -o              | --Ausgabe-Dir \<Pfad >                    | Zum Einfügen von Dateien im Verzeichnis. Pfade sind relativ zum Projektverzeichnis.                      |
-|                 | <nobr>--Schema \<SCHEMA_NAME >...</nobr> | Die Schemas der Tabellen zur Generierung von Entitätstypen für.                                              |
-| -t              | --Tabelle \<TABLE_NAME >...                | Die Tabellen zur Generierung von Entitätstypen für werden soll.                                                         |
-|                 | – Verwenden der Datenbanknamen                    | Verwenden Sie Tabellen- und Spaltennamen direkt aus der Datenbank.                                           |
+| <nobr>-d</nobr> | `--data-annotations`                      | Verwenden Sie Attribute, um das Modell (sofern möglich) zu konfigurieren. Wenn nicht angegeben, wird nur die fluent-API verwendet. |
+| -c              | `--context <NAME>`                       | Der Name von "DbContext".                                                                       |
+|                 | `--context-dir <PATH>`                   | Das Verzeichnis, fügen Sie in "DbContext"-Datei. Pfade sind relativ zum Projektverzeichnis.             |
+| -f              | `--force`                                 | Überschreiben Sie vorhandene Dateien.                                                                        |
+| -o              | `--output-dir <PATH>`                    | Zum Einfügen von Dateien im Verzeichnis. Pfade sind relativ zum Projektverzeichnis.                      |
+|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Die Schemas der Tabellen zur Generierung von Entitätstypen für.                                              |
+| -t              | `--table <TABLE_NAME>`...                | Die Tabellen zur Generierung von Entitätstypen für werden soll.                                                         |
+|                 | `--use-database-names`                    | Verwenden Sie Tabellen- und Spaltennamen direkt aus der Datenbank.                                           |
 
 ### <a name="dotnet-ef-migrations-add"></a>Fügen Dotnet Ef-Migrationen
 
@@ -157,13 +157,13 @@ Argumente:
 
 |         |                            |
 |:--------|:---------------------------|
-| \<NAME> | Der Name der Migration. |
+| `<NAME>` | Der Name der Migration. |
 
 Optionen:
 
 |                 |                                   |                                                                                                                  |
 |:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <nobr>-o</nobr> | <nobr>--Ausgabe-Dir \<Pfad ></nobr> | Das Verzeichnis (und Sub-Namespace) verwenden. Pfade sind relativ zum Projektverzeichnis. Der Standardwert ist "Migrations". |
+| <nobr>-o</nobr> | <nobr> `--output-dir <PATH>` </nobr> | Das Verzeichnis (und Sub-Namespace) verwenden. Pfade sind relativ zum Projektverzeichnis. Der Standardwert ist "Migrations". |
 
 ### <a name="dotnet-ef-migrations-list"></a>Dotnet Ef Migrations-Liste
 
@@ -177,7 +177,7 @@ Optionen:
 
 |    |         |                                                                       |
 |:---|:--------|:----------------------------------------------------------------------|
-| -f | --erzwingen | Die Migration zurückgesetzt, wenn es auf die Datenbank angewendet wurde. |
+| -f | `--force` | Die Migration zurückgesetzt, wenn es auf die Datenbank angewendet wurde. |
 
 ### <a name="dotnet-ef-migrations-script"></a>Dotnet Ef Migrations-Skript
 
@@ -187,15 +187,15 @@ Argumente:
 
 |         |                                                               |
 |:--------|:--------------------------------------------------------------|
-| \<FROM> | Die Migration der ab. Der Standardwert ist 0 (die ursprüngliche Datenbank). |
-| \<TO>   | Der Endpunkt-Migration. Ist standardmäßig auf die letzte Migration ein.         |
+| `<FROM>` | Die Migration der ab. Der Standardwert ist 0 (die ursprüngliche Datenbank). |
+| `<TO>`   | Der Endpunkt-Migration. Ist standardmäßig auf die letzte Migration ein.         |
 
 Optionen:
 
 |    |                  |                                                                    |
 |:---|:-----------------|:-------------------------------------------------------------------|
-| -o | --Ausgabe \<Datei > | Die Datei, schreibt das Ergebnis.                                   |
-| -i | --idempotent     | Generieren Sie ein Skript, das für eine Datenbank auf eine Migration verwendet werden kann. |
+| -o | `--output <FILE>` | Die Datei, schreibt das Ergebnis.                                   |
+| -i | `--idempotent`     | Generieren Sie ein Skript, das für eine Datenbank auf eine Migration verwendet werden kann. |
 
 
   [1]: powershell.md

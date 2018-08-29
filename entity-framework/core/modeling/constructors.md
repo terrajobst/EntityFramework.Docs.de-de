@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: 0536393d074d82583f47faae13cc22498193cb7e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1b36197465fb9a6571a306d36eb1e9d885a5399e
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994892"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152464"
 ---
 # <a name="entity-types-with-constructors"></a>Entitätstypen mit Konstruktoren
 
@@ -25,7 +25,7 @@ Ab EF Core 2.1, ist es jetzt möglich, definieren Sie einen Konstruktor mit Para
 
 Betrachten Sie ein typisches Modell für die Blog-Beitrag:
 
-```Csharp
+``` csharp
 public class Blog
 {
     public int Id { get; set; }
@@ -50,7 +50,7 @@ public class Post
 
 Wenn Instanzen dieser Typen von EF Core erstellt wird, wie z. B. für die Ergebnisse einer Abfrage, sie rufen Sie zuerst dem parameterlosen Standardkonstruktor und klicken Sie dann auf den Wert jeder Eigenschaft festgelegt, aus der Datenbank. Jedoch wenn EF Core mit einen parametrisierten Konstruktor gefunden Parameternamen und -Typen, die übereinstimmen zugeordnet Eigenschaften, und es den parametrisierten Konstruktor mit den Werten für diese Eigenschaften aufzurufen, und jede Eigenschaft nicht explizit festgelegt. Zum Beispiel:
 
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -99,7 +99,7 @@ Nach Eigenschaften über den Konstruktor festgelegt werden können einige Schrei
 * Die Verwendung von automatisch generierten Schlüsselwerte erfordert eine wichtige Eigenschaft, die Lese-/ Schreibzugriff, da der Schlüsselwert durch den Generator für Zugriffsschlüssel festgelegt werden, wenn neue Entitäten einfügen muss.
 
 Eine einfache Möglichkeit, diese Probleme vermeiden werden private Setter verwendet. Zum Beispiel:
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -139,7 +139,7 @@ EF Core sieht eine Eigenschaft mit einem privaten Setter als Lese-/ Schreibzugri
 
 Eine Alternative zur Verwendung von private Setter, werden Eigenschaften wirklich schreibgeschützt machen, und fügen weitere explizite Zuordnung in "onmodelcreating" ab. Einige Eigenschaften können auch vollständig entfernt und durch nur Felder ersetzt werden. Betrachten Sie beispielsweise die folgenden Entitätstypen:
 
-```Csharp
+``` csharp
 public class Blog
 {
     private int _id;
@@ -174,7 +174,7 @@ public class Post
 }
 ```
 Und diese Konfiguration in "onmodelcreating":
-```Csharp
+``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Blog>(
@@ -215,7 +215,7 @@ EF Core kann auch "Dienste" in einen Entitätstyp-Konstruktor einfügen. Beispie
 
 Beispielsweise kann ein eingefügter "DbContext" verwendet werden, selektiv Zugriff auf die Datenbank Informationen zu verknüpften Entitäten zu erhalten, ohne Sie zu laden, alle. Im folgenden Beispiel wird dies verwendet, um die Anzahl an Beiträgen, die in einem Blog zu erhalten, ohne Sie zu laden die Beiträge:
 
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog()
