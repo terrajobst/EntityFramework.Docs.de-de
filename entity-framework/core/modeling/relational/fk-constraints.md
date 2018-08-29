@@ -1,28 +1,26 @@
 ---
-title: Foreign Key-Einschränkungen - EF Core
+title: Foreign Key-Einschränkungen – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
-ms.technology: entity-framework-core
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: 726f03e2ee4cd3ec851c9a861b75dd12f9203e9c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: a83f72b5d832e349fb4a5fb3b2de0b82bd79ef2a
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052740"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993987"
 ---
-# <a name="foreign-key-constraints"></a>FOREIGN KEY-Einschränkungen
+# <a name="foreign-key-constraints"></a>Foreign Key-Einschränkungen
 
 > [!NOTE]  
-> Die Konfiguration in diesem Abschnitt ist im Allgemeinen gilt für relationale Datenbanken. Die Erweiterungsmethoden, die hier gezeigten werden verfügbar, wenn Sie einen relationale Datenbank-Anbieter installieren (aufgrund der freigegebenen *Microsoft.EntityFrameworkCore.Relational* Paket).
+> Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken. Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).
 
 Eine foreign Key-Einschränkung wird für jede Beziehung im Modell eingeführt.
 
 ## <a name="conventions"></a>Konventionen
 
-Foreign Key-Einschränkungen werden gemäß der Konvention benannt `FK_<dependent type name>_<principal type name>_<foreign key property name>`. Für zusammengesetzte Fremdschlüssel `<foreign key property name>` wird eine Unterstrich getrennt Liste der Namen der foreign Key-Eigenschaft.
+Foreign Key-Einschränkungen werden gemäß der Konvention benannt `FK_<dependent type name>_<principal type name>_<foreign key property name>`. Für zusammengesetzte Fremdschlüssel `<foreign key property name>` wird ein Unterstrich getrennt von Fremdschlüsseleigenschaft Namen.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 

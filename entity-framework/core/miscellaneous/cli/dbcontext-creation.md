@@ -3,14 +3,13 @@ title: Während der Entwurfszeit "DbContext"-Erstellung – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/27/2017
-ms.technology: entity-framework-core
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: 648ca990252fb32d8cf181a7ae672d07a81f56bb
-ms.sourcegitcommit: 0935ff275ae739243297f5b97eb21414398125c6
+ms.openlocfilehash: 66fec7605b6ac2da0af1e801f8a1dca0789aea35
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/23/2018
-ms.locfileid: "39201918"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993717"
 ---
 <a name="design-time-dbcontext-creation"></a>Während der Entwurfszeit DbContext-Instanzerstellung
 ==============================
@@ -22,7 +21,7 @@ Es gibt verschiedene Möglichkeiten, versuchen die Tools zum Erstellen, der `DbC
 -------------------------
 Wenn Startprojekt einer ASP.NET Core-app ist, werden diese Tools ausprobieren, um das DbContext-Objekt von der Anwendung Service-Anbieter zu erhalten.
 
-Das Tool zunächst durch Aufrufen den Dienstanbieter abzurufenden `Program.BuildWebHost()` und den Zugriff auf die `IWebHost.Services` Eigenschaft.
+Die Tools verwenden Sie zunächst zum Abrufen des Dienstanbieters durch den Aufruf `Program.BuildWebHost()` und den Zugriff auf die `IWebHost.Services` Eigenschaft.
 
 > [!NOTE]
 > Wenn Sie eine neue ASP.NET Core 2.0-Anwendung erstellen, ist dieser Hook standardmäßig enthalten. In früheren Versionen von EF Core und ASP.NET Core, versuchen die Tools, aufzurufen `Startup.ConfigureServices` direkt um Dienstanbieter der Anwendung, aber dieses Muster erhalten nicht mehr ordnungsgemäß in ASP.NET Core 2.0-Anwendungen funktioniert. Wenn Sie ASP.NET Core 1.x-Anwendungen auf 2.0 aktualisieren, können Sie [ändern Ihre `Program` Klasse, um dem neuen Muster folgen][3].

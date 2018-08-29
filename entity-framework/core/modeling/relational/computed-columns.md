@@ -1,24 +1,22 @@
 ---
-title: Berechnete Spalten - EF Core
+title: Berechnete Spalten – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e9d81f06-805d-45c9-97c2-3546df654829
-ms.technology: entity-framework-core
 uid: core/modeling/relational/computed-columns
-ms.openlocfilehash: 95312504286bd34cc666b5a21273835c4b35d379
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b88efdf69e5100e4eff55f3a41925d2d8e7c3178
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052480"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993952"
 ---
 # <a name="computed-columns"></a>Berechnete Spalten
 
 > [!NOTE]  
-> Die Konfiguration in diesem Abschnitt ist im Allgemeinen gilt für relationale Datenbanken. Die Erweiterungsmethoden, die hier gezeigten werden verfügbar, wenn Sie einen relationale Datenbank-Anbieter installieren (aufgrund der freigegebenen *Microsoft.EntityFrameworkCore.Relational* Paket).
+> Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken. Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).
 
-Eine berechnete Spalte ist eine Spalte in der Datenbank, deren Wert berechnet wird. Eine berechnete Spalte kann andere Spalten in der Tabelle verwenden, um seinen Wert zu berechnen.
+Eine berechnete Spalte ist eine Spalte, deren Wert in der Datenbank berechnet wird. Eine berechnete Spalte kann andere Spalten in der Tabelle verwenden, um den Wert zu berechnen.
 
 ## <a name="conventions"></a>Konventionen
 
@@ -30,7 +28,7 @@ Berechnete Spalten können nicht mit Datenanmerkungen konfiguriert werden.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, um anzugeben, dass eine Eigenschaft einer berechneten Spalte zugeordnet werden sollen.
+Sie können die Fluent-API verwenden, um anzugeben, dass eine Eigenschaft an eine berechnete Spalte zugeordnet werden soll.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/ComputedColumn.cs?highlight=9)] -->
 ``` csharp
