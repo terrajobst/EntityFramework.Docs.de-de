@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 7e1c87ae3a955c22b267a108ea7c2bb504e9acc3
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812676"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "42447808"
 ---
 # <a name="cascade-delete"></a>Kaskadierendes Delete
 
@@ -32,7 +32,10 @@ EF kann drei Aktionen ausführen, wenn eine Prinzipalentität/übergeordnete Ent
 
 Bei der zweiten, oben aufgeführten Aktion ist das Festlegen eines Fremdschlüsselwerts nicht gültig, wenn der Fremdschlüssel keine NULL-Werte zulässt. (Ein Fremdschlüssel, der keine NULL-Werte zulässt, entspricht einer erforderlichen Beziehung.) In diesen Fällen verfolgt EF Core nach, ob die Fremdschlüsseleigenschaft bis zum Aufrufen von SaveChanges mit NULL markiert wurde. Zu diesem Zeitpunkt wird eine Ausnahme ausgelöst, da die Änderung in der Datenbank nicht beibehalten werden kann. Dies ist vergleichbar mit dem Abrufen einer Einschränkungsverletzung aus der Datenbank.
 
-Es gibt vier Verhaltensweisen zum Löschen, die in der nachfolgenden Tabelle aufgeführt werden. Bei optionalen Beziehungen (NULL-Werte zulassender Fremdschlüssel) _kann_ ein NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
+Es gibt vier Verhaltensweisen zum Löschen, die in der nachfolgenden Tabelle aufgeführt werden.
+
+### <a name="optional-relationships"></a>Optionale Beziehungen
+Bei optionalen Beziehungen (NULL-Werte zulassender Fremdschlüssel) _kann_ ein NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
 
 | Name des Verhaltens               | Auswirkung auf abhängige/untergeordnete Entität im Speicher    | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
@@ -41,6 +44,7 @@ Es gibt vier Verhaltensweisen zum Löschen, die in der nachfolgenden Tabelle auf
 | **SetNull**                 | Fremdschlüsseleigenschaften werden auf NULL festgelegt | Fremdschlüsseleigenschaften werden auf NULL festgelegt |
 | **Restrict**                | Keiner                                   | Keiner                                   |
 
+### <a name="required-relationships"></a>Erforderliche Beziehungen
 Bei erforderlichen Beziehungen (keine NULL-Werte zulassender Fremdschlüssel) kann _kein_ NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
 
 | Name des Verhaltens         | Auswirkung auf abhängige/untergeordnete Entität im Speicher | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank |

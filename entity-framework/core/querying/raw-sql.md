@@ -6,16 +6,16 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: 29b7e20e875bf791a88a92636c1df4bc4e31656b
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: a1d554795dcd8a3e5b44e89ac014f538598461cc
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/14/2018
-ms.locfileid: "34163212"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "42447807"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 
-Mit Entity Framework Core können Sie bei der Arbeit mit einer relationalen Datenbank die Struktur unformatierter SQL-Abfragen maximieren. Dies kann nützlich sein, wenn die durchzuführende Abfrage nicht mit LINQ formuliert werden kann oder wenn die Verwendung einer LINQ-Abfrage dazu führt, dass eine ineffiziente SQL-Abfrage an die Datenbank gesendet wird.
+Mit Entity Framework Core können Sie bei der Arbeit mit einer relationalen Datenbank die Struktur unformatierter SQL-Abfragen maximieren. Dies kann nützlich sein, wenn die durchzuführende Abfrage nicht mit LINQ formuliert werden kann oder wenn die Verwendung einer LINQ-Abfrage dazu führt, dass eine ineffiziente SQL-Abfrage an die Datenbank gesendet wird. Unformatierte SQL-Abfragen können Entitätstypen oder seit EF Core 2.1 [Abfragetypen](xref:core/modeling/query-types) zurückgeben, die Teil des Modells sind.
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
@@ -23,7 +23,6 @@ Mit Entity Framework Core können Sie bei der Arbeit mit einer relationalen Date
 ## <a name="limitations"></a>Einschränkungen
 
 Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkungen zu beachten:
-* SQL-Abfragen können nur für die Rückgabe von Entitätstypen verwendet werden, die Teil Ihres Modells sind. In unserem Backlog gibt es eine Erweiterung zum [Aktivieren der Rückgabe von Ad-hoc-Typen aus unformatierten SQL-Abfragen](https://github.com/aspnet/EntityFramework/issues/1862).
 
 * Die SQL-Abfrage muss Daten für sämtliche Eigenschaften des Entitäts- oder Abfragetyps zurückgeben.
 
@@ -31,12 +30,12 @@ Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkung
 
 * Die SQL-Abfrage darf keine zugehörigen Daten enthalten. In vielen Fällen können Sie die Abfrage jedoch mit dem Operator `Include` zusammensetzen, damit zugehörige Daten zurückgegeben werden (siehe [Einschließen zugehöriger Daten](#including-related-data)).
 
-* An diese Methode übergebene `SELECT`-Anweisungen sollten im Allgemeinen zusammensetzbar sein: Wenn EF Core weitere Abfrageoperatoren auf dem Server auswerten muss (z.B. nach `FromSql` angewendete LINQ-Operatoren verschieben muss), wird die bereitgestellte SQL-Abfrage wie eine Unterabfrage behandelt. Das heißt, dass die übergebene SQL-Abfrage keine Zeichen oder Optionen enthalten sollte, die in einer Unterabfrage ungültig sind, wie z.B.:
-  * ein nachfolgendes Semikolon
-  * Auf SQL Server ein nachfolgender Hinweis auf Abfrageebene-Hinweis, z.B. `OPTION (HASH JOIN)`
+* An diese Methode übergebene `SELECT`-Anweisungen müssen in der Regel zusammensetzbar sein: Wenn EF Core weitere Abfrageoperatoren auf dem Server auswerten muss (z.B. um nach `FromSql` angewandte LINQ-Operatoren zu verschieben), wird die bereitgestellte SQL-Abfrage wie eine Unterabfrage behandelt. Das heißt, dass die übergebene SQL-Abfrage keine Zeichen oder Optionen enthalten sollte, die in einer Unterabfrage ungültig sind, wie z.B.:
+  * Ein nachfolgendes Semikolon
+  * Auf SQL Server ein nachfolgender Hinweis auf Abfrageebene, z.B. `OPTION (HASH JOIN)`
   * Auf SQL Server eine `ORDER BY`-Klausel, die nicht durch `TOP 100 PERCENT` in der `SELECT`-Klausel ergänzt wird
 
-* Andere SQL-Anweisungen als `SELECT` werden automatisch als nicht zusammensetzbar erkannt. Die vollständigen Ergebnisse gespeicherter Prozeduren werden daher immer an den Client zurückgegeben, und sämtliche LINQ-Operatoren, die nach `FromSql` angewendet werden, werden speicherintern ausgewertet. 
+* Andere SQL-Anweisungen als `SELECT` werden automatisch als nicht zusammensetzbar erkannt. Die vollständigen Ergebnisse gespeicherter Prozeduren werden daher immer an den Client zurückgegeben, und sämtliche LINQ-Operatoren, die nach `FromSql` angewendet werden, werden speicherintern ausgewertet.
 
 ## <a name="basic-raw-sql-queries"></a>Grundlegende unformatierte SQL-Abfragen
 
