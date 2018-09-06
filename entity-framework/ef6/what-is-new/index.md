@@ -33,7 +33,7 @@ Eine weitere Verbesserung bei dieser neuen Version der EF-Tools ist, dass die EF
 
 ### <a name="ef-62-runtime"></a>EF 6.2-Runtime
 
-Die EF 6.2-Runtime wurde im Januar 2017 für NuGet veröffentlicht.
+Die EF 6.2-Runtime wurde im Oktober 2017 für NuGet veröffentlicht.
 Es ist vor allem der Verdienst unserer Community von Open-Source-Mitwirkenden, dass EF 6.2 zahlreiche [Fehlerbehebungen](https://github.com/aspnet/entityframework6/issues?utf8=%E2%9C%93&q=is%3Aissue%20milestone%3A6.2.0%20is%3Aclosed%20label%3Aclosed-fixed%20-label%3Aarea-tools%20label%3Atype-bug) und [Produktverbesserungen](https://github.com/aspnet/entityframework6/issues?utf8=%E2%9C%93&q=is%3Aissue%20milestone%3A6.2.0%20is%3Aclosed%20label%3Aclosed-fixed%20-label%3Aarea-tools%20label%3Atype-enhancement%20) enthält.
 
 Hier ist eine kurze Liste der wichtigsten Änderungen, die die EF 6.2-Runtime betreffen:
