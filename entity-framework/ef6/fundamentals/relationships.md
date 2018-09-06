@@ -3,12 +3,12 @@ title: Beziehungen, Navigationseigenschaften und foreign key - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: c1d48f18a7dd25a6a48537f0de5379f861bf447a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998000"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821399"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Beziehungen, Navigationseigenschaften und Fremdschlüssel
 Dieses Thema bietet einen Überblick darüber, wie Beziehungen zwischen Entitäten von Entity Framework verwaltet. Außerdem erhalten hilfreiche Informationen zum Zuordnen und Bearbeiten von Beziehungen.
@@ -71,59 +71,60 @@ Die restlichen auf dieser Seite wird beschrieben, wie Zugriff auf und Bearbeiten
 
 ## <a name="creating-and-modifying-relationships"></a>Erstellen und Ändern von Beziehungen
 
-In einem *fremdschlüsselzuordnung*, wenn Sie die Beziehung, die den Zustand eines abhängigen Objekts mit einem EntityState.Unchanged ändern, sich EntityState.Modified Status ändert. In einer unabhängigen Beziehung wird beim Ändern der Beziehung nicht den Zustand des abhängigen Objekts aktualisiert werden.
+In einem *fremdschlüsselzuordnung*, wenn Sie die Beziehung, die den Zustand eines abhängigen Objekts mit ändern eine `EntityState.Unchanged` Zustandsänderungen `EntityState.Modified`. In einer unabhängigen Beziehung wird beim Ändern der Beziehung nicht den Zustand des abhängigen Objekts aktualisiert werden.
 
 Die folgenden Beispiele zeigen, wie Sie die Fremdschlüssel- und Navigationseigenschaften zu verwenden, um die verknüpften Objekte zuzuordnen. Bei fremdschlüsselzuordnungen können Sie eine der Methoden ändern, erstellen oder Ändern von Beziehungen. Bei unabhängigen Zuordnungen können Sie die Fremdschlüsseleigenschaft nicht verwenden.
 
--   Durch eine Fremdschlüsseleigenschaft wie im folgenden Beispiel wird einen neuen Wert zugewiesen.  
-    ``` csharp
-    course.DepartmentID = newCourse.DepartmentID;
-    ```
+- Durch eine Fremdschlüsseleigenschaft wie im folgenden Beispiel wird einen neuen Wert zugewiesen.  
+  ``` csharp
+  course.DepartmentID = newCourse.DepartmentID;
+  ```
 
--   Der folgende Code entfernt eine Beziehung durch Festlegen des Fremdschlüssels auf **null**. Beachten Sie, dass die foreign Key-Eigenschaft auf NULL festlegbare sein muss.  
-    ``` csharp
-    course.DepartmentID = null;
-    ```  
-    >[!NOTE]
-    > Wenn der Verweis im hinzugefügten Zustand (in diesem Beispiel wird das Kurs-Objekt) ist, wird die verweisnavigationseigenschaft nicht synchronisiert werden mit den Schlüsselwerten eines neuen Objekts bis "SaveChanges" aufgerufen wird. Es findet keine Synchronisierung statt, da der Objektkontext erst dann permanente Schlüssel für hinzugefügte Objekte enthält, wenn diese gespeichert werden. Wenn Sie neue Objekte vollständig synchronisiert werden, sobald Sie die Beziehung festgelegt haben müssen, verwenden Sie eines der folgenden methods.*
+- Der folgende Code entfernt eine Beziehung durch Festlegen des Fremdschlüssels auf **null**. Beachten Sie, dass die foreign Key-Eigenschaft auf NULL festlegbare sein muss.  
+  ``` csharp
+  course.DepartmentID = null;
+  ```
 
--   Durch das Zuweisen einer Navigationseigenschaft zu einem neuen Objekt. Der folgende Code erstellt eine Beziehung zwischen einem Kurs und einem `department`. Wenn die Objekte an den Kontext angefügt werden die `course` wird ebenfalls hinzugefügt der `department.Courses` Sammlung und die entsprechende Fremdschlüsseleigenschaft Schlüsseleigenschaft auf die `course` -Objekts auf den Wert der Schlüsseleigenschaft der Abteilung festgelegt wird.  
-    ``` csharp
-    course.Department = department;
-    ```
+  >[!NOTE]
+  > Wenn der Verweis im hinzugefügten Zustand (in diesem Beispiel wird das Kurs-Objekt) ist, wird die verweisnavigationseigenschaft nicht synchronisiert werden mit den Schlüsselwerten eines neuen Objekts bis "SaveChanges" aufgerufen wird. Es findet keine Synchronisierung statt, da der Objektkontext erst dann permanente Schlüssel für hinzugefügte Objekte enthält, wenn diese gespeichert werden. Wenn Sie neue Objekte vollständig synchronisiert werden, sobald Sie die Beziehung festgelegt haben müssen, verwenden Sie eines der folgenden methods.*
 
- -   Um die Beziehung löschen möchten, legen Sie die Navigationseigenschaft auf `null`. Wenn Sie mit Entity Framework, die auf .NET 4.0 basiert arbeiten, muss das verknüpfte Ende geladen werden, bevor Sie es auf null festlegen. Zum Beispiel:  
-    ``` chsarp
-    context.Entry(course).Reference(c => c.Department).Load();  
-    course.Department = null;
-    ```  
-    Ab Entity Framework 5.0, die auf .NET 4.5 basiert, können Sie die Beziehung auf null festlegen, ohne Sie zu das verknüpfte Ende zu laden. Sie können auch den aktuellen Wert auf null fest, mit dem folgenden Verfahren festlegen.  
-    ``` csharp
-    context.Entry(course).Reference(c => c.Department).CurrentValue = null;
-    ```
+- Durch das Zuweisen einer Navigationseigenschaft zu einem neuen Objekt. Der folgende Code erstellt eine Beziehung zwischen einem Kurs und einem `department`. Wenn die Objekte an den Kontext angefügt werden die `course` wird ebenfalls hinzugefügt der `department.Courses` Sammlung und die entsprechende Fremdschlüsseleigenschaft Schlüsseleigenschaft auf die `course` -Objekts auf den Wert der Schlüsseleigenschaft der Abteilung festgelegt wird.  
+  ``` csharp
+  course.Department = department;
+  ```
 
--   Durch das Löschen eines Objekts aus einer Entitätsauflistung oder das Hinzufügen eines Objekts zu einer Entitätsauflistung. Sie können z. B. ein Objekt des Typs hinzufügen `Course` auf die `department.Courses` Auflistung. Dieser Vorgang erstellt eine Beziehung zwischen einer bestimmten **Kurs** und einer bestimmten `department`. Wenn die Objekte an den Kontext, den Verweis für die Abteilung und die Fremdschlüsseleigenschaft auf angefügt werden die **Kurs** Objekt wird an die entsprechende festgelegt `department`.  
-    ``` csharp
-    department.Courses.Add(newCourse);
-    ```
+- Um die Beziehung löschen möchten, legen Sie die Navigationseigenschaft auf `null`. Wenn Sie mit Entity Framework, die auf .NET 4.0 basiert arbeiten, muss das verknüpfte Ende geladen werden, bevor Sie es auf null festlegen. Zum Beispiel:   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).Load();
+  course.Department = null;
+  ```
+
+  Ab Entity Framework 5.0, die auf .NET 4.5 basiert, können Sie die Beziehung auf null festlegen, ohne Sie zu das verknüpfte Ende zu laden. Sie können auch den aktuellen Wert auf null fest, mit dem folgenden Verfahren festlegen.   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).CurrentValue = null;
+  ```
+
+- Durch das Löschen eines Objekts aus einer Entitätsauflistung oder das Hinzufügen eines Objekts zu einer Entitätsauflistung. Sie können z. B. ein Objekt des Typs hinzufügen `Course` auf die `department.Courses` Auflistung. Dieser Vorgang erstellt eine Beziehung zwischen einer bestimmten **Kurs** und einer bestimmten `department`. Wenn die Objekte an den Kontext, den Verweis für die Abteilung und die Fremdschlüsseleigenschaft auf angefügt werden die **Kurs** Objekt wird an die entsprechende festgelegt `department`.  
+  ``` csharp
+  department.Courses.Add(newCourse);
+  ```
 
 - Mithilfe der `ChangeRelationshipState` Methode zum Ändern des Zustands der angegebenen Beziehung zwischen zwei Entitätsobjekten. Diese Methode wird am häufigsten verwendet, bei der Arbeit mit N-schichtige Anwendungen und ein *unabhängige Zuordnung* (kann nicht mit einer fremdschlüsselzuordnung verwendet werden). Darüber hinaus mit dieser Methode müssen Sie löschen nach unten zum `ObjectContext`, wie im folgenden Beispiel gezeigt.  
 Im folgenden Beispiel besteht eine m: n Beziehung zwischen den Dozenten und Kurse zur Verfügung. Aufrufen der `ChangeRelationshipState` -Methode und übergeben die `EntityState.Added` Parameter können die `SchoolContext` wissen, dass eine Beziehung zwischen den beiden Objekten hinzugefügt wurde:
+  ``` csharp
 
-``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
+  ```
 
-       ((IObjectContextAdapter)context).ObjectContext.
-                 ObjectStateManager.
-                  ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
-```
+  Beachten Sie, dass, wenn Sie aktualisieren (nicht nur das Hinzufügen) eine Beziehung, müssen Sie die alte Beziehung löschen, nach dem Hinzufügen von neuen:
 
-    Note that if you are updating (not just adding) a relationship, you must delete the old relationship after adding the new one:
-
-``` csharp
-       ((IObjectContextAdapter)context).ObjectContext.
-                  ObjectStateManager.
-                  ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
-```
+  ``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
+  ```
 
 ## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>Synchronisierung von Änderungen zwischen dem Fremdschlüssel und die Navigationseigenschaften
 
