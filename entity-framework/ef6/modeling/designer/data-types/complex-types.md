@@ -3,19 +3,19 @@ title: Komplexe Typen - EF Designer - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9a8228ef-acfd-4575-860d-769d2c0e18a1
-ms.openlocfilehash: d35504cbe60823249d54385962568802b3e41308
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a516bd14131fd035a4d005e0fdf140f7ff4d65f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994852"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250828"
 ---
 # <a name="complex-types---ef-designer"></a>Komplexe Typen - EF-Designer
 In diesem Thema wird gezeigt, wie komplexe Typen mit dem Entity Framework Designer (EF-Designer) zugeordnet und für Entitäten Abfragen, die Eigenschaften des komplexen Typs enthalten.
 
 Die folgende Abbildung zeigt die wichtigsten Windows, die bei der Arbeit mit dem EF Designer verwendet werden.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF-Designer](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > Wenn Sie das konzeptionelle Modell erstellen, können Warnungen zu nicht zugeordneten Entitäten und Zuordnungen in der Fehlerliste angezeigt. Sie können diese Warnungen ignorieren, da nach der Auswahl, um die Datenbank aus dem Modell zu generieren, die Fehler verschwinden werden.
@@ -45,7 +45,7 @@ Ein neuer komplexer Typ mit den ausgewählten Eigenschaften wird hinzugefügt, u
 
 Die ausgewählten Eigenschaften werden durch eine komplexe Eigenschaft des neu erstellten Typs ersetzt. Alle Eigenschaftenzuordnungen werden beibehalten.
 
-![Refactor2](~/ef6/media/refactor2.png)
+![Umgestalten von 2](~/ef6/media/refactor2.png)
 
 ## <a name="create-a-new-complex-type"></a>Erstellen Sie einen neuen komplexen Typ
 
@@ -53,7 +53,7 @@ Sie können auch einen neuen komplexen Typ erstellen, der keine Eigenschaften ei
 
 Mit der rechten Maustaste die **komplexe Typen** Ordner zeigen Sie im Modellbrowser auf **AddNew komplexen Typs...** . Alternativ können Sie auswählen der **komplexe Typen** Ordner, und drücken Sie die **einfügen** auf der Tastatur die Taste.
 
-![AddNewComplextype](~/ef6/media/addnewcomplextype.png)
+![Hinzufügen von neuen komplexen Typ](~/ef6/media/addnewcomplextype.png)
 
 Dem Ordner wird ein neuer komplexer Typ mit einem Standardnamen hinzugefügt. Jetzt können Sie Eigenschaften in den Typ hinzufügen.
 
@@ -65,7 +65,7 @@ Einem komplexen Typ können anhand der unten aufgeführten Methoden Eigenschafte
 
 -   Mit der rechten Maustaste im Modellbrowser eines komplexen Typs, zeigen Sie auf **hinzufügen**, zeigen Sie dann auf **Skalareigenschaft** oder **komplexe Eigenschaft**, wählen Sie dann den gewünschten Eigenschaftentyp. Alternativ können Sie wählen einen komplexen Typ und drücken Sie dann die **einfügen** auf der Tastatur die Taste.  
 
-    ![AddPropertiestoComplexType](~/ef6/media/addpropertiestocomplextype.png)
+    ![Fügen Sie Eigenschaften in komplexen Typ hinzu.](~/ef6/media/addpropertiestocomplextype.png)
 
     Dem komplexen Typ wird eine neue Eigenschaft mit einem Standardnamen hinzugefügt.
 
@@ -108,7 +108,7 @@ Wenn Sie einen komplexen Typ umbenennen, werden alle Verweise auf den Typ im ges
     Eine Dropdownliste aller skalaren Eigenschaften wird angezeigt.
 7.  Wählen Sie die entsprechende Eigenschaft aus.
 
-    ![MapComplexType](~/ef6/media/mapcomplextype.png)
+    ![Ordnen komplexen Typ zu](~/ef6/media/mapcomplextype.png)
 
 8.  Wiederholen Sie die Schritte 6 und 7 für jede Tabellenspalte.
 
@@ -121,14 +121,14 @@ Funktionsimporte basieren auf gespeicherten Prozeduren. Um einen Funktionsimport
 
 -   Doppelklicken Sie auf einer importierten Funktion, die Sie in einen komplexen Typ zuordnen möchten.
 
-    ![FunctionImports](~/ef6/media/functionimports.png)
+    ![Funktionsimporte](~/ef6/media/functionimports.png)
 
 -   Geben Sie wie folgt die Einstellungen für den neuen Funktionsimport ein:
     -   Geben Sie die gespeicherte Prozedur, die für die Sie einen Funktionsimport im Erstellen der **Name der gespeicherten Prozedur** Feld. Dieses Feld wird als Dropdownliste angezeigt, die alle gespeicherten Prozeduren im Speichermodell enthält.
     -   Geben Sie den Namen des Funktionsimports im der **Funktionsnamen importieren** Feld.
     -   Wählen Sie **komplexe** als Rückgabetyp geben, und geben Sie dann den speziellen komplexen Rückgabetyp durch Auswählen des entsprechenden Typs aus der Dropdown-Liste.
 
-        ![EditFunctionImport](~/ef6/media/editfunctionimport.png)
+        ![Funktionsimport bearbeiten](~/ef6/media/editfunctionimport.png)
 
 -   Klicken Sie auf **OK**.
     Der Funktionsimport-Eintrag wird im konzeptionellen Modell erstellt.

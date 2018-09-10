@@ -3,12 +3,12 @@ title: Abhängigkeitsauflösung – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
-ms.openlocfilehash: 45681bb0cedecd502b1968b90b7f682d3257dd23
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c6c56c3048e17a5c888ffe564e7606abf8b0c4ed
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998161"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251244"
 ---
 # <a name="dependency-resolution"></a>Abhängigkeitsauflösung
 > [!NOTE]
@@ -25,13 +25,11 @@ public interface IDbDependencyResolver
 
 Die Methode "GetService" heißt in der Regel von EF und erfolgt durch eine Implementierung von "idbdependencyresolver" von EF oder von der Anwendung bereitgestellt wird. Wenn aufgerufen, wird das Typargument der Klassentyp-Schnittstelle oder in der der angeforderte Dienst, und das Objekt ist Null oder ein Objekt, das Kontextinformationen für den angeforderten Dienst bietet.  
 
-Dieser Artikel enthält keine ausführliche Anleitung zum Implementieren von "idbdependencyresolver", aber stattdessen dient als Referenz für die Diensttypen (d. h. die Schnittstellen und Basisklassen Klassentypen) für die EF "GetService" und die Semantik des Schlüsselobjekts für jedes dieser Aufrufe wird aufgerufen. In diesem Dokument wird auf dem neuesten Stand gehalten, wenn weitere Dienste hinzugefügt werden.  
+Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein muss, da er als Singleton verwendet werden kann. In vielen Fällen, die eine Factory ist in diesem Fall ist das zurückgegebene Objekt die Factory selbst threadsicher sein muss, aber das von der Factory zurückgegebene Objekt muss nicht threadsicher sein, da eine neue Instanz von der Factory für jede Verwendung angefordert wird.
 
-## <a name="services-resolved"></a>Dienste, die aufgelöst  
+Dieser Artikel enthält keine ausführliche Anleitung zum Implementieren von "idbdependencyresolver", aber stattdessen dient als Referenz für die Diensttypen (d. h. die Schnittstellen und Basisklassen Klassentypen) für die EF "GetService" und die Semantik des Schlüsselobjekts für jedes dieser Aufrufe wird aufgerufen.
 
-Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein muss, da er als Singleton verwendet werden kann. In vielen Fällen, die eine Factory ist in diesem Fall ist das zurückgegebene Objekt die Factory selbst threadsicher sein muss, aber das von der Factory zurückgegebene Objekt muss nicht threadsicher sein, da eine neue Instanz von der Factory für jede Verwendung angefordert wird.  
-
-### <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
+## <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -39,7 +37,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
+## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
 
 **Eingeführt in Version**: EF6.0.0
 
@@ -50,7 +48,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
+## <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -61,7 +59,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
+## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -72,7 +70,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
+## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -82,7 +80,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
+## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -90,7 +88,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
+## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -98,7 +96,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
+## <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -109,7 +107,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
+## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -120,7 +118,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < "DbConnection", "String", "System.Data.Entity.Migrations.History.HistoryContext\>  
+## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < "DbConnection", "String", "System.Data.Entity.Migrations.History.HistoryContext\>  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -131,7 +129,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
+## <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -142,7 +140,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Dieser Dienst wird in der Regel nicht direkt geändert, da die Standardimplementierung der normalen anbieterregistrierung ADO.NET verwendet. Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
+## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -153,7 +151,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 >[!NOTE]
 > Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
 
-### <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
+## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -161,7 +159,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
+## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -169,7 +167,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
+## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
 
 **Eingeführt in Version**: EF6.0.0
 
@@ -177,7 +175,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < System.Data.Entity.DbContext, Aktion < Zeichenfolge\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
+## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < System.Data.Entity.DbContext, Aktion < Zeichenfolge\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
 
 **Eingeführt in Version**: EF6.0.0  
 
@@ -185,7 +183,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: nicht verwendet wird, wird null sein.  
 
-### <a name="funcsystemdataentitydbcontext"></a>Func < System.Data.Entity.DbContext\>  
+## <a name="funcsystemdataentitydbcontext"></a>Func < System.Data.Entity.DbContext\>  
 
 **Eingeführt in Version**: EF6.1.0  
 
@@ -193,7 +191,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: das Typobjekt für den Typ des abgeleiteten "DbContext" für den eine Factory erforderlich ist.  
 
-### <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
+## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
 
 **Eingeführt in Version**: EF6.1.0  
 
@@ -201,7 +199,7 @@ Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein mus
 
 **Schlüssel**: der Name der Anmerkung, die serialisiert oder deserialisiert.  
 
-### <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < System.Data.Entity.Infrastructure.TransactionHandler\>  
+## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < System.Data.Entity.Infrastructure.TransactionHandler\>  
 
 **Eingeführt in Version**: EF6.1.0  
 

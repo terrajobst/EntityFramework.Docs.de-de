@@ -3,12 +3,12 @@ title: Das Entity Framework 6-Anbietermodell - EF6
 author: divega
 ms.date: 2018-06-27
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: e8b0552ec083d8ab276aa9de109650f423160269
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 7d9e2f49b9ef59fb63b024646911ec0d8dfcfc60
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821386"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251101"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Das Entity Framework 6-Anbietermodell
 
@@ -24,13 +24,13 @@ Mit EF6 ist die Core-Code, der zuvor Teil von .NET Framework war jetzt als Out-o
 
 Ein EF-Anbieter ist wirklich eine Sammlung von anbieterspezifischen-Diensten, die definiert, die von CLR-Typen, die diese Dienste erweitern aus (für eine Basisklasse) oder (für eine Schnittstelle) implementieren. Zwei dieser Dienste sind grundlegende und erforderlich für EF funktionsfähig. Andere sind optional und müssen nur implementiert werden, wenn bestimmte Funktionalität erforderlich ist, und/oder die standardimplementierungen dieser Dienste funktioniert nicht für den bestimmten Datenbankserver abgezielt wird.
 
-### <a name="fundamental-provider-types"></a>Grundlegende Anbietertypen
+## <a name="fundamental-provider-types"></a>Grundlegende Anbietertypen
 
-#### <a name="dbproviderfactory"></a>"DbProviderFactory"
+### <a name="dbproviderfactory"></a>"DbProviderFactory"
 
 EF ist das Vorhandensein von abgeleiteten Typs [System.Data.Common.DbProviderFactory](http://msdn.microsoft.com/en-us/library/system.data.common.dbproviderfactory.aspx) für die Durchführung aller Low-Level-Datenbankzugriff. "DbProviderFactory" ist nicht Bestandteil von EF, sondern ist stattdessen eine Klasse in .NET Framework, die einem Einstiegspunkt für ADO.NET-Anbieter dient kann verwendet werden von EF, andere O/RMs oder direkt durch eine Anwendung zum Abrufen von Instanzen von Verbindungen, Befehle und Parameter und andere ADO.NET Abstraktionen in einem Anbieter hostagnostische Weise. Weitere Informationen zu "DbProviderFactory" eine finden Sie in der [MSDN-Dokumentation für ADO.NET](http://msdn.microsoft.com/en-us/library/a6cd7c08.aspx).
 
-#### <a name="dbproviderservices"></a>DbProviderServices
+### <a name="dbproviderservices"></a>DbProviderServices
 
 EF wird, hängt davon ab, dass DbProviderServices abgeleitet sind, für die Bereitstellung von zusätzliche Funktionen, die von EF auf die bereits von der ADO NET-Anbieter bereitgestellte Funktionalität benötigt. In früheren Versionen von EF die DbProviderServices-Klasse Teil von .NET Framework war und in den System.Data.Common-Namespace gefunden wurde. Ab EF6 diese Klasse ist jetzt Teil von EntityFramework.dll und befindet sich im Namespace System.Data.Entity.Core.Common.
 
@@ -38,33 +38,33 @@ Weitere Informationen zu grundlegenden Funktionen einer DbProviderServices-Imple
 
 In früheren Versionen von EF wurde die DbProviderServices-Implementierung zu verwenden, direkt einem ADO.NET-Anbieter abgerufen. Dies erfolgte durch Umwandeln der "DbProviderFactory" in IServiceProvider umwandeln und Aufrufen der GetService-Methode. Eng gekoppelter dies den EF-Anbieter, der "DbProviderFactory". Diese Kopplung wird blockiert, dass EF aus .NET Framework verschoben werden und daher für EF6 diese enge Kopplung wurde entfernt und eine Implementierung von DbProviderServices ist nun registriert, direkt in der Konfigurationsdatei der Anwendung oder in Code-basierten Konfiguration, wie im Detail beschrieben die _registrieren DbProviderServices_ Abschnitt weiter unten.
 
-### <a name="additional-services"></a>Zusätzliche Dienste
+## <a name="additional-services"></a>Zusätzliche Dienste
 
 Zusätzlich zu den grundlegenden Dienste, die oben beschriebenen es gibt auch viele andere Dienste, die von EF verwendet die anbieterspezifische entweder ständig oder gelegentlich sind. Anbieterspezifische standardimplementierungen dieser Dienste können durch eine DbProviderServices-Implementierung angegeben werden. Anwendungen können auch die Implementierungen dieser Dienste zu überschreiben, oder Implementierungen bereitstellen, wenn ein DbProviderServices keinen Standardwert bereitstellt. Dies wird ausführlicher beschrieben die _zum Auflösen von zusätzlichen Diensten_ Abschnitt weiter unten.
 
 Die zusätzliche Diensttypen, die ein Anbieter für einen Anbieter von Interesse sein können, sind unten aufgeführt. Weitere Informationen über jeden dieser Diensttypen finden Sie in der API-Dokumentation.
 
-#### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
+### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
 
 Dies ist ein optionaler Dienst, der ermöglicht, dass einen Anbieter Wiederholungen oder anderem Verhalten implementieren, wenn Abfragen und Befehlen für die Datenbank ausgeführt werden. Wenn keine Implementierung bereitgestellt wird, wird Klicken Sie dann EF einfach führen Sie die Befehle und weitergegeben werden alle ausgelösten Ausnahmen. Für SQL Server ist dieser Dienst verwendet, um eine wiederholungsrichtlinie bereitzustellen, die was besonders hilfreich ist, bei der Ausführung für Cloud-basierten Datenbankserver, z. B. SQL Azure.
 
-#### <a name="idbconnectionfactory"></a>IDbConnectionFactory
+### <a name="idbconnectionfactory"></a>IDbConnectionFactory
 
 Dies ist ein optionaler Dienst, der einen Anbieter zum Erstellen von "DbConnection"-Objekten gemäß der Konvention, wenn nur der Name einer Datenbank ermöglicht. Beachten Sie, dass dieser Dienst von einem DbProviderServices-Implementierung aufgelöst werden kann, die es wurde seit EF 4.1 vorhanden und kann auch explizit festgelegt werden in der Config-Datei oder im Code. Der Anbieter erhalten nur die Möglichkeit, diesen Dienst zu beheben, wenn es als Standardanbieter registriert (finden Sie unter _der Standardanbieter_ unten) und eine standardverbindungsfactory nicht an anderer Stelle festgelegt wurde.
 
-#### <a name="dbspatialservices"></a>DbSpatialServices
+### <a name="dbspatialservices"></a>DbSpatialServices
 
 Dies ist eine optionale Dienste, die einen Anbieter zum Hinzufügen der Unterstützung für Geography und Geometry räumliche Typen ermöglicht. Eine Implementierung dieses Diensts muss in der Reihenfolge für eine Anwendung für die Verwendung von EF mit räumlichen Typen angegeben werden. DbSptialServices wird auf zwei Arten zur aufgefordert. Erste, anbieterspezifische räumlichen Dienste mithilfe eines Objekts DbProviderInfo angefordert werden (die invariante enthält Namen und das manifesttoken) als Schlüssel. Zweitens können DbSpatialServices ohne Schlüssel aufgefordert. Dies wird zum Auflösen der "räumlichen Anbieter", die beim Erstellen von eigenständigen DbGeography oder DbGeometry-Typen verwendet wird.
 
-#### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
+### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
 
 Dies ist ein optionaler Dienst, mit dem EF-Migrationen durch Code First zum Generieren von SQL zum Erstellen und Ändern von Datenbankschemas verwendet werden kann. Eine Implementierung ist erforderlich, um Migrationen zu unterstützen. Wenn eine Implementierung bereitgestellt wird wird Klicken Sie dann es auch verwendet werden, wenn Datenbanken mit Datenbankinitialisierer oder der Database.Create-Methode erstellt werden.
 
-#### <a name="funcdbconnection-string-historycontextfactory"></a>Func < "DbConnection", String, HistoryContextFactory >
+### <a name="funcdbconnection-string-historycontextfactory"></a>Func < "DbConnection", String, HistoryContextFactory >
 
 Dies ist ein optionaler Dienst, der einen Anbieter so konfigurieren Sie die "historycontext" für die Zuordnung ermöglicht die `__MigrationHistory` Tabelle, die von EF-Migrationen verwendet. Die "historycontext" ist der Code für einen ersten "DbContext" und kann mithilfe der normalen fluent-API so ändern Sie z.B. den Namen der Tabelle und den Mappingspezifikationen Spalte konfiguriert werden. Die standardmäßige Implementierung des Diensts zurückgegeben, die von EF für alle Anbieter funktioniert möglicherweise für eine bestimmte Datenbank-Server, wenn alle die Tabelle und Spalte standardzuordnungen von diesem Anbieter unterstützt werden. In diesem Fall muss der Anbieter nicht auf eine Implementierung dieses Diensts bereitstellen.
 
-#### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
+### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
 
 Dies ist ein optionaler Dienst zum Abrufen der richtigen "DbProviderFactory" aus einem angegebenen DbConnection-Objekt. Die standardmäßige Implementierung des Diensts, die für alle Anbieter von EF zurückgegeben soll für alle Anbieter funktionieren. Bei der Ausführung in .NET 4 der "DbProviderFactory" ist jedoch nicht über einen öffentlich zugänglichen seine DbConnections. Aus diesem Grund verwendet EF Teil der Heuristik, um die registrierten Anbieter um eine Übereinstimmung zu finden. zu durchsuchen. Es ist möglich, dass für einige Anbieter diese Heuristiken fehl, und in solchen Situationen sollte der Anbieter eine neue Implementierung bereitstellen.
 

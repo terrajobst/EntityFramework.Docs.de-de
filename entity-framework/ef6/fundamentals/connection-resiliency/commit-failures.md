@@ -3,12 +3,12 @@ title: Behandlung von Fehlern für den Commit Transaction - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
-ms.openlocfilehash: a22a651851bc46e2bf1fe652b3b9a921ec22b70b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f912777104c2e925122c05046d4d65660de8b8a8
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996836"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250855"
 ---
 # <a name="handling-transaction-commit-failures"></a>Behandeln Fehler bei commit
 > [!NOTE]
@@ -50,23 +50,23 @@ Obwohl EF ist bemüht sich, löscht Zeilen aus der Tabelle aus, wenn sie nicht m
 
 Vor dem EF 6.1 war nicht Mechanismus zum Commit-Fehler in der EF-Produkt zu behandeln. Es gibt mehrere Möglichkeiten, die in dieser Situation, die mit früheren Versionen von EF6 angewendet werden kann:  
 
-### <a name="option-1---do-nothing"></a>Option 1: keine Aktion durchführen  
+* Option 1: keine Aktion durchführen  
 
-Die Wahrscheinlichkeit für einen Verbindungsfehler während des Transaktionscommits ist gering, sodass es für die Anwendung nur fehlschlägt, wenn diese Bedingung, tatsächlich eintritt gültig sein kann.  
+  Die Wahrscheinlichkeit für einen Verbindungsfehler während des Transaktionscommits ist gering, sodass es für die Anwendung nur fehlschlägt, wenn diese Bedingung, tatsächlich eintritt gültig sein kann.  
 
-## <a name="option-2---use-the-database-to-reset-state"></a>Option 2: Verwenden Sie die Datenbank, um Status zurückzusetzen  
+* Option 2: Verwenden Sie die Datenbank, um Status zurückzusetzen  
 
-1. Verwerfen der aktuellen "DbContext"  
-2. Erstellen Sie einen neuen "DbContext" und Wiederherstellen Sie des Zustands Ihrer Anwendung aus der Datenbank  
-3. Informieren Sie den Benutzer, dass der letzte Vorgang nicht erfolgreich abgeschlossen wurde haben kann  
+  1. Verwerfen der aktuellen "DbContext"  
+  2. Erstellen Sie einen neuen "DbContext" und Wiederherstellen Sie des Zustands Ihrer Anwendung aus der Datenbank  
+  3. Informieren Sie den Benutzer, dass der letzte Vorgang nicht erfolgreich abgeschlossen wurde haben kann  
 
-## <a name="option-3---manually-track-the-transaction"></a>Option 3: die Transaktion manuell nachverfolgen  
+* Option 3: die Transaktion manuell nachverfolgen  
 
-1. Fügen Sie eine Tabelle nicht nachverfolgt, mit der Datenbank verwendet, um den Status der Transaktionen nachzuverfolgen.  
-2. Eine Zeile in der Tabelle am Anfang jeder Transaktion eingefügt.  
-3. Wenn die Verbindung während des Commits fehlschlägt, überprüfen Sie das Vorhandensein der entsprechenden Zeile in der Datenbank.  
-    - Wenn die Zeile vorhanden ist, weiterhin normal ausgeführt, da die Transaktion erfolgreich durchgeführt wurde  
-    - Wenn die Zeile nicht vorhanden ist, verwenden Sie eine Ausführungsstrategie, um den aktuellen Vorgang wiederholen.  
-4. Wenn der Commit erfolgreich ausgeführt wird, löschen Sie die entsprechende Zeile aus, um die Vergrößerung der Tabelle zu vermeiden.  
+  1. Fügen Sie eine Tabelle nicht nachverfolgt, mit der Datenbank verwendet, um den Status der Transaktionen nachzuverfolgen.  
+  2. Eine Zeile in der Tabelle am Anfang jeder Transaktion eingefügt.  
+  3. Wenn die Verbindung während des Commits fehlschlägt, überprüfen Sie das Vorhandensein der entsprechenden Zeile in der Datenbank.  
+     - Wenn die Zeile vorhanden ist, weiterhin normal ausgeführt, da die Transaktion erfolgreich durchgeführt wurde  
+     - Wenn die Zeile nicht vorhanden ist, verwenden Sie eine Ausführungsstrategie, um den aktuellen Vorgang wiederholen.  
+  4. Wenn der Commit erfolgreich ausgeführt wird, löschen Sie die entsprechende Zeile aus, um die Vergrößerung der Tabelle zu vermeiden.  
 
 [In diesem Blogbeitrag](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) enthält Beispielcode, um dies zu erreichen unter SQL Azure.  

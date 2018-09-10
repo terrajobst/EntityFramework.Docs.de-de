@@ -3,12 +3,12 @@ title: Unterstützung von Enumerationen - EF Designer - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: c6ae6d8f-1ace-47db-ad47-b1718f1ba082
-ms.openlocfilehash: d4c5528c4dc13ab7189421feebf84c2cb2f4b2bb
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a94a497e8c5b3213dd7eb4215de90164d437507d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995636"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250634"
 ---
 # <a name="enum-support---ef-designer"></a>Unterstützung von Enumerationen - EF-Designer
 > [!NOTE]
@@ -70,11 +70,11 @@ Der Assistent führt die folgenden Aktionen aus:
 
 1.  Im Entity Framework Designer mit der Maustaste der Name-Eigenschaft, wählen Sie **in Enumeration konvertieren**
 
-    ![ConvertToEnum](~/ef6/media/converttoenum.png)
+    ![In Enumeration konvertieren](~/ef6/media/converttoenum.png)
 
 2.  In der **Enumerator hinzufügen** Dialogfeldtyp **DepartmentNames** für den Enumerationstypnamen, ändern Sie den zugrunde liegenden Typ, **Int32**, und klicken Sie dann die folgenden Elemente in den Typ hinzufügen: Englisch, Mathematische und Wirtschaftlichkeit
 
-    ![AddEnumType](~/ef6/media/addenumtype.png)
+    ![Hinzufügen von Enum-Typ](~/ef6/media/addenumtype.png)
 
 3.  Drücken Sie **OK**
 4.  Speichern Sie das Modell, und erstellen Sie das Projekt
@@ -85,7 +85,7 @@ Wenn Sie das Fenster "Eigenschaften" betrachten, werden Sie sehen, dass der Typ 
 
 Wenn Sie in das Fenster "Modellbrowser" wechseln, sehen Sie sich, dass der Typ der Knoten Enum-Typen auch hinzugefügt wurde.
 
-![ModelBrowser](~/ef6/media/modelbrowser.png)
+![Modellbrowser](~/ef6/media/modelbrowser.png)
 
 >[!NOTE]
 > Sie können auch neue Enum-Typen aus diesem Fenster hinzufügen, indem Sie auf der rechten Maustaste und auswählen **Enum-Typ hinzufügen**. Wenn der Typ erstellt wird, es in der Liste der Typen angezeigt, und Sie würde in der Lage, eine Eigenschaft zugeordnet werden soll

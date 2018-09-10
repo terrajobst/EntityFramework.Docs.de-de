@@ -3,12 +3,12 @@ title: Datenbankverbindungsresilienz und Wiederholungslogik Verbindungslogik - E
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 47181292873009c7bce2047787503258ffa35d9d
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d7e58abfa17c5537cdc9b0068e7c2a3c2e390038
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997484"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250516"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Verbindungslogik datenbankverbindungsresilienz und Wiederholungslogik
 > [!NOTE]
@@ -68,11 +68,9 @@ Die "sqlazureexecutionstrategy" Vorgang wird wiederholt, sofort beim ersten ein 
 
 Die Ausführungsstrategien werden nur eine begrenzte Anzahl von Ausnahmen, die in der Regel Tansient wiederholen, müssen Sie weiterhin, behandeln andere Fehler sowie das Abfangen der Ausnahme RetryLimitExceeded für den Fall, in denen ein Fehler ist nicht vorübergehend oder dauert zu lange, Auflösen sich selbst.  
 
-## <a name="limitations"></a>Einschränkungen  
-
 Es gibt einige bekannte Einschränkungen auf, wenn eine Wiederholung Ausführungsstrategie verwenden:  
 
-### <a name="streaming-queries-are-not-supported"></a>Streamingabfragen werden nicht unterstützt.  
+## <a name="streaming-queries-are-not-supported"></a>Streamingabfragen werden nicht unterstützt.  
 
 Standardmäßig werden EF 6 und höher Abfrageergebnisse, anstatt sie streaming Puffern. Wenn Sie möchten Ergebnisse gestreamt, Sie können die AsStreaming-Methode um eine LINQ to Entities-Abfrage, um streaming zu ändern.  
 
@@ -88,11 +86,9 @@ using (var db = new BloggingContext())
 
 Streaming wird nicht unterstützt, wenn eine Wiederholung Ausführungsstrategie registriert wird. Diese Einschränkung ist vorhanden, da die Verbindung Teil Weg durch die zurückgegebenen Ergebnisse löschen. In diesem Fall EF benötigt die gesamte Abfrage erneut ausführen, aber keine zuverlässige Möglichkeit, zu wissen, welche Ergebnisse zurückgegeben wurden (die Daten möglicherweise wurden geändert, da die ursprüngliche Abfrage gesendet wurde, Ergebnisse in einer anderen Reihenfolge zurückkehren können, Ergebnisse möglicherweise keinen eindeutigen Bezeichner usw..).  
 
-### <a name="user-initiated-transactions-not-supported"></a>Vom Benutzer initiierte Transaktionen nicht unterstützt.  
+## <a name="user-initiated-transactions-are-not-supported"></a>Vom Benutzer initiierte Transaktionen werden nicht unterstützt.  
 
 Wenn Sie eine Ausführungsstrategie, die zu Wiederholungen konfiguriert haben, gibt es einige Einschränkungen für die Verwendung von Transaktionen.  
-
-#### <a name="whats-supported-efs-default-transaction-behavior"></a>Was unterstützt wird: Transaktion-Standardverhalten für die von EF  
 
 Standardmäßig wird EF datenbankaktualisierungen innerhalb einer Transaktion ausgeführt. Sie müssen nichts tun, um dies zu ermöglichen, EF immer führt dies automatisch aus.  
 
@@ -106,8 +102,6 @@ using (var db = new BloggingContext())
     db.SaveChanges();
 }
 ```  
-
-#### <a name="whats-not-supported-user-initiated-transactions"></a>Was nicht unterstützt wird: vom Benutzer initiierte Transaktionen  
 
 Wenn Sie keine Wiederholung Ausführungsstrategie verwenden, können Sie mehrere Vorgänge in einer einzelnen Transaktion umschließen. Beispielsweise umschließt der folgende Code zwei "SaveChanges" aufrufen, in einer einzelnen Transaktion. Wenn keine der Änderungen klicken Sie dann einen beliebigen Teil entweder Vorgang fehlschlägt, werden angewendet.  
 
@@ -130,9 +124,7 @@ using (var db = new BloggingContext())
 
 Dies wird nicht unterstützt, wenn eine Wiederholung Ausführungsstrategie verwenden, da EF über aller vorherigen Vorgänge und die Vorgehensweise beim Wiederholen Sie diese nicht. Beispielsweise, wenn die zweite "SaveChanges" EF nicht mehr danach nicht hat die erforderliche Informationen zum Wiederholen des ersten Aufrufs von "SaveChanges".  
 
-#### <a name="possible-workarounds"></a>Mögliche problemumgehungen  
-
-##### <a name="suspend-execution-strategy"></a>Ausführungsstrategie anhalten  
+### <a name="workaround-suspend-execution-strategy"></a>Problemumgehung: Setzen Sie Ausführungsstrategie  
 
 Eine mögliche Lösung besteht, die wiederholt Ausführungsstrategie für den Codeabschnitt anzuhalten, die ein Benutzer verwenden, muss die Transaktion initiiert. Die einfachste Möglichkeit hierzu ist ein SuspendExecutionStrategy-Flag, um Ihren Code basierte Configuration-Klasse und ändern die Ausführung Strategie Lambda, um die Standardeinstellung (nicht retying) Ausführungsstrategie zurückzugeben, wenn das Flag festgelegt ist.  
 
@@ -193,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-##### <a name="manually-call-execution-strategy"></a>Rufen Sie die Ausführungsstrategie manuell  
+### <a name="workaround-manually-call-execution-strategy"></a>Problemumgehung: Manuell Ausführungsstrategie aufrufen  
 
 Eine weitere Möglichkeit ist die Ausführungsstrategie verwenden manuell, und geben sie den gesamten Satz von Logik ausgeführt werden, damit sie alles, was wiederholt werden kann, wenn ein Vorgang fehlschlägt. Wir benötigen die Ausführungsstrategie - mithilfe der Technik anhalten oberhalb - angezeigt wird, sodass alle Kontexte, in der wiederholbare Codeblock verwendet nicht versuchen, wiederholen Sie dann.  
 

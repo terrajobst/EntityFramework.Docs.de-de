@@ -3,12 +3,12 @@ title: Vorab generierte Mapping-Ansichten – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-ms.openlocfilehash: 397569ef374cb44d4938f9e201b588a26c408f6e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c2ad7125122c04af238e8fdd07da2c6c308a2756
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996471"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250763"
 ---
 # <a name="pre-generated-mapping-views"></a>Vorab generierte Mapping-Ansichten
 Bevor das Entity Framework einer Abfrage ausführen oder Änderungen an der Datenquelle speichern können, müssen sie einen Satz von Ansichten der Zuordnung Zugriff auf die Datenbank erstellen. Diese Zuordnung Ansichten sind eine Reihe von Entity SQL-Anweisung, die die Datenbank auf abstrakte Weise darstellen, und sind Teil der Metadaten, die pro Anwendungsdomäne zwischengespeichert wird. Wenn Sie mehrere Instanzen desselben Kontexts in der gleichen Anwendungsdomäne erstellen, werden diese Zuordnung Ansichten aus objektkontextinstanzen, statt die zwischengespeicherten Metadaten wiederverwendet. Da Zuordnung Generieren von Sichten einen signifikanten Teil der Gesamtkosten der Ausführung der ersten Abfrage ist, ermöglicht dem Entity Framework vorgenerieren von Ansichten der Zuordnung, und schließen Sie sie in das kompilierte Projekt an. Weitere Informationen finden Sie unter [Überlegungen zur Leistung (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
@@ -20,11 +20,11 @@ Die einfachste Möglichkeit zum vorgenerieren von Ansichten ist die Verwendung d
 -   Für **Code First** Modelle mit der rechten Maustaste auf die Codedatei, die Ihr "DbContext"-Klasse enthält.
 -   Für **EF Designer** Modelle mit der rechten Maustaste auf die EDMX-Datei.
 
-![generateViews](~/ef6/media/generateviews.png)
+![Generieren von Sichten](~/ef6/media/generateviews.png)
 
 Sobald der Vorgang abgeschlossen ist, müssen Sie eine Klasse, die etwa wie folgt generiert
 
-![generatedViews](~/ef6/media/generatedviews.png)
+![generierte Ansichten](~/ef6/media/generatedviews.png)
 
 Jetzt beim Ausführen verwendet Ihrer Anwendung EF diese Klasse Ansichten nach Bedarf geladen. Wenn Ihr Modell ändert und Sie nicht diese Klasse erneut generieren, wird EF eine Ausnahme ausgelöst.
 

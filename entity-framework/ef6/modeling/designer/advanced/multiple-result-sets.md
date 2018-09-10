@@ -3,12 +3,12 @@ title: Gespeicherte Prozeduren mit mehreren Resultsets – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1b3797f9-cd3d-4752-a55e-47b84b399dc1
-ms.openlocfilehash: bb104ac5f584d26d279259a173de9afe3f018968
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 56c28f05bd7efe1b54d6cadd32afe0e9c6cf38b5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996174"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251010"
 ---
 # <a name="stored-procedures-with-multiple-result-sets"></a>Gespeicherte Prozeduren mit mehreren Resultsets
 Legen manchmal bei der Verwendung von gespeicherten Prozeduren, die Sie benötigen, um mehr als ein Ergebnis zurückzugeben. Dieses Szenario wird häufig zum Reduzieren der Anzahl der Roundtrips erforderlich, um einen einzelnen Bildschirm zu erstellen. Vor dem EF5 Entity Framework die gespeicherte Prozedur aufgerufen werden können, aber würde nur das erste Resultset an den aufrufenden Code zurück.
@@ -104,7 +104,7 @@ Wenn Sie dem EF Designer verwenden, können Sie Ihr Modell auch ändern, damit b
 -   Zu diesem Zweck müssen Sie die gespeicherte Prozedur wie bei der ein einzelnes Ergebnis Festlegen der Abfrage aus dem Modell hinzufügen.
 -   Sobald Sie dies haben, müssen Sie ein, klicken Sie mit der rechten Maustaste auf das Modell, und wählen Sie **Öffnen mit...** Klicken Sie dann **Xml**
 
-    ![OpenAs](~/ef6/media/openas.png)
+    ![Öffnen Sie als](~/ef6/media/openas.png)
 
 Sobald Sie haben das Modell im XML-Format geöffnet wird, müssen Sie die folgenden Schritte ausführen:
 

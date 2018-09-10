@@ -3,12 +3,12 @@ title: Überlegungen zur Leistung für EF4, EF5 und EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: f71a13ec06ad46259b3f33216367723b53314a5c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 3ec061559f6ad7cbdce59118c13543d9993ec5a5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996747"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251309"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Überlegungen zur Leistung für Entity Framework 4, 5 und 6
 Von David Obando, Eric Dettinger usw.
@@ -181,7 +181,7 @@ Suchen wird mit dem Wert des Primärschlüssels finden Sie eine Entität, die vo
 
 Es gibt eine leistungsoptimierung mit der Suche verwendet werden. Aufrufe dieser Methode werden standardmäßig werden eine Überprüfung des Objektcaches ausgelöst, um die Änderungen zu erkennen, die Commit an die Datenbank immer noch aussteht. Dieser Prozess kann sehr teuer sein, wenn es gibt eine sehr große Anzahl von Objekten im Objektcache oder in einem LOB-Diagramm hinzugefügte Objektcache sein, aber sie kann auch deaktiviert werden. In bestimmten Fällen können Sie wahrnehmen über eine Größenordnung des Unterschieds bei Aufrufen der Methode, wenn das Deaktivieren der automatischen Erkennung finden Änderungen. Ein zweites bedeutend wird noch angesehen, wenn das Objekt tatsächlich in den Cache ist, wenn das Objekt wurde aus der Datenbank abgerufen werden sollen. Hier ist ein Beispieldiagramm mit Messungen, die mit einigen unserer Microbenchmarks, ausgedrückt in Millisekunden, die bei einer Last von 5000 Entitäten:
 
-![Net45LogScale](~/ef6/media/net45logscale.png ".NET 4.5 - logarithmische Skalierung")
+![Logarithmische Skalierung für .NET 4.5](~/ef6/media/net45logscale.png ".NET 4.5 - logarithmische Skalierung")
 
 Beispiel für Suchen zur automatischen Erkennung um Änderungen deaktiviert:
 
@@ -825,9 +825,9 @@ Einfache, in denen die kontexterstellung kein Timeout aufgetreten war, Microbenc
 | EF6 | Linq-Abfrage für "DbContext"                 | 3420      | 47652864 |
 | EF6 | Keine nachverfolgung der ObjectContext-Linq-Abfrage | 3593      | 45260800 |
 
-![EF5Micro5000Warm](~/ef6/media/ef5micro5000warm.png)
+![EF5 micro-Benchmarks, 5000 betriebsbereiten Iterationen](~/ef6/media/ef5micro5000warm.png)
 
-![EF6Micro5000Warm](~/ef6/media/ef6micro5000warm.png)
+![EF6-micro-Benchmarks, 5000 betriebsbereiten Iterationen](~/ef6/media/ef6micro5000warm.png)
 
 Microbenchmarks sind sehr empfindlich gegenüber kleinen Änderungen im Code. In diesem Fall unterscheiden sich die Kosten für die Entity Framework 5 und Entity Framework 6 sind, auf das Hinzufügen von [Abfangfunktion](~/ef6/fundamentals/logging-and-interception.md) und [transaktionale Verbesserungen](~/ef6/saving/transactions.md). Diese Zahlen Microbenchmarks sind jedoch einen verstärkten Visionen in einem sehr kleinen informationsfragment der Funktionsweise von Entity Framework. Reale Szenarien betriebsbereiten Abfragen sollte einem Leistungsverlust nicht angezeigt werden, beim Aktualisieren von Entity Framework 5 auf Entity Framework 6.
 
@@ -858,9 +858,9 @@ Um die reale Leistung der anderen Abfrageoptionen vergleichen zu können, haben 
 | EF6 | Linq-Abfrage für "DbContext"                        | 1290      | 47529984 |
 
 
-![EF5WarmQuery1000](~/ef6/media/ef5warmquery1000.png)
+![EF5 betriebsbereiten Abfrage 1000 Iterationen](~/ef6/media/ef5warmquery1000.png)
 
-![EF6WarmQuery1000](~/ef6/media/ef6warmquery1000.png)
+![EF6 betriebsbereiten Abfrage 1000 Iterationen](~/ef6/media/ef6warmquery1000.png)
 
 > [!NOTE]
 > Der Vollständigkeit halber enthalten wir eine Variante, die eine Entity SQL-Abfrage für ein EntityCommand ausführen. Allerdings nicht, da die Ergebnisse für solche Abfragen nicht materialisiert werden, der Vergleich unbedingt Äpfel mit Äpfeln. Der Test umfasst eine weitgehende Annäherung darstellen, wenn Sie versuchen, den Vergleich eine gerechtere materialisieren.

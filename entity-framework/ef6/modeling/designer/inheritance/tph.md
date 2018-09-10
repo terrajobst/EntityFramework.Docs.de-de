@@ -3,12 +3,12 @@ title: Designer TPH-Vererbung – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
-ms.openlocfilehash: 9a546f6450b5aa3b03c062d1ab2c6f9257ba8292
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1eb935414b20d6e93e9d470ccc845bc13626ed3a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995003"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250841"
 ---
 # <a name="designer-tph-inheritance"></a>Designer TPH-Vererbung
 Diese exemplarische Vorgehensweise veranschaulicht Tabelle pro Hierarchie (TPH)-Vererbung im konzeptionellen Modell mit dem Entity Framework Designer (EF-Designer) zu implementieren. TPH-Vererbung verwendet eine Datenbanktabelle, um die Daten aller Entitätstypen in einer Vererbungshierarchie zu verwalten.
@@ -54,7 +54,7 @@ Im Entity Designer, der bietet eine Entwurfsoberfläche zum Bearbeiten des Model
 
 D. h. wie die **Person** Tabelle sieht einwandfrei aus, in der Datenbank.
 
-![PersonTable](~/ef6/media/persontable.png) 
+![Person-Tabelle](~/ef6/media/persontable.png) 
 
 ## <a name="implement-table-per-hierarchy-inheritance"></a>Implementieren Sie die Tabelle pro Hierarchie-Vererbung
 
@@ -94,14 +94,14 @@ Die Entwurfsoberfläche wurden zwei neue Entitätstypen hinzugefügt. Ein Pfeil 
 -   In der **Operator** Spalte die **Mappingdetails** wählen Sie im Fenster = aus der Dropdown-Liste.
 -   In der **Wert/Eigenschaft** Spalte, Datentyp **"Instructor"**. Das Endergebnis sollte wie folgt aussehen:
 
-    ![MappingDetails2](~/ef6/media/mappingdetails2.png)
+    ![Zuordnungsdetails](~/ef6/media/mappingdetails2.png)
 
 -   Wiederholen Sie diese Schritte für die **für Schüler und Studenten** Entitätstyp, aber stellen die Bedingung gleich **für Schüler und Studenten** Wert.  
     *Der Grund, wollten wir entfernen, das **Diskriminator** -Eigenschaft ist, da Sie eine Spalte mehrmals zugeordnet werden können. Diese Spalte wird für die bedingten Zuordnung verwendet werden, daher kann nicht für die auch eigenschaftenzuordnung verwendet werden. Die einzige Möglichkeit, es kann für beide verwendet werden, wenn eine Bedingung verwendet eine **Is Null** oder **Is Not Null** Vergleich.*
 
 Die "Tabelle pro Hierarchie"-Vererbung ist jetzt implementiert.
 
-![FinalTPH](~/ef6/media/finaltph.png)
+![Letzte TPH](~/ef6/media/finaltph.png)
 
 ## <a name="use-the-model"></a>Verwenden Sie das Modell
 

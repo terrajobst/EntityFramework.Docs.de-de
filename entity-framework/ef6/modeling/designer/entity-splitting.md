@@ -3,19 +3,19 @@ title: Designer Entitätsaufteilung - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: aa2dd48a-1f0e-49dd-863d-d6b4f5834832
-ms.openlocfilehash: 214561f0a0381bced3ceae0b6acfcd45f5dd65c5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 06199be977276cd3656e2550df79bac24276ec51
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995618"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250596"
 ---
 # <a name="designer-entity-splitting"></a>Designer Entitätsaufteilung
 In dieser exemplarischen Vorgehensweise wird gezeigt, wie einen Entitätstyp zwei Tabellen zugeordnet werden, durch Ändern eines Modells mit dem Entity Framework Designer (EF-Designer). Sie können eine Entität mehreren Tabellen zuordnen, sofern für die Tabellen ein gemeinsamer Schlüssel vorhanden ist. Die Prinzipien, nach denen ein Entitätstyp zwei Tabellen zugeordnet wird, lassen sich leicht auf das Mapping zu mehr als zwei Tabellen erweitern.
 
 Die folgende Abbildung zeigt die wichtigsten Windows, die bei der Arbeit mit dem EF Designer verwendet werden.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF-Designer](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>Erforderliche Komponenten
 
@@ -93,7 +93,7 @@ In diesem Schritt aktualisieren wir die **Person** Entitätstyp zum Kombinieren 
 -   Wählen Sie auf der Entwurfsoberfläche der **PersonInfo** Entität, und drücken Sie **löschen** Taste auf der Tastatur.
 -   Klicken Sie auf **keine** Wenn gefragt, ob Sie entfernen möchten die **PersonInfo** Tabelle aus dem Modell werden etwa für die Zuordnung der **Person** Entität.
 
-    ![DeleteTables](~/ef6/media/deletetables.png)
+    ![Löschen von Tabellen](~/ef6/media/deletetables.png)
 
 Die nächsten Schritte erfordern die **Mappingdetails** Fenster. Wenn Sie dieses Fenster nicht sehen, mit der rechten Maustaste Entwurfsoberfläche, und wählen **Mappingdetails**.
 
@@ -103,7 +103,7 @@ Die nächsten Schritte erfordern die **Mappingdetails** Fenster. Wenn Sie dieses
 
 Die **Person** Entitätstyp ist nun zugeordnet, um die **Person** und **PersonInfo** Tabellen.
 
-![Mapping2](~/ef6/media/mapping2.png)
+![Zuordnen von 2](~/ef6/media/mapping2.png)
 
 ## <a name="use-the-model"></a>Verwenden Sie das Modell
 
@@ -136,9 +136,9 @@ Die folgenden T-SQL-Anweisungen, die für die Datenbank durch Ausführen der Anw
 
 -   Die folgenden beiden **einfügen** Anweisungen ausgeführt wurden, als Ergebnis der Ausführung von Kontext. SaveChanges(). Dafür, dass die Daten aus der **Person** Entität und Aufteilung zwischen den **Person** und **PersonInfo** Tabellen.
 
-    ![Insert1](~/ef6/media/insert1.png)
+    ![Legen Sie 1](~/ef6/media/insert1.png)
 
-    ![Insert2](~/ef6/media/insert2.png)
+    ![Legen Sie 2](~/ef6/media/insert2.png)
 -   Die folgenden **wählen** als Ergebnis Auflisten von Personen in der Datenbank ausgeführt wurde. Sie kombiniert die Daten aus der **Person** und **PersonInfo** Tabelle.
 
     ![Auswählen](~/ef6/media/select.png)

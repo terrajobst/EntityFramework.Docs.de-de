@@ -3,12 +3,12 @@ title: Beziehungen – EF-Designer - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 402fe960-754b-470f-976b-e5de3e9986b5
-ms.openlocfilehash: 72efe76956c930a787449e6cce453ab0317adc7c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e1912a5e00e51b4f07b1ac83848fdbe0aa4755aa
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994647"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250711"
 ---
 # <a name="relationships---ef-designer"></a>Beziehungen – EF-Designer
 > [!NOTE]
@@ -16,7 +16,7 @@ ms.locfileid: "42994647"
 
 Zuordnungen definieren Beziehungen zwischen Entitätstypen in einem Modell. In diesem Thema veranschaulicht, wie Zuordnungen mit dem Entity Framework Designer (EF-Designer) zuordnen. Die folgende Abbildung zeigt die wichtigsten Windows, die bei der Arbeit mit dem EF Designer verwendet werden.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF-Designer](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > Wenn Sie das konzeptionelle Modell erstellen, können Warnungen zu nicht zugeordneten Entitäten und Zuordnungen in der Fehlerliste angezeigt. Sie können diese Warnungen ignorieren, da nach der Auswahl, um die Datenbank aus dem Modell zu generieren, die Fehler verschwinden werden.
@@ -44,7 +44,7 @@ Erstellen eine Zuordnung mit den EF Designer-Updates des Inhalts der EDMX-Datei.
 1.  Mit der rechten Maustaste in eines leeren Bereichs der Entwurfsoberfläche, zeigen Sie auf **Add New**, und wählen Sie **Zuordnung...** .
 2.  Geben Sie die Einstellungen für die Zuordnung in der **Zuordnung hinzufügen** Dialogfeld.
 
-    ![AddAssociation](~/ef6/media/addassociation.png)
+    ![Zuordnung hinzufügen](~/ef6/media/addassociation.png)
 
     > [!NOTE]
     > Sie können auch keine Navigationseigenschaften oder Fremdschlüsseleigenschaften für die Entitäten an den Enden der Zuordnung löschen hinzufügen der ** Navigationseigenschaft ** und ** Fremdschlüsseleigenschaften zum Hinzufügen der &lt;Entitätstypname&gt; Entität ** Kontrollkästchen. Wird nur eine Navigationseigenschaft hinzugefügt, kann die Zuordnung nur in einer Richtung traversiert werden. Falls Sie keine Navigationseigenschaften hinzufügen, müssen Sie Fremdschlüsseleigenschaften hinzufügen, um auf Entitäten an den Enden der Zuordnung zuzugreifen.
@@ -76,7 +76,7 @@ Bei Verwendung der EF-Designer zum Hinzufügen oder Bearbeiten einer referenziel
 -   Von der **abhängige** Dropdown-Liste, wählen Sie die abhängige Entität in der referenziellen Einschränkung.
 -   Wählen Sie für jeden prinzipalschlüssel, die von einem abhängigen Schlüssel einen entsprechenden abhängigen Schlüssel aus den Dropdown-Listen in die **abhängiger Schlüssel** Spalte.
 
-    ![RefConstraint](~/ef6/media/refconstraint.png)
+    ![REF-Einschränkung](~/ef6/media/refconstraint.png)
 
 -   Klicken Sie auf **OK**.
 
@@ -97,7 +97,7 @@ Sie können angeben, wie die Datenbank in eine Zuordnung zugeordnet wird die **M
     Die **Mappingdetails** Fenster zeigt beide Enden der Zuordnung und die Schlüsseleigenschaften des Entitätstyps an jedem **End**.
 -   Klicken Sie für jede Schlüsseleigenschaft auf das **Spalte** ein, und wählen Sie die Spalte, der die Eigenschaft zugeordnet wird.
 
-    ![MappingDetails4](~/ef6/media/mappingdetails4.png)
+    ![Zuordnungsdetails 4](~/ef6/media/mappingdetails4.png)
 
 ### <a name="edit-an-association-mapping"></a>Bearbeiten Sie ein Zuordnungsmapping
 

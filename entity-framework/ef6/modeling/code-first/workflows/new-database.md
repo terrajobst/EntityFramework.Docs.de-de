@@ -3,12 +3,12 @@ title: Code First für eine neue Datenbank – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 50c6a4710bc50879304f64e781a46c4836f86882
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 8ed1bfbc3536acc0d83b9c8ecdd180aeb44eff83
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152477"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251049"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First für eine neue Datenbank
 Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.Net-Klassen. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
@@ -199,13 +199,13 @@ Sie können mit dieser Datenbank mithilfe von Server-Explorer in Visual Studio v
 -   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen** , und wählen Sie **Verbindung hinzufügen...**
 -   Wenn Sie vor dem müssen Sie Microsoft SQL Server als Datenquelle wählen im Server-Explorer mit einer Datenbank verbunden haben
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![Auswählen einer Datenquelle](~/ef6/media/selectdatasource.png)
 
 -   Eine Verbindung mit LocalDB oder SQL Express, je nachdem, welches Sie installiert haben
 
 Wir können nun das Schema zu überprüfen, das Code First erstellt haben.
 
-![SchemaInitial](~/ef6/media/schemainitial.png)
+![Schema anfängliche](~/ef6/media/schemainitial.png)
 
 "DbContext" hat, welche Klassen sollen in das Modell anhand der DbSet-Eigenschaften, die wir definiert haben. Dann wird den Standardsatz von Code First-Konventionen verwendet, um festzustellen, Tabellen- und Spaltennamen, Datentypen zu bestimmen, Primärschlüssel, usw. zu finden. Weiter unten in dieser exemplarischen Vorgehensweise betrachten wir, wie Sie diese Konventionen überschreiben können.
 
@@ -266,7 +266,7 @@ namespace CodeFirstNewDatabaseSample.Migrations
 
 Die neue Url-Spalte wird nun die Blogs-Tabelle in der Datenbank hinzugefügt:
 
-![SchemaWithUrl](~/ef6/media/schemawithurl.png)
+![Schema mit Url](~/ef6/media/schemawithurl.png)
 
 ## <a name="6-data-annotations"></a>6. Datenanmerkungen
 
@@ -316,7 +316,7 @@ public class User
 
 Die neue Tabelle wird jetzt in der Datenbank hinzugefügt werden:
 
-![SchemaWithUsers](~/ef6/media/schemawithusers.png)
+![Schema für Benutzer](~/ef6/media/schemawithusers.png)
 
 Die vollständige Liste der Anmerkungen, die von EF unterstützt wird:
 
@@ -365,7 +365,7 @@ public class BloggingContext : DbContext
 
 Zum Anzeigen die Spalte "DisplayName" umbenannt\_Name:
 
-![SchemaWithDisplayNameRenamed](~/ef6/media/schemawithdisplaynamerenamed.png)
+![Schema mit dem Anzeigenamen, die umbenannt](~/ef6/media/schemawithdisplaynamerenamed.png)
 
 ## <a name="summary"></a>Zusammenfassung
 

@@ -3,12 +3,12 @@ title: Entity Framework Designer-Tastenkombinationen - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 3c76cdd5-17c5-4c54-a6a5-cf21b974636b
-ms.openlocfilehash: 70c9705956b58f4d00908dd9cca6ad0e0a078fc6
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e3a9d968c26841c143b1b7b0ba9a168ecd13f469
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997762"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251127"
 ---
 # <a name="entity-framework-designer-keyboard-shortcuts"></a>Entity Framework Designer-Tastenkombinationen
 Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in verschiedenen Bildschirme in den die Entity Framework-Tools für Visual Studio verfügbar sind.
@@ -17,7 +17,7 @@ Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in 
 
 ### <a name="step-one-choose-model-contents"></a>Schritt 1: Auswählen von Modellinhalten
 
-![WizardOne](~/ef6/media/wizardone.png)
+![Assistent 1](~/ef6/media/wizardone.png)
 
 | Verknüpfung  | Aktion                                                     | Hinweise                                               |
 |:----------|:-----------------------------------------------------------|:----------------------------------------------------|
@@ -27,7 +27,7 @@ Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in 
 
 ### <a name="step-two-choose-your-connection"></a>Schritt 2: Wählen Sie die Verbindung
 
-![WizardTwo](~/ef6/media/wizardtwo.png)
+![Assistent 2](~/ef6/media/wizardtwo.png)
 
 | Verknüpfung  | Aktion                                                     | Hinweise                                                   |
 |:----------|:-----------------------------------------------------------|:--------------------------------------------------------|
@@ -41,7 +41,7 @@ Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in 
 
 ### <a name="step-three-choose-your-version"></a>Schritt 3: Wählen Sie Ihre Version
 
-![WizardThree](~/ef6/media/wizardthree.png)
+![Assistenten drei](~/ef6/media/wizardthree.png)
 
 | Verknüpfung  | Aktion                                             | Hinweise                                                                                 |
 |:----------|:---------------------------------------------------|:--------------------------------------------------------------------------------------|
@@ -51,7 +51,7 @@ Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in 
 
 ### <a name="step-four-choose-your-database-objects-and-settings"></a>Schritt 4: Wählen Sie Ihre Datenbankobjekte und Einstellungen
 
-![WizardFour](~/ef6/media/wizardfour.png)
+![Assistenten vier](~/ef6/media/wizardfour.png)
 
 | Verknüpfung  | Aktion                                                                                    | Hinweise                                                               |
 |:----------|:------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
@@ -70,7 +70,7 @@ Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in 
 
 ## <a name="ef-designer-surface"></a>EF-Designer-Oberfläche
 
-![DesignerSurface](~/ef6/media/designersurface.png)
+![Designeroberfläche](~/ef6/media/designersurface.png)
 
 | Verknüpfung                                                                                | Aktion                      | Hinweise                                                                                                                                                                                                                               |
 |:----------------------------------------------------------------------------------------|:----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,7 +113,7 @@ Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in 
 
 ## <a name="mapping-details-window"></a>Mappingdetails (Fenster)
 
-![MappingDetailsShortcuts](~/ef6/media/mappingdetailsshortcuts.png)
+![Zuordnung werden Verknüpfungen](~/ef6/media/mappingdetailsshortcuts.png)
 
 | Verknüpfung                  | Aktion         | Hinweise                                                                                                                                 |
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|

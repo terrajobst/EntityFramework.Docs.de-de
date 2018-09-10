@@ -3,12 +3,12 @@ title: Definieren von Abfrage - Designer, EF - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 60d5310589bb9bc3fdb971673422e80537357e55
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996306"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250971"
 ---
 # <a name="defining-query---ef-designer"></a>Definieren der Abfrage – EF-Designer
 In dieser exemplarischen Vorgehensweise veranschaulicht das Hinzufügen eine definierende Abfrage und eine entsprechende Entität Geben Sie auf ein Modell mit dem EF Designer. Eine definierende Abfrage wird häufig verwendet, um Funktionen wie mit einer Datenbankansicht bereitzustellen, aber die Ansicht im Modell nicht in der Datenbank definiert ist. Einer definierenden Abfrage können Sie eine SQL-Anweisung ausführen, die im angegebenen die **DefiningQuery** Element eine EDMX-Datei. Weitere Informationen finden Sie unter **DefiningQuery** in die [SSDL-Spezifikation](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
@@ -54,11 +54,11 @@ In dieser exemplarischen Vorgehensweise wird Visual Studio 2012 oder höher verw
 -   Klicken Sie im Projektmappen-Explorer mit der Maustaste der **DefiningQueryModel.edmx** und wählen Sie **Öffnen mit...** .
 -   Wählen Sie **XML (Text)-Editor**.
 
-    ![XMLEditor](~/ef6/media/xmleditor.png)
+    ![XML-Editor](~/ef6/media/xmleditor.png)
 
 -   Klicken Sie auf **Ja** , wenn die folgende Meldung angezeigt:
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![Warnung 2](~/ef6/media/warning2.png)
 
  
 
@@ -136,7 +136,7 @@ In diesem Schritt fügen wir der Entitätstyp am konzeptionellen Modell mit dem 
 -   Doppelklicken Sie auf die DefiningQueryModel.edmx.
 -   Sagen Sie **Ja** , die folgende Meldung angezeigt:
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![Warnung 2](~/ef6/media/warning2.png)
 
  
 
@@ -172,7 +172,7 @@ In diesem Schritt verwenden wir das Fenster "Mappingdetails" Zuordnen der konzep
     Die **Mappingdetails** Fenster wird angezeigt.
 -   Wählen Sie **GradeReport** aus der **&lt;Hinzufügen einer Tabelle oder Sicht&gt;** Dropdown-Liste (befindet sich im **Tabelle**s).  
     Zuordnungen zwischen dem konzeptionellen Standard und Storage **GradeReport** Entitätstyp angezeigt werden.  
-    ![MappingDetails3](~/ef6/media/mappingdetails.png)
+    ![Zuordnen von Details3](~/ef6/media/mappingdetails.png)
 
 Daher die **EntitySetMapping** Element dem mappingabschnitt der EDMX-Datei hinzugefügt wird. 
 

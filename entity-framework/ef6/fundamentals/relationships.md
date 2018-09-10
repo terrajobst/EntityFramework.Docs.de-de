@@ -3,12 +3,12 @@ title: Beziehungen, Navigationseigenschaften und foreign key - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 53f428360be4ea2e11a42676d22e584633ceedbc
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821399"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251218"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Beziehungen, Navigationseigenschaften und Fremdschlüssel
 Dieses Thema bietet einen Überblick darüber, wie Beziehungen zwischen Entitäten von Entity Framework verwaltet. Außerdem erhalten hilfreiche Informationen zum Zuordnen und Bearbeiten von Beziehungen.
@@ -19,7 +19,7 @@ In relationalen Datenbanken werden Beziehungen (auch als Zuordnungen bezeichnet)
 
 Die folgende Abbildung zeigt zwei Tabellen, die Teilnahme an 1: n Beziehung. Die **Kurs** Tabelle ist die abhängigen Tabelle aus, da er enthält die **"DepartmentID"** Spalte, die sie verknüpft die **Abteilung** Tabelle.
 
-!["Database2"](~/ef6/media/database2.png)
+![Abteilung und Course-Tabelle](~/ef6/media/database2.png)
 
 Im Entity Framework kann eine Entität auf andere Entitäten über eine Zuordnung oder Beziehung verknüpft werden. Jede Beziehung enthält zwei Enden, die den Entitätstyp und die Multiplizität des Typs (eine, 0 (null) oder 1 oder viele) für die zwei Entitäten in dieser Beziehung beschreiben. Die Beziehung unterliegen möglicherweise eine referenzielle Einschränkung, die beschreibt, welches Ende der Beziehung die Prinzipalrolle ist und die abhängige Rolle ist.
 
@@ -33,7 +33,7 @@ Sie können wahlweise einen oder beide Zuordnungstypen im Modell verwenden. Jedo
 
 Die folgende Abbildung zeigt ein konzeptionelles Modell, das mit dem Entity Framework Designer erstellt wurde. Das Modell enthält zwei Entitäten, die in 1: n Beziehung beteiligt sind. Beide Entitäten verfügen über Navigationseigenschaften. **Kurs** Depend Entität und die **"DepartmentID"** Fremdschlüsseleigenschaft definiert.
 
-![RelationshipEFDesigner](~/ef6/media/relationshipefdesigner.png)
+![Abteilung und Kurs Tabellen mit Navigationseigenschaften](~/ef6/media/relationshipefdesigner.png)
 
 Der folgende Codeausschnitt zeigt das gleiche Modell, das mit Code First erstellt wurde.
 

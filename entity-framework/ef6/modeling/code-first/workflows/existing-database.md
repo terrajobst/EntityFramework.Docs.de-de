@@ -3,12 +3,12 @@ title: Code First mit einer vorhandenen Datenbank - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: 29f959265e0fd0d5e14c156519e6931fd8da0677
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fedfb921919582e2cdb5f3bc497f11889b972ad6
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995089"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251075"
 ---
 # <a name="code-first-to-an-existing-database"></a>Code First mit einer vorhandenen Datenbank
 Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Code First-Entwicklung für eine vorhandene Datenbank. Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.Net-Klassen. Optional zusätzliche Konfiguration kann mithilfe von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API ausgeführt werden.
@@ -33,15 +33,15 @@ Wir jetzt, und Erstellen der Datenbank.
 -   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen -&gt; Verbindung hinzufügen...**
 -   Wenn Sie mit einer Datenbank aus verbunden haben **Server-Explorer** , bevor Sie auswählen müssen, **Microsoft SQL Server** als Datenquelle
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![Auswählen einer Datenquelle](~/ef6/media/selectdatasource.png)
 
 -   Verbinden mit der LocalDB-Instanz, und geben Sie **Blogging** als Datenbankname
 
-    ![LocalDBConnection](~/ef6/media/localdbconnection.png)
+    ![LocalDB-Verbindung](~/ef6/media/localdbconnection.png)
 
 -   Wählen Sie **OK** und Sie werden gefragt, ob Sie eine neue Datenbank, die auf erstellen möchten **Ja**
 
-    ![CreateDatabaseDialog](~/ef6/media/createdatabasedialog.png)
+    ![Datenbank-Dialogfeld "erstellen"](~/ef6/media/createdatabasedialog.png)
 
 -   Die neue Datenbank wird jetzt im Server-Explorer angezeigt. mit der rechten Maustaste darauf und wählen Sie **neue Abfrage**
 -   Kopieren Sie die folgende SQL-Anweisung in die neue Abfrage, und klicken Sie dann mit der rechten Maustaste auf die Abfrage, und wählen **ausführen**
@@ -92,15 +92,15 @@ Wir werden zu der die Entity Framework-Tools für Visual Studio verwenden, um un
 -   Dadurch wird die **Entity Data Model-Assistenten**
 -   Wählen Sie **Code First aus Datenbank** , und klicken Sie auf **weiter**
 
-    ![WizardOneCFE](~/ef6/media/wizardonecfe.png)
+    ![Assistent für eine CFE](~/ef6/media/wizardonecfe.png)
 
 -   Wählen Sie die Verbindung mit der Datenbank, die Sie im ersten Abschnitt erstellt haben, und klicken Sie auf **weiter**
 
-    ![WizardTwoCFE](~/ef6/media/wizardtwocfe.png)
+    ![Assistent zwei CFE](~/ef6/media/wizardtwocfe.png)
 
 -   Klicken Sie auf das Kontrollkästchen neben **Tabellen** importieren Sie alle Tabellen aus, und klicken Sie auf **Fertig stellen**
 
-    ![WizardThreeCFE](~/ef6/media/wizardthreecfe.png)
+    ![Drei CFE Assistenten](~/ef6/media/wizardthreecfe.png)
 
 Sobald der reverse Engineering-Prozess auf eine Anzahl von Elementen abgeschlossen ist wird wurde das Projekt, wir sehen Sie sich, was hinzugefügt wurde.
 

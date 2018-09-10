@@ -3,12 +3,12 @@ title: Prüfbarkeit und Entitätsframework 4.0
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-ms.openlocfilehash: 17a9f09022531a81042979464de05fbbd2570759
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a2384c7868ae3cf6af4f915c06ae9fdb622634c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995228"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251322"
 ---
 # <a name="testability-and-entity-framework-40"></a>Prüfbarkeit und Entitätsframework 4.0
 Scott Allen
@@ -194,13 +194,13 @@ Diese Definitionen der Klasse ändert sich etwas untersucht, Ansätze und Funkti
 
 Wir können ein Entity Data Model (EDM) in Visual Studio erstellen, mit der POCOs eingerichtet (siehe Abbildung 1). Wir werden nicht das EDM verwenden, um Code für die Entitäten zu generieren. Stattdessen möchten wir die Entitäten verwenden, die es Entwicklern auch liebevoll manuell erstellen. Wir verwenden nur des EDM auf unsere Datenbankschema zu generieren, und geben Sie die Metadaten, die ef4 benötigt, um Objekte in der Datenbank zuzuordnen.
 
-![eftest_01](~/ef6/media/eftest-01.jpg)
+![EF test_01](~/ef6/media/eftest-01.jpg)
 
 **Abbildung 1**
 
 Hinweis: sollten Sie zunächst das EDM-Modell zu entwickeln, ist es möglich, bereinigen, POCO-Code aus dem EDM zu generieren. Dies ist mit der Erweiterung Visual Studio 2010, die vom Data Programmability-Team bereitgestellten möglich. Um die Erweiterung heruntergeladen haben, starten Sie den Erweiterungs-Manager in Visual Studio im Menü Extras, und suchen Sie im Onlinekatalog von Vorlagen für "POCO" (siehe Abbildung 2). Es sind mehrere POCO-Vorlagen für EF verfügbar. Weitere Informationen zur Verwendung der Vorlage finden Sie unter " [Exemplarische Vorgehensweise: POCO-Vorlage für das Entity Framework](http://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)".
 
-![eftest_02](~/ef6/media/eftest-02.png)
+![EF test_02](~/ef6/media/eftest-02.png)
 
 **Abbildung 2**
 
@@ -415,13 +415,13 @@ Wir in der Basisklasse verwenden "-Objekt Mutter" ist ein häufiges Muster für 
 
 Wir können die EmployeeControllerTestBase als Basisklasse für eine Reihe von prüfvorrichtungen verwenden (siehe Abbildung 3). Jeder Testfixture testet eine bestimmte Controlleraktion. Z. B. eine Testfixture konzentriert sich auf den Test der erstellen-Aktion, die während einer HTTP GET-Anforderung (für die Ansicht für die Erstellung eines Mitarbeiters Anzeige) verwendet und eine andere Fixierung konzentriert sich auf die Create-Aktion, die in einer HTTP POST-Anforderung verwendet (von übermittelt Informationen zu den Benutzer, der einen Mitarbeiter zu erstellen). Jede abgeleitete Klasse ist nur für das Setup erforderlich sind, in der spezifischen Kontext und geben Sie die Assertionen, die erforderlich sind, um zu überprüfen, ob die Ergebnisse für die Kontext-spezifischer Test verantwortlich.
 
-![eftest_03](~/ef6/media/eftest-03.png)
+![EF test_03](~/ef6/media/eftest-03.png)
 
 **Abbildung 3**
 
 Die Aufrufkonvention und der Test Benennungsstil hier vorgestellten nicht für testbarem Code erforderlich ist – es nur einen Ansatz ist. Abbildung 4 zeigt, dass die Tests ausgeführt werden, in der Jet-Gehirne Resharper Runner-Plug-In für Visual Studio 2010 testen.
 
-![eftest_04](~/ef6/media/eftest-04.png)
+![EF test_04](~/ef6/media/eftest-04.png)
 
 **Abbildung 4**
 

@@ -3,12 +3,12 @@ title: 'Überprüfung: EF6'
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: eec834888e2e3efaadc8acf9d4f64307f394ea4a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 65639b0f91f54ee2cd1336f6b6cd4caf45ede680
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994444"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251023"
 ---
 # <a name="data-validation"></a>Datenvalidierung
 > [!NOTE]
@@ -54,7 +54,7 @@ Code wird zuerst Anmerkungen aus der System.ComponentModel.DataAnnotations-Assem
 
 Ohne zusätzlichen Code oder Markupänderungen in der Anwendung führt eine vorhandene MVC-Anwendung Validierung auf Clientseite, sogar dynamisch Erstellen einer Nachricht, die unter Verwendung der Eigenschaft und der Anmerkung.
 
-![figure01](~/ef6/media/figure01.png)
+![Abbildung 1](~/ef6/media/figure01.png)
 
 Sichern in der Post-Methode der in dieser Ansicht erstellen, Entity Framework wird verwendet, um die neuen Blog in der Datenbank zu speichern, aber MVC die clientseitige Validierung wird ausgelöst, bevor die Anwendung dieses Codes erreicht.
 
@@ -153,7 +153,7 @@ Der ValidationResult-Konstruktor akzeptiert eine Zeichenfolge, die darstellt, di
 
 Anders als bei der Überprüfung der Fluent-API dieses Überprüfungsergebnis von der Sicht erkannt werden, und der Ausnahmehandler, den ich zuvor verwendet, um den Fehler ModelState hinzuzufügen ist nicht erforderlich. Da ich beide Eigenschaftennamen in dem ValidationResult festgelegt, wird die Fehlermeldung der MVC-HtmlHelpers für beide diese Eigenschaften angezeigt.
 
-![figure02](~/ef6/media/figure02.png)
+![Abbildung 2](~/ef6/media/figure02.png)
 
 ## <a name="dbcontextvalidateentity"></a>DbContext.ValidateEntity
 

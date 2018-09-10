@@ -3,12 +3,12 @@ title: Designer CUD gespeicherte Prozeduren – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 7a3176e1057816dd11ced5fc545aa3baa672bd03
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 36c9b97b77fec30136cba1d850a0259c689e69ae
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993888"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250919"
 ---
 # <a name="designer-cud-stored-procedures"></a>Designer CRUD-gespeicherte Prozeduren
 Dieser schrittweise erläuterten exemplarischen zeigen, wie Sie ordnen den erstellen\\einfügen, aktualisieren und Löschvorgänge eines Entitätstyps zu gespeicherten Prozeduren, die mit dem Entity Framework Designer (EF-Designer) (CRUD).  Standardmäßig generiert Entity Framework automatisch die SQL-Anweisungen für die CRUD-Vorgänge, aber Sie können auch gespeicherte Prozeduren zuordnen, um diese Vorgänge.  
@@ -54,7 +54,7 @@ Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 -   Wählen Sie außerdem die folgenden gespeicherten Prozeduren in der **gespeicherte Prozeduren und Funktionen** Knoten: **DeletePerson**, **InsertPerson**, und **UpdatePerson** . 
 -   Ab Visual Studio 2012 die EF-Designer unterstützt Massenexport und-Import von gespeicherten Prozeduren. Die **Import ausgewählten gespeicherten Prozeduren und Funktionen in das Entitätsmodell** ist standardmäßig aktiviert. Da in diesem Beispiel wir Prozeduren, die einfügen gespeichert haben, aktualisieren und Löschen von Entitätstypen, wir nicht importieren möchten, und es wird, deaktivieren Sie dieses Kontrollkästchen. 
 
-    ![ImportSProcs](~/ef6/media/importsprocs.jpg)
+    ![S Prozesse importieren](~/ef6/media/importsprocs.jpg)
 
 -   Klicken Sie auf **Fertig stellen**.
     Im EF Designer, der bietet eine Entwurfsoberfläche zum Bearbeiten des Modells, wird angezeigt.
@@ -72,7 +72,7 @@ Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 -   Drücken Sie die **EINGABETASTE**.
 -   In der Standardeinstellung **NewPersonID** zugeordnet ist, um den Entitätsschlüssel **PersonID**. Ein Pfeil gibt die Mappingrichtung an: Der Wert der Ergebnisspalte ist der Eigenschaft zugeordnet.
 
-    ![MappingDetails](~/ef6/media/mappingdetails.png)
+    ![Zuordnungsdetails](~/ef6/media/mappingdetails.png)
 
 -   Klicken Sie auf **&lt;Update Function auswählen&gt;** , und wählen Sie **UpdatePerson** aus der resultierenden Dropdownliste aus.
 -   Es werden Standardmappings zwischen Parametern gespeicherter Prozeduren und Entitätseigenschaften angezeigt.

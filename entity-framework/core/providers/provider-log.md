@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 44b200223153fca44cb2cfa3e78b3bedc7b4a552
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821334"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250815"
 ---
 # <a name="provider-impacting-changes"></a>Anbieter-Auswirkungen auf Änderungen
 
@@ -19,9 +19,9 @@ Diese Seite enthält Links zum pull-Anforderungen, die auf das EF Core-Repositor
 
 Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwendet die [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) und [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) Bezeichnungen auf unseren Problemen und Pull-Anforderungen.
 
-### <a name="21-----22"></a>2.1---> 2.2
+## <a name="21-----22"></a>2.1---> 2.2
 
-#### <a name="test-only-changes"></a>Änderungen nur im Test
+### <a name="test-only-changes"></a>Änderungen nur im Test
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12057 -Anpassbare SQL Trennzeichen in Tests zulassen
   * Testen von Änderungen, die außerhalb des strict-floating-Point-Vergleiche in BuiltInDataTypesTestBase zu ermöglichen.
@@ -40,7 +40,7 @@ Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwe
   * Diese Änderung umfasst einige Tests refactoring Anbieter, zu reagieren ist möglicherweise erforderlich
 
 
-#### <a name="test-and-product-code-changes"></a>Test und Produkt codeänderungen
+### <a name="test-and-product-code-changes"></a>Test und Produkt codeänderungen
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12109 -Konsolidieren RelationalTypeMapping.Clone-Methoden
   * Änderungen in 2.1 die RelationalTypeMapping für eine Vereinfachung in abgeleiteten Klassen zulässig. Wir glauben nicht diese für Anbieter wichtige wurde allerdings Anbieter profitieren von dieser Änderung in ihrer abgeleiteten Typ zuordnen von Klassen.
@@ -50,4 +50,5 @@ Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwe
   * Ermöglicht die Typmappings und Member Übersetzer außerhalb der Anbieter registriert werden
     * Anbieter müssen Basisklasse aufrufen. FindMapping() in ihrer Implementierung ITypeMappingSource, damit es funktioniert
   * Führen Sie dieses Muster zum Hinzufügen von Unterstützung von räumlichen Daten an Ihren Anbieter, die über Anbieter hinweg konsistent ist.
-
+* https://github.com/aspnet/EntityFrameworkCore/pull/13199 – Fügen Sie erweiterte Debuggen für die diensterstellung-Anbieter hinzu
+  * Ermöglicht das DbContextOptionsExtensions, um eine neue Schnittstelle zu implementieren, mit deren Hilfe können Benutzer zu verstehen, warum der internen Dienstanbieter neu erstellt wird

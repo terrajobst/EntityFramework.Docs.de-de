@@ -3,12 +3,12 @@ title: Datenbindung mit Windows Forms - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: 7ceb8e85fe3d8f5ab9a5e58ef9c84599585d8f77
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 071172810f7dac45f42aca0efa7f329bac31e9cd
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994528"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251192"
 ---
 # <a name="databinding-with-winforms"></a>Datenbindung mit Windows Forms
 Diese exemplarische Vorgehensweise veranschaulicht POCO-Typen an Windows Forms (WinForms) Steuerelemente in einem "Master / Detail-Formular zu binden. Die Anwendung verwendet Entity Framework-Objekte mit Daten aus der Datenbank zu füllen, Nachverfolgen von Änderungen und Beibehalten von Daten in der Datenbank.
@@ -179,17 +179,17 @@ Wir jetzt, und Erstellen der Datenbank.
 -   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen -&gt; Verbindung hinzufügen...**
 -   Wenn Sie vor dem müssen Sie Microsoft SQL Server als Datenquelle wählen im Server-Explorer mit einer Datenbank verbunden haben
 
-    ![ChangeDataSource](~/ef6/media/changedatasource.png)
+    ![Datenquelle wechseln](~/ef6/media/changedatasource.png)
 
 -   Eine Verbindung mit LocalDB oder SQL Express, je nachdem, welches Sie installiert haben, und geben Sie **Produkte** als Datenbankname
 
-    ![AddConnectionLocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![Hinzufügen der Verbindung LocalDB](~/ef6/media/addconnectionlocaldb.png)
 
-    ![AddConnectionExpress](~/ef6/media/addconnectionexpress.png)
+    ![Verbindung Express hinzufügen](~/ef6/media/addconnectionexpress.png)
 
 -   Wählen Sie **OK** und Sie werden gefragt, ob Sie eine neue Datenbank, die auf erstellen möchten **Ja**
 
-    ![CreateDatabase](~/ef6/media/createdatabase.png)
+    ![Datenbank erstellen](~/ef6/media/createdatabase.png)
 
 -   Die neue Datenbank wird jetzt im Server-Explorer angezeigt. mit der rechten Maustaste darauf und wählen Sie **neue Abfrage**
 -   Kopieren Sie die folgende SQL-Anweisung in die neue Abfrage, und klicken Sie dann mit der rechten Maustaste auf die Abfrage, und wählen **ausführen**
@@ -227,11 +227,11 @@ Wir werden die Verwendung von Entity Framework Designer, die als Teil von Visual
 
 -   Wählen Sie die Verbindung mit der Datenbank, die Sie im ersten Abschnitt erstellt haben, geben Sie **ProductContext** als Namen für die Verbindungszeichenfolge und klicken Sie auf **weiter**
 
-    ![ChooseYourConnection](~/ef6/media/chooseyourconnection.png)
+    ![Wählen Sie die Verbindung](~/ef6/media/chooseyourconnection.png)
 
 -   Klicken Sie auf das Kontrollkästchen neben "Tabellen", um alle Tabellen importiert werden, und klicken Sie auf "Fertig stellen"
 
-    ![ChooseYourObjects](~/ef6/media/chooseyourobjects.png)
+    ![Wählen Sie Ihre Objekte aus.](~/ef6/media/chooseyourobjects.png)
 
 Nach Abschluss der reverse-Engineering-Prozess ist das neue Modell dem Projekt hinzugefügt und eröffnet Ihnen im Entity Framework Designer angezeigt. Zu Ihrem Projekt mit den Verbindungsdetails für die Datenbank wurde auch eine Datei "App.config" hinzugefügt.
 
@@ -250,7 +250,7 @@ EF generiert Code aus dem Modell mithilfe von T4-Vorlagen. Die Vorlagen in Visua
 -   Öffnen der **Projektmappen-Explorer** und **ProductModel.edmx** Datei
 -   Suchen der **ProductModel.tt** Datei, die unter der Datei ProductModel.edmx geschachtelt werden
 
-    ![ProductModelTemplate](~/ef6/media/productmodeltemplate.png)
+    ![Produkt-Manager-Vorlage](~/ef6/media/productmodeltemplate.png)
 
 -   Doppelklicken Sie auf die Datei ProductModel.tt, um sie in Visual Studio-Editor öffnen
 -   Suchen und Ersetzen Sie die beiden Instanzen der "**ICollection**"mit"**ObservableListSource**". Diese befinden sich in etwa die Zeilen 296 und 484.
@@ -278,13 +278,13 @@ Fügen Sie die Klassen, die im Modell, als Datenquellen für diese Windows Forms
 -   Wählen Sie in der ein Fenster Datenquellentyp auswählen, **Objekt** , und klicken Sie auf **weiter**
 -   Erweitern Sie das Dialogfeld "Data-Objekte" Wählen Sie im der **WinFormswithEFSample** zwei Mal, und wählen **Kategorie** besteht nicht erforderlich, wählen Sie die Produkt-Datenquelle, da wir, über des Produktanforderungen erhalten die Eigenschaft für die Kategorie-Datenquelle.
 
-    ![DataSource](~/ef6/media/datasource.png)
+    ![Datenquelle](~/ef6/media/datasource.png)
 
 -   Klicken Sie auf **Fertig stellen.** 
      *, Wenn das Fenster "Datenquellen" nicht angezeigt wird, wählen Sie *** Ansicht – Profiler -&gt; andere Windows -&gt; -Datenquellen**
 -   Drücken Sie das Symbol zum anheften, damit das Fenster "Datenquellen" nicht automatisch ausgeblendet. Sie müssen möglicherweise die Schaltfläche "Aktualisieren" erreicht, wenn das Fenster bereits sichtbar war.
 
-    ![DataSource2](~/ef6/media/datasource2.png)
+    ![Datenquelle 2](~/ef6/media/datasource2.png)
 
 -   Doppelklicken Sie im Projektmappen-Explorer auf die **"Form1.cs"** Datei, die im Formular im Designer zu öffnen.
 -   Wählen Sie die **Kategorie** Data source, und ziehen Sie es auf dem Formular. Standardmäßig wird ein neues DataGridView-Steuerelement (**CategoryDataGridView**) und Navigation-Symbolleisten-Steuerelemente werden in den Designer hinzugefügt. Diese Steuerelemente sind an die Bindungsquelle gebunden (**CategoryBindingSource**) und Bindung Navigator (**CategoryBindingNavigator**) Komponenten, die ebenfalls erstellt werden.
@@ -302,7 +302,7 @@ Fügen Sie die Klassen, die im Modell, als Datenquellen für diese Windows Forms
     Bisher Serverkomponenten zugeordnet sind wir unsere DataGridView-Steuerelementen BindingSource im Designer. Im nächsten Abschnitt werden wir die CodeBehind-Code hinzufügen, categoryBindingSource.DataSource auf die Auflistung von Entitäten festgelegt wird, die zurzeit von "DbContext" nachverfolgt werden. Wenn wir Produkte gezogen und abgelegt, unter der Kategorie, der WinForms sorgte für die Eigenschaft productsBindingSource.DataSource CategoryBindingSource und productsBindingSource.DataMember-Eigenschaft auf Produkte einrichten. Aufgrund dieser Bindung werden nur die Produkte, die der derzeit ausgewählten Kategorie gehören in der ProductDataGridView angezeigt.
 -   Aktivieren der **speichern** auf der Symbolleiste Navigation, indem Sie auf der rechten Maustaste und auswählen **aktiviert**.
 
-    ![Form1-Designer](~/ef6/media/form1-designer.png)
+    ![1-Formular-Designer](~/ef6/media/form1-designer.png)
 
 -   Hinzufügen den Ereignishandler für das Speichern der Schaltfläche durch Doppelklicken auf die Schaltfläche. Den Ereignishandler hinzufügen wird und erhalten Sie eine der CodeBehind für das Formular. Der Code für die **CategoryBindingNavigatorSaveItem\_klicken Sie auf** -Ereignishandler wird im nächsten Abschnitt hinzugefügt werden.
 
@@ -401,12 +401,12 @@ Der Code deklariert eine lang andauernde-Instanz der ProductContext. Das Product
 
 -   Kompilieren und ausführen, die die Funktionalität der Anwendung und testen können.
 
-    ![Form1BeforeSave](~/ef6/media/form1beforesave.png)
+    ![1 bilden vor dem Speichern](~/ef6/media/form1beforesave.png)
 
 -   Nach dem Speichern werden die speichern generierter Schlüssel auf dem Bildschirm angezeigt.
 
-    ![Form1AfterSave](~/ef6/media/form1aftersave.png)
+    ![Bilden Sie 1 nach dem Speichern](~/ef6/media/form1aftersave.png)
 
 -   Wenn Sie Code First verwendet, es wird auch angezeigt, eine **WinFormswithEFSample.ProductContext** Datenbank wird für Sie erstellt.
 
-    ![ServerObjExplorer](~/ef6/media/serverobjexplorer.png)
+    ![Server-Objekt-Explorer](~/ef6/media/serverobjexplorer.png)

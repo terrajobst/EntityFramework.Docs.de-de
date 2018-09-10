@@ -3,12 +3,12 @@ title: Self-Tracking Entities Exemplarische Vorgehensweise – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: 64ca9ae42df1a1c740131e254b8f80f67b2f9f97
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1c450bbb20c246d9b9d58707ac03eb48eadfa970
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995420"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251283"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>Self-Tracking Entities Exemplarische Vorgehensweise
 > [!IMPORTANT]
@@ -142,7 +142,7 @@ Als Nächstes werden wir ein neues Projekt hinzufügen und Generieren von Entit�
 -   Wählen Sie die **STETemplate.tt** Datei
 -   Klicken Sie auf den Dropdownpfeil neben der **hinzufügen** Schaltfläche, und wählen **als Link hinzufügen**
 
-    ![AddLinkedTemplate](~/ef6/media/addlinkedtemplate.png)
+    ![Fügen Sie verknüpfte Vorlage hinzu.](~/ef6/media/addlinkedtemplate.png)
 
 Wir werden auch sicherstellen, dass die Entitätsklassen im selben Namespace wie der Kontext generiert. Dies reduziert lediglich die Anzahl der using-Anweisungen, die wir in unserer Anwendung hinzufügen möchten.
 
@@ -552,4 +552,4 @@ Sie können die Anwendung jetzt ausführen, um sie in Aktion zu sehen.
 -   Mit der rechten Maustaste die **STESample.WPFTest** Projekt **Projektmappen-Explorer** , und wählen Sie **Debuggen -&gt; neue Instanz starten**
 -   Können Sie die Daten, die mit dem Bildschirm bearbeiten und speichern Sie es über den Dienst mithilfe der **speichern** Schaltfläche
 
-![WPF](~/ef6/media/wpf.png)
+![WPF-Hauptfenster](~/ef6/media/wpf.png)

@@ -3,12 +3,12 @@ title: Benutzerdefinierte Code First-Konventionen - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
-ms.openlocfilehash: 79450790c6d3c8ce7fad209e3946e81d3fad4b75
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a0e8080037cf86640275f498ed159c847ff5c057
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995827"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251062"
 ---
 # <a name="custom-code-first-conventions"></a>Benutzerdefinierte Code First-Konventionen
 > [!NOTE]
@@ -115,7 +115,7 @@ Ein interessantes Feature der IsKey-Methode besteht darin, dass additiv. Das bed
 
 Dieser Code konfiguriert die Typen in unserem Modell haben Sie einen zusammengesetzten Schlüssel, der aus die Int-Key-Spalte und die Namensspalte Zeichenfolge besteht. Wenn wir das Modell im Designer anzuzeigen, würde es folgendermaßen aussehen:
 
-![compositeKey](~/ef6/media/compositekey.png)
+![zusammengesetzter Schlüssel](~/ef6/media/compositekey.png)
 
 Ein weiteres Beispiel für Eigenschaft Konventionen ist so konfigurieren Sie alle Eigenschaften von "DateTime" in meinem Modell in den datetime2-Typ in SQL Server anstelle von "DateTime" zugeordnet. Sie erreichen dies durch den folgenden:
 
@@ -292,7 +292,7 @@ Standardmäßig sind sowohl Mitarbeiter und Manager, die der gleichen Tabelle (M
 
 Der obige Code wird die Struktur einer Tabelle zugeordnet sein, die wie folgt aussieht:
 
-![tptExample](~/ef6/media/tptexample.jpg)
+![TPT-Beispiel](~/ef6/media/tptexample.jpg)
 
 Sie können dies verhindern, und die standardmäßig TPH-Zuordnung, auf unterschiedliche Weise verwalten:
 
