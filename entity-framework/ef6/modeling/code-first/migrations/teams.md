@@ -3,12 +3,12 @@ title: Code First-Migrationen in Teamumgebungen - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: 42f52e63fd6cfc1f02d6a721594f4a161eea9a7b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 31f8476c64d36d4d1cf3d18deb59ebc482dcc975
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997298"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251231"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Code First-Migrationen in Teamumgebungen
 > [!NOTE]
@@ -54,7 +54,7 @@ Der Schlüssel beim Verwenden von Migrationen erfolgreich in einer teamumgebung 
 
 Wenn Sie die erste Migration zu Ihrem Projekt hinzufügen, führen Sie etwa **Add-Migration erste** in Paket-Manager-Konsole. Die allgemeinen Schritte, die mit diesem Befehl wird, sind unten dargestellt.
 
-![FirstMigration](~/ef6/media/firstmigration.png)
+![Erste Migration](~/ef6/media/firstmigration.png)
 
 Das aktuelle Modell wird im Code (1) berechnet. Die erforderlichen Datenbankobjekte werden dann berechnet, indem das Modell unterscheiden (2) – da dies die erste Migration des Modells ist, unterscheiden sich lediglich verwendet ein leeres Modell für den Vergleich. Die erforderlichen Änderungen werden übergeben, um den Code-Generator, um den Code für eine Migration erforderlich (3) erstellen, die Visual Studio-Projektmappe (4) klicken Sie dann hinzugefügt wird.
 
@@ -66,7 +66,7 @@ An dieser Stelle würden Sie wahrscheinlich ausführen **Update-Database** gelte
 
 Später zurückkehren, und einige Änderungen an Ihrem Modell vornehmen – in unserem Beispiel fügen wir eine **Url** Eigenschaft **Blog**. Klicken Sie dann geben Sie einen Befehl wie z. B. **Add-Migration AddUrl** Änderungen per Gerüstbau eine Migration zum Anwenden der entsprechenden Datenbank einrichten. Die allgemeinen Schritte, die mit diesem Befehl wird, sind unten dargestellt.
 
-![SecondMigration](~/ef6/media/secondmigration.png)
+![Zweite Migration](~/ef6/media/secondmigration.png)
 
 Nur wie beim letzten Mal wird das aktuelle Modell von Code (1) berechnet. Aber dieses Mal sind vorhandene Migrationen, sodass das vorherige Modell aus der letzten Migration (2) abgerufen werden. Diese beiden Modelle sind mit die erforderlichen datenbankänderungen (3) finden, und klicken Sie dann den Vorgang abschließt wie zuvor.
 
@@ -96,14 +96,14 @@ Zuerst sehen wir uns diese eines Mergekonflikts ein konkretes Beispiel. Wir werd
 
 Das EF-Modell und die Migrationen über eine Reihe von Änderungen nachverfolgt. Für einen Ausgangspunkt haben sowohl Entwickler als auch mit den Quellcodeverwaltungs-Repository, synchronisiert, wie in der folgenden Abbildung dargestellt ist.
 
-!["Startingpoint"](~/ef6/media/startingpoint.png)
+![Startpunkt](~/ef6/media/startingpoint.png)
 
 Entwickler \#1 und Entwickler \#2 jetzt nimmt einige Änderungen an das EF-Modell in ihrem lokalen Code Basis. Entwickler \#1 fügt eine **Bewertung** Eigenschaft **Blog** – und generiert eine **AddRating** Migration, um die Änderungen auf die Datenbank anzuwenden. Entwickler \#2 Fügt eine **Leser** Eigenschaft **Blog** – und generiert den entsprechenden **AddReaders** Migration. Führen Sie sowohl Entwickler als auch **Update-Database**, zum Anwenden der Änderungen auf ihren lokalen Datenbanken, und fahren die Entwicklung der Anwendung.
 
 > [!NOTE]
 > Migrationen werden mit dem Präfix mit einem Zeitstempel, damit, die die Grafik darstellt der AddReaders-Migration von Developer \#2 wird nach der Migration AddRating Entwickler \#1. Ob Entwickler \#1 oder \#2 generiert die erste Migration macht keinerlei Auswirkung auf die Lösung von Problemen in einem Team oder der Prozess zum Zusammenführen, die wir im nächsten Abschnitt betrachten werde.
 
-![LocalChanges](~/ef6/media/localchanges.png)
+![Lokale Änderungen](~/ef6/media/localchanges.png)
 
 Es ist ein Glück Tag für Entwickler \#1 wiedergibt, um ihre Änderungen zuerst zu übermitteln. Da es sich bei keinem anderen Benutzer eingecheckt wurde, da sie ihrem Repository synchronisiert, können sie einfach ihre Änderungen senden, ohne jede zusammenführen.
 
@@ -147,7 +147,7 @@ Für diesen Ansatz, beginnend ab dem Zeitpunkt, der Sie feststellen, dass Sie Ä
 
 Hier ist der Status des Entwicklers \#2 des lokalen Codebasis nach der Verwendung dieses Ansatzes.
 
-![MergeMigration](~/ef6/media/mergemigration.png)
+![Zusammenführen der Migration](~/ef6/media/mergemigration.png)
 
 ### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>Option 2: Aktualisieren der modellmomentaufnahme in der letzten migration
 
@@ -176,7 +176,7 @@ Für diesen Ansatz, beginnend ab dem Zeitpunkt, der Sie feststellen, dass Sie Ä
 
 Hier ist der Status des Entwicklers \#2 des lokalen Codebasis nach der Verwendung dieses Ansatzes.
 
-![UpdatedMetadata](~/ef6/media/updatedmetadata.png)
+![Metadaten wurden aktualisiert](~/ef6/media/updatedmetadata.png)
 
 ## <a name="summary"></a>Zusammenfassung
 
