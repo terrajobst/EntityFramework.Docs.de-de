@@ -3,12 +3,12 @@ title: Entitäten mit Selbstnachverfolgung – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 8b555d211facd737aedf120a1ecfdc88d3903107
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: bd22df9e14fe71ae065baf1d747b1642dd7bafce
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998015"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250860"
 ---
 # <a name="self-tracking-entities"></a>Entitäten mit Selbstnachverfolgung
 
@@ -28,7 +28,7 @@ Dieses Vorlagenelement generiert zwei TT-Dateien (Textvorlagen):
 
 Informationen zu den ersten Schritten finden Sie auf der Seite [Self-Tracking Entities Walkthrough (Exemplarische Vorgehensweise zu Entitäten mit Selbstnachverfolgung)](walkthrough.md).  
 
-## <a name="considerations-when-working-with-self-tracking-entities"></a>Überlegungen für die Verwendung von Entitäten mit Selbstnachverfolgung  
+## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>Funktionale Überlegungen für die Verwendung von Entitäten mit Selbstnachverfolgung  
 > [!IMPORTANT]
 > Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](http://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
 
@@ -46,7 +46,7 @@ Beachten Sie bei der Verwendung von Entitäten mit Selbstnachverfolgung Folgende
 - Mit Entitäten mit Selbstnachverfolgung kann kein Lazy Loading durchgeführt werden.  
 - Eine binäre Serialisierung sowie die Serialisierung in ASP.NET-Zustandsverwaltungsobjekte werden nicht von Entitäten mit Selbstnachverfolgung unterstützt. Sie können jedoch die Vorlage anpassen, um die Unterstützung der binären Serialisierung hinzuzufügen. Weitere Informationen finden Sie unter [Using Binary Serialization and ViewState with Self-Tracking Entities (Verwenden von binärer Serialisierung und ViewState mit Entitäten mit Selbstnachverfolgung)](http://go.microsoft.com/fwlink/?LinkId=199208).  
 
-### <a name="security-considerations"></a>Sicherheitsüberlegungen  
+## <a name="security-considerations"></a>Sicherheitsüberlegungen  
 
 Die folgenden Sicherheitsüberlegungen sollten Sie beim Arbeiten mit Entitäten mit Selbstnachverfolgung berücksichtigen:  
 

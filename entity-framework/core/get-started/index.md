@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: 144cc8c8c9979e4ce24260c2975e6b10d4fdbb84
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c8d53b47d215c0db673c9058e9d78a7e2e7b895f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994922"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250737"
 ---
 # <a name="getting-started-with-entity-framework-core"></a>Erste Schritte mit Entity Framework Core
 
@@ -23,5 +23,17 @@ Für diese Einführungstutorials werden keine Vorkenntnisse zu Entity Framework 
 
 Entity Framework Core kann ein Modell basierend auf einer vorhandenen Datenbank oder eine Datenbank basierend auf Ihrem Modell erstellen. Es gibt Tutorials, bei denen beide Vorgehensweisen veranschaulicht werden.
 
+* .NET Framework (Konsolen-Apps, Windows Forms, WPF)
+  * [Neue Datenbank](full-dotnet/new-db.md)
+  * [Vorhandene Datenbank](full-dotnet/existing-db.md)
+* .NET Core (Windows, macOS, Linux)
+  * [Neue Datenbank](netcore/new-db-sqlite.md)
+* ASP.NET Core
+  * [Neue Datenbank](aspnetcore/new-db.md)
+  * [Vorhandene Datenbank](aspnetcore/existing-db.md)
+  * [EF Core und Razor Pages](/aspnet/core/data/ef-rp/intro)
+* Universelle Windows-Plattform (UWP)
+  * [Neue Datenbank](uwp/getting-started.md)
+
 > [!NOTE]  
-> Diese Tutorials und die dazugehörigen Beispiele wurden für die Verwendung von EF Core 2.0 aktualisiert (mit Ausnahme des UWP-Tutorials, das noch EF Core 1.1 verwendet). In den meisten Fällen sollte es jedoch möglich sein, Anwendungen früherer Releases mit minimalen Änderungen an den Anweisungen zu erstellen. 
+> Diese Tutorials sowie die zugehörigen Beispiele wurden aktualisiert und verwenden nun EF Core 2.1. In den meisten Fällen sollte es jedoch möglich sein, Anwendungen früherer Releases mit minimalen Änderungen an den Anweisungen zu erstellen. 

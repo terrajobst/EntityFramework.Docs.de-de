@@ -3,12 +3,12 @@ title: 'Code First-Migrationen: EF6'
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 216f850fb906cfc4b68eae76ae11ff167ed835ea
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6c530545968a26d13051d1e682557092bde13bb0
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993383"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251036"
 ---
 # <a name="code-first-migrations"></a>Code First-Migrationen
 Code First-Migrationen ist die empfohlene Methode, das Datenbankschema einer Anwendung weiterzuentwickeln, wenn Sie den Code First-Workflow verwenden. Code First-Migrationen stellt eine Reihe von Tools bereit, mit denen Sie folgende Aktionen ausführen können:
@@ -84,7 +84,7 @@ Bevor Sie Migrationen verwenden können, benötigen Sie ein Projekt und ein Code
 
 -   Wenn Sie nun die Anwendung ausführen, wird die Datenbank **MigrationsCodeDemo.BlogContext** erstellt.
 
-    ![DatabaseLocalDB](~/ef6/media/databaselocaldb.png)
+    ![Datenbank LocalDB](~/ef6/media/databaselocaldb.png)
 
 ## <a name="enabling-migrations"></a>Aktivieren von Migrationen
 

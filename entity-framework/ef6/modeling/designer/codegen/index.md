@@ -3,12 +3,12 @@ title: 'Designer-Vorlagen für die Codegenerierung: EF6'
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
-ms.openlocfilehash: 29e28dd4ebe0e5e6e3cddacb1d34202c2010f389
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e4d4aaa647baca9f85b85db1aadaade37abd6ff2
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994870"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251166"
 ---
 # <a name="designer-code-generation-templates"></a>Designer-Vorlagen für die Codegenerierung
 Bei der Erstellung eines Modells mit dem Entity Framework Designer werden die Klassen und der abgeleitete Kontext automatisch für Sie generiert. Zusätzlich zur Standardcodegenerierung bieten wir auch verschiedene Vorlagen, mit denen sich der generierte Code anpassen lässt. Diese Vorlagen werden als T4-Textvorlagen bereitgestellt und sind daher bei Bedarf anpassbar.
@@ -151,7 +151,7 @@ Die „Websites“-Vorlagen, z.B. **EF 5.x DbContext Generator für C\#-Websites
 
 Um eine Vorlage für die Codegenerierung zu verwenden, klicken Sie mit der rechten Maustaste auf eine leere Stelle auf der Entwurfsoberfläche im EF Designer, und klicken Sie auf **Add Code Generation Item...** (Codegenerierungselement hinzufügen...).
 
-![Add_Code_Gen_Item](~/ef6/media/add-code-gen-item.png)
+![Hinzufügen eines Codegenerierungselements](~/ef6/media/add-code-gen-item.png)
 
 Wenn Sie die Vorlage, die Sie verwenden möchten, bereits installiert haben (oder sie in Visual Studio enthalten war), ist sie entweder im Abschnitt **Code** oder im Abschnitt **Daten** im linken Menü verfügbar.
 
@@ -166,8 +166,8 @@ Wenn Sie Visual Studio 2012 verwenden, werden die neue TT-Dateien unter der EDMX
 > [!NOTE]
 > Bei Modellen, die in Visual Studio 2012 erstellt wurden, müssen Sie die für die Standardcodegenerierung verwendeten Vorlagen löschen. Andernfalls werden doppelte Klassen und Kontexte generiert. Die Standarddateien sind **&lt;Modellname&gt;.tt** und **&lt;Modellname&gt;.context.tt**. 
 
-![VS2012_Templates](~/ef6/media/vs2012-templates.png)
+![VS2012-Vorlagen](~/ef6/media/vs2012-templates.png)
 
 Wenn Sie Visual Studio 2010 verwenden, werden die TT-Dateien direkt zu Ihrem Projekt hinzugefügt.  
 
-![VS2010_Templates](~/ef6/media/vs2010-templates.png)
+![VS2010-Vorlagen](~/ef6/media/vs2010-templates.png)
