@@ -4,21 +4,33 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: cd4b7ddaafe9501c4bb9f2496e87f619d239ab62
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fd9086c9911cdb0890117d44c2787780aad9a7cb
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995259"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821360"
 ---
 # <a name="entity-framework-core-roadmap"></a>Wegweiser für Entity Framework Core
 
 > [!IMPORTANT]
 > Bitte beachten Sie, dass die Featuregruppen und Zeitpläne für künftige Releases jederzeit geändert werden können. Obwohl diese Seite bestmöglich aktualisiert wird, entspricht sie nicht immer den neuesten Plänen.
 
+## <a name="last-release-ef-core-21"></a>Letztes Release: EF Core 2.1
+
 Die stabile Version von EF Core 2.1 wurde am 30. Mai 2018 veröffentlicht. Weitere Informationen zu diesem Release finden Sie unter [Neue Features in EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
 
-Die [Planung](#release-planning-process) für das Release nach 2.1 ist noch nicht abgeschlossen.
+## <a name="future-releases"></a>Zukünftige Releases
+
+### <a name="ef-core-22"></a>EF Core 2.2
+
+Dieses Release umfasst zahlreiche Fehlerkorrekturen und eine relativ kleine Anzahl von neuen Features. Details zu diesem Release finden Sie in der [Ankündigung zu EF Core 2.2](https://github.com/aspnet/Announcements/issues/308). 
+
+### <a name="ef-core-30"></a>EF Core 3.0
+
+Obwohl der [Planungsprozess](#release-planning-process) für das nächste Release nach 2.2 noch nicht abgeschlossen ist, ist derzeit ein größeres Release geplant, das an .NET Core 3.0 und ASP.NET 3.0 angepasst wird. 
+
+Sie können diese [Abfrage in unserer Problemverfolgung](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc) verwenden, um die Arbeitselemente anzuzeigen, die diesem zukünftigen Release vorläufig zugeordnet wurden.
 
 ## <a name="schedule"></a>Zeitplan
 
