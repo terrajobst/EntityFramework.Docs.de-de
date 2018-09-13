@@ -1,14 +1,14 @@
 ---
 title: 'Neuigkeiten: EF6'
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
-ms.openlocfilehash: 9eb6a916d36ed41fcaea74564395695c048ab0f5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fcd6339f67a1512dd66220c59537d12cf0b22620
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996334"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490297"
 ---
 # <a name="whats-new-in-ef6"></a>Neuigkeiten in EF6
 
@@ -33,7 +33,7 @@ Eine weitere Verbesserung bei dieser neuen Version der EF-Tools ist, dass die EF
 
 ### <a name="ef-62-runtime"></a>EF 6.2-Runtime
 
-Die EF 6.2-Runtime wurde im Oktober 2017 für NuGet veröffentlicht.
+Die EF 6.2-Runtime wurde im Januar 2017 für NuGet veröffentlicht.
 Es ist vor allem der Verdienst unserer Community von Open-Source-Mitwirkenden, dass EF 6.2 zahlreiche [Fehlerbehebungen](https://github.com/aspnet/entityframework6/issues?utf8=%E2%9C%93&q=is%3Aissue%20milestone%3A6.2.0%20is%3Aclosed%20label%3Aclosed-fixed%20-label%3Aarea-tools%20label%3Atype-bug) und [Produktverbesserungen](https://github.com/aspnet/entityframework6/issues?utf8=%E2%9C%93&q=is%3Aissue%20milestone%3A6.2.0%20is%3Aclosed%20label%3Aclosed-fixed%20-label%3Aarea-tools%20label%3Atype-enhancement%20) enthält.
 
 Hier ist eine kurze Liste der wichtigsten Änderungen, die die EF 6.2-Runtime betreffen:
