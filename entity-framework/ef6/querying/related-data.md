@@ -1,14 +1,14 @@
 ---
 title: Laden von verbundenen Entitäten – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: c8417e18-a2ee-499c-9ce9-2a48cc5b468a
-ms.openlocfilehash: 091493f60c732573ca63adb8c65bc28606453d34
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1d59e6c079e306158ed918cde16e69c9cb084711
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995924"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489049"
 ---
 # <a name="loading-related-entities"></a>Laden verwandter Entitäten
 Entitätsframework unterstützt drei Möglichkeiten zum Laden verwandter Daten: Eager laden, lazy Loading und explizites Laden. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  

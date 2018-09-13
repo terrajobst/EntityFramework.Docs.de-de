@@ -1,14 +1,14 @@
 ---
 title: Code First für eine neue Datenbank – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 8ed1bfbc3536acc0d83b9c8ecdd180aeb44eff83
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 6572574ad36094ac0960c429cfa8606b6aebb492
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251049"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490745"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First für eine neue Datenbank
 Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.Net-Klassen. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
@@ -20,7 +20,7 @@ Dieses Video bietet eine Einführung in die Code First-Entwicklung für eine neu
 
 **Video**: [WMV](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
-# <a name="pre-requisites"></a>Voraussetzungen
+## <a name="pre-requisites"></a>Voraussetzungen
 
 Sie benötigen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert werden, um diese exemplarische Vorgehensweise abgeschlossen haben.
 

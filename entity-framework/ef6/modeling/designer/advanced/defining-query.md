@@ -1,14 +1,14 @@
 ---
 title: Definieren von Abfrage - Designer, EF - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: b1589dc12ccb50754c2e950932a2d82bc4869f6b
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250971"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489472"
 ---
 # <a name="defining-query---ef-designer"></a>Definieren der Abfrage – EF-Designer
 In dieser exemplarischen Vorgehensweise veranschaulicht das Hinzufügen eine definierende Abfrage und eine entsprechende Entität Geben Sie auf ein Modell mit dem EF Designer. Eine definierende Abfrage wird häufig verwendet, um Funktionen wie mit einer Datenbankansicht bereitzustellen, aber die Ansicht im Modell nicht in der Datenbank definiert ist. Einer definierenden Abfrage können Sie eine SQL-Anweisung ausführen, die im angegebenen die **DefiningQuery** Element eine EDMX-Datei. Weitere Informationen finden Sie unter **DefiningQuery** in die [SSDL-Spezifikation](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).

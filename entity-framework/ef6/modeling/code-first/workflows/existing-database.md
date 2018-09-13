@@ -1,14 +1,14 @@
 ---
 title: Code First mit einer vorhandenen Datenbank - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: fedfb921919582e2cdb5f3bc497f11889b972ad6
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: f05420beb3dff2d632151fcbf48986b0d9cd18ff
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251075"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490609"
 ---
 # <a name="code-first-to-an-existing-database"></a>Code First mit einer vorhandenen Datenbank
 Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Code First-Entwicklung für eine vorhandene Datenbank. Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.Net-Klassen. Optional zusätzliche Konfiguration kann mithilfe von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API ausgeführt werden.

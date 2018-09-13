@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: a637e5e2f75e16bc7b11b1a51abcbe16274a1c75
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250815"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490767"
 ---
 # <a name="provider-impacting-changes"></a>Anbieter-Auswirkungen auf Änderungen
 
@@ -52,3 +52,7 @@ Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwe
   * Führen Sie dieses Muster zum Hinzufügen von Unterstützung von räumlichen Daten an Ihren Anbieter, die über Anbieter hinweg konsistent ist.
 * https://github.com/aspnet/EntityFrameworkCore/pull/13199 – Fügen Sie erweiterte Debuggen für die diensterstellung-Anbieter hinzu
   * Ermöglicht das DbContextOptionsExtensions, um eine neue Schnittstelle zu implementieren, mit deren Hilfe können Benutzer zu verstehen, warum der internen Dienstanbieter neu erstellt wird
+* https://github.com/aspnet/EntityFrameworkCore/pull/13289 -Fügt CanConnect-API für die Verwendung von integritätsprüfungen
+  * Dieser Pull Request hinzugefügt, das Konzept der `CanConnect` das von ASP.NET Core-Health verwendet wird überprüft, um festzustellen, ob die Datenbank verfügbar ist. Standardmäßig ruft die relationalen Implementierung nur `Exist`, aber der Anbieter etwas anderes implementieren können, falls erforderlich. Nicht relationale Anbieter müssen zum Implementieren der neuen API in der Reihenfolge für die integritätsprüfung verwendet werden kann.
+* https://github.com/aspnet/EntityFrameworkCore/pull/13306 -Basis RelationalTypeMapping DbParameter-Größe nicht entsprechend zu aktualisieren
+  * Beenden Sie die Größe wird standardmäßig festgelegt, da dies Abschneiden führen kann. Anbieter müssen möglicherweise ihre eigene Logik hinzufügen, wenn die Größe muss festgelegt werden.

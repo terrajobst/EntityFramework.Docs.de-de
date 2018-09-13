@@ -1,14 +1,14 @@
 ---
 title: Datenbindung mit WPF – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: e6df90db17d39d3aa91275800a6414fed40fb5db
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 5bd4a9b98a12de41e4ec37c2cc7dbdc537210893
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251153"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490228"
 ---
 # <a name="databinding-with-wpf"></a>Datenbindung mit WPF
 Schritt für Schritt dieser exemplarischen Vorgehensweise zeigt, wie POCO-Typen an WPF-Steuerelemente in einem "Master / Detail-Formular gebunden wird. Die Anwendung verwendet Entity Framework-APIs, um Objekte mit Daten aus der Datenbank zu füllen, Nachverfolgen von Änderungen und Speichern von Daten in der Datenbank.

@@ -1,14 +1,14 @@
 ---
 title: 'Behandlung von Nebenläufigkeitskonflikten: EF 6'
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
-ms.openlocfilehash: f233af217287dd6bf35e5b7fea8e44974168b312
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 81ae186201fdfac331b1d4e7836b222545fe78b5
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997809"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489153"
 ---
 # <a name="handling-concurrency-conflicts"></a>Behandlung von Parallelitätskonflikten
 Die optimistische Parallelität umfasst das optimistisch versuchen, Ihre Entität in der Datenbank in der Hoffnung zu speichern, die die Daten nicht, da die Entität geändert hat geladen wurde. Wenn es sich, dass stellte sich verfügt über die Daten geändert, und klicken Sie dann eine Ausnahme ausgelöst, und Sie den Konflikt beheben müssen, bevor Sie versuchen, erneut zu speichern. In diesem Thema wird beschrieben, wie solche Ausnahmen im Entity Framework behandelt wird. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  

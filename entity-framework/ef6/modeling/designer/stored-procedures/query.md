@@ -1,14 +1,14 @@
 ---
 title: Gespeicherte Prozeduren – EF6 Designer Abfragen
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-ms.openlocfilehash: 29b7745c2229ce4a38ad81e11406474424adfa24
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6284b10261e6f3b9bf69d1c15e121988e4976d48
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994971"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489946"
 ---
 # <a name="designer-query-stored-procedures"></a>Designer-Abfrage, gespeicherten Prozeduren
 Dieser schrittweise erläuterten exemplarischen zeigen, wie das Entity Framework Designer (EF-Designer) zum Importieren von gespeicherter Prozeduren verwenden, in ein Modell aus, und rufen Sie dann die importierten gespeicherten Prozeduren, um Ergebnisse abzurufen. 
