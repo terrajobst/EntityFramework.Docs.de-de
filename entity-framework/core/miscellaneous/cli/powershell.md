@@ -80,7 +80,7 @@ Parameter:
 > [!NOTE]
 > Parameter in **fett** sind erforderlich, und diejenigen *Kursiv* sind mit Feldern fester Breite.
 
-### <a name="drop-database"></a>Drop-Datenbank
+### <a name="drop-database"></a>Drop-Database
 
 Löscht die Datenbank.
 
@@ -139,7 +139,7 @@ Parameter:
 > [!TIP]
 > To, From, und Output-Parameter unterstützen die Tab-Taste.
 
-### <a name="update-database"></a>Datenbank aktualisieren
+### <a name="update-database"></a>Update-Database
 
 |                                     |                                                                                                |
 |:------------------------------------|:-----------------------------------------------------------------------------------------------|
