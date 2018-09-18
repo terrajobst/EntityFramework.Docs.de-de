@@ -3,12 +3,12 @@ title: Entitäten mit Selbstnachverfolgung – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 3575977ceabe7d93ac48d5fac253eac1341e2353
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: b098736ef47e79c916f4bf054716022d5032eee5
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489699"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283809"
 ---
 # <a name="self-tracking-entities"></a>Entitäten mit Selbstnachverfolgung
 
@@ -39,12 +39,12 @@ Beachten Sie bei der Verwendung von Entitäten mit Selbstnachverfolgung Folgende
 - Wenn Sie das auf dem Client geänderte Diagramm an den Dienst senden und anschließend auf dem Client weiterhin dasselbe Diagramm verwenden möchten, müssen Sie das Diagramm auf dem Client manuell durchlaufen und die **AcceptChanges**-Methode für alle Objekte aufrufen, um die Änderungsnachverfolgung zurückzusetzen.  
 
     > Wenn Objekte im Diagramm Eigenschaften mit datenbankgenerierten Werten (z.B. Identitäts- oder Parallelitätswerte) enthalten, ersetzt Entity Framework die Werte dieser Eigenschaften durch die datenbankgenerierten Werte, nachdem die **SaveChanges**-Methode aufgerufen wurde. Sie können den Dienstvorgang implementieren, um gespeicherte Objekte oder eine Liste generierter Eigenschaftenwerte für die Objekte an den Client zurückzugeben. Der Client müsste dann die Objektinstanzen oder Objekteigenschaftenwerte durch die vom Dienstvorgang zurückgegebenen Objekte oder Eigenschaftenwerte ersetzen.  
-- Das Zusammenführen von Diagrammen aus mehreren Dienstanforderungen kann zu Objekten mit doppelten Schlüsselwerten im resultierenden Diagramm führen. Entity Framework entfernt die Objekte mit doppelten Schlüsseln nicht, wenn Sie die **ApplyChanges**-Methode aufrufen. Stattdessen wird eine Ausnahme ausgelöst. Halten Sie sich zur Vermeidung von Diagrammen mit doppelten Schlüsselwerten an eines der im folgenden Blog beschriebenen Muster: [Self-Tracking Entities: ApplyChanges and duplicate entities (Entitäten mit Selbstnachverfolgung: ApplyChanges und doppelte Entitäten)](http://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
+- Das Zusammenführen von Diagrammen aus mehreren Dienstanforderungen kann zu Objekten mit doppelten Schlüsselwerten im resultierenden Diagramm führen. Entity Framework entfernt die Objekte mit doppelten Schlüsseln nicht, wenn Sie die **ApplyChanges**-Methode aufrufen. Stattdessen wird eine Ausnahme ausgelöst. Halten Sie sich zur Vermeidung von Diagrammen mit doppelten Schlüsselwerten an eines der im folgenden Blog beschriebenen Muster: [Self-Tracking Entities: ApplyChanges and duplicate entities (Entitäten mit Selbstnachverfolgung: ApplyChanges und doppelte Entitäten)](https://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
 - Wenn Sie die Beziehung zwischen Objekten durch Festlegen der Fremdschlüsseleigenschaft ändern, wird die Verweisnavigationseigenschaft auf NULL festgelegt und nicht mit der entsprechenden Prinzipalentität auf dem Client synchronisiert. Nachdem das Diagramm an den Objektkontext angefügt wurde (z.B. nach dem Aufrufen der **ApplyChanges**-Methode), werden die Fremdschlüssel- und Navigationseigenschaften synchronisiert.  
 
     > Die nicht erfolgte Synchronisierung einer Verweisnavigationseigenschaft mit dem entsprechenden Prinzipalobjekt kann ein Problem sein, wenn Sie die Löschweitergabe für die Fremdschlüsselbeziehung festgelegt haben. Wenn Sie das Prinzipalobjekt löschen, wird der Löschvorgang nicht an die abhängigen Objekte weitergegeben. Wenn Sie Löschweitergaben festgelegt haben, verwenden Sie Navigationseigenschaften zum Ändern der Beziehungen, statt die Fremdschlüsseleigenschaft festzulegen.  
 - Mit Entitäten mit Selbstnachverfolgung kann kein Lazy Loading durchgeführt werden.  
-- Eine binäre Serialisierung sowie die Serialisierung in ASP.NET-Zustandsverwaltungsobjekte werden nicht von Entitäten mit Selbstnachverfolgung unterstützt. Sie können jedoch die Vorlage anpassen, um die Unterstützung der binären Serialisierung hinzuzufügen. Weitere Informationen finden Sie unter [Using Binary Serialization and ViewState with Self-Tracking Entities (Verwenden von binärer Serialisierung und ViewState mit Entitäten mit Selbstnachverfolgung)](http://go.microsoft.com/fwlink/?LinkId=199208).  
+- Eine binäre Serialisierung sowie die Serialisierung in ASP.NET-Zustandsverwaltungsobjekte werden nicht von Entitäten mit Selbstnachverfolgung unterstützt. Sie können jedoch die Vorlage anpassen, um die Unterstützung der binären Serialisierung hinzuzufügen. Weitere Informationen finden Sie unter [Using Binary Serialization and ViewState with Self-Tracking Entities (Verwenden von binärer Serialisierung und ViewState mit Entitäten mit Selbstnachverfolgung)](https://go.microsoft.com/fwlink/?LinkId=199208).  
 
 ## <a name="security-considerations"></a>Sicherheitsüberlegungen  
 

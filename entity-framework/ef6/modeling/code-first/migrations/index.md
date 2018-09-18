@@ -3,12 +3,12 @@ title: 'Code First-Migrationen: EF6'
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 0e2f33d3402929c93a339ea26dcade875da52a61
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 389da6c54e063a5dc598f98f8ac92cfc0e686019
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490284"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283848"
 ---
 # <a name="code-first-migrations"></a>Code First-Migrationen
 Code First-Migrationen ist die empfohlene Methode, das Datenbankschema einer Anwendung weiterzuentwickeln, wenn Sie den Code First-Workflow verwenden. Code First-Migrationen stellt eine Reihe von Tools bereit, mit denen Sie folgende Aktionen ausführen können:
@@ -96,7 +96,7 @@ Im Folgenden erfahren Sie, wie Sie weitere Änderungen am Modell vornehmen.
     public string Url { get; set; }
 ```
 
-Wenn Sie zu diesem Zeitpunkt die Anwendung erneut ausführen würden, würden Sie die Ausnahme „InvalidOperationException“ mit folgendem Text erhalten: *The model backing the 'BlogContext' context has changed since the database was created. Consider using Code First Migrations to update the database (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](http://go.microsoft.com/fwlink/?LinkId=238269)*) (Das Modell, das den Kontext „BlogContext“ unterstützt, wurde seit der Erstellung der Datenbank verändert. Verwenden Sie Code First-Migrationen, um die Datenbank zu aktualisieren).*
+Wenn Sie zu diesem Zeitpunkt die Anwendung erneut ausführen würden, würden Sie die Ausnahme „InvalidOperationException“ mit folgendem Text erhalten: *The model backing the 'BlogContext' context has changed since the database was created. Consider using Code First Migrations to update the database (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269)*) (Das Modell, das den Kontext „BlogContext“ unterstützt, wurde seit der Erstellung der Datenbank verändert. Verwenden Sie Code First-Migrationen, um die Datenbank zu aktualisieren).*
 
 Beginnen Sie daher mit der Verwendung von Code First-Migrationen. Aktivieren Sie dafür zunächst Migrationen für den Kontext.
 
