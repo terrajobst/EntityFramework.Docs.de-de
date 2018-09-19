@@ -21,9 +21,9 @@ Die Entity Framework Core .NET Command-Line-Tools sind eine Erweiterung der plat
 <a name="installing-the-tools"></a>Installieren der Tools
 --------------------
 > [!NOTE]
-> Das .NET Core SDK 2.1.300-Version sowie neuere **Dotnet Ef** Befehle, die mit EF Core 2.0 und höheren Versionen kompatibel sind. Aus diesem Grund wird, wenn Sie neuere Versionen von .NET Core SDK und EF Core-Runtime verwenden, ist keine Installation erforderlich und können Sie den restlichen Teil dieses Abschnitts ignorieren.
+> Das .NET Core SDK 2.1.300-Version sowie neuere **dotnet ef** Befehle, die mit EF Core 2.0 und höheren Versionen kompatibel sind. Aus diesem Grund wird, wenn Sie neuere Versionen von .NET Core SDK und EF Core-Runtime verwenden, ist keine Installation erforderlich und können Sie den restlichen Teil dieses Abschnitts ignorieren.
 >
-> Auf der anderen Seite der **Dotnet Ef** Tool in .NET Core SDK 2.1.300-Version enthalten und höher ist nicht kompatibel mit EF Core-Version 1.0 und 1.1. Bevor Sie ein Projekt, das dieser früheren Versionen von EF Core auf einem Computer verwendet, die .NET Core SDK 2.1.300 arbeiten können, oder höher installiert, müssen Sie auch Version 2.1.200 installieren oder eine frühere SDK und konfigurieren Sie die Anwendung zur Verwendung dieser älteren Version durch Ändern der  ["Global.JSON"](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) Datei. Diese Datei befindet sich normalerweise in dem Projektmappenverzeichnis (eine über das Projekt). Anschließend können Sie mit der Installlation Anweisung unten fortfahren.
+> Auf der anderen Seite der **dotnet ef** Tool in .NET Core SDK 2.1.300-Version enthalten und höher ist nicht kompatibel mit EF Core-Version 1.0 und 1.1. Bevor Sie ein Projekt, das dieser früheren Versionen von EF Core auf einem Computer verwendet, die .NET Core SDK 2.1.300 arbeiten können, oder höher installiert, müssen Sie auch Version 2.1.200 installieren oder eine frühere SDK und konfigurieren Sie die Anwendung zur Verwendung dieser älteren Version durch Ändern der  ["Global.JSON"](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) Datei. Diese Datei befindet sich normalerweise in dem Projektmappenverzeichnis (eine über das Projekt). Anschließend können Sie mit der Installlation Anweisung unten fortfahren.
 
 Für frühere Versionen von .NET Core SDK können Sie die EF Core-.NET-Befehlszeilentools mithilfe der folgenden Schritte installieren:
 
@@ -62,7 +62,7 @@ Wenn Sie alles richtig war, sollten Sie erfolgreich den folgenden Befehl an eine
 dotnet ef
 ```
 
-<a name="using-the-tools"></a>Mithilfe der tools
+<a name="using-the-tools"></a>Mithilfe der Tools
 ---------------
 Wenn Sie einen Befehl aufrufen, sind zwei Projekte beteiligt:
 
@@ -96,7 +96,7 @@ Allgemeine Optionen:
 <a name="commands"></a>Befehle
 --------
 
-### <a name="dotnet-ef-database-drop"></a>Dotnet Ef Löschen einer Datenbank
+### <a name="dotnet-ef-database-drop"></a>dotnet ef database drop
 
 Löscht die Datenbank.
 
@@ -107,7 +107,7 @@ Optionen:
 | -f | `--force`   | Bestätigen Sie nicht.                                           |
 |    | `--dry-run` | Anzeigen der Datenbank gelöscht werden würde, dies jedoch noch nicht. |
 
-### <a name="dotnet-ef-database-update"></a>Dotnet-Ef-Datenbankupdates
+### <a name="dotnet-ef-database-update"></a>dotnet ef database update
 
 Aktualisiert die Datenbank für eine angegebene Migration.
 
@@ -117,15 +117,15 @@ Argumente:
 |:-------------|:---------------------------------------------------------------------------------------------|
 | `<MIGRATION>` | Die Ziel-Migration. Wenn der Wert 0 ist, werden bei allen Migrationen rückgängig gemacht werden. Ist standardmäßig auf die letzte Migration ein. |
 
-### <a name="dotnet-ef-dbcontext-info"></a>Dotnet Ef-Dbcontext-Informationen
+### <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext info
 
 Ruft Informationen über einen "DbContext"-Typ ab.
 
-### <a name="dotnet-ef-dbcontext-list"></a>Dotnet Ef-Dbcontext-Liste
+### <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext list
 
 Listet die verfügbare Typen von "DbContext".
 
-### <a name="dotnet-ef-dbcontext-scaffold"></a>Dotnet Ef-Dbcontext-scaffold
+### <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext scaffold
 
 Erstellt das Gerüst für einen DbContext und Entitätstypen Typen für eine Datenbank.
 
@@ -149,7 +149,7 @@ Optionen:
 | -t              | `--table <TABLE_NAME>`...                | Die Tabellen zur Generierung von Entitätstypen für werden soll.                                                         |
 |                 | `--use-database-names`                    | Verwenden Sie Tabellen- und Spaltennamen direkt aus der Datenbank.                                           |
 
-### <a name="dotnet-ef-migrations-add"></a>Fügen Dotnet Ef-Migrationen
+### <a name="dotnet-ef-migrations-add"></a>dotnet ef migrations add
 
 Fügt eine neue Migration hinzu.
 
@@ -165,11 +165,11 @@ Optionen:
 |:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | <nobr>-o</nobr> | <nobr> `--output-dir <PATH>` </nobr> | Das Verzeichnis (und Sub-Namespace) verwenden. Pfade sind relativ zum Projektverzeichnis. Der Standardwert ist "Migrations". |
 
-### <a name="dotnet-ef-migrations-list"></a>Dotnet Ef Migrations-Liste
+### <a name="dotnet-ef-migrations-list"></a>dotnet ef migrations list
 
 Listet die verfügbaren Migrationen.
 
-### <a name="dotnet-ef-migrations-remove"></a>Dotnet-Ef-Migrationen zu entfernen.
+### <a name="dotnet-ef-migrations-remove"></a>dotnet ef migrations remove
 
 Entfernt die letzte Migration.
 
@@ -179,7 +179,7 @@ Optionen:
 |:---|:--------|:----------------------------------------------------------------------|
 | -f | `--force` | Die Migration zurückgesetzt, wenn es auf die Datenbank angewendet wurde. |
 
-### <a name="dotnet-ef-migrations-script"></a>Dotnet Ef Migrations-Skript
+### <a name="dotnet-ef-migrations-script"></a>dotnet ef migrations script
 
 Generiert ein SQL-Skript von Migrationen.
 
