@@ -3,19 +3,19 @@ title: Vorab generierte Mapping-Ansichten – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-ms.openlocfilehash: cb374d007252710b42c31061bf15d7d32af0db27
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: da5d59ba5a899a0ee3a1eec3db0da1b4ece871d8
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489244"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284108"
 ---
 # <a name="pre-generated-mapping-views"></a>Vorab generierte Mapping-Ansichten
 Bevor das Entity Framework einer Abfrage ausführen oder Änderungen an der Datenquelle speichern können, müssen sie einen Satz von Ansichten der Zuordnung Zugriff auf die Datenbank erstellen. Diese Zuordnung Ansichten sind eine Reihe von Entity SQL-Anweisung, die die Datenbank auf abstrakte Weise darstellen, und sind Teil der Metadaten, die pro Anwendungsdomäne zwischengespeichert wird. Wenn Sie mehrere Instanzen desselben Kontexts in der gleichen Anwendungsdomäne erstellen, werden diese Zuordnung Ansichten aus objektkontextinstanzen, statt die zwischengespeicherten Metadaten wiederverwendet. Da Zuordnung Generieren von Sichten einen signifikanten Teil der Gesamtkosten der Ausführung der ersten Abfrage ist, ermöglicht dem Entity Framework vorgenerieren von Ansichten der Zuordnung, und schließen Sie sie in das kompilierte Projekt an. Weitere Informationen finden Sie unter [Überlegungen zur Leistung (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
 
 ## <a name="generating-mapping-views-with-the-ef-power-tools"></a>Generieren von Ansichten mit EF Powertools zuordnen
 
-Die einfachste Möglichkeit zum vorgenerieren von Ansichten ist die Verwendung der [Entity Framework Power Tools](http://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d). Nachdem Sie die Power-Tools installiert haben, müssen Sie eine Menüoption zum Generieren von Sichten, wie unten gezeigt.
+Die einfachste Möglichkeit zum vorgenerieren von Ansichten ist die Verwendung der [Entity Framework Power Tools](https://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d). Nachdem Sie die Power-Tools installiert haben, müssen Sie eine Menüoption zum Generieren von Sichten, wie unten gezeigt.
 
 -   Für **Code First** Modelle mit der rechten Maustaste auf die Codedatei, die Ihr "DbContext"-Klasse enthält.
 -   Für **EF Designer** Modelle mit der rechten Maustaste auf die EDMX-Datei.

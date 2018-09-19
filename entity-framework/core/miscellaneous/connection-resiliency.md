@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: d6e31cf2b9b783ea503703536d159b34bf2e18c0
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d5101d0622ddc2c90ddded16b9ec6cc4eb814c36
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997189"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283835"
 ---
 # <a name="connection-resiliency"></a>Verbindungsresilienz
 
@@ -49,7 +49,7 @@ Die Lösung besteht darin, manuell die Ausführungsstrategie mit einem Delegaten
 
 ## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>Fehler beim Commit der Transaktion und das Problem Idempotenz
 
-Im Allgemeinen wird bei ein Verbindungsfehler die aktuelle Transaktion ein Rollback ausgeführt. Allerdings, wenn die Verbindung getrennt wird, während die Transaktion wird ein Commit der resultierende Status der Transaktion ist unbekannt. Finden Sie in diesem [Blogbeitrag](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) Weitere Details.
+Im Allgemeinen wird bei ein Verbindungsfehler die aktuelle Transaktion ein Rollback ausgeführt. Allerdings, wenn die Verbindung getrennt wird, während die Transaktion wird ein Commit der resultierende Status der Transaktion ist unbekannt. Finden Sie in diesem [Blogbeitrag](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) Weitere Details.
 
 In der Standardeinstellung die Ausführungsstrategie wiederholt den Vorgang wurde ein Rollback für die Transaktion, wobei jedoch ist dies nicht der Fall dies zu einer Ausnahme führt, wenn der neue Datenbankstatus nicht kompatibel ist oder zu führen **datenbeschädigung** Wenn die Vorgang beruht nicht auf einem bestimmten Status, z. B. wenn eine neue Zeile mit automatisch generierter Schlüsselwerte einfügen.
 

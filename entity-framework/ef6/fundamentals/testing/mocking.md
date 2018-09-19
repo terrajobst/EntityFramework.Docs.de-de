@@ -3,12 +3,12 @@ title: Testen mit der ein Mockframework - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bd66a638-d245-44d4-8e71-b9c6cb335cc7
-ms.openlocfilehash: b50d0afb52ae1c496f2734ecc015cdaaa060aff7
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 20799b55b2dffe27637c4fb84df06cee174e6dd9
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489972"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284095"
 ---
 # <a name="testing-with-a-mocking-framework"></a>Testen mit der ein Mockframework
 > [!NOTE]
@@ -235,7 +235,7 @@ Entitätsframework 6 eingeführt, einen Satz von Erweiterungsmethoden, die verwe
 
 Da Entity Framework-Abfragen von LINQ zu verwenden vornehmen, werden die Erweiterungsmethoden für "IQueryable" und "IEnumerable" definiert. Jedoch, da sie nur so ausgelegt sind, die mit Entity Framework verwendet werden den folgenden Fehler erhalten Sie, wenn Sie versuchen, diese in einer LINQ-Abfrage verwenden, die nicht von Entity Framework-Abfrage:
 
-> Die Quelle "IQueryable" implementiert keine IDbAsyncEnumerable{0}. Nur Quellen, die IDbAsyncEnumerable implementieren können für asynchrone Vorgänge von Entity Framework verwendet werden. Weitere Informationen finden Sie [ http://go.microsoft.com/fwlink/?LinkId=287068 ](http://go.microsoft.com/fwlink/?LinkId=287068).  
+> Die Quelle "IQueryable" implementiert keine IDbAsyncEnumerable{0}. Nur Quellen, die IDbAsyncEnumerable implementieren können für asynchrone Vorgänge von Entity Framework verwendet werden. Weitere Informationen finden Sie [ http://go.microsoft.com/fwlink/?LinkId=287068 ](https://go.microsoft.com/fwlink/?LinkId=287068).  
 
 Während die asynchronen Methoden nur bei der Ausführung für ein EF-Abfragen unterstützt werden, sollten Sie beim Ausführen mit einer in-Memory testen, Double, der ein "DbSet" im Komponententest verwenden.  
 

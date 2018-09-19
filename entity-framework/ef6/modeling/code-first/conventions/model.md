@@ -3,12 +3,12 @@ title: Modellbasierten Konventionen - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
-ms.openlocfilehash: fb79164f71cb3afff705a83f5078a13d043abca8
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 80b722730b4ca6c9d00a8611b6c9027e8bc9fe61
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490934"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283706"
 ---
 # <a name="model-based-conventions"></a>Modellbasierten Konventionen
 > [!NOTE]
@@ -146,7 +146,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
 ## <a name="extending-existing-conventions"></a>Erweitern Sie vorhandene Konventionen   
 
-Falls also eine Konvention zu schreiben, die einem der Konventionen entspricht, die Entity Framework bereits auf das Modell angewendet wird, können Sie immer diese Konvention zur Vermeidung von Grund auf neu schreiben müssen, erweitern.  Ein Beispiel hierfür ist, Ersetzen der vorhandene Id, die, die Konvention, die durch eine benutzerdefinierte.   Ein weiterer Vorteil ist, überschreiben die wichtigsten Konvention ist, dass die überschriebene Methode aufgerufen wird nur dann, wenn kein Schlüssel bereits erkannt oder explizit konfiguriert. Eine Liste von Konventionen, die von Entity Framework verwendet ist hier verfügbar: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
+Falls also eine Konvention zu schreiben, die einem der Konventionen entspricht, die Entity Framework bereits auf das Modell angewendet wird, können Sie immer diese Konvention zur Vermeidung von Grund auf neu schreiben müssen, erweitern.  Ein Beispiel hierfür ist, Ersetzen der vorhandene Id, die, die Konvention, die durch eine benutzerdefinierte.   Ein weiterer Vorteil ist, überschreiben die wichtigsten Konvention ist, dass die überschriebene Methode aufgerufen wird nur dann, wenn kein Schlüssel bereits erkannt oder explizit konfiguriert. Eine Liste von Konventionen, die von Entity Framework verwendet ist hier verfügbar: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
 
 ``` csharp
 using System.Data.Entity;
@@ -209,4 +209,4 @@ public class BlogContext : DbContext
 
 ## <a name="notes"></a>Hinweise  
 
-Eine Liste von Konventionen, die derzeit vom Entity Framework angewendet werden, ist verfügbar, in der MSDN-Dokumentation: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Diese Liste direkt über Ihren Quellcode per Pull abgerufen wird.  Der Quellcode für Entity Framework 6 ist verfügbar auf [GitHub](https://github.com/aspnet/entityframework6/) und viele der Konventionen von Entity Framework verwendete sind gute Ausgangspunkte für benutzerdefinierte Modell Konventionen basierten.  
+Eine Liste von Konventionen, die derzeit vom Entity Framework angewendet werden, ist verfügbar, in der MSDN-Dokumentation: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Diese Liste direkt über Ihren Quellcode per Pull abgerufen wird.  Der Quellcode für Entity Framework 6 ist verfügbar auf [GitHub](https://github.com/aspnet/entityframework6/) und viele der Konventionen von Entity Framework verwendete sind gute Ausgangspunkte für benutzerdefinierte Modell Konventionen basierten.  

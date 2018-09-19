@@ -3,12 +3,12 @@ title: Automatische Code First-Migrationen – EF 6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
-ms.openlocfilehash: 21f77ef49db2485047292b3928b4f63d49dbb180
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 2713afaf09707b7696e90464aac9945c2d82d274
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489985"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283913"
 ---
 # <a name="automatic-code-first-migrations"></a>Automatische Code First-Migrationen
 Automatische Migrationen können Sie Code First-Migrationen verwenden, ohne dass eine Codedatei im Projekt für jede Änderung, die Sie vornehmen. Nicht alle Änderungen automatisch angewendet werden können – z. B. Umbenennen der Spalte ist die Verwendung einer codebasierten Migration erforderlich.
@@ -97,7 +97,7 @@ Im Folgenden erfahren Sie, wie Sie weitere Änderungen am Modell vornehmen.
     public string Url { get; set; }
 ```
 
-Wenn Sie zu diesem Zeitpunkt die Anwendung erneut ausführen würden, würden Sie die Ausnahme „InvalidOperationException“ mit folgendem Text erhalten: *The model backing the 'BlogContext' context has changed since the database was created. Consider using Code First Migrations to update the database (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](http://go.microsoft.com/fwlink/?LinkId=238269)*) (Das Modell, das den Kontext „BlogContext“ unterstützt, wurde seit der Erstellung der Datenbank verändert. Verwenden Sie Code First-Migrationen, um die Datenbank zu aktualisieren).*
+Wenn Sie zu diesem Zeitpunkt die Anwendung erneut ausführen würden, würden Sie die Ausnahme „InvalidOperationException“ mit folgendem Text erhalten: *The model backing the 'BlogContext' context has changed since the database was created. Consider using Code First Migrations to update the database (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269)*) (Das Modell, das den Kontext „BlogContext“ unterstützt, wurde seit der Erstellung der Datenbank verändert. Verwenden Sie Code First-Migrationen, um die Datenbank zu aktualisieren).*
 
 Beginnen Sie daher mit der Verwendung von Code First-Migrationen. Da wir automatische Migrationen verwenden möchten wir werden an die **– EnableAutomaticMigrations** wechseln.
 

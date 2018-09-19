@@ -3,12 +3,12 @@ title: Database First – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: b499dea02cbeaa64f6ef87bf89cc739110c8b560
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: c81025fe7c3ad6398f003f7be2a3f9f072eec327
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490921"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284082"
 ---
 # <a name="database-first"></a>Zunächst-Datenbank
 Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Verwendung von Entity Framework Database First-Entwicklung. Datenbank können Sie für das reverse Engineering zuerst ein Modell aus einer vorhandenen Datenbank. Das Modell kann im Entity Framework Designer wird in einer EDMX-Datei (EDMX-Erweiterung) gespeichert und angezeigt und bearbeitet werden. Die Klassen, die Sie in Ihrer Anwendung interagieren, werden automatisch aus der EDMX-Datei generiert.
@@ -18,13 +18,13 @@ Dieses Video bietet eine Einführung in die Verwendung von Entity Framework Data
 
 **Präsentation:** [Rowan Miller](http://romiller.com/)
 
-**Video**: [WMV](http://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](http://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
+**Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
 Sie benötigen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert werden, um diese exemplarische Vorgehensweise abgeschlossen haben.
 
-Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch haben [NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installiert.
+Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch haben [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installiert.
 
  
 
@@ -124,7 +124,7 @@ Wenn Sie in Visual Studio 2010 arbeiten gibt es jedoch einige zusätzliche Schri
 Zuerst muss, um die neueste Version von Entity Framework von NuGet zu erhalten.
 
 -   **Projekt:&gt; NuGet-Pakete verwalten... ** 
-     *Wenn Ihnen keine der **NuGet-Pakete verwalten... ** Option Sie installieren die [neueste Version von NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
+     *Wenn Ihnen keine der **NuGet-Pakete verwalten... ** Option Sie installieren die [neueste Version von NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
 -   Wählen Sie die **Online** Registerkarte
 -   Wählen Sie die **EntityFramework** Paket
 -   Klicken Sie auf **installieren**

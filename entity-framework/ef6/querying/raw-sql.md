@@ -3,12 +3,12 @@ title: Unformatierte SQL-Abfragen – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
-ms.openlocfilehash: 6b00648939ccedffeed09b4e1d6e8d70fa262a36
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 168aee67186535bf2a50705e86bfc5a88147e369
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490583"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283783"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 Entitätsframework können Sie Abfragen mithilfe von LINQ mit Ihrer Entitätsklassen. Allerdings gibt es möglicherweise Fälle, in denen Sie Abfragen mithilfe roher SQL direkt in der Datenbank ausführen möchten. Dazu gehört das Aufrufen von gespeicherter Prozeduren, die für die Code First-Modelle hilfreich sein können, die derzeit keine Zuordnung zu gespeicherten Prozeduren unterstützen. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
@@ -82,4 +82,4 @@ Beachten Sie, dass alle Änderungen an Daten in der Datenbank mithilfe von Execu
 
 ### <a name="output-parameters"></a>Ausgabeparameter  
 
-Wenn Output-Parameter verwendet werden, werden ihre Werte nicht verfügbar, bis die Ergebnisse vollständig gelesen wurden. Dies liegt an der zugrunde liegende Verhalten von DbDataReader, finden Sie unter [Abrufen von Daten mit einem DataReader](http://go.microsoft.com/fwlink/?LinkID=398589) Weitere Details.  
+Wenn Output-Parameter verwendet werden, werden ihre Werte nicht verfügbar, bis die Ergebnisse vollständig gelesen wurden. Dies liegt an der zugrunde liegende Verhalten von DbDataReader, finden Sie unter [Abrufen von Daten mit einem DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) Weitere Details.  

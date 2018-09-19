@@ -3,18 +3,18 @@ title: Behandlung von Fehlern für den Commit Transaction - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
-ms.openlocfilehash: 71d5649dd993bb95e24165a55d812c71a37f03f3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 27e75e6a1919ee2300fe76cfcdf67cceaad887b3
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489387"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283653"
 ---
 # <a name="handling-transaction-commit-failures"></a>Behandeln Fehler bei commit
 > [!NOTE]
 > **EF6.1 oder höher, nur** -APIs, die Funktionen erläutert, die auf dieser Seite usw. in Entity Framework 6.1 eingeführt wurden. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
 
-Als Teil des 6.1 werden wir eine neue verbindungsstabilitätsfeature für EF eingeführt: die Möglichkeit zum Erkennen und automatisch wiederhergestellt, vorübergehenden verbindungsausfällen führen in der Bestätigung der Transaktion ein Commit ausgeführt haben. Die vollständigen Details des Szenarios sind am besten im Blogbeitrag beschrieben [SQL-Datenbankverbindungen und das Problem Idempotenz](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Zusammenfassend lässt sich sagen ist das Szenario an, dass wenn eine Ausnahme, während ein Transaktionscommit ausgelöst wird es zwei mögliche Ursachen gibt:  
+Als Teil des 6.1 werden wir eine neue verbindungsstabilitätsfeature für EF eingeführt: die Möglichkeit zum Erkennen und automatisch wiederhergestellt, vorübergehenden verbindungsausfällen führen in der Bestätigung der Transaktion ein Commit ausgeführt haben. Die vollständigen Details des Szenarios sind am besten im Blogbeitrag beschrieben [SQL-Datenbankverbindungen und das Problem Idempotenz](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Zusammenfassend lässt sich sagen ist das Szenario an, dass wenn eine Ausnahme, während ein Transaktionscommit ausgelöst wird es zwei mögliche Ursachen gibt:  
 
 1. Fehler bei das Commit der Transaktion auf dem server
 2. Das Commit der Transaktion, die auf dem Server war erfolgreich, aber ein Verbindungsproblem verhindert die Benachrichtigung über den Client erreicht  
@@ -69,4 +69,4 @@ Vor dem EF 6.1 war nicht Mechanismus zum Commit-Fehler in der EF-Produkt zu beha
      - Wenn die Zeile nicht vorhanden ist, verwenden Sie eine Ausführungsstrategie, um den aktuellen Vorgang wiederholen.  
   4. Wenn der Commit erfolgreich ausgeführt wird, löschen Sie die entsprechende Zeile aus, um die Vergrößerung der Tabelle zu vermeiden.  
 
-[In diesem Blogbeitrag](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) enthält Beispielcode, um dies zu erreichen unter SQL Azure.  
+[In diesem Blogbeitrag](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) enthält Beispielcode, um dies zu erreichen unter SQL Azure.  

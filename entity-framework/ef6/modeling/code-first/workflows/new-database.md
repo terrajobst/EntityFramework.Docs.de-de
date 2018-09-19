@@ -3,12 +3,12 @@ title: Code First für eine neue Datenbank – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 6572574ad36094ac0960c429cfa8606b6aebb492
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: a19db575b685cde98509fff4a0efaf26106b26bc
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490745"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284121"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First für eine neue Datenbank
 Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.Net-Klassen. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
@@ -18,13 +18,13 @@ Dieses Video bietet eine Einführung in die Code First-Entwicklung für eine neu
 
 **Präsentation:** [Rowan Miller](http://romiller.com/)
 
-**Video**: [WMV](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
+**Video**: [WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
 Sie benötigen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert werden, um diese exemplarische Vorgehensweise abgeschlossen haben.
 
-Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch haben [NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installiert.
+Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch haben [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installiert.
 
 ## <a name="1-create-the-application"></a>1. Erstellen der Anwendung
 
@@ -71,7 +71,7 @@ Jetzt ist es Zeit, einen abgeleiteten Kontext, steht für eine Sitzung mit der D
 Beginnen wir nun auf die Typen aus dem Entity Framework verwenden, daher wir das EntityFramework NuGet-Paket hinzufügen müssen.
 
 -   **Projekt:&gt; NuGet-Pakete verwalten...**
-    Hinweis: Wenn Sie nicht über verfügen den **NuGet-Pakete verwalten...** Option Sie installieren die [neueste Version von NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
+    Hinweis: Wenn Sie nicht über verfügen den **NuGet-Pakete verwalten...** Option Sie installieren die [neueste Version von NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
 -   Wählen Sie die **Online** Registerkarte
 -   Wählen Sie die **EntityFramework** Paket
 -   Klicken Sie auf **installieren**
