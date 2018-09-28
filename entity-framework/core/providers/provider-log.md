@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: a637e5e2f75e16bc7b11b1a51abcbe16274a1c75
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: fa1362c84cb1954360d337670fb5fef21e5cf165
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490767"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415743"
 ---
 # <a name="provider-impacting-changes"></a>Anbieter-Auswirkungen auf Änderungen
 
@@ -56,3 +56,6 @@ Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwe
   * Dieser Pull Request hinzugefügt, das Konzept der `CanConnect` das von ASP.NET Core-Health verwendet wird überprüft, um festzustellen, ob die Datenbank verfügbar ist. Standardmäßig ruft die relationalen Implementierung nur `Exist`, aber der Anbieter etwas anderes implementieren können, falls erforderlich. Nicht relationale Anbieter müssen zum Implementieren der neuen API in der Reihenfolge für die integritätsprüfung verwendet werden kann.
 * https://github.com/aspnet/EntityFrameworkCore/pull/13306 -Basis RelationalTypeMapping DbParameter-Größe nicht entsprechend zu aktualisieren
   * Beenden Sie die Größe wird standardmäßig festgelegt, da dies Abschneiden führen kann. Anbieter müssen möglicherweise ihre eigene Logik hinzufügen, wenn die Größe muss festgelegt werden.
+* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng: Geben Sie immer Spaltentyp für die decimal-Spalten
+  * Konfigurieren Sie immer Spaltentyp für dezimalspalten in eingerüsteten Code und nicht gemäß der Konvention konfigurieren.
+  * Anbieter sollten keine Änderungen auf ihrer Seite erforderlich.

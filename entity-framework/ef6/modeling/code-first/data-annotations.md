@@ -3,12 +3,12 @@ title: Der erste Datenanmerkungen – EF6 Code
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 38ae52543ed99e5a1c1da7d19a2e15d168e3a1bd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 54e27f1b866da14d68db66ca5eca5a6dde819e26
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490106"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415808"
 ---
 # <a name="code-first-data-annotations"></a>Code der ersten Datenanmerkungen
 > [!NOTE]
@@ -319,13 +319,13 @@ Hier ist die Tabelle auf, nachdem es erneut generiert wird. Der Tabellenname Int
 Eine wichtige Datenbankfunktionen ist die Möglichkeit, Eigenschaften berechnet haben. Wenn Sie Ihren Code First Klassen, um eine Zuordnung sind Tabellen mit berechneten Spalten, Sie nicht möchten, Entity Framework, um zu versuchen, diese Spalten aktualisieren. Jedoch EF diese Werte aus der Datenbank zurück, nachdem Sie eingefügt oder aktualisiert Daten haben sollen. Die Anmerkung "databasegenerated" können Sie um die Eigenschaften in der Klasse zusammen mit der Enumeration berechnet zu kennzeichnen. Keine anderen Enumerationen sind und die Identität.
 
 ``` csharp
-    [DatabaseGenerated(DatabaseGenerationOption.Computed)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated { get; set; }
 ```
 
 Sie können die Datenbank in Byte oder Timestamp-Spalten generiert wird, wenn Code zuerst die Datenbank generiert, andernfalls sollte nur verwendet, wenn zu vorhandenen Datenbanken verweisen, da der Code zunächst nicht die Formel für die berechnete Spalte bestimmen kann.
 
-Sie lesen höher, in der Standardeinstellung wird eine wichtige Eigenschaft, die eine ganze Zahl ist ein Identitätsschlüssel in der Datenbank sein. Das wäre identisch mit "databasegenerated" auf DatabaseGenerationOption.Identity festlegen. Wenn Sie einen Identitätsschlüssel werden nicht möchten, können Sie den Wert auf DatabaseGenerationOption.None festlegen.
+Sie lesen höher, in der Standardeinstellung wird eine wichtige Eigenschaft, die eine ganze Zahl ist ein Identitätsschlüssel in der Datenbank sein. Das wäre identisch mit "databasegenerated" auf DatabaseGeneratedOption.Identity festlegen. Wenn Sie einen Identitätsschlüssel werden nicht möchten, können Sie den Wert auf DatabaseGeneratedOption.None festlegen.
 
  
 

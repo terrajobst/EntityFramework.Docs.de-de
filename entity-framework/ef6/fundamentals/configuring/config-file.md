@@ -3,12 +3,12 @@ title: Dienstkonfigurations-Dateieinstellungen - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
-ms.openlocfilehash: 949ad4f030205753c5fbf9b95f4d183d8c0d1fe7
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: faba4e406b9f26f5bed6149f75c59da362d84692
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490871"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415782"
 ---
 # <a name="configuration-file-settings"></a>Dienstkonfigurations-Dateieinstellungen
 Entitätsframework ermöglicht eine Reihe von Einstellungen aus der Konfigurationsdatei angegeben werden. EF befolgt in der Regel ein "Konvention geht vor Konfiguration"-Prinzip: alle Einstellungen, die in diesem Post erörterten über ein Standardverhalten verfügen, müssen Sie nur Gedanken um die Einstellung ändern, wenn der Standardwert nicht mehr auf Ihre Anforderungen erfüllt.  
@@ -153,7 +153,7 @@ Der Konfigurationsabschnitt können Sie eine standardverbindungsfactory angeben,
 
 Bei der Installation von EF-NuGet-Paket wurde eine standardverbindungsfactory registriert, der auf SQL Express oder LocalDB, je nachdem, welche Schlüssel Sie installiert haben verweist.  
 
-Um ein verbindungsfactory festzulegen, geben Sie die Assembly qualifizierte Typname in der **DeafultConnectionFactory** Element.  
+Um ein verbindungsfactory festzulegen, geben Sie die Assembly qualifizierte Typname in der **DefaultConnectionFactory** Element.  
 
 > [!NOTE]
 > Ein qualifizierter Name der Assembly ist, einen Namespace gekennzeichneten Namen, gefolgt von einem Komma, klicken Sie dann auf die Assembly, die der Typ befindet. Sie können optional auch angeben, die Assemblyversion, Kultur und Token des öffentlichen Schlüssels.  
