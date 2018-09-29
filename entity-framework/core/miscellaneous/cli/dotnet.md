@@ -1,202 +1,284 @@
 ---
-title: .NET Core-CLI - EF Core
+title: EF Core-Tools-Verweis (.NET CLI) – EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/06/2017
+ms.date: 09/20/2018
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 3534336f1caeed96079b35c739d694a536919020
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: a280aad0344a89c41c30be27a249df3c28c44c70
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489608"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447169"
 ---
-<a name="ef-core-net-command-line-tools"></a><span data-ttu-id="17a79-102">EF .NET Core-Befehlszeilentools</span><span class="sxs-lookup"><span data-stu-id="17a79-102">EF Core .NET Command-line Tools</span></span>
-===============================
-<span data-ttu-id="17a79-103">Die Entity Framework Core .NET Command-Line-Tools sind eine Erweiterung der plattformübergreifenden **Dotnet** Befehl, der Teil von der [.NET Core SDK][2].</span><span class="sxs-lookup"><span data-stu-id="17a79-103">The Entity Framework Core .NET Command-line Tools are an extension to the cross-platform **dotnet** command, which is part of the [.NET Core SDK][2].</span></span>
+# <a name="entity-framework-core-tools-reference---net-cli"></a><span data-ttu-id="368ab-102">Referenz zu Entity Framework Core Tools - .NET CLI</span><span class="sxs-lookup"><span data-stu-id="368ab-102">Entity Framework Core tools reference - .NET CLI</span></span>
 
-> [!TIP]
-> <span data-ttu-id="17a79-104">Wenn Sie Visual Studio verwenden, empfehlen wir [PMC-Tools] [ 1] seit sie stattdessen ein besseres ganzheitliches Erlebnis bieten.</span><span class="sxs-lookup"><span data-stu-id="17a79-104">If you're using Visual Studio, we recommend [the PMC Tools][1] instead since they provide a more integrated experience.</span></span>
+<span data-ttu-id="368ab-103">Die Befehlszeilenschnittstelle (CLI)-Tools für Entity Framework Core führen Sie während der Entwurfszeit-Entwicklungsaufgaben.</span><span class="sxs-lookup"><span data-stu-id="368ab-103">The command-line interface (CLI) tools for Entity Framework Core perform design-time development tasks.</span></span> <span data-ttu-id="368ab-104">Angenommen, sie erstellen [Migrationen](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), Anwenden von Migrationen und Code für ein Modell basierend auf einer vorhandenen Datenbank generieren.</span><span class="sxs-lookup"><span data-stu-id="368ab-104">For example, they create [migrations](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), apply migrations, and generate code for a model based on an existing database.</span></span> <span data-ttu-id="368ab-105">Die Befehle sind eine Erweiterung für die plattformübergreifende [Dotnet](/dotnet/core/tools) Befehl, der Teil von der [.NET Core SDK](https://www.microsoft.com/net/core).</span><span class="sxs-lookup"><span data-stu-id="368ab-105">The commands are an extension to the cross-platform [dotnet](/dotnet/core/tools) command, which is part of the [.NET Core SDK](https://www.microsoft.com/net/core).</span></span> <span data-ttu-id="368ab-106">Diese Tools funktionieren mit .NET Core-Projekten.</span><span class="sxs-lookup"><span data-stu-id="368ab-106">These tools work with .NET Core projects.</span></span>
 
-<a name="installing-the-tools"></a><span data-ttu-id="17a79-105">Installieren der Tools</span><span class="sxs-lookup"><span data-stu-id="17a79-105">Installing the tools</span></span>
---------------------
-> [!NOTE]
-> <span data-ttu-id="17a79-106">Das .NET Core SDK 2.1.300-Version sowie neuere **dotnet ef** Befehle, die mit EF Core 2.0 und höheren Versionen kompatibel sind.</span><span class="sxs-lookup"><span data-stu-id="17a79-106">The .NET Core SDK version 2.1.300 and newer includes **dotnet ef** commands that are compatible with EF Core 2.0 and later versions.</span></span> <span data-ttu-id="17a79-107">Aus diesem Grund wird, wenn Sie neuere Versionen von .NET Core SDK und EF Core-Runtime verwenden, ist keine Installation erforderlich und können Sie den restlichen Teil dieses Abschnitts ignorieren.</span><span class="sxs-lookup"><span data-stu-id="17a79-107">Therefore if you are using recent versions of the .NET Core SDK and the EF Core runtime, no installation is required and you can ignore the rest of this section.</span></span>
->
-> <span data-ttu-id="17a79-108">Auf der anderen Seite der **dotnet ef** Tool in .NET Core SDK 2.1.300-Version enthalten und höher ist nicht kompatibel mit EF Core-Version 1.0 und 1.1.</span><span class="sxs-lookup"><span data-stu-id="17a79-108">On the other hand, the **dotnet ef** tool contained in .NET Core SDK version 2.1.300 and newer is not compatible with EF Core version 1.0 and 1.1.</span></span> <span data-ttu-id="17a79-109">Bevor Sie ein Projekt, das dieser früheren Versionen von EF Core auf einem Computer verwendet, die .NET Core SDK 2.1.300 arbeiten können, oder höher installiert, müssen Sie auch Version 2.1.200 installieren oder eine frühere SDK und konfigurieren Sie die Anwendung zur Verwendung dieser älteren Version durch Ändern der  ["Global.JSON"](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) Datei.</span><span class="sxs-lookup"><span data-stu-id="17a79-109">Before you can work with a project that uses these earlier versions of EF Core on a computer that has .NET Core SDK 2.1.300 or newer installed, you must also install version 2.1.200 or older of the SDK and configure the application to use that older version by modifying its [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) file.</span></span> <span data-ttu-id="17a79-110">Diese Datei befindet sich normalerweise in dem Projektmappenverzeichnis (eine über das Projekt).</span><span class="sxs-lookup"><span data-stu-id="17a79-110">This file is normally included in the solution directory (one above the project).</span></span> <span data-ttu-id="17a79-111">Anschließend können Sie mit der Installlation Anweisung unten fortfahren.</span><span class="sxs-lookup"><span data-stu-id="17a79-111">Then you can proceed with the installlation instruction below.</span></span>
+<span data-ttu-id="368ab-107">Wenn Sie Visual Studio verwenden, empfehlen wir die [-Paket-Manager-Konsole Tools](powershell.md) stattdessen:</span><span class="sxs-lookup"><span data-stu-id="368ab-107">If you're using Visual Studio, we recommend the [Package Manager Console tools](powershell.md) instead:</span></span>
+* <span data-ttu-id="368ab-108">Sie automatisch mit dem aktuellen Projekt, das in ausgewählten funktionieren die **-Paket-Manager-Konsole** ohne, dass Sie manuell zwischen Verzeichnissen zu wechseln.</span><span class="sxs-lookup"><span data-stu-id="368ab-108">They automatically work with the current project selected in the **Package Manager Console** without requiring that you manually switch directories.</span></span>
+* <span data-ttu-id="368ab-109">Öffnen Sie automatisch Dateien, die von einem Befehl generiert wird, nachdem der Befehl abgeschlossen ist.</span><span class="sxs-lookup"><span data-stu-id="368ab-109">They automatically open files generated by a command after the command is completed.</span></span>
 
-<span data-ttu-id="17a79-112">Für frühere Versionen von .NET Core SDK können Sie die EF Core-.NET-Befehlszeilentools mithilfe der folgenden Schritte installieren:</span><span class="sxs-lookup"><span data-stu-id="17a79-112">For previous versions of the .NET Core SDK, you can install the EF Core .NET Command-line Tools using these steps:</span></span>
+## <a name="installing-the-tools"></a><span data-ttu-id="368ab-110">Installieren der Tools</span><span class="sxs-lookup"><span data-stu-id="368ab-110">Installing the tools</span></span>
 
-1. <span data-ttu-id="17a79-113">Bearbeiten Sie die Projektdatei aus, und fügen Sie Microsoft.EntityFrameworkCore.Tools.DotNet als ein Element "dotnetclitoolreference" (siehe unten)</span><span class="sxs-lookup"><span data-stu-id="17a79-113">Edit the project file and add Microsoft.EntityFrameworkCore.Tools.DotNet as a DotNetCliToolReference item (See below)</span></span>
-2. <span data-ttu-id="17a79-114">Führen Sie die folgenden Befehle aus:</span><span class="sxs-lookup"><span data-stu-id="17a79-114">Run the following commands:</span></span>
+<span data-ttu-id="368ab-111">Der Installationsvorgang zu starten, hängt von Projekttyp und der Version ab:</span><span class="sxs-lookup"><span data-stu-id="368ab-111">The installation procedure depends on project type and version:</span></span>
 
-       dotnet add package Microsoft.EntityFrameworkCore.Design
-       dotnet restore
+* <span data-ttu-id="368ab-112">ASP.NET Core Version 2.1 und höher</span><span class="sxs-lookup"><span data-stu-id="368ab-112">ASP.NET Core version 2.1 and later</span></span>
+* <span data-ttu-id="368ab-113">EF Core 2.x</span><span class="sxs-lookup"><span data-stu-id="368ab-113">EF Core 2.x</span></span>
+* <span data-ttu-id="368ab-114">EF Core 1.x</span><span class="sxs-lookup"><span data-stu-id="368ab-114">EF Core 1.x</span></span>
 
-<span data-ttu-id="17a79-115">Das resultierende Projekt sollte etwa wie folgt aussehen:</span><span class="sxs-lookup"><span data-stu-id="17a79-115">The resulting project should look something like this:</span></span>
+### <a name="aspnet-core-21"></a><span data-ttu-id="368ab-115">ASP.NET Core 2.1 +</span><span class="sxs-lookup"><span data-stu-id="368ab-115">ASP.NET Core 2.1+</span></span>
 
-``` xml
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
-                      Version="2.0.0"
-                      PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
-                            Version="2.0.0" />
-  </ItemGroup>
-</Project>
+* <span data-ttu-id="368ab-116">Installieren Sie die aktuelle [.NET Core SDK](https://www.microsoft.com/net/download/core).</span><span class="sxs-lookup"><span data-stu-id="368ab-116">Install the current [.NET Core SDK](https://www.microsoft.com/net/download/core).</span></span> <span data-ttu-id="368ab-117">Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio 2017 verfügen.</span><span class="sxs-lookup"><span data-stu-id="368ab-117">The SDK has to be installed even if you have the latest version of Visual Studio 2017.</span></span>
+
+  <span data-ttu-id="368ab-118">Dies ist alles, was für ASP.NET Core 2.1 + erforderlich ist, da die `Microsoft.EntityFrameworkCore.Design` Paket befindet sich auf die [Microsoft.AspNetCore.App metapaket](/aspnet/core/fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="368ab-118">This is all that is needed for ASP.NET Core 2.1+ because the `Microsoft.EntityFrameworkCore.Design` package is included in the [Microsoft.AspNetCore.App metapackage](/aspnet/core/fundamentals/metapackage-app).</span></span>
+
+### <a name="ef-core-2x-not-aspnet-core"></a><span data-ttu-id="368ab-119">EF Core 2.x (nicht in ASP.NET Core)</span><span class="sxs-lookup"><span data-stu-id="368ab-119">EF Core 2.x (not ASP.NET Core)</span></span>
+
+<span data-ttu-id="368ab-120">Die `dotnet ef` Befehle sind in .NET Core SDK enthalten, aber so aktivieren Sie die Befehle müssen Sie installieren die `Microsoft.EntityFrameworkCore.Design` Paket.</span><span class="sxs-lookup"><span data-stu-id="368ab-120">The `dotnet ef` commands are included in the .NET Core SDK, but to enable the commands you have to install the `Microsoft.EntityFrameworkCore.Design` package.</span></span>
+
+* <span data-ttu-id="368ab-121">Installieren Sie die aktuelle [.NET Core SDK](https://www.microsoft.com/net/download/core).</span><span class="sxs-lookup"><span data-stu-id="368ab-121">Install the current [.NET Core SDK](https://www.microsoft.com/net/download/core).</span></span> <span data-ttu-id="368ab-122">Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio 2017 verfügen.</span><span class="sxs-lookup"><span data-stu-id="368ab-122">The SDK has to be installed even if you have the latest version of Visual Studio 2017.</span></span>
+
+* <span data-ttu-id="368ab-123">Installieren Sie die neueste stabile `Microsoft.EntityFrameworkCore.Design` Paket.</span><span class="sxs-lookup"><span data-stu-id="368ab-123">Install the latest stable `Microsoft.EntityFrameworkCore.Design` package.</span></span> 
+
+  ``` Console   
+  dotnet add package Microsoft.EntityFrameworkCore.Design   
+  ```
+
+### <a name="ef-core-1x"></a><span data-ttu-id="368ab-124">EF Core 1.x</span><span class="sxs-lookup"><span data-stu-id="368ab-124">EF Core 1.x</span></span>
+
+* <span data-ttu-id="368ab-125">Installieren Sie .NET Core SDK, Version 2.1.200.</span><span class="sxs-lookup"><span data-stu-id="368ab-125">Install the .NET Core SDK version 2.1.200.</span></span> <span data-ttu-id="368ab-126">Höhere Versionen sind nicht kompatibel mit CLI-Tools für EF Core 1.0 und 1.1.</span><span class="sxs-lookup"><span data-stu-id="368ab-126">Later versions are not compatible with CLI tools for EF Core 1.0 and 1.1.</span></span>
+
+* <span data-ttu-id="368ab-127">Konfigurieren Sie die Anwendung auf Version des SDKS verwenden die 2.1.200 durch Ändern der ["Global.JSON"](/dotnet/core/tools/global-json) Datei.</span><span class="sxs-lookup"><span data-stu-id="368ab-127">Configure the application to use the 2.1.200 SDK version by modifying its [global.json](/dotnet/core/tools/global-json) file.</span></span> <span data-ttu-id="368ab-128">Diese Datei befindet sich normalerweise in dem Projektmappenverzeichnis (eine über das Projekt).</span><span class="sxs-lookup"><span data-stu-id="368ab-128">This file is normally included in the solution directory (one above the project).</span></span> 
+
+* <span data-ttu-id="368ab-129">Bearbeiten die Projektdatei und fügen `Microsoft.EntityFrameworkCore.Tools.DotNet` als eine `DotNetCliToolReference` Element.</span><span class="sxs-lookup"><span data-stu-id="368ab-129">Edit the project file and add `Microsoft.EntityFrameworkCore.Tools.DotNet` as a `DotNetCliToolReference` item.</span></span> <span data-ttu-id="368ab-130">Geben Sie die neueste Version der 1.x, z. B.: 1.1.6.</span><span class="sxs-lookup"><span data-stu-id="368ab-130">Specify the latest 1.x version, for example: 1.1.6.</span></span> <span data-ttu-id="368ab-131">Finden Sie in der Beispielprojektdatei wird am Ende dieses Abschnitts.</span><span class="sxs-lookup"><span data-stu-id="368ab-131">See the project file example at the end of this section.</span></span>
+
+* <span data-ttu-id="368ab-132">Installieren Sie die neueste Version 1.x der der `Microsoft.EntityFrameworkCore.Design` Verpacken, z.B.:</span><span class="sxs-lookup"><span data-stu-id="368ab-132">Install the latest 1.x version of the `Microsoft.EntityFrameworkCore.Design` package, for example:</span></span>
+
+  ```console
+  dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
+  ```
+
+  <span data-ttu-id="368ab-133">Mit beiden Paketverweise hinzugefügt wird sieht die Projektdatei etwa folgendermaßen aus:</span><span class="sxs-lookup"><span data-stu-id="368ab-133">With both package references added, the project file looks something like this:</span></span>
+
+  ``` xml
+  <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <OutputType>Exe</OutputType>
+      <TargetFramework>netcoreapp1.1</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
+                        Version="1.1.6"
+                         PrivateAssets="All" />
+    </ItemGroup>
+    <ItemGroup>
+       <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
+                              Version="1.1.6" />
+    </ItemGroup>
+  </Project>
+  ```
+
+  <span data-ttu-id="368ab-134">Einen Paketverweis mit `PrivateAssets="All"` ist nicht verfügbar gemacht werden, für Projekte, die dieses Projekt verweisen.</span><span class="sxs-lookup"><span data-stu-id="368ab-134">A package reference with `PrivateAssets="All"` isn't exposed to projects that reference this project.</span></span> <span data-ttu-id="368ab-135">Diese Einschränkung ist besonders nützlich für Pakete, die in der Regel nur während der Entwicklung verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="368ab-135">This restriction is especially useful for packages that are typically only used during development.</span></span>
+
+### <a name="verify-installation"></a><span data-ttu-id="368ab-136">Überprüfen der installation</span><span class="sxs-lookup"><span data-stu-id="368ab-136">Verify installation</span></span>
+
+<span data-ttu-id="368ab-137">Führen Sie die folgenden Befehle aus, um sicherzustellen, dass EF Core-CLI-Tools ordnungsgemäß installiert sind:</span><span class="sxs-lookup"><span data-stu-id="368ab-137">Run the following commands to verify that EF Core CLI tools are correctly installed:</span></span>
+
+  ``` Console
+  dotnet restore
+  dotnet ef
+  ```
+
+<span data-ttu-id="368ab-138">Die Ausgabe des Befehls identifiziert die Version der Tools verwendet:</span><span class="sxs-lookup"><span data-stu-id="368ab-138">The output from the command identifies the version of the tools in use:</span></span>
+
+```console
+
+                     _/\__
+               ---==/    \\
+         ___  ___   |.    \|\
+        | __|| __|  |  )   \\\
+        | _| | _|   \_/ |  //|\\
+        |___||_|       /   \\\/\\
+
+Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
+
+<Usage documentation follows, not shown.>
 ```
 
-> [!NOTE]
-> <span data-ttu-id="17a79-116">Einen Paketverweis mit `PrivateAssets="All"` bedeutet, es ist nicht verfügbar gemacht, um Projekte, die dieses Projekt verweisen, handelt es sich besonders für Pakete, die in der Regel nur während der Entwicklung verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="17a79-116">A package reference with `PrivateAssets="All"` means it isn't exposed to projects that reference this project, which is especially useful for packages that are typically only used during development.</span></span>
+## <a name="using-the-tools"></a><span data-ttu-id="368ab-139">Mithilfe der Tools</span><span class="sxs-lookup"><span data-stu-id="368ab-139">Using the tools</span></span>
 
-<span data-ttu-id="17a79-117">Wenn Sie alles richtig war, sollten Sie erfolgreich den folgenden Befehl an einer Eingabeaufforderung ausführen können.</span><span class="sxs-lookup"><span data-stu-id="17a79-117">If you did everything right, you should be able to successfully run the following command in a command prompt.</span></span>
+<span data-ttu-id="368ab-140">Bevor Sie mit den Tools müssen Sie möglicherweise ein Startprojekt erstellen, oder legen Sie die Umgebung.</span><span class="sxs-lookup"><span data-stu-id="368ab-140">Before using the tools, you might have to create a startup project or set the environment.</span></span>
 
-``` Console
-dotnet ef
+### <a name="target-project-and-startup-project"></a><span data-ttu-id="368ab-141">Zielprojekt und Startup-Projekt</span><span class="sxs-lookup"><span data-stu-id="368ab-141">Target project and startup project</span></span>
+
+<span data-ttu-id="368ab-142">Die Befehle finden Sie in einem *Projekt* und ein *Startprojekt*.</span><span class="sxs-lookup"><span data-stu-id="368ab-142">The commands refer to a *project* and a *startup project*.</span></span>
+
+* <span data-ttu-id="368ab-143">Die *Projekt* ist auch bekannt als die *Zielprojekt* da es sich handelt, in dem Sie die Befehle zum Hinzufügen oder Entfernen von Dateien.</span><span class="sxs-lookup"><span data-stu-id="368ab-143">The *project* is also known as the *target project* because it's where the commands add or remove files.</span></span> <span data-ttu-id="368ab-144">Standardmäßig ist das Projekt im aktuellen Verzeichnis das Zielprojekt.</span><span class="sxs-lookup"><span data-stu-id="368ab-144">By default, the project in the current directory is the target project.</span></span> <span data-ttu-id="368ab-145">Sie können ein anderes Projekt als Zielprojekt angeben, mit der <nobr> `--project` </nobr> Option.</span><span class="sxs-lookup"><span data-stu-id="368ab-145">You can specify a different project as target project by using the <nobr>`--project`</nobr> option.</span></span>
+
+* <span data-ttu-id="368ab-146">Die *Startprojekt* ist diejenige, die die Tools erstellen und ausführen.</span><span class="sxs-lookup"><span data-stu-id="368ab-146">The *startup project* is the one that the tools build and run.</span></span> <span data-ttu-id="368ab-147">Die Tools werden zum Ausführen der Anwendungscode zur Entwurfszeit zum Abrufen von Informationen über das Projekt, z. B. die Datenbank-Verbindungszeichenfolge und die Konfiguration des Modells.</span><span class="sxs-lookup"><span data-stu-id="368ab-147">The tools have to execute application code at design time to get information about the project, such as the database connection string and the configuration of the model.</span></span> <span data-ttu-id="368ab-148">Standardmäßig ist das Projekt im aktuellen Verzeichnis das Startprojekt an.</span><span class="sxs-lookup"><span data-stu-id="368ab-148">By default, the project in the current directory is the startup project.</span></span> <span data-ttu-id="368ab-149">Sie können ein anderes Projekt als Startprojekt angeben, mit der <nobr> `--startup-project` </nobr> Option.</span><span class="sxs-lookup"><span data-stu-id="368ab-149">You can specify a different project as startup project by using the <nobr>`--startup-project`</nobr> option.</span></span>
+
+<span data-ttu-id="368ab-150">Das Startprojekt und ein Zielprojekt sind häufig die gleichen Projekt.</span><span class="sxs-lookup"><span data-stu-id="368ab-150">The startup project and target project are often the same project.</span></span> <span data-ttu-id="368ab-151">Ein typisches Szenario, in dem sie separate Projekte sind, ist:</span><span class="sxs-lookup"><span data-stu-id="368ab-151">A typical scenario where they are separate projects is when:</span></span>
+
+* <span data-ttu-id="368ab-152">Die EF Core-Kontext und Entitätsklassen-Klassen sind in einer .NET Core-Klassenbibliothek.</span><span class="sxs-lookup"><span data-stu-id="368ab-152">The EF Core context and entity classes are in a .NET Core class library.</span></span>
+* <span data-ttu-id="368ab-153">Ein .NET Core-Konsolen-app oder Web-app verweist auf die Klassenbibliothek.</span><span class="sxs-lookup"><span data-stu-id="368ab-153">A .NET Core console app or web app references the class library.</span></span>
+
+<span data-ttu-id="368ab-154">Es ist auch möglich, [platzieren migrationscode in eine Klassenbibliothek, die getrennt von den Entity Framework Core-Kontext](xref:core/managing-schemas/migrations/projects).</span><span class="sxs-lookup"><span data-stu-id="368ab-154">It's also possible to [put migrations code in a class library separate from the EF Core context](xref:core/managing-schemas/migrations/projects).</span></span>
+
+### <a name="other-target-frameworks"></a><span data-ttu-id="368ab-155">Andere Zielframeworks</span><span class="sxs-lookup"><span data-stu-id="368ab-155">Other target frameworks</span></span>
+
+<span data-ttu-id="368ab-156">Die CLI-Tools funktionieren mit .NET Core-Projekten und .NET Framework-Projekten.</span><span class="sxs-lookup"><span data-stu-id="368ab-156">The CLI tools work with .NET Core projects and .NET Framework projects.</span></span> <span data-ttu-id="368ab-157">Apps, die EF Core-Modell in einer .NET Standard-Klassenbibliothek verfügen, möglicherweise keiner .NET Core- oder .NET Framework-Projekt.</span><span class="sxs-lookup"><span data-stu-id="368ab-157">Apps that have the EF Core model in a .NET Standard class library might not have a .NET Core or .NET Framework project.</span></span> <span data-ttu-id="368ab-158">Dies ist z. B. "true" mit Xamarin und die universelle Windows-Plattform-apps.</span><span class="sxs-lookup"><span data-stu-id="368ab-158">For example, this is true of Xamarin and Universal Windows Platform apps.</span></span> <span data-ttu-id="368ab-159">In solchen Fällen können Sie ein Konsolenanwendungsprojekt für .NET Core erstellen, dessen einziger Zweck ist es, als Startprojekt für die Tools zu fungieren.</span><span class="sxs-lookup"><span data-stu-id="368ab-159">In such cases, you can create a .NET Core console app project whose only purpose is to act as startup project for the tools.</span></span> <span data-ttu-id="368ab-160">Das Projekt kann ein dummyprojekt ohne realen Code sein &mdash; ist nur erforderlich, ein Ziel für die Tools bereitzustellen.</span><span class="sxs-lookup"><span data-stu-id="368ab-160">The project can be a dummy project with no real code &mdash; it is only needed to provide a target for the tooling.</span></span>
+
+<span data-ttu-id="368ab-161">Warum ist ein dummyprojekt erforderlich?</span><span class="sxs-lookup"><span data-stu-id="368ab-161">Why is a dummy project required?</span></span> <span data-ttu-id="368ab-162">Wie bereits erwähnt, haben die Tools zum Ausführen der Anwendungscode zur Entwurfszeit an.</span><span class="sxs-lookup"><span data-stu-id="368ab-162">As mentioned earlier, the tools have to execute application code at design time.</span></span> <span data-ttu-id="368ab-163">Zu diesem Zweck müssen sie die .NET Core-Runtime zu verwenden.</span><span class="sxs-lookup"><span data-stu-id="368ab-163">To do that, they need to use the .NET Core runtime.</span></span> <span data-ttu-id="368ab-164">Wenn die EF Core-Modell in einem Projekt, die auf .NET Core oder .NET Framework abzielt ist, nutzen die EF Core-Tools die Laufzeit aus dem Projekt.</span><span class="sxs-lookup"><span data-stu-id="368ab-164">When the EF Core model is in a project that targets .NET Core or .NET Framework, the EF Core tools borrow the runtime from the project.</span></span> <span data-ttu-id="368ab-165">Sie können nicht dies tun, wenn das EF Core-Modell in einer .NET Standard-Klassenbibliothek ist.</span><span class="sxs-lookup"><span data-stu-id="368ab-165">They can't do that if the EF Core model is in a .NET Standard class library.</span></span> <span data-ttu-id="368ab-166">.NET Standard ist keine tatsächliche Implementierung von .NET. Es ist eine Spezifikation eines Satzes von APIs, die .NET-Implementierungen unterstützt wird müssen.</span><span class="sxs-lookup"><span data-stu-id="368ab-166">The .NET Standard is not an actual .NET implementation; it's a specification of a set of APIs that .NET implementations must support.</span></span> <span data-ttu-id="368ab-167">Aus diesem Grund ist .NET Standard nicht ausreichend für die EF Core-Tools, um Anwendungscode auszuführen.</span><span class="sxs-lookup"><span data-stu-id="368ab-167">Therefore .NET Standard is not sufficient for the EF Core tools to execute application code.</span></span> <span data-ttu-id="368ab-168">Dem dummyprojekt, die Sie erstellen, für die Verwendung als Startup-Projekt enthält eine konkrete Zielplattform, die in der die Tools die .NET Standard-Klassenbibliothek laden können.</span><span class="sxs-lookup"><span data-stu-id="368ab-168">The dummy project you create to use as startup project provides a concrete target platform into which the tools can load the .NET Standard class library.</span></span> 
+
+### <a name="aspnet-core-environment"></a><span data-ttu-id="368ab-169">ASP.NET Core-Umgebung</span><span class="sxs-lookup"><span data-stu-id="368ab-169">ASP.NET Core environment</span></span>
+
+<span data-ttu-id="368ab-170">Legen Sie zum Angeben der Umgebung für ASP.NET Core-Projekten die **"aspnetcore_environment"** Umgebungsvariablen vor dem Ausführen der Befehle.</span><span class="sxs-lookup"><span data-stu-id="368ab-170">To specify the environment for ASP.NET Core projects, set the **ASPNETCORE_ENVIRONMENT** environment variable before running commands.</span></span>
+
+## <a name="common-options"></a><span data-ttu-id="368ab-171">Allgemeine Optionen</span><span class="sxs-lookup"><span data-stu-id="368ab-171">Common options</span></span>
+
+|                   | <span data-ttu-id="368ab-172">Option</span><span class="sxs-lookup"><span data-stu-id="368ab-172">Option</span></span>                             | <span data-ttu-id="368ab-173">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-173">Description</span></span>                                                                                                                                                                                                                                                   |
+|-------------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                   | `--json`                           | <span data-ttu-id="368ab-174">Zeigen Sie die JSON-Ausgabe.</span><span class="sxs-lookup"><span data-stu-id="368ab-174">Show JSON output.</span></span>                                                                                                                                                                                                                                             |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`            | <span data-ttu-id="368ab-175">Die `DbContext` zu verwendende Klasse an.</span><span class="sxs-lookup"><span data-stu-id="368ab-175">The `DbContext` class to use.</span></span> <span data-ttu-id="368ab-176">Name der Klasse nur oder mit Namespaces vollqualifiziert.</span><span class="sxs-lookup"><span data-stu-id="368ab-176">Class name only or fully qualified with namespaces.</span></span>  <span data-ttu-id="368ab-177">Wenn diese Option ausgelassen wird, findet das EF Core die Context-Klasse.</span><span class="sxs-lookup"><span data-stu-id="368ab-177">If this option is omitted, EF Core will find the context class.</span></span> <span data-ttu-id="368ab-178">Diese Option ist erforderlich, wenn es mehrere Kontextklassen sind.</span><span class="sxs-lookup"><span data-stu-id="368ab-178">If there are multiple context classes, this option is required.</span></span>                                            |
+| `-p`              | `--project <PROJECT>`              | <span data-ttu-id="368ab-179">Relativer Pfad in den Projektordner des Zielprojekts.</span><span class="sxs-lookup"><span data-stu-id="368ab-179">Relative path to the project folder of the target project.</span></span>  <span data-ttu-id="368ab-180">Standardwert ist der aktuelle Ordner an.</span><span class="sxs-lookup"><span data-stu-id="368ab-180">Default value is the current folder.</span></span>                                                                                                                                                              |
+| `-s`              | `--startup-project <PROJECT>`      | <span data-ttu-id="368ab-181">Relativer Pfad in den Projektordner für das Startprojekt.</span><span class="sxs-lookup"><span data-stu-id="368ab-181">Relative path to the project folder of the startup project.</span></span> <span data-ttu-id="368ab-182">Standardwert ist der aktuelle Ordner an.</span><span class="sxs-lookup"><span data-stu-id="368ab-182">Default value is the current folder.</span></span>                                                                                                                                                              |
+|                   | `--framework <FRAMEWORK>`          | <span data-ttu-id="368ab-183">Die [Zielframework-Moniker](/dotnet/standard/frameworks#supported-target-framework-versions) für die [Zielframework](/dotnet/standard/frameworks).</span><span class="sxs-lookup"><span data-stu-id="368ab-183">The [Target Framework Moniker](/dotnet/standard/frameworks#supported-target-framework-versions) for the [target framework](/dotnet/standard/frameworks).</span></span>  <span data-ttu-id="368ab-184">Wird verwendet, wenn die Projektdatei mehrere Zielframeworks gibt, und Sie eine dieser Optionen auswählen möchten.</span><span class="sxs-lookup"><span data-stu-id="368ab-184">Use when the project file specifies multiple target frameworks, and you want to select one of them.</span></span> |
+|                   | `--configuration <CONFIGURATION>`  | <span data-ttu-id="368ab-185">Die Build-Konfiguration, z. B.: `Debug` oder `Release`.</span><span class="sxs-lookup"><span data-stu-id="368ab-185">The build configuration, for example: `Debug` or `Release`.</span></span>                                                                                                                                                                                                   |
+|                   | `--runtime <IDENTIFIER>`           | <span data-ttu-id="368ab-186">Der Bezeichner der Ziellaufzeit zum Wiederherstellen von Paketen für.</span><span class="sxs-lookup"><span data-stu-id="368ab-186">The identifier of the target runtime to restore packages for.</span></span> <span data-ttu-id="368ab-187">Eine Liste der Runtime-IDs (RIDs) finden Sie unter [RID-Katalog](/dotnet/core/rid-catalog).</span><span class="sxs-lookup"><span data-stu-id="368ab-187">For a list of Runtime Identifiers (RIDs), see the [RID catalog](/dotnet/core/rid-catalog).</span></span>                                                                                                      |
+| `-h`              | `--help`                           | <span data-ttu-id="368ab-188">Anzeigen von Hilfeinformationen.</span><span class="sxs-lookup"><span data-stu-id="368ab-188">Show help information.</span></span>                                                                                                                                                                                                                                        |
+| `-v`              | `--verbose`                        | <span data-ttu-id="368ab-189">Zeigen Sie ausführlichen Ausgabe.</span><span class="sxs-lookup"><span data-stu-id="368ab-189">Show verbose output.</span></span>                                                                                                                                                                                                                                          |
+|                   | `--no-color`                       | <span data-ttu-id="368ab-190">Nicht farbig anzuzeigende Ausgabe aus.</span><span class="sxs-lookup"><span data-stu-id="368ab-190">Don't colorize output.</span></span>                                                                                                                                                                                                                                        |
+|                   | `--prefix-output`                  | <span data-ttu-id="368ab-191">Das Präfix auf Ausgabe.</span><span class="sxs-lookup"><span data-stu-id="368ab-191">Prefix output with level.</span></span>                                                                                                                                                                                                                                     |
+
+## <a name="dotnet-ef-database-drop"></a><span data-ttu-id="368ab-192">dotnet ef database drop</span><span class="sxs-lookup"><span data-stu-id="368ab-192">dotnet ef database drop</span></span>
+
+<span data-ttu-id="368ab-193">Löscht die Datenbank.</span><span class="sxs-lookup"><span data-stu-id="368ab-193">Drops the database.</span></span>
+
+<span data-ttu-id="368ab-194">Optionen:</span><span class="sxs-lookup"><span data-stu-id="368ab-194">Options:</span></span>
+
+|                   | <span data-ttu-id="368ab-195">Option</span><span class="sxs-lookup"><span data-stu-id="368ab-195">Option</span></span>                   | <span data-ttu-id="368ab-196">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-196">Description</span></span>                                                |
+|-------------------|--------------------------|------------------------------------------------------------|
+| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | <span data-ttu-id="368ab-197">Bestätigen Sie nicht.</span><span class="sxs-lookup"><span data-stu-id="368ab-197">Don't confirm.</span></span>                                             |
+|                   | <nobr>`--dry-run`</nobr> | <span data-ttu-id="368ab-198">Anzeigen der Datenbank gelöscht werden würde, dies jedoch noch nicht.</span><span class="sxs-lookup"><span data-stu-id="368ab-198">Show which database would be dropped, but don't drop it.</span></span>   |
+
+## <a name="dotnet-ef-database-update"></a><span data-ttu-id="368ab-199">dotnet ef database update</span><span class="sxs-lookup"><span data-stu-id="368ab-199">dotnet ef database update</span></span>
+
+<span data-ttu-id="368ab-200">Aktualisiert die Datenbank aus, um die letzte Migration oder für eine angegebene Migration.</span><span class="sxs-lookup"><span data-stu-id="368ab-200">Updates the database to the last migration or to a specified migration.</span></span>
+
+<span data-ttu-id="368ab-201">Argumente:</span><span class="sxs-lookup"><span data-stu-id="368ab-201">Arguments:</span></span>
+
+| <span data-ttu-id="368ab-202">Argument</span><span class="sxs-lookup"><span data-stu-id="368ab-202">Argument</span></span>       | <span data-ttu-id="368ab-203">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-203">Description</span></span>                                                                                                                                                                                                                                                     |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<MIGRATION>`  | <span data-ttu-id="368ab-204">Die Ziel-Migration.</span><span class="sxs-lookup"><span data-stu-id="368ab-204">The target migration.</span></span> <span data-ttu-id="368ab-205">Migrationen können nach Name oder ID identifiziert werden</span><span class="sxs-lookup"><span data-stu-id="368ab-205">Migrations may be identified by name or by ID.</span></span> <span data-ttu-id="368ab-206">Die Zahl 0 ist ein Sonderfall, das bedeutet, dass *vor der ersten Migration* und bewirkt, dass alle Migrationen zu rückgängig gemacht werden.</span><span class="sxs-lookup"><span data-stu-id="368ab-206">The number 0 is a special case that means *before the first migration* and causes all migrations to be reverted.</span></span> <span data-ttu-id="368ab-207">Wenn keine Migration angegeben ist, verwendet der Befehl auf die letzte Migration.</span><span class="sxs-lookup"><span data-stu-id="368ab-207">If no migration is specified, the command defaults to the last migration.</span></span> |
+
+<span data-ttu-id="368ab-208">In den folgenden Beispielen wird die Datenbank für eine angegebene Migration aktualisieren.</span><span class="sxs-lookup"><span data-stu-id="368ab-208">The following examples update the database to a specified migration.</span></span> <span data-ttu-id="368ab-209">Das erste verwendet den Migrationsnamen aus, und die zweite verwendet den Migrations-ID:</span><span class="sxs-lookup"><span data-stu-id="368ab-209">The first uses the migration name and the second uses the migration ID:</span></span>
+
+```console
+dotnet ef database update InitialCreate
+dotnet ef database update 20180904195021_InitialCreate
 ```
 
-<a name="using-the-tools"></a><span data-ttu-id="17a79-118">Mithilfe der Tools</span><span class="sxs-lookup"><span data-stu-id="17a79-118">Using the tools</span></span>
----------------
-<span data-ttu-id="17a79-119">Wenn Sie einen Befehl aufrufen, sind zwei Projekte beteiligt:</span><span class="sxs-lookup"><span data-stu-id="17a79-119">Whenever you invoke a command, there are two projects involved:</span></span>
+## <a name="dotnet-ef-dbcontext-info"></a><span data-ttu-id="368ab-210">dotnet ef dbcontext info</span><span class="sxs-lookup"><span data-stu-id="368ab-210">dotnet ef dbcontext info</span></span>
 
-<span data-ttu-id="17a79-120">Dem Zielprojekt werden Dateien hinzugefügt (oder sie werden in einigen Fällen aus diesem entfernt).</span><span class="sxs-lookup"><span data-stu-id="17a79-120">The target project is where any files are added (or in some cases removed).</span></span> <span data-ttu-id="17a79-121">Das Zielprojekt standardmäßig auf das Projekt im aktuellen Verzeichnis, jedoch können geändert werden, mithilfe der <nobr> **`--project`** </nobr> Option.</span><span class="sxs-lookup"><span data-stu-id="17a79-121">The target project defaults to the project in the current directory, but can be changed using the <nobr>**`--project`**</nobr> option.</span></span>
+<span data-ttu-id="368ab-211">Ruft Informationen über eine `DbContext` Typ.</span><span class="sxs-lookup"><span data-stu-id="368ab-211">Gets information about a `DbContext` type.</span></span>
 
-<span data-ttu-id="17a79-122">Das Startprojekt wird bei Ausführung des Projektcodes von den Tools emuliert.</span><span class="sxs-lookup"><span data-stu-id="17a79-122">The startup project is the one emulated by the tools when executing your project's code.</span></span> <span data-ttu-id="17a79-123">Ebenfalls standardmäßig auf das Projekt im aktuellen Verzeichnis, sondern kann geändert werden, mithilfe der **`--startup-project`** Option.</span><span class="sxs-lookup"><span data-stu-id="17a79-123">It also defaults to the project in the current directory, but can be changed using the **`--startup-project`** option.</span></span>
+## <a name="dotnet-ef-dbcontext-list"></a><span data-ttu-id="368ab-212">dotnet ef dbcontext list</span><span class="sxs-lookup"><span data-stu-id="368ab-212">dotnet ef dbcontext list</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="17a79-124">Z. B. Aktualisieren der Datenbank der Webanwendung, die EF Core-Installation in einem anderen Projekt sieht wie folgt: `dotnet ef database update --project {project-path}` (von Ihrem Web-app-Verzeichnis)</span><span class="sxs-lookup"><span data-stu-id="17a79-124">For instance, updating the database of your web application that has EF Core installed in a different project would look like this: `dotnet ef database update --project {project-path}` (from your web app directory)</span></span>
+<span data-ttu-id="368ab-213">Listet verfügbare `DbContext` Typen.</span><span class="sxs-lookup"><span data-stu-id="368ab-213">Lists available `DbContext` types.</span></span>
 
-<span data-ttu-id="17a79-125">Allgemeine Optionen:</span><span class="sxs-lookup"><span data-stu-id="17a79-125">Common options:</span></span>
+## <a name="dotnet-ef-dbcontext-scaffold"></a><span data-ttu-id="368ab-214">dotnet ef dbcontext scaffold</span><span class="sxs-lookup"><span data-stu-id="368ab-214">dotnet ef dbcontext scaffold</span></span>
 
-|    |                                  |                             |
-|:---|:---------------------------------|:----------------------------|
-|    | `--json`                           | <span data-ttu-id="17a79-126">Zeigen Sie die JSON-Ausgabe.</span><span class="sxs-lookup"><span data-stu-id="17a79-126">Show JSON output.</span></span>           |
-| <span data-ttu-id="17a79-127">-c</span><span class="sxs-lookup"><span data-stu-id="17a79-127">-c</span></span> | `--context <DBCONTEXT>`           | <span data-ttu-id="17a79-128">Die "DbContext" verwenden.</span><span class="sxs-lookup"><span data-stu-id="17a79-128">The DbContext to use.</span></span>       |
-| <span data-ttu-id="17a79-129">-p</span><span class="sxs-lookup"><span data-stu-id="17a79-129">-p</span></span> | `--project <PROJECT>`             | <span data-ttu-id="17a79-130">Das Projekt zu verwenden.</span><span class="sxs-lookup"><span data-stu-id="17a79-130">The project to use.</span></span>         |
-| <span data-ttu-id="17a79-131">-s</span><span class="sxs-lookup"><span data-stu-id="17a79-131">-s</span></span> | `--startup-project <PROJECT>`     | <span data-ttu-id="17a79-132">Das Startprojekt verwenden.</span><span class="sxs-lookup"><span data-stu-id="17a79-132">The startup project to use.</span></span> |
-|    | `--framework <FRAMEWORK>`         | <span data-ttu-id="17a79-133">Das Zielframework.</span><span class="sxs-lookup"><span data-stu-id="17a79-133">The target framework.</span></span>       |
-|    | `--configuration <CONFIGURATION>` | <span data-ttu-id="17a79-134">Die zu verwendende Konfiguration.</span><span class="sxs-lookup"><span data-stu-id="17a79-134">The configuration to use.</span></span>   |
-|    | `--runtime <IDENTIFIER>`          | <span data-ttu-id="17a79-135">Die Laufzeit, die verwendet werden soll.</span><span class="sxs-lookup"><span data-stu-id="17a79-135">The runtime to use.</span></span>         |
-| <span data-ttu-id="17a79-136">-h</span><span class="sxs-lookup"><span data-stu-id="17a79-136">-h</span></span> | `--help`                           | <span data-ttu-id="17a79-137">Anzeigen von Hilfeinformationen.</span><span class="sxs-lookup"><span data-stu-id="17a79-137">Show help information.</span></span>      |
-| <span data-ttu-id="17a79-138">-v</span><span class="sxs-lookup"><span data-stu-id="17a79-138">-v</span></span> | `--verbose`                        | <span data-ttu-id="17a79-139">Zeigen Sie ausführlichen Ausgabe.</span><span class="sxs-lookup"><span data-stu-id="17a79-139">Show verbose output.</span></span>        |
-|    | `--no-color`                       | <span data-ttu-id="17a79-140">Nicht farbig anzuzeigende Ausgabe aus.</span><span class="sxs-lookup"><span data-stu-id="17a79-140">Don't colorize output.</span></span>      |
-|    | `--prefix-output`                  | <span data-ttu-id="17a79-141">Das Präfix auf Ausgabe.</span><span class="sxs-lookup"><span data-stu-id="17a79-141">Prefix output with level.</span></span>   |
+<span data-ttu-id="368ab-215">Generiert Code für eine `DbContext` und Entitätstypen für eine Datenbank.</span><span class="sxs-lookup"><span data-stu-id="368ab-215">Generates code for a `DbContext` and entity types for a database.</span></span>
 
+<span data-ttu-id="368ab-216">Argumente:</span><span class="sxs-lookup"><span data-stu-id="368ab-216">Arguments:</span></span>
 
-> [!TIP]
-> <span data-ttu-id="17a79-142">Um die ASP.NET Core-Umgebung anzugeben, legen die **"aspnetcore_environment"** Umgebungsvariablen vor der Ausführung.</span><span class="sxs-lookup"><span data-stu-id="17a79-142">To specify the ASP.NET Core environment, set the **ASPNETCORE_ENVIRONMENT** environment variable before running.</span></span>
+| <span data-ttu-id="368ab-217">Argument</span><span class="sxs-lookup"><span data-stu-id="368ab-217">Argument</span></span>        | <span data-ttu-id="368ab-218">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-218">Description</span></span>                                                                                                                                                                                                             |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<CONNECTION>`  | <span data-ttu-id="368ab-219">Die Verbindungszeichenfolge in der Datenbank.</span><span class="sxs-lookup"><span data-stu-id="368ab-219">The connection string to the database.</span></span> <span data-ttu-id="368ab-220">Der Wert kann für ASP.NET Core 2.x-Projekte sein *Name =\<Name der Verbindungszeichenfolge >*.</span><span class="sxs-lookup"><span data-stu-id="368ab-220">For ASP.NET Core 2.x projects, the value can be *name=\<name of connection string>*.</span></span> <span data-ttu-id="368ab-221">In diesem Fall stammt der Name der Konfigurationsquellen, die für das Projekt eingerichtet sind.</span><span class="sxs-lookup"><span data-stu-id="368ab-221">In that case the name comes from the configuration sources that are set up for the project.</span></span> |
+| `<PROVIDER>`    | <span data-ttu-id="368ab-222">Die zu verwendende Anbieter.</span><span class="sxs-lookup"><span data-stu-id="368ab-222">The provider to use.</span></span> <span data-ttu-id="368ab-223">Normalerweise hat der Name des NuGet-Pakets, z. B.: `Microsoft.EntityFrameworkCore.SqlServer`.</span><span class="sxs-lookup"><span data-stu-id="368ab-223">Typically this is the name of the NuGet package, for example: `Microsoft.EntityFrameworkCore.SqlServer`.</span></span>                                                                                           |
 
-<a name="commands"></a><span data-ttu-id="17a79-143">Befehle</span><span class="sxs-lookup"><span data-stu-id="17a79-143">Commands</span></span>
---------
+<span data-ttu-id="368ab-224">Optionen:</span><span class="sxs-lookup"><span data-stu-id="368ab-224">Options:</span></span>
 
-### <a name="dotnet-ef-database-drop"></a><span data-ttu-id="17a79-144">dotnet ef database drop</span><span class="sxs-lookup"><span data-stu-id="17a79-144">dotnet ef database drop</span></span>
+|                   | <span data-ttu-id="368ab-225">Option</span><span class="sxs-lookup"><span data-stu-id="368ab-225">Option</span></span>                                    | <span data-ttu-id="368ab-226">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-226">Description</span></span>                                                                                                                                                                    |
+|-------------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span data-ttu-id="368ab-227"><nobr>-d</nobr></span><span class="sxs-lookup"><span data-stu-id="368ab-227"><nobr>-d</nobr></span></span>   | `--data-annotations`                      | <span data-ttu-id="368ab-228">Verwenden Sie Attribute, um das Modell (sofern möglich) zu konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="368ab-228">Use attributes to configure the model (where possible).</span></span> <span data-ttu-id="368ab-229">Wenn diese Option ausgelassen wird, wird nur die fluent-API verwendet.</span><span class="sxs-lookup"><span data-stu-id="368ab-229">If this option is omitted, only the fluent API is used.</span></span>                                                                |
+| `-c`              | `--context <NAME>`                        | <span data-ttu-id="368ab-230">Der Name des der `DbContext` Klasse generiert.</span><span class="sxs-lookup"><span data-stu-id="368ab-230">The name of the `DbContext` class to generate.</span></span>                                                                                                                                 |
+|                   | `--context-dir <PATH>`                    | <span data-ttu-id="368ab-231">Verzeichnis zum Ablegen der `DbContext` Klassendatei in.</span><span class="sxs-lookup"><span data-stu-id="368ab-231">The directory to put the `DbContext` class file in.</span></span> <span data-ttu-id="368ab-232">Pfade sind relativ zum Projektverzeichnis.</span><span class="sxs-lookup"><span data-stu-id="368ab-232">Paths are relative to the project directory.</span></span> <span data-ttu-id="368ab-233">Namespaces werden von den Ordnernamen abgeleitet.</span><span class="sxs-lookup"><span data-stu-id="368ab-233">Namespaces are derived from the folder names.</span></span>                                 |
+| `-f`              | `--force`                                 | <span data-ttu-id="368ab-234">Überschreiben Sie vorhandene Dateien.</span><span class="sxs-lookup"><span data-stu-id="368ab-234">Overwrite existing files.</span></span>                                                                                                                                                      |
+| `-o`              | `--output-dir <PATH>`                     | <span data-ttu-id="368ab-235">Das Verzeichnis einzufügenden Entität Klassendateien.</span><span class="sxs-lookup"><span data-stu-id="368ab-235">The directory to put entity class files in.</span></span> <span data-ttu-id="368ab-236">Pfade sind relativ zum Projektverzeichnis.</span><span class="sxs-lookup"><span data-stu-id="368ab-236">Paths are relative to the project directory.</span></span>                                                                                       |
+|                   | <nobr>`--schema <SCHEMA_NAME>...`</nobr>  | <span data-ttu-id="368ab-237">Die Schemas der Tabellen zur Generierung von Entitätstypen für.</span><span class="sxs-lookup"><span data-stu-id="368ab-237">The schemas of tables to generate entity types for.</span></span> <span data-ttu-id="368ab-238">Um mehrere Schemas anzugeben, wiederholen Sie die `--schema` jeweils.</span><span class="sxs-lookup"><span data-stu-id="368ab-238">To specify multiple schemas, repeat `--schema` for each one.</span></span> <span data-ttu-id="368ab-239">Wenn diese Option ausgelassen wird, sind alle Schemas enthalten.</span><span class="sxs-lookup"><span data-stu-id="368ab-239">If this option is omitted, all schemas are included.</span></span>          |
+| `-t`              | <span data-ttu-id="368ab-240">`--table <TABLE_NAME>`...</span><span class="sxs-lookup"><span data-stu-id="368ab-240">`--table <TABLE_NAME>`...</span></span>                 | <span data-ttu-id="368ab-241">Die Tabellen zur Generierung von Entitätstypen für werden soll.</span><span class="sxs-lookup"><span data-stu-id="368ab-241">The tables to generate entity types for.</span></span> <span data-ttu-id="368ab-242">Um mehrere Tabellen anzugeben, wiederholen Sie die `-t` oder `--table` jeweils.</span><span class="sxs-lookup"><span data-stu-id="368ab-242">To specify multiple tables, repeat `-t` or `--table` for each one.</span></span> <span data-ttu-id="368ab-243">Wenn diese Option ausgelassen wird, sind alle Tabellen enthalten.</span><span class="sxs-lookup"><span data-stu-id="368ab-243">If this option is omitted, all tables are included.</span></span>                |
+|                   | `--use-database-names`                    | <span data-ttu-id="368ab-244">Verwenden Sie Tabellen- und Spaltennamen, genau wie in der Datenbank.</span><span class="sxs-lookup"><span data-stu-id="368ab-244">Use table and column names exactly as they appear in the database.</span></span> <span data-ttu-id="368ab-245">Wenn diese Option ausgelassen wird, werden die Datenbanknamen geändert, um genauer zu Konventionen für C#-Namen entsprechen.</span><span class="sxs-lookup"><span data-stu-id="368ab-245">If this option is omitted, database names are changed to more closely conform to C# name style conventions.</span></span> |
 
-<span data-ttu-id="17a79-145">Löscht die Datenbank.</span><span class="sxs-lookup"><span data-stu-id="17a79-145">Drops the database.</span></span>
+<span data-ttu-id="368ab-246">Das folgende Beispiel erstellt das Gerüst für alle Schemas und Tabellen und fügt die neuen Dateien in die *Modelle* Ordner.</span><span class="sxs-lookup"><span data-stu-id="368ab-246">The following example scaffolds all schemas and tables and puts the new files in the *Models* folder.</span></span>
 
-<span data-ttu-id="17a79-146">Optionen:</span><span class="sxs-lookup"><span data-stu-id="17a79-146">Options:</span></span>
+```console
+dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+```
 
-|    |           |                                                          |
-|:---|:----------|:---------------------------------------------------------|
-| <span data-ttu-id="17a79-147">-f</span><span class="sxs-lookup"><span data-stu-id="17a79-147">-f</span></span> | `--force`   | <span data-ttu-id="17a79-148">Bestätigen Sie nicht.</span><span class="sxs-lookup"><span data-stu-id="17a79-148">Don't confirm.</span></span>                                           |
-|    | `--dry-run` | <span data-ttu-id="17a79-149">Anzeigen der Datenbank gelöscht werden würde, dies jedoch noch nicht.</span><span class="sxs-lookup"><span data-stu-id="17a79-149">Show which database would be dropped, but don't drop it.</span></span> |
+<span data-ttu-id="368ab-247">Das folgende Beispiel erstellt das Gerüst für nur ausgewählte Tabellen und den Kontext in einem separaten Ordner mit dem angegebenen Namen erstellt:</span><span class="sxs-lookup"><span data-stu-id="368ab-247">The following example scaffolds only selected tables and creates the context in a separate folder with a specified name:</span></span>
 
-### <a name="dotnet-ef-database-update"></a><span data-ttu-id="17a79-150">dotnet ef database update</span><span class="sxs-lookup"><span data-stu-id="17a79-150">dotnet ef database update</span></span>
+```console
+dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
+```
 
-<span data-ttu-id="17a79-151">Aktualisiert die Datenbank für eine angegebene Migration.</span><span class="sxs-lookup"><span data-stu-id="17a79-151">Updates the database to a specified migration.</span></span>
+## <a name="dotnet-ef-migrations-add"></a><span data-ttu-id="368ab-248">dotnet ef migrations add</span><span class="sxs-lookup"><span data-stu-id="368ab-248">dotnet ef migrations add</span></span>
 
-<span data-ttu-id="17a79-152">Argumente:</span><span class="sxs-lookup"><span data-stu-id="17a79-152">Arguments:</span></span>
+<span data-ttu-id="368ab-249">Fügt eine neue Migration hinzu.</span><span class="sxs-lookup"><span data-stu-id="368ab-249">Adds a new migration.</span></span>
 
-|              |                                                                                              |
-|:-------------|:---------------------------------------------------------------------------------------------|
-| `<MIGRATION>` | <span data-ttu-id="17a79-153">Die Ziel-Migration.</span><span class="sxs-lookup"><span data-stu-id="17a79-153">The target migration.</span></span> <span data-ttu-id="17a79-154">Wenn der Wert 0 ist, werden bei allen Migrationen rückgängig gemacht werden.</span><span class="sxs-lookup"><span data-stu-id="17a79-154">If 0, all migrations will be reverted.</span></span> <span data-ttu-id="17a79-155">Ist standardmäßig auf die letzte Migration ein.</span><span class="sxs-lookup"><span data-stu-id="17a79-155">Defaults to the last migration.</span></span> |
+<span data-ttu-id="368ab-250">Argumente:</span><span class="sxs-lookup"><span data-stu-id="368ab-250">Arguments:</span></span>
 
-### <a name="dotnet-ef-dbcontext-info"></a><span data-ttu-id="17a79-156">dotnet ef dbcontext info</span><span class="sxs-lookup"><span data-stu-id="17a79-156">dotnet ef dbcontext info</span></span>
+| <span data-ttu-id="368ab-251">Argument</span><span class="sxs-lookup"><span data-stu-id="368ab-251">Argument</span></span>  | <span data-ttu-id="368ab-252">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-252">Description</span></span>                  |
+|-----------|------------------------------|
+| `<NAME>`  | <span data-ttu-id="368ab-253">Der Name der Migration.</span><span class="sxs-lookup"><span data-stu-id="368ab-253">The name of the migration.</span></span>   |
 
-<span data-ttu-id="17a79-157">Ruft Informationen über einen "DbContext"-Typ ab.</span><span class="sxs-lookup"><span data-stu-id="17a79-157">Gets information about a DbContext type.</span></span>
+<span data-ttu-id="368ab-254">Optionen:</span><span class="sxs-lookup"><span data-stu-id="368ab-254">Options:</span></span>
 
-### <a name="dotnet-ef-dbcontext-list"></a><span data-ttu-id="17a79-158">dotnet ef dbcontext list</span><span class="sxs-lookup"><span data-stu-id="17a79-158">dotnet ef dbcontext list</span></span>
+|                   | <span data-ttu-id="368ab-255">Option</span><span class="sxs-lookup"><span data-stu-id="368ab-255">Option</span></span>                              | <span data-ttu-id="368ab-256">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-256">Description</span></span>                                                                                                        |
+|-------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr>  | <span data-ttu-id="368ab-257">Das Verzeichnis (und Sub-Namespace) verwenden.</span><span class="sxs-lookup"><span data-stu-id="368ab-257">The directory (and sub-namespace) to use.</span></span> <span data-ttu-id="368ab-258">Pfade sind relativ zum Projektverzeichnis.</span><span class="sxs-lookup"><span data-stu-id="368ab-258">Paths are relative to the project directory.</span></span> <span data-ttu-id="368ab-259">Der Standardwert ist "Migrations".</span><span class="sxs-lookup"><span data-stu-id="368ab-259">Defaults to "Migrations".</span></span>   |
 
-<span data-ttu-id="17a79-159">Listet die verfügbare Typen von "DbContext".</span><span class="sxs-lookup"><span data-stu-id="17a79-159">Lists available DbContext types.</span></span>
+## <a name="dotnet-ef-migrations-list"></a><span data-ttu-id="368ab-260">dotnet ef migrations list</span><span class="sxs-lookup"><span data-stu-id="368ab-260">dotnet ef migrations list</span></span>
 
-### <a name="dotnet-ef-dbcontext-scaffold"></a><span data-ttu-id="17a79-160">dotnet ef dbcontext scaffold</span><span class="sxs-lookup"><span data-stu-id="17a79-160">dotnet ef dbcontext scaffold</span></span>
+<span data-ttu-id="368ab-261">Listet die verfügbaren Migrationen.</span><span class="sxs-lookup"><span data-stu-id="368ab-261">Lists available migrations.</span></span>
 
-<span data-ttu-id="17a79-161">Erstellt das Gerüst für einen DbContext und Entitätstypen Typen für eine Datenbank.</span><span class="sxs-lookup"><span data-stu-id="17a79-161">Scaffolds a DbContext and entity types for a database.</span></span>
+## <a name="dotnet-ef-migrations-remove"></a><span data-ttu-id="368ab-262">dotnet ef migrations remove</span><span class="sxs-lookup"><span data-stu-id="368ab-262">dotnet ef migrations remove</span></span>
 
-<span data-ttu-id="17a79-162">Argumente:</span><span class="sxs-lookup"><span data-stu-id="17a79-162">Arguments:</span></span>
+<span data-ttu-id="368ab-263">Entfernt die letzte Migration (Rollback die codeänderungen, die für die Migration durchgeführt wurden).</span><span class="sxs-lookup"><span data-stu-id="368ab-263">Removes the last migration (rolls back the code changes that were done for the migration).</span></span> 
 
-|               |                                                                             |
-|:--------------|:----------------------------------------------------------------------------|
-| `<CONNECTION>` | <span data-ttu-id="17a79-163">Die Verbindungszeichenfolge in der Datenbank.</span><span class="sxs-lookup"><span data-stu-id="17a79-163">The connection string to the database.</span></span>                                      |
-| `<PROVIDER>`   | <span data-ttu-id="17a79-164">Die zu verwendende Anbieter.</span><span class="sxs-lookup"><span data-stu-id="17a79-164">The provider to use.</span></span> <span data-ttu-id="17a79-165">(z. B. "Microsoft.entityframeworkcore.SqlServer")</span><span class="sxs-lookup"><span data-stu-id="17a79-165">(for example, Microsoft.EntityFrameworkCore.SqlServer)</span></span> |
+<span data-ttu-id="368ab-264">Optionen:</span><span class="sxs-lookup"><span data-stu-id="368ab-264">Options:</span></span>
 
-<span data-ttu-id="17a79-166">Optionen:</span><span class="sxs-lookup"><span data-stu-id="17a79-166">Options:</span></span>
+|                   | <span data-ttu-id="368ab-265">Option</span><span class="sxs-lookup"><span data-stu-id="368ab-265">Option</span></span>    | <span data-ttu-id="368ab-266">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-266">Description</span></span>                                                                        |
+|-------------------|-----------|------------------------------------------------------------------------------------|
+| <nobr>`-f`</nobr> | `--force` | <span data-ttu-id="368ab-267">Zurücksetzen die Migration (ein Rollback die Änderungen, die auf die Datenbank angewendet wurden).</span><span class="sxs-lookup"><span data-stu-id="368ab-267">Revert the migration (roll back the changes that were applied to the database).</span></span>    |
 
-|                 |                                         |                                                                                                  |
-|:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <span data-ttu-id="17a79-167"><nobr>-d</nobr></span><span class="sxs-lookup"><span data-stu-id="17a79-167"><nobr>-d</nobr></span></span> | `--data-annotations`                      | <span data-ttu-id="17a79-168">Verwenden Sie Attribute, um das Modell (sofern möglich) zu konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="17a79-168">Use attributes to configure the model (where possible).</span></span> <span data-ttu-id="17a79-169">Wenn nicht angegeben, wird nur die fluent-API verwendet.</span><span class="sxs-lookup"><span data-stu-id="17a79-169">If omitted, only the fluent API is used.</span></span> |
-| <span data-ttu-id="17a79-170">-c</span><span class="sxs-lookup"><span data-stu-id="17a79-170">-c</span></span>              | `--context <NAME>`                       | <span data-ttu-id="17a79-171">Der Name von "DbContext".</span><span class="sxs-lookup"><span data-stu-id="17a79-171">The name of the DbContext.</span></span>                                                                       |
-|                 | `--context-dir <PATH>`                   | <span data-ttu-id="17a79-172">Das Verzeichnis, fügen Sie in "DbContext"-Datei.</span><span class="sxs-lookup"><span data-stu-id="17a79-172">The directory to put DbContext file in.</span></span> <span data-ttu-id="17a79-173">Pfade sind relativ zum Projektverzeichnis.</span><span class="sxs-lookup"><span data-stu-id="17a79-173">Paths are relative to the project directory.</span></span>             |
-| <span data-ttu-id="17a79-174">-f</span><span class="sxs-lookup"><span data-stu-id="17a79-174">-f</span></span>              | `--force`                                 | <span data-ttu-id="17a79-175">Überschreiben Sie vorhandene Dateien.</span><span class="sxs-lookup"><span data-stu-id="17a79-175">Overwrite existing files.</span></span>                                                                        |
-| <span data-ttu-id="17a79-176">-o</span><span class="sxs-lookup"><span data-stu-id="17a79-176">-o</span></span>              | `--output-dir <PATH>`                    | <span data-ttu-id="17a79-177">Zum Einfügen von Dateien im Verzeichnis.</span><span class="sxs-lookup"><span data-stu-id="17a79-177">The directory to put files in.</span></span> <span data-ttu-id="17a79-178">Pfade sind relativ zum Projektverzeichnis.</span><span class="sxs-lookup"><span data-stu-id="17a79-178">Paths are relative to the project directory.</span></span>                      |
-|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | <span data-ttu-id="17a79-179">Die Schemas der Tabellen zur Generierung von Entitätstypen für.</span><span class="sxs-lookup"><span data-stu-id="17a79-179">The schemas of tables to generate entity types for.</span></span>                                              |
-| <span data-ttu-id="17a79-180">-t</span><span class="sxs-lookup"><span data-stu-id="17a79-180">-t</span></span>              | <span data-ttu-id="17a79-181">`--table <TABLE_NAME>`...</span><span class="sxs-lookup"><span data-stu-id="17a79-181">`--table <TABLE_NAME>`...</span></span>                | <span data-ttu-id="17a79-182">Die Tabellen zur Generierung von Entitätstypen für werden soll.</span><span class="sxs-lookup"><span data-stu-id="17a79-182">The tables to generate entity types for.</span></span>                                                         |
-|                 | `--use-database-names`                    | <span data-ttu-id="17a79-183">Verwenden Sie Tabellen- und Spaltennamen direkt aus der Datenbank.</span><span class="sxs-lookup"><span data-stu-id="17a79-183">Use table and column names directly from the database.</span></span>                                           |
+## <a name="dotnet-ef-migrations-script"></a><span data-ttu-id="368ab-268">dotnet ef migrations script</span><span class="sxs-lookup"><span data-stu-id="368ab-268">dotnet ef migrations script</span></span>
 
-### <a name="dotnet-ef-migrations-add"></a><span data-ttu-id="17a79-184">dotnet ef migrations add</span><span class="sxs-lookup"><span data-stu-id="17a79-184">dotnet ef migrations add</span></span>
+<span data-ttu-id="368ab-269">Generiert ein SQL-Skript von Migrationen.</span><span class="sxs-lookup"><span data-stu-id="368ab-269">Generates a SQL script from migrations.</span></span>
 
-<span data-ttu-id="17a79-185">Fügt eine neue Migration hinzu.</span><span class="sxs-lookup"><span data-stu-id="17a79-185">Adds a new migration.</span></span>
+<span data-ttu-id="368ab-270">Argumente:</span><span class="sxs-lookup"><span data-stu-id="368ab-270">Arguments:</span></span>
 
-<span data-ttu-id="17a79-186">Argumente:</span><span class="sxs-lookup"><span data-stu-id="17a79-186">Arguments:</span></span>
+| <span data-ttu-id="368ab-271">Argument</span><span class="sxs-lookup"><span data-stu-id="368ab-271">Argument</span></span>  | <span data-ttu-id="368ab-272">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-272">Description</span></span>                                                                                                                                                   |
+|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<FROM>`  | <span data-ttu-id="368ab-273">Die Migration der ab.</span><span class="sxs-lookup"><span data-stu-id="368ab-273">The starting migration.</span></span> <span data-ttu-id="368ab-274">Migrationen können nach Name oder ID identifiziert werden</span><span class="sxs-lookup"><span data-stu-id="368ab-274">Migrations may be identified by name or by ID.</span></span> <span data-ttu-id="368ab-275">Die Zahl 0 ist ein Sonderfall, das bedeutet, dass *vor der ersten Migration*.</span><span class="sxs-lookup"><span data-stu-id="368ab-275">The number 0 is a special case that means *before the first migration*.</span></span> <span data-ttu-id="368ab-276">Der Standardwert ist 0.</span><span class="sxs-lookup"><span data-stu-id="368ab-276">Defaults to 0.</span></span> |
+| `<TO>`    | <span data-ttu-id="368ab-277">Der Endpunkt-Migration.</span><span class="sxs-lookup"><span data-stu-id="368ab-277">The ending migration.</span></span> <span data-ttu-id="368ab-278">Ist standardmäßig auf die letzte Migration ein.</span><span class="sxs-lookup"><span data-stu-id="368ab-278">Defaults to the last migration.</span></span>                                                                                                         |
 
-|         |                            |
-|:--------|:---------------------------|
-| `<NAME>` | <span data-ttu-id="17a79-187">Der Name der Migration.</span><span class="sxs-lookup"><span data-stu-id="17a79-187">The name of the migration.</span></span> |
+<span data-ttu-id="368ab-279">Optionen:</span><span class="sxs-lookup"><span data-stu-id="368ab-279">Options:</span></span>
 
-<span data-ttu-id="17a79-188">Optionen:</span><span class="sxs-lookup"><span data-stu-id="17a79-188">Options:</span></span>
+|                   | <span data-ttu-id="368ab-280">Option</span><span class="sxs-lookup"><span data-stu-id="368ab-280">Option</span></span>             | <span data-ttu-id="368ab-281">Beschreibung</span><span class="sxs-lookup"><span data-stu-id="368ab-281">Description</span></span>                                                          |
+|-------------------|--------------------|----------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | `--output <FILE>`  | <span data-ttu-id="368ab-282">Die Datei, die das Skript zu schreiben.</span><span class="sxs-lookup"><span data-stu-id="368ab-282">The file to write the script to.</span></span>                                     |
+| `-i`              | `--idempotent`     | <span data-ttu-id="368ab-283">Generieren Sie ein Skript, das für eine Datenbank auf eine Migration verwendet werden kann.</span><span class="sxs-lookup"><span data-stu-id="368ab-283">Generate a script that can be used on a database at any migration.</span></span>   |
 
-|                 |                                   |                                                                                                                  |
-|:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <span data-ttu-id="17a79-189"><nobr>-o</nobr></span><span class="sxs-lookup"><span data-stu-id="17a79-189"><nobr>-o</nobr></span></span> | <span data-ttu-id="17a79-190"><nobr> `--output-dir <PATH>` </nobr></span><span class="sxs-lookup"><span data-stu-id="17a79-190"><nobr> `--output-dir <PATH>` </nobr></span></span> | <span data-ttu-id="17a79-191">Das Verzeichnis (und Sub-Namespace) verwenden.</span><span class="sxs-lookup"><span data-stu-id="17a79-191">The directory (and sub-namespace) to use.</span></span> <span data-ttu-id="17a79-192">Pfade sind relativ zum Projektverzeichnis.</span><span class="sxs-lookup"><span data-stu-id="17a79-192">Paths are relative to the project directory.</span></span> <span data-ttu-id="17a79-193">Der Standardwert ist "Migrations".</span><span class="sxs-lookup"><span data-stu-id="17a79-193">Defaults to "Migrations".</span></span> |
+<span data-ttu-id="368ab-284">Das folgende Beispiel erstellt ein Skript für die Migration InitialCreate:</span><span class="sxs-lookup"><span data-stu-id="368ab-284">The following example creates a script for the InitialCreate migration:</span></span>
 
-### <a name="dotnet-ef-migrations-list"></a><span data-ttu-id="17a79-194">dotnet ef migrations list</span><span class="sxs-lookup"><span data-stu-id="17a79-194">dotnet ef migrations list</span></span>
+```console
+dotnet ef migrations script 0 InitialCreate
+```
 
-<span data-ttu-id="17a79-195">Listet die verfügbaren Migrationen.</span><span class="sxs-lookup"><span data-stu-id="17a79-195">Lists available migrations.</span></span>
+<span data-ttu-id="368ab-285">Das folgende Beispiel erstellt ein Skript für alle Migrationen nach der Migration InitialCreate.</span><span class="sxs-lookup"><span data-stu-id="368ab-285">The following example creates a script for all migrations after the InitialCreate migration.</span></span>
 
-### <a name="dotnet-ef-migrations-remove"></a><span data-ttu-id="17a79-196">dotnet ef migrations remove</span><span class="sxs-lookup"><span data-stu-id="17a79-196">dotnet ef migrations remove</span></span>
-
-<span data-ttu-id="17a79-197">Entfernt die letzte Migration.</span><span class="sxs-lookup"><span data-stu-id="17a79-197">Removes the last migration.</span></span>
-
-<span data-ttu-id="17a79-198">Optionen:</span><span class="sxs-lookup"><span data-stu-id="17a79-198">Options:</span></span>
-
-|    |         |                                                                       |
-|:---|:--------|:----------------------------------------------------------------------|
-| <span data-ttu-id="17a79-199">-f</span><span class="sxs-lookup"><span data-stu-id="17a79-199">-f</span></span> | `--force` | <span data-ttu-id="17a79-200">Die Migration zurückgesetzt, wenn es auf die Datenbank angewendet wurde.</span><span class="sxs-lookup"><span data-stu-id="17a79-200">Revert the migration if it has been applied to the database.</span></span> |
-
-### <a name="dotnet-ef-migrations-script"></a><span data-ttu-id="17a79-201">dotnet ef migrations script</span><span class="sxs-lookup"><span data-stu-id="17a79-201">dotnet ef migrations script</span></span>
-
-<span data-ttu-id="17a79-202">Generiert ein SQL-Skript von Migrationen.</span><span class="sxs-lookup"><span data-stu-id="17a79-202">Generates a SQL script from migrations.</span></span>
-
-<span data-ttu-id="17a79-203">Argumente:</span><span class="sxs-lookup"><span data-stu-id="17a79-203">Arguments:</span></span>
-
-|         |                                                               |
-|:--------|:--------------------------------------------------------------|
-| `<FROM>` | <span data-ttu-id="17a79-204">Die Migration der ab.</span><span class="sxs-lookup"><span data-stu-id="17a79-204">The starting migration.</span></span> <span data-ttu-id="17a79-205">Der Standardwert ist 0 (die ursprüngliche Datenbank).</span><span class="sxs-lookup"><span data-stu-id="17a79-205">Defaults to 0 (the initial database).</span></span> |
-| `<TO>`   | <span data-ttu-id="17a79-206">Der Endpunkt-Migration.</span><span class="sxs-lookup"><span data-stu-id="17a79-206">The ending migration.</span></span> <span data-ttu-id="17a79-207">Ist standardmäßig auf die letzte Migration ein.</span><span class="sxs-lookup"><span data-stu-id="17a79-207">Defaults to the last migration.</span></span>         |
-
-<span data-ttu-id="17a79-208">Optionen:</span><span class="sxs-lookup"><span data-stu-id="17a79-208">Options:</span></span>
-
-|    |                  |                                                                    |
-|:---|:-----------------|:-------------------------------------------------------------------|
-| <span data-ttu-id="17a79-209">-o</span><span class="sxs-lookup"><span data-stu-id="17a79-209">-o</span></span> | `--output <FILE>` | <span data-ttu-id="17a79-210">Die Datei, schreibt das Ergebnis.</span><span class="sxs-lookup"><span data-stu-id="17a79-210">The file to write the result to.</span></span>                                   |
-| <span data-ttu-id="17a79-211">-i</span><span class="sxs-lookup"><span data-stu-id="17a79-211">-i</span></span> | `--idempotent`     | <span data-ttu-id="17a79-212">Generieren Sie ein Skript, das für eine Datenbank auf eine Migration verwendet werden kann.</span><span class="sxs-lookup"><span data-stu-id="17a79-212">Generate a script that can be used on a database at any migration.</span></span> |
-
-
-  [1]: powershell.md
-  [2]: https://www.microsoft.com/net/core
+```console
+dotnet ef migrations script 20180904195021_InitialCreate
+```
