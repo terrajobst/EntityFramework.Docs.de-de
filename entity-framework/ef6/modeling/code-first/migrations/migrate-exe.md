@@ -3,12 +3,12 @@ title: Verwenden von migrate.exe - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
-ms.openlocfilehash: 6e9880523bbcf2fe55390a447241e59723a0967f
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: cf6c3a0a256730b24addf1012d6ff53b17035cd4
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490215"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459538"
 ---
 # <a name="using-migrateexe"></a>Verwenden von migrate.exe
 Code First-Migrationen können verwendet werden, um die Aktualisierung einer Datenbank in visual Studio, aber Sie können auch über die Befehlszeile Tool migrate.exe ausgeführt werden. Auf dieser Seite erhalten einen Überblick zum migrate.exe zu verwenden, um Migrationen für eine Datenbank auszuführen.
@@ -24,9 +24,9 @@ Nachdem Sie migrate.exe haben müssen Sie zum Kopieren auf den Speicherort der A
 
 Wenn Ihre Anwendung auf .NET 4 ausgerichtet ist und nicht 4.5 Sie zum Kopieren müssen der **Redirect.config** an Ort und benennen Sie sie **migrate.exe.config**. Dies ist, damit migrate.exe Ruft ab, die richtigen bindungsumleitungen, um die Entity Framework-Assembly suchen zu können.
 
-| .NET 4.5                                   | .NET 4.0                                   |
-|:-------------------------------------------|:-------------------------------------------|
-| ![.NET 4.5-Dateien](~/ef6/media/net45files.png)  | ![.NET 4.0-Dateien](~/ef6/media/net40files.png)  |
+| .NET 4.5                                      | .NET 4.0                                      |
+|:----------------------------------------------|:----------------------------------------------|
+| ![.NET 4.5-Dateien](~/ef6/media/net45files.png) | ![.NET 4.0-Dateien](~/ef6/media/net40files.png) |
 
 > [!NOTE]
 > Migrate.exe X64 unterstützt keine Assemblys.
