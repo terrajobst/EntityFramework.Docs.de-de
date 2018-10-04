@@ -17,7 +17,7 @@ Die meisten Datenbankanbieter erfordern eine Form der Verbindungszeichenfolge zu
 
 ## <a name="net-framework-applications"></a>.NET Framework-Anwendungen
 
-.NET Framework-Anwendungen, z. B. Windows Forms, WPF, Konsole und ASP.NET 4 haben ein bewährtes Muster für die Verbindungszeichenfolge. Die Verbindungszeichenfolge sollte in Ihrer Anwendungs-Datei "App.config" ("Web.config" bei Verwendung von ASP.NET) hinzugefügt werden. Wenn Ihre Verbindungszeichenfolge vertrauliche Informationen wie Benutzername und Kennwort enthält, können Sie den Inhalt der Konfigurationsdatei mit Hilfe [der geschützten Konfiguration](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration) schützen.
+.NET Framework-Anwendungen, z.B. Windows Forms, WPF, Konsole und ASP.NET 4, verwenden ein bewährtes Muster für Verbindungszeichenfolgen. Die Verbindungszeichenfolge muss der Datei "App.config" ("Web.config" bei Verwendung von ASP.NET) für Ihre Anwendung hinzugefügt werden. Wenn Ihre Verbindungszeichenfolge vertrauliche Informationen wie Benutzername und Kennwort enthält, können Sie den Inhalt der Konfigurationsdatei mithilfe [der geschützten Konfiguration](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration) schützen.
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -31,9 +31,9 @@ Die meisten Datenbankanbieter erfordern eine Form der Verbindungszeichenfolge zu
 ```
 
 > [!TIP]  
-> Die `providerName` Einstellung in EF Core-Verbindungszeichenfolgen muss nicht in der "App.config"-Datei gespeichert werden, da der Datenbankanbieter über Code konfiguriert wird.
+> Die providerName-Einstellung in EF Core-Verbindungszeichenfolgen muss nicht in der Datei "App.config" gespeichert werden, weil der Datenbankanbieter über den Code konfiguriert wird.
 
-Anschließend können Sie die Verbindungszeichenfolge mithilfe der `ConfigurationManager` API im Kontexts Ihrer `OnConfiguring` Methode auslesen. Sie müssen möglicherweise auf die `System.Configuration` Framework-Assembly verweisen, um diese API verwenden zu können.
+Anschließend können Sie die Verbindungszeichenfolge mithilfe der ConfigurationManager-API im Kontext Ihrer OnConfiguring-Methode auslesen. Sie müssen möglicherweise auf die Framework-Assembly „System.Configuration“ verweisen, um diese API verwenden zu können.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -50,7 +50,7 @@ public class BloggingContext : DbContext
 
 ## <a name="universal-windows-platform-uwp"></a>Universelle Windows-Plattform (UWP)
 
-Verbindungszeichenfolgen in einer UWP-Anwendung sind in der Regel eine SQLite-Verbindung, die nur einen lokalen Dateinamen angibt. Sie enthalten in der Regel keine vertraulichen Informationen und müssen nicht geändert werden, wenn eine Anwendung bereitgestellt wird. Daher ist es in Ordnung, wenn die Verbindungszeichenfolge im Code verbleibt, wie unten dargestellt. Wenn Sie die Verbindungszeichenfolge nicht im Code halten möchten, unterstützt UWP das Konzept der Einstellungen. Mehr Informationen darüber finden Sie im [Abschnitt App-Einstellungen der UWP-Dokumentation](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data).
+Verbindungszeichenfolgen in einer UWP-Anwendung sind in der Regel SQLite-Verbindungen, die nur einen lokalen Dateinamen angeben. Sie enthalten typischerweise keine vertraulichen Informationen und müssen nicht geändert werden, wenn eine Anwendung bereitgestellt wird. Daher ist es in Ordnung, wenn die Verbindungszeichenfolge im Code verbleibt, wie unten dargestellt. Wenn Sie die Verbindungszeichenfolge nicht im Code beibehalten möchten, unterstützt UWP das Konzept der Einstellungen. Weitere Informationen hierzu finden Sie im [Abschnitt zu App-Einstellungen in der UWP-Dokumentation](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data).
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -67,7 +67,7 @@ public class BloggingContext : DbContext
 
 ## <a name="aspnet-core"></a>ASP.NET Core
 
-Das ASP.NET Core-Konfigurationssystem ist sehr flexibel, und die Verbindungszeichenfolge könnte in der `appsettings.json`, einer Umgebungsvariable, dem Geheimnis-Speicher oder einer anderen Konfigurationsquelle gespeichert werden. Im [Konfigurationsabschnitt der Dokumentation zu ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html) finden Sie weitere Details. Das folgende Beispiel zeigt die Verbindungszeichenfolge in der `appsettings.json`-Datei.
+Das Konfigurationssystem in ASP.NET Core ist sehr flexibel, und die Verbindungszeichenfolge kann in „appsettings.json“, einer Umgebungsvariable, dem Speicher für Benutzergeheimnisse oder einer anderen Konfigurationsquelle gespeichert werden. Weitere Informationen finden Sie im [Abschnitt zur Konfiguration in der ASP.NET Core-Dokumentation](https://docs.asp.net/en/latest/fundamentals/configuration.html). Das folgende Beispiel zeigt die Verbindungszeichenfolge in der Datei „appsettings.json“.
 
 ``` json
 {
@@ -77,7 +77,7 @@ Das ASP.NET Core-Konfigurationssystem ist sehr flexibel, und die Verbindungszeic
 }
 ```
 
-Der Kontext wird in der Regel in der `Startup.cs`-Datei konfiguriert. Die Verbindungszeichenfolge wird dabei aus der Konfiguration gelesen. Im folgenden Beispiel sucht die `GetConnectionString()` Methode einen Konfigurationswert, dessen Schlüssel `ConnectionStrings:<connection string name>` ist.
+Der Kontext wird in der Regel in der Datei „Startup.cs“ konfiguriert. Die Verbindungszeichenfolge wird dabei aus der Konfiguration gelesen. Im folgenden Beispiel sucht die GetConnectionString()-Methode nach einem Konfigurationswert, dessen Schlüssel „ConnectionStrings:<connection string name>“ lautet.
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
