@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: db4d89b6a0babe01bccbeadc51381a309ad8ca0f
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.openlocfilehash: 9a57b58f8569ee1241e40c3809b03487d1d88e02
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459557"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834759"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Toolreferenz Entity Framework Core - Paket-Manager-Konsole in Visual Studio
 
@@ -177,7 +177,7 @@ Parameter:
 
 ## <a name="scaffold-dbcontext"></a>"Scaffold-DbContext"
 
-Generiert Code für eine `DbContext` und Entitätstypen für eine Datenbank.
+Generiert Code für eine `DbContext` und Entitätstypen für eine Datenbank. In der Reihenfolge für `Scaffold-DbContext` zum Generieren eines Entitätstyps muss in der Datenbanktabelle über einen Primärschlüssel verfügen.
 
 Parameter:
 
