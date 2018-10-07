@@ -11,21 +11,21 @@ ms.contentlocale: de-DE
 ms.lasthandoff: 08/27/2018
 ms.locfileid: "42994478"
 ---
-# <a name="data-seeding"></a>Datenseeding
+# <a name="data-seeding"></a>Data Seeding
 
 > [!NOTE]  
 > Dieses Feature ist neu in EF Core 2.1.
 
-Seeding von Daten ermöglicht, zu der ursprünglichen Daten zum Auffüllen einer Datenbank. Im Gegensatz zu ist in EF6 in EF Core seeding von Daten mit einem Entitätstyp als Teil der Modellkonfiguration verknüpft. Klicken Sie dann EF Core [Migrationen](xref:core/managing-schemas/migrations/index) können automatisch berechnen, was einfügen, aktualisieren oder Löschen beim Aktualisieren der Datenbank auf eine neue Version des Modells angewendet werden müssen.
+Data Seeding ermöglicht es, initiale Daten zum Befüllen einer Datenbank zur Vefügung zu stellen. In EF Core findet das Data Seeding, anders als in EF6, mittels Entitätstypen, die Teil der Model-Konfiguration sind, statt. EF Core [Migrationen](xref:core/managing-schemas/migrations/index) bestimmen dann automatisch, welche INSERT-, UPDATE- oder DELETE-Operationen beim Aktualisieren der Datenbank auf eine neue Version des Datenmodells angewendet werden müssen.
 
-Beispielsweise können diese so konfigurieren Sie die Seed-Daten für eine `Blog` in `OnModelCreating`:
+Seed-Daten für einen `Blog` in `OnModelCreating` können so konfiguriert werden:
 
 [!code-csharp[Main](../../../samples/core/DataSeeding/DataSeedingContext.cs?name=BlogSeed)]
 
-Um Entitäten hinzuzufügen, die eine Beziehung die Fremdschlüsselwerte müssen angegeben werden. Häufig sind Fremdschlüsseleigenschaften im Volumeschattenkopie-Zustand, also um eine anonyme Klasse legen Sie die Werte können verwendet werden soll:
+Um Entitäten hinzuzufügen, die eine Beziehung haben, müssen die Fremdschlüssel angegeben werden. Häufig sind Fremdschlüssel im Shadow State. Um also die Fremdschlüssel belegen zu können, muss eine anonyme Klasse verwendet werden:
 
 [!code-csharp[Main](../../../samples/core/DataSeeding/DataSeedingContext.cs?name=PostSeed)]
 
-Wenn Entitäten hinzugefügt wurden, es wird empfohlen, verwenden Sie [Migrationen](xref:core/managing-schemas/migrations/index) um Änderungen zu übernehmen. 
+Sobald Entitäten hinzugefügt wurden, ist es empfehlenswert, [Migrationen](xref:core/managing-schemas/migrations/index) für Änderungen zu verwenden. 
 
-Alternativ können Sie `context.Database.EnsureCreated()` zum Erstellen einer neuen Datenbank, die die Seed-Daten, z. B. für eine Testdatenbank oder bei Verwendung von in-Memory-Anbieter enthält. Beachten Sie, dass bei die Datenbank bereits vorhanden ist, `EnsureCreated()` weder aktualisiert das Schema und die Seed-Daten in der Datenbank.
+Alternativ kann `context.Database.EnsureCreated()` zum Erstellen einer neuen Datenbank mit Seed-Daten, z. B. eine Testdatenbank oder eine In-Memory-Datenbank, verwendet werden. Ist die Datenbank bereits vorhanden, aktualisiert `EnsureCreated()` weder das Schema und noch die Seed-Daten in der Datenbank.
