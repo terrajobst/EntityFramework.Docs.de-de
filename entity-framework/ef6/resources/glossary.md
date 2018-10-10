@@ -3,12 +3,12 @@ title: Entity Framework-Glossar – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 298913891fb372bf57d7504c5a54f1dc83ea1a80
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9ed7a2d841c625de35de57edb4e57e69b89a3db9
+ms.sourcegitcommit: 5d74ac575f813110db6d870720f50dd7606446bc
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490685"
+ms.lasthandoff: 10/09/2018
+ms.locfileid: "48881266"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework – Glossar
 ## <a name="code-first"></a>Code First
@@ -60,7 +60,7 @@ Erstellen ein Entity Framework-Datenmodell, das mit dem EF-Designer wird, klicke
 Eine Eigenschaft einer Entität, die auf eine andere Entität verweist. Z. B. Produkt enthält eine Navigationseigenschaft für die Kategorie und Kategorie enthält eine Navigationseigenschaft für Produkte.
 
 ## <a name="poco"></a>POCO
-Abkürzung für einfache alte CLR-Objekt. Eine einfache Klasse, die keine Abhängigkeiten mit jeden Framework enthält. Im Kontext von Entity Framework eine Entitätsklasse, die nicht von "EntityObject", abgeleitet ist Schnittstellen implementiert oder enthält alle Attribute in EF definiert. Solche Entitätsklassen, die von der persistenzframework entkoppelt sind werden auch als "Persistenzignoranz".  
+Abkürzung für einfache alte CLR-Objekt. Eine einfache Klasse, die keine Abhängigkeiten mit jeden Framework enthält. Im Kontext von Entity Framework, einer Entitätsklasse, die nicht von "EntityObject" abgeleitet ist, alle Schnittstellen implementiert oder enthält alle Attribute in EF definiert. Solche Entitätsklassen, die von der persistenzframework entkoppelt sind werden auch als "Persistenzignoranz".  
 
 ## <a name="relationship-inverse"></a>Beziehung inverse
 Die entgegengesetzten Ende einer Beziehung, z. B. Produkt. Kategorie "und" Kategorie ". Das Produkt.
