@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 79a73e38fdc9c4268c21de66571d6272f33e9457
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 84e2e4bc1bdc774fa059fa893e0f8ac128931feb
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997035"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447182"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer vorhandenen Datenbank
 
@@ -171,6 +171,12 @@ Sie können die Anwendung jetzt ausführen, um sie in Aktion zu sehen.
 * Klicken Sie auf **Neu erstellen**.
 * Geben Sie eine **URL** für den neuen Blog ein, und klicken Sie auf **Erstellen**.
 
-![Bild](_static/create.png)
+  ![Seite „Create“](_static/create.png)
 
-![Bild](_static/index-existing-db.png)
+  ![Indexseite](_static/index-existing-db.png)
+
+## <a name="next-steps"></a>Nächste Schritte
+
+Weitere Informationen über das Erstellen des Gerüsts für einen Kontext und Entitätsklassen finden Sie in den folgenden Artikeln:
+* [Entity Framework Core Tools-Referenz – .NET-CLI](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
+* [Entity Framework Core Tools-Referenz – Paket-Manager-Konsole](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)

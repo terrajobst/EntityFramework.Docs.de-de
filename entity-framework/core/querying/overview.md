@@ -1,15 +1,15 @@
 ---
 title: Funktionsweise von Abfragen – EF Core
 author: rowanmiller
-ms.date: 10/27/2016
+ms.date: 09/26/2018
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/overview
-ms.openlocfilehash: f1c23471bfbc998b2d4f9dc579d1404d6202e109
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 23d26f9c0ac17fc0df744f5339946947ea366911
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993202"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415730"
 ---
 # <a name="how-queries-work"></a>Funktionsweise von Abfragen
 
@@ -45,4 +45,4 @@ Dies sind die üblichsten Vorgänge, aufgrund derer die Abfrage wird an die Date
 * Datenbindung der Ergebnisse einer Abfrage an eine Benutzeroberfläche
 
 > [!WARNING]  
-> **Benutzereingaben immer überprüfen:** EF bietet zwar Schutz vor Angriffen durch Einschleusung von SQL-Befehlen, jedoch keine allgemeine Überprüfung der Eingabe. Stammen Werte, die z.B. an APIs übergeben, in LINQ-Abfragen verwendet oder Entitätseigenschaften zugewiesen werden, aus einer nicht vertrauenswürdigen Quelle, sollte gemäß den Anwendungsanforderungen eine angemessene Prüfung vorgenommen werden. Dies schließt alle Benutzereingaben ein, mit denen Abfragen dynamisch erstellt werden. Wenn Sie Benutzereingaben zum Erstellen von Ausdrücken zulassen, müssen Sie selbst bei LINQ sicherstellen, dass nur beabsichtigte Ausdrücke erstellt werden können.
+> **Benutzereingaben immer überprüfen:** Zwar schützt EF Core vor SQL-Einschleusungsangriffen durch Verwendung von Parametern und das Escapen von Literalen in Abfragen, es überprüft jedoch keine Eingaben. Geeignete Validierung gemäß den Anforderungen der Anwendung sollte erfolgen, bevor Werte aus nicht vertrauenswürdigen Quellen in LINQ-Abfragen verwendet, Entitätseigenschaften zugewiesen oder an andere EF Core-APIs übergeben werden. Dies schließt alle Benutzereingaben ein, mit denen Abfragen dynamisch erstellt werden. Wenn Sie Benutzereingaben zum Erstellen von Ausdrücken zulassen, müssen Sie selbst bei LINQ sicherstellen, dass nur beabsichtigte Ausdrücke erstellt werden können.
