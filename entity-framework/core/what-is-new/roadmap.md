@@ -42,9 +42,9 @@ Wir verwenden den [Backlog-Meilenstein](https://github.com/aspnet/EntityFramewor
 
 Wenn wir davon ausgehen, dass Probleme zu einem späteren Zeitpunkt bearbeitet werden oder dass sich jemand aus der Community darum kümmert, lassen wir sie offen. Das bedeutet jedoch nicht, dass wir sie innerhalb eines bestimmten Zeitraums einem bestimmten Meilenstein des [Releaseplanungsprozesses](#release-planning-process) zuweisen.
 
-Sollte die Implementierung eines Features zu keinem Zeitpunkt geplant sein, wird das Problem wahrscheinlich geschlossen. Ein geschlossenes Problem kann zu einem späteren Zeitpunkt wieder berücksichtigt werden, wenn wir neue Informationen dazu erhalten.
+Sollte die Implementierung eines Features zu keinem Zeitpunkt geplant sein, wird das Issue wahrscheinlich geschlossen. Ein geschlossenes Issue kann zu einem späteren Zeitpunkt wieder berücksichtigt werden, wenn wir neue Informationen dazu erhalten.
 
-Alles in allem liegen uns nicht ausreichend Informationen über die Zukunft vor, um zu gewährleisten, dass Problem X bis zum Datum oder Release Y gelöst wird. Wie bei allen Softwareprojekten können sich Prioritäten, Releasepläne und die verfügbaren Ressourcen jederzeit ändern.
+Alles in allem liegen nicht ausreichend Informationen vor, um zu gewährleisten, dass Problem X bis zum Datum oder Release Y gelöst wird. Wie bei allen Softwareprojekten können sich Prioritäten, Releasepläne und die verfügbaren Ressourcen jederzeit ändern.
 
 ## <a name="release-planning-process"></a>Die Releaseplanung
 
@@ -54,13 +54,13 @@ Es ist schwierig, den gesamten Prozess der Releaseplanung hier darzulegen. Einer
 
 1. **Wie viele Entwickler werden das Feature zukünftig verwenden, und welche Verbesserungen für die Anwendungen/Benutzererfahrung wird es bringen?** Wir sammeln viel Feedback aus verschiedenen Quellen, zu denen auch Kommentare und die abgegebenen Stimmen zählen.
 
-2. **Welche Workarounds können genutzt werden, wenn dieses Feature noch nicht implementiert werden soll?** Viele Entwickler können z.B. eine Jointabelle zuordnen, um die fehlende Unterstützung für nativen m:n-Support zu umgehen. Dies gilt zwar nicht für alle Entwickler, ist aber trotzdem eine wichtige Lösung.
+2. **Welche Problemumgehungen können genutzt werden, wenn dieses Feature noch nicht implementiert werden soll?** Viele Entwickler können z.B. eine Jointabelle zuordnen, um die fehlende Unterstützung für nativen m:n-Support zu umgehen. Dies gilt zwar nicht für alle Entwickler, ist aber trotzdem eine wichtige Lösung.
 
 3. **Wird durch die Implementierung dieses Features die Architektur von EF Core weiterentwickelt, sodass die Implementierung anderer Features erleichtert wird?** Features, die Bausteine für andere Features sind, werden üblicherweise bevorzugt. Die Tabellenaufteilung für eigene Typen bringt uns z.B. der Unterstützung von TPT einen Schritt näher.
 
 4. **Ist dieses Feature ein Erweiterungspunkt?** In der Regel werden Erweiterungspunkte bevorzugt, da Entwickler damit einfacher eigene Verhaltensweisen verknüpfen und so einen Teil der fehlenden Funktionalität ersetzen können. Einiges davon ist als Ausgangspunkt für das Lazy Loading gedacht.
 
-5. **Welche Synergien erzeugt das Feature in Kombination mit anderen Produkten?** Normalerweise werden Features bevorzugt, die die Kompatibilität von EF Core mit anderen Produkten erhöhen oder die Nutzererfahrung beim Verwenden von Produkten wie .NET Core, der neuesten Version von Visual Studio, Microsoft Azure etc. deutlich verbessern.
+5. **Welche Synergien erzeugt das Feature in Kombination mit anderen Produkten?** Normalerweise werden Features bevorzugt, die die Kompatibilität von EF Core mit anderen Produkten erhöhen oder die Verwendbarkeit von anderen Produkte wie .NET Core, die neueste Version von Visual Studio, Microsoft Azure etc. deutlich verbessern.
 
 6. **Welche Kompetenzen haben die Personen, die an dem Feature arbeiten, und wie lassen sich diese Ressourcen am besten einsetzen?** Alle Mitglieder des EF-Teams und alle Mitwirkenden aus der Community können auf unterschiedliche Erfahrungsschätze in verschiedenen Bereichen zurückgreifen. Dementsprechend muss geplant werden. Selbst wenn „alle mit anpacken“ und an einem bestimmten Feature wie z.B. GroupBy-Übersetzungen oder m:n arbeiten sollten, ist das nicht immer die beste Lösung.
 
