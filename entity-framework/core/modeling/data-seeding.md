@@ -22,10 +22,10 @@ Seedingdaten für einen `Blog` in `OnModelCreating` können beispielsweise so ko
 
 [!code-csharp[Main](../../../samples/core/DataSeeding/DataSeedingContext.cs?name=BlogSeed)]
 
-Es müssen die Fremdschlüssel angegeben werden, um Entitäten hinzuzufügen, die eine Beziehung haben. Häufig sind Fremdschlüssel im Schattenstatus. Sie müssen also eine anonyme Klasse verwenden, um die Fremdschlüssel belegen zu können:
+Um Entitäten hinzuzufügen, die eine Beziehung die Fremdschlüsselwerte müssen angegeben werden. Häufig sind Fremdschlüsseleigenschaften im Volumeschattenkopie-Zustand, also um eine anonyme Klasse legen Sie die Werte können verwendet werden soll:
 
 [!code-csharp[Main](../../../samples/core/DataSeeding/DataSeedingContext.cs?name=PostSeed)]
 
 Sobald Entitäten hinzugefügt wurden, ist es empfehlenswert, [Migrationen](xref:core/managing-schemas/migrations/index) für Änderungen zu verwenden. 
 
-Alternativ kann `context.Database.EnsureCreated()` zum Erstellen einer neuen Datenbank mit Seedingdaten, z.B. eine Testdatenbank oder eine In-Memory-Datenbank, verwendet werden. Ist die Datenbank bereits vorhanden, aktualisiert `EnsureCreated()` weder das Schema und noch die Seedingdaten in der Datenbank.
+Alternativ können Sie `context.Database.EnsureCreated()` zum Erstellen einer neuen Datenbank, die die Seed-Daten, z. B. für eine Testdatenbank oder bei Verwendung von in-Memory-Anbieter enthält. Beachten Sie, dass bei die Datenbank bereits vorhanden ist, `EnsureCreated()` weder aktualisiert das Schema und die Seed-Daten in der Datenbank.
