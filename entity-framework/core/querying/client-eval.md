@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 78f8d9576748a725634665f915def80b5a13820c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 47e22be274d02b5221c638d07151d9607aa7e24f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997876"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250802"
 ---
 # <a name="client-vs-server-evaluation"></a>Clientauswertung im Vergleich zur Serverauswertung
 
@@ -49,7 +49,7 @@ public static string StandardizeUrl(string url)
 }
 ```
 
-## <a name="disabling-client-evaluation"></a>Deaktivieren der Clientauswertung
+## <a name="client-evaluation-performance-issues"></a>Leistungsprobleme bei der Clientauswertung
 
 Die Clientauswertung kann sehr hilfreich sein, in manchen Fällen kann sie jedoch auch zu einer schlechten Leistung führen. Betrachten Sie die folgende Abfrage, in der die Hilfsmethode jetzt in einem Filter verwendet wird. Da dieser Vorgang nicht in der Datenbank durchgeführt werden kann, werden sämtliche Daten mithilfe von Pull in den Speicher übertragen. Anschließend wird der Filter auf den Client angewendet. Abhängig vom Umfang der Daten und davon, wie viele dieser Daten herausgefiltert werden, könnte dies zu einer schlechten Leistung führen.
 
@@ -60,7 +60,13 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Standardmäßig protokolliert EF Core bei der Durchführung einer Auswertung eine Warnung. Weitere Informationen zum Anzeigen von Protokollierungsausgaben finden Sie unter [Protokollierung](../miscellaneous/logging.md). Sie können das Verhalten bei einer Clientauswertung auslösen oder nichts unternehmen. Dies geschieht, wenn die Optionen für Ihren Kontext – normalerweise in `DbContext.OnConfiguring` oder `Startup.cs` – bei Verwendung von ASP.NET Core eingerichtet werden.
+## <a name="client-evaluation-logging"></a>Protokollieren der Clientauswertung
+
+Standardmäßig protokolliert EF Core bei der Durchführung einer Auswertung eine Warnung. Weitere Informationen zum Anzeigen von Protokollierungsausgaben finden Sie unter [Protokollierung](../miscellaneous/logging.md). 
+
+## <a name="optional-behavior-throw-an-exception-for-client-evaluation"></a>Optionales Verhalten: Auslösen einer Ausnahme für die Clientauswertung
+
+Sie können das Verhalten bei einer Clientauswertung auslösen oder nichts unternehmen. Dies geschieht, wenn die Optionen für Ihren Kontext – normalerweise in `DbContext.OnConfiguring` oder `Startup.cs` – bei Verwendung von ASP.NET Core eingerichtet werden.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
 ``` csharp

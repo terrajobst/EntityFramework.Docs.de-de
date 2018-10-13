@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/06/2018
 ms.assetid: a29a3d97-b2d8-4d33-9475-40ac67b3b2c6
 uid: core/get-started/full-dotnet/existing-db
-ms.openlocfilehash: edcdc0b76394c4d604cf43fc170424e474532b17
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: b9e079f88dd35016407b19bb627f8bd46edb3d4c
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993417"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447156"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework-with-an-existing-database"></a>Erste Schritte mit EF Core in .NET Framework mit einer vorhandenen Datenbank
 
@@ -117,7 +117,8 @@ Jetzt können Sie das Modell zum Zugreifen auf Daten verwenden.
 
   ![Bild](_static/output-existing-db.png)
 
-## <a name="additional-resources"></a>Zusätzliche Ressourcen
+## <a name="next-steps"></a>Nächste Schritte
 
-* [EF Core in .NET Framework mit einer neuen Datenbank](xref:core/get-started/full-dotnet/new-db)
-* [EF Core in .NET Core mit einer neuen Datenbank - SQLite](xref:core/get-started/netcore/new-db-sqlite) – Ein EF-Tutorial für beliebige Plattformkonsolen
+Weitere Informationen über das Erstellen des Gerüsts für einen Kontext und Entitätsklassen finden Sie in den folgenden Artikeln:
+* [Entity Framework Core Tools-Referenz – .NET-CLI](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
+* [Entity Framework Core Tools-Referenz – Paket-Manager-Konsole](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)

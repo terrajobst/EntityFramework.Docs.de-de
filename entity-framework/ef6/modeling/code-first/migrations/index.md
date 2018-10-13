@@ -3,12 +3,12 @@ title: 'Code First-Migrationen: EF6'
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 389da6c54e063a5dc598f98f8ac92cfc0e686019
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: f408ef861a2992783142fa1483d1433ca710399a
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283848"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415795"
 ---
 # <a name="code-first-migrations"></a>Code First-Migrationen
 Code First-Migrationen ist die empfohlene Methode, das Datenbankschema einer Anwendung weiterzuentwickeln, wenn Sie den Code First-Workflow verwenden. Code First-Migrationen stellt eine Reihe von Tools bereit, mit denen Sie folgende Aktionen ausführen können:
