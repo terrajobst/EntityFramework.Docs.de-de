@@ -2,8 +2,6 @@
 
 ## [Vergleichen von EF Core und EF 6](efcore-and-ef6/index.md)
 
-### [Auswählen des richtigen Leitfadens](efcore-and-ef6/choosing.md)
-### [Featurevergleich](efcore-and-ef6/features.md)
 ### [EF 6 und EF Core in derselben Anwendung](efcore-and-ef6/side-by-side.md)
 ### [Portieren von EF 6 nach EF Core](efcore-and-ef6/porting/index.md)
 #### [Überprüfen von Anforderungen](efcore-and-ef6/porting/ensure-requirements.md)
