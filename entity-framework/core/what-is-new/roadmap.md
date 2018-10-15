@@ -60,7 +60,7 @@ Es ist schwierig, den gesamten Prozess der Releaseplanung hier darzulegen. Einer
 
 4. **Ist dieses Feature ein Erweiterungspunkt?** In der Regel werden Erweiterungspunkte bevorzugt, da Entwickler damit einfacher eigene Verhaltensweisen verknüpfen und so einen Teil der fehlenden Funktionalität ersetzen können. Einiges davon ist als Ausgangspunkt für das Lazy Loading gedacht.
 
-5. **Welche Synergien erzeugt das Feature in Kombination mit anderen Produkten?** Normalerweise werden Features bevorzugt, die die Kompatibilität von EF Core mit anderen Produkten erhöhen oder die Verwendbarkeit von anderen Produkte wie .NET Core, die neueste Version von Visual Studio, Microsoft Azure etc. deutlich verbessern.
+5. **Welche Synergien erzeugt das Feature in Kombination mit anderen Produkten?** Normalerweise werden Features bevorzugt, die die Kompatibilität von EF Core mit anderen Produkten erhöhen oder die Verwendbarkeit von anderen Produkten wie .NET Core, die neueste Version von Visual Studio, Microsoft Azure etc. deutlich verbessern.
 
 6. **Welche Kompetenzen haben die Personen, die an dem Feature arbeiten, und wie lassen sich diese Ressourcen am besten einsetzen?** Alle Mitglieder des EF-Teams und alle Mitwirkenden aus der Community können auf unterschiedliche Erfahrungsschätze in verschiedenen Bereichen zurückgreifen. Dementsprechend muss geplant werden. Selbst wenn „alle mit anpacken“ und an einem bestimmten Feature wie z.B. GroupBy-Übersetzungen oder m:n arbeiten sollten, ist das nicht immer die beste Lösung.
 
