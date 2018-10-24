@@ -1,30 +1,165 @@
 ---
-title: Vergleichen von EF Core und EF 6
+title: Vergleich von Entity Framework 6 und Entity Framework Core
+description: Hilfestellung zur Entscheidung zwischen Entity Framework 6 und Entity Framework Core.
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 09ffd8408ea8575ea367eaf2bdab4002db5c619e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8568f0a3c6c4585c4fe05508fd610614107c8f66
+ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997123"
+ms.lasthandoff: 10/14/2018
+ms.locfileid: "49315645"
 ---
 # <a name="compare-ef-core--ef6"></a>Vergleichen von EF Core und EF 6
 
-Es gibt zwei unterschiedliche Versionen von Entity Framework: Entity Framework Core und Entity Framework 6.
+Entity Framework ist ein objektrelationaler Mapper (O/RM) für .NET. In diesem Artikel werden die zwei Versionen verglichen: Entity Framework 6 und Entity Framework Core.
 
 ## <a name="entity-framework-6"></a>Entity Framework 6
 
-Entity Framework 6 (EF 6) ist eine bewährte Datenzugriffstechnologie mit Features und Stabilisierungsmaßnahmen, die das Ergebnis jahrelanger Arbeit sind. Es wurde erstmals in 2008 im Rahmen von .NET Framework 3.5 SP1 und Visual Studio 2008 SP1 veröffentlicht. Ab Release EF 4.1 wurde es im Lieferumfang des [NuGet-Pakets „EntityFramework“](https://www.nuget.org/packages/EntityFramework/) ausgeliefert, derzeit eines der am häufigsten verwendeten Pakete auf NuGet.org.
+Entity Framework 6 (EF6) ist eine bewährte und getestete Datenzugriffstechnologie. Es wurde erstmals 2008 im Rahmen von .NET Framework 3.5 SP1 und Visual Studio 2008 SP1 veröffentlicht. Seit Version 4.1 wurde es als Bestandteil des [EntityFramework](https://www.nuget.org/packages/EntityFramework/)-NuGet-Pakets geliefert. EF6 wird in .NET Framework 4.x ausgeführt, was heißt, es kann nur unter Windows ausgeführt werden. 
 
-EF 6 ist weiterhin ein unterstütztes Produkt, für das einige Zeit lang weiterhin Support durch Fehlerbehebungen und kleinere Verbesserungen bereitgestellt wird.
+EF 6 ist nach wie vor ein unterstütztes Produkt, für das weiterhin Support durch Fehlerbehebungen und kleinere Verbesserungen bereitgestellt wird.
 
 ## <a name="entity-framework-core"></a>Entity Framework Core
 
-Entity Framework Core (EF Core) ist eine einfache, erweiterbare und plattformübergreifende Version von Entity Framework. In EF Core werden zahlreiche Verbesserungen und neue Features im Vergleich zu EF 6 eingeführt. EF Core ist gleichzeitig eine neue Codebasis und nicht so ausgereift wie EF 6.
+Entity Framework Core (EF Core) ist eine vollständig neue Version von EF6, die erstmals im Jahr 2016 veröffentlicht wurde. Es wird in Form von NuGet-Paketen geliefert, von denen das wichtigste [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/) ist. EF Core ist ein plattformübergreifendes Produkt, das in .NET Core oder .NET Framework ausgeführt werden kann.
 
-In EF Core wird die Entwickleroberfläche von EF 6 wie auch die meisten APIs der obersten Ebene beibehalten, sodass EF Core für Benutzer, die EF 6 verwendet haben, sehr vertraut wirken wird. Gleichzeitig wird EF Core über eine völlig neue Gruppe von Kernkomponenten erstellt. Das bedeutet, dass EF Core nicht automatisch alle Features von EF 6 erbt. Einige dieser Features werden in zukünftigen Releases vorkommen, während andere seltener verwendete Features nicht in EF Core implementiert werden.
+EF Core wurde entwickelt, um eine ähnliche Entwicklererfahrung wie EF6 bereitzustellen. Die meisten APIs der obersten Ebene bleibt unverändert, so dass EF Core Entwicklern, die EF 6 verwendet haben, vertraut erscheint.
 
-In der neuen, erweiterbaren und einfachen EF Core-Version konnten außerdem einige Features zu EF Core hinzugefügt werden, die nicht in EF 6 implementiert werden (z.B. Alternativschlüssel, Batchupdates und gemischte Client-/Datenbank-Auswertung in LINQ-Abfragen).
+## <a name="feature-comparison"></a>Funktionsvergleich
+
+EF Core bietet neue Funktionen, die in EF6 nicht implementiert werden (wie etwa [alternative Schlüssel](xref:core/modeling/alternate-keys), [Batchupdates](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements) und [gemischte Client-/Datenbankauswertung in LINQ-Abfragen](xref:core/querying/client-eval). Da es sich aber um eine neue Codebasis handelt, fehlen auch einige Funktionen, über die EF6 verfügt.
+
+In den folgenden Tabellen werden die in EF Core und EF6 verfügbaren Funktionen verglichen. Das ist ein allgemeiner Vergleich, in dem nicht alle Funktionen aufgelistet und nicht alle Unterschiede zwischen der gleichen Funktion in verschiedenen EF-Versionen erläutert sind.
+
+Die Spalte „EF Core“ zeigt die Produktversion, in der die Funktion zum ersten Mal eingeführt wurde.
+
+### <a name="creating-a-model"></a>Erstellen eines Modells
+
+| **Funktion**                                           | **EF 6** | **EF Core**                           |
+|:------------------------------------------------------|:---------|:--------------------------------------|
+| Grundlegende Klassenzuordnung                                   | Ja      | 1.0                                   |
+| Konstruktoren mit Parametern                          |          | 2.1                                   |
+| Konvertierungen von Eigenschaftswerten                            |          | 2.1                                   |
+| Zugeordnete Typen ohne Schlüssel (Abfragetypen)               |          | 2.1                                   |
+| Konventionen                                           | Ja      | 1.0                                   |
+| Benutzerdefinierte Konventionen                                    | Ja      | 1.0 (teilweise)                         |
+| Datenanmerkungen                                      | Ja      | 1.0                                   |
+| Fluent-API                                            | Ja      | 1.0                                   |
+| Vererbung: Tabelle pro Hierarchie (TPH)                | Ja      | 1.0                                   |
+| Vererbung: Tabelle pro Typ (TPT)                     | Ja      |                                       |
+| Vererbung: Tabelle pro konkrete Klasse (TPC)           | Ja      |                                       |
+| Eigenschaften im Schattenzustand                               |          | 1.0                                   |
+| Alternative Schlüssel                                        |          | 1.0                                   |
+| m:n ohne Joinentität                      | Ja      |                                       |
+| Schlüsselgenerierung: Datenbank                              | Ja      | 1.0                                   |
+| Schlüsselgenerierung: Client                                |          | 1.0                                   |
+| Complex-/Owned-Typen                                   | Ja      | 2.0                                   |
+| Räumliche Daten                                          | Ja      |                                       |
+| Grafische Visualisierung eines Modells                      | Ja      |                                       |
+| Grafischer Modell-Editor                                | Ja      |                                       |
+| Modellformat: Code                                    | Ja      | 1.0                                   |
+| Modellformat: EDMX (XML)                              | Ja      |                                       |
+| Modell aus Datenbank erstellen: Befehlszeile              | Ja      | 1.0                                   |
+| Modell aus Datenbank erstellen: VS-Assistent                 | Ja      |                                       |
+| Modell aus Datenbank aktualisieren                            | Partial  |                                       |
+| Globale Abfragefilter                                  |          | 2.0                                   |
+| Tabellenaufteilung                                       | Ja      | 2.0                                   |
+| Entitätsaufteilung                                      | Ja      |                                       |
+| Zuordnung von Skalarfunktionen für Datenbanken                      | Schlecht     | 2.0                                   |
+| Feldzuordnung                                         |          | 1.1                                   |
+
+### <a name="querying-data"></a>Abfragen von Daten
+
+| **Funktion                                             | **EF6**  | **EF Core**                           |
+|:------------------------------------------------------|:---------|:--------------------------------------|
+| LINQ-Abfragen                                          | Ja      | 1.0 (für komplexe Abfragen in Bearbeitung) |
+| Lesbares generiertes SQL                                | Schlecht     | 1.0                                   |
+| Gemischte Client-/Serverauswertung                        |          | 1.0                                   |
+| GroupBy-Übersetzung                                   | Ja      | 2.1                                   |
+| Laden zugehöriger Daten: Eager                           | Ja      | 1.0                                   |
+| Laden von verknüpften Daten: Eager Loading für abgeleitete Typen |          | 2.1                                   |
+| Laden zugehöriger Daten: Lazy                            | Ja      | 2.1                                   |
+| Laden zugehöriger Daten: Explizit                        | Ja      | 1.1                                   |
+| RAW-SQL-Abfragen: Entitätstypen                         | Ja      | 1.0                                   |
+| Reine SQL-Abfragen: Andere Typen als Entitätstypen (Abfragetypen)       | Ja      | 2.1                                   |
+| Unformatierte SQL-Abfragen: Erstellung mit LINQ                  |          | 1.0                                   |
+| Explizit kompilierte Abfragen                           | Schlecht     | 2.0                                   |
+| Textbasierte Abfragesprache (Entity SQL)                | Ja      |                                       |
+
+### <a name="saving-data"></a>Speichern von Daten
+
+| **Funktion**                                           | **EF6**  | **EF Core**                           |
+|:------------------------------------------------------|:---------|:--------------------------------------|
+| Änderungsnachverfolgung: Momentaufnahme                             | Ja      | 1.0                                   |
+| Änderungsnachverfolgung: Benachrichtigung                         | Ja      | 1.0                                   |
+| Änderungsnachverfolgung: Proxys                              | Ja      |                                       |
+| Zugriff auf den erfassten Zustand                               | Ja      | 1.0                                   |
+| Optimistische Nebenläufigkeit                                | Ja      | 1.0                                   |
+| Transaktionen                                          | Ja      | 1.0                                   |
+| Anweisungsbatches                                |          | 1.0                                   |
+| Mapping der gespeicherten Prozedur                              | Ja      |                                       |
+| Abgekoppelter Graph: Lowlevel-APIs                     | Schlecht     | 1.0                                   |
+| Abgekoppelter Graph: End-to-End                         |          | 1.0 (teilweise)                         |
+
+### <a name="other-features"></a>Weitere Funktionen
+
+| **Funktion**                                           | **EF6**  | **EF Core**                           |
+|:------------------------------------------------------|:---------|:--------------------------------------|
+| Migrationen                                            | Ja      | 1.0                                   |
+| APIs zum Erstellen/Löschen von Datenbanken                       | Ja      | 1.0                                   |
+| Ausgangswerte                                             | Ja      | 2.1                                   |
+| Verbindungsresilienz                                 | Ja      | 1.1                                   |
+| Lebenszyklushooks (Ereignisse, Abfangen)                | Ja      |                                       |
+| Einfache Protokollierung („Database.Log“)                         | Ja      |                                       |
+| DbContext-Pooling                                     |          | 2.0                                   |
+
+### <a name="database-providers"></a>Datenbankanbieter
+
+| **Funktion**                                           | **EF6**  | **EF Core**                           |
+|:------------------------------------------------------|:---------|:--------------------------------------|
+| SQL Server                                            | Ja      | 1.0                                   |
+| MySQL                                                 | Ja      | 1.0                                   |
+| PostgreSQL                                            | Ja      | 1.0                                   |
+| Oracle                                                | Ja      | 1.0 <sup>(1)</sup>                    |
+| SQLite                                                | Ja      | 1.0                                   |
+| SQL Server Compact                                    | Ja      | 1.0 <sup>(2)</sup>                    |
+| DB2                                                   | Ja      | 1.0                                   |
+| Firebird                                              | Ja      | 2.0                                   |
+| Jet (Microsoft Access)                                |          | 2.0 <sup>(2)</sup>                    |
+| In-Memory (für Tests)                               |          | 1.0                                   |
+
+<sup>1</sup> Zurzeit ist ein kostenpflichtiger Anbieter für Oracle verfügbar. An einem kostenlosen offiziellen Anbieter für Oracle wird gearbeitet.
+
+<sup>2</sup> Der SQL Server Compact- und Jet-Anbieter funktioniert nur für .NET Framework (nicht für .NET Core).
+
+### <a name="net-implementations"></a>.NET-Implementierungen
+
+| **Funktion**                                           | **EF6**  | **EF Core**                           |
+|:------------------------------------------------------|:---------|:--------------------------------------|
+| .NET Framework (Konsole, WinForms, WPF, ASP.NET)      | Ja      | 1.0                                   |
+| .NET Core (Konsole, ASP.NET Core)                     |          | 1.0                                   |
+| Mono & Xamarin                                        |          | 1.0 (in Bearbeitung)                     |
+| UWP                                                   |          | 1.0 (in Bearbeitung)                     |
+
+## <a name="guidance-for-new-applications"></a>Leitfaden für neue Anwendungen
+
+Ziehen Sie für neue Anwendungen EF Core in Erwägung, wenn die beiden folgenden Bedingungen erfüllt sind:
+* Die App benötigt die Funktionen von .NET Core. Weitere Informationen finden Sie unter [Wahl zwischen .NET Core und .NET Framework für Server-Apps](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server).
+* EF Core unterstützt alle Funktionen, die für die App erforderlich sind. Wenn eine gewünschte Funktion fehlt, überprüfen Sie die [EF Core Roadmap](xref:core/what-is-new/roadmap), um herauszufinden, ob eine zukünftige Unterstützung geplant ist. 
+
+Ziehen Sie EF6 in Erwägung, wenn die beiden folgenden Bedingungen erfüllt sind:
+* Die App wird unter Windows und .NET Framework 4.0 oder höher ausgeführt.
+* EF6 unterstützt alle Funktionen, die für die App erforderlich sind.
+
+## <a name="guidance-for-existing-ef6-applications"></a>Leitfaden für vorhandene EF6-Anwendungen
+
+Aufgrund der wesentlichen Änderungen in EF Core wird nicht empfohlen, eine EF 6-Anwendung auf EF Core umzustellen – es sei denn, es gibt einen zwingenden Grund für eine solche Änderung. Wenn Sie zu EF Core wechseln möchten, um neue Funktionen zu nutzen, sollten Sie sich über die Einschränkungen im Klaren sein. Weitere Informationen finden Sie unter [Portieren von EF6 nach EF Core](porting/index.md). **Der Wechsel von EF6 zu EF Core ist eher eine Portierung als ein Upgrade.** 
+
+## <a name="next-steps"></a>Nächste Schritte
+
+Weitere Informationen finden Sie in der Dokumentation:
+* <xref:core/index>
+* <xref:ef6/index>
