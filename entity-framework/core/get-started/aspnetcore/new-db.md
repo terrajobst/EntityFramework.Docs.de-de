@@ -5,112 +5,229 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: c6a86dd943dc7fe6f600455fe6743ea01a062aab
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 878478099878e4a0bc65c44fef0609d28f39f2b8
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996063"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834772"
 ---
-# <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a><span data-ttu-id="1c43a-102">Erste Schritte mit EF Core in ASP.NET Core mit einer neuen Datenbank</span><span class="sxs-lookup"><span data-stu-id="1c43a-102">Getting Started with EF Core on ASP.NET Core with a New database</span></span>
+# <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a><span data-ttu-id="de6c3-102">Erste Schritte mit EF Core in ASP.NET Core mit einer neuen Datenbank</span><span class="sxs-lookup"><span data-stu-id="de6c3-102">Getting Started with EF Core on ASP.NET Core with a New database</span></span>
 
-<span data-ttu-id="1c43a-103">In diesem Tutorial entwickeln Sie eine ASP.NET Core MVC-Anwendung, die einen grundlegenden Datenzugriff mit Entity Framework Core durchführt.</span><span class="sxs-lookup"><span data-stu-id="1c43a-103">In this tutorial, you build an ASP.NET Core MVC application that performs basic data access using Entity Framework Core.</span></span> <span data-ttu-id="1c43a-104">Sie verwenden Migrationen, um die Datenbank aus Ihrem EF Core-Modell zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="1c43a-104">You use migrations to create the database from your EF Core model.</span></span>
+<span data-ttu-id="de6c3-103">In diesem Tutorial entwickeln Sie eine ASP.NET Core MVC-Anwendung, die einen grundlegenden Datenzugriff mit Entity Framework Core durchführt.</span><span class="sxs-lookup"><span data-stu-id="de6c3-103">In this tutorial, you build an ASP.NET Core MVC application that performs basic data access using Entity Framework Core.</span></span> <span data-ttu-id="de6c3-104">Dieses Tutorial verwendet Migrationen, um die Datenbank aus dem Datenmodell zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="de6c3-104">The tutorial uses migrations to create the database from the data model.</span></span>
 
-<span data-ttu-id="1c43a-105">[Sehen Sie sich das Beispiel aus diesem Artikel auf GitHub an](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb).</span><span class="sxs-lookup"><span data-stu-id="1c43a-105">[View this article's sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb).</span></span>
+<span data-ttu-id="de6c3-105">Sie können das Tutorial mit Visual Studio 2017 für Windows oder mithilfe von .NET Core-CLI unter Windows, MacOS oder Linux nachvollziehen.</span><span class="sxs-lookup"><span data-stu-id="de6c3-105">You can follow the tutorial by using Visual Studio 2017 on Windows, or by using the .NET Core CLI on Windows, macOS, or Linux.</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="1c43a-106">Erforderliche Komponenten</span><span class="sxs-lookup"><span data-stu-id="1c43a-106">Prerequisites</span></span>
+<span data-ttu-id="de6c3-106">Beispiel aus diesem Artikel auf GitHub anzeigen:</span><span class="sxs-lookup"><span data-stu-id="de6c3-106">View this article's sample on GitHub:</span></span>
+* [<span data-ttu-id="de6c3-107">Visual Studio 2017 mit SQLServer</span><span class="sxs-lookup"><span data-stu-id="de6c3-107">Visual Studio 2017 with SQL Server</span></span>](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb)
+* <span data-ttu-id="de6c3-108">[.NET Core-CLI mit SQLite](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite).</span><span class="sxs-lookup"><span data-stu-id="de6c3-108">[.NET Core CLI with SQLite](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite).</span></span>
 
-<span data-ttu-id="1c43a-107">Installieren Sie die folgenden Softwarekomponenten:</span><span class="sxs-lookup"><span data-stu-id="1c43a-107">Install the following software:</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="de6c3-109">Erforderliche Komponenten</span><span class="sxs-lookup"><span data-stu-id="de6c3-109">Prerequisites</span></span>
 
-* <span data-ttu-id="1c43a-108">[Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) mit diesen Workloads:</span><span class="sxs-lookup"><span data-stu-id="1c43a-108">[Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) with these workloads:</span></span>
-  * <span data-ttu-id="1c43a-109">**ASP.NET- und Webentwicklung** (unter **Web & Cloud**)</span><span class="sxs-lookup"><span data-stu-id="1c43a-109">**ASP.NET and web development** (under **Web & Cloud**)</span></span>
-  * <span data-ttu-id="1c43a-110">**Plattformübergreifende .NET Core-Entwicklung** (unter **Andere Toolsets**)</span><span class="sxs-lookup"><span data-stu-id="1c43a-110">**.NET Core cross-platform development** (under **Other Toolsets**)</span></span>
-* <span data-ttu-id="1c43a-111">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core)</span><span class="sxs-lookup"><span data-stu-id="1c43a-111">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).</span></span>
+<span data-ttu-id="de6c3-110">Installieren Sie die folgenden Softwarekomponenten:</span><span class="sxs-lookup"><span data-stu-id="de6c3-110">Install the following software:</span></span>
 
-## <a name="create-a-new-project-in-visual-studio-2017"></a><span data-ttu-id="1c43a-112">Erstellen eines neuen Projekts in Visual Studio 2017</span><span class="sxs-lookup"><span data-stu-id="1c43a-112">Create a new project in Visual Studio 2017</span></span>
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-111">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-111">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="1c43a-113">Öffnen Sie Visual Studio 2017.</span><span class="sxs-lookup"><span data-stu-id="1c43a-113">Open Visual Studio 2017</span></span>
-* <span data-ttu-id="1c43a-114">Klicken Sie auf **Datei > Neu > Projekt**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-114">**File > New > Project**</span></span>
-* <span data-ttu-id="1c43a-115">Klicken Sie im Menü links auf **Installiert > Visual C# > .NET Core**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-115">From the left menu select **Installed > Visual C# > .NET Core**.</span></span>
-* <span data-ttu-id="1c43a-116">Wählen Sie **ASP.NET Core-Webanwendung** aus.</span><span class="sxs-lookup"><span data-stu-id="1c43a-116">Select **ASP.NET Core Web Application**.</span></span>
-* <span data-ttu-id="1c43a-117">Geben Sie als Name **EFGetStarted.AspNetCore.NewDb** ein, und klicken Sie auf **OK**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-117">Enter **EFGetStarted.AspNetCore.NewDb** for the name and click **OK**.</span></span>
-* <span data-ttu-id="1c43a-118">Gehen Sie im Dialogfeld **ASP.NET Core-Webanwendung** folgendermaßen vor:</span><span class="sxs-lookup"><span data-stu-id="1c43a-118">In the **New ASP.NET Core Web Application** dialog:</span></span>
-  * <span data-ttu-id="1c43a-119">Stellen Sie sicher, dass die Optionen **.NET Core** und **ASP.NET Core 2.1** in den Dropdownlisten ausgewählt sind.</span><span class="sxs-lookup"><span data-stu-id="1c43a-119">Ensure the options **.NET Core** and **ASP.NET Core 2.1** are selected in the drop down lists</span></span>
-  * <span data-ttu-id="1c43a-120">Wählen Sie die Projektvorlage **Webanwendung (Model-View-Controller)** aus.</span><span class="sxs-lookup"><span data-stu-id="1c43a-120">Select the **Web Application (Model-View-Controller)** project template</span></span>
-  * <span data-ttu-id="1c43a-121">Stellen Sie sicher, dass **Authentifizierung** auf **Keine Authentifizierung** festgelegt ist.</span><span class="sxs-lookup"><span data-stu-id="1c43a-121">Ensure that **Authentication** is set to **No Authentication**</span></span>
-  * <span data-ttu-id="1c43a-122">Klicken Sie auf **OK**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-122">Click **OK**</span></span>
+* <span data-ttu-id="de6c3-112">[Visual Studio 2017, Version 15.7 oder höher](https://www.visualstudio.com/downloads/), mit folgenden Workloads:</span><span class="sxs-lookup"><span data-stu-id="de6c3-112">[Visual Studio 2017 version 15.7 or later](https://www.visualstudio.com/downloads/) with these workloads:</span></span>
+  * <span data-ttu-id="de6c3-113">**ASP.NET- und Webentwicklung** (unter **Web & Cloud**)</span><span class="sxs-lookup"><span data-stu-id="de6c3-113">**ASP.NET and web development** (under **Web & Cloud**)</span></span>
+  * <span data-ttu-id="de6c3-114">**Plattformübergreifende .NET Core-Entwicklung** (unter **Andere Toolsets**)</span><span class="sxs-lookup"><span data-stu-id="de6c3-114">**.NET Core cross-platform development** (under **Other Toolsets**)</span></span>
+* <span data-ttu-id="de6c3-115">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core)</span><span class="sxs-lookup"><span data-stu-id="de6c3-115">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).</span></span>
 
-<span data-ttu-id="1c43a-123">Warnung: Wenn Sie für **Authentifizierung** anstelle von **Keine Authentifizierung** die Option **Einzelne Benutzerkonten** verwenden, wird Ihrem Projekt in `Models\IdentityModel.cs` ein Entity Framework Core-Modell hinzugefügt.</span><span class="sxs-lookup"><span data-stu-id="1c43a-123">Warning: If you use **Individual User Accounts** instead of **None** for **Authentication** then an Entity Framework Core model will be added to your project in `Models\IdentityModel.cs`.</span></span> <span data-ttu-id="1c43a-124">Anhand der Techniken, die Sie in diesem Tutorial kennenlernen, können Sie ein zweites Modell hinzufügen oder das vorhandene Modell um Ihre Entitätsklassen erweitern.</span><span class="sxs-lookup"><span data-stu-id="1c43a-124">Using the techniques you learn in this tutorial, you can choose to add a second model, or extend this existing model to contain your entity classes.</span></span>
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-116">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-116">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-## <a name="install-entity-framework-core"></a><span data-ttu-id="1c43a-125">Installieren von Entity Framework Core</span><span class="sxs-lookup"><span data-stu-id="1c43a-125">Install Entity Framework Core</span></span>
+* <span data-ttu-id="de6c3-117">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core)</span><span class="sxs-lookup"><span data-stu-id="de6c3-117">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).</span></span>
 
-<span data-ttu-id="1c43a-126">Installieren Sie das Paket für den (oder die) gewünschten EF Core-Datenbankanbieter, um EF Core zu installieren.</span><span class="sxs-lookup"><span data-stu-id="1c43a-126">To install EF Core, you install the package for the EF Core database provider(s) you want to target.</span></span> <span data-ttu-id="1c43a-127">Eine Liste der verfügbaren Anbieter finden Sie unter [Datenbankanbieter](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="1c43a-127">For a list of available providers see [Database Providers](../../providers/index.md).</span></span> 
+---
 
-<span data-ttu-id="1c43a-128">Für dieses Tutorial müssen Sie kein Anbieterpaket installieren, da das Tutorial SQL Server verwendet.</span><span class="sxs-lookup"><span data-stu-id="1c43a-128">For this tutorial, you don't have to install a provider package because the tutorial uses SQL Server.</span></span> <span data-ttu-id="1c43a-129">Das SQL Server-Anbieterpaket ist im Metapaket [Microsoft.AspnetCore.App](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1) enthalten.</span><span class="sxs-lookup"><span data-stu-id="1c43a-129">The SQL Server provider package is included in the [Microsoft.AspnetCore.App metapackage](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).</span></span>
+## <a name="create-a-new-project"></a><span data-ttu-id="de6c3-118">Erstellt ein neues Projekt</span><span class="sxs-lookup"><span data-stu-id="de6c3-118">Create a new project</span></span>
 
-## <a name="create-the-model"></a><span data-ttu-id="1c43a-130">Erstellen des Modells</span><span class="sxs-lookup"><span data-stu-id="1c43a-130">Create the model</span></span>
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-119">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-119">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="1c43a-131">Definieren Sie eine Kontextklasse und Entitätsklassen für das Modell:</span><span class="sxs-lookup"><span data-stu-id="1c43a-131">Define a context class and entity classes that make up the model:</span></span>
+* <span data-ttu-id="de6c3-120">Öffnen Sie Visual Studio 2017.</span><span class="sxs-lookup"><span data-stu-id="de6c3-120">Open Visual Studio 2017</span></span>
+* <span data-ttu-id="de6c3-121">Klicken Sie auf **Datei > Neu > Projekt**.</span><span class="sxs-lookup"><span data-stu-id="de6c3-121">**File > New > Project**</span></span>
+* <span data-ttu-id="de6c3-122">Wählen Sie im Menü links **Installiert > Visual C# > .NET Core** aus.</span><span class="sxs-lookup"><span data-stu-id="de6c3-122">From the left menu, select **Installed > Visual C# > .NET Core**.</span></span>
+* <span data-ttu-id="de6c3-123">Wählen Sie **ASP.NET Core-Webanwendung** aus.</span><span class="sxs-lookup"><span data-stu-id="de6c3-123">Select **ASP.NET Core Web Application**.</span></span>
+* <span data-ttu-id="de6c3-124">Geben Sie als Name **EFGetStarted.AspNetCore.NewDb** ein, und klicken Sie auf **OK**.</span><span class="sxs-lookup"><span data-stu-id="de6c3-124">Enter **EFGetStarted.AspNetCore.NewDb** for the name and click **OK**.</span></span>
+* <span data-ttu-id="de6c3-125">Gehen Sie im Dialogfeld **ASP.NET Core-Webanwendung** folgendermaßen vor:</span><span class="sxs-lookup"><span data-stu-id="de6c3-125">In the **New ASP.NET Core Web Application** dialog:</span></span>
+  * <span data-ttu-id="de6c3-126">Achten Sie darauf, dass **.NET Core** und **ASP.NET Core 2.1** in den Dropdownlisten ausgewählt sind.</span><span class="sxs-lookup"><span data-stu-id="de6c3-126">Make sure that **.NET Core** and **ASP.NET Core 2.1** are selected in the drop-down lists</span></span>
+  * <span data-ttu-id="de6c3-127">Wählen Sie die Projektvorlage **Webanwendung (Model-View-Controller)** aus.</span><span class="sxs-lookup"><span data-stu-id="de6c3-127">Select the **Web Application (Model-View-Controller)** project template</span></span>
+  * <span data-ttu-id="de6c3-128">Vergewissern Sie sich, dass **Authentifizierung** auf **Keine Authentifizierung** festgelegt ist.</span><span class="sxs-lookup"><span data-stu-id="de6c3-128">Make sure that **Authentication** is set to **No Authentication**</span></span>
+  * <span data-ttu-id="de6c3-129">Klicken Sie auf **OK**.</span><span class="sxs-lookup"><span data-stu-id="de6c3-129">Click **OK**</span></span>
 
-* <span data-ttu-id="1c43a-132">Klicken Sie mit der rechten Maustaste auf den Ordner **Modelle**, und wählen Sie **Hinzufügen > Klasse** aus.</span><span class="sxs-lookup"><span data-stu-id="1c43a-132">Right-click on the **Models** folder and select **Add > Class**.</span></span>
-* <span data-ttu-id="1c43a-133">Geben Sie als Name **Model.cs** ein, und klicken Sie auf **OK**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-133">Enter **Model.cs** as the name and click **OK**.</span></span>
-* <span data-ttu-id="1c43a-134">Ersetzen Sie den Inhalt der Datei durch den folgenden Code:</span><span class="sxs-lookup"><span data-stu-id="1c43a-134">Replace the contents of the file with the following code:</span></span>
+<span data-ttu-id="de6c3-130">Warnung: Wenn Sie für **Authentifizierung** anstelle von **Keine Authentifizierung** die Option **Einzelne Benutzerkonten** verwenden, wird dem Projekt in `Models\IdentityModel.cs` ein Entity Framework Core-Modell hinzugefügt.</span><span class="sxs-lookup"><span data-stu-id="de6c3-130">Warning: If you use **Individual User Accounts** instead of **None** for **Authentication** then an Entity Framework Core model will be added to the project in `Models\IdentityModel.cs`.</span></span> <span data-ttu-id="de6c3-131">Anhand der Techniken, die Sie in diesem Tutorial kennenlernen, können Sie ein zweites Modell hinzufügen oder das vorhandene Modell um Ihre Entitätsklassen erweitern.</span><span class="sxs-lookup"><span data-stu-id="de6c3-131">Using the techniques you learn in this tutorial, you can choose to add a second model, or extend this existing model to contain your entity classes.</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-132">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-132">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+* <span data-ttu-id="de6c3-133">Führen Sie den folgenden Befehl aus, um ein MVC-Projekt zu erstellen:</span><span class="sxs-lookup"><span data-stu-id="de6c3-133">Run the following command to create an MVC project:</span></span>
+
+   ```cli
+   dotnet new mvc -n EFGetStarted.AspNetCore.NewDb
+   ```
+* <span data-ttu-id="de6c3-134">Wechseln Sie in das Projektverzeichnis.</span><span class="sxs-lookup"><span data-stu-id="de6c3-134">Change to the project directory.</span></span> <span data-ttu-id="de6c3-135">Die nächsten Befehle, die Sie eingeben, müssen für das neue Projekt ausgeführt werden.</span><span class="sxs-lookup"><span data-stu-id="de6c3-135">The next commands you enter need to run against the new project.</span></span>
+
+   ```cli
+   cd EFGetStarted.AspNetCore.NewDb
+   ```
+---
+
+## <a name="install-entity-framework-core"></a><span data-ttu-id="de6c3-136">Installieren von Entity Framework Core</span><span class="sxs-lookup"><span data-stu-id="de6c3-136">Install Entity Framework Core</span></span>
+
+<span data-ttu-id="de6c3-137">Installieren Sie das Paket für den (oder die) gewünschten EF Core-Datenbankanbieter, um EF Core zu installieren.</span><span class="sxs-lookup"><span data-stu-id="de6c3-137">To install EF Core, you install the package for the EF Core database provider(s) you want to target.</span></span> <span data-ttu-id="de6c3-138">Eine Liste der verfügbaren Anbieter finden Sie unter [Datenbankanbieter](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="de6c3-138">For a list of available providers, see [Database Providers](../../providers/index.md).</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-139">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-139">Visual Studio</span></span>](#tab/visual-studio)
+
+<span data-ttu-id="de6c3-140">Für dieses Tutorial müssen Sie kein Anbieterpaket installieren, da das Tutorial SQL Server verwendet.</span><span class="sxs-lookup"><span data-stu-id="de6c3-140">For this tutorial, you don't have to install a provider package because the tutorial uses SQL Server.</span></span> <span data-ttu-id="de6c3-141">Das SQL Server-Anbieterpaket ist im Metapaket [Microsoft.AspnetCore.App](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1) enthalten.</span><span class="sxs-lookup"><span data-stu-id="de6c3-141">The SQL Server provider package is included in the [Microsoft.AspnetCore.App metapackage](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-142">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-142">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+<span data-ttu-id="de6c3-143">In diesem Tutorial wird SQLite verwendet, da es auf allen Plattformen ausgeführt werden kann, die .NET Core unterstützt.</span><span class="sxs-lookup"><span data-stu-id="de6c3-143">This tutorial uses SQLite because it runs on all platforms that .NET Core supports.</span></span>
+
+* <span data-ttu-id="de6c3-144">Führen Sie den folgenden Befehl aus, um den SQLite-Anbieter zu installieren:</span><span class="sxs-lookup"><span data-stu-id="de6c3-144">Run the following command to install the SQLite provider:</span></span>
+
+   ```cli
+   dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+   ```
+
+---
+
+## <a name="create-the-model"></a><span data-ttu-id="de6c3-145">Erstellen des Modells</span><span class="sxs-lookup"><span data-stu-id="de6c3-145">Create the model</span></span>
+
+<span data-ttu-id="de6c3-146">Definieren Sie eine Kontextklasse und Entitätsklassen für das Modell.</span><span class="sxs-lookup"><span data-stu-id="de6c3-146">Define a context class and entity classes that make up the model.</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-147">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-147">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="de6c3-148">Klicken Sie mit der rechten Maustaste auf den Ordner **Modelle**, und wählen Sie **Hinzufügen > Klasse** aus.</span><span class="sxs-lookup"><span data-stu-id="de6c3-148">Right-click on the **Models** folder and select **Add > Class**.</span></span>
+* <span data-ttu-id="de6c3-149">Geben Sie als Name **Model.cs** ein, und klicken Sie auf **OK**.</span><span class="sxs-lookup"><span data-stu-id="de6c3-149">Enter **Model.cs** as the name and click **OK**.</span></span>
+* <span data-ttu-id="de6c3-150">Ersetzen Sie den Inhalt der Datei durch den folgenden Code:</span><span class="sxs-lookup"><span data-stu-id="de6c3-150">Replace the contents of the file with the following code:</span></span>
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
 
-<span data-ttu-id="1c43a-135">In einer echten Anwendung würden Sie jede Klasse Ihres Modells typischerweise in einer separaten Datei platzieren.</span><span class="sxs-lookup"><span data-stu-id="1c43a-135">In a real app you would typically put each class from your model in a separate file.</span></span> <span data-ttu-id="1c43a-136">Der Einfachheit halber werden in diesem Tutorial alle Klassen in einer Datei zusammengefasst.</span><span class="sxs-lookup"><span data-stu-id="1c43a-136">For the sake of simplicity, this tutorial puts all the classes in one file.</span></span>
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-151">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-151">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-## <a name="register-your-context-with-dependency-injection"></a><span data-ttu-id="1c43a-137">Registrieren Ihres Kontexts durch Abhängigkeitsinjektion</span><span class="sxs-lookup"><span data-stu-id="1c43a-137">Register your context with dependency injection</span></span>
+* <span data-ttu-id="de6c3-152">Erstellen Sie mit dem folgenden Code im Ordner **Models** (Modelle) eine **Model.cs**-Datei:</span><span class="sxs-lookup"><span data-stu-id="de6c3-152">In the **Models** folder create **Model.cs** with the following code:</span></span>
 
-<span data-ttu-id="1c43a-138">Dienste (z.B. `BloggingContext`) werden per [Abhängigkeitsinjektion](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) während des Anwendungsstarts registriert.</span><span class="sxs-lookup"><span data-stu-id="1c43a-138">Services (such as `BloggingContext`) are registered with [dependency injection](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) during application startup.</span></span> <span data-ttu-id="1c43a-139">Komponenten, die diese Dienste benötigen (z.B. Ihre MVC-Controller), werden die Dienste anschließend über Konstruktorparameter oder Eigenschaften bereitgestellt.</span><span class="sxs-lookup"><span data-stu-id="1c43a-139">Components that require these services (such as your MVC controllers) are then provided these services via constructor parameters or properties.</span></span>
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite/Models/Model.cs)]
 
-<span data-ttu-id="1c43a-140">Um eine `BloggingContext`-Klasse für MVC-Controller verfügbar zu machen, registrieren Sie sie als Dienst.</span><span class="sxs-lookup"><span data-stu-id="1c43a-140">To make `BloggingContext` available to MVC controllers, register it as a service.</span></span>
+---
 
-* <span data-ttu-id="1c43a-141">Öffnen Sie **Startup.cs**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-141">Open **Startup.cs**</span></span>
-* <span data-ttu-id="1c43a-142">Fügen Sie die folgenden `using` -Anweisungen hinzu:</span><span class="sxs-lookup"><span data-stu-id="1c43a-142">Add the following `using` statements:</span></span>
+<span data-ttu-id="de6c3-153">Bei einer Produktionsanwendung würde normalerweise jede Klasse in einer separaten Datei platziert.</span><span class="sxs-lookup"><span data-stu-id="de6c3-153">A production app would typically put each class in a separate file.</span></span> <span data-ttu-id="de6c3-154">Der Einfachheit halber werden in diesem Tutorial die Klassen in einer Datei zusammengefasst.</span><span class="sxs-lookup"><span data-stu-id="de6c3-154">For the sake of simplicity, this tutorial puts these classes in one file.</span></span>
+
+## <a name="register-the-context-with-dependency-injection"></a><span data-ttu-id="de6c3-155">Registrieren des Kontexts durch Dependency Injection</span><span class="sxs-lookup"><span data-stu-id="de6c3-155">Register the context with dependency injection</span></span>
+
+<span data-ttu-id="de6c3-156">Dienste (z.B. `BloggingContext`) werden per [Abhängigkeitsinjektion](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) während des Anwendungsstarts registriert.</span><span class="sxs-lookup"><span data-stu-id="de6c3-156">Services (such as `BloggingContext`) are registered with [dependency injection](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) during application startup.</span></span> <span data-ttu-id="de6c3-157">Komponenten, die diese Dienste erfordern (z.B. MVC-Controller), werden über Konstruktorparameter oder Eigenschaften bereitgestellt.</span><span class="sxs-lookup"><span data-stu-id="de6c3-157">Components that require these services (such as MVC controllers) are provided these services via constructor parameters or properties.</span></span>
+
+<span data-ttu-id="de6c3-158">Um eine `BloggingContext`-Klasse für MVC-Controller verfügbar zu machen, registrieren Sie sie als Dienst.</span><span class="sxs-lookup"><span data-stu-id="de6c3-158">To make `BloggingContext` available to MVC controllers, register it as a service.</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-159">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-159">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="de6c3-160">Fügen Sie in **Startup.cs** die folgenden `using`-Anweisungen hinzu:</span><span class="sxs-lookup"><span data-stu-id="de6c3-160">In **Startup.cs** add the following `using` statements:</span></span>
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
 
-<span data-ttu-id="1c43a-143">Rufen Sie die `AddDbContext`-Methode auf, um den Kontext als Dienst zu registrieren.</span><span class="sxs-lookup"><span data-stu-id="1c43a-143">Call the `AddDbContext` method to register the context as a service.</span></span>
+* <span data-ttu-id="de6c3-161">Fügen Sie der `ConfigureServices`-Methode den folgenden hervorgehobenen Code zu:</span><span class="sxs-lookup"><span data-stu-id="de6c3-161">Add the following highlighted code to the `ConfigureServices` method:</span></span>
 
-* <span data-ttu-id="1c43a-144">Fügen Sie der `ConfigureServices`-Methode den folgenden hervorgehobenen Code zu:</span><span class="sxs-lookup"><span data-stu-id="1c43a-144">Add the following highlighted code to the `ConfigureServices` method:</span></span>
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=12-14)]
 
-  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=13-14)]
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-162">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-162">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="1c43a-145">Hinweis: In einer echten Anwendung wird die Verbindungszeichenfolge im Allgemeinen in eine Konfigurationsdatei oder Umgebungsvariable eingefügt.</span><span class="sxs-lookup"><span data-stu-id="1c43a-145">Note: A real app would generally put the connection string in a configuration file or environment variable.</span></span> <span data-ttu-id="1c43a-146">Der Einfachheit halber wird sie in diesem Tutorial im Code definiert.</span><span class="sxs-lookup"><span data-stu-id="1c43a-146">For the sake of simplicity, this tutorial defines it in code.</span></span> <span data-ttu-id="1c43a-147">Weitere Informationen finden Sie in [Verbindungszeichenfolgen](../../miscellaneous/connection-strings.md).</span><span class="sxs-lookup"><span data-stu-id="1c43a-147">See [Connection Strings](../../miscellaneous/connection-strings.md) for more information.</span></span>
+* <span data-ttu-id="de6c3-163">Fügen Sie in **Startup.cs** die folgenden `using`-Anweisungen hinzu:</span><span class="sxs-lookup"><span data-stu-id="de6c3-163">In **Startup.cs** add the following `using` statements:</span></span>
 
-## <a name="create-the-database"></a><span data-ttu-id="1c43a-148">Erstellen der Datenbank</span><span class="sxs-lookup"><span data-stu-id="1c43a-148">Create the database</span></span>
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite/Startup.cs#AddedUsings)]
 
-<span data-ttu-id="1c43a-149">Da Sie jetzt über ein Modell verfügen, können Sie mithilfe von [Migrationen](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) eine Datenbank erstellen.</span><span class="sxs-lookup"><span data-stu-id="1c43a-149">Once you have a model, you can use [migrations](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) to create a database.</span></span>
+* <span data-ttu-id="de6c3-164">Fügen Sie der `ConfigureServices`-Methode den folgenden hervorgehobenen Code zu:</span><span class="sxs-lookup"><span data-stu-id="de6c3-164">Add the following highlighted code to the `ConfigureServices` method:</span></span>
 
-* <span data-ttu-id="1c43a-150">Wählen Sie **Tools > NuGet-Paket-Manager > Paket-Manager-Konsole** aus.</span><span class="sxs-lookup"><span data-stu-id="1c43a-150">**Tools > NuGet Package Manager > Package Manager Console**</span></span>
-* <span data-ttu-id="1c43a-151">Führen Sie `Add-Migration InitialCreate` aus, um per Gerüstbau eine Migration zum Erstellen des anfänglichen Tabellensatzes für Ihr Modell einzurichten.</span><span class="sxs-lookup"><span data-stu-id="1c43a-151">Run `Add-Migration InitialCreate` to scaffold a migration to create the initial set of tables for your model.</span></span> <span data-ttu-id="1c43a-152">Wenn Sie den Fehler `The term 'add-migration' is not recognized as the name of a cmdlet` erhalten, schließen Sie Visual Studio, und öffnen Sie es erneut.</span><span class="sxs-lookup"><span data-stu-id="1c43a-152">If you receive an error stating `The term 'add-migration' is not recognized as the name of a cmdlet`, close and reopen Visual Studio.</span></span>
-* <span data-ttu-id="1c43a-153">Führen Sie `Update-Database` aus, um die neue Migration auf die Datenbank anzuwenden.</span><span class="sxs-lookup"><span data-stu-id="1c43a-153">Run `Update-Database` to apply the new migration to the database.</span></span> <span data-ttu-id="1c43a-154">Mit diesem Befehl wird die Datenbank erstellt, bevor Migrationen angewendet werden.</span><span class="sxs-lookup"><span data-stu-id="1c43a-154">This command creates the database before applying migrations.</span></span>
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite/Startup.cs?name=ConfigureServices&highlight=12-14)]
 
-## <a name="create-a-controller"></a><span data-ttu-id="1c43a-155">Erstellen eines Controllers</span><span class="sxs-lookup"><span data-stu-id="1c43a-155">Create a controller</span></span>
+---
 
-<span data-ttu-id="1c43a-156">Erstellen Sie ein Gerüst für einen Controller und Ansichten für die `Blog`-Entität.</span><span class="sxs-lookup"><span data-stu-id="1c43a-156">Scaffold a controller and views for the `Blog` entity.</span></span>
+<span data-ttu-id="de6c3-165">In einer Produktionsanwendung wird die Verbindungszeichenfolge im Allgemeinen in eine Konfigurationsdatei oder Umgebungsvariable eingefügt.</span><span class="sxs-lookup"><span data-stu-id="de6c3-165">A production app would typically put the connection string in a configuration file or environment variable.</span></span> <span data-ttu-id="de6c3-166">Der Einfachheit halber wird sie in diesem Tutorial im Code definiert.</span><span class="sxs-lookup"><span data-stu-id="de6c3-166">For the sake of simplicity, this tutorial defines it in code.</span></span> <span data-ttu-id="de6c3-167">Weitere Informationen finden Sie in [Verbindungszeichenfolgen](../../miscellaneous/connection-strings.md).</span><span class="sxs-lookup"><span data-stu-id="de6c3-167">See [Connection Strings](../../miscellaneous/connection-strings.md) for more information.</span></span>
 
-* <span data-ttu-id="1c43a-157">Klicken Sie im **Projektmappen-Explorer** mit der rechten Maustaste auf den Ordner **Controller**, und wählen Sie **Hinzufügen > Controller** aus.</span><span class="sxs-lookup"><span data-stu-id="1c43a-157">Right-click on the **Controllers** folder in **Solution Explorer** and select **Add > Controller**.</span></span>
-* <span data-ttu-id="1c43a-158">Klicken Sie auf **MVC-Controller mit Ansichten unter Verwendung von Entity Framework** und danach auf **Hinzufügen**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-158">Select **MVC Controller with views, using Entity Framework** and click **Add**.</span></span>
-* <span data-ttu-id="1c43a-159">Legen Sie **Modellklasse** auf **Blog** und **Datenkontextklasse** auf **BloggingContext** fest.</span><span class="sxs-lookup"><span data-stu-id="1c43a-159">Set **Model class** to **Blog** and **Data context class** to **BloggingContext**.</span></span>
-* <span data-ttu-id="1c43a-160">Klicken Sie auf **Hinzufügen**.</span><span class="sxs-lookup"><span data-stu-id="1c43a-160">Click **Add**.</span></span>
+## <a name="create-the-database"></a><span data-ttu-id="de6c3-168">Erstellen der Datenbank</span><span class="sxs-lookup"><span data-stu-id="de6c3-168">Create the database</span></span>
 
+<span data-ttu-id="de6c3-169">Die folgenden Schritte verwenden [Migrationen](xref:core/managing-schemas/migrations/index), um eine Datenbank zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="de6c3-169">The following steps use [migrations](xref:core/managing-schemas/migrations/index) to create a database.</span></span>
 
-## <a name="run-the-application"></a><span data-ttu-id="1c43a-161">Ausführen der Anwendung</span><span class="sxs-lookup"><span data-stu-id="1c43a-161">Run the application</span></span>
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-170">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-170">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="1c43a-162">Drücken Sie F5, um die App auszuführen und zu testen.</span><span class="sxs-lookup"><span data-stu-id="1c43a-162">Press F5 to run and test the app.</span></span>
+* <span data-ttu-id="de6c3-171">Wählen Sie **Tools > NuGet-Paket-Manager > Paket-Manager-Konsole** aus.</span><span class="sxs-lookup"><span data-stu-id="de6c3-171">**Tools > NuGet Package Manager > Package Manager Console**</span></span>
+* <span data-ttu-id="de6c3-172">Führen Sie die folgenden Befehle aus:</span><span class="sxs-lookup"><span data-stu-id="de6c3-172">Run the following commands:</span></span>
 
-* <span data-ttu-id="1c43a-163">Navigieren Sie zu `/Blogs`.</span><span class="sxs-lookup"><span data-stu-id="1c43a-163">Navigate to `/Blogs`</span></span>
-* <span data-ttu-id="1c43a-164">Verwenden Sie den Link zum Erstellen, um einige Blogeinträge zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="1c43a-164">Use the create link to create some blog entries.</span></span> <span data-ttu-id="1c43a-165">Testen Sie die Links zum Anzeigen von Details und zum Löschen.</span><span class="sxs-lookup"><span data-stu-id="1c43a-165">Test the details and delete links.</span></span>
+  ```powershell
+  Add-Migration InitialCreate
+  Update-Database
+  ```
 
-![Bild](_static/create.png)
+  <span data-ttu-id="de6c3-173">Wenn Sie den Fehler `The term 'add-migration' is not recognized as the name of a cmdlet` erhalten, schließen Sie Visual Studio, und öffnen Sie es erneut.</span><span class="sxs-lookup"><span data-stu-id="de6c3-173">If you get an error stating `The term 'add-migration' is not recognized as the name of a cmdlet`, close and reopen Visual Studio.</span></span>
 
-![Bild](_static/index-new-db.png)
+  <span data-ttu-id="de6c3-174">Der Befehl `Add-Migration` richtet per Gerüstbau eine Migration ein und erstellt den anfänglichen Tabellensatz für das Modell.</span><span class="sxs-lookup"><span data-stu-id="de6c3-174">The `Add-Migration` command scaffolds a migration to create the initial set of tables for the model.</span></span> <span data-ttu-id="de6c3-175">Der Befehl `Update-Database` erstellt die Datenbank und wendet die neue Migration auf sie an.</span><span class="sxs-lookup"><span data-stu-id="de6c3-175">The `Update-Database` command creates the database and applies the new migration to it.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="1c43a-168">Zusätzliche Ressourcen</span><span class="sxs-lookup"><span data-stu-id="1c43a-168">Additional Resources</span></span>
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-176">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-176">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-* <span data-ttu-id="1c43a-169">[EF – Neue Datenbank mit SQLite](xref:core/get-started/netcore/new-db-sqlite): Ein EF-Tutorial für beliebige Plattformkonsolen.</span><span class="sxs-lookup"><span data-stu-id="1c43a-169">[EF - New database with SQLite](xref:core/get-started/netcore/new-db-sqlite) -  a cross-platform console EF tutorial.</span></span>
-* [<span data-ttu-id="1c43a-170">Einführung in ASP.NET Core MVC unter Mac oder Linux</span><span class="sxs-lookup"><span data-stu-id="1c43a-170">Introduction to ASP.NET Core MVC on Mac or Linux</span></span>](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
-* [<span data-ttu-id="1c43a-171">Einführung in ASP.NET Core MVC mit Visual Studio</span><span class="sxs-lookup"><span data-stu-id="1c43a-171">Introduction to ASP.NET Core MVC with Visual Studio</span></span>](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [<span data-ttu-id="1c43a-172">Erste Schritte mit ASP.NET Core und Entity Framework Core mithilfe von Visual Studio</span><span class="sxs-lookup"><span data-stu-id="1c43a-172">Getting started with ASP.NET Core and Entity Framework Core using Visual Studio</span></span>](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* <span data-ttu-id="de6c3-177">Führen Sie die folgenden Befehle aus:</span><span class="sxs-lookup"><span data-stu-id="de6c3-177">Run the following commands:</span></span>
+
+  ```cli
+  dotnet ef migrations add InitialCreate
+  dotnet ef database update
+  ```
+
+  <span data-ttu-id="de6c3-178">Der Befehl `migrations` richtet per Gerüstbau eine Migration ein und erstellt den anfänglichen Tabellensatz für das Modell.</span><span class="sxs-lookup"><span data-stu-id="de6c3-178">The `migrations` command scaffolds a migration to create the initial set of tables for the model.</span></span> <span data-ttu-id="de6c3-179">Der Befehl `database update` erstellt die Datenbank und wendet die neue Migration auf sie an.</span><span class="sxs-lookup"><span data-stu-id="de6c3-179">The `database update` command creates the database and applies the new migration to it.</span></span>
+
+---
+
+## <a name="create-a-controller"></a><span data-ttu-id="de6c3-180">Erstellen eines Controllers</span><span class="sxs-lookup"><span data-stu-id="de6c3-180">Create a controller</span></span>
+
+<span data-ttu-id="de6c3-181">Erstellen Sie ein Gerüst für einen Controller und Ansichten für die `Blog`-Entität.</span><span class="sxs-lookup"><span data-stu-id="de6c3-181">Scaffold a controller and views for the `Blog` entity.</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-182">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-182">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="de6c3-183">Klicken Sie im **Projektmappen-Explorer** mit der rechten Maustaste auf den Ordner **Controller**, und wählen Sie **Hinzufügen > Controller** aus.</span><span class="sxs-lookup"><span data-stu-id="de6c3-183">Right-click on the **Controllers** folder in **Solution Explorer** and select **Add > Controller**.</span></span>
+* <span data-ttu-id="de6c3-184">Klicken Sie auf **MVC-Controller mit Ansichten unter Verwendung von Entity Framework** und danach auf **Hinzufügen**.</span><span class="sxs-lookup"><span data-stu-id="de6c3-184">Select **MVC Controller with views, using Entity Framework** and click **Add**.</span></span>
+* <span data-ttu-id="de6c3-185">Legen Sie **Modellklasse** auf **Blog** und **Datenkontextklasse** auf **BloggingContext** fest.</span><span class="sxs-lookup"><span data-stu-id="de6c3-185">Set **Model class** to **Blog** and **Data context class** to **BloggingContext**.</span></span>
+* <span data-ttu-id="de6c3-186">Klicken Sie auf **Hinzufügen**.</span><span class="sxs-lookup"><span data-stu-id="de6c3-186">Click **Add**.</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-187">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-187">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+* <span data-ttu-id="de6c3-188">Führen Sie die folgenden Befehle aus:</span><span class="sxs-lookup"><span data-stu-id="de6c3-188">Run the following commands:</span></span>
+
+  ```cli
+  dotnet tool install -g dotnet-aspnet-codegenerator
+  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+  dotnet restore
+  dotnet aspnet-codegenerator controller -name BlogsController -m Blog -dc BloggingContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```
+
+  <span data-ttu-id="de6c3-189">Die Befehle `tool install` und `add package` installieren die Tools, die für den Gerüstbau für Controller und Ansichten verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="de6c3-189">The `tool install` and `add package` commands install the tooling that can scaffold controllers and views.</span></span> <span data-ttu-id="de6c3-190">Mit dem Befehl `restore` wird sichergestellt, dass alle Pakete des Projekts heruntergeladen werden, und der Befehl `aspnet-codegenerator` erledigt den Gerüstbau.</span><span class="sxs-lookup"><span data-stu-id="de6c3-190">The `restore` command ensures that all of the project's packages are downloaded, and the `aspnet-codegenerator` command does the scaffolding.</span></span>
+---
+
+<span data-ttu-id="de6c3-191">Die Gerüstbau-Engine erstellt die folgenden Dateien:</span><span class="sxs-lookup"><span data-stu-id="de6c3-191">The scaffolding engine creates the following files:</span></span>
+
+* <span data-ttu-id="de6c3-192">Einen Controller (*Controllers/BlogsController.cs*)</span><span class="sxs-lookup"><span data-stu-id="de6c3-192">A controller (*Controllers/BlogsController.cs*)</span></span>
+* <span data-ttu-id="de6c3-193">Razor-Ansichten für die Seiten „Erstellen“, „Löschen“, „Details“ „Bearbeiten“ und „Index“ (_Views/Movies/.cshtml_)</span><span class="sxs-lookup"><span data-stu-id="de6c3-193">Razor views for Create, Delete, Details, Edit, and Index pages (_Views/Movies/\*.cshtml_)</span></span>
+
+## <a name="run-the-application"></a><span data-ttu-id="de6c3-194">Ausführen der Anwendung</span><span class="sxs-lookup"><span data-stu-id="de6c3-194">Run the application</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="de6c3-195">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="de6c3-195">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="de6c3-196">**Debuggen** > **Starten ohne Debuggen**</span><span class="sxs-lookup"><span data-stu-id="de6c3-196">**Debug** > **Start Without Debugging**</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="de6c3-197">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="de6c3-197">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+```cli
+dotnet run
+```
+---
+
+* <span data-ttu-id="de6c3-198">Navigieren Sie zu `/Blogs`.</span><span class="sxs-lookup"><span data-stu-id="de6c3-198">Navigate to `/Blogs`</span></span>
+
+* <span data-ttu-id="de6c3-199">Verwenden Sie den Link **Neu erstellen**, um einige Blogeinträge zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="de6c3-199">Use the **Create New** link to create some blog entries.</span></span>
+
+  ![Seite „Create“](_static/create.png)
+
+* <span data-ttu-id="de6c3-201">Testen Sie die Links **Details**, **Bearbeiten** und **Löschen**.</span><span class="sxs-lookup"><span data-stu-id="de6c3-201">Test the **Details**, **Edit**, and **Delete** links.</span></span>
+
+  ![Indexseite](_static/index-new-db.png)
+
+## <a name="additional-resources"></a><span data-ttu-id="de6c3-203">Zusätzliche Ressourcen</span><span class="sxs-lookup"><span data-stu-id="de6c3-203">Additional Resources</span></span>
+
+* [<span data-ttu-id="de6c3-204">Tutorial: Erste Schritte mit EF Core in .NET Core mit einer neuen Datenbank mithilfe von SQLite</span><span class="sxs-lookup"><span data-stu-id="de6c3-204">Tutorial: Get started with EF Core on .NET Core with a new database using SQLite</span></span>](xref:core/get-started/netcore/new-db-sqlite)
+* [<span data-ttu-id="de6c3-205">Tutorial: Erste Schritte mit Razor Pages in ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="de6c3-205">Tutorial: Get started with Razor Pages in ASP.NET Core</span></span>](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
+* [<span data-ttu-id="de6c3-206">Tutorial: Razor Pages mit Entity Framework Core in ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="de6c3-206">Tutorial: Razor Pages with Entity Framework Core in ASP.NET Core</span></span>](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
