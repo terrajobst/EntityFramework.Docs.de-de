@@ -3,12 +3,12 @@ title: Überlegungen zur Leistung für EF4, EF5 und EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: fb184fe8720b552a2050607bb17648f0413c31d1
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.openlocfilehash: c87c1412cb23abf232663d7e4f44eef5f7818ea2
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459590"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022388"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Überlegungen zur Leistung für Entity Framework 4, 5 und 6
 Von David Obando, Eric Dettinger usw.
@@ -33,7 +33,7 @@ Entitätsframework 6 ist ein Out-of-Band-Version und nicht von den Entity Framew
 
 ## <a name="2-cold-vs-warm-query-execution"></a>2. Kalte im Vergleich zu Warme Abfrageausführung
 
-Beim allerersten vorgenommenen jede Abfrage für ein bestimmtes Modell, führt das Entity Framework viel Arbeit im Hintergrund geladen und überprüft das Modell. Wir bezeichnen häufig auf die erste Abfrage als Abfrage "kalt".  Weitere Abfragen für ein bereits geladenen Modell werden als "warmen" Abfragen bezeichnet, und Sie sind wesentlich schneller.
+Beim allerersten vorgenommenen jede Abfrage für ein bestimmtes Modell, führt das Entity Framework viel Arbeit im Hintergrund geladen und überprüft das Modell. Wir bezeichnen häufig auf die erste Abfrage als Abfrage "kalt".  Weitere Abfragen für ein bereits geladenen Modell werden als "warmen" Abfragen bezeichnet, und Sie sind wesentlich schneller.
 
 Lassen Sie uns einen allgemeinen Überblick darüber, wo Zeit verbracht wird, beim Ausführen einer Abfrage mithilfe von Entity Framework, und erfahren Sie, wo die Dinge in Entity Framework 6 verbessert wird.
 
@@ -145,7 +145,7 @@ Wenn Sie ein großes Code First-Modell verfügen, müssen die unabhängigen Zuor
 
 Wenn Ihr Modell direkt in Ihrer Anwendung Projekt enthalten ist, und Sie die Sichten, die über ein Ereignis vor dem Erstellen oder eine T4-Vorlage generieren, Generieren von Sichten und Überprüfung erfolgt wird, wenn das Projekt neu erstellt wird, selbst wenn das Modell geändert wurde. Wenn Sie das Modell in eine separate Assembly verschieben und verweisen sie aus dem Projekt Ihrer Anwendung hinzu, können Sie andere Änderungen für Ihre Anwendung vornehmen, ohne das Projekt mit dem Modell neu erstellen.
 
-*Hinweis:* beim Verschieben von Modell aus, um separate Assemblys Denken Sie daran, die Verbindungszeichenfolgen für das Modell in der Anwendungskonfigurationsdatei des Clientprojekts zu kopieren.
+*Hinweis:*  beim Verschieben von Modell aus, um separate Assemblys Denken Sie daran, die Verbindungszeichenfolgen für das Modell in der Anwendungskonfigurationsdatei des Clientprojekts zu kopieren.
 
 #### <a name="243-disable-validation-of-an-edmx-based-model"></a>2.4.3 Deaktivieren der Validierung des eine Edmx-basierten Modells
 
@@ -180,10 +180,10 @@ Es gibt eine leistungsoptimierung mit der Suche verwendet werden. Aufrufe dieser
 Beispiel für Suchen zur automatischen Erkennung um Änderungen deaktiviert:
 
 ``` csharp
-    context.Configuration.AutoDetectChangesEnabled = false;
-    var product = context.Products.Find(productId);
-    context.Configuration.AutoDetectChangesEnabled = true;
-    ...
+    context.Configuration.AutoDetectChangesEnabled = false;
+    var product = context.Products.Find(productId);
+    context.Configuration.AutoDetectChangesEnabled = true;
+    ...
 ```
 
 Was man berücksichtigen die Find-Methode zu verwenden ist:
@@ -201,7 +201,7 @@ Wenn Sie Entity Framework 6 verwenden zu können, sind Entwickler "AddRange" und
 
 ### <a name="32-query-plan-caching"></a>3.2 Fragen Sie Zwischenspeichern von Abfrageplänen ab
 
-Beim ersten, die eine Abfrage ausgeführt wird, durchläuft er der internen Plan Compiler übersetzt die grundlegende Abfrage in den Store-Befehl (z. B. die T-SQL die ausgeführt wird, wenn Sie für SQL Server ausgeführt).  Wenn Zwischenspeichern von Abfrageplänen aktiviert ist, wird der nächsten Ausführung die Abfrage wird ausgeführt im Store Befehl direkt aus dem Abfrageplancache zur Ausführung unter Umgehung des Plan Compilers abgerufen wird.
+Beim ersten, die eine Abfrage ausgeführt wird, durchläuft er der internen Plan Compiler übersetzt die grundlegende Abfrage in den Store-Befehl (z. B. die T-SQL die ausgeführt wird, wenn Sie für SQL Server ausgeführt).  Wenn Zwischenspeichern von Abfrageplänen aktiviert ist, wird der nächsten Ausführung die Abfrage wird ausgeführt im Store Befehl direkt aus dem Abfrageplancache zur Ausführung unter Umgehung des Plan Compilers abgerufen wird.
 
 Abfrageplancache wird ObjectContext-Instanzen innerhalb derselben Anwendungsdomäne gemeinsam genutzt. Sie müssen nicht auf eine ObjectContext-Instanz zum Zwischenspeichern von Abfrageplänen profitieren enthalten.
 
@@ -211,22 +211,22 @@ Abfrageplancache wird ObjectContext-Instanzen innerhalb derselben Anwendungsdom�
 -   Zwischenspeichern von Abfrageplänen ist für Entity SQL-Abfragen, in der Standardeinstellung aktiviert, ob durch eine von "EntityCommand" oder durch eine ObjectQuery ausgeführt. Es ist auch standardmäßig für LINQ to Entities-Abfragen in Entity Framework auf .NET 4.5 und Entity Framework 6 aktiviert
     -   Zwischenspeichern von Abfrageplänen kann deaktiviert werden, durch die EnablePlanCaching-Eigenschaft (auf von "EntityCommand" oder ObjectQuery) auf "false" festlegen. Zum Beispiel:
 ``` csharp
-                    var query = from customer in context.Customer
-                                where customer.CustomerId == id
-                                select new
-                                {
-                                    customer.CustomerId,
-                                    customer.Name
-                                };
-                    ObjectQuery oQuery = query as ObjectQuery;
-                    oQuery.EnablePlanCaching = false;
+                    var query = from customer in context.Customer
+                                where customer.CustomerId == id
+                                select new
+                                {
+                                    customer.CustomerId,
+                                    customer.Name
+                                };
+                    ObjectQuery oQuery = query as ObjectQuery;
+                    oQuery.EnablePlanCaching = false;
 ```
 -   Für parametrisierte Abfragen erreichen ändern den Wert des Parameters dennoch die zwischengespeicherte Abfrage. Aber eine parameterfacets (z. B. Größe, Genauigkeit oder Skala) ändern, einen anderen Eintrag im Cache ist erreicht.
 -   Verwendung von Entity SQL ist die Abfragezeichenfolge Teil des Schlüssels. Ändern die Abfrage überhaupt führt zu mehrere Cacheeinträge, auch wenn die Abfragen funktionell gleichwertig sind. Dies schließt Änderungen, die Groß-/Kleinschreibung oder ein Leerzeichen.
 -   Wenn Sie LINQ verwenden, wird die Abfrage verarbeitet, um einen Teil des Schlüssels zu generieren. Ändern des LINQ-Ausdrucks wird daher einen anderen Schlüssel generieren.
 -   Weitere technische Einschränkungen können anfallen. Weitere Informationen finden Sie in der Autocompiled Abfragen.
 
-#### <a name="322------cache-eviction-algorithm"></a>3.2.2 Cache Entfernung-Algorithmus
+#### <a name="322-cache-eviction-algorithm"></a>3.2.2 Cache Entfernung-Algorithmus
 
 Verstehen, wie die internen Algorithmus funktioniert Sie zum Aktivieren oder deaktivieren Zwischenspeichern von Abfrageplänen herausfinden können. Der Cleanup-Algorithmus sieht folgendermaßen aus:
 
@@ -238,11 +238,11 @@ Alle Cacheeinträge werden gleich behandelt werden, beim Ermitteln der Einträge
 
 Beachten Sie, dass der Cache Entfernung Timer gestartet ist, 800 Entitäten vorhanden sind, im Cache, aber der Cache ist nur eine Komprimierung 60 Sekunden, nachdem dieser Timer gestartet wurde. Das bedeutet, dass für bis zu 60 Sekunden Ihres Caches wachsen kann, um sehr groß sein.
 
-#### <a name="323-------test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 Testmetriken Sie Demonstration Leistung Zwischenspeichern von Abfrageplänen
+#### <a name="323-test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 Testmetriken Sie Demonstration Leistung Zwischenspeichern von Abfrageplänen
 
 Um die Auswirkungen auf die Leistung Ihrer Anwendung Zwischenspeichern von Abfrageplänen zu demonstrieren, ausgeführt, wir einen Test, in dem wir eine Anzahl von Entity SQL-Abfragen für das Microsoft Navision-Modell ausgeführt haben. Finden Sie im Anhang eine Beschreibung des Modells Navision und die Typen von Abfragen, die ausgeführt wurden. In diesem Test wir zunächst die Liste der Abfragen durchlaufen und jeweils einmal ausgeführt, um sie mit dem Cache hinzuzufügen (sofern es sich um eine Zwischenspeicherung aktiviert ist). Dieser Schritt ist untimed. Als Nächstes Standbymodus wir den Hauptthread für mehr als 60 Sekunden zum Cache sweeping zum durchgeführt werden; zum Schluss durchlaufen wir die Liste eine 2. Ausführungsdauer die zwischengespeicherten Abfragen. Darüber hinaus ist er SQL Server-Plancache geleert, bevor jede Gruppe von Abfragen ausgeführt wird, so, dass die Häufigkeit, mit die wir genau erhalten den Vorteil, dass vom Abfrageplancache angezeigt.
 
-##### <a name="3231-------test-results"></a>3.2.3.1 "Testergebnisse"
+##### <a name="3231-test-results"></a>3.2.3.1 "Testergebnisse"
 
 | Test                                                                   | EF5 kein Cache | EF5 zwischengespeichert | EF6 kein Cache | EF6 zwischengespeichert |
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
@@ -266,7 +266,7 @@ Weitere Informationen zum Erstellen und Aufrufen einer CompiledQuery finden Sie 
 
 Es gibt zwei Überlegungen haben Sie an, die beim Verwenden einer CompiledQuery, nämlich die Anforderung, verwenden Sie statische Instanzen und die Probleme, dass sie zusammensetzbarkeit haben. Hier folgt eine ausführliche Erläuterung dieser beiden Aspekte.
 
-#### <a name="331-------use-static-compiledquery-instances"></a>3.3.1 verwenden Sie statische CompiledQuery-Instanzen
+#### <a name="331-use-static-compiledquery-instances"></a>3.3.1 verwenden Sie statische CompiledQuery-Instanzen
 
 Kompilieren eine LINQ-Abfrage ein sehr zeitaufwendiger Prozess daher möchten wir nicht dafür, jedem müssen wir zum Abrufen von Daten aus der Datenbank. CompiledQuery-Instanzen ermöglichen Ihnen einmal kompilieren und führen mehrere Male, aber Sie vorsichtig sein müssen, und beschaffen, um dieselbe Instanz CompiledQuery jedes Mal statt kompilieren immer wieder erneut zu verwenden. Die Verwendung der statischen Member zum Speichern der CompiledQuery-Instanzen ist erforderlich; Andernfalls wird keine Vorteile nicht angezeigt.
 
@@ -292,7 +292,7 @@ Nehmen wir beispielsweise an, dass die Seite den folgenden Methodentext, behande
 
 In diesem Fall erstellen Sie eine neue Instanz der CompiledQuery im laufenden Betrieb jedes Mal, wenn die Methode aufgerufen wird. Statt die Leistungsvorteile durch Aufrufen der entsprechenden Speicherbefehl Abfrageplancache befinden, wird der Plan-Compiler der CompiledQuery durchlaufen, jedes Mal eine neue Instanz erstellt wird. In der Tat werden Sie Entwurfsausdruck werden Ihrem Abfrageplancache mit einem neuen CompiledQuery-Eintrag jedes Mal, wenn die Methode aufgerufen wird.
 
-Sie möchten stattdessen erstellen eine statische Instanz der kompilierten Abfrage aus, damit Sie die gleiche kompilierte Abfrage aufrufen, jedes Mal, wenn die Methode aufgerufen wird. Eine Möglichkeit, durch das Hinzufügen der CompiledQuery-Instanz als ein Mitglied der Objektkontext ist.  Sie können Aufgaben klicken Sie dann eine wenig klarer vornehmen, durch den Zugriff auf die CompiledQuery über eine Hilfsmethode:
+Sie möchten stattdessen erstellen eine statische Instanz der kompilierten Abfrage aus, damit Sie die gleiche kompilierte Abfrage aufrufen, jedes Mal, wenn die Methode aufgerufen wird. Eine Möglichkeit, durch das Hinzufügen der CompiledQuery-Instanz als ein Mitglied der Objektkontext ist.  Sie können Aufgaben klicken Sie dann eine wenig klarer vornehmen, durch den Zugriff auf die CompiledQuery über eine Hilfsmethode:
 
 ``` csharp
     public partial class NorthwindEntities : ObjectContext
@@ -311,10 +311,10 @@ Sie möchten stattdessen erstellen eine statische Instanz der kompilierten Abfra
 Diese Hilfsmethode würde wie folgt aufgerufen werden:
 
 ``` csharp
-    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
+    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
 ```
 
-#### <a name="332-------composing-over-a-compiledquery"></a>3.3.2 zusammenstellen über eine CompiledQuery
+#### <a name="332-composing-over-a-compiledquery"></a>3.3.2 zusammenstellen über eine CompiledQuery
 
 Die Möglichkeit, die für alle LINQ-Abfrage verfasst ist äußerst nützlich. zu diesem Zweck einfach Methode aufgerufen, um eine nach der das IQueryable-Objekt wie z. B. *Skip()"* oder *Count()*. Jedoch im Grunde genommen also tun, wird ein neues "IQueryable"-Objekt zurückgegeben. Zwar gibt es nichts zu technisch zusammenstellen, die über eine CompiledQuery verhindern, erfordert der Generierung eines neuen "IQueryable"-Objekts, das bewirkt dies übergeben, durch den Compiler Plan erneut an.
 
@@ -345,7 +345,7 @@ Einem zentralen Ort, in denen dies unter Umständen auftreten, ist beim progress
     }
 ```
 
- Um diese erneute Kompilierung zu vermeiden, können Sie umschreiben, dass der CompiledQuery, um die mögliche Filter zu berücksichtigen:
+ Um diese erneute Kompilierung zu vermeiden, können Sie umschreiben, dass der CompiledQuery, um die mögliche Filter zu berücksichtigen:
 
 ``` csharp
     private static readonly Func<NorthwindEntities, int, int?, string, IQueryable<Customer>> customersForEmployeeWithFiltersCQ = CompiledQuery.Compile(
@@ -377,7 +377,7 @@ Die in der Benutzeroberfläche wie aufgerufen werden sollen:
     }
 ```
 
- Ein Nachteil hierbei ist generierten Speicherbefehl weisen stets die Filter mit der null-Überprüfungen, sollten Sie werden jedoch recht einfach, für den Datenbankserver zur Optimierung:
+ Ein Nachteil hierbei ist generierten Speicherbefehl weisen stets die Filter mit der null-Überprüfungen, sollten Sie werden jedoch recht einfach, für den Datenbankserver zur Optimierung:
 
 ``` SQL
 ...
@@ -572,7 +572,7 @@ Im Beispiel ist generisch, aber es wird veranschaulicht, wie Verknüpfen mit Fir
 
 ### <a name="51-disabling-change-tracking-to-reduce-state-management-overhead"></a>5.1 Deaktivieren der änderungsnachverfolgung um Status-Verwaltungsaufwand zu reduzieren.
 
-Wenn Sie in einem Szenario mit nur-Lese und den Aufwand für das Laden die Objekte in ObjectStateManager vermeiden möchten, können Sie Abfragen "ohne nachverfolgung" ausgeben.  Die änderungsnachverfolgung kann auch auf Abfrageebene deaktiviert werden.
+Wenn Sie in einem Szenario mit nur-Lese und den Aufwand für das Laden die Objekte in ObjectStateManager vermeiden möchten, können Sie Abfragen "ohne nachverfolgung" ausgeben.  Die änderungsnachverfolgung kann auch auf Abfrageebene deaktiviert werden.
 
 Beachten Sie jedoch, dass durch das Deaktivieren der änderungsnachverfolgung Sie effektiv aus dem Objektcache eingeschaltet sind. Beim Abfragen einer Entität können wir Materialisierung nicht überspringen, indem zuvor materialisierte Abfrageergebnisse aus dem ObjectStateManager abgerufen. Wenn Sie wiederholt die gleichen Entitäten im gleichen Kontext Abfragen sind, möglicherweise tatsächlich eine Leistung profitieren, Aktivieren der änderungsnachverfolgung angezeigt.
 
@@ -610,7 +610,7 @@ Sie können den Modus einer Abfrage zu NoTracking wechseln, durch einen Aufruf a
                                 select p;
 ```
 
-### <a name="52-test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 Testmetriken Sie veranschaulicht die Leistungsvorteile bei NoTracking-Abfragen
+### <a name="52test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 Testmetriken Sie veranschaulicht die Leistungsvorteile bei NoTracking-Abfragen
 
 In diesem Test suchen wir auf Kosten der ObjectStateManager durch Vergleichen der NoTracking-Abfragen für das Modell Navision Überwachung ausfüllen. Finden Sie im Anhang eine Beschreibung des Modells Navision und die Typen von Abfragen, die ausgeführt wurden. In diesem Test haben wir die Liste der Abfragen durchlaufen und jeweils einmal ausgeführt. Wir haben zwei Varianten der Testassembly, einmal mit der NoTracking-Abfragen und einmal mit der standardmäßigen Zusammenführungsoption von "AppendOnly" ausgeführt. Wir haben jede Variante 3 Mal und nutzen den Mittelwert des ausgeführt wird. Zwischen den Tests haben wir den Abfragecache auf dem SQL Server löschen, und Verkleinern die Tempdb, indem Sie die folgenden Befehle ausführen:
 
@@ -643,7 +643,7 @@ Entitätsframework bietet verschiedene Möglichkeiten, die Abfrage. Wir sehen Si
 -   SqlQuery.
 -   CompiledQuery.
 
-### <a name="61-------linq-to-entities-queries"></a>6.1-LINQ to Entities-Abfragen
+### <a name="61-linq-to-entities-queries"></a>6.1-LINQ to Entities-Abfragen
 
 ``` csharp
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
@@ -662,7 +662,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
     -   Muster DefaultIfEmpty für OUTER JOIN-Abfragen mit komplexer Abfragen als einfache OUTER JOIN-Anweisungen in Entity SQL führen.
     -   Sie können nicht weiterhin verwenden wie die entsprechende allgemeine Muster.
 
-### <a name="62-------no-tracking-linq-to-entities-queries"></a>6.2 keine nachverfolgung LINQ to Entities-Abfragen
+### <a name="62-no-tracking-linq-to-entities-queries"></a>6.2 keine nachverfolgung LINQ to Entities-Abfragen
 
 Wenn der Kontext ObjectContext abgeleitet:
 
@@ -699,7 +699,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages").Sele
 
 Diese Abfrage nicht explizit angeben, wird der NoTracking, aber da es nicht materialisieren ist ein Typ, der dem Objekt-Status-Manager klicken Sie dann das materialisierte Ergebnis bekannt sind nicht nachverfolgt.
 
-### <a name="63-------entity-sql-over-an-objectquery"></a>6.3 Entity SQL über eine ObjectQuery
+### <a name="63-entity-sql-over-an-objectquery"></a>6.3 Entity SQL über eine ObjectQuery
 
 ``` csharp
 ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName = 'Beverages'");
@@ -715,7 +715,7 @@ ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName
 
 -   Umfasst Text Abfragezeichenfolgen sind anfälliger für Fehler als Abfragekonstrukte integriert die Sprache an.
 
-### <a name="64-------entity-sql-over-an-entity-command"></a>6.4 Entity SQL über eine Entität-Befehl
+### <a name="64-entity-sql-over-an-entity-command"></a>6.4 Entity SQL über eine Entität-Befehl
 
 ``` csharp
 EntityCommand cmd = eConn.CreateCommand();
@@ -740,7 +740,7 @@ using (EntityDataReader reader = cmd.ExecuteReader(CommandBehavior.SequentialAcc
 -   Nicht geeignet für CRUD-Vorgänge.
 -   Ergebnisse werden nicht automatisch materialisiert, und müssen aus der Datenleser gelesen werden.
 
-### <a name="65-------sqlquery-and-executestorequery"></a>6.5 SqlQuery und "ExecuteStoreQuery"
+### <a name="65-sqlquery-and-executestorequery"></a>6.5 SqlQuery und "ExecuteStoreQuery"
 
 SqlQuery für Datenbank:
 
@@ -778,7 +778,7 @@ var beverages = context.ExecuteStoreQuery<Product>(
 -   Abfrage wird an einen bestimmten Back-End mit Speicher-Semantik statt konzeptionelle Semantik gebunden.
 -   Bei der Vererbung vorhanden ist, muss Handgefertigte Abfrage zuordnungsbedingungen für den angeforderten Typ zu berücksichtigen.
 
-### <a name="66-------compiledquery"></a>6.6 CompiledQuery
+### <a name="66-compiledquery"></a>6.6 CompiledQuery
 
 ``` csharp
 private static readonly Func<NorthwindEntities, string, IQueryable<Product>> productsForCategoryCQ = CompiledQuery.Compile(
@@ -801,7 +801,7 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 -   Verbesserung der Leistung geht verloren, wenn zusätzlich eine kompilierte Abfrage zu erstellen.
 -   Einige LINQ-Abfragen können nicht als eine CompiledQuery - z. B. Projektionen von anonymen Typen geschrieben werden.
 
-### <a name="67-------performance-comparison-of-different-query-options"></a>6.7 Leistungsvergleich der anderen Abfrageoptionen
+### <a name="67-performance-comparison-of-different-query-options"></a>6.7 Leistungsvergleich der anderen Abfrageoptionen
 
 Einfache, in denen die kontexterstellung kein Timeout aufgetreten war, Microbenchmarks wurden in der Praxis testen. Wir Maßen 5000 Mal für einen Satz von Entitäten nicht zwischengespeicherten, in einer kontrollierten Umgebung Abfragen. Diese Zahlen sind, die mit einer Warnung ausgeführt werden: sie spiegeln nicht die tatsächlichen Werte, die von einer Anwendung erstellt, aber stattdessen sind sie ein sehr genau Maß wie viel Leistung Unterschied beim Vergleich von verschiedenen Abfragen-Optionen besteht Äpfel mit Äpfeln, ausgenommen die Kosten für die ein neuen Kontext erstellt werden.
 
@@ -863,7 +863,7 @@ In diesem Fall End-to-End-Entity Framework 6, Entity Framework 5 aufgrund von le
 
 ## <a name="7-design-time-performance-considerations"></a>7 Design-Time-Leistungsaspekte
 
-### <a name="71-------inheritance-strategies"></a>7.1 Vererbung Strategien
+### <a name="71-inheritance-strategies"></a>7.1 Vererbung Strategien
 
 Eine andere Überlegungen zur Leistung bei Verwendung von Entity Framework ist die Vererbungsstrategie, die Sie verwenden. Entitätsframework unterstützt 3 grundlegende Arten der Vererbung sowie deren Kombinationen:
 
@@ -871,11 +871,11 @@ Eine andere Überlegungen zur Leistung bei Verwendung von Entity Framework ist d
 -   Tabelle pro Typ (TPT) –, in denen jeder eine eigene Tabelle in der Datenbank verfügt über. die untergeordneten Tabellen definieren Sie nur die Spalten, die nicht in der übergeordneten Tabelle enthält.
 -   Tabelle pro Klasse (TPC) –, in denen jeder eine eigene vollständige Tabelle in der Datenbank verfügt über. die untergeordneten Tabellen definieren, allen ihren Feldern, einschließlich der im übergeordneten Typen definiert.
 
-Wenn Ihr Modell TPT-Vererbung verwendet wird, werden die Abfragen, die generiert werden komplexer als die sein, die mit den anderen Vererbungsstrategien in längeren Ausführungszeiten im Store zu entstehen generiert werden.  Im Allgemeinen dauert Abfragen über ein TPT-Modell zu generieren und die resultierenden Objekte materialisiert länger.
+Wenn Ihr Modell TPT-Vererbung verwendet wird, werden die Abfragen, die generiert werden komplexer als die sein, die mit den anderen Vererbungsstrategien in längeren Ausführungszeiten im Store zu entstehen generiert werden.  Im Allgemeinen dauert Abfragen über ein TPT-Modell zu generieren und die resultierenden Objekte materialisiert länger.
 
 Finden Sie unter den "Überlegungen zur Leistung bei Verwendung von (Tabelle pro Typ)-TPT-Vererbung im Entitätsframework" MSDN-Blogbeitrag: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>.
 
-#### <a name="711-------avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 Vermeiden von TPT in Model First oder Code First-Anwendungen
+#### <a name="711-avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 Vermeiden von TPT in Model First oder Code First-Anwendungen
 
 Wenn Sie ein Modell über eine vorhandene Datenbank, die eine TPT-Schema aufweist erstellen, müssen Sie nicht viele Optionen. Aber wenn Sie eine Anwendung mit Model First oder Code First zu erstellen, sollten Sie TPT-Vererbung für Bedenken hinsichtlich der Leistung.
 
@@ -883,7 +883,7 @@ Wenn Sie Model First im Entity Designer-Assistenten verwenden, erhalten Sie TPT 
 
 Bei Code First verwenden, um die Zuordnung eines Modells mit '-Vererbung konfigurieren, EF verwendet standardmäßig TPH, daher werden alle Entitäten in der Vererbungshierarchie zu derselben Tabelle zugeordnet. Finden Sie im Abschnitt "Zuordnung mit der Fluent-API" des Artikels "Code zuerst in Entity Framework4.1" im MSDN Magazine ( [http://msdn.microsoft.com/magazine/hh126815.aspx](https://msdn.microsoft.com/magazine/hh126815.aspx)) Weitere Informationen.
 
-### <a name="72-------upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 Aktualisieren von EF4 zur Verbesserung der modellgenerierung Zeit
+### <a name="72-upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 Aktualisieren von EF4 zur Verbesserung der modellgenerierung Zeit
 
 Eine SQL Server-spezifische Verbesserung für den Algorithmus, der generiert die Store-Ebene (SSDL) des Modells ist in Entity Framework 5 und 6, und als Update für Entity Framework 4 verfügbar, wenn Visual Studio 2010 SP1 installiert ist. Die folgenden Testergebnisse zeigen die Verbesserung beim Generieren eines großen Modells in diesem Fall das Navision-Modell. Weitere Details finden Sie unter Anhang C.
 
@@ -899,13 +899,13 @@ Das Modell enthält 1005 Entitätenmengen und Zuordnungssätze 4227.
 
 Es ist erwähnenswert, dass beim SSDL zu generieren, die Last fast ausschließlich auf dem SQL-Server aufgewendet wird während der Client-Entwicklungscomputer wartet im Leerlauf, für die Ergebnisse vom Server zurückgegeben werden. Datenbankadministratoren sollten besonders, dass diese Verbesserung zu schätzen wissen. Es ist auch erwähnenswert, dass im Wesentlichen die Gesamtkosten der Modellerstellung im Generieren von Sichten jetzt stattfindet.
 
-### <a name="73-------splitting-large-models-with-database-first-and-model-first"></a>7.3 Teilen Sie große Modelle mit Datenbank zuerst und Model First
+### <a name="73-splitting-large-models-with-database-first-and-model-first"></a>7.3 Teilen Sie große Modelle mit Datenbank zuerst und Model First
 
 Mit zunehmender Größe des Datenbankmodells wird die Oberfläche des Designers überladen und schwierig zu verwenden. In der Regel betrachten wir ein Modell mit mehr als 300 Entitäten, zu groß, um effektiv der Designer verwendet werden soll. Im folgenden Blogbeitrag beschreibt mehrere Optionen für das Aufteilen von großer Models: \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>.
 
 Der Beitrag wurde für die erste Version von Entity Framework geschrieben, aber die Schritte gelten weiterhin.
 
-### <a name="74-------performance-considerations-with-the-entity-data-source-control"></a>7.4-leistungsüberlegungen zu Entity Datenquellen-Steuerelements
+### <a name="74-performance-considerations-with-the-entity-data-source-control"></a>7.4-leistungsüberlegungen zu Entity Datenquellen-Steuerelements
 
 Wir haben gesehen Fälle im Multithread-Leistungs- und Belastungstests, wirkt sich negativ auf die Leistung einer Webanwendung, die über das EntityDataSource-Steuerelement deutlich. Die zugrunde liegende Ursache ist, dass das EntityDataSource wiederholt MetadataWorkspace.LoadFromAssembly auf den verwiesen wird, von der Webanwendung zum Ermitteln der Typen, die als Entitäten verwendet werden Assemblys aufruft.
 
@@ -913,7 +913,7 @@ Die Lösung besteht darin, dem "ContextTypeName" von EntityDataSource auf den Na
 
 Festlegen des Felds "ContextTypeName" wird verhindert, dass auch ein funktionales Problem, in dem das EntityDataSource in .NET 4.0 ReflectionTypeLoadException löst aus, wenn einen Typ nicht aus einer Assembly über Reflektion geladen werden können. Dieses Problem wurde in .NET 4.5 behoben.
 
-### <a name="75-------poco-entities-and-change-tracking-proxies"></a>7.5 POCO-Entitäten und Proxys mit änderungsnachverfolgung
+### <a name="75-poco-entities-and-change-tracking-proxies"></a>7.5 POCO-Entitäten und Proxys mit änderungsnachverfolgung
 
 Entitätsframework ermöglicht Ihnen, benutzerdefinierte Datenklassen zusammen mit dem Datenmodell zu verwenden, ohne Änderungen an den Datenklassen selbst vornehmen. Dies bedeutet, dass Sie POCO-Objekte (Plain-old CLR objects), z. B. vorhandene Domänenobjekte, mit dem Datenmodell verwenden können. Diese POCO-Datenklassen (auch bekannt als Dauerhaftigkeit ignorierende Objekte), die auf Entitäten zugeordnet sind, die in einem Datenmodell definiert sind, unterstützen die meisten derselben Abfrage, einfügen, aktualisieren und Löschverhalten wie Entitätstypen, die von den Entity Data Model-Tools generiert werden.
 
@@ -1089,7 +1089,7 @@ Es gibt keine als eine allgemeingültige Eager Load und Lazy Load auswählen. Zu
 | Werden der Code ist weit entfernt von der Datenbank ausgeführt? (erhöhte Netzwerklatenz)  | **Keine** : Wenn die Netzwerklatenz kein Problem dar, ist möglicherweise bei Verwendung von Lazy Loading Ihren Code vereinfachen. Denken Sie daran, dass die Topologie Ihrer Anwendung also Datenbank NEAR als selbstverständlich nicht ändern kann. <br/> <br/> **Ja** : Wenn das Netzwerk ein Problem ist, nur Sie entscheiden können, was für Ihr Szenario besser geeignet ist. Eager Loading wird in der Regel besser sein, da weniger Roundtrips erforderlich ist.                                                                                                                                                                                                      |
 
 
-#### <a name="822-------performance-concerns-with-multiple-includes"></a>8.2.2 Leistungsbedenken mit mehreren enthält
+#### <a name="822-performance-concerns-with-multiple-includes"></a>8.2.2 Leistungsbedenken mit mehreren enthält
 
 Wenn wir Fragen zur Performance, die Zeit von Serverproblemen-Antwort enthalten hören, ist die Quelle des Problems häufig Abfragen mit mehreren Include-Anweisungen. Während einschließlich verknüpfte Entitäten in einer Abfrage leistungsfähig ist, ist es wichtig zu verstehen, was hinter den Kulissen passiert.
 
@@ -1147,7 +1147,7 @@ Eine gute Ressource, die zeigt, wie die tabellenaufteilung aktiviert ist, die Gi
 
 ## <a name="9-other-considerations"></a>9 Weitere Überlegungen
 
-### <a name="91------server-garbage-collection"></a>9.1 Garbagecollection-server
+### <a name="91-server-garbage-collection"></a>9.1 Garbagecollection-server
 
 Einige Benutzer können Ressourcenkonflikte auftreten, die die Parallelität einschränkt, die sie erwarten, wenn der Garbage Collector nicht ordnungsgemäß konfiguriert ist. Wenn EF in einem Multithread-Szenario verwendet wird, oder in einer beliebigen Anwendung, die eine serverseitige System ähnelt, stellen Sie sicher, dass Garbage Collection auf dem Server zu aktivieren. Dies erfolgt über eine einfache Einstellung in der Konfigurationsdatei der Anwendung:
 
@@ -1162,7 +1162,7 @@ Einige Benutzer können Ressourcenkonflikte auftreten, die die Parallelität ein
 
 Dies sollte Ihre Threadkonflikte verringern und den Durchsatz erhöhen, indem Sie bis zu 30 % in CPU-Kapazität erschöpft-Szenarien. Im Allgemeinen sollten Sie immer testen, das Anwendungsverhalten mit der klassischen Garbage Collection (die besser für die Benutzeroberfläche und Client-Seite-Szenarien optimiert ist) sowie die Garbage Collection auf dem Server.
 
-### <a name="92------autodetectchanges"></a>9.2 AutoDetectChanges
+### <a name="92-autodetectchanges"></a>9.2 AutoDetectChanges
 
 Wie bereits erwähnt, kann Entity Framework Leistungsprobleme angezeigt, wenn es sich bei der Objektcache viele Entitäten verfügt. Bestimmte Vorgänge, z. B. hinzufügen "," entfernen "," Suchen "," Eintrag "und" SaveChanges ", lösen Aufrufe von DetectChanges die verwenden möglicherweise eine große Menge an CPU, die basierend auf der Objektcache wie groß geworden ist. Der Grund dafür ist, dass Objektcache und das Objekt Status-Manager, versuchen Sie, als bleiben synchronisiert werden, wie möglich auf jeden Vorgang, der an einen Kontext durchgeführt werden, sodass die erzeugten Daten garantiert ist, unter einer Vielzahl von Szenarien korrekt zu sein.
 
@@ -1183,11 +1183,11 @@ finally
 
 Vor einem ausschalten AutoDetectChanges durch, ist es gut zu wissen, dass dies möglicherweise dazu, dass Entity Framework, verlieren die Möglichkeit, bestimmte Informationen zu den Änderungen zu verfolgen, die für die Entitäten durchgeführt werden. Wenn nicht ordnungsgemäß verarbeitet, kann dies Dateninkonsistenz in Ihrer Anwendung führen. Finden Sie weitere Informationen zum Deaktivieren der AutoDetectChanges, \<http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>.
 
-### <a name="93------context-per-request"></a>9.3 Kontext pro Anforderung
+### <a name="93-context-per-request"></a>9.3 Kontext pro Anforderung
 
 Entitätsframework-Kontexte sollen verwendet werden, da es sich bei Auftreten von kurzlebige-Instanzen verwendet, um die optimale Leistung zu erzielen. Kontexte sind erwartungsgemäß von kurzer kurzlebig und verworfen, und daher sehr einfache und Metadaten, die möglichst reutilize implementiert wurden. -Szenarien ist es wichtig zu beachten Sie, dass keinen Kontext für mehr als die Dauer einer einzelnen Anforderung. Auf ähnliche Weise sollte in nicht-Szenarien Kontext basierend auf Ihre Kenntnisse zu den verschiedenen Ebenen des Zwischenspeicherns im Entity Framework verworfen werden. Im Allgemeinen sollte eine vermeiden, dass eine Kontextinstanz während der gesamten Lebensdauer der Anwendung als auch Kontexte pro Thread und statischen Kontext werden können.
 
-### <a name="94------database-null-semantics"></a>9.4-Datenbank-null-Semantik
+### <a name="94-database-null-semantics"></a>9.4-Datenbank-null-Semantik
 
 Entitätsframework standardmäßig generiert die SQL-Code mit C\# null-Vergleichssemantik. Beachten Sie die folgende Beispielabfrage:
 
@@ -1224,18 +1224,18 @@ Kleine bis mittlere Größe Abfragen zeigt keine leistungsverbesserung der wahrn
 
 In der Beispielabfrage, die oben genannten war der Leistungsunterschied weniger als 2 % in einer Microbenchmark in einer kontrollierten Umgebung ausgeführt wird.
 
-### <a name="95------async"></a>9.5 Async
+### <a name="95-async"></a>9.5 Async
 
 Entity Framework 6 eingeführte Unterstützung von asynchronen Vorgängen bei der Ausführung unter .NET 4.5 oder höher. Zum größten Teil, der Anwendungen, die e/a Konflikte verknüpft werden, profitieren am meisten von der asynchronen Abfrage mithilfe und Speichervorgängen. Wenn Ihre Anwendung von e/a-Konflikte nicht der Fall ist, wird die Verwendung von Async im besten Fall wird synchron ausgeführt und geben das Ergebnis zurück, in die gleiche Menge an Zeit wie ein synchroner Aufruf oder im schlimmsten Fall einfach verzögern der Ausführung einer asynchronen Aufgabe und Hinzufügen von zusätzlichen tim e für die Ausführung Ihres Szenarios.
 
 Informationen zu asynchroner Programmierung Arbeit, die helfen, die Sie die Entscheidung, ob Async die Leistung Ihrer Anwendung verbessert besuchen [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Weitere Informationen zur Verwendung von asynchronen Vorgängen auf Entity Framework finden Sie unter [asynchronen Abfrage- und speichern](~/ef6/fundamentals/async.md
 ).
 
-### <a name="96------ngen"></a>9.6 NGEN
+### <a name="96-ngen"></a>9.6 NGEN
 
 Entitätsframework 6 stammt nicht in der Standardinstallation von .NET Framework. Daher sind die Entity Framework-Assemblys nicht, dass NGEN standardmäßig würde, was bedeutet, dass alle der Entity Framework-Code gelten die gleichen JIT'ing Kosten als jede andere MSIL-Assembly ist. Dies kann die F5-Erfahrung beim Entwickeln und auch auf den Kaltstart der Anwendung in die produktionsumgebungen beeinträchtigt werden. Um die Senkung der Kosten für CPU und Arbeitsspeicher des JIT'ing ist es ratsam, NGEN-images von Entity Framework nach Bedarf. Weitere Informationen zum Verbessern der startleistung von Entity Framework 6 mit NGEN finden Sie unter [Verbessern der Startleistung mit NGen](~/ef6/fundamentals/performance/ngen.md).
 
-### <a name="97------code-first-versus-edmx"></a>9.7 code First und EDMX-Datei
+### <a name="97-code-first-versus-edmx"></a>9.7 code First und EDMX-Datei
 
 Entity Framework Gründen über die Impedance-Mismatch-Problems zwischen objektorientierter Programmierung und relationalen Datenbanken, indem Sie eine in-Memory-Darstellung des konzeptionellen Modell (die Objekte), das Speicherschema (Datenbank) und eine Zuordnung zwischen den zwei. Diese Metadaten ist ein Entity Data Model oder EDM kurz bezeichnet. Aus diesem EDM Entity Framework die Objekte im Arbeitsspeicher der Datenbank die Ansichten auf Roundtrip Daten abgeleitet und sichern.
 
@@ -1251,11 +1251,11 @@ Bei der Auswahl EDMX-Datei im Vergleich zu Code First verwenden, ist es wichtig 
 
 Wenn Sie Leistungsprobleme mit Entity Framework haben, können Sie einen Profiler, wie in Visual Studio integriert verwenden, um anzuzeigen, in denen Ihre Anwendung Zeit verloren geht. Dies ist das Tool, das wir verwendet, um die Kreisdiagramme im Blogbeitrag "Exploring the Performance of ADO.NET Entity Framework - Teil 1" zu generieren ( \<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) , die anzeigen, in denen Entity Framework bei Abfragen für kalte und warme befindet.
 
-"Profilerstellung Entitätsframework, die mithilfe der Visual Studio 2010-Profiler" im Blogbeitrag von Daten und Modellieren von Customer Advisory Team geschrieben wurde, zeigt ein praktisches Beispiel, wie sie den Profiler verwendet, um ein Leistungsproblem zu untersuchen.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Dieser Beitrag wurde für eine Windows-Anwendung geschrieben. Wenn Sie ein Profil eine Webanwendung müssen funktionieren die Tools Windows Performance Recorder (WPR) und Windows Performance Analyzer (WPA) eine bessere Leistung als die Verwendung von Visual Studio. WPR "und" WPA sind Teil der Windows Performance Toolkit, das in das Windows Assessment and Deployment Kit enthalten ist ( [http://www.microsoft.com/en-US/download/details.aspx?id=39982](https://www.microsoft.com/en-US/download/details.aspx?id=39982)).
+"Profilerstellung Entitätsframework, die mithilfe der Visual Studio 2010-Profiler" im Blogbeitrag von Daten und Modellieren von Customer Advisory Team geschrieben wurde, zeigt ein praktisches Beispiel, wie sie den Profiler verwendet, um ein Leistungsproblem zu untersuchen.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Dieser Beitrag wurde für eine Windows-Anwendung geschrieben. Wenn Sie ein Profil eine Webanwendung müssen funktionieren die Tools Windows Performance Recorder (WPR) und Windows Performance Analyzer (WPA) eine bessere Leistung als die Verwendung von Visual Studio. WPR "und" WPA sind Teil der Windows Performance Toolkit, das in das Windows Assessment and Deployment Kit enthalten ist ( [http://www.microsoft.com/download/details.aspx?id=39982](https://www.microsoft.com/download/details.aspx?id=39982)).
 
 ### <a name="102-applicationdatabase-profiling"></a>10.2 Anwendung/Datenbank-profilerstellung
 
-Tools wie der Profiler in Visual Studio integriert erfahren Sie, wo Ihre Anwendung Zeit verbringt, ist.  Eine andere Art von Profiler ist verfügbar, die dynamische Analyse der ausgeführten Anwendung, entweder in der Produktion oder vor der Produktion je nach Anforderungen und sucht nach häufige Fehlerquellen und Anti-Muster der Zugriff auf die Datenbank.
+Tools wie der Profiler in Visual Studio integriert erfahren Sie, wo Ihre Anwendung Zeit verbringt, ist.  Eine andere Art von Profiler ist verfügbar, die dynamische Analyse der ausgeführten Anwendung, entweder in der Produktion oder vor der Produktion je nach Anforderungen und sucht nach häufige Fehlerquellen und Anti-Muster der Zugriff auf die Datenbank.
 
 Zwei kommerziell erhältliche Tools für die profilerstellung werden die Entity Framework Profiler ( \<http://efprof.com>) und ORMProfiler ( \<http://ormprofiler.com>).
 
@@ -1298,9 +1298,9 @@ Weitere Informationen dazu, wie Protokollierung hinzufügen, ohne erneute Kompil
 
 Diese Umgebung verwendet einen 2-Machine-Setup mit der Datenbank auf einem separaten Computer von der Clientanwendung. Computer sind im selben Rack, also die Netzwerklatenz relativ gering, aber realistischer als eine Umgebung für die einzelnen Computer.
 
-#### <a name="1111-------app-server"></a>11.1.1-app-Server
+#### <a name="1111-app-server"></a>11.1.1-app-Server
 
-##### <a name="11111------software-environment"></a>11.1.1.1-Software-Umgebung
+##### <a name="11111-software-environment"></a>11.1.1.1-Software-Umgebung
 
 -   Entity Framework 4-Software-Umgebung
     -   Name des Betriebssystems: Windows Server 2008 R2 Enterprise SP1.
@@ -1310,26 +1310,26 @@ Diese Umgebung verwendet einen 2-Machine-Setup mit der Datenbank auf einem separ
     -   Name des Betriebssystems: Windows 8.1 Enterprise
     -   Visual Studio 2013 – Ultimate.
 
-##### <a name="11112------hardware-environment"></a>11.1.1.2 Hardwareumgebung
+##### <a name="11112-hardware-environment"></a>11.1.1.2 Hardwareumgebung
 
 -   Dual-Prozessor: Intel(R) Xeon(R) CPU L5520 W3530 @ mit 2,27 GHz, 2261 Mhz8 GHz, 4 Kerne, 84 logische Prozessoren.
 -   2412 GB RamRAM.
 -   136 GB SCSI250GB SATA 7200 u/Min / 3GB/s-Laufwerk in 4 Partitionen aufgeteilt.
 
-#### <a name="1112-------db-server"></a>11.1.2-DB-server
+#### <a name="1112-db-server"></a>11.1.2-DB-server
 
-##### <a name="11121------software-environment"></a>11.1.2.1-Software-Umgebung
+##### <a name="11121-software-environment"></a>11.1.2.1-Software-Umgebung
 
 -   Name des Betriebssystems: Windows Server 2008 R28.1 Enterprise SP1.
 -   SQL Server 2008 R22012.
 
-##### <a name="11122------hardware-environment"></a>11.1.2.2 Hardwareumgebung
+##### <a name="11122-hardware-environment"></a>11.1.2.2 Hardwareumgebung
 
 -   Einzelner Prozessor: Intel(R) Xeon(R) CPU L5520 mit 2,27 GHz, 2261 MhzES-1620 0 @ 3.60 GHz, 4 Kerne, 8 logische Prozessoren.
 -   824 GB RamRAM.
 -   465 GB ATA500GB SATA 7200 Rpm 6 GBIT/s-Laufwerk in 4 Partitionen aufgeteilt.
 
-### <a name="112------b-query-performance-comparison-tests"></a>11.2 b Abfrage Leistung im Vergleich tests
+### <a name="112-b-query-performance-comparison-tests"></a>11.2 b Abfrage Leistung im Vergleich tests
 
 Das Northwind-Modell wurde verwendet, um diese Tests auszuführen. Es wurde aus der Datenbank, die mit dem Entity Framework Designer generiert. Klicken Sie dann wurde der folgende Code verwendet, um die Leistung von Optionen für die Abfrage vergleichen:
 
@@ -1519,7 +1519,7 @@ Eine einfache Suchabfrage ohne Aggregationen
   </Query>
 ```
 
-##### <a name="11312-singleaggregating"></a>11.3.1.2 SingleAggregating
+##### <a name="11312singleaggregating"></a>11.3.1.2 SingleAggregating
 
 Eine normale BI-Abfrage mit mehrere Aggregationen, jedoch keine Teilergebnisse (Einzelabfrage)
 
@@ -1540,7 +1540,7 @@ In denen MDF\_SessionLogin\_Zeit\_Max() in das Modell definiert ist:
   </Function>
 ```
 
-##### <a name="11313-aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
+##### <a name="11313aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
 
 Eine BI-Abfrage mit Aggregationen und Teilergebnisse (über die Union aller)
 

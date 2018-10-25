@@ -3,12 +3,12 @@ title: Anbieterunterstützung für räumliche Typen - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-ms.openlocfilehash: ffd22222f59a541d8135d3738d37a7e8f5dc5d7c
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9c00e82c663daec219fe649a8d889afcc81564f7
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489751"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022274"
 ---
 # <a name="provider-support-for-spatial-types"></a>Unterstützung für räumliche Typen
 Entitätsframework unterstützt die Arbeit mit räumlichen Daten über die DbGeography oder DbGeometry-Klassen. Diese Klassen basieren auf Datenbank-spezifische Funktionen, die die Entity Framework-Dienstanbieter angeboten werden. Nicht alle Anbieter werden räumliche Daten unterstützt, und diejenigen, die möglicherweise zusätzlicher Voraussetzungen, z. B. die Installation der räumliche Typ Assemblys. Weitere Informationen über anbieterunterstützung für räumliche Typen finden Sie weiter unten.  
@@ -56,4 +56,4 @@ Unterstützung von räumlichen Daten SQL Server hängt die Low-Level, SQL Server
 
 Bei der Installation von Visual Studio wird häufig auch eine Version von SQL Server installiert, und dies schließt die Installation von "Microsoft.SqlServer.Types.dll".  
 
-Wenn SQL Server nicht auf dem Computer installiert ist, in dem Sie räumliche Typen verwenden möchten, oder wenn räumliche Typen aus der SQL Server-Installation ausgeschlossen wurden, müssen Sie sie manuell installieren. Die Typen können installiert werden, mithilfe von `SQLSysClrTypes.msi`, diese ist Teil von Microsoft SQL Server Feature Pack. Räumliche Typen sind SQL Server-Version-spezifisch ist, daher wir empfehlen [suchen Sie nach "SQL Server Feature Pack"](https://www.microsoft.com/en-us/search/result.aspx?q=sql+server+feature+pack) im Microsoft Download Center, wählen Sie dann und Laden Sie auf die Version von SQL Server, die Sie verwenden die Option, die entspricht.
+Wenn SQL Server nicht auf dem Computer installiert ist, in dem Sie räumliche Typen verwenden möchten, oder wenn räumliche Typen aus der SQL Server-Installation ausgeschlossen wurden, müssen Sie sie manuell installieren. Die Typen können installiert werden, mithilfe von `SQLSysClrTypes.msi`, diese ist Teil von Microsoft SQL Server Feature Pack. Räumliche Typen sind SQL Server-Version-spezifisch ist, daher wir empfehlen [suchen Sie nach "SQL Server Feature Pack"](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack) im Microsoft Download Center, wählen Sie dann und Laden Sie auf die Version von SQL Server, die Sie verwenden die Option, die entspricht.
