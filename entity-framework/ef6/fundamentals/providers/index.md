@@ -3,12 +3,12 @@ title: 'Entity Framework-Anbieter: EF6'
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: c9afb32caeeef5111b32251c62019460b62f48b3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 0cfe6c30d6533b0207f78a031d342847a7f68632
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489439"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022222"
 ---
 # <a name="entity-framework-6-providers"></a>Anbieter von Entity Framework 6
 > [!NOTE]
@@ -68,7 +68,7 @@ Der Typ („type“) in dieser Registrierung ist der Name mit Assemblyqualifikat
 
 ### <a name="code-based-registration"></a>Codebasierte Registrierung
 
-Ab Entity Framework 6 kann die anwendungsweite Konfiguration für EF im Code angegeben werden. Ausführliche Informationen dazu finden Sie unter _[Entity Framework – Code-Based Configuration (Codebasierte Konfiguration von Entity Framework)](https://msdn.microsoft.com/en-us/data/jj680699)_. Normalerweise wird ein EF-Anbieter, der die codebasierter Konfiguration verwendet, durch Erstellung einer neuen Klasse registriert, die von System.Data.Entity.DbConfiguration abstammt und in der gleichen Assembly platziert wird, wie Ihre DbContext-Klasse. Ihre DbConfiguration-Klasse sollte dann den Anbieter in ihrem Konstruktor registrieren. Die DbConfiguration-Klasse sieht wie folgt aus, um beispielsweise den SQL Compact-Anbieter zu registrieren:
+Ab Entity Framework 6 kann die anwendungsweite Konfiguration für EF im Code angegeben werden. Ausführliche Informationen dazu finden Sie unter _[Entity Framework – Code-Based Configuration (Codebasierte Konfiguration von Entity Framework)](https://msdn.microsoft.com/data/jj680699)_. Normalerweise wird ein EF-Anbieter, der die codebasierter Konfiguration verwendet, durch Erstellung einer neuen Klasse registriert, die von System.Data.Entity.DbConfiguration abstammt und in der gleichen Assembly platziert wird, wie Ihre DbContext-Klasse. Ihre DbConfiguration-Klasse sollte dann den Anbieter in ihrem Konstruktor registrieren. Die DbConfiguration-Klasse sieht wie folgt aus, um beispielsweise den SQL Compact-Anbieter zu registrieren:
 
 ``` csharp
     public class MyConfiguration : DbConfiguration

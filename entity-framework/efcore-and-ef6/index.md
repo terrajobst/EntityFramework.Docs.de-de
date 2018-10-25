@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 8568f0a3c6c4585c4fe05508fd610614107c8f66
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 0f9f0d4708fa283855eddf2cfc231b37356e413e
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315645"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022349"
 ---
 # <a name="compare-ef-core--ef6"></a>Vergleichen von EF Core und EF 6
 
@@ -73,7 +73,7 @@ Die Spalte „EF Core“ zeigt die Produktversion, in der die Funktion zum erste
 
 ### <a name="querying-data"></a>Abfragen von Daten
 
-| **Funktion                                             | **EF6**  | **EF Core**                           |
+| **Funktion**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | LINQ-Abfragen                                          | Ja      | 1.0 (für komplexe Abfragen in Bearbeitung) |
 | Lesbares generiertes SQL                                | Schlecht     | 1.0                                   |
@@ -147,7 +147,7 @@ Die Spalte „EF Core“ zeigt die Produktversion, in der die Funktion zum erste
 ## <a name="guidance-for-new-applications"></a>Leitfaden für neue Anwendungen
 
 Ziehen Sie für neue Anwendungen EF Core in Erwägung, wenn die beiden folgenden Bedingungen erfüllt sind:
-* Die App benötigt die Funktionen von .NET Core. Weitere Informationen finden Sie unter [Wahl zwischen .NET Core und .NET Framework für Server-Apps](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server).
+* Die App benötigt die Funktionen von .NET Core. Weitere Informationen finden Sie unter [Wahl zwischen .NET Core und .NET Framework für Server-Apps](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server).
 * EF Core unterstützt alle Funktionen, die für die App erforderlich sind. Wenn eine gewünschte Funktion fehlt, überprüfen Sie die [EF Core Roadmap](xref:core/what-is-new/roadmap), um herauszufinden, ob eine zukünftige Unterstützung geplant ist. 
 
 Ziehen Sie EF6 in Erwägung, wenn die beiden folgenden Bedingungen erfüllt sind:

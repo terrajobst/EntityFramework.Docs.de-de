@@ -3,21 +3,21 @@ title: 'Arbeiten mit getrennten Entitäten: EF6'
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: beb3847ce507a2112ac0d396a2023c7c4e2fca7d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 11ca2a9a4161e02d32d98bf03dd4cf28545334b7
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489933"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022170"
 ---
 # <a name="working-with-disconnected-entities"></a>Arbeiten mit getrennten Entitäten
 In einer Anwendung, die auf Entity Framework basiert, ist eine Kontextklasse für das Erfassen von Änderungen zuständig, die an nachverfolgten Entitäten vorgenommen werden. Durch Aufruf der SaveChanges-Methode werden vom Kontext nachverfolgte Änderungen in der Datenbank gespeichert. Bei der Arbeit mit n-schichtigen Anwendungen werden Entitätsobjekte normalerweise modifiziert, wenn keine Verbindung zum Kontext besteht. Sie müssen dann entscheiden, wie Änderungen nachverfolgt und an den Kontext zurückgemeldet werden. In diesem Artikel wird beschrieben, welche Möglichkeiten Sie haben, wenn Sie Entity Framework mit getrennten Entitäten verwenden.   
 
 ## <a name="web-service-frameworks"></a>Webdienstframeworks
 
-Webdiensttechnologien unterstützen normalerweise Muster, mit denen Sie Änderungen an einzelnen getrennten Objekten übernehmen können. Mit der ASP.NET-Web-API können Sie z.B. Controlleraktionen (wie etwa Aufrufe an EF zum Übernehmen von Änderungen an Objekten in einer Datenbank) codieren. Mit den Tools der Web-API in Visual Studio können Sie leicht einen Web-API-Controller über das Entity Framework 6-Modell entwerfen. Weitere Informationen finden Sie unter [Using Web API 2 with Entity Framework 6 (Verwenden der Web-API mit Entity Framework 6)](https://docs.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
+Webdiensttechnologien unterstützen normalerweise Muster, mit denen Sie Änderungen an einzelnen getrennten Objekten übernehmen können. Mit der ASP.NET-Web-API können Sie z.B. Controlleraktionen (wie etwa Aufrufe an EF zum Übernehmen von Änderungen an Objekten in einer Datenbank) codieren. Mit den Tools der Web-API in Visual Studio können Sie leicht einen Web-API-Controller über das Entity Framework 6-Modell entwerfen. Weitere Informationen finden Sie unter [Using Web API 2 with Entity Framework 6 (Verwenden der Web-API mit Entity Framework 6)](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
 
-Es gab schon immer mehrere andere Webdiensttechnologien, die eine Integration in Entity Framework ermöglicht haben, wie z.B. [WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) und [RIA Services](https://docs.microsoft.com/en-us/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
+Es gab schon immer mehrere andere Webdiensttechnologien, die eine Integration in Entity Framework ermöglicht haben, wie z.B. [WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) und [RIA Services](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
 
 ## <a name="low-level-ef-apis"></a>EF-APIs auf niedriger Ebene
 
