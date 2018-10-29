@@ -1,14 +1,11 @@
+## <a name="microsoft-open-source-code-of-conduct"></a><span data-ttu-id="5f819-101">Microsoft Open Source-Verhaltensregeln</span><span class="sxs-lookup"><span data-stu-id="5f819-101">Microsoft Open Source Code of Conduct</span></span>
 
-# Contributing
+<span data-ttu-id="5f819-102">Dieses Projekt hat die [Microsoft Open Source Code of Conduct (Microsoft Open Source-Verhaltensregeln)](https://opensource.microsoft.com/codeofconduct/) übernommen.</span><span class="sxs-lookup"><span data-stu-id="5f819-102">This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).</span></span>
+<span data-ttu-id="5f819-103">Weitere Informationen finden Sie unter [Code of Conduct FAQ (Häufig gestellte Fragen zum Verhaltenskodex)](https://opensource.microsoft.com/codeofconduct/faq/) oder indem Sie sich mit weiteren Fragen und Kommentaren an [opencode@microsoft.com](mailto:opencode@microsoft.com) wenden.</span><span class="sxs-lookup"><span data-stu-id="5f819-103">For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.</span></span>
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.microsoft.com.
+<a name="entity-framework-docs"></a><span data-ttu-id="5f819-104">Entity Framework-Dokumentation</span><span class="sxs-lookup"><span data-stu-id="5f819-104">Entity Framework Docs</span></span>
+=====================
 
-When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+<span data-ttu-id="5f819-105">Dieses Projekt stellt die Quelle für [docs.microsoft.com/ef](https://docs.microsoft.com/ef/) bereit.</span><span class="sxs-lookup"><span data-stu-id="5f819-105">This project provides the source for [docs.microsoft.com/ef](https://docs.microsoft.com/ef/).</span></span>
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+<span data-ttu-id="5f819-106">**Microsoft akzeptiert Pull Requests.**</span><span class="sxs-lookup"><span data-stu-id="5f819-106">**We accept pull requests!**</span></span> <span data-ttu-id="5f819-107">Bevor Sie einen Pull Request übermitteln, lesen Sie bitte die[Richtlinien für Beiträge](CONTRIBUTING.md). Diese enthalten Anleitungen zum Erstellen von Dokumentationen sowie Stil- und Strukturvorgaben.</span><span class="sxs-lookup"><span data-stu-id="5f819-107">However, before submitting a pull request, please [read the CONTRIBUTING guidelines](CONTRIBUTING.md), which include information on how to build the docs locally, as well as style and organizational guidance.</span></span>
