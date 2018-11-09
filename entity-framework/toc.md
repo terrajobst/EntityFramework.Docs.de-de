@@ -72,7 +72,7 @@
 ##### [Verwenden eines separaten Projekts](core/managing-schemas/migrations/projects.md)
 ##### [Mehrere Anbieter](core/managing-schemas/migrations/providers.md)
 ##### [Benutzerdefinierte Verlaufstabelle](core/managing-schemas/migrations/history-table.md)
-#### [🔧 Erstellen und Löschen von APIs](core/managing-schemas/ensure-created.md)
+#### [Erstellen und Löschen von APIs](core/managing-schemas/ensure-created.md)
 #### [🔧 Reverse Engineering](core/managing-schemas/scaffolding.md)
 
 ### [Abfragen von Daten](core/querying/index.md)
