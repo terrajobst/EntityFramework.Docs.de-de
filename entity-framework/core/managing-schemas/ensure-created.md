@@ -2,28 +2,28 @@
 title: Erstellen und Löschen von APIs – EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/10/2017
-ms.openlocfilehash: 336f6fd655603a2474a58dfef377e121d9b04c3a
-ms.sourcegitcommit: a088421ecac4f5dc5213208170490181ae2f5f0f
+ms.date: 11/7/2018
+ms.openlocfilehash: 40d9e3aa0aba1bf2bc341f01dd815ed7cb7b48fa
+ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/08/2018
-ms.locfileid: "51285638"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51688628"
 ---
 # <a name="create-and-drop-apis"></a>Erstellen und Löschen von APIs
 
-Die Methoden EnsureCreated und EnsureDeleted bieten eine einfache Alternative zur [Migrationen](migrations/index.md) für die Verwaltung des Datenbankschemas. Dies ist in Szenarien nützlich, wenn die Daten vorübergehend ist und gelöscht werden, können Wenn das Schema ändert. Beispielsweise während der Erstellung von Prototypen, Tests oder für den lokalen Caches.
+Die Methoden EnsureCreated und EnsureDeleted bieten eine einfache Alternative zur [Migrationen](migrations/index.md) für die Verwaltung des Datenbankschemas. Diese Methoden sind in Szenarien nützlich, wenn die Daten vorübergehend ist und gelöscht werden, können Wenn das Schema ändert. Beispielsweise während der Erstellung von Prototypen, Tests oder für den lokalen Caches.
 
-Einige Anbieter (insbesondere nicht relationale diejenigen) unterstützen keine Migrationen. Für diese ist EnsureCreated oft die einfachste Möglichkeit zum Initialisieren des Datenbankschemas.
+Einige Anbieter (insbesondere nicht relationale diejenigen) unterstützen keine Migrationen. Bei diesen Anbietern lautet ist EnsureCreated oft die einfachste Möglichkeit zum Initialisieren des Datenbankschemas.
 
 > [!WARNING]
 > EnsureCreated und Migrationen funktionieren nicht gut zusammen. Wenn Sie Migrationen verwenden, verwenden Sie keine EnsureCreated um das Schema zu initialisieren.
 
-Übergang von EnsureCreated zu Migrationen ist nicht nahtlos. Die Simpelest Möglichkeit hierzu ist die Datenbank löschen und neu erstellen mithilfe von Migrationen. Wenn sich abzeichnet, Migrationen in Zukunft verwenden, empfiehlt es sich, nur mit Migrationen zu beginnen, anstatt EnsureCreated.
+Übergang von EnsureCreated zu Migrationen ist nicht nahtlos. Die einfachste Möglichkeit dafür ist die Datenbank löschen und erneut mithilfe von Migrationen erstellen. Wenn sich abzeichnet, Migrationen in Zukunft verwenden, empfiehlt es sich, nur mit Migrationen zu beginnen, anstatt EnsureCreated.
 
 ## <a name="ensuredeleted"></a>EnsureDeleted
 
-Die Ensuredeleted--Methode wird die Datenbank löschen, wenn es vorhanden ist. Wenn Sie nicht über die entsprechenden Berechtigungen verfügen, wird eine Ausnahme ausgelöst.
+Die Ensuredeleted--Methode wird die Datenbank löschen, wenn es vorhanden ist. Wenn Sie die entsprechenden Berechtigungen haben, wird eine Ausnahme ausgelöst.
 
 ``` csharp
 // Drop the database if it exists

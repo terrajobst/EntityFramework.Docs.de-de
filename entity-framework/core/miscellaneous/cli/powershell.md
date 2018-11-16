@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: 9a57b58f8569ee1241e40c3809b03487d1d88e02
-ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
+ms.openlocfilehash: 468698d1bbd17d4ad10b1b1601bfbc315a01c1ff
+ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/06/2018
-ms.locfileid: "48834759"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51688705"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Toolreferenz Entity Framework Core - Paket-Manager-Konsole in Visual Studio
 
@@ -257,3 +257,8 @@ In den folgenden Beispielen wird die Datenbank für eine angegebene Migration ak
 Update-Database -Migration InitialCreate
 Update-Database -Migration 20180904195021_InitialCreate
 ```
+
+## <a name="additional-resources"></a>Zusätzliche Ressourcen
+
+* [Migrationen](xref:core/managing-schemas/migrations/index)
+* [Reverse-Engineering](xref:core/managing-schemas/scaffolding)
