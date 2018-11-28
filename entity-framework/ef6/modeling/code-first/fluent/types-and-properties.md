@@ -3,12 +3,12 @@ title: Fluent-API - Konfiguration und Zuordnen von Eigenschaften und Typen - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
-ms.openlocfilehash: 031376d2fc4778e6f0fa2434ab7ccfd45d436c4a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
+ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490181"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52339802"
 ---
 # <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fluent-API – konfigurieren und Zuordnen von Eigenschaften und Typen
 Beim Arbeiten mit Entity Framework Code First ist das Standardverhalten, Tabellen, die mit einem Satz von Konventionen, die in EF integriert die POCO-Klassen zugeordnet. In einigen Fällen jedoch, Sie können nicht oder möchten, befolgen diese Konventionen und Zuordnen von Entitäten mit etwas anderem als Was vorgeben, dass die Konventionen müssen nicht.  
@@ -24,7 +24,7 @@ Die erste fluent-API des Codes erfolgt meist durch Überschreiben der ["onmodelc
 Ab mit EF6 können Sie die "hasdefaultschema"-Methode auf DbModelBuilder verwenden, geben Sie das Datenbankschema für alle Tabellen, gespeicherten Prozeduren usw. verwendet. Für alle Objekte, die Sie explizit ein anderes Schema für konfigurieren, wird diese Standardeinstellung überschrieben werden.  
 
 ``` csharp
-modelBuilder.HasDefaultSchema(“sales”);
+modelBuilder.HasDefaultSchema("sales");
 ```  
 
 ### <a name="custom-conventions-ef6-onwards"></a>Benutzerdefinierte Konventionen (EF6 oder höher)  
