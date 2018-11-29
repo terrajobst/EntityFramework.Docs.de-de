@@ -12,7 +12,7 @@
 
 ### [Neuigkeiten](core/what-is-new/index.md)
 #### [EF Core Roadmap](core/what-is-new/roadmap.md)
-#### [EF Core 2.2 (in der Vorschauversion)](core/what-is-new/ef-core-2.2.md)
+#### [EF Core 2.2 (Vorschauversion)](core/what-is-new/ef-core-2.2.md)
 #### [EF Core 2.1 (neuestes stabiles Release)](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0](core/what-is-new/ef-core-2.0.md)
 #### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)
@@ -285,4 +285,4 @@
 ###### [Koreanisch](ef6/resources/licenses/ef6/kor.md)
 ###### [Russisch](ef6/resources/licenses/ef6/rus.md)
 
-### [⤤ Referenz für die EF6-API](https://msdn.microsoft.com/library/dn223258.aspx)
+### [⤤ Referenz für die EF6-API](https://docs.microsoft.com/dotnet/api/?view=entity-framework-6.2.0)
