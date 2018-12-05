@@ -3,12 +3,12 @@ title: Code First-Migrationen in Teamumgebungen - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: f5216a80928625040d6719f0e97ae786e5e33e05
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 53460b6cdd454099ccf93b4e2133e4ea21278a64
+ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490505"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52857467"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Code First-Migrationen in Teamumgebungen
 > [!NOTE]
@@ -82,7 +82,7 @@ Es gibt zahlreiche Gründe, aus denen EF die Momentaufnahme des Modells um behä
     -   Ein eingefügter und aktualisierte Spalte an eine oder mehrere Tabellen hinzufügen möchten, aber keine dieser Spalten in der EF-Datenmodell enthalten sein sollen. Wenn die Datenbank Migrationen, die es ständig versuchen würde betrachtet, diese Spalten zu löschen, jedes Mal, wenn Sie eine Migration erstellt haben. Verwenden die Momentaufnahme des Modells, erkennt EF nur legitime Änderungen am Modell.
     -   Ändern Sie den Text einer gespeicherten Prozedur, die für Updates verwendet, um einige Protokollierung einschließen möchten. Wenn diese gespeicherte Prozedur aus der Datenbank Migrationen betrachtet kontinuierlich, wieder zurück auf die Definition, die von EF erwartet zurückgesetzt. Verwenden Sie die Momentaufnahme des Modells, Gerüst die EF wird immer nur Code, um die gespeicherte Prozedur zu ändern, wenn Sie die Form der Prozedur in der EF-Modell zu ändern.
     -   Diese gleichen Prinzipien gelten für Hinzufügen von zusätzlichen Indizes, einschließlich zusätzliche Tabellen in der Datenbank, zum Zuordnen von EF zu einer Datenbanksicht, die über eine Tabelle usw. befindet.
--   Das EF-Modell enthält mehr als nur die Form der Datenbank. Müssen das gesamte Modell kann die Migrationen zu Informationen über die Eigenschaften und Klassen in Ihrem Modell und wie sie die Spalten und Tabellen zugeordnet. Diese Informationen kann Migrationen intelligentere im Code sein, die sie erstellt das Gerüst für. Wenn Sie den Namen der Spalte ändern, die eine Eigenschaft zu Migrationen zuordnet können z. B. das Umbenennen von erkennen, sehen, dass es sich um die gleiche Eigenschaft – etwas, die erfolgen kann ist, wenn Sie nur das Schema der Datenbank verfügen. 
+-   Das EF-Modell enthält mehr als nur die Form der Datenbank. Müssen das gesamte Modell kann die Migrationen zu Informationen über die Eigenschaften und Klassen in Ihrem Modell und wie sie die Spalten und Tabellen zugeordnet. Diese Informationen kann Migrationen intelligentere im Code sein, die sie erstellt das Gerüst für. Wenn Sie den Namen der Spalte ändern, die eine Eigenschaft zu Migrationen zuordnet können z. B. das Umbenennen von erkennen, sehen, dass es sich um die gleiche Eigenschaft – etwas, die erfolgen kann ist, wenn Sie nur das Schema der Datenbank verfügen. 
 
 ## <a name="what-causes-issues-in-team-environments"></a>Was bewirkt, dass Probleme in teamumgebungen
 
@@ -109,7 +109,7 @@ Es ist ein Glück Tag für Entwickler \#1 wiedergibt, um ihre Änderungen zuerst
 
 ![Senden](~/ef6/media/submit.png)
 
-Nun ist es Zeit für Entwickler \#2 zu übermitteln. Sie sind nicht so viel Glück. Da eine andere Person Änderungen übermittelt hat, da sie synchronisiert, müssen sie die Änderungen und Merge per pull abgerufen. Das Quellcodeverwaltungssystem wird wahrscheinlich in der Lage, die Änderungen auf der Codeebene automatisch zusammenzuführen, da sie sehr einfach sind. Der Status des Entwicklers \#2 des lokalen Repository nach der Synchronisierung in der folgenden Abbildung dargestellt ist. 
+Nun ist es Zeit für Entwickler \#2 zu übermitteln. Sie sind nicht so viel Glück. Da eine andere Person Änderungen übermittelt hat, da sie synchronisiert, müssen sie die Änderungen und Merge per pull abgerufen. Das Quellcodeverwaltungssystem wird wahrscheinlich in der Lage, die Änderungen auf der Codeebene automatisch zusammenzuführen, da sie sehr einfach sind. Der Status des Entwicklers \#2 des lokalen Repository nach der Synchronisierung in der folgenden Abbildung dargestellt ist. 
 
 ![Pull](~/ef6/media/pull.png)
 
@@ -140,8 +140,7 @@ Für diesen Ansatz, beginnend ab dem Zeitpunkt, der Sie feststellen, dass Sie Ä
 1.  Stellen Sie sicher, dass alle ausstehenden modelländerungen in Ihrer lokalen Codebasis für eine Migration geschrieben wurden. Dadurch wird sichergestellt, dass keine legitimen Änderungen nicht entgehen, wenn es Zeit, die zum Generieren der Migrations leer ist.
 2.  Synchronisieren Sie mit der quellcodeverwaltung.
 3.  Führen Sie **Update-Database** , alle neuen Migrationen anzuwenden, die andere Entwickler eingecheckt haben.
-    **
-    *Hinweis: *** Wenn Sie keine Warnungen, von der Update-Database-Befehl erhalten dann gab es keine neuen Migrationen von anderen Entwicklern und besteht keine Notwendigkeit zum Ausführen der weiter zusammenführen.*
+    **_Hinweis:_**  *Wenn Sie keine Warnungen, von der Update-Database-Befehl erhalten dann gab es keine neuen Migrationen von anderen Entwicklern und besteht keine Notwendigkeit zum Ausführen der weiter zusammenführen.*
 4.  Führen Sie **Add-Migration &lt;auswählen\_eine\_Namen&gt; – IgnoreChanges** (z. B. **Merge Add-Migration – IgnoreChanges**). Dies erzeugt eine Migration mit dem alle Metadaten (einschließlich einer Momentaufnahme des aktuellen Modells), jedoch ignoriert, dass alle Änderungen, die erkennt, wenn das aktuelle Modell mit Momentaufnahme in den letzten Migrationen zu vergleichen (d. h., Sie erhalten ein leeres **einrichten** und **Unten** Methode).
 5.  Weiterentwickeln, oder Senden an die quellcodeverwaltung (nachdem Ihre Komponententests ausführen von tests).
 
@@ -162,14 +161,11 @@ Für diesen Ansatz, beginnend ab dem Zeitpunkt, der Sie feststellen, dass Sie Ä
 1.  Stellen Sie sicher, dass alle ausstehenden modelländerungen in Ihrer lokalen Codebasis für eine Migration geschrieben wurden. Dadurch wird sichergestellt, dass keine legitimen Änderungen nicht entgehen, wenn es Zeit, die zum Generieren der Migrations leer ist.
 2.  Synchronisieren Sie mit dem Datenquellen-Steuerelement.
 3.  Führen Sie **Update-Database** , alle neuen Migrationen anzuwenden, die andere Entwickler eingecheckt haben.
-    **
-    *Hinweis: *** Wenn Sie keine Warnungen, von der Update-Database-Befehl erhalten dann gab es keine neuen Migrationen von anderen Entwicklern und besteht keine Notwendigkeit zum Ausführen der weiter zusammenführen.*
+    **_Hinweis:_**  *Wenn Sie keine Warnungen, von der Update-Database-Befehl erhalten dann gab es keine neuen Migrationen von anderen Entwicklern und besteht keine Notwendigkeit zum Ausführen der weiter zusammenführen.*
 4.  Führen Sie **Update-Database – TargetMigration &lt;zweite\_letzten\_Migration&gt;**  (im Beispiel wir haben nach wurde dies wäre **Update-Database: TargetMigration AddRating**). Diese Rollen, die die Datenbank wieder in den Zustand der zweiten der letzten Migration – effektiv "nicht anwenden" der letzten Migrations aus der Datenbank.
-    **
-    *Hinweis: *** Dieser Schritt ist erforderlich, um es sicher so bearbeiten Sie die Metadaten der Migration, da die Metadaten auch in gespeichert ist die \_ \_MigrationsHistoryTable der Datenbank. Daher ist diese Option nur verwenden sollten, ist die letzte Migration nur in der lokalen Codebasis. Wenn andere Datenbanken die letzte Migration angewendet haben, müssten Sie auch zum Rollback für sie und wenden Sie die letzte Migration zum Aktualisieren der Metadaten.* 
+    **_Hinweis:_**  *dieser Schritt ist erforderlich, um es sicher so bearbeiten Sie die Metadaten der Migration, da die Metadaten auch in gespeichert ist die \_ \_MigrationsHistoryTable der Datenbank. Daher ist diese Option nur verwenden sollten, ist die letzte Migration nur in der lokalen Codebasis. Wenn andere Datenbanken die letzte Migration angewendet haben, müssten Sie auch zum Rollback für sie und wenden Sie die letzte Migration zum Aktualisieren der Metadaten.* 
 5.  Führen Sie **Add-Migration &lt;vollständige\_Namen\_einschließlich\_Zeitstempel\_von\_letzten\_Migration** &gt; (im Beispiel Wir haben folgende wurde dies wäre etwa **Add-Migration 201311062215252\_AddReaders**).
-    **
-    *Hinweis: *** müssen Sie die Zeitstempel enthalten, sodass Migrationen weiß, dass der Gerüstbau eine neue, anstatt die vorhandene Migration bearbeitet werden soll.*
+    **_Hinweis:_**  *müssen Sie die Zeitstempel enthalten, sodass Migrationen weiß, dass der Gerüstbau eine neue, anstatt die vorhandene Migration bearbeitet werden soll.*
     Dadurch werden die Metadaten für die letzte Migration das aktuelle Modell entsprechend aktualisiert. Sie erhalten die folgende Warnung, wenn der Befehl abgeschlossen ist, aber das ist genau das, erwünscht. "*Nur der Designer-Code für die Migration" 201311062215252\_AddReaders wurde erneut erstellten. Um die gesamte Migration erneut ein Gerüst erstellen, verwenden Sie den - Force-Parameter. "*
 6.  Führen Sie **Update-Database** die neueste Migration mit den aktualisierten Metadaten erneut anwenden.
 7.  Weiterentwickeln, oder Senden an die quellcodeverwaltung (nachdem Ihre Komponententests ausführen von tests).
