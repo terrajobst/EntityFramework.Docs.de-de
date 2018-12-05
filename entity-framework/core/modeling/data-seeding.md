@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 791f7afff36aac52fe2ffdc16ab580db22011b99
-ms.sourcegitcommit: 082946dcaa1ee5174e692dbfe53adeed40609c6a
+ms.openlocfilehash: 8f28dfea12461572ade8fbf3910ebd216dafb389
+ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51028095"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52857428"
 ---
 # <a name="data-seeding"></a>Data Seeding
 
@@ -54,7 +54,7 @@ Nachdem die Daten, dem Modell hinzugefügt wurde [Migrationen](xref:core/managin
 > [!TIP]
 > Wenn Sie zum Anwenden von Migrationen als Teil einer automatisierten Bereitstellung benötigen können Sie [erstellen Sie ein SQL­Skript](xref:core/managing-schemas/migrations/index#generate-sql-scripts) können, die vor der Ausführung eine Vorschau angezeigt werden.
 
-Alternativ können Sie `context.Database.EnsureCreated()` zum Erstellen einer neuen Datenbank, die die Seed-Daten, z. B. für eine Testdatenbank oder bei Verwendung von in-Memory-Anbieter oder eine nicht-Relation-Datenbank enthält. Ist die Datenbank bereits vorhanden, aktualisiert `EnsureCreated()` weder das Schema und noch die Seedingdaten in der Datenbank. Sie sollten nicht für relationale Datenbanken aufrufen `EnsureCreated()` , wenn Sie Migrationen verwenden möchten.
+Alternativ können Sie `context.Database.EnsureCreated()` zum Erstellen einer neuen Datenbank, die die Seed-Daten, z. B. für eine Testdatenbank oder bei Verwendung von in-Memory-Anbieter oder eine nicht-Relation-Datenbank enthält. Beachten Sie, dass bei die Datenbank bereits vorhanden ist, `EnsureCreated()` wird weder die Schema noch Seed-Daten in der Datenbank aktualisiert. Sie sollten nicht für relationale Datenbanken aufrufen `EnsureCreated()` , wenn Sie Migrationen verwenden möchten.
 
 Diese Art von Seed-Daten wird durch Migrationen verwaltet, und das Skript zum Aktualisieren der Daten, die bereits in der Datenbank ist ohne Verbindung zur Datenbank generiert werden muss. Diese erzwingt einige Einschränkungen:
 * Wert des Primärschlüssels muss angegeben werden, auch wenn es in der Regel von der Datenbank generiert wird. Er wird zum Erkennen von datenänderungen zwischen Migrationen verwendet werden.
