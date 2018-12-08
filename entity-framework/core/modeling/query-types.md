@@ -4,12 +4,12 @@ author: anpete
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/query-types
-ms.openlocfilehash: 3328082dbc62aa80eb5fb29d2e57df1eef248d1f
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: cb391343e6f24092ae0874003c0ef2935dd4e03f
+ms.sourcegitcommit: 8dd71a57a01c439431164c163a0722877d0e5cd8
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489491"
+ms.lasthandoff: 12/07/2018
+ms.locfileid: "53028179"
 ---
 # <a name="query-types"></a>Abfragetypen
 > [!NOTE]
@@ -56,28 +56,28 @@ Zuordnen der Abfragetyp auf ein Datenbankobjekt wird erreicht, indem die `ToView
 Das folgende Beispiel zeigt, wie Sie den Abfragetyp zu verwenden, um eine Datenbankansicht abzufragen.
 
 > [!TIP]
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryTypes) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/QueryTypes) finden Sie auf GitHub.
 
 Zuerst definieren wir ein einfaches Blog und Post-Modell:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Entities)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Entities)]
 
 Als Nächstes definieren wir eine einfache Datenbank-Ansicht, die wir Abfragen die Anzahl an Beiträgen, die jeden Blog zugeordnet werden kann:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#View)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#View)]
 
 Als Nächstes definieren wir eine Klasse, um das Ergebnis aus der Datenbankansicht enthalten soll:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#QueryType)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#QueryType)]
 
 Als Nächstes konfigurieren wir den Abfragetyp in _"onmodelcreating"_ mithilfe der `modelBuilder.Query<T>` API.
 Verwenden wir standard fluent-Konfigurations-APIs, um die Zuordnung für den Abfragetyp zu konfigurieren:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Configuration)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Configuration)]
 
 Schließlich können wir die Datenbanksicht auf die übliche Weise Abfragen:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Query)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Query)]
 
 > [!TIP]
 > Beachten Sie, dass wir auch eine Ebene Abfrageeigenschaft (DbQuery) fungieren als Stamm für Abfragen gegen diese Art von Kontext definiert haben.
