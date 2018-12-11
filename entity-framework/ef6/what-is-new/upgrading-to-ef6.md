@@ -3,12 +3,12 @@ title: Ein Upgrade auf Entitätsframework 6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
-ms.openlocfilehash: 2e2dacfe67238bdb7fd1f31f784319049f0f2cb0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 711f1940080de27bd23cb8f641a5c7f2711dd65b
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490947"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53182006"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Ein Upgrade auf Entitätsframework 6
 
@@ -66,20 +66,20 @@ Typen wie ObjectContext, die früher in "System.Data.Entity.dll" wurden in neue 
 
 Die allgemeine Regel zum Namespace-Änderungen ist, dass für jeden Typ im System.Data.* in System.Data.Entity.Core.* verschoben wird. Das heißt, fügen Sie einfach **Entity.Core.** nach dem "System.Data". Zum Beispiel:
 
-- System.Data.EntityException = > "System.Data". **Entity.Core.** EntityException  
-- System.Data.Objects.ObjectContext = > "System.Data". **Entity.Core.** Objects.ObjectContext  
-- System.Data.Objects.DataClasses.RelationshipManager = > "System.Data". **Entity.Core.** Objects.DataClasses.RelationshipManager  
+- System.Data.EntityException = > "System.Data". **Entity.Core**. EntityException  
+- System.Data.Objects.ObjectContext = > "System.Data". **Entity.Core**. Objects.ObjectContext  
+- System.Data.Objects.DataClasses.RelationshipManager = > "System.Data". **Entity.Core**. Objects.DataClasses.RelationshipManager  
 
 Diese Typen sind der *Core* Namespaces, da sie nicht direkt für die meisten "DbContext"-basierten Anwendungen verwendet werden. Einige Typen, die Teil von "System.Data.Entity.dll" waren häufig und direkt noch für "DbContext"-basierten Anwendungen verwendet werden und daher nicht verschoben wurden in die *Core* Namespaces. Diese lauten wie folgt:
 
-- System.Data.EntityState = > "System.Data". **Entität.** "EntityState"  
+- System.Data.EntityState = > "System.Data". **Entität**. "EntityState"  
 - System.Data.Objects.DataClasses.EdmFunctionAttribute = > "System.Data". **Entity.DbFunctionAttribute**  
   > [!NOTE]
   > Diese Klasse wurde umbenannt; eine Klasse mit dem alten Namen noch vorhanden ist und funktioniert, aber es nun als veraltet markiert.  
 - System.Data.Objects.EntityFunctions = > "System.Data". **Entity.DbFunctions**  
   > [!NOTE]
   > Diese Klasse wurde umbenannt; eine Klasse mit dem alten Namen noch vorhanden ist und funktioniert, aber es nun als veraltet markiert.)  
-- Räumliche Klassen (z. B. DbGeography, DbGeometry) wurden verschoben aus System.Data.Spatial = > "System.Data". **Entität.** Räumliche
+- Räumliche Klassen (z. B. DbGeography, DbGeometry) wurden verschoben aus System.Data.Spatial = > "System.Data". **Entität**. Räumliche
 
 > [!NOTE]
 > Einige Typen in der System.Data-Namespace sind in "System.Data.dll", die keiner EF-Assembly ist. Diese Typen nicht verschoben haben und deren Namespaces bleiben daher unverändert.
