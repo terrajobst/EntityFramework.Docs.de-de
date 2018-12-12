@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 07/03/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 1edc7a20f54b2d26f899c93e98dfaf6d62c29f86
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 67eae6cb943b974cc9cd581b8054836d2e37b1e9
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490726"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53181993"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core Tools und -Erweiterungen
 
@@ -43,6 +43,19 @@ Erweiterung von Visual Studio 2017 und höher Sie können DbContext- und POCO-Kl
 Eine Erweiterung für Visual Studio 2017, die einen ORM-Designer für das visuelle Design von Entity Framework 6-, Core 2.0- und Core 2.1-Klassen bereit. Code wird mithilfe von T4-Vorlagen generiert und kann somit vollständig an die Anforderungen des Benutzers angepasst werden. Vererbung, uni- und bidirektionale Zuordnungen, Enumerationen, Farbcode für Klassen und das Hinzufügen von Textblöcken für Erklärungen zu möglicherweise schwer durchschaubaren Bereichen Ihres Designs werden unterstützt.
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
+
+### <a name="catfactory"></a>CatFactory
+
+CatFactory ist eine Gerüstbau-Engine für .NET Core und Entity Framework Core. CatFactory exportiert vorhandene Datenbanken aus einer SQL Server-Instanz und erstellt mithilfe der Darstellung in Datenbankmodellen das Gerüst u.a. für Entitäten, Konfigurationen und Repositorys.
+
+[GitHub-Repository](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
+
+### <a name="loresofts-entity-framework-core-generator"></a>Entity Framework Core-Generator von LoreSoft
+
+Der Entity Framework Core-Generator ist ein .NET Core-CLI-Tool, das EF Core-Modelle aus vorhandenen Datenbanken generieren kann, ähnlich wie `dotnet ef dbcontext scaffold`. Im Gegensatz zu diesem Befehl unterstützt es jedoch die [erneute Generierung](https://efg.loresoft.com/en/latest/regeneration/) sicheren Codes. Die erneute Generierung kann durch das Ersetzen eines Bereichs oder durch das Analysieren von Zuordnungsdateien erfolgen. Das Tool unterstützt außerdem das Generieren von Ansichtsmodellen, die Validierung und Objektzuordnungscode. Weitere Informationen finden Sie unter den unten stehenden Links zu einem Tutorial und zur Dokumentation.
+
+[Tutorial](http://www.loresoft.com/Generate-ASP-NET-Web-API)
+[Dokumentation](https://efg.loresoft.com/en/latest/)
 
 ## <a name="extensions"></a>Erweiterungen
 
