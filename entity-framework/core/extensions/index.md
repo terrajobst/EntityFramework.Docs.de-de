@@ -46,7 +46,7 @@ Eine Erweiterung für Visual Studio 2017, die einen ORM-Designer für das visuel
 
 ### <a name="catfactory"></a>CatFactory
 
-CatFactory ist eine Gerüstbau-Engine für .NET Core und Entity Framework Core. CatFactory exportiert vorhandene Datenbanken aus einer SQL Server-Instanz und erstellt mithilfe der Darstellung in Datenbankmodellen das Gerüst u.a. für Entitäten, Konfigurationen und Repositorys.
+CatFactory ist eine Gerüstbau-Engine für .NET Core und Entity Framework Core. CatFactory ist eine Gerüstbau-Engine für .NET Core mit C#. Das Konzept hinter CatFactory ist, dass eine vorhandene Datenbank von einer SQL Server-Instanz importiert und ein Gerüst für Entity Framework Core erstellt werden kann. Mithilfe von CatFactory.EntityFrameworkCore können Gerüste für Entitäten, DBContext, Konfigurationen und Repositorys sowie für Dienste in der Roadmap uvm. erstellt werden.
 
 [GitHub-Repository](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
 
