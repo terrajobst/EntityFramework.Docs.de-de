@@ -3,12 +3,12 @@ title: Anpassen der Verlaufstabelle Migrationen – EF 6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ed5518f0-a9a6-454e-9e98-a4fa7748c8d0
-ms.openlocfilehash: e3faefc4b812ec4bc440ed2bb48747053d8cb1b3
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: eb19f367611a86f685557a6741a5f2f0bad6b718
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283692"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058746"
 ---
 # <a name="customizing-the-migrations-history-table"></a>Anpassen der Verlaufstabelle Migrationen
 > [!NOTE]
@@ -19,7 +19,7 @@ ms.locfileid: "46283692"
 
 ## <a name="what-is-migrations-history-table"></a>Was ist Migrations History Table?
 
-Migrationen Verlaufstabelle ist eine Tabelle, die durch Code First-Migrationen verwendet werden, um Details zu Migrationen angewendet werden, in der Datenbank speichern. Standardmäßig ist der Name der Tabelle in der Datenbank \_ \_MigrationHistory und es wird erstellt, wenn die erste Migration führen Sie die Datenbank anwenden. In Entity Framework 5 wurde in dieser Tabelle eine Systemtabelle aus, wenn die Anwendung Microsoft Sql Server-Datenbank verwendet. Dies wurde geändert in Entity Framework 6 jedoch, die Migrationen Verlaufstabelle wird nicht mehr eine Systemtabelle markiert.
+Migrationen Verlaufstabelle ist eine Tabelle, die durch Code First-Migrationen verwendet werden, um Details zu Migrationen angewendet werden, in der Datenbank speichern. Standardmäßig ist der Name der Tabelle in der Datenbank \_ \_MigrationHistory und es wird erstellt, wenn die erste Migration in die Datenbank anwenden. In Entity Framework 5 wurde in dieser Tabelle eine Systemtabelle aus, wenn die Anwendung Microsoft Sql Server-Datenbank verwendet. Dies wurde geändert in Entity Framework 6 jedoch, die Migrationen Verlaufstabelle wird nicht mehr eine Systemtabelle markiert.
 
 ## <a name="why-customize-migrations-history-table"></a>Warum sollte werden Migrations History Table angepasst?
 
@@ -43,7 +43,7 @@ Zunächst müssen Sie zum Erstellen einer Klasse, die von System.Data.Entity.Mig
 >[!NOTE]
 > Beim Konfigurieren der EF-Modellen müssen Sie in der Regel keine Basisklasse aufrufen. OnModelCreating() aus der außer Kraft gesetzte OnModelCreating-Methode, da die DbContext.OnModelCreating() weist einen leeren Text. Dies ist nicht der Fall, wenn Sie die Verlaufstabelle Migrationen zu konfigurieren. In diesem Fall die erste ist in der Überschreibung OnModelCreating() tatsächlich Basisklasse aufrufen. OnModelCreating(). Dadurch wird die Verlaufstabelle Migrationen in die Standardmethode für konfiguriert, die Sie, klicken Sie dann in der überschreibenden Methode anpassen.
 
-Angenommen, Sie verwenden möchten, benennen Sie die Verlaufstabelle Migrationen und platzieren Sie ihn in ein benutzerdefiniertes Schema namens "Admin". Darüber hinaus Ihr Datenbankadministrator möchten Sie die MigrationId-Spalte umbenennen, auf die Migration zu\_-ID.  Sie können dies erreichen, erstellen Sie die folgende Klasse, die von "historycontext" abgeleitet:
+Angenommen, Sie verwenden möchten, benennen Sie die Verlaufstabelle Migrationen und platzieren Sie ihn in ein benutzerdefiniertes Schema namens "Admin". Darüber hinaus Ihr Datenbankadministrator möchten Sie die MigrationId-Spalte umbenennen, auf die Migration zu\_-ID.  Sie können dies erreichen, erstellen Sie die folgende Klasse, die von "historycontext" abgeleitet:
 
 ``` csharp
     using System.Data.Common;

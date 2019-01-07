@@ -3,12 +3,12 @@ title: Asynchrone Abfragen und speichern – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 4ed4f5c13341f33ccff8325a5ddacd8f7b195a76
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283822"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058759"
 ---
 # <a name="async-query-and-save"></a>Asynchrone Abfragen und speichern
 > [!NOTE]
@@ -76,7 +76,7 @@ Wir verwenden die [Code First-Workflow](~/ef6/modeling/code-first/workflows/new-
     }
 ```
 
- 
+ 
 
 ## <a name="create-a-synchronous-program"></a>Erstellen Sie eine synchrone Anwendung
 
@@ -96,7 +96,6 @@ Nun, da wir ein EF-Modell verfügen, einen Code zu schreiben, der er verwendet, 
             {
                 PerformDatabaseOperations();
 
-                Console.WriteLine();
                 Console.WriteLine("Quote of the day");
                 Console.WriteLine(" Don't worry about the world coming to an end today... ");
                 Console.WriteLine(" It's already tomorrow in Australia.");
@@ -115,16 +114,18 @@ Nun, da wir ein EF-Modell verfügen, einen Code zu schreiben, der er verwendet, 
                     {
                         Name = "Test Blog #" + (db.Blogs.Count() + 1)
                     });
+                    Console.WriteLine("Calling SaveChanges.");
                     db.SaveChanges();
+                    Console.WriteLine("SaveChanges completed.");
 
                     // Query for all blogs ordered by name
+                    Console.WriteLine("Executing query.");
                     var blogs = (from b in db.Blogs
                                 orderby b.Name
                                 select b).ToList();
 
                     // Write all blogs out to Console
-                    Console.WriteLine();
-                    Console.WriteLine("All blogs:");
+                    Console.WriteLine("Query completed with following results:");
                     foreach (var blog in blogs)
                     {
                         Console.WriteLine(" " + blog.Name);
@@ -145,20 +146,20 @@ Da der Code synchron ausgeführt wird, können wir den folgende Ausführungsabla
 4.  Abfrage zurückgibt und die Ergebnisse werden geschrieben, um **Konsole**
 5.  Zitat des Tages geschrieben **Konsole**
 
-![Sync-Ausgabe](~/ef6/media/syncoutput.png) 
+![Sync-Ausgabe](~/ef6/media/syncoutput.png) 
 
- 
+ 
 
 ## <a name="making-it-asynchronous"></a>Asynchronen
 
 Nun, wir unser Programm verfügbar sind und ausgeführt haben, können wir beginnen, machen verwenden das neue Async und await-Schlüsselwörtern. Wir haben die folgenden Änderungen an "Program.cs" vorgenommen.
 
-1.  Zeile 2: Die mit-Anweisung für die **System.Data.Entity** Namespace erhalten wir Zugriff auf die EF-Async-Erweiterungsmethoden.
-2.  Zeile 4: Die mit-Anweisung für die **System.Threading.Tasks** Namespace kann wir verwenden die **Aufgabe** Typ.
-3.  Zeile 12 und 18: wir als Task, der überwacht den Status der Erfassung **PerformSomeDatabaseOperations** (Zeile 12), und klicken Sie dann blockiert die Ausführung des Programms für diese Aufgabe auf vollständige einmal alle Aufgaben für die Anwendung (Zeile 18) erfolgt.
-4.  Zeile 25: Wir haben Update **PerformSomeDatabaseOperations** als markiert werden **Async** und Zurückgeben einer **Aufgabe**.
+1.  Zeile 2: Die using-Anweisung für die **System.Data.Entity** Namespace erhalten wir Zugriff auf die EF-Async-Erweiterungsmethoden.
+2.  Zeile 4: Die using-Anweisung für die **System.Threading.Tasks** Namespace kann wir verwenden die **Aufgabe** Typ.
+3.  Zeile 12 und 18: Wir erfassen als Task, der überwacht den Status der **PerformSomeDatabaseOperations** (Zeile 12), und klicken Sie dann blockiert die Ausführung des Programms für diese Aufgabe auf vollständige einmal alle Aufgaben für die Anwendung (Zeile 18) erfolgt.
+4.  Zeile 25: Aktualisieren wir **PerformSomeDatabaseOperations** als markiert werden **Async** und Zurückgeben einer **Aufgabe**.
 5.  Zeile 35: Wir nun die asynchrone Version von "SaveChanges" aufrufen und dessen Abschluss warten.
-6.  Zeile 42: Wir nun die asynchrone Version von "ToList" aufrufen und Warten auf das Ergebnis.
+6.  Zeile 42: Wir rufen jetzt die asynchrone Version von "ToList", und Warten auf das Ergebnis an.
 
 Eine umfassende Liste der verfügbaren Erweiterungsmethoden im Namespace System.Data.Entity finden Sie in der QueryableExtensions-Klasse. *Sie auch müssen hinzufügen "Verwenden von System.Data.Entity" mit Anweisungen.*
 
@@ -227,9 +228,9 @@ Nun, da der Code den asynchronen ist, können wir einen anderen Ausführungsflus
 4.  Abfrage für alle **Blogs** wird gesendet, um die Datenbank *in diesem Fall der verwaltete Thread eine andere Aktion ausführen, während die Abfrage in der Datenbank verarbeitet werden kann. Da alle anderen Ausführung abgeschlossen ist, wird der Thread gerade jedoch auf den Aufruf warten angehalten.*
 5.  Abfrage zurückgibt und die Ergebnisse werden geschrieben, um **Konsole**
 
-![Async-Ausgabe](~/ef6/media/asyncoutput.png) 
+![Async-Ausgabe](~/ef6/media/asyncoutput.png) 
 
- 
+ 
 
 ## <a name="the-takeaway"></a>Die Schlussfolgerung
 
