@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: fe7e07b8bd483fb3f9b672ee78ef7541f06a21a4
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: b2d72b08de79939904bf4e726c695440c906a8aa
+ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058772"
+ms.lasthandoff: 01/07/2019
+ms.locfileid: "54069203"
 ---
 # <a name="owned-entity-types"></a>Entitätstypen im Besitz
 
@@ -52,7 +52,7 @@ Um zu verstehen, wie diese Objekte von EF Core nachverfolgt wird, ist es sinnvol
 >[!NOTE]
 > Dieses Feature ist neu in EF Core 2.2.
 
-So konfigurieren Sie eine Auflistung von Typen im Besitz `OwnsMany` sollte verwendet werden, `OnModelCreating`. Der Primärschlüssel wird jedoch nicht gemäß der Konvention konfiguriert werden, muss explizit angegeben werden. Es ist üblich, verwenden Sie einen komplexen Schlüssel für diese Art von Entitäten, die Integration des Fremdschlüssels für den Besitzer und eine weitere eindeutige Eigenschaft, die auch Schatten Status haben kann:
+So konfigurieren Sie eine Auflistung von Typen im Besitz `OwnsMany` sollte verwendet werden, `OnModelCreating`. Der Primärschlüssel wird jedoch nicht gemäß der Konvention konfiguriert werden, muss er explizit angegeben werden. Es ist üblich, verwenden Sie einen komplexen Schlüssel für diese Art von Entitäten, die Integration des Fremdschlüssels für den Besitzer und eine weitere eindeutige Eigenschaft, die auch Schatten Status haben kann:
 
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
