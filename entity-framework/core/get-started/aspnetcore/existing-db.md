@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 23cd53b0e162afc5db0243b7032bb9c5f18bfb35
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: c8acb95395968f710e6b896de6c3598cb7b23676
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688692"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058785"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer vorhandenen Datenbank
 
@@ -48,7 +48,7 @@ In diesem Tutorial wird als vorhandene Datenbank eine **Blogging**-Datenbank in 
 * Klicken Sie auf **Datei > Neu > Projekt...**.
 * Klicken Sie im linken Bereich auf **Installiert > Visual C# > Web**.
 * Wählen Sie die Projektvorlage **ASP.NET Core-Webanwendung** aus.
-* Geben Sie als Name **EFGetStarted.AspNetCore.ExistingDb** ein, und klicken Sie auf **OK**.
+* Geben Sie **EFGetStarted.AspNetCore.ExistingDb** als Namen ein (es muss genau der Namespace sein, der später im Code verwendet wird), und klicken Sie auf **OK** 
 * Warten Sie, bis das Dialogfeld **Neue ASP.NET Core-Webanwendung** angezeigt wird.
 * Stellen Sie sicher, dass das Dropdownmenü für das Zielframework auf **.NET Core** und für die Version auf **ASP.NET Core 2.1** festgelegt ist.
 * Wählen Sie die Vorlage **Webanwendung (Model-View-Controller)** aus.
