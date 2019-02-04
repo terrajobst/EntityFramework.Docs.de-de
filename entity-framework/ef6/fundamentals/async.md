@@ -3,12 +3,12 @@ title: Asynchrone Abfragen und speichern – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 89c7b9d533d37b4c9e123f37d8ab27c67ba26cc8
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058759"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668712"
 ---
 # <a name="async-query-and-save"></a>Asynchrone Abfragen und speichern
 > [!NOTE]
@@ -159,7 +159,7 @@ Nun, wir unser Programm verfügbar sind und ausgeführt haben, können wir begin
 3.  Zeile 12 und 18: Wir erfassen als Task, der überwacht den Status der **PerformSomeDatabaseOperations** (Zeile 12), und klicken Sie dann blockiert die Ausführung des Programms für diese Aufgabe auf vollständige einmal alle Aufgaben für die Anwendung (Zeile 18) erfolgt.
 4.  Zeile 25: Aktualisieren wir **PerformSomeDatabaseOperations** als markiert werden **Async** und Zurückgeben einer **Aufgabe**.
 5.  Zeile 35: Wir nun die asynchrone Version von "SaveChanges" aufrufen und dessen Abschluss warten.
-6.  Zeile 42: Wir rufen jetzt die asynchrone Version von "ToList", und Warten auf das Ergebnis an.
+6.  Line 42: Wir rufen jetzt die asynchrone Version von "ToList", und Warten auf das Ergebnis an.
 
 Eine umfassende Liste der verfügbaren Erweiterungsmethoden im Namespace System.Data.Entity finden Sie in der QueryableExtensions-Klasse. *Sie auch müssen hinzufügen "Verwenden von System.Data.Entity" mit Anweisungen.*
 
@@ -223,9 +223,9 @@ Nun, da der Code den asynchronen ist, können wir einen anderen Ausführungsflus
 
 1.  **"SaveChanges"** beginnt mit der neuen push **Blog** in der Datenbank *nach dem Senden des Befehls in der Datenbank nicht mehr compute-Zeit ist erforderlich, für den aktuellen verwalteten Thread. Die **PerformDatabaseOperations** Methodenrückgabe (auch wenn die Ausführung noch nicht abgeschlossen) und Programmablauf in der Main-Methode wird fortgesetzt.*
 2.  **Zitat des Tages in die Konsole geschrieben**
-    *da keine weiteren Aufgaben für die Sie in der Main-Methode ist, wird der verwaltete Thread blockiert, die Wartezeit aufrufen, bis der Datenbankvorgang abgeschlossen ist. Sobald der Vorgang abgeschlossen ist, die restlichen unsere **PerformDatabaseOperations** * ausgeführt wird.
+    *da keine weiteren Aufgaben für die Sie in der Main-Methode ist, wird der verwaltete Thread blockiert, die Wartezeit aufrufen, bis der Datenbankvorgang abgeschlossen ist. Sobald der Vorgang abgeschlossen ist, die restlichen unsere **PerformDatabaseOperations** ausgeführt wird.*
 3.  **"SaveChanges"** abgeschlossen ist
-4.  Abfrage für alle **Blogs** wird gesendet, um die Datenbank *in diesem Fall der verwaltete Thread eine andere Aktion ausführen, während die Abfrage in der Datenbank verarbeitet werden kann. Da alle anderen Ausführung abgeschlossen ist, wird der Thread gerade jedoch auf den Aufruf warten angehalten.*
+4.  Abfrage für alle **Blogs** wird gesendet, um die *Datenbank in diesem Fall der verwaltete Thread eine andere Aktion ausführen, während die Abfrage in der Datenbank verarbeitet werden kann. Da alle anderen Ausführung abgeschlossen ist, wird der Thread gerade jedoch auf den Aufruf warten angehalten.*
 5.  Abfrage zurückgibt und die Ergebnisse werden geschrieben, um **Konsole**
 
 ![Async-Ausgabe](~/ef6/media/asyncoutput.png) 

@@ -3,12 +3,12 @@ title: Datenbankverbindungsresilienz und Wiederholungslogik Verbindungslogik - E
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 09ebed18b43f864af36b6931f45638f3a3056229
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7d6aa870cc32a2b344457fbb04525a7c2c8d1c61
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490804"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668764"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Verbindungslogik datenbankverbindungsresilienz und Wiederholungslogik
 > [!NOTE]
@@ -124,7 +124,7 @@ using (var db = new BloggingContext())
 
 Dies wird nicht unterstützt, wenn eine Wiederholung Ausführungsstrategie verwenden, da EF über aller vorherigen Vorgänge und die Vorgehensweise beim Wiederholen Sie diese nicht. Beispielsweise, wenn die zweite "SaveChanges" EF nicht mehr danach nicht hat die erforderliche Informationen zum Wiederholen des ersten Aufrufs von "SaveChanges".  
 
-### <a name="workaround-suspend-execution-strategy"></a>Problemumgehung: Setzen Sie Ausführungsstrategie  
+### <a name="workaround-suspend-execution-strategy"></a>Problemumgehung: Ausführungsstrategie anhalten  
 
 Eine mögliche Lösung besteht, die wiederholt Ausführungsstrategie für den Codeabschnitt anzuhalten, die ein Benutzer verwenden, muss die Transaktion initiiert. Die einfachste Möglichkeit hierzu ist ein SuspendExecutionStrategy-Flag, um Ihren Code basierte Configuration-Klasse und ändern die Ausführung Strategie Lambda, um die Standardeinstellung (nicht retying) Ausführungsstrategie zurückzugeben, wenn das Flag festgelegt ist.  
 
@@ -149,7 +149,7 @@ namespace Demo
         {
             get
             {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy")  false;
+                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
             }
             set
             {
@@ -185,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-### <a name="workaround-manually-call-execution-strategy"></a>Problemumgehung: Manuell Ausführungsstrategie aufrufen  
+### <a name="workaround-manually-call-execution-strategy"></a>Problemumgehung: Rufen Sie die Ausführungsstrategie manuell  
 
 Eine weitere Möglichkeit ist die Ausführungsstrategie verwenden manuell, und geben sie den gesamten Satz von Logik ausgeführt werden, damit sie alles, was wiederholt werden kann, wenn ein Vorgang fehlschlägt. Wir benötigen die Ausführungsstrategie - mithilfe der Technik anhalten oberhalb - angezeigt wird, sodass alle Kontexte, in der wiederholbare Codeblock verwendet nicht versuchen, wiederholen Sie dann.  
 

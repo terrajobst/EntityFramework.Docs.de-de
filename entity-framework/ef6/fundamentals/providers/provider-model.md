@@ -3,12 +3,12 @@ title: Das Entity Framework 6-Anbietermodell - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: d07a8689fe968bb1512095a59a61abc7ac346a31
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 8cbf6f87e0936f374c3d8a0c15a0e1d9c828f764
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022323"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668751"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Das Entity Framework 6-Anbietermodell
 
@@ -26,9 +26,9 @@ Ein EF-Anbieter ist wirklich eine Sammlung von anbieterspezifischen-Diensten, di
 
 ## <a name="fundamental-provider-types"></a>Grundlegende Anbietertypen
 
-### <a name="dbproviderfactory"></a>"DbProviderFactory"
+### <a name="dbproviderfactory"></a>DbProviderFactory
 
-EF ist das Vorhandensein von abgeleiteten Typs [System.Data.Common.DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) für die Durchführung aller Low-Level-Datenbankzugriff. "DbProviderFactory" ist nicht Bestandteil von EF, sondern ist stattdessen eine Klasse in .NET Framework, die einem Einstiegspunkt für ADO.NET-Anbieter dient kann verwendet werden von EF, andere O/RMs oder direkt durch eine Anwendung zum Abrufen von Instanzen von Verbindungen, Befehle und Parameter und andere ADO.NET Abstraktionen in einem Anbieter hostagnostische Weise. Weitere Informationen zu "DbProviderFactory" eine finden Sie in der [MSDN-Dokumentation für ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
+EF ist das Vorhandensein von abgeleiteten Typs [System.Data.Common.DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) für die Durchführung aller Low-Level-Datenbankzugriff. "DbProviderFactory" ist nicht Bestandteil von EF, sondern ist stattdessen eine Klasse in .NET Framework, die einem Einstiegspunkt für ADO.NET-Anbieter dient kann verwendet werden von EF, andere O/RMs oder direkt durch eine Anwendung zum Abrufen von Instanzen von Verbindungen, Befehle und Parameter und andere ADO.NET Abstraktionen in einem Anbieter hostagnostische Weise. Weitere Informationen zu "DbProviderFactory" befinden sich die [MSDN-Dokumentation für ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
 
 ### <a name="dbproviderservices"></a>DbProviderServices
 
@@ -60,7 +60,7 @@ Dies ist eine optionale Dienste, die einen Anbieter zum Hinzufügen der Unterst�
 
 Dies ist ein optionaler Dienst, mit dem EF-Migrationen durch Code First zum Generieren von SQL zum Erstellen und Ändern von Datenbankschemas verwendet werden kann. Eine Implementierung ist erforderlich, um Migrationen zu unterstützen. Wenn eine Implementierung bereitgestellt wird wird Klicken Sie dann es auch verwendet werden, wenn Datenbanken mit Datenbankinitialisierer oder der Database.Create-Methode erstellt werden.
 
-### <a name="funcdbconnection-string-historycontextfactory"></a>Func < "DbConnection", String, HistoryContextFactory >
+### <a name="funcdbconnection-string-historycontextfactory"></a>Func<DbConnection, string, HistoryContextFactory>
 
 Dies ist ein optionaler Dienst, der einen Anbieter so konfigurieren Sie die "historycontext" für die Zuordnung ermöglicht die `__MigrationHistory` Tabelle, die von EF-Migrationen verwendet. Die "historycontext" ist der Code für einen ersten "DbContext" und kann mithilfe der normalen fluent-API so ändern Sie z.B. den Namen der Tabelle und den Mappingspezifikationen Spalte konfiguriert werden. Die standardmäßige Implementierung des Diensts zurückgegeben, die von EF für alle Anbieter funktioniert möglicherweise für eine bestimmte Datenbank-Server, wenn alle die Tabelle und Spalte standardzuordnungen von diesem Anbieter unterstützt werden. In diesem Fall muss der Anbieter nicht auf eine Implementierung dieses Diensts bereitstellen.
 
