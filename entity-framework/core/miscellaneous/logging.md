@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 65501b5ac03ae544c51b7fc1a07fa9eea849f1e3
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 0a996403afdbe076b1690c98eeb305b40c4d1f4a
+ms.sourcegitcommit: 109a16478de498b65717a6e09be243647e217fb3
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022144"
+ms.lasthandoff: 02/10/2019
+ms.locfileid: "55985573"
 ---
 # <a name="logging"></a>Protokollierung
 
@@ -24,12 +24,15 @@ EF Core wird automatisch mit den Protokollierungsmechanismen von ASP.NET Core in
 
 EF Core-Protokollierung derzeit muss ein "iloggerfactory" die selbst mit einem oder mehreren ILoggerProvider konfiguriert ist. Allgemeine Anbieter sind in den folgenden Paketen geliefert:
 
-* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): eine einfache Konsolenanwendung-Protokollierung.
-* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): unterstützt die Azure App Services "Diagnoseprotokolle" und "Log Stream" Funktionen.
-* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Protokolle, um einen Debugger Monitor System.Diagnostics.Debug.WriteLine() verwenden.
-* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Protokolle in Windows-Ereignisprotokoll.
-* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): EventSource/EventListener unterstützt.
-* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Protokolle, um einen Ablaufverfolgungslistener System.Diagnostics.TraceSource.TraceEvent() verwenden.
+* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): Eine einfache Konsolenanwendung-Protokollierung.
+* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Unterstützt Azure App Services "Diagnoseprotokolle" und "Log Stream" Funktionen.
+* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Protokolle an einen Debugger mit dem System.Diagnostics.Debug.WriteLine() überwacht werden.
+* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): In Windows-Ereignisprotokoll protokolliert.
+* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): EventSource/EventListener wird unterstützt.
+* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Fehlerprotokolle, um einen Ablaufverfolgungslistener System.Diagnostics.TraceSource.TraceEvent() verwenden.
+
+> [!NOTE]
+> Das folgende Codebeispiel verwendet einen `ConsoleLoggerProvider` Konstruktor, der in Version 2.2 ausgemustert wurde, hat. Richtige Ersatz für veraltete protokollierungs-APIs werden in Version 3.0 verfügbar. In der Zwischenzeit ist es sicher ist, ignorieren und die Warnungen zu unterdrücken.
 
 Nach der Installation die entsprechenden Pakete, sollte die Anwendung eine Singleton oder globale Instanz von einem "loggerfactory" erstellen. Verwenden Sie beispielsweise die konsolenprotokollierung:
 
@@ -43,6 +46,9 @@ Diese Singleton oder globale Instanz sollte klicken Sie dann mit EF Core registr
 > Es ist sehr wichtig, dass Anwendungen keine neue Instanz der "iloggerfactory" für jede Context-Instanz erstellen. Auf diese Weise führt zu einem Speicherverlust und schlechter Leistung.
 
 ## <a name="filtering-what-is-logged"></a>Filtern von protokolliert werden soll
+
+> [!NOTE]
+> Das folgende Codebeispiel verwendet einen `ConsoleLoggerProvider` Konstruktor, der in Version 2.2 ausgemustert wurde, hat. Richtige Ersatz für veraltete protokollierungs-APIs werden in Version 3.0 verfügbar. In der Zwischenzeit ist es sicher ist, ignorieren und die Warnungen zu unterdrücken.
 
 Die einfachste Möglichkeit zum Filtern der protokolliert werden soll, ist es zu konfigurieren, wenn die ILoggerProvider zu registrieren. Zum Beispiel:
 
