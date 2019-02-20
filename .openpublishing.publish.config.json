@@ -6,6 +6,7 @@
       "build_source_folder": "entity-framework",
       "build_output_subfolder": "ef",
       "locale": "de-DE",
+      "version": 0,
       "open_to_public_contributors": true,
       "type_mapping": {
         "Conceptual": "Content",
@@ -27,6 +28,7 @@
   "continue_with_document_error": true,
   "skip_source_output_uploading": false,
   "need_preview_pull_request": true,
+  "need_pr_comments": false,
   "dependent_repositories": [
     {
       "path_to_root": "_themes",
