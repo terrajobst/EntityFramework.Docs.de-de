@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 729cf9b8c038ea2adba8c79c68d9f6fb1676fefa
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 6d8cf117dfd94524a53e10bb4a23c2a44c4c8e7b
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022183"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459171"
 ---
 # <a name="connection-resiliency"></a>Verbindungsresilienz
 
@@ -17,9 +17,21 @@ Verbindungsresilienz versucht automatisch fehlerhaften Datenbankbefehle auszufü
 
 Beispielsweise enthält den SQL Server-Anbieter eine Ausführungsstrategie, die speziell auf SQL Server (einschließlich SQL Azure) zugeschnitten ist. Es erkennt die Ausnahmetypen, die wiederholt werden können und verfügt über sinnvolle Standardwerte für maximale Wiederholungsversuche, Verzögerung zwischen Wiederholungen usw.
 
-Eine Ausführungsstrategie für die wird angegeben, wenn Sie die Optionen für den Kontext zu konfigurieren. Dies ist in der Regel in der `OnConfiguring` Methode, die von Ihrem abgeleiteten Kontext oder `Startup.cs` für eine ASP.NET Core-Anwendung.
+Eine Ausführungsstrategie für die wird angegeben, wenn Sie die Optionen für den Kontext zu konfigurieren. Dies ist in der Regel in der `OnConfiguring` -Methode der Ihrem abgeleiteten Kontext:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
+
+oder im `Startup.cs` für eine ASP.NET Core-Anwendung:
+
+``` csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<PicnicContext>(
+        options => options.UseSqlServer(
+            "<connection string>",
+            providerOptions => providerOptions.EnableRetryOnFailure()));
+}
+```
 
 ## <a name="custom-execution-strategy"></a>Benutzerdefinierte Ausführungsstrategie
 
@@ -41,7 +53,7 @@ Eine Ausführungsstrategie, die automatisch bei Fehlern versucht werden soll, mu
 
 Aber wenn Ihr Code initiiert eine Transaktion mit `BeginTransaction()` definieren Sie Ihre eigene Gruppe von Vorgängen, die als Einheit behandelt werden müssen, und alles innerhalb der Transaktion wiedergegeben werden soll ein Fehler auftreten muss. Sie erhalten eine Ausnahme wie folgt, wenn Sie versuchen, dies zu tun, wenn Sie eine Ausführungsstrategie verwenden:
 
-> "InvalidOperationException": Die konfigurierte Ausführungsstrategie "SqlServerRetryingExecutionStrategy" unterstützt keine vom Benutzer initiierte Transaktionen. Verwenden Sie die Ausführungsstrategie, die von „DbContext.Database.CreateExecutionStrategy()“ zurückgegeben wird, um alle Vorgänge in der Transaktion als wiederholbare Einheit auszuführen.
+> InvalidOperationException: Die konfigurierte Ausführungsstrategie SqlServerRetryingExecutionStrategy unterstützt keine vom Benutzer initiierten Transaktionen. Verwenden Sie die Ausführungsstrategie, die von „DbContext.Database.CreateExecutionStrategy()“ zurückgegeben wird, um alle Vorgänge in der Transaktion als wiederholbare Einheit auszuführen.
 
 Die Lösung besteht darin, manuell die Ausführungsstrategie mit einem Delegaten, der alle Komponenten darstellt aufrufen, die ausgeführt werden muss. Die Ausführungsstrategie ruft den Delegaten erneut auf, wenn ein vorübergehender Fehler auftritt.
 

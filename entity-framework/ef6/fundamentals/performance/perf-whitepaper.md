@@ -3,19 +3,19 @@ title: Überlegungen zur Leistung für EF4, EF5 und EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: c87c1412cb23abf232663d7e4f44eef5f7818ea2
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 4c1f03533cf6df49555c3ef8d09d5949b9a3335c
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022388"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459210"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Überlegungen zur Leistung für Entity Framework 4, 5 und 6
 Von David Obando, Eric Dettinger usw.
 
-Veröffentlichung: April 2012
+Veröffentlicht: April 2012
 
-Letzte Aktualisierung: Mai 2014
+Zuletzt aktualisiert: Mai 2014
 
 ------------------------------------------------------------------------
 
@@ -43,8 +43,8 @@ Lassen Sie uns einen allgemeinen Überblick darüber, wo Zeit verbracht wird, be
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | Beim Erstellen des Serverkontexts          | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                        | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Ausdruck abfragenerstellung | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                           | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `  var c1 = q1.First();`                                                                             | LINQ-Abfragen      | -Metadaten geladen: hohe aber zwischengespeicherten <br/> – Anzeigen von Generation: potenziell sehr hohe aber zwischengespeicherten <br/> -Parameter Evaluierung: Mittel <br/> -Abfragen Übersetzung: Mittel <br/> -Materializer Generierung: mittlere aber zwischengespeicherten <br/> -Database abfrageausführung: möglicherweise hohen <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> -Objekt Materialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten geladen: hohe aber zwischengespeicherten <br/> – Anzeigen von Generation: potenziell sehr hohe aber zwischengespeicherten <br/> -Parameter Evaluierung: Low <br/> -Abfragen Übersetzung: mittlere aber zwischengespeicherten <br/> -Materializer Generierung: mittlere aber zwischengespeicherten <br/> -Database abfrageausführung: möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> -Objekt Materialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten geladen: hohe aber zwischengespeicherten <br/> – Anzeigen von Generation: mittlere aber zwischengespeicherten <br/> -Parameter Evaluierung: Low <br/> -Abfragen Übersetzung: mittlere aber zwischengespeicherten <br/> -Materializer Generierung: mittlere aber zwischengespeicherten <br/> -Database abfrageausführung: möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> -Objekt Materialisierung: Mittel (schneller als EF5) <br/> -Identity-Suche: Mittel |
-| `}`                                                                                                  | Connection.Close durchführen          | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                           | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `  var c1 = q1.First();`                                                                             | LINQ-Abfragen      | -Metadaten geladen: Aber zwischengespeicherten hoch <br/> -Generieren der Ansicht: Möglicherweise sehr hoch ist, aber zwischengespeicherten <br/> -Evaluierung von Parameter: Mittel <br/> -Übersetzen von Abfragen: Mittel <br/> -Materializer generieren: Mittel, aber zwischengespeicherten <br/> -Database-abfrageausführung: Möglicherweise hohen <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten geladen: Aber zwischengespeicherten hoch <br/> -Generieren der Ansicht: Möglicherweise sehr hoch ist, aber zwischengespeicherten <br/> -Evaluierung von Parameter: Niedrig <br/> -Übersetzen von Abfragen: Mittel, aber zwischengespeicherten <br/> -Materializer generieren: Mittel, aber zwischengespeicherten <br/> -Database-abfrageausführung: Möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten geladen: Aber zwischengespeicherten hoch <br/> -Generieren der Ansicht: Mittel, aber zwischengespeicherten <br/> -Evaluierung von Parameter: Niedrig <br/> -Übersetzen von Abfragen: Mittel, aber zwischengespeicherten <br/> -Materializer generieren: Mittel, aber zwischengespeicherten <br/> -Database-abfrageausführung: Möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel (schneller EF5) <br/> -Identity-Suche: Mittel |
+| `}`                                                                                                  | Connection.Close          | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                           | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 
 **Zweiten Abfrageausführung – betriebsbereiten Abfrage**
@@ -53,8 +53,8 @@ Lassen Sie uns einen allgemeinen Überblick darüber, wo Zeit verbracht wird, be
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | Beim Erstellen des Serverkontexts          | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Ausdruck abfragenerstellung | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `  var c1 = q1.First();`                                                                             | LINQ-Abfragen      | -Metadaten ~~laden~~ Suche: ~~aber zwischengespeicherten hohe~~ niedrig <br/> – Anzeigen von ~~Generation~~ Suche: ~~potenziell sehr hohe aber zwischengespeicherten~~ niedrig <br/> -Parameter Evaluierung: Mittel <br/> -Abfragen von ~~Übersetzung~~ Suche: Mittel <br/> -Materializer ~~Generation~~ Suche: ~~Mittel, aber zwischengespeicherten~~ niedrig <br/> -Database abfrageausführung: möglicherweise hohen <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> -Objekt Materialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten ~~laden~~ Suche: ~~aber zwischengespeicherten hohe~~ niedrig <br/> – Anzeigen von ~~Generation~~ Suche: ~~potenziell sehr hohe aber zwischengespeicherten~~ niedrig <br/> -Parameter Evaluierung: Low <br/> -Abfragen ~~Übersetzung~~ Suche: ~~Mittel, aber zwischengespeicherten~~ niedrig <br/> -Materializer ~~Generation~~ Suche: ~~Mittel, aber zwischengespeicherten~~ niedrig <br/> -Database abfrageausführung: möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> -Objekt Materialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten ~~laden~~ Suche: ~~aber zwischengespeicherten hohe~~ niedrig <br/> – Anzeigen von ~~Generation~~ Suche: ~~Mittel, aber zwischengespeicherten~~ niedrig <br/> -Parameter Evaluierung: Low <br/> -Abfragen ~~Übersetzung~~ Suche: ~~Mittel, aber zwischengespeicherten~~ niedrig <br/> -Materializer ~~Generation~~ Suche: ~~Mittel, aber zwischengespeicherten~~ niedrig <br/> -Database abfrageausführung: möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> -Objekt Materialisierung: Mittel (schneller als EF5) <br/> -Identity-Suche: Mittel |
-| `}`                                                                                                  | Connection.Close durchführen          | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `  var c1 = q1.First();`                                                                             | LINQ-Abfragen      | -Metadaten ~~laden~~ Suche: ~~Hohe aber zwischengespeicherten~~ niedrig <br/> – Anzeigen von ~~Generation~~ Suche: ~~Potenziell sehr hohe aber zwischengespeicherten~~ niedrig <br/> -Evaluierung von Parameter: Mittel <br/> -Abfragen von ~~Übersetzung~~ Suche: Mittel <br/> -Materializer ~~Generation~~ Suche: ~~Mittlere aber zwischengespeicherten~~ niedrig <br/> -Database-abfrageausführung: Möglicherweise hohen <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten ~~laden~~ Suche: ~~Hohe aber zwischengespeicherten~~ niedrig <br/> – Anzeigen von ~~Generation~~ Suche: ~~Potenziell sehr hohe aber zwischengespeicherten~~ niedrig <br/> -Evaluierung von Parameter: Niedrig <br/> -Abfragen von ~~Übersetzung~~ Suche: ~~Mittlere aber zwischengespeicherten~~ niedrig <br/> -Materializer ~~Generation~~ Suche: ~~Mittlere aber zwischengespeicherten~~ niedrig <br/> -Database-abfrageausführung: Möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identity-Suche: Mittel | -Metadaten ~~laden~~ Suche: ~~Hohe aber zwischengespeicherten~~ niedrig <br/> – Anzeigen von ~~Generation~~ Suche: ~~Mittlere aber zwischengespeicherten~~ niedrig <br/> -Evaluierung von Parameter: Niedrig <br/> -Abfragen von ~~Übersetzung~~ Suche: ~~Mittlere aber zwischengespeicherten~~ niedrig <br/> -Materializer ~~Generation~~ Suche: ~~Mittlere aber zwischengespeicherten~~ niedrig <br/> -Database-abfrageausführung: Möglicherweise hohen (Abfragen in einigen Situationen besser) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel (schneller EF5) <br/> -Identity-Suche: Mittel |
+| `}`                                                                                                  | Connection.Close          | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
 Es gibt mehrere Möglichkeiten zur Reduzierung der Leistungskosten von kalte und warme Abfragen, und wir werden sehen Sie sich diese im folgenden Abschnitt. Genauer gesagt betrachten wir die kostenreduzierung von Modell laden in kalte Abfragen mit vorab generierten Sichten, mit dem Leistung-Probleme, die während des Generieren von Sichten zu verringern. Bei betriebsbereiten Abfragen wird die Zwischenspeichern von Abfrageplänen, keine Abfragen zur änderungsnachverfolgung und andere abfrageausführungsoptionen behandelt.
@@ -207,7 +207,7 @@ Abfrageplancache wird ObjectContext-Instanzen innerhalb derselben Anwendungsdom�
 
 #### <a name="321-some-notes-about-query-plan-caching"></a>3.2.1 einige Hinweise zum Planen der Abfrage Zwischenspeichern.
 
--   Abfrageplancache wird freigegeben, für alle Typen abgefragt: Entity SQL, LINQ to Entities und CompiledQuery-Objekte.
+-   Der Plancache für die Abfrage wird für alle Abfragetypen gemeinsam verwendet: Entity SQL, LINQ to Entities und CompiledQuery-Objekte.
 -   Zwischenspeichern von Abfrageplänen ist für Entity SQL-Abfragen, in der Standardeinstellung aktiviert, ob durch eine von "EntityCommand" oder durch eine ObjectQuery ausgeführt. Es ist auch standardmäßig für LINQ to Entities-Abfragen in Entity Framework auf .NET 4.5 und Entity Framework 6 aktiviert
     -   Zwischenspeichern von Abfrageplänen kann deaktiviert werden, durch die EnablePlanCaching-Eigenschaft (auf von "EntityCommand" oder ObjectQuery) auf "false" festlegen. Zum Beispiel:
 ``` csharp
@@ -246,9 +246,9 @@ Um die Auswirkungen auf die Leistung Ihrer Anwendung Zwischenspeichern von Abfra
 
 | Test                                                                   | EF5 kein Cache | EF5 zwischengespeichert | EF6 kein Cache | EF6 zwischengespeichert |
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
-| Auflisten aller 18723 Abfragen                                          | 124          | 125.4      | 124,3        | 125.3      |
-| Vermeiden Sweep (nur die ersten 800 Abfragen, unabhängig von der Komplexität)  | 41.7         | 5.5        | 40,5         | 5.4        |
-| Nur die AggregatingSubtotals Abfragen (178 insgesamt – wodurch Sweep vermieden werden) | 39,5         | 4.5        | 38.1         | 4.6        |
+| Auflisten aller 18723 Abfragen                                          | 124          | 125.4      | 124.3        | 125.3      |
+| Vermeiden Sweep (nur die ersten 800 Abfragen, unabhängig von der Komplexität)  | 41.7         | 5.5        | 40.5         | 5.4        |
+| Nur die AggregatingSubtotals Abfragen (178 insgesamt – wodurch Sweep vermieden werden) | 39.5         | 4.5        | 38.1         | 4.6        |
 
 *Alle Uhrzeiten in Sekunden.*
 
@@ -319,8 +319,6 @@ Diese Hilfsmethode würde wie folgt aufgerufen werden:
 Die Möglichkeit, die für alle LINQ-Abfrage verfasst ist äußerst nützlich. zu diesem Zweck einfach Methode aufgerufen, um eine nach der das IQueryable-Objekt wie z. B. *Skip()"* oder *Count()*. Jedoch im Grunde genommen also tun, wird ein neues "IQueryable"-Objekt zurückgegeben. Zwar gibt es nichts zu technisch zusammenstellen, die über eine CompiledQuery verhindern, erfordert der Generierung eines neuen "IQueryable"-Objekts, das bewirkt dies übergeben, durch den Compiler Plan erneut an.
 
 Einige Komponenten werden Nutzen aus "IQueryable"-Objekten, die erweiterte Funktionalität zu aktivieren. Beispiel: ASP. NET GridView kann Daten an ein IQueryable-Objekt über die SelectMethod-Eigenschaft gebunden werden. Das GridView wird dann für diese "IQueryable"-Objekt zu sortieren und paging für das Datenmodell verfasst. Wie Sie sehen können, verwenden eine CompiledQuery für GridView würde nicht erreicht, der die kompilierte Abfrage jedoch erzeugt eine neue Autocompiled-Abfrage.
-
-Die Customer Advisory Team erläutert dies in ihren Blogbeitrag "Mögliche Leistung Probleme mit kompilierte LINQ-Abfrage erneut kompiliert wird": <http://blogs.msdn.com/b/appfabriccat/archive/2010/08/06/potential-performance-issues-with-compiled-linq-query-re-compiles.aspx>.
 
 Einem zentralen Ort, in denen dies unter Umständen auftreten, ist beim progressiven Filter auf eine Abfrage hinzufügen. Nehmen wir beispielsweise an, dass Sie eine Kundenseite mit verschiedene Dropdownlisten für die optionalen Filtern (z. B. "Land" und "OrdersCount") konnten. Sie können diese Filter für die "IQueryable" Ergebnisse von einer CompiledQuery verfassen, aber dies wird in der neuen Abfrage durchlaufen des Plan-Compilers, jedes Mal, wenn Sie es ausführen, führen.
 
@@ -639,7 +637,7 @@ Entitätsframework bietet verschiedene Möglichkeiten, die Abfrage. Wir sehen Si
 -   Keine nachverfolgung LINQ to Entities.
 -   Entity SQL über eine ObjectQuery.
 -   Entity SQL über eine von "EntityCommand".
--   "ExecuteStoreQuery".
+-   ExecuteStoreQuery.
 -   SqlQuery.
 -   CompiledQuery.
 
@@ -649,7 +647,7 @@ Entitätsframework bietet verschiedene Möglichkeiten, die Abfrage. Wir sehen Si
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
 ```
 
-**Experten**
+**Pros**
 
 -   Geeignet für CRUD-Vorgänge.
 -   Vollständig materialisierte Objekte.
@@ -678,7 +676,7 @@ var q = context.Products.AsNoTracking()
                         .Where(p => p.Category.CategoryName == "Beverages");
 ```
 
-**Experten**
+**Pros**
 
 -   Verbesserte Leistung gegenüber regulären LINQ-Abfragen.
 -   Vollständig materialisierte Objekte.
@@ -705,7 +703,7 @@ Diese Abfrage nicht explizit angeben, wird der NoTracking, aber da es nicht mate
 ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName = 'Beverages'");
 ```
 
-**Experten**
+**Pros**
 
 -   Geeignet für CRUD-Vorgänge.
 -   Vollständig materialisierte Objekte.
@@ -730,7 +728,7 @@ using (EntityDataReader reader = cmd.ExecuteReader(CommandBehavior.SequentialAcc
 }
 ```
 
-**Experten**
+**Pros**
 
 -   Unterstützt das Abfragen Zwischenspeichern von Abfrageplänen in .NET 4.0 (Zwischenspeichern von Abfrageplänen wird von allen anderen Abfragetypen in .NET 4.5 unterstützt).
 
@@ -766,7 +764,7 @@ var beverages = context.ExecuteStoreQuery<Product>(
 );
 ```
 
-**Experten**
+**Pros**
 
 -   Im Allgemeinen schnellste Leistung, da Plan Compiler umgangen wird.
 -   Vollständig materialisierte Objekte.
@@ -789,7 +787,7 @@ private static readonly Func<NorthwindEntities, string, IQueryable<Product>> pro
 var q = context.InvokeProductsForCategoryCQ("Beverages");
 ```
 
-**Experten**
+**Pros**
 
 -   Stellt ein 7 % leistungsverbesserung von bis zu über reguläre LINQ-Abfragen bereit.
 -   Vollständig materialisierte Objekte.
@@ -810,13 +808,13 @@ Einfache, in denen die kontexterstellung kein Timeout aufgetreten war, Microbenc
 | EF5 | ObjectContext ESQL                   | 2414      | 38801408 |
 | EF5 | ObjectContext Linq-Abfrage             | 2692      | 38277120 |
 | EF5 | "DbContext" Linq-Abfrage keine nachverfolgung     | 2818      | 41840640 |
-| EF5 | Linq-Abfrage für "DbContext"                 | 2930      | 41771008 |
+| EF5 | DbContext Linq Query                 | 2930      | 41771008 |
 | EF5 | Keine nachverfolgung der ObjectContext-Linq-Abfrage | 3013      | 38412288 |
 |     |                                      |           |          |
 | EF6 | ObjectContext ESQL                   | 2059      | 46039040 |
 | EF6 | ObjectContext Linq-Abfrage             | 3074      | 45248512 |
 | EF6 | "DbContext" Linq-Abfrage keine nachverfolgung     | 3125      | 47575040 |
-| EF6 | Linq-Abfrage für "DbContext"                 | 3420      | 47652864 |
+| EF6 | DbContext Linq Query                 | 3420      | 47652864 |
 | EF6 | Keine nachverfolgung der ObjectContext-Linq-Abfrage | 3593      | 45260800 |
 
 ![EF5 micro-Benchmarks, 5000 betriebsbereiten Iterationen](~/ef6/media/ef5micro5000warm.png)
@@ -838,7 +836,7 @@ Um die reale Leistung der anderen Abfrageoptionen vergleichen zu können, haben 
 | EF5 | ObjectContext Linq-Abfrage                    | 1152      | 38178816 |
 | EF5 | "DbContext" Linq-Abfrage keine nachverfolgung            | 1208      | 41803776 |
 | EF5 | Sql-Abfrage für "DbContext" auf "DbSet"                | 1414      | 37982208 |
-| EF5 | Linq-Abfrage für "DbContext"                        | 1574      | 41738240 |
+| EF5 | DbContext Linq Query                        | 1574      | 41738240 |
 |     |                                             |           |          |
 | EF6 | ObjectContext-Entity-Befehl                | 480       | 47247360 |
 | EF6 | ObjectContext-Store-Abfrage                   | 493       | 46739456 |
@@ -849,7 +847,7 @@ Um die reale Leistung der anderen Abfrageoptionen vergleichen zu können, haben 
 | EF6 | "DbContext" Linq-Abfrage keine nachverfolgung            | 878       | 47554560 |
 | EF6 | ObjectContext Linq-Abfrage                    | 953       | 47632384 |
 | EF6 | Sql-Abfrage für "DbContext" auf "DbSet"                | 1023      | 41992192 |
-| EF6 | Linq-Abfrage für "DbContext"                        | 1290      | 47529984 |
+| EF6 | DbContext Linq Query                        | 1290      | 47529984 |
 
 
 ![EF5 betriebsbereiten Abfrage 1000 Iterationen](~/ef6/media/ef5warmquery1000.png)
@@ -1231,7 +1229,7 @@ Entity Framework 6 eingeführte Unterstützung von asynchronen Vorgängen bei de
 Informationen zu asynchroner Programmierung Arbeit, die helfen, die Sie die Entscheidung, ob Async die Leistung Ihrer Anwendung verbessert besuchen [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Weitere Informationen zur Verwendung von asynchronen Vorgängen auf Entity Framework finden Sie unter [asynchronen Abfrage- und speichern](~/ef6/fundamentals/async.md
 ).
 
-### <a name="96-ngen"></a>9.6 NGEN
+### <a name="96-ngen"></a>9.6      NGEN
 
 Entitätsframework 6 stammt nicht in der Standardinstallation von .NET Framework. Daher sind die Entity Framework-Assemblys nicht, dass NGEN standardmäßig würde, was bedeutet, dass alle der Entity Framework-Code gelten die gleichen JIT'ing Kosten als jede andere MSIL-Assembly ist. Dies kann die F5-Erfahrung beim Entwickeln und auch auf den Kaltstart der Anwendung in die produktionsumgebungen beeinträchtigt werden. Um die Senkung der Kosten für CPU und Arbeitsspeicher des JIT'ing ist es ratsam, NGEN-images von Entity Framework nach Bedarf. Weitere Informationen zum Verbessern der startleistung von Entity Framework 6 mit NGEN finden Sie unter [Verbessern der Startleistung mit NGen](~/ef6/fundamentals/performance/ngen.md).
 
@@ -1312,7 +1310,7 @@ Diese Umgebung verwendet einen 2-Machine-Setup mit der Datenbank auf einem separ
 
 ##### <a name="11112-hardware-environment"></a>11.1.1.2 Hardwareumgebung
 
--   Dual-Prozessor: Intel(R) Xeon(R) CPU L5520 W3530 @ mit 2,27 GHz, 2261 Mhz8 GHz, 4 Kerne, 84 logische Prozessoren.
+-   Dual-Prozessor:     Intel(R) Xeon(R) CPU L5520 W3530 @ mit 2,27 GHz, 2261 Mhz8 GHz, 4 Kerne, 84 logische Prozessoren.
 -   2412 GB RamRAM.
 -   136 GB SCSI250GB SATA 7200 u/Min / 3GB/s-Laufwerk in 4 Partitionen aufgeteilt.
 
