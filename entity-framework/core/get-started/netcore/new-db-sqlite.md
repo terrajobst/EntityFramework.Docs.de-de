@@ -6,12 +6,12 @@ description: Erste Schritte mit .NET Core unter Verwendung von Entity Framework 
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 6cebe14e179cb6998592f5d3823c114b3bda0138
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: a0df80a8fe96be4f8cc3177919e2b087e14cb49c
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022310"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325326"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Erste Schritte mit EF Core in einer .NET Core-Konsolen-App mit einer neuen Datenbank
 
@@ -69,7 +69,7 @@ Da Sie jetzt über ein Modell verfügen, können Sie mithilfe von [Migrationen](
 * Führen Sie `dotnet ef migrations add InitialCreate` aus, um per Gerüstbau eine Migration einzurichten und den anfänglichen Tabellensatz für das Modell zu erstellen.
 * Führen Sie `dotnet ef database update` aus, um die neue Migration auf die Datenbank anzuwenden. Mit diesem Befehl wird die Datenbank erstellt, bevor Migrationen angewendet werden.
 
-Die SQLite-Datenbank *blogging.db** ist das Projektverzeichnis.
+Die SQLite-Datenbank *blogging.db* ist das Projektverzeichnis.
 
 ## <a name="use-the-model"></a>Verwenden des Modells
 
