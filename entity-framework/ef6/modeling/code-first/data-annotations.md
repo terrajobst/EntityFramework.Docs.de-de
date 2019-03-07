@@ -3,12 +3,12 @@ title: Der erste Datenanmerkungen – EF6 Code
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 8d85ef85f56a23d9b3b526554417dc9dd360e139
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980040"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463281"
 ---
 # <a name="code-first-data-annotations"></a>Code der ersten Datenanmerkungen
 > [!NOTE]
@@ -25,7 +25,7 @@ Dieser Artikel konzentriert sich auf die Verwendung von "DataAnnotations" (in de
 
 ## <a name="the-model"></a>Das Modell
 
-Ich zeige Ihnen, Code erste DataAnnotations mit ein paar einfache Klassen: Blog und Post.
+Ich zeige Ihnen, Code erste DataAnnotations mit ein paar einfache Klassen: Blog "und" Post ".
 
 ``` csharp
     public class Blog
@@ -176,7 +176,7 @@ Die MaxLength-Anmerkung wird die Datenbank durch Festlegen der Eigenschaft Läng
 
 ![Blogs-Tabelle, die mit die maximale Länge für BloggerName-Spalte](~/ef6/media/jj591583-figure04.png)
 
-MVC-Client-Side-Anmerkung, und EF 4.1 serverseitige Anmerkung sowohl berücksichtigt dieser Überprüfung erneut dynamisch erstellen eine Fehlermeldung angezeigt: "das Feld BloggerName muss eine Zeichenfolge oder Array-Typ mit einer maximalen Länge von '10'." Diese Meldung ist ein wenig lang. Viele Anmerkungen können Sie eine Fehlermeldung mit dem ErrorMessage-Attribut angeben.
+MVC-Client-Side-Anmerkung, und EF 4.1 serverseitige Anmerkung berücksichtigt beide dieser Überprüfung erneut dynamisch erstellen eine Fehlermeldung angezeigt: "Das Feld BloggerName muss eine Zeichenfolge oder Array-Typ mit einer maximalen Länge von '10'." Diese Meldung ist ein wenig lang. Viele Anmerkungen können Sie eine Fehlermeldung mit dem ErrorMessage-Attribut angeben.
 
 ``` csharp
     [MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
@@ -245,9 +245,6 @@ In der Datenbank enthält die Tabelle "Blog" alle Eigenschaften des Blogs, einsc
 
 ![Tabelle "Blog" mit komplexen Typen](~/ef6/media/jj591583-figure06.png)
 
-Ein weiterer interessanter Hinweis ist, dass auch die DateCreated-Eigenschaft als null-DateTime in der Klasse definiert wurde, das entsprechende Datenbankfeld mit NULL-Werte zulässt. Sie müssen die erforderlichen Anmerkung verwenden, wenn Sie, um das Datenbankschema zu beeinflussen möchten.
-
- 
 
 ## <a name="concurrencycheck"></a>ConcurrencyCheck
 
@@ -271,7 +268,7 @@ Wenn jemand den Blogger-Namen für dieses Blogs in der Zwischenzeit geändert wu
 
  
 
-## <a name="timestamp"></a>Zeitstempel
+## <a name="timestamp"></a>TimeStamp
 
 Es ist üblich, ein Rowversion oder Timestamp-Felder für die parallelitätsüberprüfung zu verwenden. Aber statt der ConcurrencyCheck-Anmerkung zu verwenden, können Sie die spezifischere TimeStamp-Anmerkung, solange der Typ der Eigenschaft Byte-Array ist. Code zuerst behandelt Timestamp-Eigenschaften identisch als ConcurrencyCheck-Eigenschaften, aber es wird auch sichergestellt, dass die Datenbankfeld, das Code zuerst erzeugt NULL-Werte zulässt. Sie können nur eine Timestamp-Eigenschaft in einer bestimmten Klasse haben.
 
@@ -314,7 +311,7 @@ Hier ist die Tabelle auf, nachdem es erneut generiert wird. Der Tabellenname Int
 
  
 
-## <a name="databasegenerated"></a>"Databasegenerated"
+## <a name="databasegenerated"></a>DatabaseGenerated
 
 Eine wichtige Datenbankfunktionen ist die Möglichkeit, Eigenschaften berechnet haben. Wenn Sie Ihren Code First Klassen, um eine Zuordnung sind Tabellen mit berechneten Spalten, Sie nicht möchten, Entity Framework, um zu versuchen, diese Spalten aktualisieren. Jedoch EF diese Werte aus der Datenbank zurück, nachdem Sie eingefügt oder aktualisiert Daten haben sollen. Die Anmerkung "databasegenerated" können Sie um die Eigenschaften in der Klasse zusammen mit der Enumeration berechnet zu kennzeichnen. Keine anderen Enumerationen sind und die Identität.
 
@@ -374,7 +371,7 @@ Indizes werden standardmäßig nicht eindeutig, jedoch können Sie die **IsUniqu
 
 ### <a name="multiple-column-indexes"></a>Indizes für mehrere Spalten
 
-Indizes, die mehrere Spalten erstrecken, werden mit dem gleichen Namen in mehrere Index Anmerkungen für eine bestimmte Tabelle angegeben. Bei der Erstellung mehrspaltiger Indexe müssen Sie einen Auftrag für die Spalten im Index anzugeben. Der folgende Code erstellt z. B. einen mehrspaltigen Index auf **Bewertung** und **BlogId** namens **IX\_BlogAndRating**. **BlogId** ist die erste Spalte im Index und **Bewertung** ist die zweite.
+Indizes, die mehrere Spalten erstrecken, werden mit dem gleichen Namen in mehrere Index Anmerkungen für eine bestimmte Tabelle angegeben. Bei der Erstellung mehrspaltiger Indexe müssen Sie einen Auftrag für die Spalten im Index anzugeben. Der folgende Code erstellt z. B. einen mehrspaltigen Index auf **Bewertung** und **BlogId** namens **IX\_BlogIdAndRating**. **BlogId** ist die erste Spalte im Index und **Bewertung** ist die zweite.
 
 ``` csharp
     public class Post
@@ -391,7 +388,7 @@ Indizes, die mehrere Spalten erstrecken, werden mit dem gleichen Namen in mehrer
 
  
 
-## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Beziehung Attribute: InverseProperty und ForeignKey für
+## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Beziehungsattribute: InverseProperty und ForeignKey
 
 > [!NOTE]
 > Diese Seite enthält Informationen zum Einrichten der Beziehungen in Ihrem Code First-Modell mit Datenanmerkungen. Allgemeine Informationen zu Beziehungen in Entity Framework und das Zugreifen auf und Bearbeiten von Daten mithilfe von Beziehungen, finden Sie unter [Beziehungen und Navigationseigenschaften](~/ef6/fundamentals/relationships.md). *
@@ -441,7 +438,7 @@ Sie müssen auch die Person-Klasse, die auf die verwiesen wird anhand dieser Eig
     }
 ```
 
-Code first ist nicht mit übereinstimmen, werden die Eigenschaften in den beiden Klassen selbst. Die Datenbanktabelle für Beiträge müssen ein Fremdschlüssel für die Person CreatedBy-Feld und eine für die UpdatedBy Person aber der Code erstellt zunächst vier werden Fremdschlüsseleigenschaften: Person\_-Id, Person\_"id1", CreatedBy\_Id und UpdatedBy\_Id.
+Code first ist nicht mit übereinstimmen, werden die Eigenschaften in den beiden Klassen selbst. Die Datenbanktabelle für Beiträge müssen ein Fremdschlüssel für die Person, die CreatedBy-Feld und eine für die Person, die UpdatedBy jedoch zuerst erstellt vier Fremdschlüsseleigenschaften: Person\_-Id, Person\_"id1", CreatedBy\_-Id und UpdatedBy\_Id.
 
 ![Tabelle mit Fremdschlüsseln, zusätzliche Beiträge](~/ef6/media/jj591583-figure10.png)
 

@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: a87eca72aa58487415eea11e4f83de1a19e73506
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: cda5cc170646abc3e9d9a70d729237c01f028259
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022336"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463203"
 ---
 # <a name="provider-impacting-changes"></a>Anbieter-Auswirkungen auf Änderungen
 
@@ -19,7 +19,15 @@ Diese Seite enthält Links zum pull-Anforderungen, die auf das EF Core-Repositor
 
 Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwendet die [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) und [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) Bezeichnungen auf unseren Problemen und Pull-Anforderungen.
 
-## <a name="21-----22"></a>2.1---> 2.2
+## <a name="22-----30"></a>2.2 ---> 3.0
+
+* https://github.com/aspnet/EntityFrameworkCore/pull/14022
+  * Entfernt veraltete APIs und reduzierte optionalen Parameter-Überladungen
+  * Entfernte DatabaseColumn.GetUnderlyingStoreType()
+* https://github.com/aspnet/EntityFrameworkCore/pull/14589
+  * Veraltete APIs entfernt
+
+## <a name="21-----22"></a>2.1 ---> 2.2
 
 ### <a name="test-only-changes"></a>Änderungen nur im Test
 
@@ -56,7 +64,7 @@ Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwe
   * Dieser Pull Request hinzugefügt, das Konzept der `CanConnect` das von ASP.NET Core-Health verwendet wird überprüft, um festzustellen, ob die Datenbank verfügbar ist. Standardmäßig ruft die relationalen Implementierung nur `Exist`, aber der Anbieter etwas anderes implementieren können, falls erforderlich. Nicht relationale Anbieter müssen zum Implementieren der neuen API in der Reihenfolge für die integritätsprüfung verwendet werden kann.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -Basis RelationalTypeMapping DbParameter-Größe nicht entsprechend zu aktualisieren
   * Beenden Sie die Größe wird standardmäßig festgelegt, da dies Abschneiden führen kann. Anbieter müssen möglicherweise ihre eigene Logik hinzufügen, wenn die Größe muss festgelegt werden.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13372](https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng: Geben Sie immer Spaltentyp für die decimal-Spalten
+* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng: Geben Sie immer Spaltentyp für die decimal-Spalten
   * Konfigurieren Sie immer Spaltentyp für dezimalspalten in eingerüsteten Code und nicht gemäß der Konvention konfigurieren.
   * Anbieter sollten keine Änderungen auf ihrer Seite erforderlich.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -Fügt CaseExpression zum Generieren von SQL-CASE-Ausdrücke
