@@ -11,7 +11,10 @@
 ## [Entity Framework Core](core/index.md)
 
 ### [Neuigkeiten](core/what-is-new/index.md)
-#### [EF Core Roadmap](core/what-is-new/roadmap.md)
+#### [Roadmap](core/what-is-new/roadmap.md)
+#### [EF Core 3.0 (in der Vorschau)](core/what-is-new/ef-core-3.0/index.md)
+##### [Neue Features](core/what-is-new/ef-core-3.0/features.md)
+##### [Breaking Changes](core/what-is-new/ef-core-3.0/breaking-changes.md)
 #### [EF Core 2.2 (neuestes stabiles Release)](core/what-is-new/ef-core-2.2.md)
 #### [EF Core 2.1](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0](core/what-is-new/ef-core-2.0.md)
