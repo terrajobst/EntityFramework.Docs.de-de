@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 343162596780e6146b57f73a38221701009cd855
-ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
+ms.openlocfilehash: ad7ac3099cfd4c49b88acfbbff61f2af9294b6ec
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/06/2019
-ms.locfileid: "55760508"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463242"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 
@@ -140,4 +140,6 @@ Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkung
 * Andere SQL-Anweisungen als `SELECT` werden automatisch als nicht zusammensetzbar erkannt. Die vollständigen Ergebnisse gespeicherter Prozeduren werden daher immer an den Client zurückgegeben, und sämtliche LINQ-Operatoren, die nach `FromSql` angewendet werden, werden speicherintern ausgewertet.
 
 > [!WARNING]  
-> **Für unformatierte SQL-Abfragen immer Parametrisierung verwenden:** APIs, die eine unformatierte SQL-Zeichenfolge wie `FromSql` und `ExecuteSqlCommand` akzeptieren, lassen zu, dass Werte problemlos als Parameter übergeben werden. Zusätzlich zum Überprüfen der Benutzereingabe sollten Sie die Parametrisierung für sämtliche Werte verwenden, die in unformatierten SQL-Abfragen/-Befehlen enthalten sind. Wenn Sie mit der Zeichenfolgenverkettung auf dynamische Weise Teile der Abfragezeichenfolge erstellen, müssen Sie zum Schutz vor Angriffen durch die Einschleusung von SQL-Befehlen jede Eingabe überprüfen.
+> **Für unformatierte SQL-Abfragen immer Parametrisierung verwenden:** Zusätzlich zum Überprüfen der Benutzereingabe sollten Sie die Parametrisierung für sämtliche Werte verwenden, die in unformatierten SQL-Abfragen/-Befehlen enthalten sind. APIs, die eine unformatierte SQL-Zeichenfolge wie `FromSql` und `ExecuteSqlCommand` akzeptieren, lassen zu, dass Werte problemlos als Parameter übergeben werden. Für überladene `FromSql`- und `ExecuteSqlCommand`-Methoden, die FormattableString akzeptieren, kann auch die Syntax zur Zeichenfolgeninterpolation so verwendet werden, dass Angriffe durch Einschleusung von SQL-Befehlen verhindert werden. 
+> 
+> Wenn Sie Zeichenfolgen verketten oder interpolieren, um einen Teil der Abfragezeichenfolge dynamisch zu erstellen, müssen Sie Eingaben so überprüfen, dass Angriffe durch Einschleusung von SQL-Befehlen nicht möglich sind. Dieselbe Überprüfung ist notwendig, wenn Benutzereingaben an Anweisungen oder gespeicherte Prozeduren übergeben werden, die diese Eingaben als dynamisches SQL ausführen können.
