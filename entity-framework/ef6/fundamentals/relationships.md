@@ -3,12 +3,12 @@ title: Beziehungen, Navigationseigenschaften und foreign key - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 46c2d11b5704ec7ae82a423ae042b87f5efe436f
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315658"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829199"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Beziehungen, Navigationseigenschaften und Fremdschlüssel
 Dieses Thema bietet einen Überblick darüber, wie Beziehungen zwischen Entitäten von Entity Framework verwaltet. Außerdem erhalten hilfreiche Informationen zum Zuordnen und Bearbeiten von Beziehungen.
@@ -29,7 +29,7 @@ Es wird empfohlen, um Eigenschaften im Modell, die Fremdschlüssel in der Datenb
 
 Wenn Fremdschlüsselspalten nicht im Modell enthalten sind, wird die Zuordnungsinformationen als unabhängiges Objekt verwaltet. Beziehungen werden durch Objektverweise und nicht Fremdschlüsseleigenschaften verfolgt. Diese Art von Zuordnung wird aufgerufen, eine *unabhängige Zuordnung*. Die gängigste Methode zum Ändern einer *unabhängige Zuordnung* besteht darin, die Navigationseigenschaften zu ändern, die für jede Entität generiert werden, die in der Zuordnung teilnimmt.
 
-Sie können wahlweise einen oder beide Zuordnungstypen im Modell verwenden. Jedoch wenn Sie eine reine m: n Beziehung, die durch eine Jointabelle verbunden ist, die nur Fremdschlüssel enthält verfügen, wird EF eine unabhängige Zuordnung verwenden diese m: n Beziehung zu verwalten.   
+Sie können wahlweise einen oder beide Zuordnungstypen im Modell verwenden. Jedoch wenn Sie eine reine m: n Beziehung, die durch eine Jointabelle verbunden ist, die nur Fremdschlüssel enthält verfügen, wird EF eine unabhängige Zuordnung verwenden diese m: n Beziehung zu verwalten.   
 
 Die folgende Abbildung zeigt ein konzeptionelles Modell, das mit dem Entity Framework Designer erstellt wurde. Das Modell enthält zwei Entitäten, die in 1: n Beziehung beteiligt sind. Beide Entitäten verfügen über Navigationseigenschaften. **Kurs** Depend Entität und die **"DepartmentID"** Fremdschlüsseleigenschaft definiert.
 
@@ -51,7 +51,7 @@ public class Department
 {
    public Department()
    {
-     this.Course = new HashSet<Course>();
+     this.Courses = new HashSet<Course>();
    }  
    public int DepartmentID { get; set; }
    public string Name { get; set; }
