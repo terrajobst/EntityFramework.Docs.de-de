@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: cf0d2cf032b9aa319fe706aece5b1ea66a5d6251
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463362"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829186"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Neue Features in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -75,7 +75,7 @@ Dank dieser Eigenschaft eignen sich diese Typen in den meisten Szenarios hervorr
 Dieses Feature befindet sich noch in der Entwicklungsphase und ist nicht in der aktuellen Vorschauversion enthalten. 
 
 Bei diesem Feature geht es darum, Entitäten zu aktivieren, die Daten in indizierten Eigenschaften anstelle von regulären Eigenschaften speichern, und auch darum, Instanzen derselben .NET-Klasse (potenziell etwas so Einfaches wie `Dictionary<string, object>`) verwenden zu können, um verschiedene Entitätstypen im selben EF Core-Modell darzustellen.
-Dieses Feature ist ein Sprungbrett, um m:n-Beziehungen ohne eine Joinentität zu unterstützen – eine der gefragtesten Verbesserungen für EF Core.
+Dieses Feature ist ein Ausgangspunkt für die Unterstützung von m:n-Beziehungen ohne eine Joinentität ([Issue #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)) – eine der gefragtesten Verbesserungen für EF Core.
 
 ## <a name="ef-63-on-net-core"></a>EF 6.3 unter .NET Core 
 

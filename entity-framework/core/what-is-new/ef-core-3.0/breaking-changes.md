@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: a7e1a03bf1131cd53123f5cc39b07bed94619b44
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 748db8a71a04a2d696ef21a03319906b9fc776be
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463370"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829225"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -22,11 +22,10 @@ Werden Breaking Changes zwischen zwei Vorschauversionen von EF Core 3.0 in neuen
 
 ## <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>LINQ-Abfragen werden nicht mehr auf dem Client ausgewertet
 
-[Issue #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[Issue #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
+[Siehe auch Issue #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
-> [!IMPORTANT]
-> Dieser Breaking Change wird bereits vorab angekündigt.
-Bisher ist er in keiner Vorschauversion von EF Core 3.0 implementiert.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -98,8 +97,14 @@ Diese Änderung wurde vorgenommen, damit auf der `Info`-Ebene nur die wichtigste
 **Vorbeugende Maßnahmen**
 
 Dieses Protokollereignis wird durch `RelationalEventId.CommandExecuting` mit der Ereignis-ID 20100 definiert.
-Wenn Sie SQL-Abfragen wieder auf der `Info`-Ebene protokollieren möchten, aktivieren Sie die Protokollierung auf der `Debug`-Ebene, und filtern Sie nur nach diesem Ereignis.
-
+Um SQL erneut auf der Ebene `Info` zu protokollieren, konfigurieren Sie die Ebene explizit in `OnConfiguring` oder `AddDbContext`.
+Beispiel:
+```C#
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseSqlServer(connectionString)
+        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Info)));
+```
 
 ## <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>Temporäre Schlüsselwerte werden nicht mehr Entitätsinstanzen zugewiesen
 
@@ -439,6 +444,28 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>Von AddDbContext/AddDbContextPool werden AddLogging und AddMemoryCache nicht mehr aufgerufen.
+
+[Issue #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
+
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Vor EF Core 3.0 wurden beim Aufruf von `AddDbContext` oder `AddDbContextPool` durch Aufrufe von [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) und [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) auch Protokollierungs- und Arbeitsspeichercaching-Dienste bei DI registriert.
+
+**Neues Verhalten**
+
+Ab EF Core 3.0 werden diese Dienste durch `AddDbContext` und `AddDbContextPool` nicht mehr bei Dependency Injection (DI) registriert.
+
+**Hintergründe**
+
+Für EF Core 3.0 ist es nicht erforderlich, dass diese Dienste im DI-Container der Anwendung enthalten sind. Wenn `ILoggerFactory` jedoch im DI-Container der Anwendung registriert ist, wird sie nach wie vor von EF Core verwendet.
+
+**Vorbeugende Maßnahmen**
+
+Wenn Ihre Anwendung diese Dienste benötigt, registrieren Sie sie explizit mit [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) oder [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) beim DI-Container.
+
 ## <a name="dbcontextentry-now-performs-a-local-detectchanges"></a>DbContext.Entry erkennt nun mit DetectChanges lokale Änderungen
 
 [Issue #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
@@ -610,6 +637,43 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     optionsBuilder
         .ConfigureWarnings(w => w.Log(CoreEventId.ManyServiceProvidersCreatedWarning));
 }
+```
+
+## <a name="new-behavior-for-hasonehasmany-called-with-a-single-string"></a>Neues Verhalten für HasOne/HasMany bei Aufruf mit einer einzelnen Zeichenfolge
+
+[Issue #9171](https://github.com/aspnet/EntityFrameworkCore/issues/9171)
+
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Vor EF Core 3.0 wurde Code, der `HasOne` oder `HasMany` mit einer einzelnen Zeichenfolge aufruft, auf irritierende Weise interpretiert.
+Beispiel:
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
+```
+
+Der Code scheint `Samuri` mit einem anderen Entitätstyp über die `Entrance`-Navigationseigenschaft zu verknüpfen, die möglicherweise privat ist.
+
+Tatsächlich versucht dieser Code, eine Beziehung zu einem Entitätstyp namens `Entrance` ohne Navigationseigenschaft herzustellen.
+
+**Neues Verhalten**
+
+Ab EF Core 3.0 führt der obige Code jetzt die erwartete Aktion durch.
+
+**Hintergründe**
+
+Das alte Verhalten war sehr verwirrend, vor allem beim Lesen des Konfigurationscodes und bei der Suche nach Fehlern.
+
+**Vorbeugende Maßnahmen**
+
+Dies führt nur zu Fehlern in Anwendungen, die Beziehungen explizit unter Verwendung von Zeichenfolgen für Typnamen und ohne explizite Angabe der Navigationseigenschaft konfigurieren.
+Dies ist nicht üblich.
+Das vorherige Verhalten kann durch explizite Übergabe von `null` für den Namen der Navigationseigenschaft erzielt werden.
+Beispiel:
+
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
 
 ## <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Die Anmerkung Relational:TypeMapping heißt nun nur noch TypeMapping
