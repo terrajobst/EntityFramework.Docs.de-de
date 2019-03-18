@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 69c40fcd8b7ddb925728b1bad9992ad2a81e7540
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 53262bc926d79f42c4418a62717a462564dc80bf
+ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994663"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58131412"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core-Datenbank-Anbieter-Einschränkungen
 
@@ -41,7 +41,7 @@ Die SQLite-Datenbank-Engine unterstützt nicht mehrere Schemavorgänge, die von 
 | DropPrimaryKey       | ✗          |                  |
 | DropTable            | ✔          | 1.0              |
 | DropUniqueConstraint | ✗          |                  |
-| "RenameColumn"         | ✗          |                  |
+| RenameColumn         | ✔          | 2.2.2            |
 | RenameIndex          | ✔          | 2.1              |
 | RenameTable          | ✔          | 1.0              |
 | EnsureSchema         | ✔ (ohne-Op)  | 2.0              |
@@ -52,7 +52,7 @@ Die SQLite-Datenbank-Engine unterstützt nicht mehrere Schemavorgänge, die von 
 
 ## <a name="migrations-limitations-workaround"></a>Migrationen Einschränkungen problemumgehung
 
-Sie können einige umgehen dieser Einschränkungen durch Schreiben von Code manuell in Ihre Migrationen zu führen Sie eine Tabelle neu zu erstellen. Eine tabellenneuerstellung umfasst das Umbenennen der vorhandenen Tabelle, eine neue Tabelle erstellen, Kopieren von Daten in die neue Tabelle und löschen die alte Tabelle. Sie benötigen, verwenden Sie die `Sql(string)` Methode, um einige dieser Schritte durchzuführen.
+Sie können einige umgehen dieser Einschränkungen durch Schreiben von Code manuell in Ihre Migrationen zu führen Sie eine Tabelle neu zu erstellen. Eine Tabellenneuerstellung umfasst Umbenennen der vorhandenen Tabelle, Erstellen einer neuen Tabelle, Kopieren von Daten in die neue Tabelle und Löschen der alten Tabelle. Sie benötigen, verwenden Sie die `Sql(string)` Methode, um einige dieser Schritte durchzuführen.
 
 Finden Sie unter [machen andere Arten von Tabelle Schemaänderungen](http://sqlite.org/lang_altertable.html#otheralter) in der SQLite-Dokumentation für weitere Details.
 
