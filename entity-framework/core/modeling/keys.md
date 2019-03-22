@@ -4,16 +4,18 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
 uid: core/modeling/keys
-ms.openlocfilehash: 9e6946100ebabc6ba57cb792b3672219098b1e21
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6272e323b83ccab2ed060a2ebbde1d1e8e353d66
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994020"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319165"
 ---
 # <a name="keys-primary"></a>Schlüssel (primär)
 
-Ein Schlüssel dient als primärer Eindeutiger Bezeichner für jede Entitätsinstanz. Bei Verwendung eine relationale Datenbank zugeordnet, das Konzept von einem *Primärschlüssel*. Sie können auch einen eindeutigen Bezeichner, die nicht den Primärschlüssel konfigurieren (finden Sie unter [Alternativschlüssel](alternate-keys.md) Informationen).
+Ein Schlüssel dient als primärer Eindeutiger Bezeichner für jede Entitätsinstanz. Bei Verwendung eine relationale Datenbank zugeordnet, das Konzept von einem *Primärschlüssel*. Sie können auch einen eindeutigen Bezeichner, die nicht den Primärschlüssel konfigurieren (finden Sie unter [Alternativschlüssel](alternate-keys.md) Informationen). 
+
+Eine der folgenden Methoden kann verwendet werden, um einen Primärschlüssel Einrichtung/erstellen.
 
 ## <a name="conventions"></a>Konventionen
 

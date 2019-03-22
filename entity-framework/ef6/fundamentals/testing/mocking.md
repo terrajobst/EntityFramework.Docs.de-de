@@ -3,12 +3,12 @@ title: Testen mit der ein Mockframework - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bd66a638-d245-44d4-8e71-b9c6cb335cc7
-ms.openlocfilehash: 80fd97073744be40d66c09706d3513dba18e724d
-ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
+ms.openlocfilehash: 3d39b41018beb70b72105dfb2fe4d61afc0b0525
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/06/2018
-ms.locfileid: "48834720"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319204"
 ---
 # <a name="testing-with-a-mocking-framework"></a>Testen mit der ein Mockframework
 > [!NOTE]
@@ -21,7 +21,7 @@ Beim Schreiben von Tests für Ihre Anwendung ist es oft wünschenswert, übersch
 Es gibt zwei Ansätze, die verwendet werden können, um eine in-Memory-Version Ihres Kontexts erstellen.  
 
 - **Erstellen Sie eigene Testdoubles** – bei diesem Ansatz muss Ihre eigene in-Memory-Implementierung, der den Kontext und die "dbsets" schreiben. Dies bietet Ihnen viele steuern, wie die Klassen Verhalten sich jedoch betreffen können, schreiben und eine angemessene Menge an Code besitzt.  
-- **Verwenden Sie zum Erstellen von Testdoubles ein Mockframework** – Verwendung eines Simulationsframeworks (wie etwa Moq) können Sie die in-Memory-Implementierungen von Ihnen Kontext und legt fest, die dynamisch zur Laufzeit für Sie erstellt haben.  
+- **Verwenden Sie zum Erstellen von Testdoubles ein Mockframework** – Verwendung eines Simulationsframeworks (wie etwa Moq) können Sie die in-Memory-Implementierungen, der den Kontext und legt dynamisch zur Laufzeit für Sie erstellt haben.  
 
 In diesem Artikel wird mit der Verwendung eines Simulationsframeworks bearbeiten. Erstellen eigene Testdoubles finden Sie unter [Tests mit Ihrer eigenen Test-Doubles](writing-test-doubles.md).  
 

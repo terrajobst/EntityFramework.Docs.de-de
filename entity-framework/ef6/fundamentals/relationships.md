@@ -3,12 +3,12 @@ title: Beziehungen, Navigationseigenschaften und foreign key - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 8292ae7af8d760240715854611d92ab340bf1ca7
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829199"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319191"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Beziehungen, Navigationseigenschaften und Fremdschlüssel
 Dieses Thema bietet einen Überblick darüber, wie Beziehungen zwischen Entitäten von Entity Framework verwaltet. Außerdem erhalten hilfreiche Informationen zum Zuordnen und Bearbeiten von Beziehungen.
@@ -147,7 +147,7 @@ Wenn Sie POCO-Entitäten ohne Proxys verwenden, Sie müssen sicherstellen, dass 
 
 ## <a name="loading-related-objects"></a>Laden von verbundenen Objekten
 
-Verwenden Sie im Entity Framework, die Sie am häufigsten verwenden die Navigationseigenschaften zum Laden von Entitäten, die auf die zurückgegebene Entität von der definierten Zuordnung beziehen. Weitere Informationen finden Sie unter [laden verbundener Objekte](~/ef6/querying/related-data.md).
+In Entity Framework verwenden Sie häufig Navigationseigenschaften zum Laden von Entitäten, die auf die zurückgegebene Entität von der definierten Zuordnung beziehen. Weitere Informationen finden Sie unter [laden verbundener Objekte](~/ef6/querying/related-data.md).
 
 > [!NOTE]
 > Wenn Sie in einer Fremdschlüsselzuordnung ein verknüpftes Ende eines abhängigen Objekts laden, wird das verknüpfte Objekt auf der Grundlage des Fremdschlüsselwerts des abhängigen Elements geladen, der sich gerade im Arbeitsspeicher befindet:
