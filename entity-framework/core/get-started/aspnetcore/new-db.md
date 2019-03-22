@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 4734586adc89e9c1d866a1b4accd8b5e51fe2bb0
-ms.sourcegitcommit: ebf661025d2ad2b62466fa7bf0e0772a7811cbe7
+ms.openlocfilehash: 25e5a683acf4bbed0b978cc6a80f1b50a0b64ca1
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54211165"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319178"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer neuen Datenbank
 
@@ -114,9 +114,9 @@ Bei einer Produktionsanwendung würde normalerweise jede Klasse in einer separat
 
 ## <a name="register-the-context-with-dependency-injection"></a>Registrieren des Kontexts durch Dependency Injection
 
-Dienste (z.B. `BloggingContext`) werden per [Abhängigkeitsinjektion](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) während des Anwendungsstarts registriert. Komponenten, die diese Dienste erfordern (z.B. MVC-Controller), werden über Konstruktorparameter oder Eigenschaften bereitgestellt.
+Registrieren Sie eine `BloggingContext`-Klasse als Dienst in `Startup.cs`, um diese für MVC-Controller verfügbar zu machen.
 
-Um eine `BloggingContext`-Klasse für MVC-Controller verfügbar zu machen, registrieren Sie sie als Dienst.
+Dienste (z.B. `BloggingContext`) werden mit [Dependency Injection](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) beim Starten einer Anwendung registriert, sodass sie Komponenten automatisch bereitgestellt werden können, die Dienste (z.B. MVC-Controller) über Konstruktorparameter und -eigenschaften nutzen.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
