@@ -3,12 +3,12 @@ title: Tests mit Ihren eigenen Testdoubles - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 2158dc73585c2720e7293096b0478c73edf522d9
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9db56e28cd89084fece36c3e5a2c1b4495991d01
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490908"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419730"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>Tests mit Ihren eigenen Testdoubles
 > [!NOTE]
@@ -43,7 +43,7 @@ Dieser Artikel bietet vollständige codeauflistungen, die Sie, in Visual Studio 
 
 ## <a name="creating-a-context-interface"></a>Erstellen eine Kontextschnittstelle  
 
-Wir werden sehen Sie sich das Testen eines Diensts, die von einem EF nutzt Modell. Um unser EF-Kontext mit einer in-Memory-Version zum Testen ersetzen können, definieren wir eine Schnittstelle, dass unser EF-Kontext (und deren in-Memory-Double-Wert) Imeplement werden.  
+Wir werden sehen Sie sich das Testen eines Diensts, die von einem EF nutzt Modell. Um unser EF-Kontext mit einer in-Memory-Version zum Testen ersetzen können, definieren wir eine Schnittstelle, die unser EF-Kontext (und deren in-Memory-Double-Wert) implementiert werden.
 
 Der Dienst zum Testen der hier verwendeten Abfragen und Ändern von Daten, die mit den Eigenschaften "DbSet" von unserem Kontext und auch aufrufen, "SaveChanges", um die Änderungen in der Datenbank zu übertragen. Wir haben also diese Member der Schnittstelle einschließlich.  
 
