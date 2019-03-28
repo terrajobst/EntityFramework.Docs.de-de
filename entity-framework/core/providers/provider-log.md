@@ -99,7 +99,7 @@ Beachten Sie, dass viele der der [wichtige Änderungen auf Anwendungsebene](../w
   * Dieser Pull Request hinzugefügt, das Konzept der `CanConnect` das von ASP.NET Core-Health verwendet wird überprüft, um festzustellen, ob die Datenbank verfügbar ist. Standardmäßig ruft die relationalen Implementierung nur `Exist`, aber der Anbieter etwas anderes implementieren können, falls erforderlich. Nicht relationale Anbieter müssen zum Implementieren der neuen API in der Reihenfolge für die integritätsprüfung verwendet werden kann.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -Basis RelationalTypeMapping DbParameter-Größe nicht entsprechend zu aktualisieren
   * Beenden Sie die Größe wird standardmäßig festgelegt, da dies Abschneiden führen kann. Anbieter müssen möglicherweise ihre eigene Logik hinzufügen, wenn die Größe muss festgelegt werden.
-* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng: Geben Sie immer Spaltentyp für die decimal-Spalten
+* (https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng: Geben Sie immer Spaltentyp für die decimal-Spalten
   * Konfigurieren Sie immer Spaltentyp für dezimalspalten in eingerüsteten Code und nicht gemäß der Konvention konfigurieren.
   * Anbieter sollten keine Änderungen auf ihrer Seite erforderlich.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -Fügt CaseExpression zum Generieren von SQL-CASE-Ausdrücke
