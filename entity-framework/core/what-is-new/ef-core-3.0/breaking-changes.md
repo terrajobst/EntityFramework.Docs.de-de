@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 534ac95cccc03e9797ba766e601e2fe86eaf8061
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 7ed55d4cae36f6b25059a5b218db4b0d5e2fb266
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319217"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419743"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -786,6 +786,56 @@ Diese Änderung wurde vorgenommen, damit die unter iOS verwendete Version von SQ
 
 Konfigurieren Sie `Microsoft.Data.Sqlite` so, dass ein anderes `SQLitePCLRaw`-Bundle verwendet wird, um die native SQLite-Version unter iOS zu nutzen.
 
+## <a name="guid-values-are-now-stored-as-text-on-sqlite"></a>GUID-Werte werden jetzt als TEXT in SQLite gespeichert
+
+[Issue #15078](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
+
+Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+
+**Altes Verhalten**
+
+GUID-Werte wurden in der Vergangenheit in SQLite als BLOB-Werte gespeichert.
+
+**Neues Verhalten**
+
+GUID-Werte werden jetzt als TEXT gespeichert.
+
+**Hintergründe**
+
+Das Binärformat der GUIDs ist nicht standardisiert. Das Speichern der Werte als TEXT führt dazu, dass die Datenbank mit anderen Technologien eher kompatibel ist.
+
+**Vorbeugende Maßnahmen**
+
+Sie können vorhandene Datenbanken zum neuen Format migrieren, indem Sie SQL-Code wie den folgenden ausführen:
+
+``` sql
+UPDATE MyTable
+SET GuidColumn = hex(substr(GuidColumn, 4, 1)) ||
+                 hex(substr(GuidColumn, 3, 1)) ||
+                 hex(substr(GuidColumn, 2, 1)) ||
+                 hex(substr(GuidColumn, 1, 1)) || '-' ||
+                 hex(substr(GuidColumn, 6, 1)) ||
+                 hex(substr(GuidColumn, 5, 1)) || '-' ||
+                 hex(substr(GuidColumn, 8, 1)) ||
+                 hex(substr(GuidColumn, 7, 1)) || '-' ||
+                 hex(substr(GuidColumn, 9, 2)) || '-' ||
+                 hex(substr(GuidColumn, 11, 6))
+WHERE typeof(GuidColumn) == 'blob';
+```
+
+Sie können in EF Core auch weiterhin das alte Verhalten verwenden, indem Sie einen Wertkonverter für diese Eigenschaften konfigurieren.
+
+``` csharp
+modelBuilder
+    .Entity<MyEntity>()
+    .Property(e => e.GuidProperty)
+    .HasConversion(
+        g => g.ToByteArray(),
+        b => new Guid(b));
+```
+
+Microsoft.Data.Sqlite kann weiterhin GUID-Werte aus BLOB- und TEXT-Spalten lesen. Da sich jedoch das Standardformat für Parameter und Konstanten geändert hat, müssen Sie wahrscheinlich Aktionen für die meisten GUID-Szenarios vornehmen.
+
 ## <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Char-Werte werden jetzt als TEXT in SQLite gespeichert
 
 [Issue #15020](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
@@ -865,3 +915,51 @@ Die Tabelle mit dem Migrationsverlauf muss auch aktualisiert werden.
 UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
+
+## <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator wurde umbenannt
+
+[Issue #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
+
+Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+
+**Änderung**
+
+`RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` wurde umbenannt in `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
+
+**Hintergründe**
+
+Die Benennung dieses Warnereignisses wurde an allen anderen Warnereignissen ausgerichtet.
+
+**Vorbeugende Maßnahmen**
+
+Verwenden Sie den neuen Namen. (Beachten Sie, dass sich die Ereignis-ID-Nummer nicht geändert hat.)
+
+## <a name="clarify-api-for-foreign-key-constraint-names"></a>Verdeutlichen der API für Einschränkungsnamen von Fremdschlüsseln
+
+[Issue #10730](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
+
+Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+
+**Altes Verhalten**
+
+Vor EF Core 3.0 wurden Einschränkungsnamen von Fremdschlüsseln einfach als „Namen“ bezeichnet. Beispiel:
+
+```C#
+var constraintName = myForeignKey.Name;
+```
+
+**Neues Verhalten**
+
+Ab EF Core 3.0 werden Einschränkungsnamen von Fremdschlüsseln nun als „Einschränkungsnamen“ bezeichnet. Beispiel:
+
+```C#
+var constraintName = myForeignKey.ConstraintName;
+```
+
+**Hintergründe**
+
+Durch diese Änderung wird Konsistenz für Benennungen in diesem Bereich gewährleistet, und es wird verdeutlicht, dass es sich dabei um den Namen der Fremdschlüsseleinschränkung handelt und nicht um den Spalten- oder Eigenschaftennamen auf deren Grundlage der Fremdschlüssel definiert wird.
+
+**Vorbeugende Maßnahmen**
+
+Verwenden Sie den neuen Namen.
