@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 229c15ec0402e1706318593a099236f723d80595
-ms.sourcegitcommit: ab847dd881d51122e695b7cd8c025fcf3a5a9033
+ms.openlocfilehash: 9ef87a737111053df0359f3b2d7a4f82d25c578a
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58678389"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58867943"
 ---
 # <a name="provider-impacting-changes"></a>Anbieter-Auswirkungen auf Änderungen
 
@@ -43,9 +43,6 @@ Beachten Sie, dass viele der der [wichtige Änderungen auf Anwendungsebene](../w
   * `IMigrationsSqlGenerator` wurde von einem Singleton-Dienst in einen bereichsbezogenen Dienst geändert
 * https://github.com/aspnet/EntityFrameworkCore/pull/14706
   * Die Infrastruktur für die Erstellung von relationaler Befehlen wurde veröffentlicht, damit es sicher von Anbietern verwendet und etwas umgestaltet werden kann.
-  * `IRelationalCommandBuilderFactory`wurde von Singleton-Dienst in einen bereichsbezogenen Dienst geändert
-  * `IShaperCommandContextFactory` wurde von Singleton-Dienst in einen bereichsbezogenen Dienst geändert
-  * `ISelectExpressionFactory` wurde von Singleton-Dienst in einen bereichsbezogenen Dienst geändert
 * https://github.com/aspnet/EntityFrameworkCore/pull/14733
   * `ILazyLoader` wurde von einen bereichsbezogenen Dienst in einem vorübergehenden Dienst geändert
 * https://github.com/aspnet/EntityFrameworkCore/pull/14610
