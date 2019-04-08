@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 7501a806271c9734e85e31845f260f2d512da077
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829186"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58867956"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Neue Features in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -50,6 +50,31 @@ Der Anbieter wird die meisten EF Core-Features unterstützen, darunter die autom
 Diese Bemühungen begannen vor EF Core 2.2, und [wir haben einige Vorschauversionen des Anbieters zur Verfügung gestellt](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
 Der neue Plan sieht vor, den Anbieter neben EF Core 3.0 weiterzuentwickeln. 
 
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Abhängige Entitäten, die die Tabelle gemeinsam mit dem Prinzipal verwenden, sind jetzt optional
+
+[Issue #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+
+Dieses Feature wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
+
+Sehen Sie sich das folgende Modell an:
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+```
+
+Ab EF Core 3.0 gibt es die Möglichkeit, wenn `OrderDetails` im Besitz von `Order` ist oder explizit derselben Tabelle zugeordnet ist, dass `Order` ohne `OrderDetails` hinzugefügt werden kann, und alle `OrderDetails`-Eigenschaften, mit Ausnahme des primären Schlüssels, werden Spalten zugeordnet, die NULL-Werte zulassen.
+Bei Abfragen von EF Core wird `OrderDetails` auf `null` festgelegt, wenn eine der erforderlichen Eigenschaften keinen Wert aufweist oder keine erforderlichen Eigenschaften außer dem primären Schlüssel vorhanden und alle Eigenschaften `null` sind.
+
 ## <a name="c-80-support"></a>C# 8.0-Unterstützung
 
 [Issue #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
@@ -68,7 +93,7 @@ Dieses Feature ist nicht in der aktuellen Vorschauversion enthalten.
 [Abfragetypen](xref:core/modeling/query-types) wurden in EF Core 2.1 eingeführt und werden in EF Core 3.0 als Entitätstypen ohne Schlüssel betrachtet. Sie stellen Daten dar, die zwar aus einer Datenbank gelesen, aber nicht aktualisiert werden können.
 Dank dieser Eigenschaft eignen sich diese Typen in den meisten Szenarios hervorragend für Datenbanksichten. Für das Reverse Engineering von Datenbanksichten ist daher geplant, dass die Erstellung von Entitätstypen ohne Schlüssel künftig automatisiert wird.
 
-## <a name="property-bag-entities"></a>Entitäten mit Eigenschaftenbehältern 
+## <a name="property-bag-entities"></a>Entitäten mit Eigenschaftenbehältern
 
 [Issue #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) und [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
 
@@ -77,7 +102,7 @@ Dieses Feature befindet sich noch in der Entwicklungsphase und ist nicht in der 
 Bei diesem Feature geht es darum, Entitäten zu aktivieren, die Daten in indizierten Eigenschaften anstelle von regulären Eigenschaften speichern, und auch darum, Instanzen derselben .NET-Klasse (potenziell etwas so Einfaches wie `Dictionary<string, object>`) verwenden zu können, um verschiedene Entitätstypen im selben EF Core-Modell darzustellen.
 Dieses Feature ist ein Ausgangspunkt für die Unterstützung von m:n-Beziehungen ohne eine Joinentität ([Issue #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)) – eine der gefragtesten Verbesserungen für EF Core.
 
-## <a name="ef-63-on-net-core"></a>EF 6.3 unter .NET Core 
+## <a name="ef-63-on-net-core"></a>EF 6.3 unter .NET Core
 
 [Issue EF6#271](https://github.com/aspnet/EntityFramework6/issues/271)
 

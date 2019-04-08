@@ -1,10 +1,18 @@
+---
+ms.openlocfilehash: 79a2a10cae9f8a5541bca132e407d4abbe95e093
+ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "58914102"
+---
 # <a name="contributing-to-the-entity-framework-documentation"></a>Mitwirken an der Entity Framework-Dokumentation
 
-Das Dokument beschreibt den Prozess bei der Mitwirkung an den Artikeln und Codebeispielen, die auf der Website [Entity Framework-Dokumentation](https://docs.microsoft.com/ef) gehostet werden. Die Beiträge können so einfach wie das Korrigieren von Tippfehlern oder so komplex wie das Verfassen neuer Artikel sein.
+Nachfolgend wird der Prozess erläutert, wie Sie mit Artikeln und Codebeispielen zur Entity Framework-Dokumentation beitragen können. Die Beiträge können so einfach wie das Korrigieren von Tippfehlern oder so komplex wie das Verfassen neuer Artikel sein.
 
 ## <a name="how-to-make-a-simple-correction-or-suggestion"></a>So nehmen Sie eine einfache Korrektur vor oder machen Sie einen einfachen Vorschlag
 
-Artikel werden als Markdowndateien im Repository gespeichert. Einfache Änderungen am Inhalt einer Markdowndatei können im Browser vorgenommen werden, indem auf den Link **Bearbeiten** in der oberen rechten Ecke des Browserfensters geklickt wird. (Erweitern Sie in einem kleinen Browserfenster ggf. die Leiste **Optionen**, um den Link **Bearbeiten** sehen zu können.) Befolgen Sie die Anweisungen zum Erstellen eines Pull Requests (PR). Das EF-Team überprüft den PR und akzeptiert diesen oder schlägt Änderungen vor.
+Artikel werden als Markdowndateien im Repository gespeichert. Um eine einfache Änderung am Inhalt einer Markdowndatei vorzunehmen, klicken Sie auf den Link **Bearbeiten** in der oberen rechten Ecke des Browserfensters. Möglicherweise müssen Sie die Leiste **Optionen** erweitern, um den Link **Bearbeiten** sehen zu können. Befolgen Sie die Anweisungen zum Erstellen eines Pull Requests (PR). Das EF-Team überprüft den PR und akzeptiert diesen oder schlägt Änderungen vor.
 
 ## <a name="how-to-make-a-more-complex-submission"></a>So reichen Sie einen komplexeren Vorschlag ein
 
@@ -17,7 +25,7 @@ Sie benötigen Grundkenntnisse zu [Git und GitHub.com](https://guides.github.com
 
 ## <a name="markdown-syntax"></a>Markdownsyntax
 
-Artikel werden in [DocFx-flavored Markdown](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) – eine Erweiterung von [GitHub-flavored Markdown (GFM)](https://guides.github.com/features/mastering-markdown/) – geschrieben. Beispiele zur DFM-Syntax für Features der Benutzeroberfläche, die häufig in der EF-Dokumentation verwendet werden, finden Sie im Styleguide für das .NET Core-Repository unter [Metadaten- und Markdownvorlage](https://github.com/dotnet/docs/blob/master/styleguide/template.md). 
+Artikel werden in [DocFx-flavored Markdown (DFM)](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) – eine Erweiterung von [GitHub-flavored Markdown (GFM)](https://guides.github.com/features/mastering-markdown/) – geschrieben. Beispiele zur DFM-Syntax und Metadaten für Features der Benutzeroberfläche, die häufig in der EF-Dokumentation verwendet werden, finden Sie im Styleguide für das .NET Core-Repository unter [Metadaten- und Markdownvorlage](https://github.com/dotnet/docs/blob/master/styleguide/template.md).
 
 ## <a name="folder-structure-conventions"></a>Konventionen für Ordnerstrukturen
 
@@ -27,7 +35,7 @@ Codebeispiele werden im Stammordner `samples` gespeichert. Sie werden in einer O
 
 ## <a name="code-snippets"></a>Codeausschnitte
 
-Artikel enthalten häufig Codeausschnitte, um Argumente zu veranschaulichen. In DFM können Sie Code in die Markdowndatei kopieren oder auf eine separate Codedatei verweisen. Wir bevorzugen möglichst die Verwendung separater Codedateien, um das Risiko von Fehlern im Code zu minimieren. Die Codedateien müssen im Repository mit der Ordnerstruktur gespeichert werden, die für die obigen Beispielprojekte beschrieben ist.
+Artikel enthalten häufig Codeausschnitte, um Argumente zu veranschaulichen. In DFM können Sie Code in die Markdowndatei kopieren oder auf eine separate Codedatei verweisen. Verwenden Sie nach Möglichkeit separate Codedateien, um das Risiko von Fehlern im Code zu minimieren. Die Codedateien müssen im Repository mit der Ordnerstruktur gespeichert werden, die für die obigen Beispielprojekte beschrieben ist.
 
 Es folgen einige Beispiele für die [Syntax von DFM-Codeausschnitten](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet).
 
@@ -43,7 +51,7 @@ Um einen Teil einer Datei als Ausschnitt mittels Zeilennummern zu rendern, führ
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?range=1-10]
 ```
 
-Bei C#-Ausschnitten können Sie auf eine [C#-Region](https://msdn.microsoft.com/library/9a1ybwek.aspx) verweisen. Verwenden Sie nach Möglichkeit Regionen anstelle von Zeilennummern, da sich Zeilennummern in einer Codedatei in der Regel ändern und somit nicht mehr mit den Zeilennummernverweisen in der Markdowndatei übereinstimmen. C#-Regionen können geschachtelt werden, und wenn Sie auf die äußere Region verweisen, werden die inneren Anweisungen `#region` und `#endregion` nicht in einem Ausschnitt gerendert.
+Bei C#-Ausschnitten können Sie auf eine [C#-Region](https://msdn.microsoft.com/library/9a1ybwek.aspx) verweisen. Verwenden Sie Regionen anstelle von Zeilennummern. Zeilennummern in einer Codedatei ändern sich in der Regel und stimmen dann nicht mehr mit den Zeilennummernverweisen in der Markdowndatei überein. C#-Regionen können geschachtelt werden. Wenn Sie auf die äußere Region verweisen, werden die inneren Anweisungen `#region` und `#endregion` nicht in einem Ausschnitt gerendert.
 
 Um eine C# Region namens „snippet_Example“ zu rendern, führen Sie Folgendes aus:
 
