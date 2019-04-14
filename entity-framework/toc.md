@@ -65,6 +65,7 @@
 #### [Wertkonvertierungen](core/modeling/value-conversions.md)
 #### [Datenseeding](core/modeling/data-seeding.md)
 #### [Entitätstypkonstruktoren](core/modeling/constructors.md)
+#### [Tabellenaufteilung](core/modeling/table-splitting.md)
 #### [Entitätstypen im Besitz](core/modeling/owned-entities.md)
 #### [Abfragetypen](core/modeling/query-types.md)
 #### [Alternierende Modelle mit demselben DbContext-Typ](core/modeling/dynamic-model.md)
