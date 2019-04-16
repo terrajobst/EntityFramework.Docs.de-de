@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 5ae06a4342a556936dc44c5bf6622814eaad4733
-ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
+ms.openlocfilehash: b94ac567644a9d98a05a40857cc072c500203370
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/06/2018
-ms.locfileid: "48834746"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562558"
 ---
 <a name="migrations"></a>Migrationen
 ==========
@@ -47,8 +47,8 @@ dotnet ef migrations add InitialCreate
 
 Drei Dateien werden Ihrem Projekt im Verzeichnis **Migrationen** hinzugefügt:
 
-* **00000000000000_InitialCreate.cs** – Die wichtigste Migrationsdatei. Enthält die Vorgänge, die zum Durchführen der Migration (in `Up()`) und Rückgängigmachen (in `Down()`) erforderlich sind.
-* **00000000000000_InitialCreate.Designer.cs** – Die Metadatendatei für die Migration. Enthält Informationen, die vom EF verwendet werden.
+* **XXXXXXXXXXXXXX_InitialCreate.cs:** Die wichtigste Migrationsdatei. Enthält die Vorgänge, die zum Durchführen der Migration (in `Up()`) und Rückgängigmachen (in `Down()`) erforderlich sind.
+* **XXXXXXXXXXXXXX_InitialCreate.Designer.cs:** Die Metadatendatei für die Migration. Enthält Informationen, die vom EF verwendet werden.
 * **MyContextModelSnapshot.cs** – Eine Momentaufnahme des aktuellen Modells. Diese wird verwendet, um festzustellen, was sich beim Hinzufügen der nächsten Migration geändert hat.
 
 Mit dem Zeitstempel im Dateinamen können Migrationen chronologisch angeordnet werden, sodass Sie den Fortschritt der Änderungen mitverfolgen können.
