@@ -3,12 +3,12 @@ title: Codebasierte Konfiguration – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
-ms.openlocfilehash: c317f112f713612f7b9aef3764a0bd004fef5424
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
+ms.openlocfilehash: 079a4ab30af74eac8b1f51ece5801ff40a867a29
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325352"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619284"
 ---
 # <a name="code-based-configuration"></a>Codebasierte Konfiguration
 > [!NOTE]
@@ -106,7 +106,7 @@ Hierzu kann EntityFramework einen Ereignishandler registriert werden, der vorhan
 - Beim Starten der app (bevor EF verwendet wird) das plug-in oder der Anbieter sollte die Ereignishandlermethode für dieses Ereignis zu registrieren. (Beachten Sie, dass dies geschehen muss, bevor die Anwendung auf EF verwendet.)  
 - Der Ereignishandler ruft ReplaceService für jeden Dienst, der ersetzt werden muss.  
 
-Repalce IDbConnectionFactory und DbProviderService würden Sie beispielsweise einen Handler könnte folgendermaßen aussehen registrieren:  
+Um IDbConnectionFactory und DbProviderService ersetzen würden Sie beispielsweise einen Handler könnte folgendermaßen aussehen registrieren:  
 
 ``` csharp
 DbConfiguration.Loaded += (_, a) =>
