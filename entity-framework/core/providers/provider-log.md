@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 9ef87a737111053df0359f3b2d7a4f82d25c578a
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 61a58bd6119763d90731fac62343b983af510cb6
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58867943"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929874"
 ---
 # <a name="provider-impacting-changes"></a>Anbieter-Auswirkungen auf Änderungen
 
@@ -62,6 +62,7 @@ Beachten Sie, dass viele der der [wichtige Änderungen auf Anwendungsebene](../w
   * Konvention Satz Dienste haben sich geändert. Anbieter sollten jetzt über "ProviderConventionSet" oder "RelationalConventionSet" erben.
   * Anpassungen können hinzugefügt werden, über `IConventionSetCustomizer` Services, aber dies richtet sich an, die von anderen Erweiterungen, die nicht von Anbietern verwendet werden.
   * Zur Laufzeit verwendete Konventionen aus aufgelöst werden soll `IConventionSetBuilder`.
+* https://github.com/aspnet/EntityFrameworkCore/pull/15288 -Daten seeding wurde in eine öffentliche API zum Vermeiden von internen Typen verwendet werden müssen umgestaltet. Dies sollte nur auf nicht-relationalen Anbieter, auswirken, da das seeding durch die relationale Basisklasse für alle relationalen Anbieter behandelt wird.
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
@@ -82,7 +83,6 @@ Beachten Sie, dass viele der der [wichtige Änderungen auf Anwendungsebene](../w
   * Anbieter, die mithilfe dieser Tests möglicherweise reagieren
 * [https://github.com/aspnet/EntityFrameworkCore/pull/12141](https://github.com/aspnet/EntityFrameworkCore/pull/12141) -Zurückgeben Sie Kontext an den Pool anstatt in Funktionstests disposing
   * Diese Änderung umfasst einige Tests refactoring Anbieter, zu reagieren ist möglicherweise erforderlich
-
 
 ### <a name="test-and-product-code-changes"></a>Test und Produkt codeänderungen
 
