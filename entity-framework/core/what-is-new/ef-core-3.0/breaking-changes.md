@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: fd593b2832a5a6ffe27cd4493127b5d405f684ba
-ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
+ms.openlocfilehash: 4b251638de43af6525f3e6faa0bd4113ab1714b9
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/04/2019
-ms.locfileid: "58914126"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619258"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -242,6 +242,28 @@ Beispiel:
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
+
+## <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior.Restrict verfügt über eine übersichtlichere Semantik
+
+[Issue #12661](https://github.com/aspnet/EntityFrameworkCore/issues/12661)
+
+Diese Änderung wird in Vorschauversion 5 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Vor Version 3.0 wurden mit `DeleteBehavior.Restrict` Fremdschlüssel in der Datenbank mit `Restrict`-Semantik erstellt, es wurden aber auch unvorhergesehen interne Fixups geändert.
+
+**Neues Verhalten**
+
+Ab Version 3.0 wird mit `DeleteBehavior.Restrict` sichergestellt, dass Fremdschlüssel mit `Restrict`-Semantik erstellt werden – d. h. ohne Überlappungen; ausgenommen bei Einschränkungsverletzungen – und ohne Auswirkungen auf EF-interne Fixups.
+
+**Hintergründe**
+
+Diese Änderung wurde vorgenommen, um die Benutzerfreundlichkeit bei intuitiver Verwendung von `DeleteBehavior` ohne unerwartete Nebeneffekte zu verbessern.
+
+**Vorbeugende Maßnahmen**
+
+Sie können das vorherige Verhalten wiederherstellen, indem Sie `DeleteBehavior.ClientNoAction` verwenden.
 
 ## <a name="query-types-are-consolidated-with-entity-types"></a>Abfragetypen werden mit Entitätstypen zusammengeführt
 
@@ -685,6 +707,52 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="field-only-property-names-should-match-the-field-name"></a>„Nur-Feld“-Eigenschaftsnamen sollten dem Feldnamen entsprechen
+
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Vor Version 3.0 konnte in EF Core eine Eigenschaft durch einen Zeichenfolgenwert angegeben werden, und wenn keine Eigenschaft mit diesem Namen für den CLR-Typ gefunden wurde, hat EF Core versucht, mithilfe von Übereinstimmungsregeln ein entsprechendes Feld zu finden.
+```C#
+private class Blog
+{
+    private int _id;
+    public string Name { get; set; }
+}
+```
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id");
+```
+
+**Neues Verhalten**
+
+Ab Version 3.0 muss in EF Core eine „Nur-Feld“-Eigenschaft mit dem Namen des Felds genau übereinstimmen.
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("_id");
+```
+
+**Hintergründe**
+
+Diese Änderung wurde vorgenommen, um zu vermeiden, dass das gleiche Feld für zwei Eigenschaften mit ähnlichem Namen verwendet wird. Durch die Änderung entsprechen nun auch die Übereinstimmungsregeln für „Nur-Feld“-Eigenschaften den Regeln für Eigenschaften, die CLR-Eigenschaften zugeordnet sind.
+
+**Vorbeugende Maßnahmen**
+
+„Nur-Feld“-Eigenschaften müssen so benannt werden wie das Feld, dem sie zugeordnet sind.
+In einer späteren Vorschauversion von EF Core 3.0 soll das explizite Konfigurieren eines Feldnamens, der sich vom Eigenschaftsnamen unterscheidet, erneut aktiviert werden:
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id")
+    .HasField("_id");
+```
+
 ## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>Von AddDbContext/AddDbContextPool werden AddLogging und AddMemoryCache nicht mehr aufgerufen.
 
 [Issue #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
@@ -1010,11 +1078,35 @@ Verwenden Sie `HasIndex().ForSqlServerInclude()`.
 
 **Hintergründe**
 
-Diese Änderung wurde vorgenommen, um die API für Indizes mit `Includes` an einer zentralen Stelle für alle Datenbankanbieter zusammenzuführen.
+Diese Änderung wurde vorgenommen, um die API für Indizes mit `Include` an einer zentralen Stelle für alle Datenbankanbieter zusammenzuführen.
 
 **Vorbeugende Maßnahmen**
 
 Verwenden Sie wie oben beschrieben die neue API.
+
+## <a name="metadata-api-changes"></a>Metadaten-API-Änderungen
+
+[Issue #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
+
+**Neues Verhalten**
+
+Die folgenden Eigenschaften wurden in Erweiterungsmethoden konvertiert:
+
+* `IEntityType.QueryFilter` -> `GetQueryFilter()`
+* `IEntityType.DefiningQuery` -> `GetDefiningQuery()`
+* `IProperty.IsShadowProperty` -> `IsShadowProperty()`
+* `IProperty.BeforeSaveBehavior` -> `GetBeforeSaveBehavior()`
+* `IProperty.AfterSaveBehavior` -> `GetAfterSaveBehavior()`
+
+**Hintergründe**
+
+Mit dieser Änderung wird die Implementierung der oben genannten Schnittstellen vereinfacht.
+
+**Vorbeugende Maßnahmen**
+
+Verwenden Sie die neuen Erweiterungsmethoden.
 
 ## <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core sendet keine PRAGMA-Anweisungen mehr, um Fremdschlüssel in SQLite zu erzwingen
 
