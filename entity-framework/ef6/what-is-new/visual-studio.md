@@ -25,7 +25,7 @@ Finden Sie unter [neues](~/ef6/what-is-new/index.md) für Weitere Informationen 
 Sie können manuell installieren oder aktualisieren Sie online auf EF-NuGet-Pakets zur Verfügung.
 - Standardmäßig ist SQL Server-Instanz zur Verfügung, mit dieser Version von Visual Studio eine LocalDB-Instanz namens MSSQLLocalDB.
 Der Serverabschnitt der Verbindungszeichenfolge, die Sie verwenden sollten ist "(Localdb)\\MSSQLLocalDB".
-Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der c#-Code angeben.  
+Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der C#-Code angeben.  
 
 
 ## <a name="visual-studio-2015-to-visual-studio-2017-156"></a>Visual Studio 2015 zu Visual Studio 2017 15.6
@@ -36,7 +36,7 @@ Finden Sie unter [vergangenen Releases](~/ef6/what-is-new/past-releases.md#ef-61
 Sie können manuell installieren oder aktualisieren Sie online auf EF-NuGet-Pakets zur Verfügung.
 - Standardmäßig ist SQL Server-Instanz zur Verfügung, mit dieser Version von Visual Studio eine LocalDB-Instanz namens MSSQLLocalDB.
 Der Serverabschnitt der Verbindungszeichenfolge, die Sie verwenden sollten ist "(Localdb)\\MSSQLLocalDB".
-Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der c#-Code angeben.  
+Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der C#-Code angeben.  
 
 
 ## <a name="visual-studio-2013"></a>Visual Studio 2013
@@ -47,7 +47,7 @@ Finden Sie unter [vergangenen Releases](~/ef6/what-is-new/past-releases.md#ef-61
 Sie können manuell installieren oder aktualisieren Sie online auf EF-NuGet-Pakets zur Verfügung.
 - Standardmäßig ist SQL Server-Instanz zur Verfügung, mit dieser Version von Visual Studio eine LocalDB-Instanz namens MSSQLLocalDB.
 Der Serverabschnitt der Verbindungszeichenfolge, die Sie verwenden sollten ist "(Localdb)\\MSSQLLocalDB".
-Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der c#-Code angeben.  
+Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der C#-Code angeben.  
 
 ## <a name="visual-studio-2012"></a>Visual Studio 2012
 
@@ -58,7 +58,7 @@ Finden Sie unter [vergangenen Releases](~/ef6/what-is-new/past-releases.md#ef-61
 Sie können manuell installieren oder aktualisieren Sie online auf EF-NuGet-Pakets zur Verfügung.
 - Standardmäßig ist SQL Server-Instanz zur Verfügung, mit dieser Version von Visual Studio eine LocalDB-Instanz namens V11. 0.
 Der Serverabschnitt der Verbindungszeichenfolge, die Sie verwenden sollten ist "(Localdb)\\V11. 0".
-Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der c#-Code angeben.  
+Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der C#-Code angeben.  
 
 ## <a name="visual-studio-2010"></a>Visual Studio 2010
 
@@ -66,8 +66,8 @@ Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Pr�
 - Standardmäßig werden das Entity Framework-Tools Entity Framework 4.0 zu Ihren Projekten hinzufügen.
 Um Anwendungen mit alle neueren Versionen von EF zu erstellen, müssen Sie zuerst zum Installieren der [NuGet-Paket-Manager-Erweiterung](https://marketplace.visualstudio.com/items?itemName=NuGetTeam.NuGetPackageManager).
 - In der Standardeinstellung ist alle codegenerierung in der Version von EF-Tools "EntityObject" und Entity Framework 4 abhängig.
-Es wird empfohlen, dass Sie die codegenerierung für "DbContext" und Entity Framework 5, basieren soll, installieren Sie die "DbContext" Code generieren-Vorlagen für wechseln [c#](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforC) oder [Visual Basic](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforVBNET).
+Es wird empfohlen, dass Sie die codegenerierung für "DbContext" und Entity Framework 5, basieren soll, installieren Sie die "DbContext" Code generieren-Vorlagen für wechseln [C#](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforC) oder [Visual Basic](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforVBNET).
 - Nachdem Sie die NuGet-Paket-Manager-Erweiterungen installiert haben, können Sie manuell installieren oder aktualisieren Sie online auf EF-NuGet-Pakets zur Verfügung und wird mit EF6 Code First, das nicht mit einen Designer erfordert.
 - Standardmäßig ist der SQL Server-Instanz, die mit dieser Version von Visual Studio verfügbaren SQL Server Express mit dem Namen ' SQLEXPRESS.
 Ist der Server Teil der Verbindungszeichenfolge sollten Sie verwenden ". \\SQLEXPRESS ".
-Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der c#-Code angeben.
+Denken Sie daran, verwenden Sie eine ausführliche Zeichenfolge, die mit dem Präfix `@` oder umgekehrter Schrägstriche doppelte "\\\\" Wenn Sie eine Verbindungszeichenfolge in der C#-Code angeben.

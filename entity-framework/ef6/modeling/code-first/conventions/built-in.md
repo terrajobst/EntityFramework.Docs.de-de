@@ -11,7 +11,7 @@ ms.lasthandoff: 09/13/2018
 ms.locfileid: "45490999"
 ---
 # <a name="code-first-conventions"></a>Code First-Konventionen
-Code First können Sie zum Beschreiben eines Modells mithilfe von c# oder Visual Basic-Klassen. Die grundlegende Form des Modells wird mithilfe von Konventionen erkannt. Konventionen sind Sätze von Regeln, die verwendet werden, um ein konzeptionelles Modell basierend auf Klassendefinitionen, bei der Arbeit mit Code First automatisch zu konfigurieren. Die Konventionen werden in den System.Data.Entity.ModelConfiguration.Conventions-Namespace definiert.  
+Code First können Sie zum Beschreiben eines Modells mithilfe von C# oder Visual Basic-Klassen. Die grundlegende Form des Modells wird mithilfe von Konventionen erkannt. Konventionen sind Sätze von Regeln, die verwendet werden, um ein konzeptionelles Modell basierend auf Klassendefinitionen, bei der Arbeit mit Code First automatisch zu konfigurieren. Die Konventionen werden in den System.Data.Entity.ModelConfiguration.Conventions-Namespace definiert.  
 
 Sie können das Modell weiter mithilfe von datenanmerkungen oder der fluent-API konfigurieren. Die Konfiguration über die fluent-API, gefolgt von datenanmerkungen und Konventionen erhält Vorrang vor. Weitere Informationen finden Sie unter [Datenanmerkungen](~/ef6/modeling/code-first/data-annotations.md), [Fluent-API – Beziehungen](~/ef6/modeling/code-first/fluent/relationships.md), [Fluent-API - Typen und Eigenschaften, die](~/ef6/modeling/code-first/fluent/types-and-properties.md) und [Fluent-API in VB.NET](~/ef6/modeling/code-first/fluent/vb.md).  
 

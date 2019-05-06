@@ -14,7 +14,7 @@ ms.locfileid: "46284121"
 Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.Net-Klassen. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
 
 ## <a name="watch-the-video"></a>Video ansehen
-Dieses Video bietet eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code zuerst können Sie Ihr Modell mithilfe von c# oder VB.NET. Klassen definieren. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
+Dieses Video bietet eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code zuerst können Sie Ihr Modell mithilfe von C# oder VB.NET. Klassen definieren. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
 
 **Präsentation:** [Rowan Miller](http://romiller.com/)
 
