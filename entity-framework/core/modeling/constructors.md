@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: 1b36197465fb9a6571a306d36eb1e9d885a5399e
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 5bf49718f02c1860871b1f4c255ec4d98fce2fc7
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152464"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405246"
 ---
 # <a name="entity-types-with-constructors"></a>Entitätstypen mit Konstruktoren
 
@@ -90,7 +90,7 @@ Einige Punkte zu beachten:
 * Nicht alle Eigenschaften müssen Konstruktorparameter. Beispielsweise wird die Post.Content-Eigenschaft von einzelnen Konstruktorparameter nicht festgelegt, damit EF Core er nach dem Aufruf des Konstruktors, auf die übliche Weise festgelegt werden.
 * Der Parametertypen und muss mit dem Unterschied, dass Eigenschaften Pascal-Schreibweise verwendet werden, während die Parameter in Kamel-Schreibweise werden Eigenschaftstypen und -Namen übereinstimmen.
 * EF Core kann nicht festgelegt Navigationseigenschaften (z. B. Blog oder Ihre Beiträge, die oben genannten) über einen Konstruktor.
-* Der Konstruktor kann als öffentlich, privat, oder eine beliebige andere zugriffsmöglichkeiten aufweisen.
+* Der Konstruktor kann als öffentlich, privat, oder eine beliebige andere zugriffsmöglichkeiten aufweisen. Lazy Loading-Proxys erfordern jedoch, dass der Konstruktor über die erbende Klasse für den Anwendungsproxy zugänglich ist. In der Regel bedeutet dies entweder öffentliche oder geschützte erleichtert.
 
 ### <a name="read-only-properties"></a>Schreibgeschützte Eigenschaften
 

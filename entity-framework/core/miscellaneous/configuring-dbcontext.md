@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 0350b25d0d0efe05df7cb9e93a3f4ae2d864fd63
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 316d363d4a1b8a909efc1c32b492280c0d16cb4e
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "59363936"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405209"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurieren einen "DbContext"
 
@@ -163,7 +163,13 @@ var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
 ## <a name="avoiding-dbcontext-threading-issues"></a>Vermeiden von "DbContext" Threadingprobleme
 
-Entity Framework Core unterstützt nicht mehrere parallele Vorgänge ausgeführt wird, auf dem gleichen `DbContext` Instanz. Gleichzeitiger Zugriff kann zu nicht definiertem Verhalten, Anwendungsabstürze und Beschädigung von Daten führen. Trennen Sie daher unbedingt immer `DbContext` -Instanzen für Vorgänge, die parallel ausgeführt werden. 
+Entity Framework Core unterstützt nicht mehrere parallele Vorgänge ausgeführt wird, auf dem gleichen `DbContext` Instanz. Dies schließt sowohl die parallele Ausführung von asynchronen Abfragen als auch die explizite gleichzeitige Verwendung von mehreren Threads. Aus diesem Grund, immer `await` Async sofort aufgerufen wird, oder verwenden Sie separate `DbContext` -Instanzen für Vorgänge, die parallel ausgeführt werden.
+
+Wenn EF Core geschriebenes erkennt eine `DbContext` Instanz gleichzeitig, sehen Sie ein `InvalidOperationException` mit einer Meldung wie folgt: 
+
+> Für diesen Kontext vor einem vorherigen Vorgang abgeschlossen wurde ein zweiter Vorgang gestartet. Dies wird in der Regel, wenn unterschiedliche Threads verursacht, mithilfe der gleichen Instanz von "DbContext", werden jedoch Instanzmember nicht unbedingt threadsicher sein.
+
+Beim gleichzeitiger Zugriff nicht erkannt wird, kann es zu nicht definiertem Verhalten, Anwendungsabstürze und Beschädigung von Daten führen.
 
 Es sind häufige Fehler, die Inadvernetly Ursache gleichzeitigen Zugriff auf dem gleichen `DbContext` Instanz:
 

@@ -3,12 +3,12 @@ title: Arbeiten mit Transaktionen – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 7197733ab25c8475746e7863963384730919e3ff
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 96cfff4cca59ab27dd68f50d0260e90902e33a92
+ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489777"
+ms.lasthandoff: 04/29/2019
+ms.locfileid: "64873234"
 ---
 # <a name="working-with-transactions"></a>Arbeiten mit Transaktionen
 > [!NOTE]
@@ -39,7 +39,7 @@ Vor EF6 Entity Framework tiefsten Abgründe Öffnen der datenbankverbindung selb
 
 Ab EF6 das Framework jetzt bietet:  
 
-1. **Database.BeginTransaction()** : eine einfachere Methode für einen Benutzer zum Starten und Abschließen von Transaktionen selbst innerhalb einer vorhandenen "DbContext": zulassen, dass mehrere Vorgänge innerhalb einer Transaktion kombiniert werden und daher entweder alle ein Commit oder alle ein Rollback als eine. Sie können auch den Benutzer leichter auf die Isolationsstufe der Transaktion angeben.  
+1. **Database.BeginTransaction()** : Eine einfachere Methode für einen Benutzer zum Starten und Abschließen von Transaktionen selbst innerhalb einer vorhandenen "DbContext": zulassen, dass mehrere Vorgänge innerhalb einer Transaktion kombiniert werden und daher entweder alle die ein Commit oder alle der Rollback als eine. Sie können auch den Benutzer leichter auf die Isolationsstufe der Transaktion angeben.  
 2. **Database.UseTransaction()** : ermöglicht die Verwendung von "DbContext", um eine Transaktion zu verwenden, die außerhalb von Entity Framework gestartet wurde.  
 
 ### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Kombinieren mehrere Vorgänge in einer Transaktion innerhalb desselben Kontexts  
@@ -126,7 +126,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-sing System.Transactions;
+using System.Transactions;
 
 namespace TransactionsExamples
 {
