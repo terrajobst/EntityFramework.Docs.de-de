@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 4b251638de43af6525f3e6faa0bd4113ab1714b9
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59619258"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405233"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -76,6 +76,35 @@ Entwickler können nun außerdem genau festlegen, wann für EF Core und zugehör
 
 Wenn Sie EF Core in einer Anwendung unter ASP.NET Core 3.0 oder in einer anderen unterstützten Anwendung verwenden möchten, müssen Sie dem EF Core-Datenbankanbieter, der für die Anwendung genutzt werden soll, explizit einen Paketverweis hinzufügen.
 
+## <a name="the-ef-core-command-line-tool-dotnet-ef-is-no-longer-part-of-the-net-core-sdk"></a>Das EF Core-Befehlszeilentool (dotnet ef) ist nicht länger Bestandteil des .NET Core SDK.
+
+[Issue #14016](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
+
+Diese Änderung wurde in EF Core 3.0-preview 4 und der zugehörigen Version des .NET Core SDK eingeführt.
+
+**Altes Verhalten**
+
+Vor Version 3.0 war das `dotnet ef`-Tool im .NET Core SDK enthalten und konnte von der Befehlszeile aus ohne zusätzliche Schritte in einem beliebigen Projekt verwendet werden. 
+
+**Neues Verhalten**
+
+Ab Version 3.0 ist das `dotnet ef`-Tool nicht mehr im .NET SDK enthalten und muss deshalb vor der Verwendung explizit als lokales oder globales Tool installiert werden. 
+
+**Hintergründe**
+
+Durch diese Änderung kann `dotnet ef` als reguläres .NET-CLI-Tool für NuGet verteilt und aktualisiert werden und entspricht damit dem üblichen Verfahren, dass EF Core 3.0 ebenfalls immer als NuGet-Paket verteilt wird.
+
+**Vorbeugende Maßnahmen**
+
+Um Migrationen zu verwalten oder ein Gerüst für `DbContext` zu erstellen, installieren Sie `dotnet-ef` mithilfe des Befehls `dotnet tool install`.
+Um beispielsweise eine Installation als globales Tool durchzuführen, können Sie diesen Befehl verwenden:
+
+  ``` console
+  $ dotnet tool install --global dotnet-ef --version <exact-version>
+  ```
+
+Eine Verwendung als lokales Tool ist ebenfalls möglich, wenn Sie die Abhängigkeiten eines Projekts wiederherstellen, das das Tool mithilfe einer [Toolmanifestdatei](https://github.com/dotnet/cli/issues/10288) als Toolabhängigkeit deklariert.
+
 ## <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>FromSql, ExecuteSql und ExecuteSqlAsync wurden umbenannt
 
 [Issue #10996](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
@@ -109,7 +138,7 @@ Beachten Sie, dass die beiden oben genannten Abfragen dieselbe parametrisierte S
 
 **Hintergründe**
 
-Bei Methodenüberladungen wie dieser wird leicht versehentlich die Methode für unformatierte Zeichenfolgen aufgerufen, wenn eigentlich beabsichtigt war, die Methode für interpolierte Zeichenfolgen aufzurufen, und umgekehrt.
+Bei Methodenüberladungen wie dieser wird sehr leicht versehentlich die Methode für unformatierte Zeichenfolgen aufgerufen, wenn eigentlich beabsichtigt war, die Methode für interpolierte Zeichenfolgen aufzurufen (und umgekehrt).
 Dadurch werden Abfragen möglicherweise nicht parametrisiert, obwohl dies der Fall sein sollte.
 
 **Vorbeugende Maßnahmen**
@@ -602,7 +631,7 @@ Ab Version 3.0 schließt EF Core die Verbindung, sobald sie nicht mehr verwendet
 
 **Hintergründe**
 
-Diese Änderung ermöglicht die Verwendung mehrerer Kontexte in demselben `TransactionScope`. Das neue Verhalten entspricht auch EF6.
+Diese Änderung ermöglicht die Verwendung mehrerer Kontexte in demselben `TransactionScope`. Das neue Verhalten entspricht außerdem EF6.
 
 **Vorbeugende Maßnahmen**
 
