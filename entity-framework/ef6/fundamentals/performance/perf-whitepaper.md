@@ -3,12 +3,12 @@ title: Überlegungen zur Leistung für EF4, EF5 und EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: 4c1f03533cf6df49555c3ef8d09d5949b9a3335c
-ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
+ms.openlocfilehash: f8fa1001c85366e169cf50e89efdb65bd92b671e
+ms.sourcegitcommit: f277883a5ed28eba57d14aaaf17405bc1ae9cf94
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56459210"
+ms.lasthandoff: 05/18/2019
+ms.locfileid: "65874609"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Überlegungen zur Leistung für Entity Framework 4, 5 und 6
 Von David Obando, Eric Dettinger usw.
@@ -119,9 +119,9 @@ Verwenden von vorab generierten Sichten verschiebt die Kosten für das Generiere
 
 Wir haben gesehen, eine Reihe von Fällen, in denen wechseln von Zuordnungen in das Modell von unabhängigen Zuordnungen auf Zuordnungen von Foreign Key drastisch die Zeit im Generieren von Sichten verbessert.
 
-Um diese Verbesserung zu demonstrieren, haben wir zwei Versionen des Modells Navision mithilfe von EDMGen generiert. *Hinweis: Seeappendix Cfor eine Beschreibung des Modells Navision.* Das Modell Navision ist für diese Übung, aufgrund dessen große Menge von Entitäten und Beziehungen zwischen ihnen interessant.
+Um diese Verbesserung zu demonstrieren, haben wir zwei Versionen des Modells Navision mithilfe von EDMGen generiert. *Hinweis: finden Sie in Anhang C eine Beschreibung des Modells Navision.* Das Modell Navision ist für diese Übung, aufgrund dessen große Menge von Entitäten und Beziehungen zwischen ihnen interessant.
 
-Eine Version dieses Modells sehr große mit Zuordnungen von Foreign-Schlüssel generiert wurde, und der andere mit unabhängigen Zuordnungen generiert wurde. Klicken Sie dann Timeout wir bei, wie lang es gedauert, um die Ansichten für jedes Modell zu generieren. Entität Framework5-Test verwendet die GenerateViews()-Methode aus der Klasse EntityViewGenerator, um den Ansichten zu generieren, während der Entity Framework 6-Test die GenerateViews()-Methode aus der Klasse StorageMappingItemCollection verwendet. Dies ist aufgrund von Code umstrukturieren, die in der Entity Framework 6-Codebasis aufgetreten sind.
+Eine Version dieses Modells sehr große mit Zuordnungen von Foreign-Schlüssel generiert wurde, und der andere mit unabhängigen Zuordnungen generiert wurde. Klicken Sie dann Timeout wir bei, wie lang es gedauert, um die Ansichten für jedes Modell zu generieren. Entity Framework 5 Test verwendet die GenerateViews()-Methode aus der Klasse EntityViewGenerator um zu die Ansichten zu generieren, während der Entity Framework 6-Test die GenerateViews()-Methode von StorageMappingItemCollection-Klasse verwendet. Dies ist aufgrund von Code umstrukturieren, die in der Entity Framework 6-Codebasis aufgetreten sind.
 
 Mithilfe von Entity Framework 5, dauerte Generieren von Sichten für das Modell mit Fremdschlüsseln 65 Minuten, in einer Lab-Computer. Es unbekannten wie lange erforderlich gewesen wäre, um die Ansichten für das Modell zu generieren, die unabhängige Zuordnungen verwendet. Wir bleiben den Test ausführen, die für mehr als einem Monat, bevor der Computer neu gestartet wurde, in unserer testumgebung monatlichen Updates zu installieren.
 
@@ -240,7 +240,7 @@ Beachten Sie, dass der Cache Entfernung Timer gestartet ist, 800 Entitäten vorh
 
 #### <a name="323-test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 Testmetriken Sie Demonstration Leistung Zwischenspeichern von Abfrageplänen
 
-Um die Auswirkungen auf die Leistung Ihrer Anwendung Zwischenspeichern von Abfrageplänen zu demonstrieren, ausgeführt, wir einen Test, in dem wir eine Anzahl von Entity SQL-Abfragen für das Microsoft Navision-Modell ausgeführt haben. Finden Sie im Anhang eine Beschreibung des Modells Navision und die Typen von Abfragen, die ausgeführt wurden. In diesem Test wir zunächst die Liste der Abfragen durchlaufen und jeweils einmal ausgeführt, um sie mit dem Cache hinzuzufügen (sofern es sich um eine Zwischenspeicherung aktiviert ist). Dieser Schritt ist untimed. Als Nächstes Standbymodus wir den Hauptthread für mehr als 60 Sekunden zum Cache sweeping zum durchgeführt werden; zum Schluss durchlaufen wir die Liste eine 2. Ausführungsdauer die zwischengespeicherten Abfragen. Darüber hinaus ist er SQL Server-Plancache geleert, bevor jede Gruppe von Abfragen ausgeführt wird, so, dass die Häufigkeit, mit die wir genau erhalten den Vorteil, dass vom Abfrageplancache angezeigt.
+Um die Auswirkungen auf die Leistung Ihrer Anwendung Zwischenspeichern von Abfrageplänen zu demonstrieren, ausgeführt, wir einen Test, in dem wir eine Anzahl von Entity SQL-Abfragen für das Microsoft Navision-Modell ausgeführt haben. Finden Sie im Anhang eine Beschreibung des Modells Navision und die Typen von Abfragen, die ausgeführt wurden. In diesem Test wir zunächst die Liste der Abfragen durchlaufen und jeweils einmal ausgeführt, um sie mit dem Cache hinzuzufügen (sofern es sich um eine Zwischenspeicherung aktiviert ist). Dieser Schritt ist untimed. Als Nächstes Standbymodus wir den Hauptthread für mehr als 60 Sekunden zum Cache sweeping zum durchgeführt werden; zum Schluss durchlaufen wir die Liste eine 2. Ausführungsdauer die zwischengespeicherten Abfragen. Darüber hinaus wird der SQL Server-Plancache geleert, bevor jede Gruppe von Abfragen ausgeführt wird, so, dass die Häufigkeit, mit die wir genau erhalten den Vorteil, dass vom Abfrageplancache angezeigt.
 
 ##### <a name="3231-test-results"></a>3.2.3.1 "Testergebnisse"
 
@@ -487,7 +487,7 @@ Eine schnellere Version der gleichen Code enthält z. B. Aufrufen von Skip mit e
 
 ``` csharp
 var customers = context.Customers.OrderBy(c => c.LastName);
-for (var i = 0; i \< count; ++i)
+for (var i = 0; i < count; ++i)
 {
     var currentCustomer = customers.Skip(() => i).FirstOrDefault();
     ProcessCustomer(currentCustomer);
