@@ -62,7 +62,7 @@ Beachten Sie, dass viele der der [wichtige Änderungen auf Anwendungsebene](../w
   * Konvention Satz Dienste haben sich geändert. Anbieter sollten jetzt über "ProviderConventionSet" oder "RelationalConventionSet" erben.
   * Anpassungen können hinzugefügt werden, über `IConventionSetCustomizer` Services, aber dies richtet sich an, die von anderen Erweiterungen, die nicht von Anbietern verwendet werden.
   * Zur Laufzeit verwendete Konventionen aus aufgelöst werden soll `IConventionSetBuilder`.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15288 -Daten seeding wurde in eine öffentliche API zum Vermeiden von internen Typen verwendet werden müssen umgestaltet. Dies sollte nur auf nicht-relationalen Anbieter, auswirken, da das seeding durch die relationale Basisklasse für alle relationalen Anbieter behandelt wird.
+* [https://github.com/aspnet/EntityFrameworkCore/pull/15288](https://github.com/aspnet/EntityFrameworkCore/pull/15288) -Daten seeding wurde in eine öffentliche API zum Vermeiden von internen Typen verwendet werden müssen umgestaltet. Dies sollte nur auf nicht-relationalen Anbieter, auswirken, da das seeding durch die relationale Basisklasse für alle relationalen Anbieter behandelt wird.
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
