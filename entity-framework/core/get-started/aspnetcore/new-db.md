@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: fbc1a00d6d6d0624bcbbfa1e51f4e21a915baaaa
-ms.sourcegitcommit: f277883a5ed28eba57d14aaaf17405bc1ae9cf94
+ms.openlocfilehash: 2eb1668b8c077fabc9cb21088452fd1bead7ff22
+ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/18/2019
-ms.locfileid: "65874566"
+ms.lasthandoff: 05/31/2019
+ms.locfileid: "66452247"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer neuen Datenbank
 
@@ -226,8 +226,12 @@ dotnet run
 
   ![Indexseite](_static/index-new-db.png)
 
-## <a name="additional-resources"></a>Zusätzliche Ressourcen
+## <a name="additional-tutorials"></a>Weitere Tutorials
 
-* [Tutorial: Erste Schritte mit EF Core in .NET Core mit einer neuen Datenbank mithilfe von SQLite](xref:core/get-started/netcore/new-db-sqlite)
-* [Erste Schritte mit Razor-Seiten in ASP.NET Core](/aspnet/core/tutorials/razor-pages/razor-pages-start) oder [Erste Schritte mit ASP.NET Core MVC](/aspnet/core/tutorials/first-mvc-app/start-mvc)
-* [Tutorial: Razor Pages mit Entity Framework Core in ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro) oder [Erste Schritte mit EF Core in einer ASP.NET Core MVC-Web-App](/aspnet/core/data/ef-mvc/intro)
+* [Erste Schritte mit EF Core in .NET Core mit einer neuen Datenbank mithilfe von SQLite](xref:core/get-started/netcore/new-db-sqlite)
+* ASP.NET Core MVC:
+  * [Erste Schritte mit ASP.NET Core MVC](/aspnet/core/tutorials/first-mvc-app/start-mvc)
+  * [Erste Schritte mit EF Core in einer ASP.NET Core MVC-Web-App](/aspnet/core/data/ef-mvc/intro)
+* [Razor Pages](/aspnet/core/razor-pages/index):
+  * [Erste Schritte mit Razor Pages in ASP.NET Core](/aspnet/core/tutorials/razor-pages/razor-pages-start)
+  * [Razor Pages mit Entity Framework Core in ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)

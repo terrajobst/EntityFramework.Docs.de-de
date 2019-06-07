@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
-ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
+ms.openlocfilehash: faae0153e0f2bdd42d3b316582dfcab88d9ceb5b
+ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65405233"
+ms.lasthandoff: 05/31/2019
+ms.locfileid: "66452300"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -319,10 +319,10 @@ Des Weiteren werden sie oft Sichten zugeordnet, was aber nur daran liegt, dass f
 **Vorbeugende Maßnahmen**
 
 Die folgenden Teile der API sind durch die Änderungen veraltet:
-* **`ModelBuilder.Query<>()`**: Rufen Sie stattdessen `ModelBuilder.Entity<>().HasNoKey()` auf, um einen schlüssellosen Entitätstyp festzulegen.
+* **`ModelBuilder.Query<>()`** : Rufen Sie stattdessen `ModelBuilder.Entity<>().HasNoKey()` auf, um einen schlüssellosen Entitätstyp festzulegen.
 Dieses Verhalten wird nach wie vor nicht konventionsgemäß festgelegt, um Fehlkonfigurationen zu vermeiden, wenn ein Primärschlüssel erwartet wird, jedoch nicht mit der Konvention übereinstimmt.
-* **`DbQuery<>`**: Verwenden Sie stattdessen `DbSet<>`.
-* **`DbContext.Query<>()`**: Verwenden Sie stattdessen `DbContext.Set<>()`.
+* **`DbQuery<>`** : Verwenden Sie stattdessen `DbSet<>`.
+* **`DbContext.Query<>()`** : Verwenden Sie stattdessen `DbContext.Set<>()`.
 
 ## <a name="configuration-api-for-owned-type-relationships-has-changed"></a>Die Konfigurations-API für Beziehungen abhängiger (owned) Typen wurde geändert
 
@@ -742,7 +742,7 @@ Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
-Vor Version 3.0 konnte in EF Core eine Eigenschaft durch einen Zeichenfolgenwert angegeben werden, und wenn keine Eigenschaft mit diesem Namen für den CLR-Typ gefunden wurde, hat EF Core versucht, mithilfe von Übereinstimmungsregeln ein entsprechendes Feld zu finden.
+Vor Version 3.0 konnte in EF Core eine Eigenschaft durch einen Zeichenfolgenwert angegeben werden, und wenn keine Eigenschaft mit diesem Namen im CLR-Typ gefunden wurde, versuchte EF Core, mithilfe von Konventionsregeln ein übereinstimmendes Feld zu finden.
 ```C#
 private class Blog
 {
@@ -1289,7 +1289,7 @@ Die Reihenfolge der Migrationen ist beim Aktualisieren einer Datenbank oder Aufl
 
 **Vorbeugende Maßnahmen**
 
-Diese Änderung betrifft jeden, der einen Kalender verwendet, der nicht gregorianisch ist und bei dem die Jahreszahl höher als die des gregorianischen Kalenders ist (wie z.B. in der buddhistischen Zeitrechnung). Vorhandene Migrations-IDs müssen aktualisiert werden, damit neue Migrationen in der Reihenfolge hinter vorhandenen Migrationen eingeordnet werden.
+Diese Änderung betrifft jeden Benutzer, der einen Kalender verwendet, der nicht gregorianisch ist und bei dem die Jahreszahl höher als die des gregorianischen Kalenders ist (wie z.B. in der buddhistischen Zeitrechnung). Vorhandene Migrations-IDs müssen aktualisiert werden, damit neue Migrationen in der Reihenfolge hinter vorhandenen Migrationen eingeordnet werden.
 
 Sie können die Migrations-ID im Migration-Attribut in der Designerdatei der Migration finden.
 
@@ -1350,7 +1350,7 @@ var constraintName = myForeignKey.ConstraintName;
 
 **Hintergründe**
 
-Durch diese Änderung wird Konsistenz für Benennungen in diesem Bereich gewährleistet, und es wird verdeutlicht, dass es sich dabei um den Namen der Fremdschlüsseleinschränkung handelt und nicht um den Spalten- oder Eigenschaftennamen auf deren Grundlage der Fremdschlüssel definiert wird.
+Durch diese Änderung wird Konsistenz für Benennungen in diesem Bereich gewährleistet, und es wird verdeutlicht, dass es sich dabei um den Namen der Fremdschlüsseleinschränkung handelt und nicht um den Spalten- oder Eigenschaftennamen, auf deren Grundlage der Fremdschlüssel definiert ist.
 
 **Vorbeugende Maßnahmen**
 
