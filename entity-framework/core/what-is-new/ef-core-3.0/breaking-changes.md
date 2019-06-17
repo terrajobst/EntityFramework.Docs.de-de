@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: faae0153e0f2bdd42d3b316582dfcab88d9ceb5b
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: 9112d8d235237e68232aac54453d584af0edb524
+ms.sourcegitcommit: b188194a1901f4d086d05765cbc5c9b8c9dc5eed
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452300"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66829486"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -55,7 +55,7 @@ Wenn sich eine Abfrage nicht vollständig übersetzen lässt, habe Sie zwei Mög
 
 [Issueankündigungen #325](https://github.com/aspnet/Announcements/issues/325)
 
-Diese Änderung wurde in Vorschauversion 1 von ASP.NET Core 3.0 eingeführt. 
+Diese Änderung wird in Vorschauversion 1 von ASP.NET Core 3.0 eingeführt. 
 
 **Altes Verhalten**
 
@@ -80,7 +80,7 @@ Wenn Sie EF Core in einer Anwendung unter ASP.NET Core 3.0 oder in einer anderen
 
 [Issue #14016](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
 
-Diese Änderung wurde in EF Core 3.0-preview 4 und der zugehörigen Version des .NET Core SDK eingeführt.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 und der zugehörigen Version des .NET Core SDK eingeführt.
 
 **Altes Verhalten**
 
@@ -109,7 +109,7 @@ Eine Verwendung als lokales Tool ist ebenfalls möglich, wenn Sie die Abhängigk
 
 [Issue #10996](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
 
-Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -145,11 +145,33 @@ Dadurch werden Abfragen möglicherweise nicht parametrisiert, obwohl dies der Fa
 
 Verwenden Sie ab sofort die neuen Methodennamen.
 
+## <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>FromSql-Methoden können nur für die Stammelemente der Abfrage angegeben werden.
+
+[Issue #15704](https://github.com/aspnet/EntityFrameworkCore/issues/15704)
+
+Diese Änderung wird in Vorschauversion 6 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Vor EF Core 3.0 konnte die `FromSql`-Methode an einer beliebigen Stelle in der Abfrage angegeben werden.
+
+**Neues Verhalten**
+
+Ab EF Core 3.0 können die neuen Methoden `FromSqlRaw` und `FromSqlInterpolated` (durch die `FromSql` ersetzt wird) nur für Stammelemente von Abfragen angegeben werden, d.h. direkt für das `DbSet<>`. Der Versuch, sie an anderer Stelle anzugeben, führt zu einem Kompilierungsfehler.
+
+**Hintergründe**
+
+Die Angabe von `FromSql` an einer anderen Stelle als für ein `DbSet` erbrachte keine zusätzliche Bedeutung und keinen Mehrwert, sondern konnte in bestimmten Szenarien zu Mehrdeutigkeiten führen.
+
+**Vorbeugende Maßnahmen**
+
+`FromSql` Aufrufe sollten so verschoben, dass sie direkt für das zugehörige `DbSet` gelten.
+
 ## <a name="query-execution-is-logged-at-debug-level"></a>Die Ausführung der Abfrage wird auf der Debugebene protokolliert
 
 [Issue #14523](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -179,7 +201,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 [Issue #12378](https://github.com/aspnet/EntityFrameworkCore/issues/12378)
 
-Diese Änderung wurde in Vorschauversion 2 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 2 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -207,7 +229,7 @@ Sie können dies wie folgt vermeiden:
 
 [Issue #14616](https://github.com/aspnet/EntityFrameworkCore/issues/14616)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -247,7 +269,7 @@ public string Id { get; set; }
 
 [Issue #10114](https://github.com/aspnet/EntityFrameworkCore/issues/10114)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -298,7 +320,7 @@ Sie können das vorherige Verhalten wiederherstellen, indem Sie `DeleteBehavior.
 
 [Issue #14194](https://github.com/aspnet/EntityFrameworkCore/issues/14194)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -319,10 +341,10 @@ Des Weiteren werden sie oft Sichten zugeordnet, was aber nur daran liegt, dass f
 **Vorbeugende Maßnahmen**
 
 Die folgenden Teile der API sind durch die Änderungen veraltet:
-* **`ModelBuilder.Query<>()`** : Rufen Sie stattdessen `ModelBuilder.Entity<>().HasNoKey()` auf, um einen schlüssellosen Entitätstyp festzulegen.
+* **`ModelBuilder.Query<>()`**: Rufen Sie stattdessen `ModelBuilder.Entity<>().HasNoKey()` auf, um einen schlüssellosen Entitätstyp festzulegen.
 Dieses Verhalten wird nach wie vor nicht konventionsgemäß festgelegt, um Fehlkonfigurationen zu vermeiden, wenn ein Primärschlüssel erwartet wird, jedoch nicht mit der Konvention übereinstimmt.
-* **`DbQuery<>`** : Verwenden Sie stattdessen `DbSet<>`.
-* **`DbContext.Query<>()`** : Verwenden Sie stattdessen `DbContext.Set<>()`.
+* **`DbQuery<>`**: Verwenden Sie stattdessen `DbSet<>`.
+* **`DbContext.Query<>()`**: Verwenden Sie stattdessen `DbContext.Set<>()`.
 
 ## <a name="configuration-api-for-owned-type-relationships-has-changed"></a>Die Konfigurations-API für Beziehungen abhängiger (owned) Typen wurde geändert
 
@@ -330,7 +352,7 @@ Dieses Verhalten wird nach wie vor nicht konventionsgemäß festgelegt, um Fehlk
 [Issue #9148](https://github.com/aspnet/EntityFrameworkCore/issues/9148)
 [Issue #14153](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -536,7 +558,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 [Issue #13274](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -680,7 +702,7 @@ Versuchen Sie, Abhängigkeiten von bestimmten Schlüsselwerten zu vermeiden, ode
 
 [Issue #12430](https://github.com/aspnet/EntityFrameworkCore/issues/12430)
 
-Diese Änderung wurde in Vorschauversion 2 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 2 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -698,7 +720,7 @@ Diese Änderung wurde vorgenommen, um zu verhindern, dass in EF Core fälschlich
 
 **Vorbeugende Maßnahmen**
 
-Sie können das Verhalten vor Version 3.0 wiederherstellen, indem Sie über die modelBuilder-Fluent-API den Zugriffsmodus für die Eigenschaft konfigurieren.
+Sie können das Verhalten von vor Version 3.0 wiederherstellen, indem Sie in `ModelBuilder` den Zugriffsmodus für die Eigenschaft konfigurieren.
 Beispiel:
 
 ```C#
@@ -808,7 +830,7 @@ Wenn Ihre Anwendung diese Dienste benötigt, registrieren Sie sie explizit mit [
 
 [Issue #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -874,7 +896,7 @@ public string Id { get; set; }
 
 [Issue #14698](https://github.com/aspnet/EntityFrameworkCore/issues/14698)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -900,7 +922,7 @@ Erstellen Sie in diesen Situationen bitte im [GitHub-Issuetracker für EF Core](
 
 [Issue #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -949,7 +971,7 @@ Aktualisieren Sie den Anwendungscode so, dass kein Lazy Loading durchgeführt wi
 
 [Issue #10236](https://github.com/aspnet/EntityFrameworkCore/issues/10236)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1048,7 +1070,7 @@ Beachten Sie, dass dadurch die mit dieser Änderung verbundene Verringerung der 
 
 [Issue #9913](https://github.com/aspnet/EntityFrameworkCore/issues/9913)
 
-Diese Änderung wurde in Vorschauversion 2 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 2 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1071,7 +1093,7 @@ Verzichten Sie daher darauf, die Anmerkung direkt zu verwenden, und greifen Sie 
 
 [Issue #11811](https://github.com/aspnet/EntityFrameworkCore/issues/11811)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1094,7 +1116,7 @@ Entfernen Sie alle Zuordnungen von abgeleiteten Typen zu anderen Tabellen.
 
 [Issue #12366](https://github.com/aspnet/EntityFrameworkCore/issues/12366)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1137,11 +1159,33 @@ Mit dieser Änderung wird die Implementierung der oben genannten Schnittstellen 
 
 Verwenden Sie die neuen Erweiterungsmethoden.
 
+## <a name="provider-specific-metadata-api-changes"></a>Anbieterspezifische Metadaten-API-Änderungen
+
+[Issue #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+
+Diese Änderung wird in Vorschauversion 6 von EF Core 3.0 eingeführt.
+
+**Neues Verhalten**
+
+Die anbieterspezifischen Erweiterungsmethoden werden vereinfacht:
+
+* `IProperty.Relational().ColumnName` -> `IProperty.GetColumnName()`
+* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.GetSqlServerIsMemoryOptimized()`
+* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.ForSqlServerUseIdentityColumn()`
+
+**Hintergründe**
+
+Mit dieser Änderung wird die Implementierung der oben genannten Erweiterungsmethoden vereinfacht.
+
+**Vorbeugende Maßnahmen**
+
+Verwenden Sie die neuen Erweiterungsmethoden.
+
 ## <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core sendet keine PRAGMA-Anweisungen mehr, um Fremdschlüssel in SQLite zu erzwingen
 
 [Issue #12151](https://github.com/aspnet/EntityFrameworkCore/issues/12151)
 
-Diese Änderung wurde in Vorschauversion 3 von EF Core 3.0 eingeführt.
+Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1182,7 +1226,7 @@ Konfigurieren Sie `Microsoft.Data.Sqlite` so, dass ein anderes `SQLitePCLRaw`-Bu
 
 [Issue #15078](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
 
-Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1232,7 +1276,7 @@ Microsoft.Data.Sqlite kann weiterhin GUID-Werte aus BLOB- und TEXT-Spalten lesen
 
 [Issue #15020](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
 
-Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1273,7 +1317,7 @@ Microsoft.Data.Sqlite kann auch weiterhin Zeichenwerte aus INTEGER- und TEXT-Spa
 
 [Issue #12978](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
 
-Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
@@ -1312,7 +1356,7 @@ SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 
 
 [Issue #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
 
-Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Änderung**
 
@@ -1330,7 +1374,7 @@ Verwenden Sie den neuen Namen. (Beachten Sie, dass sich die Ereignis-ID-Nummer n
 
 [Issue #10730](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
 
-Diese Änderung wurde mit EF Core 3.0 Preview 4 eingeführt.
+Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
