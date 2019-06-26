@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: ce834d60b9ceb4c414f097f2d86254cc5edd958f
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
+ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419704"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394803"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core-Datenbank-Anbieter-Einschränkungen
 
@@ -22,6 +22,25 @@ Die allgemeine relationale-Bibliothek, die (vom Anbieter für Entity Framework r
 * Schemata
 * Sequenzen
 * Berechnete Spalten
+
+## <a name="query-limitations"></a>Abfrage-Einschränkungen
+
+SQLite bietet keine native Unterstützung für die folgenden Datentypen. EF Core kann lesen und Schreiben Sie Werte für diese Typen und Abfragen hinsichtlich ihrer Gleichheit (`where e.Property == value`) wird ebenfalls unterstützt. Andere Vorgänge, wie jedoch Vergleich aus, und Sortierung ist die Bewertung auf dem Client erforderlich.
+
+* DateTimeOffset
+* Decimal
+* TimeSpan
+* UInt64
+
+Anstelle von `DateTimeOffset`, es wird empfohlen, DateTime-Werte. Bei der Behandlung von verschiedenen Zeitzonen wird empfohlen, beim Konvertieren der Werte in UTC, bevor Sie speichern, und klicken Sie dann zurück in die entsprechende Zeitzone konvertieren.
+
+Die `Decimal` bietet ein hohes Maß an Genauigkeit. Wenn Sie diesen Grad an Genauigkeit nicht benötigen, wird jedoch empfohlen, stattdessen mit double. Sie können eine [Wertkonverter](../../modeling/value-conversions.md) weiterhin Dezimalzahl in Ihren Klassen.
+
+``` csharp
+modelBuilder.Entity<MyEntity>()
+    .Property(e => e.DecimalProperty)
+    .HasConversion<double>();
+```
 
 ## <a name="migrations-limitations"></a>Einschränkungen für Migrationen
 
