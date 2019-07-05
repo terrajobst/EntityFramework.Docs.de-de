@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 96586808862c4373168dcd34a5f00c9f2f7563c3
-ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
+ms.openlocfilehash: dcbea1a2aab5baea35f81500bb7bb5482695d778
+ms.sourcegitcommit: 812010a35afe902d8c4bb03a67d575f8e91b5ec0
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394830"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67506262"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -1396,10 +1396,6 @@ Diese Änderung wird in Vorschauversion 7 von EF Core 3.0 eingeführt.
 
 Vor EF Core 3.0 waren diese Methoden geschützt.
 
-```C#
-var constraintName = myForeignKey.Name;
-```
-
 **Neues Verhalten**
 
 Ab EF Core 3.0 sind diese Methoden öffentlich.
@@ -1463,3 +1459,26 @@ Version 2.0.0 von SQLitePCL.raw zielt auf .NET Standard 2.0 ab. Zuvor war .NET S
 **Vorbeugende Maßnahmen**
 
 SQLitePCL.raw, Version 2.0.0, enthält einige Breaking Changes. Weitere Informationen finden Sie in den [Versionshinweisen](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md).
+
+
+## <a name="nettopologysuite-updated-to-version-200"></a>NetTopologySuite auf Version 2.0.0 aktualisiert
+
+[Issue #14825](https://github.com/aspnet/EntityFrameworkCore/issues/14825)
+
+Diese Änderung wird in Vorschauversion 7 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Die Pakete mit räumlichen Daten waren bisher von Version 1.15.1 der NetTopologySuite abhängig.
+
+**Neues Verhalten**
+
+Wir haben unser Paket aktualisiert, so dass es jetzt von Version 2.0.0 abhängig ist.
+
+**Hintergründe**
+
+Version 2.0.0 der NetTopologySuite behebt verschiedene Verwendungsprobleme, die von EF Core-Benutzern gemeldet wurden.
+
+**Vorbeugende Maßnahmen**
+
+NetTopologySuite 2.0.0 umfasst einige Breaking Changes. Weitere Informationen finden Sie in den [Versionshinweisen](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001).
