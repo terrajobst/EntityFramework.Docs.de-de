@@ -2,14 +2,14 @@
 title: EF Core-Tools-Verweis (.NET CLI) – EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 09/20/2018
+ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 959785c7b10ca668f3691106f62076d538978c03
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: 05c5f89fc79556e72a7e629c147aa817fe7d1a6b
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688666"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286465"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenz zu Entity Framework Core Tools - .NET CLI
 
@@ -23,9 +23,28 @@ Wenn Sie Visual Studio verwenden, empfehlen wir die [-Paket-Manager-Konsole Tool
 
 Der Installationsvorgang zu starten, hängt von Projekttyp und der Version ab:
 
+* EF Core 3.x
 * ASP.NET Core Version 2.1 und höher
 * EF Core 2.x
 * EF Core 1.x
+
+### <a name="ef-core-3x"></a>EF Core 3.x
+
+* `dotnet ef` muss als globale oder lokale Tool installiert werden. Die meisten Entwickler installiert `dotnet ef` als globale Tool mit dem folgenden Befehl:
+
+  ``` console
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+  ```
+
+  Sie können auch `dotnet ef` als lokale Tool. Um es als lokale Tool verwenden, Wiederherstellen der Abhängigkeiten eines Projekts, das ihn, als Tools Abhängigkeit mithilfe deklariert einer [Tool-Manifestdatei](https://github.com/dotnet/cli/issues/10288).
+
+* Installieren Sie die [.NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Das SDK muss installiert sein, auch wenn Sie die neueste Version von Visual Studio verfügen.
+
+* Installieren Sie das neueste `Microsoft.EntityFrameworkCore.Design` Paket.
+
+  ``` Console
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  ```
 
 ### <a name="aspnet-core-21"></a>ASP.NET Core 2.1 +
 
@@ -37,7 +56,7 @@ Der Installationsvorgang zu starten, hängt von Projekttyp und der Version ab:
 
 Die `dotnet ef` Befehle sind in .NET Core SDK enthalten, aber so aktivieren Sie die Befehle müssen Sie installieren die `Microsoft.EntityFrameworkCore.Design` Paket.
 
-* Installieren Sie die aktuelle [.NET Core SDK](https://www.microsoft.com/net/download/core). Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio 2017 verfügen.
+* Installieren Sie die aktuelle [.NET Core SDK](https://www.microsoft.com/net/download/core). Das SDK muss installiert sein, auch wenn Sie die neueste Version von Visual Studio verfügen.
 
 * Installieren Sie die neueste stabile `Microsoft.EntityFrameworkCore.Design` Paket.
 
@@ -51,7 +70,7 @@ Die `dotnet ef` Befehle sind in .NET Core SDK enthalten, aber so aktivieren Sie 
 
 * Konfigurieren Sie die Anwendung auf Version des SDKS verwenden die 2.1.200 durch Ändern der ["Global.JSON"](/dotnet/core/tools/global-json) Datei. Diese Datei befindet sich normalerweise in dem Projektmappenverzeichnis (eine über das Projekt).
 
-* Bearbeiten die Projektdatei und fügen `Microsoft.EntityFrameworkCore.Tools.DotNet` als eine `DotNetCliToolReference` Element. Geben Sie die neueste Version der 1.x, z. B.: 1.1.6. Finden Sie in der Beispielprojektdatei wird am Ende dieses Abschnitts.
+* Bearbeiten die Projektdatei und fügen `Microsoft.EntityFrameworkCore.Tools.DotNet` als eine `DotNetCliToolReference` Element. Geben Sie die neueste Version der 1.x, z.B.: 1.1.6. Finden Sie in der Beispielprojektdatei wird am Ende dieses Abschnitts.
 
 * Installieren Sie die neueste Version 1.x der der `Microsoft.EntityFrameworkCore.Design` Verpacken, z.B.:
 
@@ -140,7 +159,7 @@ Legen Sie zum Angeben der Umgebung für ASP.NET Core-Projekten die **"aspnetcore
 |                   | Option                            | Beschreibung                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | Zeigen Sie die JSON-Ausgabe.                                                                                                                                                                                                                                             |
-| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | Die `DbContext` zu verwendende Klasse an. Name der Klasse nur oder mit Namespaces vollqualifiziert.  Wenn diese Option ausgelassen wird, findet das EF Core die Context-Klasse. Diese Option ist erforderlich, wenn es mehrere Kontextklassen sind.                                            |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | Die `DbContext`-Klasse, die verwendet werden soll. Name der Klasse nur oder mit Namespaces vollqualifiziert.  Wenn diese Option ausgelassen wird, findet das EF Core die Context-Klasse. Diese Option ist erforderlich, wenn es mehrere Kontextklassen sind.                                            |
 | `-p`              | `--project <PROJECT>`             | Relativer Pfad in den Projektordner des Zielprojekts.  Standardwert ist der aktuelle Ordner an.                                                                                                                                                              |
 | `-s`              | `--startup-project <PROJECT>`     | Relativer Pfad in den Projektordner für das Startprojekt. Standardwert ist der aktuelle Ordner an.                                                                                                                                                              |
 |                   | `--framework <FRAMEWORK>`         | Die [Zielframework-Moniker](/dotnet/standard/frameworks#supported-target-framework-versions) für die [Zielframework](/dotnet/standard/frameworks).  Wird verwendet, wenn die Projektdatei mehrere Zielframeworks gibt, und Sie eine dieser Optionen auswählen möchten. |
@@ -195,8 +214,8 @@ Argumente:
 
 | Argument       | Beschreibung                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Die Verbindungszeichenfolge in der Datenbank. Der Wert kann für ASP.NET Core 2.x-Projekte sein *Name =\<Name der Verbindungszeichenfolge >*. In diesem Fall stammt der Name der Konfigurationsquellen, die für das Projekt eingerichtet sind. |
-| `<PROVIDER>`   | Die zu verwendende Anbieter. Normalerweise hat der Name des NuGet-Pakets, z. B.: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
+| `<CONNECTION>` | Die Verbindungszeichenfolge in der Datenbank. Der Wert kann für ASP.NET Core 2.x-Projekte sein *Name =\<Name der Verbindungszeichenfolge >* . In diesem Fall stammt der Name der Konfigurationsquellen, die für das Projekt eingerichtet sind. |
+| `<PROVIDER>`   | Der zu verwendende Anbieter. Normalerweise hat der Name des NuGet-Pakets, z. B.: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Optionen:
 
@@ -286,4 +305,4 @@ dotnet ef migrations script 20180904195021_InitialCreate
 ## <a name="additional-resources"></a>Zusätzliche Ressourcen
 
 * [Migrationen](xref:core/managing-schemas/migrations/index)
-* [Reverse-Engineering](xref:core/managing-schemas/scaffolding)
+* [Reverse Engineering](xref:core/managing-schemas/scaffolding)

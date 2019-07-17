@@ -3,12 +3,12 @@ title: Der erste Datenanmerkungen – EF6 Code
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: fcd01aef7303573001460b352f8099b2cc6e224a
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463281"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286480"
 ---
 # <a name="code-first-data-annotations"></a>Code der ersten Datenanmerkungen
 > [!NOTE]
@@ -55,7 +55,7 @@ Als dies der Fall, führen Sie erste Konvention Code der Blog und Post-Klasse ei
 
 Entitätsframework basiert auf jede Entität an, dass einen Schlüssel-Wert, der für die Entität, die nachverfolgung verwendet wird. Eine Konvention für die Code First ist die implizite Schlüsseleigenschaften. Code sucht zuerst nach einer Eigenschaft mit dem Namen "Id" oder eine Kombination von Klassennamen und "Id", wie z. B. "BlogId". Diese Eigenschaft wird auf eine primäre Schlüsselspalte in der Datenbank zugeordnet.
 
-Den Blog "und" Post beide Klassen entsprechen dieser Konvention. Was geschieht, wenn sie nicht? Was geschieht, wenn der Name von Blog verwendet *PrimaryTrackingKey* stattdessen oder sogar *"Foo"*? Wenn der Code zuerst eine Eigenschaft nicht finden kann, die diese Konvention entspricht löst er eine Ausnahme aufgrund des Entity Framework-Anforderung, dass Sie eine Schlüsseleigenschaft verfügen müssen. Sie können die wichtigsten Anmerkung verwenden, um anzugeben, welche Eigenschaft als EntityKey verwendet werden soll.
+Den Blog "und" Post beide Klassen entsprechen dieser Konvention. Was geschieht, wenn sie nicht? Was geschieht, wenn der Name von Blog verwendet *PrimaryTrackingKey* stattdessen oder sogar *"Foo"* ? Wenn der Code zuerst eine Eigenschaft nicht finden kann, die diese Konvention entspricht löst er eine Ausnahme aufgrund des Entity Framework-Anforderung, dass Sie eine Schlüsseleigenschaft verfügen müssen. Sie können die wichtigsten Anmerkung verwenden, um anzugeben, welche Eigenschaft als EntityKey verwendet werden soll.
 
 ``` csharp
     public class Blog
@@ -135,7 +135,7 @@ Nur die relative Reihenfolge in der Fremdschlüsseleigenschaften muss übereinst
     }
 ```
 
-## <a name="required"></a>Erforderlich
+## <a name="required"></a>Required
 
 Die erforderlichen Anmerkung wird Entity Framework angewiesen, dass eine bestimmte Eigenschaft erforderlich ist.
 
@@ -146,7 +146,7 @@ Hinzufügen von erforderlich, um die Title-Eigenschaft wird erzwungen, EF (und M
     public string Title { get; set; }
 ```
 
-Keine zusätzlichen ohne Änderungen des Codes oder Markups in der Anwendung, in eine MVC-Anwendung führt Validierung auf Clientseite, sogar dynamisch Erstellen einer Nachricht, die unter Verwendung der Eigenschaft und der Anmerkung.
+Ohne zusätzlichen Code oder Markupänderungen in der Anwendung führt eine MVC-Anwendung die Validierung auf Clientseite, sogar dynamisch Erstellen einer Nachricht, die unter Verwendung der Eigenschaft und die Anmerkung.
 
 ![Erstellen Sie Seite mit dem Titel ist erforderlich, Fehler](~/ef6/media/jj591583-figure02.png)
 
@@ -268,7 +268,7 @@ Wenn jemand den Blogger-Namen für dieses Blogs in der Zwischenzeit geändert wu
 
  
 
-## <a name="timestamp"></a>TimeStamp
+## <a name="timestamp"></a>Zeitstempel
 
 Es ist üblich, ein Rowversion oder Timestamp-Felder für die parallelitätsüberprüfung zu verwenden. Aber statt der ConcurrencyCheck-Anmerkung zu verwenden, können Sie die spezifischere TimeStamp-Anmerkung, solange der Typ der Eigenschaft Byte-Array ist. Code zuerst behandelt Timestamp-Eigenschaften identisch als ConcurrencyCheck-Eigenschaften, aber es wird auch sichergestellt, dass die Datenbankfeld, das Code zuerst erzeugt NULL-Werte zulässt. Sie können nur eine Timestamp-Eigenschaft in einer bestimmten Klasse haben.
 
@@ -311,7 +311,7 @@ Hier ist die Tabelle auf, nachdem es erneut generiert wird. Der Tabellenname Int
 
  
 
-## <a name="databasegenerated"></a>DatabaseGenerated
+## <a name="databasegenerated"></a>"Databasegenerated"
 
 Eine wichtige Datenbankfunktionen ist die Möglichkeit, Eigenschaften berechnet haben. Wenn Sie Ihren Code First Klassen, um eine Zuordnung sind Tabellen mit berechneten Spalten, Sie nicht möchten, Entity Framework, um zu versuchen, diese Spalten aktualisieren. Jedoch EF diese Werte aus der Datenbank zurück, nachdem Sie eingefügt oder aktualisiert Daten haben sollen. Die Anmerkung "databasegenerated" können Sie um die Eigenschaften in der Klasse zusammen mit der Enumeration berechnet zu kennzeichnen. Keine anderen Enumerationen sind und die Identität.
 
