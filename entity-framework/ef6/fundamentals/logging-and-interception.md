@@ -1,30 +1,30 @@
 ---
-title: Protokollierung und Abfangen von Datenbankvorgängen - EF6
+title: Protokollieren und Abfangen von Daten Bank Vorgängen EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: 3f06e073f3ab6e46883663620219e302d5db1d60
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: be32ed114269543ac36b256a202e0494d466e4f7
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490080"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306530"
 ---
-# <a name="logging-and-intercepting-database-operations"></a>Protokollierung und Abfangen von Datenbankvorgängen
+# <a name="logging-and-intercepting-database-operations"></a>Protokollieren und Abfangen von Daten Bank Vorgängen
 > [!NOTE]
 > **Nur EF6 und höher:** Die Features, APIs usw., die auf dieser Seite erläutert werden, wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
 
-Ab Entity Framework 6, jedes Mal, wenn Entity Framework einem Befehl an der Datenbank mit diesem Befehl sendet, kann vom Anwendungscode abgefangen werden. Dies wird am häufigsten für die Protokollierung von SQL verwendet, aber es kann auch verwendet werden, um zu ändern, oder brechen Sie den Befehl.  
+Ab Entity Framework 6, wenn Entity Framework einen Befehl an die Datenbank sendet, kann dieser Befehl von Anwendungscode abgefangen werden. Dies wird am häufigsten für die Protokollierung von SQL verwendet, kann aber auch verwendet werden, um den Befehl zu ändern oder abzubrechen.  
 
-Sie enthält insbesondere EF:  
+EF umfasst insbesondere Folgendes:  
 
-- Eine Log-Eigenschaft für den Kontext, der ähnlich wie DataContext.Log in LINQ to SQL  
-- Ein Mechanismus zum Anpassen der Inhalt und die Formatierung der Ausgabe in das Anwendungsprotokoll gesendet  
-- Low-Level-Bausteine für die Abfangfunktion sind so flexibler-Steuerelement  
+- Eine Log-Eigenschaft für den Kontext, die dem DataContext. Log in ähnelt LINQ to SQL  
+- Ein Mechanismus, mit dem der Inhalt und die Formatierung der an das Protokoll gesendeten Ausgabe angepasst werden.  
+- Bausteine auf niedriger Ebene für die Abfang Funktion mit größerer Kontrolle und Flexibilität  
 
-## <a name="context-log-property"></a>Kontext-Log-Eigenschaft  
+## <a name="context-log-property"></a>Kontext Protokoll (Eigenschaft)  
 
-In einen Delegaten für eine beliebige Methode, die eine Zeichenfolge akzeptiert, kann die DbContext.Database.Log-Eigenschaft festgelegt werden. Es ist am häufigsten mit jeder TextWriter verwendet, auf die "Write"-Methode von diesem TextWriter festgelegt wird. Alle nach dem aktuellen Kontext generiert SQL werden in der sich der Writer protokolliert. Beispielsweise wird der folgende Code SQL an der Konsole protokolliert:  
+Die dbcontext. Database. Log-Eigenschaft kann auf einen Delegaten für jede Methode festgelegt werden, die eine Zeichenfolge annimmt. In der Regel wird es mit jedem TextWriter verwendet, indem es auf die "Write"-Methode dieses Textwriters festgelegt wird. Alle vom aktuellen Kontext generierten SQL-Informationen werden in diesem Writer protokolliert. Mit dem folgenden Code wird z. b. SQL in der Konsole protokolliert:  
 
 ``` csharp
 using (var context = new BlogContext())
@@ -35,9 +35,9 @@ using (var context = new BlogContext())
 }
 ```  
 
-Beachten Sie, dass dieses Kontexts. Console.Write ist "Database.log" festgelegt. Dies ist alles, die was erforderlich ist, um SQL an der Konsole protokolliert.  
+Beachten Sie den Kontext. Database. log ist auf Console. Write festgelegt. Das ist alles, was zum Protokollieren von SQL an der Konsole erforderlich ist.  
 
-Fügen Sie einige einfachen Code für die Abfrage/einfügen/aktualisieren, damit wir eine Ausgabe angezeigt werden:  
+Fügen wir nun einen einfachen Abfrage-/Einfüge-/Update-Code hinzu, damit wir einige Ausgaben sehen können:  
 
 ``` csharp
 using (var context = new BlogContext())
@@ -94,39 +94,39 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 -- Completed in 2 ms with result: SqlDataReader
 ```  
 
-(Beachten Sie, dass dies ist die Ausgabe, vorausgesetzt, dass es sich bei jeder Initialisierung der Datenbank bereits geschehen ist. Wenn Datenbankinitialisierung nicht bereits geschehen hatte, und klicken Sie dann wäre hat noch viel mehr Ausgabe, die mit der Arbeit Migrationen im Hintergrund zu überprüfen oder eine neue Datenbank erstellen.)  
+(Beachten Sie, dass dies die Ausgabe ist, vorausgesetzt, dass bereits eine Daten Bank Initialisierung erfolgt ist. Wenn die Daten Bank Initialisierung nicht bereits erfolgt ist, gibt es eine Menge mehr Ausgabe, in der alle Arbeits Migrationen unter den Deckeln angezeigt werden, um eine neue Datenbank zu suchen oder eine neue Datenbank zu erstellen.)  
 
-## <a name="what-gets-logged"></a>Ruft protokolliert?  
+## <a name="what-gets-logged"></a>Was wird protokolliert?  
 
-Wenn der Log-Eigenschaft alle folgenden festgelegt ist, wird die werden protokolliert:  
+Wenn die Log-Eigenschaft festgelegt ist, wird Folgendes protokolliert:  
 
-- "SQL" für alle anderen Arten von Befehlen. Zum Beispiel:  
-    - Abfragen, einschließlich der normalen LINQ-Abfragen, eSQL-Abfragen und unformatierte Abfragen von Methoden wie z. B. SqlQuery  
-    - Einfügungen, Updates und löschungen, die als Teil von "SaveChanges" generiert  
-    - Laden von Abfragen wie die von lazy Loading generierten Beziehung  
+- SQL für alle unterschiedlichen Arten von Befehlen. Beispiel:  
+    - Abfragen, einschließlich normaler LINQ-Abfragen, ESQL-Abfragen und unformatierte Abfragen von Methoden wie sqlQuery  
+    - Einfügungen, Updates und Löschungen, die im Rahmen von SaveChanges generiert werden  
+    - Beziehungen zum Laden von Abfragen, z. b. die von generierten Lazy Loading  
 - Parameter  
-- Unabhängig davon, ob der Befehl asynchron ausgeführt wird  
-- Ein Zeitstempel, der angibt, wenn der Befehl gestartet ausführen  
-- Unabhängig davon, ob der Befehl erfolgreich abgeschlossen, Fehler durch Auslösen einer Ausnahme oder, für die asynchrone, wurde abgebrochen.  
-- Ein Hinweis auf den Ergebniswert  
-- Die ungefähre Dauer der Zeit zum Ausführen des Befehls dauert. Beachten Sie, dass dies die Zeit vom Senden des Befehls an das Ergebnisobjekt abrufen. Es umfasst nicht die Zeit, die Ergebnisse zu lesen.  
+- Gibt an, ob der Befehl asynchron ausgeführt wird.  
+- Ein Zeitstempel, der angibt, wann die Ausführung des Befehls gestartet wurde  
+- Gibt an, ob der Befehl erfolgreich abgeschlossen wurde oder ob ein Fehler aufgetreten ist, oder ob für Async abgebrochen wurde.  
+- Ein Hinweis auf den Ergebniswert.  
+- Der ungefähre Zeitaufwand für die Ausführung des Befehls. Beachten Sie, dass dies der Zeitpunkt ist, an dem der Befehl gesendet wird, um das Ergebnis Objekt zurückzubekommen. Es enthält keine Zeit zum Lesen der Ergebnisse.  
 
-Betrachten die Beispielausgabe oben aus, die vier Befehle, die protokolliert werden:  
+Wenn Sie sich die obige Beispielausgabe ansehen, werden alle vier Befehle protokolliert:  
 
-- Die Abfrage, die durch den Aufruf von Kontext. Blogs.First  
-    - Beachten Sie, dass die ToString-Methode dar, die SQL-Anweisung nicht für diese Abfrage seit gearbeitet haben, würde "First" kein "IQueryable" auf dem ToString aufgerufen werden kann  
-- Die Abfrage aus der Lazy-Blog. Beiträge  
-    - Beachten Sie, dass die Details zu den Parametern für den Schlüsselwert für die Lazy Load geschieht.  
-    - Nur Eigenschaften des Parameters, die auf nicht standardmäßige Werte festgelegt sind, werden protokolliert. Beispielsweise wird die Size-Eigenschaft wird nur angezeigt, wenn es ungleich NULL ist.  
-- Zwei Befehle, die sich aus SaveChangesAsync ergeben; eine für die Aktualisierung so ändern Sie einen Post-Titel, die andere für eine Einfügung, einen neuen Beitrag hinzufügen  
-    - Beachten Sie, dass die Details zu den Parametern für den Fremdschlüssel "und" Title "  
-    - Beachten Sie, dass diese Befehle asynchron ausgeführt werden  
+- Die Abfrage, die sich aus dem Kontext Kontext ergibt. Blogs. First  
+    - Beachten Sie, dass die Methode zum Abrufen der SQL-Methode für diese Abfrage nicht funktioniert hat, da "First" keine iquerable-Methode bereitstellt, für die "destring" aufgerufen werden kann.  
+- Die Abfrage, die sich aus dem verzögerten Laden des Blogs ergibt. Beiträge  
+    - Beachten Sie die Parameter Details für den Schlüsselwert, für den Lazy Loading auftritt.  
+    - Nur Eigenschaften des-Parameters, die auf nicht standardmäßige Werte festgelegt sind, werden protokolliert. Die Size-Eigenschaft wird z. b. nur angezeigt, wenn Sie ungleich 0 (null) ist.  
+- Zwei von savechangesasync resultierende Befehle eine für das Update zum Ändern eines Beitrags Titels, der andere für eine Einfügung zum Hinzufügen eines neuen Beitrags.  
+    - Beachten Sie die Parameter Details der Eigenschaften "FK" und "Title".  
+    - Beachten Sie, dass diese Befehle asynchron ausgeführt werden.  
 
-## <a name="logging-to-different-places"></a>Protokollierung in verschiedenen Speicherorten  
+## <a name="logging-to-different-places"></a>Protokollierung an verschiedenen Stellen  
 
-Wie oben Protokollierung wird die Konsole sehr leicht. Es ist auch einfach, melden Sie sich mit verschiedenen Arten, Arbeitsspeicher, Datei usw. der [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx).  
+Wie oben gezeigt, ist die Protokollierung auf der Konsole sehr einfach. Es ist auch einfach, sich mit verschiedenen Arten von [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx)in Arbeitsspeicher, Datei usw. zu protokollieren.  
 
-Wenn Sie mit LINQ to SQL vertraut sind, die Ihnen, die in LINQ to SQL auffallen, die Log-Eigenschaft auf die tatsächliche TextWriter-Objekt (z. B. Console.Out) beim in EF festgelegt ist, die an eine Methode, die eine Zeichenfolge (z. B. akzeptiert, die Log-Eigenschaft festgelegt ist Console.Write "oder" Console.Out.Write). Der Grund dafür ist, entkoppeln EF über TextWriter durch das Akzeptieren von jeder Delegat, der als Senke für Zeichenfolgen verwendet werden kann. Beispiel: Angenommen, dass Sie bereits einige protokollierungsframework und eine Protokollierungsmethode definiert wie folgt:  
+Wenn Sie mit LINQ to SQL vertraut sind, können Sie feststellen, dass in LINQ to SQL die Log-Eigenschaft auf das eigentliche TextWriter-Objekt festgelegt ist (z. b. Console. out), während in EF die Log-Eigenschaft auf eine Methode festgelegt ist, die eine Zeichenfolge akzeptiert (z. b , Console. Write oder Console. out. Write). Der Grund hierfür ist, EF von TextWriter zu entkoppeln, indem ein beliebiger Delegat akzeptiert wird, der als Senke für Zeichen folgen fungieren kann. Stellen Sie sich beispielsweise vor, dass Sie bereits über ein Protokollierungs Framework verfügen und eine Protokollierungs Methode wie folgt definiert:  
 
 ``` csharp
 public class MyLogger
@@ -138,28 +138,28 @@ public class MyLogger
 }
 ```  
 
-Dies kann auf die EF-Log-Eigenschaft wie folgt verknüpft werden:  
+Dies könnte wie folgt mit der EF-Protokoll Eigenschaft verknüpft werden:  
 
 ``` csharp
 var logger = new MyLogger();
 context.Database.Log = s => logger.Log("EFApp", s);
 ```  
 
-## <a name="result-logging"></a>Führen Sie die Protokollierung  
+## <a name="result-logging"></a>Ergebnis Protokollierung  
 
-Die Protokollierung protokolliert Befehlstext (SQL), Parameter und die Zeile "Wird ausgeführt" mit einem Zeitstempel, bevor der Befehl in die Datenbank gesendet wird. "Abgeschlossene" Linie, die verstrichene Zeit ist, protokolliert der folgenden Ausführung des Befehls.  
+Die Standard Protokollierung protokolliert Befehls Text (SQL), Parameter und die Zeile "wird ausgeführt" mit einem Zeitstempel, bevor der Befehl an die Datenbank gesendet wird. Eine "Abgeschlossene" Zeile, die die verstrichene Zeit enthält, wird nach der Ausführung des Befehls protokolliert.  
 
-Beachten Sie, dass für die asynchrone Befehle die "Abgeschlossene" Zeile nicht angemeldet ist, bis die asynchrone Aufgabe tatsächlich abgeschlossen ist, fehlschlägt oder abgebrochen wird.  
+Beachten Sie, dass bei Async-Befehlen die Zeile "abgeschlossen" nicht protokolliert wird, bis die asynchrone Aufgabe tatsächlich abgeschlossen ist, fehlschlägt oder abgebrochen wird.  
 
-Die Zeile "Abgeschlossene" enthält verschiedene Informationen je nach Art des-Befehls sowie davon, ob die Ausführung erfolgreich war.  
+Die Zeile "abgeschlossen" enthält unterschiedliche Informationen, je nach Typ des Befehls und ob die Ausführung erfolgreich war.  
 
-### <a name="successful-execution"></a>Die erfolgreiche Ausführung  
+### <a name="successful-execution"></a>Erfolgreiche Ausführung  
 
-Ist für Befehle, die die Ausgabe erfolgreich abgeschlossen "abgeschlossen in x-ms mit Ergebnis:" gefolgt von einigen Überblick darüber, wie das Ergebnis lautet. Für Befehle, die einen Datenreader das Ergebnis zurückzugeben, ist der Typ des [DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx) zurückgegeben. Für Befehle, die einen Ganzzahlwert wie das Update zurückgeben ist Befehl das Ergebnis sehen Sie oben, ganze Zahl.  
+Für Befehle, die erfolgreich abgeschlossen werden, lautet die Ausgabe "abgeschlossen in x MS mit Ergebnis:", gefolgt von einem Hinweis auf das Ergebnis. Für Befehle, die einen Daten Reader zurückgeben, ist die Ergebnisanzeige der Typ von [DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx) , der zurückgegeben wird. Für Befehle, die einen ganzzahligen Wert zurückgeben, z. b. der oben angezeigte Befehl Update, ist die ganze Zahl.  
 
-### <a name="failed-execution"></a>Fehler bei der Ausführung  
+### <a name="failed-execution"></a>Fehlgeschlagene Ausführung  
 
-Für Befehle, die durch Auslösen einer Ausnahme fehlschlägt, enthält die Ausgabe die Nachricht aus der Ausnahme. Beispielsweise wird Abfrage für eine Tabelle, die vorhanden ist, SqlQuery mit Ergebnis im Anwendungsprotokoll etwa wie folgt ausgegeben:  
+Für Befehle, die fehlschlagen, indem eine Ausnahme ausgelöst wird, enthält die Ausgabe die Meldung aus der Ausnahme. Wenn Sie z. b. sqlQuery zum Abfragen einer Tabelle verwenden, die bereits vorhanden ist, führt dies zu einer Protokoll Ausgabe wie der folgenden:  
 
 ``` SQL
 SELECT * from ThisTableIsMissing
@@ -167,9 +167,9 @@ SELECT * from ThisTableIsMissing
 -- Failed in 1 ms with error: Invalid object name 'ThisTableIsMissing'.
 ```  
 
-### <a name="canceled-execution"></a>Abgebrochene Ausführung  
+### <a name="canceled-execution"></a>Ausführung abgebrochen  
 
-Für asynchrone Befehle, in dem die Aufgabe abgebrochen wird, das Ergebnis möglicherweise Fehler mit einer Ausnahme, da es sich handelt, was der zugrunde liegenden ADO.NET-Anbieter selten der Fall bei dem Versuch zum Abbrechen. Wenn dies nicht möglich, und die Aufgabe, ordnungsgemäß abgebrochen wird wird die Ausgabe etwa wie folgt aussehen:  
+Für asynchrone Befehle, bei denen der Task abgebrochen wird, könnte das Ergebnis ein Fehler mit einer Ausnahme sein, da dies der zugrunde liegende ADO.NET-Anbieter häufig tut, wenn versucht wird, abzubrechen. Wenn dies nicht der Fall ist und die Aufgabe ordnungsgemäß abgebrochen wird, sieht die Ausgabe in etwa wie folgt aus:  
 
 ```  
 update Blogs set Title = 'No' where Id = -1
@@ -177,24 +177,24 @@ update Blogs set Title = 'No' where Id = -1
 -- Canceled in 1 ms
 ```  
 
-## <a name="changing-log-content-and-formatting"></a>Ändern des Inhalts und Formatierung  
+## <a name="changing-log-content-and-formatting"></a>Ändern von Protokoll Inhalt und Formatierung  
 
-Hinter den Kulissen die Eigenschaft "Database.log" Verwenden eines DatabaseLogFormatter-Objekts. Dieses Objekt bindet effektiv eine IDbCommandInterceptor-Implementierung (siehe unten) an einen Delegaten, der Zeichenfolgen und einen "DbContext" akzeptiert. Dies bedeutet, dass Methoden auf DatabaseLogFormatter vor und nach der Ausführung von Befehlen von EF aufgerufen werden. Diese Methoden DatabaseLogFormatter erfassen und formatieren die Protokollausgabe und an den Delegaten zu senden.  
+Unter der deckt die Database. Log-Eigenschaft ein databaselogformatter-Objekt. Dieses Objekt bindet eine idbcommandinterceptor-Implementierung (siehe unten) effektiv an einen Delegaten, der Zeichen folgen und einen dbcontext akzeptiert. Dies bedeutet, dass Methoden für databaselogformatter vor und nach der Ausführung von Befehlen von EF aufgerufen werden. Diese databaselogformatter-Methoden erfassen und formatieren die Protokoll Ausgabe und senden Sie an den-Delegaten.  
 
-### <a name="customizing-databaselogformatter"></a>Anpassen von DatabaseLogFormatter  
+### <a name="customizing-databaselogformatter"></a>Anpassen von databaselogformatter  
 
-Protokolliert werden soll, und die Art der Formatierung ändern kann durch Erstellen einer neuen Klasse, die DatabaseLogFormatter abgeleitet und überschreibt die Methoden entsprechend erreicht werden. Am häufigsten verwendeten Methoden überschrieben werden:  
+Änderungen, die protokolliert und formatiert werden, können erreicht werden, indem Sie eine neue Klasse erstellen, die von databaselogformatter abgeleitet ist, und die Methoden nach Bedarf überschreibt. Die gängigsten Methoden zum Überschreiben lauten:  
 
-- LogCommand – überschreiben Sie diese Option, um die ändern, wie Befehle protokolliert werden, bevor sie ausgeführt werden. Standardmäßig ruft LogCommand LogParameter für jeden Parameter. Sie können auswählen, in der Außerkraftsetzung oder Parameter stattdessen unterschiedlich behandeln.  
-- LogResult – überschreiben Sie diese Option, um Sie ändern möchten, wie das Ergebnis aus der Ausführung eines Befehls protokolliert wird.  
-- LogParameter – überschreiben Sie diese Option, um die Formatierung und den Inhalt der Parameter-Protokollierung zu ändern.  
+- Logcommand – überschreiben Sie diese Einstellung, um zu ändern, wie Befehle protokolliert werden, bevor Sie ausgeführt werden. Standardmäßig ruft logcommand logparameter für jeden Parameter auf. Sie können in Ihrem Außerkraftsetzungs Vorgang dasselbe tun oder Parameter unterschiedlich behandeln.  
+- Logresult – überschreiben Sie diese, um zu ändern, wie das Ergebnis der Ausführung eines Befehls protokolliert wird.  
+- Logparameter – überschreiben Sie diese Einstellung, um die Formatierung und den Inhalt der Parameter Protokollierung zu ändern.  
 
-Nehmen wir beispielsweise an, dass wir nur eine einzelne Zeile anmelden, bevor jeder Befehl in die Datenbank gesendet wird. Dies kann mit zwei Außerkraftsetzungen erfolgen:  
+Angenommen, es soll nur eine einzelne Zeile protokolliert werden, bevor jeder Befehl an die Datenbank gesendet wird. Dies kann mit zwei über schreibungen erfolgen:  
 
-- Überschreiben Sie LogCommand zum Formatieren und die einzelne SQL-Codezeile zu schreiben  
-- Überschreiben Sie LogResult, um den Vorgang.  
+- Überschreiben von logcommand zum Formatieren und Schreiben der einzelnen Zeile von SQL  
+- Überschreiben Sie logresult, um nichts zu tun.  
 
-Der Code würde in etwa wie folgt aussehen:
+Der Code sieht in etwa wie folgt aus:
 
 ``` csharp
 public class OneLineFormatter : DatabaseLogFormatter
@@ -221,13 +221,13 @@ public class OneLineFormatter : DatabaseLogFormatter
 }
 ```  
 
-Zum Protokollieren Ausgabe rufen einfach die Write-Methode, die Ausgabe an den Delegaten konfigurierten schreiben gesendet wird.  
+Zum Protokollieren der Ausgabe können Sie einfach die Write-Methode abrufen, die die Ausgabe an den konfigurierten Schreib Delegaten sendet  
 
-(Beachten Sie, dass dieser Code einfach zum Entfernen von Zeilenumbrüchen nur als Beispiel bewirkt. Sie wahrscheinlich funktioniert nicht gut für komplexe SQL anzeigen.)  
+(Beachten Sie, dass dieser Code eine vereinfachte Entfernung von Zeilenumbrüchen als Beispiel bewirkt. Dies funktioniert wahrscheinlich nicht gut für die Anzeige von komplexem SQL.)  
 
-### <a name="setting-the-databaselogformatter"></a>Festlegen der DatabaseLogFormatter  
+### <a name="setting-the-databaselogformatter"></a>Festlegen von databaselogformatter  
 
-Sobald eine neue DatabaseLogFormatter-Klasse, es erstellt wurde muss mit EF registriert werden. Dies erfolgt mithilfe von codebasierte Konfiguration. Kurz gesagt bedeutet dies eine neue Klasse erstellen, die "dbconfiguration" in der gleichen Assembly wie die Klasse "DbContext" abgeleitet und dem anschließenden Aufrufen der SetDatabaseLogFormatter im Konstruktor der diese neue Klasse. Zum Beispiel:  
+Nachdem eine neue databaselogformatter-Klasse erstellt wurde, muss Sie bei EF registriert werden. Dies erfolgt mithilfe der Code basierten Konfiguration. Kurz gesagt bedeutet dies, dass Sie eine neue Klasse erstellen, die von dbconfiguration in derselben Assembly wie die dbcontext-Klasse abgeleitet ist, und dann setdatabaselogformatter im Konstruktor dieser neuen Klasse aufrufen. Beispiel:  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration
@@ -240,9 +240,9 @@ public class MyDbConfiguration : DbConfiguration
 }
 ```  
 
-### <a name="using-the-new-databaselogformatter"></a>Verwenden die neue DatabaseLogFormatter  
+### <a name="using-the-new-databaselogformatter"></a>Verwenden des neuen databaselogformatter-Objekts  
 
-Diese neue DatabaseLogFormatter wird jetzt verwendet werden, jedes Mal, wenn "Database.log" festgelegt ist. Daher führt das Ausführen des Codes aus Teil 1 jetzt in der folgenden Ausgabe:  
+Dieser neue databaselogformatter wird jetzt verwendet, wenn "Database. log" festgelegt ist. Wenn Sie den Code aus Teil 1 ausführen, führt dies nun zur folgenden Ausgabe:  
 
 ```  
 Context 'BlogContext' is executing command 'SELECT TOP (1) [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title]FROM [dbo].[Blogs] AS [Extent1]WHERE (N'One Unicorn' = [Extent1].[Title]) AND ([Extent1].[Title] IS NOT NULL)'
@@ -251,60 +251,60 @@ Context 'BlogContext' is executing command 'update [dbo].[Posts]set [Title] = @0
 Context 'BlogContext' is executing command 'insert [dbo].[Posts]([Title], [BlogId])values (@0, @1)select [Id]from [dbo].[Posts]where @@rowcount > 0 and [Id] = scope_identity()'
 ```  
 
-## <a name="interception-building-blocks"></a>Bausteine für die Abfangfunktion  
+## <a name="interception-building-blocks"></a>Abfang Bausteine  
 
-Bisher haben wir an, wie DbContext.Database.Log zu verwenden, um das Protokollieren von EF generierten SQL erläutert. Doch dieser Code ist tatsächlich eine relativ schlanke Fassade, über einige spezielle Bausteine für allgemeinere abfangen.  
+Bisher haben wir uns mit der Verwendung von "dbcontext. Database. log" zum Protokollieren des von EF generierten SQL beschäftigt. Dieser Code ist jedoch eine relativ schlanke Fassade über einigen gering stufigen Bausteinen für eine allgemeinere Abfang Funktion.  
 
-### <a name="interception-interfaces"></a>Die Abfangfunktion-Schnittstellen  
+### <a name="interception-interfaces"></a>Abfang Schnittstellen  
 
-Der Abfangfunktion-Code wird das Konzept der Abfangfunktion Schnittstellen erstellt. Diese Schnittstellen erben von IDbInterceptor und definieren Sie Methoden, die aufgerufen werden, wenn EF eine Aktion ausführt. Die Absicht besteht darin, eine Schnittstelle pro Typ des abgefangenen Objekts verfügen. Beispielsweise definiert die Schnittstelle IDbCommandInterceptor Methoden, die aufgerufen werden, bevor EF ExecuteNonQuery, "ExecuteScalar", "ExecuteReader" und zugehörigen Methoden aufruft. Ebenso definiert die Schnittstelle Methoden, die aufgerufen werden, wenn es sich bei diesen Vorgängen abgeschlossen ist. Die DatabaseLogFormatter-Klasse, der wir uns weiter oben angesehen haben implementiert diese Schnittstelle, um Befehle zu protokollieren.  
+Der Abfang Code basiert auf dem Konzept der Abfang Schnittstellen. Diese Schnittstellen erben von idbinterceptor und definieren Methoden, die aufgerufen werden, wenn EF einige Aktionen ausführt. Die Absicht besteht darin, dass eine Schnittstelle pro Objekttyp abgefangen wird. Die idbcommandinterceptor-Schnittstelle definiert z. b. Methoden, die aufgerufen werden, bevor EF einen Aufruf an ExecuteNonQuery, ExecuteScalar, ExecuteReader und verwandte Methoden sendet. Ebenso definiert die-Schnittstelle Methoden, die aufgerufen werden, wenn jeder dieser Vorgänge abgeschlossen wird. Die zuvor betrachtete databaselogformatter-Klasse implementiert diese Schnittstelle zum Protokollieren von Befehlen.  
 
-### <a name="the-interception-context"></a>Der Kontext für die Abfangfunktion  
+### <a name="the-interception-context"></a>Der Abfang Kontext  
 
-Betrachten die Methoden, die für jede der Schnittstellen Interceptor definiert es ist offensichtlich, dass für jeden Aufruf wie z. B. DbCommandInterceptionContext angegebenen ein Objekt des Typs DbInterceptionContext oder eine Art von dieser abgeleitet ist\<\>. Dieses Objekt enthält Kontextinformationen über die Aktion, die EF ausgeführt wird. Z. B. wenn die Aktion für einen "DbContext" aufgenommen wird, ist dann "DbContext" in der DbInterceptionContext enthalten. Auf ähnliche Weise ist für Befehle, die asynchron ausgeführt werden, der IsAsync-Flag auf DbCommandInterceptionContext festgelegt.  
+Wenn Sie die Methoden betrachten, die für eine der Interceptor Schnittstellen definiert sind, ist es offensichtlich, dass jedem-Befehl ein Objekt vom Typ "dbinterceptioncontext" oder ein von diesem abgeleiteter Typ, wie z. b. dbcommandinterceptioncontext\<\> Dieses Objekt enthält Kontextinformationen zu der Aktion, die EF durch nimmt. Wenn die Aktion z. b. im Namen eines dbcontext ausgeführt wird, ist dbcontext im dbinterceptioncontext enthalten. Analog dazu wird für Befehle, die asynchron ausgeführt werden, das IsAsync-Flag für dbcommandinterceptioncontext festgelegt.  
 
-### <a name="result-handling"></a>Führen Sie die Verarbeitung  
+### <a name="result-handling"></a>Ergebnis Behandlung  
 
-Die DbCommandInterceptionContext\< \> Klasse enthält Eigenschaften, die aufgerufen wird, Ergebnis, OriginalResult, Ausnahme und OriginalException. Diese Eigenschaften werden festgelegt auf Null/NULL für Aufrufe an den Interceptor-Methoden, die aufgerufen werden, bevor der Vorgang ausgeführt wird, d. h. für die... Ausführen von Methoden. Wenn der Vorgang ausgeführt wird und erfolgreich ist, werden Ergebnis und OriginalResult auf das Ergebnis des Vorgangs festgelegt. Diese Werte können dann beobachtet werden, in der Interceptor-Methoden, die aufgerufen werden, nachdem der Vorgang ausgeführt wurde, d. h. auf die... Ausgeführte Methoden. Ebenso, wenn der Vorgang ausgelöst wird, werden klicken Sie dann die Ausnahme und OriginalException Eigenschaften festgelegt werden.  
+Die dbcommandinterceptioncontext\< \> -Klasse enthält die Eigenschaften "result", "originalresult", "Exception" und "originalexception". Diese Eigenschaften werden für Aufrufe der Abfang Methoden, die vor der Ausführung des Vorgangs aufgerufen werden, auf Null/0 (null) festgelegt – d. h. für die... Ausführen von Methoden. Wenn der Vorgang ausgeführt wird und erfolgreich ist, werden result und originalresult auf das Ergebnis des Vorgangs festgelegt. Diese Werte können dann in den Abfang Methoden beobachtet werden, die nach der Ausführung des Vorgangs aufgerufen werden – d. h. auf dem... Ausgeführte Methoden. Ebenso werden, wenn der Vorgang ausgelöst wird, die Eigenschaften Exception und originalexception festgelegt.  
 
 #### <a name="suppressing-execution"></a>Unterdrücken der Ausführung  
 
-Ein Interceptor die Result-Eigenschaft festgelegt, bevor der Befehl ausgeführt hat (eines der... Ausführen von Methoden) klicken Sie dann EF versucht nicht, um den Befehl tatsächlich auszuführen, aber das Resultset wird stattdessen nur verwenden. Das heißt, kann der Interceptor unterdrücken Ausführung des Befehls, aber das vorhandenem EF fortgesetzt, als wäre, wenn der Befehl ausgeführt wurde, hatte.  
+Wenn ein Interceptor die Ergebnis Eigenschaft festlegt, bevor der Befehl ausgeführt wurde (in einer der... Ausführen von Methoden) dann versucht EF nicht, den Befehl tatsächlich auszuführen, sondern verwendet stattdessen nur das Resultset. Mit anderen Worten: der Interceptor kann die Ausführung des Befehls unterdrücken, aber EF kann fortgesetzt werden, als ob der Befehl ausgeführt wurde.  
 
-Verdeutlicht, wie diese verwendet werden kann, ist, dass der Befehl, Batchverarbeitung, die normalerweise mit einem Wrapper-Anbieter erfolgt ist. Der Interceptor als Batch den Befehl für die spätere Ausführung speichern, aber es würde "nehmen" mit EF, der der Befehl wie gewohnt ausgeführt worden. Beachten Sie, dass sie mehr zum Implementieren der Batchverarbeitung erfordert, aber dies ist ein Beispiel, wie die Änderung des Ergebnis der Abfangfunktion verwendet werden kann.  
+Ein Beispiel dafür, wie dies verwendet werden kann, ist die Batch Verarbeitung des Befehls, die bisher mit einem Wrapping Anbieter durchgeführt wurde. Der-Interceptor speichert den Befehl für die spätere Ausführung als Batch, aber würde den Befehl "vorgeben", um EF darauf zu warten, dass der Befehl wie gewohnt ausgeführt wurde. Beachten Sie, dass es mehr als die Implementierung der Batch Verarbeitung erfordert, aber dies ist ein Beispiel dafür, wie die Änderung des Abfang Ergebnisses verwendet werden kann.  
 
-Ausführung kann auch durch Festlegen der Exception-Eigenschaft in einem der unterdrückt werden die... Ausführen von Methoden. Dies bewirkt, dass EF fortgesetzt, als wäre die Ausführung des Vorgangs Fehler hatte, durch die angegebene Ausnahme auslösen. Kann dies natürlich, dazu führen, dass die Anwendung zum Absturz bringen, aber es kann auch sein, eine vorübergehende Ausnahme oder sonstige Ausnahmen, die von EF behandelt wird. Beispielsweise könnte dies in testumgebungen verwendet werden, testen das Verhalten einer Anwendung aus, wenn es sich bei Ausführung des Befehls ein Fehler auftritt.  
+Die Ausführung kann auch durch Festlegen der Exception-Eigenschaft in einer der... Ausführen von Methoden. Dies bewirkt, dass EF fortgesetzt wird, als ob die Ausführung des Vorgangs fehlgeschlagen ist, indem die angegebene Ausnahme ausgelöst wird. Dies kann natürlich dazu führen, dass die Anwendung abstürzt, aber es kann auch eine vorübergehende Ausnahme oder eine andere Ausnahme sein, die von EF behandelt wird. Dies kann z. b. in Testumgebungen verwendet werden, um das Verhalten einer Anwendung zu testen, wenn die Befehlsausführung fehlschlägt.  
 
-#### <a name="changing-the-result-after-execution"></a>Ändern das Ergebnis nach der Ausführung  
+#### <a name="changing-the-result-after-execution"></a>Ändern des Ergebnisses nach der Ausführung  
 
-Wenn ein Interceptor die Result-Eigenschaft festlegt, nachdem der Befehl ausgeführt hat (eines der... Ausgeführt von Methoden) und dann EF das geänderte Ergebnis das Ergebnis verwendet wird, die tatsächlich vom Vorgang zurückgegeben wurde. Auf ähnliche Weise, wenn ein Interceptor die Exception-Eigenschaft festlegt, nachdem der Befehl ausgeführt wurde, EF die Set-Ausnahme löst, als ob der Vorgang die Ausnahme ausgelöst haben.  
+Wenn ein Interceptor die Ergebnis Eigenschaft festlegt, nachdem der Befehl ausgeführt wurde (in einer der... Ausgeführte Methoden) dann verwendet EF das geänderte Ergebnis anstelle des Ergebnisses, das tatsächlich vom Vorgang zurückgegeben wurde. Wenn ein Interceptor die Exception-Eigenschaft nach dem Ausführen des Befehls festlegt, löst EF die festgelegte Ausnahme aus, als ob der Vorgang die Ausnahme ausgelöst hätte.  
 
-Ein Interceptor kann auch die Exception-Eigenschaft festlegen, auf null, um anzugeben, dass keine Ausnahme ausgelöst werden soll. Dies kann nützlich sein, wenn Fehler bei der Ausführung des Vorgangs, aber der Interceptor wünscht, dass EF fortgesetzt, als wäre der Vorgang erfolgreich war. Dies umfasst in der Regel auch das Ergebnis festlegen, sodass EF einige Ergebniswert hat mit arbeiten, da er weiterhin.  
+Ein Interceptor kann die Exception-Eigenschaft auch auf NULL festlegen, um anzugeben, dass keine Ausnahme ausgelöst werden soll. Dies kann hilfreich sein, wenn die Ausführung des Vorgangs fehlgeschlagen ist, der Interceptor jedoch wünscht, dass EF fortgesetzt wird, als ob der Vorgang erfolgreich war. Dies umfasst in der Regel auch das Festlegen des Ergebnisses, damit EF mit einem Ergebniswert arbeiten kann, wenn er fortgesetzt wird.  
 
-#### <a name="originalresult-and-originalexception"></a>OriginalResult und OriginalException  
+#### <a name="originalresult-and-originalexception"></a>Originalresult und originalexception  
 
-Nachdem EF einen Vorgang ausgeführt wurde wird es entweder das Ergebnis und OriginalResult-Eigenschaften, wenn die Ausführung nicht fehlgeschlagen ist oder die Ausnahme und OriginalException Eigenschaften festgelegt, wenn Fehler bei der Ausführung mit einer Ausnahme.  
+Nachdem EF einen Vorgang ausgeführt hat, werden die Eigenschaften result und originalresult festgelegt, wenn die Ausführung nicht erfolgreich war, oder die Eigenschaften Exception und originalexception, wenn die Ausführung mit einer Ausnahme fehlgeschlagen ist.  
 
-Die OriginalResult und OriginalException-Eigenschaften sind schreibgeschützt und nur von EF nach dem tatsächlich Ausführen eines Vorgangs festgelegt. Diese Eigenschaften können nicht von Interceptors festgelegt werden. Dies bedeutet, dass alle Interceptor unterscheiden kann eine Ausnahme oder ein Ergebnis, das festgelegt wurde, indem einige andere Interceptor im Gegensatz zu der echte Ausnahme oder ein Ergebnis, die aufgetreten sind, wenn der Vorgang ausgeführt wurde.  
+Die Eigenschaften originalresult und originalexception sind schreibgeschützt und werden nur von EF festgelegt, nachdem ein Vorgang tatsächlich ausgeführt wurde. Diese Eigenschaften können nicht durch Interceptors festgelegt werden. Dies bedeutet, dass jeder Interceptor zwischen einer Ausnahme oder einem Ergebnis unterscheiden kann, die von einem anderen Interceptor festgelegt wurde. Dies gilt nicht für die tatsächliche Ausnahme oder das Ergebnis, das beim Ausführen des Vorgangs aufgetreten ist.  
 
-### <a name="registering-interceptors"></a>Registrieren des interceptors  
+### <a name="registering-interceptors"></a>Interceptors werden registriert  
 
-Nach der Erstellung einer Klasse, die eine oder mehrere der Abfangfunktion Schnittstellen implementiert, können sie mit EF unter Verwendung der DbInterception-Klasse registriert werden. Zum Beispiel:  
+Sobald eine Klasse, die eine oder mehrere der Abfang Schnittstellen implementiert, erstellt wurde, kann Sie mithilfe der dbintercep-Klasse bei EF registriert werden. Beispiel:  
 
 ``` csharp
 DbInterception.Add(new NLogCommandInterceptor());
 ```  
 
-Interceptors können auch auf app-Domäne mithilfe der Mechanismen zur "dbconfiguration" codebasierte Konfiguration registriert werden.  
+Interceptors können auch auf der Ebene der APP-Domäne mithilfe des Code basierten Konfigurations Mechanismus von dbconfiguration registriert werden.  
 
-### <a name="example-logging-to-nlog"></a>Beispiel: Protokollierung NLog  
+### <a name="example-logging-to-nlog"></a>Beispiel: Protokollierung in nlog  
 
-Können wir all dies zusammen in einem Beispiel, dass die Verwendung IDbCommandInterceptor und [NLog](http://nlog-project.org/) auf:  
+Fügen wir das alles in ein Beispiel ein, das idbcommandinterceptor und [nlog](http://nlog-project.org/) für Folgendes verwendet:  
 
-- Melden Sie sich eine Warnung für solche Befehle, die nicht asynchron ausgeführt wird  
-- Melden Sie Fehler für jeden Befehl, der auslöst, wenn ausgeführt  
+- Protokolliert eine Warnung für jeden Befehl, der nicht asynchron ausgeführt wird.  
+- Protokolliert einen Fehler für jeden Befehl, der beim Ausführen auslöst.  
 
-Dies ist die Klasse, die die Protokollierung, die registriert werden soll, wie oben gezeigt:  
+Hier ist die Klasse, die die Protokollierung durchführt, die wie oben beschrieben registriert werden sollte:  
 
 ``` csharp
 public class NLogCommandInterceptor : IDbCommandInterceptor
@@ -368,4 +368,4 @@ public class NLogCommandInterceptor : IDbCommandInterceptor
 }
 ```  
 
-Beachten Sie, wie dieser Code abfangen Kontext ermitteln, wenn ein Befehl nicht asynchron ausgeführt wird und erkannt wird, wenn Fehler bei der Ausführung eines Befehls verwendet.  
+Beachten Sie, dass dieser Code den Abfang Kontext verwendet, um zu ermitteln, wann ein Befehl nicht asynchron ausgeführt wird, und um herauszufinden, wann beim Ausführen eines Befehls ein Fehler aufgetreten ist.  

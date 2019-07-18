@@ -1,38 +1,38 @@
 ---
-title: Datenbankverbindungsresilienz und Wiederholungslogik Verbindungslogik - EF6
+title: Verbindungsresilienz und Wiederholungs Logik EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 7d6aa870cc32a2b344457fbb04525a7c2c8d1c61
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: a01216c3399ca4a04943563435eacd0047337a5f
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668764"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306576"
 ---
-# <a name="connection-resiliency-and-retry-logic"></a>Verbindungslogik datenbankverbindungsresilienz und Wiederholungslogik
+# <a name="connection-resiliency-and-retry-logic"></a>Verbindungsresilienz und Wiederholungs Logik
 > [!NOTE]
 > **Nur EF6 und höher:** Die Features, APIs usw., die auf dieser Seite erläutert werden, wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
 
-Anwendungen, die mit einem Datenbankserver verbinden wurden immer anfällig für Unterbrechungen der Verbindung aufgrund von Back-End-Fehlern und netzwerkinstabilität. Allerdings sind diese Fehler in einer LAN-basierte Umgebung arbeiten mit dedizierten Datenbankserver selten genug, dass zusätzliche Logik zur Behandlung dieser Fehler häufig nicht erforderlich ist. Mit dem Aufstieg des Cloud-basierter Datenbankserver, z. B. Windows Azure SQL-Datenbank und Verbindungen über weniger zuverlässige Netzwerke ist es nun häufiger bei Unterbrechungen der Verbindung auftreten. Dies kann aufgrund von Verteidigungsmaßnahmen sein, die cloud-Datenbanken verwenden, um sicherzustellen, dass die Ausgewogenheit des Diensts, z. B. verbindungsdrosselung oder Instabilität im Netzwerk verursachen vorübergehende Timeouts und andere vorübergehende Fehler.  
+Anwendungen, die eine Verbindung mit einem Datenbankserver herstellen, waren aufgrund von Back-End-Fehlern und Netzwerk Instabilität immer anfällig für Verbindungsunterbrechungen. In einer LAN-basierten Umgebung, die mit dedizierten Datenbankservern arbeitet, sind diese Fehler jedoch selten genug, dass die zusätzliche Logik zur Behandlung dieser Fehler nicht häufig erforderlich ist. Mit dem Anstieg von cloudbasierten Datenbankservern wie Windows Azure SQL-Datenbank und Verbindungen über weniger zuverlässige Netzwerke kommt es nun häufiger vor, dass Verbindungsunterbrechungen auftreten. Dies liegt möglicherweise an der Abwehr von Techniken, die clouddatenbanken verwenden, um die Fairness des Diensts zu gewährleisten, z. b. die Verbindungs Drosselung oder eine Instabilität im Netzwerk, die vorübergehende Timeouts und andere vorübergehende Fehler verursacht.  
 
-Verbindungsresilienz bezieht sich auf die Möglichkeit, dass EF automatisch alle Befehle wiederholt, die fehl, weil diese Verbindung unterbrochen.  
+Verbindungsresilienz bezieht sich auf die Fähigkeit von EF, Befehle, die aufgrund dieser Verbindungsunterbrechungen fehlschlagen, automatisch zu wiederholen.  
 
-## <a name="execution-strategies"></a>Ausführungsstrategien  
+## <a name="execution-strategies"></a>Ausführungs Strategien  
 
-Herstellen einer erneuten Verbindung wird durch eine Implementierung der Schnittstelle IDbExecutionStrategy übernommen. Implementierungen der IDbExecutionStrategy werden verantwortlich für das Akzeptieren eines Vorgangs und, wenn eine Ausnahme auftritt, bestimmen, ob eine Wiederholung geeignet ist, und wiederholen, wenn es sich handelt. Es gibt vier Ausführungsstrategien aus dem Lieferumfang von EF:  
+Die Verbindungs Wiederholung erfolgt durch eine Implementierung der idbexecutionstrategy-Schnittstelle. Implementierungen der idbexecutionstrategy-Strategie sind dafür verantwortlich, einen Vorgang zu akzeptieren und, wenn eine Ausnahme auftritt, festzustellen, ob eine Wiederholung angemessen ist, und den Vorgang zu wiederholen, wenn dies der Fall ist. Es gibt vier Ausführungs Strategien, die mit EF ausgeliefert werden:  
 
-1. **DefaultExecutionStrategy**: Diese Ausführungsstrategie wird nicht erneut versucht, alle Vorgänge ist dies die Standardeinstellung für die Datenbanken als SqlServer.  
-2. **DefaultSqlExecutionStrategy**: Dies ist eine interne Ausführung-Strategie, die standardmäßig verwendet wird. Diese Strategie wird nicht erneut versucht, alle, bricht jedoch alle Ausnahmen, die möglicherweise vorübergehende, um Benutzer zu informieren, die diese resilienz von Verbindungen aktivieren möchten.  
-3. **DbExecutionStrategy**: Diese Klasse als Basisklasse für andere Ausführungsstrategien, einschließlich Ihrer eigenen benutzerdefinierten geeignet ist. Sie implementiert eine exponentielle wiederholungsrichtlinie, in dem der erste Wiederholungsversuch mit 0 (null) Verzögerung und die Verzögerung steigt exponentiell erfolgt bis die maximale Anzahl von Wiederholungsversuchen erreicht ist. Diese Klasse verfügt über eine abstrakte ShouldRetryOn-Methode, die implementiert werden kann, in der abgeleiteten Ausführungsstrategien steuern, welche Ausnahmen wiederholt werden soll.  
-4. **"Sqlazureexecutionstrategy"**: Diese Ausführungsstrategie von DbExecutionStrategy erbt, und wiederholt auf Ausnahmen, die bekannt ist, dass beim Arbeiten mit Azure SQL-Datenbank möglicherweise vorübergehend sein.
+1. **Defaultexecutionstrategy**: Diese Ausführungs Strategie führt keinen Wiederholungsversuch für Vorgänge aus. Dies ist die Standardeinstellung für andere Datenbanken als SQL Server.  
+2. **Defaultionqlexecutionstrategy**: Dies ist eine interne Ausführungs Strategie, die standardmäßig verwendet wird. Diese Strategie führt nicht zu einem erneuten Versuch, sondern schließt alle Ausnahmen ein, die vorübergehend sein könnten, um Benutzer darüber zu informieren, dass Sie möglicherweise die verbindungsresilienz aktivieren möchten.  
+3. **Dbexecutionstrategy**: Diese Klasse eignet sich als Basisklasse für andere Ausführungs Strategien, einschließlich ihrer eigenen benutzerdefinierten. Es implementiert eine exponentielle Wiederholungs Richtlinie, bei der der anfängliche Wiederholungsversuch mit einer Verzögerung von 0 (null) erfolgt, und die Verzögerung erhöht sich exponentiell, bis die maximale Anzahl der Wiederholungs Versuche übertrifft. Diese Klasse verfügt über eine abstrakte Methode "schuldretryon", die in abgeleiteten Ausführungs Strategien implementiert werden kann, um zu steuern, welche Ausnahmen wiederholt werden sollen.  
+4. **Sqlazureexecutionstrategy**: Diese Ausführungs Strategie erbt von dbexecutionstrategy und führt einen Wiederholungsversuch für Ausnahmen aus, die bekanntermaßen bei der Arbeit mit Azure SQL-Datenbank vorübergehend sind.
 
 > [!NOTE]
-> Ausführungsstrategien 2 und 4 in der Sql Server-Anbieter, der Lieferumfang von EF, handelt es sich in der Assembly EntityFramework.SqlServer enthalten sind, und dienen zum Arbeiten mit SQL Server.  
+> Die Ausführungs Strategien 2 und 4 sind im SQL Server-Anbieter enthalten, der im Lieferumfang von EF enthalten ist, das sich in der EntityFramework. SqlServer-Assembly befindet und für die Arbeit mit SQL Server konzipiert ist.  
 
-## <a name="enabling-an-execution-strategy"></a>Aktivieren eine Ausführungsstrategie  
+## <a name="enabling-an-execution-strategy"></a>Aktivieren einer Ausführungs Strategie  
 
-Die einfachste Möglichkeit zum Teilen von EF verwenden, eine Ausführungsstrategie für die wird mit der SetExecutionStrategy-Methode, der die ["dbconfiguration"](~/ef6/fundamentals/configuring/code-based.md) Klasse:  
+Die einfachste Möglichkeit, EF die Verwendung einer Ausführungs Strategie mitzuteilen, ist die Methode "" der Methode "" der Klasse " [dbconfiguration](~/ef6/fundamentals/configuring/code-based.md) ":  
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -44,13 +44,13 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-Dieser Code weist EF die "sqlazureexecutionstrategy" beim Verbinden mit SQL Server zu verwenden.  
+Dieser Code weist EF an, beim Herstellen einer Verbindung mit SQL Server sqlazureexecutionstrategy zu verwenden.  
 
-## <a name="configuring-the-execution-strategy"></a>Konfigurieren die Ausführungsstrategie  
+## <a name="configuring-the-execution-strategy"></a>Konfigurieren der Ausführungs Strategie  
 
-Der Konstruktor der "sqlazureexecutionstrategy" kann zwei Parameter: "maxretrycount" und MaxDelay akzeptieren. MaxRetry-Anzahl ist die maximale Anzahl von Wiederholungen, die die Strategie wiederholt wird. Die MaxDelay ist ein TimeSpan-Objekt, das die maximale Verzögerung zwischen Wiederholungen, die die Ausführungsstrategie verwenden darstellt.  
+Der Konstruktor von sqlazureexecutionstrategy kann zwei Parameter akzeptieren: "maxRetryCount" und "MaxDelay". Die Anzahl der maxretry-Werte ist die maximale Anzahl von Wiederholungs versuchen für die Strategie. MaxDelay ist ein TimeSpan-Wert, der die maximale Verzögerung zwischen Wiederholungs versuchen darstellt, die von der Ausführungs Strategie verwendet werden.  
 
-Um die maximale Anzahl von Wiederholungen auf 1 und die maximale Verzögerung beträgt 30 Sekunden festlegen sollen Execue Folgendes:  
+Führen Sie die folgenden Schritte aus, um die maximale Anzahl von Wiederholungen auf 1 und die maximale Verzögerung auf 30 Sekunden festzulegen:  
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -64,15 +64,15 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-Die "sqlazureexecutionstrategy" Vorgang wird wiederholt, sofort beim ersten ein vorübergehender Fehler auftritt, aber mehr zwischen den einzelnen Wiederholungsversuchen, bis die maximale Anzahl Wiederholungslimit verzögert überschritten wird, oder die Gesamtzeit, die maximale Verzögerung erreicht.  
+Sqlazureexecutionstrategy wird beim ersten Auftreten eines vorübergehenden Fehlers sofort wiederholt, verzögert sich jedoch zwischen den einzelnen Wiederholungen, bis entweder die maximale Wiederholungs Grenze überschritten wird oder die Gesamtzeit die maximale Verzögerung erreicht.  
 
-Die Ausführungsstrategien werden nur eine begrenzte Anzahl von Ausnahmen, die in der Regel Tansient wiederholen, müssen Sie weiterhin, behandeln andere Fehler sowie das Abfangen der Ausnahme RetryLimitExceeded für den Fall, in denen ein Fehler ist nicht vorübergehend oder dauert zu lange, Auflösen sich selbst.  
+Bei den Ausführungs Strategien wird nur eine begrenzte Anzahl von Ausnahmen wiederholt, die normalerweise vorübergehend sind. Sie müssen weiterhin andere Fehler behandeln und die Ausnahme "retrylimitexceging" abfangen, wenn ein Fehler nicht vorübergehend ist oder zu lange für die Auflösung benötigt wird. etabliert.  
 
-Es gibt einige bekannte Einschränkungen auf, wenn eine Wiederholung Ausführungsstrategie verwenden:  
+Bei der Verwendung einer Wiederholungs Ausführungs Strategie gibt es einige bekannte Einschränkungen:  
 
-## <a name="streaming-queries-are-not-supported"></a>Streamingabfragen werden nicht unterstützt.  
+## <a name="streaming-queries-are-not-supported"></a>Streaming-Abfragen werden nicht unterstützt.  
 
-Standardmäßig werden EF 6 und höher Abfrageergebnisse, anstatt sie streaming Puffern. Wenn Sie möchten Ergebnisse gestreamt, Sie können die AsStreaming-Methode um eine LINQ to Entities-Abfrage, um streaming zu ändern.  
+Standardmäßig puffert EF6 und höhere Versionen Abfrageergebnisse, anstatt Sie zu streamen. Wenn die Ergebnisse gestreamt werden sollen, können Sie die asstreaming-Methode verwenden, um eine LINQ to Entities Abfrage in das Streaming zu ändern.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -84,15 +84,15 @@ using (var db = new BloggingContext())
 }
 ```  
 
-Streaming wird nicht unterstützt, wenn eine Wiederholung Ausführungsstrategie registriert wird. Diese Einschränkung ist vorhanden, da die Verbindung Teil Weg durch die zurückgegebenen Ergebnisse löschen. In diesem Fall EF benötigt die gesamte Abfrage erneut ausführen, aber keine zuverlässige Möglichkeit, zu wissen, welche Ergebnisse zurückgegeben wurden (die Daten möglicherweise wurden geändert, da die ursprüngliche Abfrage gesendet wurde, Ergebnisse in einer anderen Reihenfolge zurückkehren können, Ergebnisse möglicherweise keinen eindeutigen Bezeichner usw..).  
+Streaming wird nicht unterstützt, wenn eine Wiederholungs Ausführungs Strategie registriert wird. Diese Einschränkung ist vorhanden, da die Verbindung die Ergebnisse, die zurückgegeben werden, auf dem Weg ablegen könnte. In diesem Fall muss EF die gesamte Abfrage erneut ausführen, kann jedoch nicht zuverlässig festzustellen, welche Ergebnisse bereits zurückgegeben wurden (die Daten haben sich möglicherweise seit dem Senden der ersten Abfrage geändert, Ergebnisse können in einer anderen Reihenfolge zurückgegeben werden, und die Ergebnisse haben möglicherweise keinen eindeutigen Bezeichner. , usw.).  
 
 ## <a name="user-initiated-transactions-are-not-supported"></a>Vom Benutzer initiierte Transaktionen werden nicht unterstützt.  
 
-Wenn Sie eine Ausführungsstrategie, die zu Wiederholungen konfiguriert haben, gibt es einige Einschränkungen für die Verwendung von Transaktionen.  
+Wenn Sie eine Ausführungs Strategie konfiguriert haben, die zu Wiederholungen führt, gibt es einige Einschränkungen bei der Verwendung von Transaktionen.  
 
-Standardmäßig wird EF datenbankaktualisierungen innerhalb einer Transaktion ausgeführt. Sie müssen nichts tun, um dies zu ermöglichen, EF immer führt dies automatisch aus.  
+Standardmäßig führt EF innerhalb einer Transaktion alle Datenbankupdates aus. Sie müssen nichts tun, um dies zu ermöglichen. EF führt dies immer automatisch durch.  
 
-Beispielsweise wird im folgenden Code "SaveChanges" automatisch innerhalb einer Transaktion ausgeführt. Wenn "SaveChanges" schlagen fehl, nachdem eines der neuen Website einfügen, und klicken Sie dann die Transaktion ein Rollback ausgeführt werden sollen und keine Änderungen auf die Datenbank angewendet wurden. Der Kontext bleibt auch in einem Zustand, die "SaveChanges", um wiederholen, Anwenden der Änderungen erneut aufgerufen werden können.  
+Im folgenden Code wird z. b. "SaveChanges" automatisch innerhalb einer Transaktion ausgeführt. Wenn SaveChanges nach dem Einfügen einer der neuen Standorte fehlschlagen würde, wird für die Transaktion ein Rollback ausgeführt, und es werden keine Änderungen auf die Datenbank angewendet. Außerdem bleibt der Kontext in einem Zustand, in dem SaveChanges erneut aufgerufen werden kann, um die Änderungen zu übernehmen.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -103,7 +103,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-Wenn Sie keine Wiederholung Ausführungsstrategie verwenden, können Sie mehrere Vorgänge in einer einzelnen Transaktion umschließen. Beispielsweise umschließt der folgende Code zwei "SaveChanges" aufrufen, in einer einzelnen Transaktion. Wenn keine der Änderungen klicken Sie dann einen beliebigen Teil entweder Vorgang fehlschlägt, werden angewendet.  
+Wenn keine Wiederholungs Ausführungs Strategie verwendet wird, können Sie mehrere Vorgänge in einer einzelnen Transaktion umschließen. Der folgende Code umschließt z. b. zwei SaveChanges-Aufrufe in einer einzelnen Transaktion. Wenn ein Teil eines der beiden Vorgänge fehlschlägt, wird keine der Änderungen angewendet.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -122,11 +122,11 @@ using (var db = new BloggingContext())
 }
 ```  
 
-Dies wird nicht unterstützt, wenn eine Wiederholung Ausführungsstrategie verwenden, da EF über aller vorherigen Vorgänge und die Vorgehensweise beim Wiederholen Sie diese nicht. Beispielsweise, wenn die zweite "SaveChanges" EF nicht mehr danach nicht hat die erforderliche Informationen zum Wiederholen des ersten Aufrufs von "SaveChanges".  
+Dies wird nicht unterstützt, wenn eine Wiederholungs Ausführungs Strategie verwendet wird, da EF keine früheren Vorgänge kennt und die Wiederholungs Versuche ausgeführt werden. Wenn beispielsweise die zweite SaveChanges fehlgeschlagen ist, verfügt EF nicht mehr über die erforderlichen Informationen, um den ersten SaveChanges-Befehl zu wiederholen.  
 
-### <a name="workaround-suspend-execution-strategy"></a>Problemumgehung: Ausführungsstrategie anhalten  
+### <a name="workaround-suspend-execution-strategy"></a>Problemumgehung: Ausführungs Strategie aussetzen  
 
-Eine mögliche Lösung besteht, die wiederholt Ausführungsstrategie für den Codeabschnitt anzuhalten, die ein Benutzer verwenden, muss die Transaktion initiiert. Die einfachste Möglichkeit hierzu ist ein SuspendExecutionStrategy-Flag, um Ihren Code basierte Configuration-Klasse und ändern die Ausführung Strategie Lambda, um die Standardeinstellung (nicht retying) Ausführungsstrategie zurückzugeben, wenn das Flag festgelegt ist.  
+Eine mögliche Problem Umgehung besteht darin, die Wiederholungs Ausführungs Strategie für den Code anzuhalten, der eine vom Benutzer initiierte Transaktion verwenden muss. Die einfachste Möglichkeit hierzu ist das Hinzufügen eines suspendexecutionstrategy-Flags zu ihrer Code basierten Konfigurations Klasse und das Ändern des Ausführungs Strategie-Lambda-Ausdrucks, um die standardmäßige (nicht retalisierende) Ausführungs Strategie zurückzugeben, wenn das Flag festgelegt ist.  
 
 ``` csharp
 using System.Data.Entity;
@@ -160,9 +160,9 @@ namespace Demo
 }
 ```  
 
-Beachten Sie, dass wir CallContext verwenden, um den Flagwert zu speichern. Dies bietet ähnliche Funktionen wie der threadlokale Speicher ist jedoch problemlos mit asynchronem Code – einschließlich Async-Abfrage verwenden, und speichern Sie mit Entity Framework.  
+Beachten Sie, dass wir CallContext verwenden, um den Flagwert zu speichern. Dies bietet eine ähnliche Funktionalität wie der lokale Thread Speicher, kann jedoch mit asynchronem Code verwendet werden, einschließlich asynchroner Abfragen und speichern mit Entity Framework.  
 
-Wir können jetzt die Ausführungsstrategie für den Codeabschnitt anhalten, die eine vom Benutzer initiierten Transaktion verwendet.  
+Wir können nun die Ausführungs Strategie für den Code Abschnitt aussetzen, der eine vom Benutzer initiierte Transaktion verwendet.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -185,11 +185,11 @@ using (var db = new BloggingContext())
 }
 ```  
 
-### <a name="workaround-manually-call-execution-strategy"></a>Problemumgehung: Rufen Sie die Ausführungsstrategie manuell  
+### <a name="workaround-manually-call-execution-strategy"></a>Problemumgehung: Manuelles Abrufen der Ausführungs Strategie  
 
-Eine weitere Möglichkeit ist die Ausführungsstrategie verwenden manuell, und geben sie den gesamten Satz von Logik ausgeführt werden, damit sie alles, was wiederholt werden kann, wenn ein Vorgang fehlschlägt. Wir benötigen die Ausführungsstrategie - mithilfe der Technik anhalten oberhalb - angezeigt wird, sodass alle Kontexte, in der wiederholbare Codeblock verwendet nicht versuchen, wiederholen Sie dann.  
+Eine andere Möglichkeit besteht darin, die Ausführungs Strategie manuell zu verwenden und ihr den gesamten Logik Satz zuzuweisen, der ausgeführt werden soll, damit Sie alles wiederholen kann, wenn einer der Vorgänge fehlschlägt. Wir müssen die Ausführungs Strategie mithilfe der oben gezeigten Technik weiterhin aussetzen, damit alle im wiederholbaren Codeblock verwendeten Kontexte nicht versuchen, den Vorgang zu wiederholen.  
 
-Beachten Sie, dass Kontexte erstellt werden soll, in den Codeblock wiederholt werden. Dadurch wird sichergestellt, dass wir mit einem sauberen Status für jeden Wiederholungsversuch gestartet werden.  
+Beachten Sie, dass alle Kontexte innerhalb des Codeblocks erstellt werden müssen, um erneut versucht werden zu können. Dadurch wird sichergestellt, dass für jeden Wiederholungsversuch ein sauberer Zustand gestartet wird.  
 
 ``` csharp
 var executionStrategy = new SqlAzureExecutionStrategy();
