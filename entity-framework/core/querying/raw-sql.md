@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 3024c0101c9d886ef844d1b7dc85aaf1be27e86b
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 91592ea9f7c73f10446993282c1874c852000871
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58914077"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306548"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 
@@ -146,11 +146,11 @@ Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkung
 * An diese Methode übergebene `SELECT`-Anweisungen müssen in der Regel zusammensetzbar sein: Wenn EF Core weitere Abfrageoperatoren auf dem Server auswerten muss (z.B. um nach `FromSql` angewandte LINQ-Operatoren zu verschieben), wird die bereitgestellte SQL-Abfrage wie eine Unterabfrage behandelt. Das heißt, dass die übergebene SQL-Abfrage keine Zeichen oder Optionen enthalten sollte, die in einer Unterabfrage ungültig sind, wie z.B.:
   * ein nachfolgendes Semikolon
   * Auf SQL Server ein nachfolgender Hinweis auf Abfrageebene, z.B. `OPTION (HASH JOIN)`
-  * Auf SQL Server eine `ORDER BY`-Klausel, die nicht durch `TOP 100 PERCENT` in der `SELECT`-Klausel ergänzt wird
+  * In SQL Server eine `ORDER BY`-Klausel, die nicht durch `OFFSET 0` ODER `TOP 100 PERCENT` in der `SELECT`-Klausel ergänzt wird
 
 * Andere SQL-Anweisungen als `SELECT` werden automatisch als nicht zusammensetzbar erkannt. Die vollständigen Ergebnisse gespeicherter Prozeduren werden daher immer an den Client zurückgegeben, und sämtliche LINQ-Operatoren, die nach `FromSql` angewendet werden, werden speicherintern ausgewertet.
 
 > [!WARNING]  
-> **Für unformatierte SQL-Abfragen immer Parametrisierung verwenden:** Zusätzlich zum Überprüfen der Benutzereingabe sollten Sie die Parametrisierung für sämtliche Werte verwenden, die in unformatierten SQL-Abfragen/-Befehlen enthalten sind. APIs, die eine unformatierte SQL-Zeichenfolge wie `FromSql` und `ExecuteSqlCommand` akzeptieren, lassen zu, dass Werte problemlos als Parameter übergeben werden. Für überladene `FromSql`- und `ExecuteSqlCommand`-Methoden, die FormattableString akzeptieren, kann auch die Syntax zur Zeichenfolgeninterpolation so verwendet werden, dass Angriffe durch Einschleusung von SQL-Befehlen verhindert werden. 
+> **Für unformatierte SQL-Abfragen immer Parametrisierung verwenden:** Zusätzlich zum Überprüfen der Benutzereingabe sollten Sie die Parametrisierung für sämtliche Werte verwenden, die in unformatierten SQL-Abfragen/-Befehlen enthalten sind. APIs, die eine unformatierte SQL-Zeichenfolge wie `FromSql` und `ExecuteSqlCommand` akzeptieren, lassen zu, dass Werte problemlos als Parameter übergeben werden. Für Überladungen von `FromSql` und `ExecuteSqlCommand`, die FormattableString akzeptieren, kann auch die Syntax zur Zeichenfolgeninterpolation so verwendet werden, dass Angriffe durch Einschleusung von SQL-Befehlen verhindert werden. 
 > 
 > Wenn Sie Zeichenfolgen verketten oder interpolieren, um einen Teil der Abfragezeichenfolge dynamisch zu erstellen, müssen Sie Eingaben so überprüfen, dass Angriffe durch Einschleusung von SQL-Befehlen nicht möglich sind. Dieselbe Überprüfung ist notwendig, wenn Benutzereingaben an Anweisungen oder gespeicherte Prozeduren übergeben werden, die diese Eingaben als dynamisches SQL ausführen können.

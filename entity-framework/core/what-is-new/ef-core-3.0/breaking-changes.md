@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: dcbea1a2aab5baea35f81500bb7bb5482695d778
-ms.sourcegitcommit: 812010a35afe902d8c4bb03a67d575f8e91b5ec0
+ms.openlocfilehash: 7cc0bd3946be2e63d9fb46a023bf6abe750ae0e3
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67506262"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286495"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -96,11 +96,10 @@ Durch diese Änderung kann `dotnet ef` als reguläres .NET-CLI-Tool für NuGet v
 
 **Vorbeugende Maßnahmen**
 
-Um Migrationen zu verwalten oder ein Gerüst für `DbContext` zu erstellen, installieren Sie `dotnet-ef` mithilfe des Befehls `dotnet tool install`.
-Um beispielsweise eine Installation als globales Tool durchzuführen, können Sie diesen Befehl verwenden:
+Um Migrationen zu verwalten oder ein Gerüst für `DbContext` zu erstellen, installieren Sie `dotnet-ef` als globales Tool:
 
   ``` console
-  $ dotnet tool install --global dotnet-ef --version <exact-version>
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
   ```
 
 Eine Verwendung als lokales Tool ist ebenfalls möglich, wenn Sie die Abhängigkeiten eines Projekts wiederherstellen, das das Tool mithilfe einer [Toolmanifestdatei](https://github.com/dotnet/cli/issues/10288) als Toolabhängigkeit deklariert.
@@ -1313,6 +1312,28 @@ Die Tabelle mit dem Migrationsverlauf muss auch aktualisiert werden.
 UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
+
+## <a name="userownumberforpaging-has-been-removed"></a>UseRowNumberForPaging wurde entfernt.
+
+[Issue #16400](https://github.com/aspnet/EntityFrameworkCore/issues/16400)
+
+Diese Änderung wird in Vorschauversion 6 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Vor EF Core 3.0 konnte `UseRowNumberForPaging` zum Generieren von SQL-Code für die Paginierung verwendet werden, der mit SQL Server 2008 kompatibel ist.
+
+**Neues Verhalten**
+
+Ab EF Core 3.0 generiert EF nur noch SQL-Code für die Paginierung, die mit höheren SQL Server-Versionen kompatibel ist. 
+
+**Hintergründe**
+
+Wir führen diese Änderung ein, weil [SQL Server 2008 kein unterstütztes Produkt mehr ist](https://blogs.msdn.microsoft.com/sqlreleaseservices/end-of-mainstream-support-for-sql-server-2008-and-sql-server-2008-r2/) und weil die Aktualisierung dieses Features auf die in EF Core 3.0 vorgenommenen Änderungen an Abfragen ein wichtiger Schritt ist.
+
+**Vorbeugende Maßnahmen**
+
+Es empfiehlt sich, eine Update auf eine neuere Version von SQL Server durchzuführen oder einen höheren Kompatibilitätsgrad zu verwenden, damit der generierte SQL-Code unterstützt wird. Wenn dies bei Ihnen nicht möglich ist, fügen Sie einen [Kommentar zum Issue](https://github.com/aspnet/EntityFrameworkCore/issues/16400) ein, und geben Sie alle relevanten Informationen an. Je nach Feedback der Benutzer wird diese Entscheidung möglicherweise noch einmal überprüft.
 
 ## <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>Erweiterungsinformationen und Metadaten aus IDbContextOptionsExtension entfernt
 

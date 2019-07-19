@@ -3,12 +3,12 @@ title: 'Globale Abfragefilter: EF Core'
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: 4afc9fb0338d34845639d57013ac710445321940
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: e1cb9f5afc54aaa12e5880ace606277b00911c06
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562441"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306471"
 ---
 # <a name="global-query-filters"></a>Globale Abfragefilter
 
@@ -31,20 +31,20 @@ Definieren Sie zunächst die Entitäten:
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Entities)]
 
-Beachten Sie die Deklaration eines __tenantId_-Felds in der Entität _Blog_. Dies wird dazu verwendet, jede Bloginstanz einem bestimmten Mandanten zuzuordnen. Außerdem wird eine _IsDeleted_-Eigenschaft auf dem Entitätstyp _Post_ definiert. Damit wird nachverfolgt, ob eine _Post_-Instanz „vorläufig gelöscht“ wurde. Das heißt, die Instanz wird als gelöscht gekennzeichnet, ohne dass zugrunde liegende Daten physisch entfernt werden.
+Beachten Sie die Deklaration eines _tenantId_-Felds in der Entität _Blog_. Dies wird dazu verwendet, jede Bloginstanz einem bestimmten Mandanten zuzuordnen. Außerdem wird eine _IsDeleted_-Eigenschaft auf dem Entitätstyp _Post_ definiert. Damit wird nachverfolgt, ob eine _Post_-Instanz „vorläufig gelöscht“ wurde. Das heißt, die Instanz wird als gelöscht gekennzeichnet, ohne dass zugrunde liegende Daten physisch entfernt werden.
 
-Konfigurieren Sie als nächstes die Abfragefilter in _OnModelCreating_ mithilfe der ```HasQueryFilter```-API.
+Konfigurieren Sie als nächstes die Abfragefilter in _OnModelCreating_ mithilfe der `HasQueryFilter`-API.
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Configuration)]
 
 Die Prädikatausdrücke, die an _HasQueryFilter_ weitergegeben werden, werden nun automatisch auf alle LINQ-Abfragen dieser Typen angewendet.
 
 > [!TIP]
-> Beachten Sie die Verwendung eines DbContext-Instanzfelds: ```_tenantId``` wird zum Festlegen des aktuellen Mandanten verwendet. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz, d.h. der Instanz, die die Abfrage ausführt.
+> Beachten Sie die Verwendung eines DbContext-Instanzfelds: `_tenantId` wird zum Festlegen des aktuellen Mandanten verwendet. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz, d.h. der Instanz, die die Abfrage ausführt.
 
 ## <a name="disabling-filters"></a>Deaktivieren von Filtern
 
-Filter können für einzelne LINQ-Abfragen mit dem ```IgnoreQueryFilters()```-Operator deaktiviert werden.
+Filter können für einzelne LINQ-Abfragen mit dem `IgnoreQueryFilters()`-Operator deaktiviert werden.
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#IgnoreFilters)]
 
