@@ -1,17 +1,18 @@
 ---
-title: Erste Schritte in ASP.NET Core – Vorhandene Datenbank – EF Core
+title: Erste Schritte mit EF Core und einer vorhandenen Datenbank in ASP.NET Core
 author: rowanmiller
+description: Erste Schritte mit EF Core und einer vorhandenen Datenbank in ASP.NET Core
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: c8acb95395968f710e6b896de6c3598cb7b23676
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 6b0ed0a9222644bee31d23234aa27b2084137f4a
+ms.sourcegitcommit: 755a15a789631cc4ea581e2262a2dcc49c219eef
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058785"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68497510"
 ---
-# <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Erste Schritte mit EF Core in ASP.NET Core mit einer vorhandenen Datenbank
+# <a name="get-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Lernen Sie in ASP.NET Core die ersten Schritte mit EF Core und einer bereits vorhandenen Datenbank kennen.
 
 In diesem Tutorial entwickeln Sie eine ASP.NET Core MVC-Anwendung, die einen grundlegenden Datenzugriff mit Entity Framework Core durchführt. Sie erstellen ein Entity Framework-Modell, indem Sie ein Reverse Engineering für eine vorhandene Datenbank durchführen.
 
@@ -45,7 +46,7 @@ In diesem Tutorial wird als vorhandene Datenbank eine **Blogging**-Datenbank in 
 ## <a name="create-a-new-project"></a>Erstellt ein neues Projekt
 
 * Öffnen Sie Visual Studio 2017.
-* Klicken Sie auf **Datei > Neu > Projekt...**.
+* Klicken Sie auf **Datei > Neu > Projekt...** .
 * Klicken Sie im linken Bereich auf **Installiert > Visual C# > Web**.
 * Wählen Sie die Projektvorlage **ASP.NET Core-Webanwendung** aus.
 * Geben Sie **EFGetStarted.AspNetCore.ExistingDb** als Namen ein (es muss genau der Namespace sein, der später im Code verwendet wird), und klicken Sie auf **OK** 
