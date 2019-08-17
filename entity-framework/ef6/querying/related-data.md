@@ -1,21 +1,21 @@
 ---
-title: Laden von verbundenen Entitäten – EF6
+title: Laden verwandter Entitäten EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: c8417e18-a2ee-499c-9ce9-2a48cc5b468a
-ms.openlocfilehash: 2d33d9db8acc61f7d556e3eca46b1ea90198723e
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: f40034475ed6659b60ab4317605fd1d802218d69
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415756"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565316"
 ---
 # <a name="loading-related-entities"></a>Laden verwandter Entitäten
-Entitätsframework unterstützt drei Möglichkeiten zum Laden verwandter Daten: Eager laden, lazy Loading und explizites Laden. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
+Entity Framework unterstützt drei Möglichkeiten, verwandte Daten Eager Loading, Lazy Loading und expliziten Laden zu laden. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
-## <a name="eagerly-loading"></a>Eager Loading geladen.  
+## <a name="eagerly-loading"></a>Eifrig geladen  
 
-Eager Loading ist der Prozess, bei dem eine Abfrage für einen Entitätstyp auch verknüpfte Entitäten als Teil der Abfrage wird geladen. Eager Loading erfolgt mithilfe der Include-Methode. Die folgenden Abfragen werden z. B. Blogs und alle Beiträge, die im Zusammenhang mit jedem Blog geladen.  
+Das unverzügliches Laden ist der Prozess, bei dem eine Abfrage für einen Entitätstyp auch Verwandte Entitäten als Teil der Abfrage lädt. Das unverzügliches Laden wird durch die Verwendung der Include-Methode erreicht. Die nachfolgenden Abfragen laden z. b. Blogs und alle Beiträge im Zusammenhang mit den einzelnen Blogs.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -25,7 +25,7 @@ using (var context = new BloggingContext())
                         .Include(b => b.Posts)
                         .ToList();
 
-    // Load one blogs and its related posts
+    // Load one blog and its related posts
     var blog1 = context.Blogs
                        .Where(b => b.Name == "ADO.NET Blog")
                        .Include(b => b.Posts)
@@ -46,11 +46,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass das Einschließen einer Erweiterungsmethode im System.Data.Entity-Namespace ist also stellen Sie sicher, dass Sie diesen Namespace verwenden.  
+Beachten Sie, dass include eine Erweiterungsmethode im System. Data. Entity-Namespace ist. Stellen Sie daher sicher, dass Sie diesen Namespace verwenden.  
 
-### <a name="eagerly-loading-multiple-levels"></a>Eager Loading Laden von mehreren Ebenen  
+### <a name="eagerly-loading-multiple-levels"></a>Das eifrig Laden mehrerer Ebenen  
 
-Es ist auch möglich, mehrere Ebenen von verknüpften Entitäten vorzeitig geladen werden. Die folgenden Abfragen sind Beispiele für für sowohl die Datensammlung als auch die verweisnavigationseigenschaften dazu.  
+Es ist auch möglich, mehrere Ebenen verwandter Entitäten zu laden. Die folgenden Abfragen zeigen Beispiele dazu, wie Sie dies für die Sammlungs-und Verweis Navigations Eigenschaften durchführen können.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -79,11 +79,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass es nicht Filter derzeit möglich ist, welche verknüpften Entitäten geladen werden. Einschließen wird immer in alle verknüpften Entitäten anzuzeigen.  
+Beachten Sie, dass es derzeit nicht möglich ist, zu filtern, welche verknüpften Entitäten geladen werden. Include führt immer alle zugehörigen Entitäten ein.  
 
 ## <a name="lazy-loading"></a>Lazy Loading  
 
-Mit Lazy Loading steht der Prozess, bei dem eine Entität oder eine Auflistung von Entitäten automatisch aus der Datenbank erstmalig geladen wird, die eine Eigenschaft verweisen auf die Entität/Entitäten zugegriffen wird. Wenn Sie POCO-Entität-Typen zu verwenden, erfolgt die Lazy Load durch Erstellen von Instanzen der abgeleiteten Proxytypen, und klicken Sie dann überschreiben virtuelle Eigenschaften zum Hinzufügen des Hook laden. Beispielsweise werden bei Verwendung die Blog-Entity-Klasse, die nachstehend definiert Beiträge erstmalig geladen werden, die die Beiträge Navigationseigenschaft zugegriffen wird:  
+Lazy Load ist der Prozess, bei dem eine Entität oder eine Auflistung von Entitäten automatisch aus der Datenbank geladen wird, wenn zum ersten Mal auf eine Eigenschaft zugegriffen wird, die auf Entitäten/Entitäten verweist. Wenn poco-Entitäts Typen verwendet werden, wird Lazy Loading durch Erstellen von Instanzen abgeleiteter Proxy Typen und anschließendes Überschreiben von virtuellen Eigenschaften zum Hinzufügen des Lade Hooks erreicht. Wenn Sie z. b. die unten definierte Blog-Entitäts Klasse verwenden, werden die zugehörigen Beiträge beim ersten Zugriff auf die "Posts"-Navigations Eigenschaft geladen:  
 
 ``` csharp
 public class Blog
@@ -97,13 +97,13 @@ public class Blog
 }
 ```  
 
-### <a name="turn-lazy-loading-off-for-serialization"></a>Aktivieren von lazy loading-für die Serialisierung  
+### <a name="turn-lazy-loading-off-for-serialization"></a>Lazy Loading für Serialisierung deaktivieren  
 
-Lazy Loading und Serialisierung nicht auch kombinieren, und wenn Sie nicht vorsichtig sind kommen Sie können Abfragen für Ihre gesamte Datenbank, nur weil lazy Loading aktiviert ist. Die meisten Serialisierungsprogramme arbeiten, indem Sie den Zugriff auf jede Eigenschaft in einer Instanz eines Typs. Eigenschaftenzugriff löst das verzögerte Laden, damit weitere Entitäten serialisiert werden. Für diese Entitäten Eigenschaften zugegriffen werden, und sogar noch mehr Entitäten geladen. Es hat sich bewährt, deaktivieren lazy loading-deaktivieren, bevor Sie eine Entität zu serialisieren. Die folgenden Abschnitte zeigen, wie Sie dies tun.  
+Lazy Load und Serialisierung sind nicht gut gemischt, und wenn Sie nicht vorsichtig sind, können Sie die Abfrage für Ihre gesamte Datenbank durchzuführen, da Lazy Loading aktiviert ist. Die meisten serialisierungsinitialisierer funktionieren, indem Sie auf jede Eigenschaft einer Instanz eines Typs zugreifen. Eigenschaften Zugriffs Trigger Lazy Loading, sodass weitere Entitäten serialisiert werden. Auf diesen Entitäten wird zugegriffen, und es werden sogar weitere Entitäten geladen. Es empfiehlt sich, Lazy Loading zu deaktivieren, bevor Sie eine Entität serialisieren. In den folgenden Abschnitten wird gezeigt, wie dies geschieht.  
 
-### <a name="turning-off-lazy-loading-for-specific-navigation-properties"></a>Lazy loading für Navigationseigenschaften für bestimmte deaktivieren  
+### <a name="turning-off-lazy-loading-for-specific-navigation-properties"></a>Ausschalten Lazy Loading für bestimmte Navigations Eigenschaften  
 
-Lazy Loading für die Sammlung von Beiträgen kann durch Festlegen der Beiträge Eigenschaft nicht virtuell deaktiviert werden:  
+Das Lazy Load der Posts-Auflistung kann deaktiviert werden, indem die Posts-Eigenschaft nicht virtuell ist:  
 
 ``` csharp
 public class Blog
@@ -117,11 +117,11 @@ public class Blog
 }
 ```  
 
-Laden die Beiträge Auflistung kann weiterhin erreicht werden über eager Loading (finden Sie unter *Eager Loading geladen* oben) oder die Load-Methode (finden Sie unter *explizites Laden* unten).  
+Das Laden der Posts-Auflistung kann weiterhin mithilfe von Eager Loading (siehe das explizite *Laden* oben) oder der Load-Methode erzielt werden (siehe explizites *Laden* unten).  
 
-### <a name="turn-off-lazy-loading-for-all-entities"></a>Deaktivieren Sie lazy loading für alle Entitäten  
+### <a name="turn-off-lazy-loading-for-all-entities"></a>Lazy Loading für alle Entitäten deaktivieren  
 
-Lazy Loading kann für alle Entitäten im Kontext deaktiviert werden, indem ein Kennzeichen festlege, für die Konfigurationseigenschaft. Zum Beispiel:  
+Lazy Load kann für alle Entitäten im Kontext deaktiviert werden, indem ein Flag für die Konfigurations Eigenschaft festgelegt wird. Beispiel:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -133,11 +133,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Laden von verknüpften Entitäten kann weiterhin über eager Loading erreicht werden (finden Sie unter *Eager Loading geladen* oben) oder die Load-Methode (finden Sie unter *explizites Laden* unten).  
+Das Laden von verknüpften Entitäten kann weiterhin mithilfe von Eager Loading (siehe das explizite *Laden* oben) oder der Load-Methode erzielt werden (siehe explizites *Laden* unten).  
 
 ## <a name="explicitly-loading"></a>Explizites Laden  
 
-Selbst bei lazy Loading deaktiviert ist es weiterhin möglich, verknüpfte Entitäten verzögert zu laden, aber ein expliziter Aufruf abgeschlossen werden muss. Zu diesem Zweck verwenden Sie die Load-Methode, auf die verknüpfte Entität Eintrag. Zum Beispiel:  
+Auch wenn Lazy Loading deaktiviert ist, ist es weiterhin möglich, verknüpfte Entitäten verzögert zu laden, aber es muss ein expliziter-Vorgang ausgeführt werden. Zu diesem Zweck verwenden Sie die Load-Methode für den Eintrag der zugehörigen Entität. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -161,11 +161,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass die Reference-Methode verwendet werden soll, wenn eine Entität über eine Navigationseigenschaft für eine andere einzelne Entität verfügt. Andererseits, sollte die Methode verwendet werden, wenn eine Entität über eine Navigationseigenschaft für eine Auflistung von anderen Entitäten verfügt.  
+Beachten Sie, dass die Reference-Methode verwendet werden sollte, wenn eine Entität über eine Navigations Eigenschaft zu einer anderen einzelnen Entität verfügt. Dagegen sollte die-Auflistungs Methode verwendet werden, wenn eine Entität über eine Navigations Eigenschaft für eine Auflistung von anderen Entitäten verfügt.  
 
-### <a name="applying-filters-when-explicitly-loading-related-entities"></a>Anwenden von Filtern beim verknüpfte Entitäten explizit zu laden  
+### <a name="applying-filters-when-explicitly-loading-related-entities"></a>Anwenden von Filtern beim expliziten Laden verwandter Entitäten  
 
-Die Query-Methode ermöglicht den Zugriff auf die zugrunde liegende Abfrage, die Entity Framework beim Laden von verknüpften Entitäten verwenden. Sie können dann LINQ verwenden, zum Anwenden von Filtern für die Abfrage vor der Ausführung durch einen Aufruf einer Erweiterungsmethode für LINQ wie "ToList", Auslastung usw. Die Query-Methode mit sowohl Referenz-als auch Auflistung Navigationseigenschaften verwendet werden kann, aber es eignet sich am besten für Sammlungen, in dem er dient auch zum Laden nur einen Teil der Auflistung. Zum Beispiel:  
+Die Query-Methode ermöglicht den Zugriff auf die zugrunde liegende Abfrage, die Entity Framework beim Laden von verknüpften Entitäten verwenden wird. Anschließend können Sie mithilfe von LINQ Filter auf die Abfrage anwenden, bevor Sie Sie ausführen, indem Sie eine LINQ-Erweiterungsmethode wie z. b. ToList, Load usw. verwenden. Die Query-Methode kann sowohl mit Verweis-als auch Auflistungs Navigations Eigenschaften verwendet werden, ist jedoch besonders nützlich für Auflistungen, in denen Sie zum Laden von nur einem Teil der Auflistung verwendet werden kann. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -189,13 +189,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Bei Verwendung die Query-Methode empfiehlt es sich in der Regel um lazy loading für die Navigationseigenschaft zu deaktivieren. Dies ist, da andernfalls die gesamte Auflistung automatisch durch den Mechanismus für die Lazy Load geladen werden kann entweder vor oder nach die gefilterte Abfrage ausgeführt wurde.  
+Wenn Sie die Abfrage Methode verwenden, empfiehlt es sich in der Regel, Lazy Loading für die Navigations Eigenschaft zu deaktivieren. Der Grund hierfür ist, dass die gesamte Auflistung möglicherweise automatisch vom Lazy Loading Mechanismus geladen wird, entweder vor oder nach der Ausführung der gefilterten Abfrage.  
 
-Beachten Sie, dass während die Beziehung als eine Zeichenfolge anstatt in einem Lambda-Ausdruck angegeben werden kann, das zurückgegebene IQueryable-Objekt nicht generischen, wenn eine Zeichenfolge verwendet wird und damit die Cast-Methode in der Regel benötigt wird, damit etwas Nützliches mit ihm durchgeführt werden kann.  
+Beachten Sie Folgendes: während die Beziehung anstelle eines Lambda-Ausdrucks als Zeichenfolge angegeben werden kann, ist die zurückgegebene iquerable nicht generisch, wenn eine Zeichenfolge verwendet wird. Daher ist die Cast-Methode normalerweise erforderlich, bevor etwas Nützliches möglich ist.  
 
-## <a name="using-query-to-count-related-entities-without-loading-them"></a>Verwenden die Abfrage um verknüpfte Entitäten zu zählen, ohne zu laden  
+## <a name="using-query-to-count-related-entities-without-loading-them"></a>Verwenden von Abfragen zum zählen verwandter Entitäten, ohne Sie zu laden  
 
-Manchmal ist es hilfreich zu wissen, wie viele Entitäten mit einer anderen Entität in der Datenbank verknüpft sind, ohne dass tatsächlich die Kosten für alle diese Entitäten werden geladen. Die Query-Methode, mit der Anzahl der LINQ-Methode kann dazu verwendet werden. Zum Beispiel:  
+Manchmal ist es hilfreich zu wissen, wie viele Entitäten mit einer anderen Entität in der Datenbank verknüpft sind, ohne dass tatsächlich die Kosten für das Laden all dieser Entitäten anfallen. Hierfür kann die Query-Methode mit der LINQ Count-Methode verwendet werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())

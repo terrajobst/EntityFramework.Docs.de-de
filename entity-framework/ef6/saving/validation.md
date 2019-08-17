@@ -1,239 +1,242 @@
 ---
-title: Validation - EF6
+title: Validierung-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: 98d7bd08d841ee400afb62e1079f1a965f65e139
-ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
+ms.openlocfilehash: 457af0c32f0fe4804dbfe6e348664efb1af517c9
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/15/2019
-ms.locfileid: "54316646"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565380"
 ---
 # <a name="data-validation"></a>Datenvalidierung
 > [!NOTE]
-> **Ef4. 1 oder höher, nur** -APIs, die Funktionen erläutert, die auf dieser Seite usw. in Entity Framework 4.1 eingeführt wurden. Wenn Sie eine frühere Version verwenden, ist einige oder alle Informationen, die nicht relevant
+> **EF 4.1** und höher: die Features, APIs usw., die auf dieser Seite erläutert wurden, wurden in Entity Framework 4,1 eingeführt. Wenn Sie eine frühere Version verwenden, werden einige oder alle Informationen nicht angewendet.
 
-Der Inhalt auf dieser Seite ist aus einem Artikel, die ursprünglich von Julie Lerman geschrieben ([http://thedatafarm.com](http://thedatafarm.com)).
+Der Inhalt auf dieser Seite wird von einem Artikel angepasst, der ursprünglich von Julie Lerman[http://thedatafarm.com](http://thedatafarm.com)() geschrieben wurde.
 
-Entitätsframework bietet eine Vielzahl von Validierungsfunktionen, die über eine Benutzeroberfläche für die clientseitige Validierung feed können oder für eine serverseitige Validierung verwendet werden. Wenn Sie Code zuerst zu verwenden, können Sie Überprüfungen, die mithilfe der-Anmerkung oder eines fluent-API-Konfigurationen angeben. Zusätzliche Überprüfungen und komplexer und können in Code angegeben werden und funktionieren, ob das Modell zunächst aus Code stammt zuerst modellieren oder die Datenbank zuerst.
+Entity Framework bietet eine Vielzahl von Validierungs Features, die für die Client seitige Validierung in eine Benutzeroberfläche übertragen oder für die serverseitige Validierung verwendet werden können. Wenn Sie Code First verwenden, können Sie Validierungen mithilfe von Anmerkungen oder überflüssige API-Konfigurationen angeben. Weitere Überprüfungen und komplexere können im Code angegeben werden und funktionieren unabhängig davon, ob Ihr Modell von Code First, Model First oder Database First stammt.
 
 ## <a name="the-model"></a>Das Modell
 
-Ich zeige Ihnen, die Überprüfungen mit ein paar einfache Klassen: Blog "und" Post ".
+Ich zeige die Validierungen mit einem einfachen paar von Klassen: Blog und Post.
 
 ``` csharp
-    public class Blog
-      {
-          public int Id { get; set; }
-          public string Title { get; set; }
-          public string BloggerName { get; set; }
-          public DateTime DateCreated { get; set; }
-          public virtual ICollection<Post> Posts { get; set; }
-          }
-      }
+public class Blog
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string BloggerName { get; set; }
+    public DateTime DateCreated { get; set; }
+    public virtual ICollection<Post> Posts { get; set; }
+}
 
-      public class Post
-      {
-          public int Id { get; set; }
-          public string Title { get; set; }
-          public DateTime DateCreated { get; set; }
-          public string Content { get; set; }
-          public int BlogId { get; set; }
-          public ICollection<Comment> Comments { get; set; }
-      }
+public class Post
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public DateTime DateCreated { get; set; }
+    public string Content { get; set; }
+    public int BlogId { get; set; }
+    public ICollection<Comment> Comments { get; set; }
+}
 ```
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Code wird zuerst Anmerkungen aus der System.ComponentModel.DataAnnotations-Assembly als eine Methode zur Konfiguration von Code First-Klassen verwendet. Auf diese Anmerkungen sind die Regeln, z. B. erforderlich, MinLength und MaxLength bereitstellen. Diese Anmerkungen, z. B. ASP.NET MVC ist auch eine Anzahl von .NET Clientanwendungen bewusst. Sie können sowohl clientseitige und clientseitige Validierung mit diese Anmerkungen erreichen. Beispielsweise können Sie die Blog-Title-Eigenschaft auf eine erforderliche Eigenschaft werden erzwingen.
+Code First verwendet Anmerkungen aus der `System.ComponentModel.DataAnnotations` Assembly als eine Methode zum Konfigurieren von Code First-Klassen. Bei diesen Anmerkungen handelt es sich um solche Anmerkungen `Required`, die Regeln wie z. b., `MaxLength` und `MinLength`bereitstellen. Eine Reihe von .NET-Client Anwendungen erkennt diese Anmerkungen auch, z. b. ASP.NET MVC. Sie können mit diesen Anmerkungen sowohl die Client seitige als auch die serverseitige Validierung erreichen. Beispielsweise können Sie erzwingen, dass die Eigenschaft "Blog Titel" eine erforderliche Eigenschaft ist.
 
 ``` csharp
-    [Required]
-    public string Title { get; set; }
+[Required]
+public string Title { get; set; }
 ```
 
-Ohne zusätzlichen Code oder Markupänderungen in der Anwendung führt eine vorhandene MVC-Anwendung Validierung auf Clientseite, sogar dynamisch Erstellen einer Nachricht, die unter Verwendung der Eigenschaft und der Anmerkung.
+Ohne zusätzlichen Code oder Markup Änderungen in der Anwendung führt eine vorhandene MVC-Anwendung eine Client seitige Validierung durch, wobei eine Nachricht auch dynamisch mit den Namen der Eigenschaft und der Anmerkung erstellt wird.
 
 ![Abbildung 1](~/ef6/media/figure01.png)
 
-Sichern in der Post-Methode der in dieser Ansicht erstellen, Entity Framework wird verwendet, um die neuen Blog in der Datenbank zu speichern, aber MVC die clientseitige Validierung wird ausgelöst, bevor die Anwendung dieses Codes erreicht.
+In der Post Back-Methode dieser CREATE VIEW-Methode wird Entity Framework verwendet, um den neuen Blog in der Datenbank zu speichern. die Client seitige Validierung von MVC wird jedoch ausgelöst, bevor die Anwendung den Code erreicht.
 
-Clientseitige Validierung ist jedoch nicht hundertprozentig. Benutzer können Features von ihren Browser beeinträchtigen oder noch schlimmer ist noch ein Hacker können einige kleiner Trick erforderlich, um die UI-Überprüfungen zu vermeiden. Aber auch Entity Framework erkennt die erforderlichen Anmerkung und überprüft wird.
+Die Client seitige Validierung ist jedoch nicht Aufzählungs sicher. Benutzer können sich auf die Features Ihres Browsers auswirken oder noch schlimmer, ein Hacker könnte eine gewisse Schwierigkeit verwenden, um die Validierung der Benutzeroberfläche zu vermeiden. Entity Framework erkennt jedoch auch die `Required` -Anmerkung und überprüft sie.
 
-Eine einfache Möglichkeit, diese zu testen ist, MVC Validierung auf dem Client-Funktion zu deaktivieren. Dies ist in web.config-Datei für die MVC-Anwendung möglich. Der Abschnitt "AppSettings" verfügt über einen Schlüssel für ClientValidationEnabled. Das Festlegen dieses Schlüssels auf "false" wird verhindert, dass die Benutzeroberfläche durchführen von Validierungen.
+Eine einfache Möglichkeit, dies zu testen, besteht darin, das Client seitige Validierungs Feature von MVC zu deaktivieren. Dies können Sie in der Datei "Web. config" der MVC-Anwendung tun. Der appSettings-Abschnitt enthält einen Schlüssel für clientvalidationaktivierte. Wenn dieser Schlüssel auf false festgelegt wird, kann die Benutzeroberfläche keine Validierungen durchführen.
 
 ``` xml
-    <appSettings>
-        <add key="ClientValidationEnabled"value="false"/>
-        ...
-    </appSettings>
+<appSettings>
+    <add key="ClientValidationEnabled"value="false"/>
+    ...
+</appSettings>
 ```
 
-Auch bei der die clientseitige Validierung deaktiviert erhalten Sie die gleiche Antwort in Ihrer Anwendung. Die Fehlermeldung "das Feld" Titel "ist erforderlich" wird als angezeigt werden. Mit Ausnahme der jetzt ist es ein Ergebnis der Validierung auf dem Server. Entitätsframework führt die Überprüfung auf die erforderlichen Anmerkung (bevor es selbst mit den Build- und INSERT-Befehl an der Datenbank draußen) und eine Fehlermeldung angezeigt, MVC, der die Meldung angezeigt wird.
+Auch wenn die Client seitige Validierung deaktiviert ist, erhalten Sie dieselbe Antwort in Ihrer Anwendung. Die Fehlermeldung "das Titelfeld ist erforderlich" wird wie zuvor angezeigt. Mit der Ausnahme, dass es sich nun um das Ergebnis der serverseitigen Validierung handelt. Entity Framework führt die über `Required` Prüfung der Anmerkung durch (bevor es sogar zu einem Fehler führt, einen `INSERT` Befehl zu erstellen, der an die Datenbank gesendet wird), und gibt den Fehler an MVC zurück, der die Meldung anzeigt.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können Code First fluent-API anstelle von Anmerkungen zum selben Client Side & Server Seite Überprüfung. Anstatt verwenden, die erforderlich sind, zeige ich Ihnen diese verwenden einer MaxLength-Validierung.
+Sie können die fließende API von Code First anstelle von Anmerkungen verwenden, um dieselbe Clientseite & serverseitigen Validierung zu erhalten. Anstatt zu verwenden `Required`, zeige ich Ihnen dies mithilfe einer MaxLength-Validierung.
 
-Fluent-API-Konfigurationen werden angewendet, wie der Code zuerst das Modell von den Klassen erstellt. Sie können die Konfigurationen einfügen, durch Überschreiben der OnModelCreating-Methode der DbContext-Klasse. Hier ist eine Konfiguration, der angibt, dass die Eigenschaft BloggerName nicht länger als 10 Zeichen sein kann.
-
-``` csharp
-    public class BlogContext : DbContext
-      {
-          public DbSet<Blog> Blogs { get; set; }
-          public DbSet<Post> Posts { get; set; }
-          public DbSet<Comment> Comments { get; set; }
-
-          protected override void OnModelCreating(DbModelBuilder modelBuilder)
-          {
-              modelBuilder.Entity<Blog>().Property(p => p.BloggerName).HasMaxLength(10);
-          }
-        }
-```
-
-Überprüfungsfehler ausgelöst werden basierend auf den Fluent-API-Konfigurationen nicht automatisch Reichweite der Benutzeroberfläche, aber Sie es im Code, und klicken Sie dann die auf sie reagieren entsprechend erfassen können.
-
-Hier einige Fehlercode zur Ausnahmebehandlung in der Anwendung BlogController-Klasse, die diese Validierungsfehler erfasst, wenn Entity Framework versucht, einen Blog mit einer BloggerName zu speichern, die die maximal 10 Zeichen überschreitet.
+Fließende API-Konfigurationen werden angewendet, wenn Code First das Modell aus den Klassen aufbaut. Sie können die Konfigurationen einfügen, indem Sie die onmodelcreating-Methode der dbcontext-Klasse überschreiben. Es folgt eine Konfiguration, die angibt, dass die bloggername-Eigenschaft nicht länger als 10 Zeichen sein darf.
 
 ``` csharp
-    [HttpPost]
-    public ActionResult Edit(int id, Blog blog)
+public class BlogContext : DbContext
+{
+    public DbSet<Blog> Blogs { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
-        try
-        {
-            db.Entry(blog).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        catch(DbEntityValidationException ex)
-        {
-            var error = ex.EntityValidationErrors.First().ValidationErrors.First();
-            this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            return View();
-        }
+        modelBuilder.Entity<Blog>().Property(p => p.BloggerName).HasMaxLength(10);
     }
+}
 ```
 
-Die Überprüfung nicht automatisch wieder in die Ansicht übergeben wird der zusätzliche Code, ModelState.AddModelError verwendet wird. Dadurch wird sichergestellt, dass die Fehlerdetails für die Ansicht zu der klicken Sie dann die ValidationMessageFor Htmlhelper verwendet wird vereinfachen, um den Fehler anzuzeigen.
+Validierungs Fehler, die auf der Grundlage der überflüssigen API-Konfigurationen ausgelöst werden, erreichen die Benutzeroberfläche nicht automatisch, Sie können Sie jedoch im Code erfassen und entsprechend darauf reagieren.
+
+Im folgenden finden Sie einen Fehlercode für die Ausnahmebehandlung in der blogcontroller-Klasse der Anwendung, der diesen Überprüfungs Fehler erfasst, wenn Entity Framework versucht, einen Blog mit einem Blog Name zu speichern, der das Maximum von 10 Zeichen überschreitet.
 
 ``` csharp
-    @Html.ValidationMessageFor(model => model.BloggerName)
+[HttpPost]
+public ActionResult Edit(int id, Blog blog)
+{
+    try
+    {
+        db.Entry(blog).State = EntityState.Modified;
+        db.SaveChanges();
+        return RedirectToAction("Index");
+    }
+    catch (DbEntityValidationException ex)
+    {
+        var error = ex.EntityValidationErrors.First().ValidationErrors.First();
+        this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+        return View();
+    }
+}
+```
+
+Die Überprüfung wird nicht automatisch an die Ansicht zurückgegeben, weshalb der von verwendete zusätzliche Code `ModelState.AddModelError` verwendet wird. Dadurch wird sichergestellt, dass die Fehlerdetails in der Ansicht angezeigt werden. anschließend `ValidationMessageFor` wird der Fehler mit dem htmlhelper angezeigt.
+
+``` csharp
+@Html.ValidationMessageFor(model => model.BloggerName)
 ```
 
 ## <a name="ivalidatableobject"></a>IValidatableObject
 
-IValidatableObject ist eine Schnittstelle, die in der System.ComponentModel.DataAnnotations befindet. Obwohl es nicht Teil der Entity Framework-API ist, können Sie weiterhin diese für die serverseitige Validierung in den Entity Framework-Klassen nutzen. IValidatableObject bietet, dass eine Validate-Methode, die Entity Framework, während "SaveChanges", oder Sie aufgerufen wird sich jederzeit aufrufen kann die Klassen überprüft werden sollen.
+`IValidatableObject`ist eine Schnittstelle, die `System.ComponentModel.DataAnnotations`sich in befindet. Obwohl es nicht Teil der Entity Framework-API ist, können Sie es für die serverseitige Validierung in ihren Entity Framework-Klassen weiterhin nutzen. `IValidatableObject`stellt eine `Validate` Methode bereit, die von Entity Framework während der SaveChanges aufgerufen wird, oder Sie können sich jederzeit selbst anrufen, wenn Sie die Klassen überprüfen möchten.
 
-Konfigurationen wie z. B. und MaxLength führen Sie Validaton auf ein einzelnes Feld aus. In der Validate-Methode können Sie auch eine komplexeren Logik, z. B. haben, Vergleichen von zwei Feldern.
+Konfigurationen wie `Required` und `MaxLength` führen die Validierung für ein einzelnes Feld aus. In der `Validate` -Methode können Sie noch komplexere Logik haben, z. b. zwei Felder vergleichen.
 
-Im folgenden Beispiel wurde die Blog-Klasse zum Implementieren von IValidatableObject, und geben Sie eine Regel, die den Titel und die BloggerName entsprechen kann nicht erweitert.
+Im folgenden Beispiel wurde `Blog` die-Klasse so erweitert, dass implementiert `IValidatableObject` wird und dann eine Regel bereitgestellt wird, die `Title` und `BloggerName` nicht erfüllen können.
 
 ``` csharp
-    public class Blog : IValidatableObject
-     {
-         public int Id { get; set; }
-         [Required]
-         public string Title { get; set; }
-         public string BloggerName { get; set; }
-         public DateTime DateCreated { get; set; }
-         public virtual ICollection<Post> Posts { get; set; }
+public class Blog : IValidatableObject
+{
+    public int Id { get; set; }
 
-         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-         {
-             if (Title == BloggerName)
-             {
-                 yield return new ValidationResult
-                  ("Blog Title cannot match Blogger Name", new[] { "Title", “BloggerName” });
-             }
-         }
-     }
+    [Required]
+    public string Title { get; set; }
+
+    public string BloggerName { get; set; }
+    public DateTime DateCreated { get; set; }
+    public virtual ICollection<Post> Posts { get; set; }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (Title == BloggerName)
+        {
+            yield return new ValidationResult(
+                "Blog Title cannot match Blogger Name",
+                new[] { nameof(Title), nameof(BloggerName) });
+        }
+    }
+}
 ```
 
-Der ValidationResult-Konstruktor akzeptiert eine Zeichenfolge, die darstellt, die Fehlermeldung und einem Array von Zeichenfolgen, die die Namen der Member darstellen, die mit der Überprüfung verknüpft sind. Da diese Überprüfung sowohl den Titel und die BloggerName eincheckt, werden beide Eigenschaftennamen zurückgegeben.
+Der `ValidationResult` -Konstruktor nimmt `string` einen, der die Fehlermeldung und ein Array `string`von s darstellt, die die Elementnamen darstellen, die der Validierung zugeordnet sind. Da bei dieser Überprüfung sowohl `Title` der als `BloggerName`auch der überprüft wird, werden beide Eigenschaftsnamen zurückgegeben.
 
-Anders als bei der Überprüfung der Fluent-API dieses Überprüfungsergebnis von der Sicht erkannt werden, und der Ausnahmehandler, den ich zuvor verwendet, um den Fehler ModelState hinzuzufügen ist nicht erforderlich. Da ich beide Eigenschaftennamen in dem ValidationResult festgelegt, wird die Fehlermeldung der MVC-HtmlHelpers für beide diese Eigenschaften angezeigt.
+Anders als bei der Überprüfung, die von der reflüssigen API bereitgestellt wird, wird dieses Validierungs Ergebnis von der Sicht erkannt, und der Ausnahmehandler, `ModelState` den ich zuvor zum Hinzufügen des Fehlers verwendet habe, ist unnötig. Da ich beide Eigenschaftsnamen in der `ValidationResult`festgelegt habe, zeigen die MVC-htmlhilfsprogramme die Fehlermeldung für beide Eigenschaften an.
 
 ![Abbildung 2](~/ef6/media/figure02.png)
 
 ## <a name="dbcontextvalidateentity"></a>DbContext.ValidateEntity
 
-"DbContext" verfügt über eine überschreibbare Methode namens ValidateEntity. Wenn Sie "SaveChanges" aufrufen, wird Entity Framework diese Methode für jede Entität in seinem Cache aufrufen, die, deren Zustand nicht unverändert ist. Sie können Validierungslogik direkt in den hier oder sogar verwenden diese Methode, um z. B. das Aufrufen der Blog.Validate-Methode, die im vorherigen Abschnitt hinzugefügten einfügen.
+`DbContext`verfügt über eine über schreibbare `ValidateEntity`Methode mit dem Namen. Beim Aufrufen `SaveChanges`von wird Entity Framework diese Methode für jede Entität im Cache aufrufen, deren Zustand nicht `Unchanged`ist. Sie können die Validierungs Logik direkt in die-Methode einfügen oder sogar mit dieser Methode aufzurufen, z `Blog.Validate` . b. die-Methode, die im vorherigen Abschnitt hinzugefügt wurde.
 
-Hier ist ein Beispiel für eine ValidateEntity außer Kraft setzen, der überprüft neue Beiträge, um sicherzustellen, dass der Post-Titel nicht bereits verwendet wurde. Es überprüft zuerst, ob die Entität einen Beitrag ist und seinen Zustand hinzugefügt wird. Wenn dies der Fall ist, sucht sie in der Datenbank, um festzustellen, ob bereits ein Beitrag mit diesem Titel vorhanden ist. Wenn es bereits ein vorhandener Beitrag ist, wird eine neue DbEntityValidationResult erstellt.
+Im folgenden finden Sie ein Beispiel `ValidateEntity` für eine außer Kraft Setzung `Post`, mit der neue s überprüft werden, um sicherzustellen, dass der Beitrags Titel nicht bereits verwendet wurde. Zuerst wird überprüft, ob es sich bei der Entität um einen Beitrag handelt und ob Ihr Zustand hinzugefügt wurde. Wenn dies der Fall ist, wird in der Datenbank gesucht, ob bereits ein Beitrag mit dem gleichen Titel vorhanden ist. Wenn bereits ein Beitrag vorhanden ist, wird ein neuer `DbEntityValidationResult` erstellt.
 
-DbEntityValidationResult enthält eine "dbentityentry" und eine ICollection DbValidationErrors für eine einzelne Entität. Am Anfang dieser Methode eine DbEntityValidationResult instanziiert wird, und anschließend alle Fehler, die ermittelt werden in der ValidationErrors-Auflistung hinzugefügt.
+`DbEntityValidationResult`enthält einen `DbEntityEntry` und einen `ICollection<DbValidationErrors>` für eine einzelne Entität. Am Anfang dieser Methode wird eine `DbEntityValidationResult` instanziiert, und anschließend werden alle ermittelten Fehler in der `ValidationErrors` -Auflistung hinzugefügt.
 
 ``` csharp
-    protected override DbEntityValidationResult ValidateEntity (
-        System.Data.Entity.Infrastructure.DbEntityEntry entityEntry,
-        IDictionary\<object, object> items)
+protected override DbEntityValidationResult ValidateEntity (
+    System.Data.Entity.Infrastructure.DbEntityEntry entityEntry,
+    IDictionary<object, object> items)
+{
+    var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
+
+    if (entityEntry.Entity is Post post && entityEntry.State == EntityState.Added)
     {
-        var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
-        if (entityEntry.Entity is Post && entityEntry.State == EntityState.Added)
-        {
-            Post post = entityEntry.Entity as Post;
-            //check for uniqueness of post title
-            if (Posts.Where(p => p.Title == post.Title).Count() > 0)
-            {
-                result.ValidationErrors.Add(
-                        new System.Data.Entity.Validation.DbValidationError("Title",
-                        "Post title must be unique."));
-            }
-        }
-
-        if (result.ValidationErrors.Count > 0)
+        // Check for uniqueness of post title
+        if (Posts.Where(p => p.Title == post.Title).Any())
         {
-            return result;
-        }
-        else
-        {
-         return base.ValidateEntity(entityEntry, items);
-        }
+            result.ValidationErrors.Add(
+                    new System.Data.Entity.Validation.DbValidationError(
+                        nameof(Title),
+                        "Post title must be unique."));
+        }
     }
+
+    if (result.ValidationErrors.Count > 0)
+    {
+        return result;
+    }
+    else
+    {
+        return base.ValidateEntity(entityEntry, items);
+    }
+}
 ```
 
-## <a name="explicitly-triggering-validation"></a>Expliziten Auslösung der Überprüfung
+## <a name="explicitly-triggering-validation"></a>Explizite Auslösen der Validierung
 
-Ein Aufruf von "SaveChanges" wird ausgelöst, alle in diesem Artikel beschriebenen Überprüfungen. Sie müssen jedoch nicht von "SaveChanges" abhängig zu sein. Sie können aber auch an anderer Stelle in Ihrer Anwendung zu überprüfen.
+Ein-Aufrufe `SaveChanges` von löst alle in diesem Artikel behandelten Überprüfungen aus. Sie müssen sich jedoch nicht darauf verlassen `SaveChanges`. Möglicherweise möchten Sie an anderer Stelle in der Anwendung überprüfen.
 
-DbContext.GetValidationErrors löst alle Überprüfungen, Anmerkungen oder die Fluent-API definiert, die Überprüfung in IValidatableObject (z. B. Blog.Validate) erstellt und in der DbContext.ValidateEntity ausgeführten Überprüfungen -Methode.
+`DbContext.GetValidationErrors`löst alle Überprüfungen, die durch Anmerkungen oder die fließende API definiert werden, die in `IValidatableObject` erstellte Validierung ( `Blog.Validate`z. b.) und die in der `DbContext.ValidateEntity` Methode ausgeführten Überprüfungen aus.
 
-Der folgende Code ruft GetValidationErrors für die aktuelle Instanz von einem "DbContext". ValidationErrors werden nach Entitätstyp in DbValidationResults gruppiert. Der Code durchläuft zunächst über die von der Methode zurückgegebenen DbValidationResults und anschließend über jeden ValidationError in.
+Der folgende Code ruft `GetValidationErrors` für die aktuelle Instanz `DbContext`eines auf. `ValidationErrors`sind nach Entitätstyp `DbEntityValidationResult`gruppiert. Der Code durchläuft zuerst durch die `DbEntityValidationResult`von der-Methode zurückgegebenen e und dann `DbValidationError` durch alle innerhalb von.
 
 ``` csharp
-    foreach (var validationResults in db.GetValidationErrors())
-        {
-            foreach (var error in validationResults.ValidationErrors)
-            {
-                Debug.WriteLine(
-                                  "Entity Property: {0}, Error {1}",
-                                  error.PropertyName,
-                                  error.ErrorMessage);
-            }
-        }
+foreach (var validationResult in db.GetValidationErrors())
+{
+    foreach (var error in validationResult.ValidationErrors)
+    {
+        Debug.WriteLine(
+            "Entity Property: {0}, Error {1}",
+            error.PropertyName,
+            error.ErrorMessage);
+    }
+}
 ```
 
-## <a name="other-considerations-when-using-validation"></a>Weitere Überlegungen zur Verwendung von Validierung
+## <a name="other-considerations-when-using-validation"></a>Weitere Überlegungen bei der Verwendung der Validierung
 
-Hier sind einige andere Punkte zu berücksichtigen bei Verwendung von Entity Framework-Überprüfung:
+Dies sind einige andere Punkte, die bei der Verwendung Entity Framework Validierung zu beachten sind:
 
--   Lazy Loading wird während der Überprüfung deaktiviert.
--   EF wird überprüft, datenanmerkungen auf nicht zugeordnete Eigenschaften (Eigenschaften, die nicht an eine Spalte in der Datenbank zugeordnet sind).
--   Überprüfung wird ausgeführt, nachdem Änderungen während SaveChanges erkannt werden. Wenn Sie während der Validierung Änderungen vornehmen, ist es Ihre Aufgabe, die die änderungsnachverfolgung zu benachrichtigen.
--   DbUnexpectedValidationException wird ausgelöst, wenn während der Überprüfung Fehler auftreten.
--   Facets, die Entity Framework im Modell (maximale Länge, die erforderlich sind, usw.) enthält, bewirkt Validierung, auch wenn nicht von datenanmerkungen auf Ihre Klassen vorhanden sind bzw. die Sie dem EF Designer verwendet, um Ihr Modell zu erstellen.
--   Regeln:
-    -   Fluent-API-Aufrufe, überschreiben die entsprechenden datenanmerkungen
--   Reihenfolge der Ausführung:
-    -   Überprüfung der Eigenschaften tritt auf, bevor die Überprüfung von Typ
-    -   Typüberprüfung tritt nur auf, wenn die Eigenschaft Überprüfung erfolgreich ist
--   Wenn eine Eigenschaft komplexer ist auch bei der Validierung gehören:
-    -   Überprüfung der Eigenschaften eines komplexen Typs auf Eigenschaftenebene
-    -   Geben Sie die Überprüfung auf Abonnementebene des komplexen Typs, einschließlich der IValidatableObject Validierung des komplexen Typs
+- Lazy Load ist während der Überprüfung deaktiviert.
+- EF überprüft Daten Anmerkungen in nicht zugeordneten Eigenschaften (Eigenschaften, die keiner Spalte in der Datenbank zugeordnet sind).
+- Die Überprüfung wird durchgeführt, nachdem `SaveChanges`Änderungen während der erkannt wurden. Wenn Sie während der Überprüfung Änderungen vornehmen, liegt es in ihrer Verantwortung, die Änderungs Protokollierung zu benachrichtigen.
+- `DbUnexpectedValidationException`wird ausgelöst, wenn während der Überprüfung Fehler auftreten.
+- Facetten, die Entity Framework im Modell enthalten (maximale Länge, erforderlich usw.), führen zu einer Validierung, auch wenn keine Daten Anmerkungen in ihren Klassen vorhanden sind und/oder Sie den EF-Designer zum Erstellen des Modells verwendet haben.
+- Rang Folge Regeln:
+  - Fließende API-Aufrufe überschreiben die entsprechenden Daten Anmerkungen.
+- Ausführungsreihenfolge:
+  - Überprüfung der Eigenschaften vor Typvalidierung
+  - Die Typvalidierung tritt nur auf, wenn die Eigenschaften Überprüfung erfolgreich
+- Wenn eine Eigenschaft Komplex ist, enthält die Überprüfung auch Folgendes:
+  - Überprüfung auf Eigenschafts Ebene für die Eigenschaften komplexer Typen
+  - Validierung der Typebene für den komplexen Typ, `IValidatableObject` einschließlich der Validierung für den komplexen Typ
 
 ## <a name="summary"></a>Zusammenfassung
 
-Die überprüfungs-API im Entity Framework spielt sich sehr gut mit Validierung auf Clientseite in MVC, aber Sie müssen keine clientseitige Validierung abhängen. Entitätsframework übernimmt die Überprüfung auf dem Server "DataAnnotations" oder Konfigurationen, die Sie mit der Code zuerst Fluent-API angewendet haben.
+Die Überprüfungs-API in Entity Framework wird sehr gut mit der Client seitigen Validierung in MVC abgespielt, aber Sie müssen sich nicht auf die Client seitige Validierung verlassen. Entity Framework kümmert sich um die Überprüfung auf Serverseite für DataAnnotations oder Konfigurationen, die Sie mit der Code First-überflüssigen API angewendet haben.
 
-Sie haben auch eine Reihe von Erweiterungspunkten zum Anpassen des Verhaltens, ob Sie die IValidatableObject-Benutzeroberfläche verwenden, oder profitieren Sie von der DbContet.ValidateEntity-Methode. Und diese letzten beiden bedeutet, dass der Überprüfung sind über die "DbContext" verfügbar, ob Sie den Code First "," Model First "oder" Database First-Workflow verwenden, um das konzeptionelle Modell beschreiben.
+Außerdem wurde eine Reihe von Erweiterungs Punkten zum Anpassen des Verhaltens angezeigt, unabhängig davon, ob Sie die `IValidatableObject` -Schnittstelle verwenden oder `DbContext.ValidateEntity` die-Methode tippen. Und die beiden letzten Überprüfungs Möglichkeiten sind über das `DbContext`verfügbar, unabhängig davon, ob Sie den Code First, Model First oder Database First Workflow verwenden, um das konzeptionelle Modell zu beschreiben.
