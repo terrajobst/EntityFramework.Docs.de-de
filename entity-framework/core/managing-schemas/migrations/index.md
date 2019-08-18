@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: b94ac567644a9d98a05a40857cc072c500203370
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 7d97551044ae4a8fc42d1676199da884f3e2994d
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562558"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565261"
 ---
 <a name="migrations"></a>Migrationen
 ==========
@@ -191,7 +191,7 @@ Optional kann ein **idempotent**-Skript generiert werden. Dieses Skript wendet n
 ---------------------------
 Einige Apps sollten beim Start oder bei der ersten Ausführung Migrationen zur Runtime durchführen. Dies ist mit der Methode `Migrate()` möglich.
 
-Diese Methode basiert auf dem `IMigrator`-Dienst, der für erweiterte Szenarien verwendet werden kann. Verwenden Sie `DbContext.GetService<IMigrator>()`, um darauf zugreifen.
+Diese Methode basiert auf dem `IMigrator`-Dienst, der für erweiterte Szenarien verwendet werden kann. Verwenden Sie `myDbContext.GetInfrastructure().GetService<IMigrator>()`, um darauf zugreifen.
 
 ``` csharp
 myDbContext.Database.Migrate();
