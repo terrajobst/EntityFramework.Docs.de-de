@@ -1,27 +1,27 @@
 ---
-title: Dienstkonfigurations-Dateieinstellungen - EF6
+title: Konfigurationsdatei Einstellungen-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
-ms.openlocfilehash: faba4e406b9f26f5bed6149f75c59da362d84692
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: 86389e4a3a3bac46e2a4cf2da648a4b19e29f3c3
+ms.sourcegitcommit: 299011fc4bd576eed58a4274f967639fa13fec53
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415782"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886552"
 ---
-# <a name="configuration-file-settings"></a>Dienstkonfigurations-Dateieinstellungen
-Entitätsframework ermöglicht eine Reihe von Einstellungen aus der Konfigurationsdatei angegeben werden. EF befolgt in der Regel ein "Konvention geht vor Konfiguration"-Prinzip: alle Einstellungen, die in diesem Post erörterten über ein Standardverhalten verfügen, müssen Sie nur Gedanken um die Einstellung ändern, wenn der Standardwert nicht mehr auf Ihre Anforderungen erfüllt.  
+# <a name="configuration-file-settings"></a>Konfigurationsdatei Einstellungen
+Entity Framework ermöglicht, dass eine Reihe von Einstellungen in der Konfigurationsdatei angegeben werden können. Im allgemeinen folgt EF einem Prinzip der Konvention für die Konfiguration: alle in diesem Beitrag behandelten Einstellungen haben ein Standardverhalten. Sie müssen sich lediglich um das Ändern der Einstellung kümmern, wenn die Standardeinstellung Ihre Anforderungen nicht mehr erfüllt.  
 
-## <a name="a-code-based-alternative"></a>Eine Alternative codebasierte  
+## <a name="a-code-based-alternative"></a>Eine Code basierte Alternative  
 
-Alle diese Einstellungen können auch mithilfe von Code angewendet werden. Ab EF6 eingeführt [codebasierte Konfiguration](code-based.md), die eine zentrale Methode zum Anwenden der Konfiguration von Code bereitstellt. Vor EF6 kann Konfiguration über Code angewendet werden, jedoch müssen Sie verschiedene APIs verwenden, um verschiedene Bereiche zu konfigurieren. Die Konfigurationsdatei-Option kann diese Einstellungen während der Bereitstellung einfach geändert werden, ohne Aktualisierung des Codes.
+Alle diese Einstellungen können auch mithilfe von Code angewendet werden. Ab EF6 haben wir eine [Code basierte Konfiguration](code-based.md)eingeführt, die eine zentrale Methode zum Anwenden der Konfiguration aus dem Code bereitstellt. Vor EF6 kann die Konfiguration weiterhin aus dem Code übernommen werden, Sie müssen jedoch verschiedene APIs verwenden, um verschiedene Bereiche zu konfigurieren. Mithilfe der Option Konfigurationsdatei können diese Einstellungen während der Bereitstellung problemlos geändert werden, ohne den Code zu aktualisieren.
 
-## <a name="the-entity-framework-configuration-section"></a>Der Konfigurationsabschnitt für Entity Framework  
+## <a name="the-entity-framework-configuration-section"></a>Der Abschnitt zur Entity Framework Konfiguration  
 
-Beginnend mit ef4. 1 konnte legen Sie den Datenbankinitialisierer für einen Kontext mit den **"appSettings"** Abschnitt der Konfigurationsdatei. In EF 4.3 eingeführte wir das benutzerdefinierte **EntityFramework** Abschnitt aus, um die neuen Einstellungen zu behandeln. Entitätsframework erkennt weiterhin Datenbankinitialisierer, die über das alte Format festgelegt, aber wir empfehlen den Umstieg auf das neue Format, wenn möglich.
+Ab EF 4.1 können Sie den datenbankinitialisierer für einen Kontext mithilfe des Abschnitts **appSettings** der Konfigurationsdatei festlegen. In EF 4,3 haben wir den benutzerdefinierten Abschnitt " **EntityFramework** " eingeführt, mit dem die neuen Einstellungen behandelt werden. Entity Framework erkennt weiterhin datenbankinitialisierer, die im alten Format festgelegt sind. es wird jedoch empfohlen, nach Möglichkeit in das neue Format zu wechseln.
 
-Die **EntityFramework** Abschnitt wurde in die Konfigurationsdatei des Projekts automatisch hinzugefügt, wenn Sie das EntityFramework NuGet-Paket installiert.  
+Wenn Sie das nuget-Paket "EntityFramework" installiert haben, wurde der Abschnitt " **EntityFramework** " automatisch zur Konfigurationsdatei Ihres Projekts hinzugefügt.  
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -36,11 +36,11 @@ Die **EntityFramework** Abschnitt wurde in die Konfigurationsdatei des Projekts 
 
 ## <a name="connection-strings"></a>Verbindungszeichenfolgen  
 
-[Auf dieser Seite](~/ef6/fundamentals/configuring/connection-strings.md) finden Sie weitere Details darüber, wie Entity Framework die Datenbank verwendet werden, einschließlich der Verbindungszeichenfolgen in der Konfigurationsdatei.  
+Auf [dieser Seite](~/ef6/fundamentals/configuring/connection-strings.md) finden Sie weitere Details dazu, wie Entity Framework die zu verwendende Datenbank bestimmt, einschließlich der Verbindungs Zeichenfolgen in der Konfigurationsdatei.  
 
-Verbindungszeichenfolgen wechseln Sie in der standardmäßigen **ConnectionStrings** Element und erfordern keine der **EntityFramework** Abschnitt.  
+Verbindungs Zeichenfolgen werden im standardmäßigen **connectionStrings** -Element angezeigt und benötigen nicht den Abschnitt " **EntityFramework** ".  
 
-Zuerst Codemodelle verwenden normalen ADO.NET-Verbindungszeichenfolgen. Zum Beispiel:  
+Code First basierten Modellen verwenden normale ADO.NET-Verbindungs Zeichenfolgen. Beispiel:  
 
 ``` xml
 <connectionStrings>
@@ -50,7 +50,7 @@ Zuerst Codemodelle verwenden normalen ADO.NET-Verbindungszeichenfolgen. Zum Beis
 </connectionStrings>
 ```  
 
-EF Designer basierte Modelle verwenden spezielle EF-Verbindungszeichenfolgen. Zum Beispiel:  
+EF-Designer-basierte Modelle verwenden spezielle EF-Verbindungs Zeichenfolgen. Beispiel:  
 
 ``` xml  
 <connectionStrings>
@@ -60,7 +60,7 @@ EF Designer basierte Modelle verwenden spezielle EF-Verbindungszeichenfolgen. Zu
         res://*/BloggingModel.csdl|
         res://*/BloggingModel.ssdl|
         res://*/BloggingModel.msl;
-      provider=System.Data.SqlClient
+      provider=System.Data.SqlClient;
       provider connection string=
         &quot;data source=(localdb)\mssqllocaldb;
         initial catalog=Blogging;
@@ -70,14 +70,14 @@ EF Designer basierte Modelle verwenden spezielle EF-Verbindungszeichenfolgen. Zu
 </connectionStrings>
 ```
 
-## <a name="code-based-configuration-type-ef6-onwards"></a>Typ der codebasierte Konfiguration (EF6 oder höher)  
+## <a name="code-based-configuration-type-ef6-onwards"></a>Code basierter Konfigurationstyp (EF6 oder höher)  
 
-Ab mit EF6 können Sie angeben, die "dbconfiguration" für Entity Framework für die Verwendung [codebasierte Konfiguration](code-based.md) in Ihrer Anwendung. In den meisten Fällen müssen Sie diese Einstellung angeben, wie EF automatisch Ihre "dbconfiguration" ermittelt. Details der beim müssen Sie möglicherweise "dbconfiguration" in der Config-Datei angeben, finden Sie unter den **verschieben "dbconfiguration"** Abschnitt [codebasierte Konfiguration](code-based.md).  
+Ab EF6 können Sie die dbconfiguration für EF angeben, die für die [Code basierte Konfiguration](code-based.md) in der Anwendung verwendet werden soll. In den meisten Fällen müssen Sie diese Einstellung nicht angeben, da EF ihre dbconfiguration automatisch erkennt. Ausführliche Informationen dazu, wann Sie dbconfiguration in der Konfigurationsdatei angeben müssen, finden Sie im Abschnitt **Verschieben von dbconfiguration** der [Code basierten Konfiguration](code-based.md).  
 
-Um einen Typ "dbconfiguration" festzulegen, geben Sie die Assembly qualifizierte Typname in der **CodeConfigurationType** Element.  
+Um einen dbconfiguration-Typ festzulegen, geben Sie den qualifizierten Assemblynamen im **codeconfigurationtype** -Element an.  
 
 > [!NOTE]
-> Ein qualifizierter Name der Assembly ist, einen Namespace gekennzeichneten Namen, gefolgt von einem Komma, klicken Sie dann auf die Assembly, die der Typ befindet. Sie können optional auch angeben, die Assemblyversion, Kultur und Token des öffentlichen Schlüssels.  
+> Ein qualifizierter Assemblyname ist der qualifizierte Namespace Name, gefolgt von einem Komma, und dann die Assembly, in der sich der Typ befindet. Optional können Sie auch die Assemblyversion, die Kultur und das öffentliche Schlüssel Token angeben.  
 
 ``` xml
 <entityFramework codeConfigurationType="MyNamespace.MyConfiguration, MyAssembly">
@@ -86,19 +86,19 @@ Um einen Typ "dbconfiguration" festzulegen, geben Sie die Assembly qualifizierte
 
 ## <a name="ef-database-providers-ef6-onwards"></a>EF-Datenbankanbieter (EF6 oder höher)  
 
-Vor EF6 Entity Framework-spezifische Teile eines Datenbankanbieters als Bestandteil des ADO.NET-Anbieters Core werden musste. EF6 ab, sind separat die bestimmte Teile von EF jetzt verwaltet und registriert.  
+Vor EF6 mussten Entity Framework spezifische Teile eines Datenbankanbieters als Teil des Core ADO.NET-Anbieters eingeschlossen werden. Ab EF6 werden die EF-spezifischen Teile nun separat verwaltet und registriert.  
 
-Sie müssen normalerweise nicht Anbieter sich zu registrieren. Dies wird in der Regel vom Anbieter ausgeführt werden, bei der Installation.  
+Normalerweise müssen Sie Anbieter nicht selbst registrieren. Dies wird in der Regel vom Anbieter durchgeführt, wenn Sie ihn installieren.  
 
-Anbieter werden registriert, dazu einen **Anbieter** Element unter der **Anbieter** Unterabschnitt von der **EntityFramework** Abschnitt. Es gibt zwei obligatorische Attribute für einen Anbietereintrag:  
+Anbieter werden durch Einschließen eines **Anbieter** -Elements unter dem untergeordneten Abschnitt " **Providers** " im Abschnitt " **EntityFramework** " registriert. Es gibt zwei erforderliche Attribute für einen Anbieter Eintrag:  
 
-- **InvariantName** identifiziert den ADO.NET-Anbieter Core, das dieser Ziele der EF-Anbieter  
-- **Typ** ist der vollqualifizierte Assemblyname der EF-Anbieter-Implementierung  
+- **InvariantName** identifiziert den Kern ADO.NET-Anbieter, den dieser EF-Anbieter als Ziel hat.  
+- **Type** ist der durch die Assembly qualifizierte Typname der EF-Anbieter Implementierung.  
 
 > [!NOTE]
-> Ein qualifizierter Name der Assembly ist, einen Namespace gekennzeichneten Namen, gefolgt von einem Komma, klicken Sie dann auf die Assembly, die der Typ befindet. Sie können optional auch angeben, die Assemblyversion, Kultur und Token des öffentlichen Schlüssels.  
+> Ein qualifizierter Assemblyname ist der qualifizierte Namespace Name, gefolgt von einem Komma, und dann die Assembly, in der sich der Typ befindet. Optional können Sie auch die Assemblyversion, die Kultur und das öffentliche Schlüssel Token angeben.  
 
-Als Beispiel hier ist der Eintrag erstellt, um die standardmäßige SQL Server-Ressourcenanbieter registrieren, bei der Installation von Entity Framework.  
+Ein Beispiel hierfür ist der Eintrag, der erstellt wird, um beim Installieren von Entity Framework den Standard SQL Server-Anbieter zu registrieren.  
 
 ``` xml  
 <providers>
@@ -106,11 +106,11 @@ Als Beispiel hier ist der Eintrag erstellt, um die standardmäßige SQL Server-R
 </providers>
 ```  
 
-## <a name="interceptors-ef61-onwards"></a>Interceptors (EF6.1 oder höher)  
+## <a name="interceptors-ef61-onwards"></a>Interceptors (ab EF 6.1)  
 
-Starten Sie mit EF6.1 kann Interceptors in der Konfigurationsdatei registrieren. Interceptors können Sie zusätzlichen Logik ausgeführt werden, wenn EF leistet großartiges und bestimmte Vorgänge wie das Ausführen von Datenbankabfragen, das Sie öffnen, Verbindungen usw.  
+Ab EF 6.1 können Sie Interceptors in der Konfigurationsdatei registrieren. Interceptors ermöglichen es Ihnen, zusätzliche Logik auszuführen, wenn EF bestimmte Vorgänge ausführt, z. b. das Ausführen von Datenbankabfragen, das Öffnen von Verbindungen usw.  
 
-Interceptors werden registriert, indem einschließlich ein **Interceptor** Element unter den **Interceptors** Unterabschnitt von der **EntityFramework** Abschnitt. Die folgende Konfiguration registriert z. B. die integrierte **DatabaseLogger** Interceptor, den alle Datenbankvorgänge an der Konsole protokolliert werden.  
+Interceptors werden durch Einschließen eines **Interceptor** Elements unter dem untergeordneten Abschnitt **Interceptors** des Abschnitts **EntityFramework** registriert. Mit der folgenden Konfiguration wird z. b. der integrierte **databaselogger** -Interceptor registriert, der alle Daten Bank Vorgänge in der Konsole protokolliert.  
 
 ``` xml  
 <interceptors>
@@ -118,9 +118,9 @@ Interceptors werden registriert, indem einschließlich ein **Interceptor** Eleme
 </interceptors>
 ```  
 
-### <a name="logging-database-operations-to-a-file-ef61-onwards"></a>Protokollierung von Datenbankvorgängen in einer Datei (EF6.1 oder höher)  
+### <a name="logging-database-operations-to-a-file-ef61-onwards"></a>Protokollieren von Daten Bank Vorgängen in einer Datei (ab EF 6.1)  
 
-Interceptors über die Config-Datei registrieren ist besonders nützlich, wenn Sie die Protokollierung hinzuzufügen, zu einer vorhandenen Anwendung ein Problem debuggen möchten. **DatabaseLogger** unterstützt die Protokollierung in eine Datei durch Angabe der Dateiname als Konstruktorparameter.  
+Das Registrieren von Interceptors über die Konfigurationsdatei ist besonders nützlich, wenn Sie eine Protokollierung zu einer vorhandenen Anwendung hinzufügen möchten, um ein Problem zu beheben. **Databaselogger** unterstützt die Protokollierung in einer Datei, indem der Dateiname als Konstruktorparameter angegeben wird.  
 
 ``` xml  
 <interceptors>
@@ -132,7 +132,7 @@ Interceptors über die Config-Datei registrieren ist besonders nützlich, wenn S
 </interceptors>
 ```  
 
-Standardmäßig wird dadurch die Protokolldatei mit einer neuen Datei jedes Mal überschrieben werden, die app gestartet wird. Wenn Sie stattdessen in das Protokoll anfügen Datei bereits vorhanden ist verwenden etwa:  
+Standardmäßig bewirkt dies, dass die Protokolldatei bei jedem Start der APP mit einer neuen Datei überschrieben wird. Wenn Sie stattdessen an die Protokolldatei anfügen möchten, wenn Sie bereits vorhanden ist, verwenden Sie Folgendes:  
 
 ``` xml  
 <interceptors>
@@ -145,20 +145,20 @@ Standardmäßig wird dadurch die Protokolldatei mit einer neuen Datei jedes Mal 
 </interceptors>
 ```  
 
-Weitere Informationen zu **DatabaseLogger** und Registrieren von Interceptors finden Sie im Blogbeitrag [EF 6.1: das Aktivieren der Protokollierung ohne erneute Kompilierung](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/).  
+Weitere Informationen zu **databaselogger** und zum Registrieren von Interceptors finden Sie im Blog [Beitrag EF 6,1: Aktivieren der Protokollierung ohne erneutes Kompilieren](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)  
 
-## <a name="code-first-default-connection-factory"></a>Erste Standardverbindungsfactory Code  
+## <a name="code-first-default-connection-factory"></a>Standardverbindungsfactory Code First  
 
-Der Konfigurationsabschnitt können Sie eine standardverbindungsfactory angeben, die Code First verwenden sollten, finden Sie eine Datenbank, die für einen Kontext verwendet. Die standardverbindungsfactory wird nur verwendet, wenn keine Verbindungszeichenfolge in die Konfigurationsdatei für einen Kontext hinzugefügt wurde.  
+Im Konfigurations Abschnitt können Sie eine standardverbindungsfactory angeben, die Code First verwenden soll, um eine Datenbank zu suchen, die für einen Kontext verwendet werden soll. Die standardverbindungsfactory wird nur verwendet, wenn der Konfigurationsdatei für einen Kontext keine Verbindungs Zeichenfolge hinzugefügt wurde.  
 
-Bei der Installation von EF-NuGet-Paket wurde eine standardverbindungsfactory registriert, der auf SQL Express oder LocalDB, je nachdem, welche Schlüssel Sie installiert haben verweist.  
+Wenn Sie das EF-nuget-Paket installiert haben, wurde eine standardverbindungsfactory registriert, die auf SQL Express oder localdb zeigt, je nachdem, welche installiert wurde.  
 
-Um ein verbindungsfactory festzulegen, geben Sie die Assembly qualifizierte Typname in der **DefaultConnectionFactory** Element.  
+Um eine Verbindungsfactory festzulegen, geben Sie den qualifizierten Assemblynamen im **defaultconnectionfactory** -Element an.  
 
 > [!NOTE]
-> Ein qualifizierter Name der Assembly ist, einen Namespace gekennzeichneten Namen, gefolgt von einem Komma, klicken Sie dann auf die Assembly, die der Typ befindet. Sie können optional auch angeben, die Assemblyversion, Kultur und Token des öffentlichen Schlüssels.  
+> Ein qualifizierter Assemblyname ist der qualifizierte Namespace Name, gefolgt von einem Komma, und dann die Assembly, in der sich der Typ befindet. Optional können Sie auch die Assemblyversion, die Kultur und das öffentliche Schlüssel Token angeben.  
 
-Hier ist ein Beispiel für Ihre eigenen standardverbindungsfactory festlegen:  
+Hier ist ein Beispiel für das Festlegen einer eigenen standardverbindungsfactory:  
 
 ``` xml  
 <entityFramework>
@@ -166,9 +166,9 @@ Hier ist ein Beispiel für Ihre eigenen standardverbindungsfactory festlegen:
 </entityFramework>
 ```  
 
-Das obige Beispiel erfordert die benutzerdefinierte Factory, einen parameterlosen Konstruktor verfügt. Bei Bedarf können Sie angeben, dass Konstruktorparameter, die mit der **Parameter** Element.  
+Im obigen Beispiel ist es erforderlich, dass die benutzerdefinierte Factory einen Parameter losen Konstruktor hat. Bei Bedarf können Sie mit dem **Parameters** -Element Konstruktorparameter angeben.  
 
-Beispielsweise erfordert die SqlCeConnectionFactory, die in Entity Framework enthalten ist, aufgefordert, einen invarianten Anbieternamen an den Konstruktor. Der invariante Anbietername identifiziert die Version von SQL Compact, die Sie verwenden möchten. Die folgende Konfiguration führt dazu, dass Kontexte SQL Compact Version 4.0 wird standardmäßig verwendet.  
+Beispielsweise müssen Sie für das sqlceconnectionfactory-Element, das in Entity Framework enthalten ist, den invarianten Namen eines Anbieters für den Konstruktor angeben. Der invariante Name des Anbieters identifiziert die Version von SQL Compact, die Sie verwenden möchten. Die folgende Konfiguration bewirkt, dass Kontexte standardmäßig die SQL Compact-Version 4,0 verwenden.  
 
 ``` xml  
 <entityFramework>
@@ -180,9 +180,9 @@ Beispielsweise erfordert die SqlCeConnectionFactory, die in Entity Framework ent
 </entityFramework>
 ```  
 
-Wenn Sie nicht, dass eine standardmäßige verbindungsfactory festlegen, Code First verwendet die SqlConnectionFactory, die auf `.\SQLEXPRESS`. SqlConnectionFactory verfügt auch über einen Konstruktor, der Ihnen ermöglicht, die Teile der Verbindungszeichenfolge zu überschreiben. Wenn Sie eine SQL Server-Instanz nicht verwenden möchten `.\SQLEXPRESS` verwenden Sie diesen Konstruktor, um den Server festzulegen.  
+Wenn Sie keine standardverbindungsfactory festlegen, verwendet Code First die sqlconnectionfactory, die `.\SQLEXPRESS`auf verweist. Sqlconnectionfactory verfügt auch über einen Konstruktor, mit dem Sie Teile der Verbindungs Zeichenfolge überschreiben können. Wenn Sie eine andere SQL Server-Instanz als `.\SQLEXPRESS` verwenden möchten, können Sie diesen Konstruktor verwenden, um den Server festzulegen.  
 
-Die folgende Konfiguration führt dazu, dass Code First mit **Datenbankserver** für Kontexte, die eine explizite Verbindungszeichenfolge festgelegt haben.  
+Die folgende Konfiguration bewirkt, dass Code First **mydatabaseserver** für Kontexte verwendet, für die keine explizite Verbindungs Zeichenfolge festgelegt ist.  
 
 ``` xml  
 <entityFramework>
@@ -194,7 +194,7 @@ Die folgende Konfiguration führt dazu, dass Code First mit **Datenbankserver** 
 </entityFramework>
 ```  
 
-Standardmäßig wird davon ausgegangen, dass der Konstruktorargumente vom Typzeichenfolge sind. Sie können das Type-Attribut verwenden, um dies zu ändern.  
+Standardmäßig wird davon ausgegangen, dass Konstruktorargumente den Typ "String" haben. Sie können das Type-Attribut verwenden, um dies zu ändern.  
 
 ``` xml
 <parameter value="2" type="System.Int32" />
@@ -202,11 +202,11 @@ Standardmäßig wird davon ausgegangen, dass der Konstruktorargumente vom Typzei
 
 ## <a name="database-initializers"></a>Datenbankinitialisierer  
 
-Datenbankinitialisierer werden auf einer Basis pro Kontext konfiguriert. Sie können festgelegt werden, in der Konfiguration mithilfe der **Kontext** Element. Dieses Element verwendet die Assembly qualifizierter Name zum Identifizieren des Kontexts, der konfiguriert wird.  
+Datenbankinitialisierer werden pro Kontext konfiguriert. Sie können mithilfe des **context** -Elements in der Konfigurationsdatei festgelegt werden. Dieses Element verwendet den qualifizierten Assemblynamen, um den Kontext zu identifizieren, der konfiguriert wird.  
 
-Standardmäßig sind Code First-Kontexten zur Verwendung von "createDatabaseIfNotExists" Initialisierer konfiguriert. Gibt es eine **DisableDatabaseInitialization** -Attribut für die **Kontext** -Element, das zum Deaktivieren der Initialisierung der Datenbank verwendet werden kann.  
+Standardmäßig sind Code First Kontexte so konfiguriert, dass Sie den Initialisierer "Initialisierer" von "kreatedatabaseifnotexists" verwenden Es gibt ein **disabledatabaseinitialization** -Attribut für das **Kontext** Element, das zum Deaktivieren der Daten Bank Initialisierung verwendet werden kann.  
 
-Die folgende Konfiguration deaktiviert z. B. die Initialisierung der Datenbank für den Blogging.BlogContext-Kontext, der in "MeineAssembly.dll" definiert.  
+Die folgende Konfiguration deaktiviert beispielsweise die Daten Bank Initialisierung für den in myAssembly. dll definierten Blog Kontext Kontext.  
 
 ``` xml  
 <contexts>
@@ -214,7 +214,7 @@ Die folgende Konfiguration deaktiviert z. B. die Initialisierung der Datenbank f
 </contexts>
 ```  
 
-Sie können die **DatabaseInitializer** Element, das einen benutzerdefinierten Initialisierer festgelegt.  
+Sie können das **databaseinitializer** -Element verwenden, um einen benutzerdefinierten Initialisierer festzulegen.  
 
 ``` xml
 <contexts>
@@ -224,7 +224,7 @@ Sie können die **DatabaseInitializer** Element, das einen benutzerdefinierten I
 </contexts>
 ```  
 
-Konstruktorparameter verwenden dieselbe Syntax wie standardmäßige Verbindung Factorys.  
+Konstruktorparameter verwenden dieselbe Syntax wie standardverbindungsfactorys.  
 
 ``` xml  
 <contexts>
@@ -238,9 +238,9 @@ Konstruktorparameter verwenden dieselbe Syntax wie standardmäßige Verbindung F
 </contexts>
 ```  
 
-Sie können eines der allgemeinen Datenbank-Initialisierer konfigurieren, die in Entity Framework enthalten sind. Die **Typ** Attribut verwendet das .NET Framework-Format für generische Typen.  
+Sie können einen der generischen datenbankinitialisierer konfigurieren, die in Entity Framework enthalten sind. Das **Type** -Attribut verwendet das .NET Framework-Format für generische Typen.  
 
-Z. B. Wenn Sie Code First-Migrationen verwenden, können Sie die Datenbank konfigurieren, die migriert werden automatisch mit der `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` Initialisierer.  
+Wenn Sie z. b. Code First-Migrationen verwenden, können Sie die Datenbank so konfigurieren, dass Sie automatisch mit `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` dem Initialisierer migriert wird.  
 
 ``` xml
 <contexts>
