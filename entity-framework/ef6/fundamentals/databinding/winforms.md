@@ -3,12 +3,12 @@ title: Datenbindung mit WinForms-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: ad55ef4d496bbfe30eafcab9811c92989066519f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 3c7c58f5ded29c136bbdca1d81c64b07c53ce583
+ms.sourcegitcommit: 7391cc31193c1216ec9ed485709042ad0c2106cf
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306562"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985468"
 ---
 # <a name="databinding-with-winforms"></a>Datenbindung mit WinForms
 In dieser schrittweisen exemplarischen Vorgehensweise wird veranschaulicht, wie poco-Typen an Windows Forms-Steuerelemente (WinForms) in einem Master-Detail-Formular gebunden werden. Die Anwendung verwendet Entity Framework zum Auffüllen von Objekten mit Daten aus der Datenbank, zum Nachverfolgen von Änderungen und zum persistenten Speichern von Daten in der Datenbank.
@@ -280,8 +280,8 @@ Fügen Sie die Klassen, die im Modell definiert sind, als Datenquellen für dies
 
     ![Datenquelle](~/ef6/media/datasource.png)
 
--   Klicken Sie auf **Finish.** Wenn das *Fenster Datenquellen nicht angezeigt wird, wählen Sie * * * Ansicht-&gt; weitere Windows-&gt; Datenquellen* aus. 
-    *
+-   Klicken Sie auf **Finish.**
+    Wenn das Fenster Datenquellen nicht angezeigt wird, wählen Sie **Ansicht-&gt; weitere Windows-&gt; Datenquellen** aus.
 -   Klicken Sie auf das anheft Symbol, damit das Fenster Datenquellen nicht automatisch ausgeblendet wird. Sie müssen möglicherweise auf die Schaltfläche "Aktualisieren" klicken, wenn das Fenster bereits sichtbar war.
 
     ![Datenquelle 2](~/ef6/media/datasource2.png)
@@ -295,7 +295,7 @@ Fügen Sie die Klassen, die im Modell definiert sind, als Datenquellen für dies
 -   Wählen Sie unter der Kategorie Datenquelle die Option Produkte aus, und ziehen Sie Sie auf das Formular. Productdatagridview und ProductBindingSource werden dem Formular hinzugefügt.
 -   Bearbeiten Sie die Spalten in productdatagridview. Wir möchten die Spalten "CategoryID" und "Category" ausblenden und "ProductID" auf "schreibgeschützt" festlegen. Der Wert für die ProductID-Eigenschaft wird von der Datenbank generiert, nachdem die Daten gespeichert wurden.
     -   Klicken Sie mit der rechten Maustaste auf das DataGridView-Steuerelement, und wählen Sie **Spalten bearbeiten**aus.
-    -   Wählen Sie die Spalte **ProductID** aus **, und** legen Sie schreibgeschützt auf **true**fest.
+    -   Wählen Sie die Spalte **ProductID** aus , und legen Sie schreibgeschützt auf **true**fest.
     -   Wählen Sie die Spalte **CategoryID** aus, und klicken Sie auf die Schaltfläche **Entfernen** . Gehen Sie mit der Spalte **Category** gleich vor.
     -   Klicken Sie auf **OK**.
 
