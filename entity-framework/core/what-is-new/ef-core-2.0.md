@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: b5ac31722f49589f1494a3d8d1c8a7011a4cf9ce
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 2712845512d9eb349ef3a7e14f4365327db0fcd6
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463268"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565337"
 ---
 # <a name="new-features-in-ef-core-20"></a>Neue Features in EF Core 2.0
 
@@ -32,6 +32,7 @@ modelBuilder.Entity<Product>()
 modelBuilder.Entity<Product>().ToTable("Products");
 modelBuilder.Entity<ProductDetails>().ToTable("Products");
 ```
+Weitere Informationen zu dieser Funktion finden Sie im [Abschnitt zur Tabellenaufteilung](xref:core/modeling/table-splitting).
 
 ### <a name="owned-types"></a>Eigene Typen
 
@@ -91,7 +92,7 @@ public class BloggingContext : DbContext
     }
 }
 ```
-Wir definieren einen Filter auf Modellebene, der Mehrinstanzenfähigkeit sowie das vorläufige Löschen für Instanzen des Entitätstyps ```Post``` implementiert. Beachten Sie die Verwendung einer DbContext-Instanzeigenschaft: ```TenantId```. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz (d.h. der Kontextinstanz, die die Abfrage ausführt).
+Wir definieren einen Filter auf Modellebene, der Mehrinstanzenfähigkeit sowie das vorläufige Löschen für Instanzen des Entitätstyps `Post` implementiert. Beachten Sie die Verwendung einer DbContext-Instanzeigenschaft: `TenantId`. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz (d.h. der Kontextinstanz, die die Abfrage ausführt).
 
 Filter können für einzelne LINQ-Abfragen mit dem IgnoreQueryFilters()-Operator deaktiviert werden.
 
@@ -159,7 +160,7 @@ builder.ApplyConfiguration(new CustomerConfiguration());
 
 Das grundlegende Muster für die Verwendung von EF Core in einer ASP.NET Core-Anwendung besteht in der Regel darin, einen benutzerdefinierten DbContext-Typ im Abhängigkeitsinjektionssystem zu registrieren und später Instanzen dieses Typs über Konstruktorparameter in Controllern abzurufen. Das bedeutet, dass für jede Anforderung eine neue DbContext-Instanz erstellt wird.
 
-In Version 2.0 stellen wir eine neue Möglichkeit vor, um benutzerdefinierte DbContext-Typen im Abhängigkeitsinjektionssystem zu registrieren, in dem transparent ein Pool von wiederverwendbaren DbContext-Instanzen eingeführt wird. Um DbContext-Pooling zu verwenden, verwenden Sie bei der Dienstregistrierung ```AddDbContextPool``` anstelle von ```AddDbContext```:
+In Version 2.0 stellen wir eine neue Möglichkeit vor, um benutzerdefinierte DbContext-Typen im Abhängigkeitsinjektionssystem zu registrieren, in dem transparent ein Pool von wiederverwendbaren DbContext-Instanzen eingeführt wird. Um DbContext-Pooling zu verwenden, verwenden Sie bei der Dienstregistrierung `AddDbContextPool` anstelle von `AddDbContext`:
 
 ``` csharp
 services.AddDbContextPool<BloggingContext>(
@@ -172,7 +173,7 @@ Dies ist konzeptionell vergleichbar mit der Funktionsweise des Verbindungspoolin
 
 ### <a name="limitations"></a>Einschränkungen
 
-Bei der neuen Methode werden einige Einschränkungen zu den Vorgängen in der ```OnConfiguring()```-Methode des DbContext-Typs eingeführt.
+Bei der neuen Methode werden einige Einschränkungen zu den Vorgängen in der `OnConfiguring()`-Methode des DbContext-Typs eingeführt.
 
 > [!WARNING]  
 > Verwenden Sie kein DbContext-Pooling, wenn Sie Ihren eigenen Zustand (z.B. private Felder) in Ihrer abgeleiteten DbContext-Klasse verwalten, da dieser nicht für alle Anforderungen genutzt werden sollte. EF Core setzt nur den Zustand zurück, der bekannt ist, bevor eine DbContext-Instanz zum Pool hinzugefügt wird.
@@ -218,7 +219,7 @@ Durch diese Änderungen wird das SQL-Skript verbessert, das für Gruppenverknüp
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Zeichenfolgeninterpolation in FromSql und ExecuteSqlCommand
 
-Mit C# 6 wurde Zeichenfolgeninterpolation eingeführt, ein Feature, mit dem C#-Ausdrücke direkt in Zeichenfolgenliterale eingebettet werden können, was eine komfortable Möglichkeit zum Erstellen von Zeichenfolgen zur Runtime bietet. In EF Core 2.0 haben wir eine spezielle Unterstützung für interpolierte Zeichenfolgen zu unseren zwei primären APIs hinzugefügt, die SQL-Rohzeichenfolgen akzeptieren: ```FromSql``` und ```ExecuteSqlCommand```. Diese neue Unterstützung ermöglicht die sichere Verwendung von C#-Zeichenfolgeninterpolation. Das heißt, sie wird vor häufigen Fehlern durch Angriffe durch Einschleusung von SQL-Befehlen geschützt, die auftreten können, wenn SQL dynamisch zur Laufzeit erstellt wird.
+Mit C# 6 wurde Zeichenfolgeninterpolation eingeführt, ein Feature, mit dem C#-Ausdrücke direkt in Zeichenfolgenliterale eingebettet werden können, was eine komfortable Möglichkeit zum Erstellen von Zeichenfolgen zur Runtime bietet. In EF Core 2.0 haben wir eine spezielle Unterstützung für interpolierte Zeichenfolgen zu unseren zwei primären APIs hinzugefügt, die SQL-Rohzeichenfolgen akzeptieren: `FromSql` und `ExecuteSqlCommand`. Diese neue Unterstützung ermöglicht die sichere Verwendung von C#-Zeichenfolgeninterpolation. Das heißt, sie wird vor häufigen Fehlern durch Angriffe durch Einschleusung von SQL-Befehlen geschützt, die auftreten können, wenn SQL dynamisch zur Laufzeit erstellt wird.
 
 Im Folgenden ein Beispiel:
 

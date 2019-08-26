@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: 7501a806271c9734e85e31845f260f2d512da077
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: a71aa01e81d9830d7b9e6cb01c200851100a15df
+ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58867956"
+ms.lasthandoff: 08/20/2019
+ms.locfileid: "69628425"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Neue Features in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -65,6 +65,7 @@ public class Order
     public OrderDetails Details { get; set; }
 }
 
+[Owned]
 public class OrderDetails
 {
     public int Id { get; set; }
@@ -73,6 +74,7 @@ public class OrderDetails
 ```
 
 Ab EF Core 3.0 gibt es die Möglichkeit, wenn `OrderDetails` im Besitz von `Order` ist oder explizit derselben Tabelle zugeordnet ist, dass `Order` ohne `OrderDetails` hinzugefügt werden kann, und alle `OrderDetails`-Eigenschaften, mit Ausnahme des primären Schlüssels, werden Spalten zugeordnet, die NULL-Werte zulassen.
+
 Bei Abfragen von EF Core wird `OrderDetails` auf `null` festgelegt, wenn eine der erforderlichen Eigenschaften keinen Wert aufweist oder keine erforderlichen Eigenschaften außer dem primären Schlüssel vorhanden und alle Eigenschaften `null` sind.
 
 ## <a name="c-80-support"></a>C# 8.0-Unterstützung
