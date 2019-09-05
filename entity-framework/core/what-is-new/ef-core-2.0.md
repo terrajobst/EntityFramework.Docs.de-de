@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 2712845512d9eb349ef3a7e14f4365327db0fcd6
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 28b2180e898b91d233b590b1639674a464f8c679
+ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565337"
+ms.lasthandoff: 09/04/2019
+ms.locfileid: "70271436"
 ---
 # <a name="new-features-in-ef-core-20"></a>Neue Features in EF Core 2.0
 
@@ -303,7 +303,7 @@ Dies bietet uns eine zuverlässigere Lösung in „Microsoft.Data.Sqlite“ für
 ### <a name="only-one-provider-per-model"></a>Verwenden von nur einem Anbieter pro Modell
 Dies erweitert erheblich die Möglichkeiten der Anbieter bezüglich der Interaktion mit dem Modell und vereinfacht die Verwendung von Konventionen, Anmerkungen und Fluent-APIs mit verschiedenen Anbietern.
 
-EF Core 2.0 erstellt nun eine andere [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs)-Klasse für die verschiedenen verwendeten Anbieter. Dies geschieht in der Regel auf eine für die Anwendung transparente Weise. Dies hat eine Vereinfachung der untergeordneten Metadaten-APIs ermöglicht, sodass Zugriffe auf *gemeinsame relationale Metadatenkonzepte* immer durch Aufrufen von `.Relational` statt `.SqlServer`, `.Sqlite` usw. erfolgen.
+EF Core 2.0 erstellt nun eine andere [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs)-Klasse für die verschiedenen verwendeten Anbieter. Dies geschieht in der Regel auf eine für die Anwendung transparente Weise. Dies hat eine Vereinfachung der untergeordneten Metadaten-APIs ermöglicht, sodass Zugriffe auf *gemeinsame relationale Metadatenkonzepte* immer durch Aufrufen von `.Relational` statt `.SqlServer`, `.Sqlite` usw. erfolgen.
 
 ### <a name="consolidated-logging-and-diagnostics"></a>Konsolidierte Protokollierung und Diagnose
 
@@ -311,6 +311,6 @@ Die Mechanismen zur Protokollierung (basierend auf ILogger) und Diagnose (basier
 
 Die Ereignis-IDs für an eine ILogger-Schnittstelle gesendete Nachrichten haben sich in 2.0 geändert. Die Ereignis-IDs sind nun für alle EF Core-Codes eindeutig. Diese Nachrichten entsprechen nun auch dem Standardmuster für die strukturierte Protokollierung, das z.B. von MVC eingesetzt wird.
 
-Die Protokollierungskategorien haben sich ebenfalls geändert. Nun gibt es eine bekannte Gruppe von Kategorien, auf die über [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs) zugegriffen werden kann.
+Die Protokollierungskategorien haben sich ebenfalls geändert. Nun gibt es eine bekannte Gruppe von Kategorien, auf die über [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/DbLoggerCategory.cs) zugegriffen werden kann.
 
 DiagnosticSource-Ereignisse verwenden nun dieselbe Ereignis-ID-Namen wie die der entsprechenden `ILogger`-Nachrichten.
