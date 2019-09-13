@@ -1,91 +1,91 @@
 ---
-title: Designer Tabellenaufteilung - EF6
+title: Aufteilung der Designer Tabelle-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-ms.openlocfilehash: 8b0ca6778a06ed43b1365d2e5969ff15948f8004
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490693"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921784"
 ---
-# <a name="designer-table-splitting"></a>Designer Tabellenaufteilung
-In dieser exemplarischen Vorgehensweise wird gezeigt, wie mehrere Entitätstypen durch Ändern eines Modells mit dem Entity Framework Designer (EF-Designer) einer einzelnen Tabelle zugeordnet.
+# <a name="designer-table-splitting"></a>Aufteilen von Designer Tabellen
+In dieser exemplarischen Vorgehensweise wird veranschaulicht, wie Sie mehrere Entitäts Typen einer einzelnen Tabelle zuordnen, indem Sie ein Modell mit dem Entity Framework Designer (EF-Designer) ändern.
 
-Ein Grund, die Sie möglicherweise tabellenaufteilung verwenden möchten, ist das Laden einiger Eigenschaften verzögern, Verwendung von lazy loading-um die Objekte zu laden. Sie können die Eigenschaften trennen, die möglicherweise große Menge von Daten in eine getrennte Entität enthalten und nur bei Bedarf laden.
+Ein Grund, warum Sie die Tabellen Aufteilung verwenden möchten, verzögert das Laden einiger Eigenschaften, wenn Lazy Loading zum Laden der Objekte verwendet wird. Sie können die Eigenschaften, die möglicherweise sehr große Datenmengen enthalten, in eine separate Entität aufteilen und Sie nur bei Bedarf laden.
 
-Die folgende Abbildung zeigt die wichtigsten Windows, die bei der Arbeit mit dem EF Designer verwendet werden.
+Die folgende Abbildung zeigt die Hauptfenster, die bei der Arbeit mit dem EF-Designer verwendet werden.
 
 ![EF-Designer](~/ef6/media/efdesigner.png)
 
-## <a name="prerequisites"></a>Erforderliche Komponenten
+## <a name="prerequisites"></a>Vorraussetzungen
 
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 
 - Eine aktuelle Version von Visual Studio.
-- Die [Beispieldatenbank ' School '](~/ef6/resources/school-database.md).
+- Die [Beispieldatenbank "School](~/ef6/resources/school-database.md)".
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
-In dieser exemplarischen Vorgehensweise wird Visual Studio 2012 verwenden.
+In dieser exemplarischen Vorgehensweise wird Visual Studio 2012 verwendet.
 
 -   Öffnen Sie Visual Studio 2012.
 -   Zeigen Sie im Menü **Datei** auf **Neu**, und klicken Sie dann auf **Projekt**.
--   Klicken Sie im linken Bereich auf Visual C\#, und wählen Sie dann die Vorlage für die Konsolenanwendung.
--   Geben Sie **TableSplittingSample** als Namen für das Projekt und auf **OK**.
+-   Klicken Sie im linken Bereich auf Visual C\#, und wählen Sie dann die Vorlage Konsolenanwendung aus.
+-   Geben Sie **tablesplittingsample** als Namen für das Projekt ein, und klicken Sie auf **OK**.
 
-## <a name="create-a-model-based-on-the-school-database"></a>Erstellen Sie ein Modell basierend auf der Datenbank "School"
+## <a name="create-a-model-based-on-the-school-database"></a>Erstellen eines Modells auf der Grundlage der Datenbank "School"
 
--   Mit der rechten Maustaste des Projektnamen im Projektmappen-Explorer, zeigen Sie auf **hinzufügen**, und klicken Sie dann auf **neues Element**.
--   Wählen Sie **Daten** aus dem linken Menü und wählen Sie dann **ADO.NET Entity Data Model** im Bereich Vorlagen.
--   Geben Sie **TableSplittingModel.edmx** für den Dateinamen ein, und klicken Sie dann auf **hinzufügen**.
--   Wählen Sie im Dialogfeld "Modellinhalte" **aus Datenbank generieren**, und klicken Sie dann auf **weiter.**
--   Klicken Sie auf die neue Verbindung. Geben Sie den Servernamen, klicken Sie im Dialogfeld "Verbindungseigenschaften" (z. B. **(Localdb)\\Mssqllocaldb**), wählen die Authentifizierungsmethode, Typ **School** für den Datenbanknamen, und klicken Sie dann Klicken Sie auf **OK**.
-    Das Dialogfeld "Wählen Sie Ihre Datenverbindung" wird mit Ihrem datenbankverbindungseinstellung aktualisiert.
--   Erweitern Sie in das Dialogfeld "Datenbankobjekte auswählen" die **Tabellen** Knoten und überprüfen Sie die **Person** Tabelle. Dadurch wird hinzugefügt, die angegebene Tabelle auf die **School** Modell.
--   Klicken Sie auf **Fertig stellen**.
+-   Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen, zeigen Sie auf **Hinzufügen**, und klicken Sie dann auf **Neues Element**.
+-   Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.
+-   Geben Sie als Dateiname **tablesplittingmodel. edmx** ein, und klicken Sie dann auf **Hinzufügen**.
+-   Wählen Sie im Dialogfeld Modell Inhalte auswählen die Option **aus Datenbank generieren aus**, und klicken Sie dann auf **Weiter.**
+-   Klicken Sie auf neue Verbindung. Geben Sie im Dialogfeld Verbindungs Eigenschaften den Servernamen ein (z. b. **(localdb\\) mssqllocaldb**), wählen Sie die Authentifizierungsmethode aus, geben Sie als Datenbanknamen **School** ein, und klicken Sie dann auf **OK**.
+    Das Dialogfeld Wählen Sie Ihre Datenverbindung aus wird mit Ihrer Daten bankverbindungs Einstellung aktualisiert.
+-   Erweitern Sie im Dialogfeld Wählen Sie Ihre Datenbankobjekte aus den Knoten **Tabellen** , und überprüfen Sie die Tabelle **Person** . Dadurch wird die angegebene Tabelle dem Modell " **School** " hinzugefügt.
+-   Klicken Sie auf **Finish**.
 
-Im Entity Designer, der bietet eine Entwurfsoberfläche zum Bearbeiten des Modells, wird angezeigt. Alle Objekte, die Sie ausgewählt haben, in der **Datenbankobjekte auswählen** im Dialogfeld zum Modell hinzugefügt werden.
+Die Entity Designer, die eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt. Alle Objekte, die Sie im Dialogfeld **Wählen Sie Ihre Datenbankobjekte** ausgewählt haben, werden dem Modell hinzugefügt.
 
-## <a name="map-two-entities-to-a-single-table"></a>Zuordnen von zwei Entitäten zu einer einzelnen Tabelle
+## <a name="map-two-entities-to-a-single-table"></a>Ordnen Sie zwei Entitäten einer einzelnen Tabelle zu.
 
-In diesem Abschnitt unterteilen Sie die **Person** Entität in beiden Entitäten und deren Zuordnung zu einer einzelnen Tabelle.
+In diesem Abschnitt teilen Sie die Entität **Person** in zwei Entitäten auf und ordnen Sie dann einer einzelnen Tabelle zu.
 
 > [!NOTE]
-> Die **Person** Entität enthält keine Eigenschaften, die möglicherweise große Datenmengen enthalten; es wird nur als Beispiel verwendet.
+> Die **Person** -Entität enthält keine Eigenschaften, die möglicherweise eine große Datenmenge enthalten. Sie wird nur als Beispiel verwendet.
 
--   Mit der rechten Maustaste in eines leeren Bereichs der Entwurfsoberfläche, zeigen Sie auf **Add New**, und klicken Sie auf **Entität**.
-    Die **neue Entität** Dialogfeld wird angezeigt.
--   Typ **HireInfo** für die **Entitätsname** und **PersonID** für die **Schlüsseleigenschaft** Name.
--   Klicken Sie auf **OK**.
+-   Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, zeigen Sie auf **Neu hinzufügen**, und klicken Sie auf **Entität**.
+    Das Dialogfeld **neue Entität** wird angezeigt.
+-   Geben Sie als **Entitäts Name** und **PersonID** als Name der **Schlüsseleigenschaft**  **hireinfo** ein.
+-   Klicken Sie auf **OK**.
 -   Ein neuer Entitätstyp wird erstellt und auf der Entwurfsoberfläche angezeigt.
--   Wählen Sie die **HireDate** Eigenschaft der **Person** Entitätstyp, und drücken Sie **STRG + X** Schlüssel.
--   Wählen Sie die **HireInfo** Entität, und drücken Sie **STRG + V** Schlüssel.
--   Erstellen einer Assoziation zwischen **Person** und **HireInfo**. Zu diesem Zweck mit der rechten Maustaste in eines leeren Bereichs der Entwurfsoberfläche, zeigen Sie auf **Add New**, und klicken Sie auf **Zuordnung**.
--   Die **Zuordnung hinzufügen** Dialogfeld wird angezeigt. Die **PersonHireInfo** wird standardmäßig der Name angegeben wird.
--   Geben Sie die Multiplizität **1(One)** an beiden Enden der Beziehung.
--   Drücken Sie **OK**.
+-   Wählen Sie die **HireDate** -Eigenschaft des Entitäts Typs **Person** aus, und drücken Sie **STRG + X** -Taste.
+-   Wählen Sie die **hireinfo** -Entität aus, und drücken Sie **STRG + V** Tasten.
+-   Erstellen Sie eine Zuordnung zwischen **Person** und **hireinfo**. Klicken Sie hierzu mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, zeigen Sie auf **Neu hinzufügen**, **und klicken Sie dann auf Zuordnung**.
+-   Das ****  Dialogfeld Zuordnung hinzufügen wird angezeigt. Der **personhireinfo** -Name wird standardmäßig angegeben.
+-   Geben Sie die Multiplizität **1 (eins)** an beiden Enden der Beziehung an.
+-   Klicken Sie auf **OK**.
 
-Der nächste Schritt ist erforderlich. die **Mappingdetails** Fenster. Wenn Sie dieses Fenster nicht sehen, mit der rechten Maustaste Entwurfsoberfläche, und wählen **Mappingdetails**.
+Der nächste Schritt erfordert das Fenster " **Mappingdetails** ". Wenn dieses Fenster nicht angezeigt wird, klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie **Mappingdetails**.
 
--   Wählen Sie die **HireInfo** Entitätstyp, und klicken Sie auf **&lt;Hinzufügen einer Tabelle oder Sicht&gt;** in die **Mappingdetails** Fenster.
--   Wählen Sie **Person** aus der **&lt;Hinzufügen einer Tabelle oder Sicht&gt;** Feld Dropdown-Liste. Die Liste enthält die Tabellen oder Sichten, die die ausgewählte Entität zugeordnet werden können.
+-   Wählen Sie **den hireinfo** -Entitätstyp aus, und klicken Sie   ****  **&lt;im Fenster Mappingdetails auf Tabelle oder Sicht&gt;hinzufügen**.
+-   Wählen Sie in der Dropdown Liste  **&lt;Tabelle oder&gt;Sicht** hinzufügen die Option **Person** aus. Die Liste enthält Tabellen oder Sichten, denen die ausgewählte Entität zugeordnet werden kann.
     Die entsprechenden Eigenschaften sollten standardmäßig zugeordnet werden.
 
     ![Zuordnung](~/ef6/media/mapping.png)
 
--   Wählen Sie die **PersonHireInfo** Zuordnung auf der Entwurfsoberfläche angezeigt.
--   Mit der rechten Maustaste in der Zuordnung auf die Entwurfsoberfläche, und wählen **Eigenschaften**.
--   In der **Eigenschaften** wählen Sie im Fenster der **referenziellen Einschränkungen** Eigenschaft, und klicken Sie auf die Schaltfläche mit den Auslassungspunkten.
--   Wählen Sie **Person** aus der **Principal** Dropdown-Liste.
--   Drücken Sie **OK**.
+-   Wählen Sie auf der Entwurfs Oberfläche die Zuordnung **personhireinfo** aus.
+-   Klicken Sie mit der rechten Maustaste auf die Zuordnung der Entwurfs Oberfläche, und wählen Sie **Eigenschaften**aus.
+-   Wählen Sie im Fenster **Eigenschaften** die Eigenschaft **Referenzielle Einschränkungen** aus, und klicken Sie auf die Schaltfläche mit den Auslassungs Punkten.
+-   Wählen Sie in der Dropdown Liste **Prinzipal** die Option **Person** aus.
+-   Klicken Sie auf **OK**.
 
- 
+ 
 
-## <a name="use-the-model"></a>Verwenden Sie das Modell
+## <a name="use-the-model"></a>Verwenden des Modells
 
--   Fügen Sie den folgenden Code in der Main-Methode.
+-   Fügen Sie den folgenden Code in die Main-Methode ein.
 
 ``` csharp
     using (var context = new SchoolEntities())
@@ -122,16 +122,16 @@ Der nächste Schritt ist erforderlich. die **Mappingdetails** Fenster. Wenn Sie 
 ```
 -   Kompilieren Sie die Anwendung, und führen Sie sie aus.
 
-Auf die folgenden T-SQL-Anweisungen ausgeführt wurden die **School** Datenbank aufgrund der Ausführung dieser Anwendungsprogramms. 
+Die folgenden T-SQL-Anweisungen wurden als Ergebnis der Ausführung dieser Anwendung für die Datenbank " **School** " ausgeführt. 
 
--   Die folgenden **einfügen** wurde als Ergebnis der Ausführung von Kontext ausgeführt. SaveChanges() und kombiniert Daten aus der **Person** und **HireInfo** Entitäten
+-   Der folgende **Insert-Vorgang** wurde als Ergebnis der Ausführung des Kontexts ausgeführt. SaveChanges () und kombiniert Daten aus den Entitäten **Person** und **hireinfo** .
 
     ![Insert](~/ef6/media/insert.png)
 
--   Die folgenden **wählen** wurde als Ergebnis der Ausführung von Kontext ausgeführt. People.FirstOrDefault() und wählt nur die Spalten zugeordnet **Person**
+-   Die folgende **Select** -Anweisung wurde als Ergebnis der Ausführung des Kontexts ausgeführt. People. FirstOrDefault () und wählt nur die Spalten aus, die **Person** zugeordnet sind.
 
-    ![Wählen Sie 1](~/ef6/media/select1.png)
+    ![1 auswählen](~/ef6/media/select1.png)
 
--   Die folgenden **wählen** ausgeführt wurde, da der Zugriff auf die Navigation Eigenschaft existingPerson.Instructor und wählt nur die Spalten zugeordnet **HireInfo**
+-   Die folgende **Select** -Anweisung wurde als Ergebnis des Zugriffs auf die Navigations Eigenschaft existingperson. Instructor ausgeführt und wählt nur die Spalten aus, die **hireinfo** zugeordnet sind.
 
-    ![Wählen Sie 2](~/ef6/media/select2.png)
+    ![2 auswählen](~/ef6/media/select2.png)

@@ -3,12 +3,12 @@ title: Asynchrone Abfrage und speichern-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: bf2039110962e8dd114242dcd0b9454963750774
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: ae578976ffc88b407ef0aaa0017935005bedd093
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306585"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921627"
 ---
 # <a name="async-query-and-save"></a>Asynchrone Abfrage und Speicherung
 > [!NOTE]
@@ -221,12 +221,14 @@ Eine umfassende Liste der verfügbaren Erweiterungs Methoden im System. Data. En
 
 Nun, da der Code asynchron ist, können wir einen anderen Ausführungs Fluss beobachten, wenn wir das Programm ausführen:
 
-1.  **SaveChanges** beginnt, den neuen **Blog** an die Datenbank *zu übertragen, sobald der Befehl an die Datenbank gesendet wird. im aktuellen verwalteten Thread ist keine Compute-Zeit mehr erforderlich. Die **performdatabaseoperations** -Methode gibt zurück (obwohl die Ausführung noch nicht abgeschlossen ist), und der Programmablauf in der Main-Methode wird fortgesetzt.*
-2.  **Das Anführungszeichen wird**
-    in die Konsole*geschrieben, da es in der Main-Methode keine weiteren Aufgaben gibt. der verwaltete Thread wird für den Wait-Vorgang blockiert, bis der Daten Bank Vorgang abgeschlossen ist. Sobald der Vorgang abgeschlossen ist, werden die restlichen **performdatabaseoperations** ausgeführt.*
-3.  **SaveChanges** ist abgeschlossen.
-4.  Abfrage für alle **Blogs** wird gesendet, um die *Datenbank in diesem Fall der verwaltete Thread eine andere Aktion ausführen, während die Abfrage in der Datenbank verarbeitet werden kann. Da die Ausführung der anderen Ausführung abgeschlossen ist, hält der Thread den Wait-Befehl jedoch nur an.*
-5.  Abfrage Rückgabe und Ergebnisse werden in die **Konsole** geschrieben
+1. **SaveChanges** beginnt, den neuen **Blog** an die Datenbank zu überbringen.  
+    *Nachdem der Befehl an die Datenbank gesendet wurde, ist für den aktuell verwalteten Thread keine Compute-Zeit mehr erforderlich. Die **performdatabaseoperations** -Methode gibt zurück (obwohl die Ausführung noch nicht abgeschlossen ist), und der Programmablauf in der Main-Methode wird fortgesetzt.*
+2. **Das Anführungszeichen des Tages wird in die Konsole geschrieben.**  
+    *Da keine weiteren Aufgaben in der Main-Methode durchgeführt werden müssen, wird der verwaltete Thread für den Wait-Vorgang blockiert, bis der Daten Bank Vorgang abgeschlossen ist. Sobald der Vorgang abgeschlossen ist, werden die restlichen **performdatabaseoperations** ausgeführt.*
+3.  **SaveChanges** ist abgeschlossen.  
+4.  Die Abfrage für alle **Blogs** wird an die Datenbank gesendet.  
+    *Auch hier kann der verwaltete Thread andere Aufgaben ausführen, während die Abfrage in der Datenbank verarbeitet wird. Da die Ausführung der anderen Ausführung abgeschlossen ist, hält der Thread den Wait-Befehl jedoch nur an.*
+5.  Abfrage Rückgabe und Ergebnisse werden in die **Konsole** geschrieben  
 
 ![Asynchrone Ausgabe](~/ef6/media/asyncoutput.png) 
 
