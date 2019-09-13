@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 6c5d516fcb3950ae168860029660e1b1061546b8
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: d93be5c2b727d8fbaddd103f8f367c699ae80a7c
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668777"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921653"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Abfragen mit Nachverfolgung im Vergleich zu Abfragen ohne Nachverfolgung
 
@@ -24,7 +24,7 @@ Abfragen, die Entitätstypen zurückgeben, verfügen standardmäßig über Nachv
 
 Im folgenden Beispiel wird die Änderung an der Bewertung des Blogs erkannt und während `SaveChanges()` in der Datenbank beibehalten.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -40,7 +40,7 @@ Abfragen ohne Nachverfolgung sind nützlich, wenn die Ergebnisse in einem schrei
 
 Sie können eine einzelne Abfrage ändern, sodass sie keine Nachverfolgung ausführt:
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=4)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=4)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -52,7 +52,7 @@ using (var context = new BloggingContext())
 
 Sie können das Standardnachverfolgungsverhalten auch auf der Ebene der Kontextinstanz ändern:
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=3)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=3)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -69,7 +69,7 @@ using (var context = new BloggingContext())
 
 Selbst wenn der Ergebnistyp der Abfrage kein Entitätstyp ist, wird die Nachverfolgung standardmäßig ausgeführt, sofern das Ergebnis Entitätstypen enthält. In der folgenden Abfrage, die einen anonymen Typ zurückgibt, werden die Instanzen von `Blog` im Ergebnis nachverfolgt.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=7)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -85,7 +85,7 @@ using (var context = new BloggingContext())
 
 Wenn die Ergebnisse keine Entitätstypen enthalten, wird keine Nachverfolgung ausgeführt. In der folgenden Abfrage, die einen anonymen Typ mit einigen Werten der Entität zurückgibt (aber keine Instanzen des aktuellen Entitätstyps), wird keine Nachverfolgung ausgeführt.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {

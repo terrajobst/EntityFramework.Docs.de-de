@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: a71aa01e81d9830d7b9e6cb01c200851100a15df
-ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
+ms.openlocfilehash: d61fa884f4669daa220ffc96ae59dd63518e6d5a
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/20/2019
-ms.locfileid: "69628425"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921673"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Neue Features in EF Core 3.0 (aktuell in der Vorschauversion)
 
@@ -94,15 +94,6 @@ Dieses Feature ist nicht in der aktuellen Vorschauversion enthalten.
 
 [Abfragetypen](xref:core/modeling/query-types) wurden in EF Core 2.1 eingeführt und werden in EF Core 3.0 als Entitätstypen ohne Schlüssel betrachtet. Sie stellen Daten dar, die zwar aus einer Datenbank gelesen, aber nicht aktualisiert werden können.
 Dank dieser Eigenschaft eignen sich diese Typen in den meisten Szenarios hervorragend für Datenbanksichten. Für das Reverse Engineering von Datenbanksichten ist daher geplant, dass die Erstellung von Entitätstypen ohne Schlüssel künftig automatisiert wird.
-
-## <a name="property-bag-entities"></a>Entitäten mit Eigenschaftenbehältern
-
-[Issue #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) und [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
-
-Dieses Feature befindet sich noch in der Entwicklungsphase und ist nicht in der aktuellen Vorschauversion enthalten. 
-
-Bei diesem Feature geht es darum, Entitäten zu aktivieren, die Daten in indizierten Eigenschaften anstelle von regulären Eigenschaften speichern, und auch darum, Instanzen derselben .NET-Klasse (potenziell etwas so Einfaches wie `Dictionary<string, object>`) verwenden zu können, um verschiedene Entitätstypen im selben EF Core-Modell darzustellen.
-Dieses Feature ist ein Ausgangspunkt für die Unterstützung von m:n-Beziehungen ohne eine Joinentität ([Issue #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)) – eine der gefragtesten Verbesserungen für EF Core.
 
 ## <a name="ef-63-on-net-core"></a>EF 6.3 unter .NET Core
 
