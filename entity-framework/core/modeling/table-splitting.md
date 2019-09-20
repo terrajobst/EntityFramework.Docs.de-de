@@ -1,52 +1,53 @@
 ---
-title: Tabelle teilen – EF Core
+title: Tabellen Aufteilung-EF Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 04/10/2019
 ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 4a0bfaf017106a0bfdff084b1c472bdc17459a89
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 684fcfbb66debfd1b89e23c8aaf0a32909378c6b
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562586"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149192"
 ---
-# <a name="table-splitting"></a>Tabellenaufteilung
+# <a name="table-splitting"></a>Tabellen Aufteilung
 
 >[!NOTE]
-> Dieses Feature ist neu in EF Core 2.0.
+> Diese Funktion ist neu in EF Core 2,0.
 
-EF Core kann zwei oder mehr Entitäten auf eine einzelne Zeile zugeordnet. Dies wird als bezeichnet _Tabelle aufteilen_ oder _Tabelle Freigabe_.
+EF Core ermöglicht das Zuordnen von zwei oder mehr Entitäten zu einer einzelnen Zeile. Dies wird als _Tabellen Aufteilung_ oder _Tabellen Freigabe_bezeichnet.
 
 ## <a name="configuration"></a>Konfiguration
 
-Um verwenden die tabellenaufteilung, die die Entitätstypen derselben Tabelle zugeordnet werden müssen, haben Sie primären Schlüssel, der den gleichen Spalten zugeordnet und mindestens eine Beziehung zwischen den primären Schlüssel von einem Entitätstyp und einem anderen in derselben Tabelle konfiguriert.
+Zur Verwendung der Tabellen Aufteilung müssen die Entitäts Typen derselben Tabelle zugeordnet werden, die Primärschlüssel müssen denselben Spalten zugeordnet werden, und mindestens eine Beziehung muss zwischen dem Primärschlüssel eines Entitäts Typs und einem anderen in derselben Tabelle konfiguriert werden.
 
-Ein häufiges Szenario für die tabellenaufteilung wird nur eine Teilmenge der Spalten in der Tabelle für mehr Leistung oder Kapselung verwendet werden.
+Ein häufiges Szenario für die Tabellen Aufteilung ist die Verwendung einer Teilmenge der Spalten in der Tabelle, um eine höhere Leistung oder Kapselung zu erzielen.
 
-In diesem Beispiel `Order` stellt eine Teilmenge der `DetailedOrder`.
+In diesem Beispiel `Order` stellt eine Teilmenge von `DetailedOrder`dar.
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-Zusätzlich zu die erforderliche Konfiguration rufen wir `HasBaseType((string)null)` Zuordnung vermeiden `DetailedOrder` in der gleichen Hierarchie wie `Order`.
+Zusätzlich zur erforderlichen Konfiguration wird aufgerufen `Property(o => o.Status).HasColumnName("Status")` `DetailedOrder.Status` , um derselben Spalte wie `Order.Status`zuzuordnen.
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
 
-Finden Sie unter den [vollständigen Beispielprojekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) für weiteren Kontext.
+> [!TIP]
+> Weitere Informationen finden Sie im [vollständigen Beispiel Projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) .
 
 ## <a name="usage"></a>Verwendung
 
-Speichern und Abfragen von Entitäten, die über tabellenaufteilung erfolgt auf dieselbe Weise wie andere Entitäten, der einzige Unterschied besteht darin, dass alle Entitäten, die Freigabe einer Zeile für den Einfügevorgang nachverfolgt werden müssen.
+Das Speichern und Abfragen von Entitäten mithilfe von Tabellen Aufteilung erfolgt auf die gleiche Weise wie andere Entitäten. Und beginnend mit EF Core 3,0 kann der abhängige Entitäts Verweis `null`sein. Wenn alle von der abhängigen Entität verwendeten Spalten die Datenbank `NULL` sind, wird bei der Abfrage keine Instanz für Sie erstellt. Dies würde auch vorkommen, dass alle Eigenschaften optional sind und auf `null`festgelegt werden, was nicht erwartet wird.
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 
-## <a name="concurrency-tokens"></a>Parallelitätstoken
+## <a name="concurrency-tokens"></a>Parallelitäts Token
 
-Wenn keines der Entitätstypen, die gemeinsame Nutzung einer Tabelle hat ein parallelitätstoken muss es enthalten in alle anderen Entitätstypen, um einen Tokenwert veraltete Parallelität zu vermeiden, wenn nur eine der Entitäten zugeordnet, die der gleichen Tabelle aktualisiert wird.
+Wenn einer der Entitäts Typen, die eine Tabelle gemeinsam nutzen, über ein Parallelitäts Token verfügt, muss er in allen anderen Entitäts Typen enthalten sein, um einen veralteten Parallelitäts Token-Wert zu vermeiden, wenn nur eine der Entitäten aktualisiert wird, die derselben Tabelle zugeordnet ist.
 
-Um zu vermeiden, eine Offenlegung für den konsumierenden Code kann die erstellen Sie einen in die Schatten-Status.
+Um die Bereitstellung für den verwendeten Code zu vermeiden, ist es möglich, einen im Schatten Zustand zu erstellen.
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=ConcurrencyToken&highlight=2)]

@@ -1,53 +1,50 @@
 ---
-title: Portieren von EF6 auf EF Core – Portieren eines EDMX-basierten Modells
+title: Portieren von EF6 auf EF Core portieren eines edmx-basierten Modells
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 63003709-f1ec-4bdc-8083-65a60c4826d2
 uid: efcore-and-ef6/porting/port-edmx
-ms.openlocfilehash: 2c3336ac675a830566001a0ddb3777839f52db18
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a1c978e141f47a39fff59eb5fc417a63afd37b04
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997410"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149000"
 ---
-# <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>Portieren eines EDMX-Datei-basierten Modells mit EF6 zu EF Core
+# <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>Portieren eines EF6 edmx-basierten Modells auf EF Core
 
-EF Core unterstützt nicht das EDMX-Dateiformat für Modelle. So portieren Sie diese Modelle, die beste Option ist ein neues, codebasierte Modell aus der Datenbank für Ihre Anwendung zu generieren.
+EF Core unterstützt das edmx-Dateiformat für Modelle nicht. Die beste Option zum Portieren dieser Modelle besteht darin, ein neues Code basiertes Modell aus der Datenbank für Ihre Anwendung zu generieren.
 
-## <a name="install-ef-core-nuget-packages"></a>Installieren von EF Core NuGet-Paketen
+## <a name="install-ef-core-nuget-packages"></a>Installieren von EF Core nuget-Paketen
 
-Installieren Sie die `Microsoft.EntityFrameworkCore.Tools` NuGet-Paket.
+Installieren Sie das NuGet-Paket `Microsoft.EntityFrameworkCore.Tools`.
 
-## <a name="regenerate-the-model"></a>Das Modell erneut generieren
+## <a name="regenerate-the-model"></a>Erneutes Generieren des Modells
 
-Sie können jetzt die reverse Engineering-Funktionen verwenden, zum Erstellen eines Modells, basierend auf Ihrer vorhandenen Datenbank.
+Sie können jetzt die Reverse-Engineering-Funktion verwenden, um ein Modell auf der Grundlage der vorhandenen Datenbank zu erstellen.
 
-Führen den folgenden Befehl in der Paket-Manager-Konsole (Tools Memberauswahloperator NuGet-Paket-Manager-Paket-Manager-Konsole Memberauswahloperator). Finden Sie unter [-Paket-Manager-Konsole (Visual Studio)](../../core/miscellaneous/cli/powershell.md) für Befehlsoptionen, um eine Teilmenge der Tabellen usw. zu erstellen.
+Führen Sie den folgenden Befehl in der Paket-Manager-Konsole aus (Tools – > nuget-Paket-Manager – > Paket-Manager-Konsole). In der [Paket-Manager-Konsole (Visual Studio)](../../core/miscellaneous/cli/powershell.md) finden Sie Befehlsoptionen zum Gerüstbau einer Teilmenge von Tabellen usw.
 
 ``` powershell
 Scaffold-DbContext "<connection string>" <database provider name>
 ```
 
-Hier ist z. B. der Befehl zum Erstellen des Gerüsts für ein Modell aus der Blogging-Datenbank auf der SQL Server-LocalDB-Instanz.
+Hier sehen Sie z. b. den Befehl, um ein Modell aus der BLOB-Datenbank auf Ihrer SQL Server localdb-Instanz zu Gerüstbau.
 
 ``` powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-## <a name="remove-ef6-model"></a>Entfernen von EF6-Modell
+## <a name="remove-ef6-model"></a>Entfernen des EF6-Modells
 
-Nun möchten, das EF6-Modell von der Anwendung entfernen.
+Nun entfernen Sie das EF6-Modell aus der Anwendung.
 
-Es ist in Ordnung, das EF6-NuGet-Paket ("EntityFramework"), die installiert ist, zu verlassen, da EF Core und EF6 verwendete Seite-an-Seite in der gleichen Anwendung sein kann. Jedoch wenn Sie nicht sind EF6 in alle Bereiche der Anwendung verwenden, können klicken Sie dann das Paket deinstallieren Kompilierungsfehler auf Teile des Codes, die Ihre Aufmerksamkeit erfordern.
+Es ist in Ordnung, das EF6 nuget-Paket (EntityFramework) installiert zu lassen, da EF Core und EF6 parallel in der gleichen Anwendung verwendet werden können. Wenn Sie jedoch nicht beabsichtigen, EF6 in einem Bereich Ihrer Anwendung zu verwenden, kann das Deinstallieren des Pakets dabei helfen, Kompilier Fehler für Code Elemente zu erhalten, die eine Aufmerksamkeit erfordern.
 
-## <a name="update-your-code"></a>Aktualisieren Sie Ihren code
+## <a name="update-your-code"></a>Aktualisieren Ihres Codes
 
-An diesem Punkt ist es eine Frage der Adressierung Kompilierungsfehler und Überprüfung von Code zu überprüfen, ob die verhaltensänderungen zwischen EF6 und EF Core Auswirkungen informiert.
+An dieser Stelle ist es wichtig, Kompilierungsfehler zu beheben und Code zu überprüfen, um festzustellen, ob sich die Verhaltensänderungen zwischen EF6 und EF Core auf Sie auswirken.
 
-## <a name="test-the-port"></a>Testen Sie den port
+## <a name="test-the-port"></a>Testen des Ports
 
-Nur weil die Anwendung kompiliert wird, bedeutet nicht, dass es erfolgreich in EF Core portiert werden. Sie benötigen, um alle Bereiche der Anwendung, um sicherzustellen, dass keine der Änderungen des Verhaltens Ihrer Anwendung beeinträchtigt haben zu testen.
-
-> [!TIP]
-> Finden Sie unter [erste Schritte mit EF Core in ASP.NET Core mit einer vorhandenen Datenbank](xref:core/get-started/aspnetcore/existing-db) für einen zusätzlichen Verweis auf das Arbeiten mit einer vorhandenen Datenbank 
+Nur weil Ihre Anwendung kompiliert, bedeutet nicht, dass Sie erfolgreich in EF Core portiert wurde. Sie müssen alle Bereiche Ihrer Anwendung testen, um sicherzustellen, dass keine der Verhaltensänderungen Ihre Anwendung beeinträchtigt hat.

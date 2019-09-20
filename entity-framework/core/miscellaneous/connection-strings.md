@@ -1,23 +1,23 @@
 ---
-title: Verbindungszeichenfolgen - EF Core
+title: Verbindungs Zeichenfolgen-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: c306f9ca7a51fc9e3db18e883fd44f56dd1a3cb4
-ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
+ms.openlocfilehash: ed89d6d09b15b0dea7fd8bc3ff3e3f631495ecb7
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/17/2019
-ms.locfileid: "68286446"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149106"
 ---
 # <a name="connection-strings"></a>Verbindungszeichenfolgen
 
 Die meisten Datenbankanbieter erfordern eine Form der Verbindungszeichenfolge zum Herstellen einer Datenbankverbindung. Diese Verbindungszeichenfolge enthält vertrauliche Informationen, die geschützt werden müssen. Außerdem muss sie geändert werden, wenn Sie die Umgebung, wie z.B. Entwicklung, Test und Produktion, wechseln.
 
-## <a name="net-framework-applications"></a>.NET Framework-Anwendungen
+## <a name="winforms--wpf-applications"></a>WinForms-& WPF-Anwendungen
 
-.NET Framework-Anwendungen, z.B. Windows Forms, WPF, Konsole und ASP.NET 4, verwenden ein bewährtes Muster für Verbindungszeichenfolgen. App.config-Datei Ihrer Anwendung ("Web.config" bei Verwendung von ASP.NET), sollten die Verbindungszeichenfolge hinzugefügt werden. Wenn Ihre Verbindungszeichenfolge enthält vertrauliche Informationen wie Benutzername und Kennwort, enthält Sie können den Inhalt der Konfigurationsdatei mit schützen [der geschützten Konfiguration](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration).
+WinForms-, WPF-und ASP.NET 4-Anwendungen haben ein bewährtes und getestetes Verbindungs Zeichen folgen Muster. Die Verbindungs Zeichenfolge sollte der app. config-Datei Ihrer Anwendung hinzugefügt werden (Web. config, wenn Sie ASP.NET verwenden). Wenn Ihre Verbindungs Zeichenfolge vertrauliche Informationen (z. b. Benutzername und Kennwort) enthält, können Sie den Inhalt der Konfigurationsdatei mit dem [Geheimnis-Manager-Tool](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager)schützen.
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -77,7 +77,7 @@ Das Konfigurationssystem in ASP.NET Core ist sehr flexibel, und die Verbindungsz
 }
 ```
 
-Der Kontext wird in der Regel in der Datei `Startup.cs` konfiguriert. Die Verbindungszeichenfolge wird dabei aus der Konfiguration gelesen. Im folgenden Beispiel sucht die `GetConnectionString()`-Methode nach einem Konfigurationswert, dessen Schlüssel `ConnectionStrings:<connection string name>` lautet. Sie müssen zum Importieren der ["Microsoft.Extensions.Configuration"](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration) Namespace, um diese Erweiterungsmethode verwenden.
+Der Kontext wird in der Regel in der Datei `Startup.cs` konfiguriert. Die Verbindungszeichenfolge wird dabei aus der Konfiguration gelesen. Im folgenden Beispiel sucht die `GetConnectionString()`-Methode nach einem Konfigurationswert, dessen Schlüssel `ConnectionStrings:<connection string name>` lautet. Sie müssen den [Microsoft. Extensions. Configuration](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration) -Namespace importieren, um diese Erweiterungsmethode zu verwenden.
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
