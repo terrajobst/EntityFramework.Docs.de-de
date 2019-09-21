@@ -4,18 +4,18 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/19/2018
 uid: core/miscellaneous/cli/index
-ms.openlocfilehash: 13e80f740bc5ce3404e8dba40b65ec872c5e3f90
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: 237192c55ea3542521a7a292ac8550d72e4ef82c
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452255"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149083"
 ---
 # <a name="entity-framework-core-tools-reference"></a>Entity Framework Core Tools-Referenz
 
 Die Entity Framework Core Tools helfen zur Entwurfszeit bei Entwicklungsaufgaben. Diese werden hauptsächlich verwendet, um Migrationen zu verwalten und ein Gerüst für `DbContext` und Entitätstypen durch Reverse Engineering eines Datenbankschemas zu erstellen.
 
-* Die [EF Core Paket-Manager-Konsolentools](powershell.md) werden in der [Paket-Manager-Konsole](https://docs.microsoft.com/nuget/tools/package-manager-console) in Visual Studio ausgeführt. Diese Tools funktionieren sowohl mit .NET Framework- als auch mit .NET Core-Projekten.
+* Die [EF Core Paket-Manager-Konsolentools](powershell.md) werden in der [Paket-Manager-Konsole](https://docs.microsoft.com/nuget/tools/package-manager-console) in Visual Studio ausgeführt.
 
 * Die [EF Core .NET-Befehlszeilentools (CLI-Tools)](dotnet.md) stellen eine Erweiterung der plattformübergreifenden [.NET Core CLI-Tools](https://docs.microsoft.com/dotnet/core/tools/) dar. Für diese Tools ist ein .NET Core-SDK-Projekt (mit `Sdk="Microsoft.NET.Sdk"` oder einem ähnlichen SDK in der Projektdatei) erforderlich.
 
