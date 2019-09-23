@@ -4,21 +4,17 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 884cc6611b986fb213d99d3d2fc69d7bebe34aa2
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 04487291f24bb702dad4b497c34234afdd5e3c9a
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565303"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005585"
 ---
-# <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Breaking Changes in EF Core 3.0 (aktuell in der Vorschauversion)
-
-> [!IMPORTANT]
-> Bitte beachten Sie, dass die Featuregruppen und Zeitpläne für künftige Releases jederzeit geändert werden können. Obwohl diese Seite bestmöglich aktualisiert wird, entspricht sie nicht immer den neuesten Plänen.
-
-Die folgenden API-Änderungen und Behavior Changes können dazu führen, dass Anwendungen, die für EF Core 2.2.x entwickelt wurden, beim Upgrade auf 3.0.0 nicht mehr funktionieren.
+# <a name="breaking-changes-included-in-ef-core-30"></a>Breaking Changes in EF Core 3.0
+Die folgenden API-Änderungen und Behavior Changes können dazu führen, dass vorhandene Anwendungen beim Upgrade auf 3.0.0 nicht mehr funktionieren.
 Änderungen, die sich voraussichtlich nur auf Datenbankanbieter auswirken, sind unter [Änderungen mit Auswirkungen auf den Anbieter](../../providers/provider-log.md) dokumentiert.
-Werden Breaking Changes zwischen zwei Vorschauversionen von EF Core 3.0 in neuen Features eingeführt, werden diese hier nicht dokumentiert.
+Breaking Changes, die zwischen zwei Vorschauversionen von EF Core 3.0 eingeführt wurden, sind hier nicht dokumentiert.
 
 ## <a name="summary"></a>Zusammenfassung
 
@@ -441,10 +437,10 @@ Des Weiteren werden sie oft Sichten zugeordnet, was aber nur daran liegt, dass f
 **Vorbeugende Maßnahmen**
 
 Die folgenden Teile der API sind durch die Änderungen veraltet:
-* **`ModelBuilder.Query<>()`**: Rufen Sie stattdessen `ModelBuilder.Entity<>().HasNoKey()` auf, um einen schlüssellosen Entitätstyp festzulegen.
+* **`ModelBuilder.Query<>()`** : Rufen Sie stattdessen `ModelBuilder.Entity<>().HasNoKey()` auf, um einen schlüssellosen Entitätstyp festzulegen.
 Dieses Verhalten wird nach wie vor nicht konventionsgemäß festgelegt, um Fehlkonfigurationen zu vermeiden, wenn ein Primärschlüssel erwartet wird, jedoch nicht mit der Konvention übereinstimmt.
-* **`DbQuery<>`**: Verwenden Sie stattdessen `DbSet<>`.
-* **`DbContext.Query<>()`**: Verwenden Sie stattdessen `DbContext.Set<>()`.
+* **`DbQuery<>`** : Verwenden Sie stattdessen `DbSet<>`.
+* **`DbContext.Query<>()`** : Verwenden Sie stattdessen `DbContext.Set<>()`.
 
 <a name="config"></a>
 ### <a name="configuration-api-for-owned-type-relationships-has-changed"></a>Die Konfigurations-API für Beziehungen abhängiger (owned) Typen wurde geändert
@@ -908,7 +904,7 @@ Diese Änderung wurde vorgenommen, um zu vermeiden, dass das gleiche Feld für z
 **Vorbeugende Maßnahmen**
 
 „Nur-Feld“-Eigenschaften müssen so benannt werden wie das Feld, dem sie zugeordnet sind.
-In einer späteren Vorschauversion von EF Core 3.0 soll das explizite Konfigurieren eines Feldnamens, der sich vom Eigenschaftsnamen unterscheidet, erneut aktiviert werden:
+In einer kommenden Version von EF Core nach 3.0 soll das explizite Konfigurieren eines Feldnamens, der sich vom Eigenschaftsnamen unterscheidet, erneut aktiviert werden (siehe Problem [#15307](https://github.com/aspnet/EntityFrameworkCore/issues/15307)):
 
 ```C#
 modelBuilder
