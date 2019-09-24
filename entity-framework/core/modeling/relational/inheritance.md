@@ -1,35 +1,35 @@
 ---
-title: Vererbung (relationale Datenbank) – EF Core
+title: Vererbung (relationale Datenbank)-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 2d0a2abc554f5f115479f886ca3f9f4f01b80b5b
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: a7fb19f9c86d1768967d172c006eb5d894254e0c
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452278"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196934"
 ---
-# <a name="inheritance-relational-database"></a><span data-ttu-id="ff6bd-102">Vererbung (relationale Datenbank)</span><span class="sxs-lookup"><span data-stu-id="ff6bd-102">Inheritance (Relational Database)</span></span>
+# <a name="inheritance-relational-database"></a><span data-ttu-id="14fd2-102">Vererbung (relationale Datenbank)</span><span class="sxs-lookup"><span data-stu-id="14fd2-102">Inheritance (Relational Database)</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="ff6bd-103">Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="ff6bd-104">Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).</span><span class="sxs-lookup"><span data-stu-id="ff6bd-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
+> <span data-ttu-id="14fd2-103">Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken.</span><span class="sxs-lookup"><span data-stu-id="14fd2-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="14fd2-104">Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).</span><span class="sxs-lookup"><span data-stu-id="14fd2-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
 
-<span data-ttu-id="ff6bd-105">Vererbung in das EF-Modell dient zum Steuern, wie die Vererbung in Entitätsklassen in der Datenbank dargestellt wird.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-105">Inheritance in the EF model is used to control how inheritance in the entity classes is represented in the database.</span></span>
+<span data-ttu-id="14fd2-105">Die Vererbung im EF-Modell wird verwendet, um zu steuern, wie die Vererbung in den Entitäts Klassen in der Datenbank dargestellt wird.</span><span class="sxs-lookup"><span data-stu-id="14fd2-105">Inheritance in the EF model is used to control how inheritance in the entity classes is represented in the database.</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="ff6bd-106">Derzeit wird nur die Tabelle pro Hierarchie (TPH)-Muster in EF Core implementiert.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-106">Currently, only the table-per-hierarchy (TPH) pattern is implemented in EF Core.</span></span> <span data-ttu-id="ff6bd-107">Weitere allgemeine Muster wie die Tabelle pro Typ (TPT) und Tabelle pro konkreten-Typ (TPC) sind noch nicht verfügbar.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-107">Other common patterns like table-per-type (TPT) and table-per-concrete-type (TPC) are not yet available.</span></span>
+> <span data-ttu-id="14fd2-106">Derzeit wird nur das TPH-Muster (Table-per Hierarchy) in EF Core implementiert.</span><span class="sxs-lookup"><span data-stu-id="14fd2-106">Currently, only the table-per-hierarchy (TPH) pattern is implemented in EF Core.</span></span> <span data-ttu-id="14fd2-107">Andere gängige Muster wie Tabelle pro Typ (TPT) und Table-per-konkrete-Type (TPC) sind noch nicht verfügbar.</span><span class="sxs-lookup"><span data-stu-id="14fd2-107">Other common patterns like table-per-type (TPT) and table-per-concrete-type (TPC) are not yet available.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="ff6bd-108">Konventionen</span><span class="sxs-lookup"><span data-stu-id="ff6bd-108">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="14fd2-108">Konventionen</span><span class="sxs-lookup"><span data-stu-id="14fd2-108">Conventions</span></span>
 
-<span data-ttu-id="ff6bd-109">Gemäß der Konvention wird Vererbung mit dem Muster für die Tabelle pro Hierarchie (TPH) zugeordnet werden.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-109">By convention, inheritance will be mapped using the table-per-hierarchy (TPH) pattern.</span></span> <span data-ttu-id="ff6bd-110">TPH verwendet eine einzelne Tabelle, um die Daten für alle Typen in der Hierarchie zu speichern.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-110">TPH uses a single table to store the data for all types in the hierarchy.</span></span> <span data-ttu-id="ff6bd-111">Eine Diskriminatorspalte wird verwendet, um welche Art zu identifizieren, jede Zeile steht.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-111">A discriminator column is used to identify which type each row represents.</span></span>
+<span data-ttu-id="14fd2-109">Gemäß der Konvention wird die Vererbung mithilfe des TPH-Musters (Table-per Hierarchy) zugeordnet.</span><span class="sxs-lookup"><span data-stu-id="14fd2-109">By convention, inheritance will be mapped using the table-per-hierarchy (TPH) pattern.</span></span> <span data-ttu-id="14fd2-110">TPH verwendet eine einzelne Tabelle, um die Daten für alle Typen in der Hierarchie zu speichern.</span><span class="sxs-lookup"><span data-stu-id="14fd2-110">TPH uses a single table to store the data for all types in the hierarchy.</span></span> <span data-ttu-id="14fd2-111">Eine diskriminatorspalte wird verwendet, um den Typ zu identifizieren, den jede Zeile darstellt.</span><span class="sxs-lookup"><span data-stu-id="14fd2-111">A discriminator column is used to identify which type each row represents.</span></span>
 
-<span data-ttu-id="ff6bd-112">EF Core wird nur die Vererbung eingerichtet, wenn mindestens zwei geerbte Typen explizit in das Modell enthalten sind (finden Sie unter [Vererbung](../inheritance.md) Weitere Details).</span><span class="sxs-lookup"><span data-stu-id="ff6bd-112">EF Core will only setup inheritance if two or more inherited types are explicitly included in the model (see [Inheritance](../inheritance.md) for more details).</span></span>
+<span data-ttu-id="14fd2-112">EF Core wird nur dann eine Vererbung eingerichtet, wenn mindestens zwei geerbte Typen explizit in das Modell eingeschlossen werden (Weitere Informationen finden Sie unter [Vererbung](../inheritance.md) ).</span><span class="sxs-lookup"><span data-stu-id="14fd2-112">EF Core will only setup inheritance if two or more inherited types are explicitly included in the model (see [Inheritance](../inheritance.md) for more details).</span></span>
 
-<span data-ttu-id="ff6bd-113">Im folgenden finden ein Beispiel für ein Szenario für die einfache Vererbung und die Daten, die in einer relationalen Datenbanktabelle, die mit dem TPH-Muster.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-113">Below is an example showing a simple inheritance scenario and the data stored in a relational database table using the TPH pattern.</span></span> <span data-ttu-id="ff6bd-114">Die *Diskriminator* Spalte identifiziert, welche Art von *Blog* in jeder Zeile gespeichert wird.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-114">The *Discriminator* column identifies which type of *Blog* is stored in each row.</span></span>
+<span data-ttu-id="14fd2-113">Im folgenden finden Sie ein Beispiel für ein einfaches Vererbungs Szenario und die in einer relationalen Datenbanktabelle gespeicherten Daten mithilfe des TPH-Musters.</span><span class="sxs-lookup"><span data-stu-id="14fd2-113">Below is an example showing a simple inheritance scenario and the data stored in a relational database table using the TPH pattern.</span></span> <span data-ttu-id="14fd2-114">Die *diskriminatorspalte* gibt an, welcher Typ von *Blog* in den einzelnen Zeilen gespeichert wird.</span><span class="sxs-lookup"><span data-stu-id="14fd2-114">The *Discriminator* column identifies which type of *Blog* is stored in each row.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/Samples/InheritanceDbSets.cs)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/InheritanceDbSets.cs)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -52,17 +52,17 @@ public class RssBlog : Blog
 ![Bild](_static/inheritance-tph-data.png)
 
 >[!NOTE]
-> <span data-ttu-id="ff6bd-116">Datenbankspalten erfolgen bei Verwendung der TPH-Zuordnung automatisch nach Bedarf NULL-Werte zulässt.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-116">Database columns are automatically made nullable as necessary when using TPH mapping.</span></span>
+> <span data-ttu-id="14fd2-116">Bei Verwendung der TPH-Zuordnung werden bei Bedarf automatisch NULL-Werte für Daten Bank Spalten festgelegt.</span><span class="sxs-lookup"><span data-stu-id="14fd2-116">Database columns are automatically made nullable as necessary when using TPH mapping.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="ff6bd-117">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="ff6bd-117">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="14fd2-117">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="14fd2-117">Data Annotations</span></span>
 
-<span data-ttu-id="ff6bd-118">Sie können nicht von Datenanmerkungen verwenden, die Vererbung konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-118">You cannot use Data Annotations to configure inheritance.</span></span>
+<span data-ttu-id="14fd2-118">Zum Konfigurieren der Vererbung können keine Daten Anmerkungen verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="14fd2-118">You cannot use Data Annotations to configure inheritance.</span></span>
 
-## <a name="fluent-api"></a><span data-ttu-id="ff6bd-119">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="ff6bd-119">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="14fd2-119">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="14fd2-119">Fluent API</span></span>
 
-<span data-ttu-id="ff6bd-120">Sie können die Fluent-API verwenden, konfigurieren Sie den Namen und Typ der Unterscheidungsspalte und die Werte, die verwendet werden, um jeden Typ in der Hierarchie zu identifizieren.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-120">You can use the Fluent API to configure the name and type of the discriminator column and the values that are used to identify each type in the hierarchy.</span></span>
+<span data-ttu-id="14fd2-120">Sie können die fließende API verwenden, um den Namen und den Typ der diskriminatorspalte und die Werte zu konfigurieren, die zum Identifizieren der einzelnen Typen in der Hierarchie verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="14fd2-120">You can use the Fluent API to configure the name and type of the discriminator column and the values that are used to identify each type in the hierarchy.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -89,9 +89,9 @@ public class RssBlog : Blog
 }
 ```
 
-## <a name="configuring-the-discriminator-property"></a><span data-ttu-id="ff6bd-121">Konfigurieren von Unterscheidungseigenschaft</span><span class="sxs-lookup"><span data-stu-id="ff6bd-121">Configuring the discriminator property</span></span>
+## <a name="configuring-the-discriminator-property"></a><span data-ttu-id="14fd2-121">Konfigurieren der diskriminatoreigenschaft</span><span class="sxs-lookup"><span data-stu-id="14fd2-121">Configuring the discriminator property</span></span>
 
-<span data-ttu-id="ff6bd-122">In den Beispielen oben wird als Diskriminator erstellt eine [schatteneigenschaft](xref:core/modeling/shadow-properties) auf der Basisentität der Hierarchie.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-122">In the examples above, the discriminator is created as a [shadow property](xref:core/modeling/shadow-properties) on the base entity of the hierarchy.</span></span> <span data-ttu-id="ff6bd-123">Da es sich um eine Eigenschaft im Modell ist, können sie genau wie andere Eigenschaften konfiguriert werden.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-123">Since it is a property in the model, it can be configured just like other properties.</span></span> <span data-ttu-id="ff6bd-124">Geben Sie beispielsweise Folgendes ein, um die maximale Länge festgelegt werden, wenn die Standardeinstellung, nach Konvention Diskriminator verwendet wird:</span><span class="sxs-lookup"><span data-stu-id="ff6bd-124">For example, to set the max length when the default, by-convention discriminator is being used:</span></span>
+<span data-ttu-id="14fd2-122">In den obigen Beispielen wird der Diskriminator als [Schatten Eigenschaft](xref:core/modeling/shadow-properties) für die Basis Entität der Hierarchie erstellt.</span><span class="sxs-lookup"><span data-stu-id="14fd2-122">In the examples above, the discriminator is created as a [shadow property](xref:core/modeling/shadow-properties) on the base entity of the hierarchy.</span></span> <span data-ttu-id="14fd2-123">Da es sich um eine Eigenschaft im Modell handelt, kann Sie genau wie andere Eigenschaften konfiguriert werden.</span><span class="sxs-lookup"><span data-stu-id="14fd2-123">Since it is a property in the model, it can be configured just like other properties.</span></span> <span data-ttu-id="14fd2-124">So legen Sie z. b. die maximale Länge fest, wenn der standardmäßige Diskriminator verwendet wird:</span><span class="sxs-lookup"><span data-stu-id="14fd2-124">For example, to set the max length when the default, by-convention discriminator is being used:</span></span>
 
 ```C#
 modelBuilder.Entity<Blog>()
@@ -99,7 +99,7 @@ modelBuilder.Entity<Blog>()
     .HasMaxLength(200);
 ```
 
-<span data-ttu-id="ff6bd-125">Die Unterscheidung kann auch auf eine tatsächliche CLR-Eigenschaft in der Entität zugeordnet werden.</span><span class="sxs-lookup"><span data-stu-id="ff6bd-125">The discriminator can also be mapped to an actual CLR property in your entity.</span></span> <span data-ttu-id="ff6bd-126">Zum Beispiel:</span><span class="sxs-lookup"><span data-stu-id="ff6bd-126">For example:</span></span>
+<span data-ttu-id="14fd2-125">Der Diskriminator kann auch einer tatsächlichen CLR-Eigenschaft in der Entität zugeordnet werden.</span><span class="sxs-lookup"><span data-stu-id="14fd2-125">The discriminator can also be mapped to an actual CLR property in your entity.</span></span> <span data-ttu-id="14fd2-126">Beispiel:</span><span class="sxs-lookup"><span data-stu-id="14fd2-126">For example:</span></span>
 ```C#
 class MyContext : DbContext
 {
@@ -125,7 +125,7 @@ public class RssBlog : Blog
 }
 ```
 
-<span data-ttu-id="ff6bd-127">Kombinieren diese beiden Schritte ist es möglich, sowohl die Unterscheidung einer Echtzeit-Eigenschaft zugeordnet, und konfigurieren Sie sie:</span><span class="sxs-lookup"><span data-stu-id="ff6bd-127">Combining these two things together it is possible to both map the discriminator to a real property and configure it:</span></span>
+<span data-ttu-id="14fd2-127">Wenn Sie diese beiden Elemente miteinander kombinieren, ist es möglich, den Diskriminator einer echten Eigenschaft zuzuordnen und zu konfigurieren:</span><span class="sxs-lookup"><span data-stu-id="14fd2-127">Combining these two things together it is possible to both map the discriminator to a real property and configure it:</span></span>
 ```C#
 modelBuilder.Entity<Blog>(b =>
 {
