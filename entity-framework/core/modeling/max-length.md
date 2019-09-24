@@ -1,35 +1,35 @@
 ---
-title: 'Maximale Länge: EF Core'
+title: Maximale Länge-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c39c5d43-018d-48b8-94f2-b8bc7c686c69
 uid: core/modeling/max-length
-ms.openlocfilehash: 3220518cb0a409b6e802d2f3a98acdb949ffbf56
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: b6f0594fed0c491b4f79dcda5273cdebe9ecf35f
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929848"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197224"
 ---
 # <a name="maximum-length"></a>Maximale Länge
 
-Konfigurieren eine maximale Länge enthält einen Hinweis für den Datenspeicher zu den entsprechenden Datentyp, der für eine bestimmte Eigenschaft verwendet. Maximale Länge gilt nur für Arraytypen, z. B. `string` und `byte[]`.
+Das Konfigurieren einer maximalen Länge stellt einen Hinweis für den Datenspeicher für den entsprechenden Datentyp bereit, der für eine bestimmte Eigenschaft verwendet werden soll. Die maximale Länge gilt nur für Array Datentypen, `string` z `byte[]`. b. und.
 
 > [!NOTE]  
-> Entitätsframework führt keine Validierung einer maximalen Länge vor der Übergabe von Daten an den Anbieter aus. Es ist Aufgabe der Anbieter oder einem Datenspeicher gespeichert, um bei Bedarf zu überprüfen. Z. B. bei der Zielgruppenadressierung von SQL Server, die maximale Paketlänge führt zu einer Ausnahme mit dem Datentyp der zugrunde liegenden Spalte nicht überschüssige Daten gespeichert werden können.
+> Entity Framework führt keine Überprüfung der maximalen Länge durch, bevor Daten an den Anbieter übergeben werden. Der Anbieter oder Datenspeicher muss ggf. überprüft werden. Wenn Sie z. b. auf SQL Server abzielen, führt das Überschreiten der maximalen Länge zu einer Ausnahme, da der Datentyp der zugrunde liegenden Spalte nicht zulässt, dass überschüssige Daten gespeichert werden.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention wird es den Datenbankanbieter, wählen Sie einen entsprechenden Datentyp für Eigenschaften überlassen. Für Eigenschaften, die eine Länge aufweisen, wird der Anbieter in der Regel einen Datentyp auswählen, der die längste Länge der Daten ermöglicht. Microsoft SQL Server verwendet z. B. `nvarchar(max)` für `string` Eigenschaften (oder `nvarchar(450)` , wenn die Spalte als Schlüssel verwendet wird).
+Gemäß der Konvention wird es dem Datenbankanbieter überlassen, einen geeigneten Datentyp für Eigenschaften auszuwählen. Bei Eigenschaften mit einer Länge wählt der Datenbankanbieter im Allgemeinen einen Datentyp aus, der die längste Daten Länge zulässt. Microsoft SQL Server werden z. b. `nvarchar(max)` für `string` Eigenschaften verwenden ( `nvarchar(450)` oder, wenn die Spalte als Schlüssel verwendet wird).
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Sie können die Datenanmerkungen verwenden, so konfigurieren Sie eine maximale Länge für eine Eigenschaft. In diesem Beispiel als Ziel in SQL Server führt dies zu den `nvarchar(500)` -Datentyp verwendet wird.
+Mit den Daten Anmerkungen können Sie eine maximale Länge für eine Eigenschaft konfigurieren. In diesem Beispiel führt die Ziel SQL Server dies dazu, dass `nvarchar(500)` der Datentyp verwendet wird.
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/MaxLength.cs?highlight=14)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/MaxLength.cs?highlight=14)]
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, so konfigurieren Sie eine maximale Länge für eine Eigenschaft. In diesem Beispiel als Ziel in SQL Server führt dies zu den `nvarchar(500)` -Datentyp verwendet wird.
+Sie können die fließende API verwenden, um eine maximale Länge für eine Eigenschaft zu konfigurieren. In diesem Beispiel führt die Ziel SQL Server dies dazu, dass `nvarchar(500)` der Datentyp verwendet wird.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/MaxLength.cs?highlight=11-13)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/MaxLength.cs?highlight=11-13)]
