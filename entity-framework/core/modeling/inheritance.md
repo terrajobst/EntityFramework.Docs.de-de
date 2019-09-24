@@ -1,40 +1,40 @@
 ---
-title: Vererbung - ' Entity Framework Core
+title: Vererbung-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 754be334-dd21-450e-9d22-2591e80012a2
 uid: core/modeling/inheritance
-ms.openlocfilehash: f6b5c8f5a398ac1e28e29bc17f0674c5b76d7b20
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 1f20c455176b5922364584f8c7688c15a4c3f0f9
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319126"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197290"
 ---
 # <a name="inheritance"></a>Vererbung
 
-Vererbung in das EF-Modell dient zum Steuern, wie die Vererbung in Entitätsklassen in der Datenbank dargestellt wird.
+Die Vererbung im EF-Modell wird verwendet, um zu steuern, wie die Vererbung in den Entitäts Klassen in der Datenbank dargestellt wird.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention ist es bis zu der Datenbankanbieter, um zu bestimmen, wie Vererbung in der Datenbank dargestellt wird. Finden Sie unter [Vererbung (relationale Datenbank)](relational/inheritance.md) für wie dies mit einer relationalen Datenbank-Anbieter behandelt wird.
+Gemäß der Konvention liegt es an dem Datenbankanbieter, zu bestimmen, wie die Vererbung in der Datenbank dargestellt werden soll. Informationen zur Behandlung eines relationalen Datenbankanbieters finden Sie unter [Vererbung (relationale Datenbank)](relational/inheritance.md) .
 
-EF wird Vererbung nur eingerichtet, wenn mindestens zwei geerbte Typen explizit in das Modell enthalten sind. EF wird für den Basistyp bzw. abgeleiteten Typen, die andernfalls nicht im Modell enthalten waren, nicht überprüft. Sie können Typen im Modell einschließen, indem verfügbar machen eine *"DbSet"<TEntity>*  für jeden Typ in der Vererbungshierarchie.
+EF wird nur dann die Vererbung einrichten, wenn mindestens zwei geerbte Typen explizit im Modell enthalten sind. EF sucht nicht nach Basis Typen oder abgeleiteten Typen, die ansonsten nicht im Modell enthalten waren. Sie können Typen in das Modell einschließen, indem Sie ein *dbset<TEntity>*  für jeden Typ in der Vererbungs Hierarchie verfügbar machen.
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceDbSets.cs?highlight=3-4&name=Model)]
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/InheritanceDbSets.cs?highlight=3-4&name=Model)]
 
-Wenn Sie verfügbar machen möchten, keine *"DbSet"<TEntity>*  für eine oder mehrere Entitäten in der Hierarchie, können Sie die Fluent-API verwenden, um sicherzustellen, dass sie die im Modell enthalten sind.
-Und wenn Sie Konventionen nicht benötigen, können Sie angeben, dass den Basistyp ausdrücklich mit `HasBaseType`.
+Wenn Sie kein *dbset<TEntity>*  für eine oder mehrere Entitäten in der Hierarchie verfügbar machen möchten, können Sie die fließende API verwenden, um sicherzustellen, dass Sie im Modell enthalten sind.
+Wenn Sie sich nicht auf Konventionen verlassen, können Sie den Basistyp explizit mithilfe `HasBaseType`von angeben.
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceModelBuilder.cs?highlight=7&name=Context)]
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/InheritanceModelBuilder.cs?highlight=7&name=Context)]
 
 > [!NOTE]
-> Sie können `.HasBaseType((Type)null)` auf einen Entitätstyp aus der Hierarchie zu entfernen.
+> Sie können verwenden `.HasBaseType((Type)null)` , um einen Entitätstyp aus der Hierarchie zu entfernen.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Sie können nicht von Datenanmerkungen verwenden, die Vererbung konfigurieren.
+Zum Konfigurieren der Vererbung können keine Daten Anmerkungen verwendet werden.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Die Fluent-API für die Vererbung, hängt von den verwendeten Datenbankanbieter ab. Finden Sie unter [Vererbung (relationale Datenbank)](relational/inheritance.md) für die Konfiguration für einen relationalen Datenbankanbieter durchführen können.
+Die fließende API für die Vererbung hängt vom verwendeten Datenbankanbieter ab. Die Konfiguration, die Sie für einen relationalen Datenbankanbieter ausführen können, finden Sie unter [Vererbung (relationale Datenbank)](relational/inheritance.md)

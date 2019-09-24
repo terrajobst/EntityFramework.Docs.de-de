@@ -1,97 +1,97 @@
 ---
-title: 'Generierte Werte sind möglich: EF Core'
+title: Generierte Werte-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 9ecfa924a0614f327f0bd202cb7dda95bea810af
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 6b38fd2e540ec29674f1116e7c204052d06ca1bc
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250698"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197427"
 ---
 # <a name="generated-values"></a>Generierte Werte
 
-## <a name="value-generation-patterns"></a>Wert-Generation-Muster
+## <a name="value-generation-patterns"></a>Muster Generierungs Muster
 
-Es gibt drei Wert Generation Muster, die für Eigenschaften verwendet werden können:
-* Kein Wert generiert
-* Generiert am Wert hinzufügen
-* Generierter Wert auf Hinzufügen oder aktualisieren
+Es gibt drei Muster Generierungs Muster, die für Eigenschaften verwendet werden können:
+* Keine Wert Generierung
+* Beim Hinzufügen generierter Wert
+* Beim Hinzufügen oder aktualisieren generierter Wert
 
-### <a name="no-value-generation"></a>Kein Wert generiert
+### <a name="no-value-generation"></a>Keine Wert Generierung
 
-Kein Wert generiert bedeutet, dass Sie einen gültigen Wert in der Datenbank gespeichert werden immer bereitgestellt werden. Neue Entitäten muss diese gültige Wert zugewiesen werden, bevor sie den Kontext hinzugefügt werden.
+Keine Wert Generierung bedeutet, dass Sie immer einen gültigen Wert angeben, der in der Datenbank gespeichert werden soll. Dieser gültige Wert muss neuen Entitäten zugewiesen werden, bevor Sie dem Kontext hinzugefügt werden.
 
-### <a name="value-generated-on-add"></a>Generiert am Wert hinzufügen
+### <a name="value-generated-on-add"></a>Beim Hinzufügen generierter Wert
 
-Mehrwert generiert bedeutet, die ein Wert für die neue Entitäten generiert wird.
+Beim Hinzufügen generierter Wert bedeutet, dass für neue Entitäten ein Wert generiert wird.
 
--Werte können je nach den Datenbankanbieter, der verwendet wird, werden die Clientseite von EF oder in der Datenbank generiert. Wenn der Wert von der Datenbank generiert wird, kann EF einen temporären Wert zuweisen, wenn Sie die Entität dem Kontext hinzufügen. Diese temporäre Wert dann ersetzt werden durch den Wert generierten Datenbank während der `SaveChanges()`.
+Abhängig vom verwendeten Datenbankanbieter können die Werte Client seitig von EF oder in der Datenbank generiert werden. Wenn der Wert von der Datenbank generiert wird, kann EF einen temporären Wert zuweisen, wenn Sie die Entität zum Kontext hinzufügen. Dieser temporäre Wert wird dann durch den von der Datenbank generierten Wert `SaveChanges()`ersetzt.
 
-Wenn Sie eine Entität in den Kontext, die ein Wert der Eigenschaft zugewiesen wird hinzufügen, versucht EF, fügen Sie diesen Wert an, anstatt einen neuen zu generieren. Eine Eigenschaft gilt, um einen Wert zugewiesen wird, wenn sie nicht den CLR-Standardwert zugeordnet ist (`null` für `string`, `0` für `int`, `Guid.Empty` für `Guid`usw..). Weitere Informationen finden Sie unter [explizite Werte für generierte Eigenschaften](../saving/explicit-values-generated-properties.md).
+Wenn Sie dem Kontext eine Entität hinzufügen, die über einen Wert verfügt, der der Eigenschaft zugewiesen ist, versucht EF, diesen Wert einzufügen, anstatt einen neuen zu erstellen. Einer Eigenschaft wird ein Wert zugewiesen, wenn`null` ihr kein CLR-Standardwert ( `0` für `Guid.Empty` `string` `int` `Guid`, für, usw.) zugewiesen ist. Weitere Informationen finden Sie unter [explizite Werte für generierte Eigenschaften](../saving/explicit-values-generated-properties.md).
 
 > [!WARNING]  
-> Wie der Wert für die hinzugefügte Entitäten generiert wird, hängt, wenn den Datenbankanbieter, der verwendet wird. Datenbankanbieter können automatisch Generation der Wert für einige Eigenschaftentypen einrichten, aber andere müssen Sie möglicherweise manuell einrichten, wie der Wert generiert wird.
+> Die Art, wie der Wert für hinzugefügte Entitäten generiert wird, hängt vom verwendeten Datenbankanbieter ab. Datenbankanbieter können die Wert Generierung für einige Eigenschafts Typen automatisch einrichten, bei anderen müssen Sie jedoch möglicherweise manuell einrichten, wie der Wert generiert wird.
 >
-> Z. B. Wenn Sie SQL Server verwenden möchten, Werte automatisch generiert werden für `GUID` Eigenschaften (mit der SQL Server-Algorithmus der sequenzielle GUID). Aber wenn Sie, dass angeben eine `DateTime` -Eigenschaft generiert wird hinzufügen, dann müssen Sie richten Sie eine Möglichkeit für die Werte generiert werden soll. Eine Möglichkeit dazu besteht darin konfigurieren Sie den Standardwert `GETDATE()`, finden Sie unter [Standardwerte](relational/default-values.md).
+> Wenn Sie z. b. SQL Server verwenden, werden Werte automatisch für `GUID` Eigenschaften generiert (mithilfe des SQL Server sequenziellen GUID-Algorithmus). Wenn Sie jedoch angeben, dass eine `DateTime` Eigenschaft beim Hinzufügen generiert wird, müssen Sie eine Möglichkeit einrichten, damit die Werte generiert werden. Eine Möglichkeit, dies zu erreichen, besteht darin, einen Standardwert `GETDATE()`von zu konfigurieren, siehe [Standardwerte](relational/default-values.md).
 
-### <a name="value-generated-on-add-or-update"></a>Generierter Wert auf Hinzufügen oder aktualisieren
+### <a name="value-generated-on-add-or-update"></a>Beim Hinzufügen oder aktualisieren generierter Wert
 
-Generierter Wert hinzufügen oder Update bedeutet, dass ein neuer Wert generiert wird, jedes Mal, wenn der Eintrag (Insert oder Update) gespeichert ist.
+Der beim Hinzufügen oder aktualisieren generierte Wert bedeutet, dass bei jedem Speichern des Datensatzes (einfügen oder aktualisieren) ein neuer Wert generiert wird.
 
-Wie `value generated on add`, wenn Sie einen Wert für die Eigenschaft auf eine neu hinzugefügte Instanz einer Entität angeben, dass der Wert eingefügt werden soll, anstatt einen Wert, der generiert wird. Es ist auch möglich, einen expliziten Wert festzulegen, bei der Aktualisierung. Weitere Informationen finden Sie unter [explizite Werte für generierte Eigenschaften](../saving/explicit-values-generated-properties.md).
+`value generated on add`Wenn Sie z. b. einen Wert für die-Eigenschaft in einer neu hinzugefügten Instanz einer Entität angeben, wird dieser Wert anstelle eines generierten Werts eingefügt. Es ist auch möglich, bei der Aktualisierung einen expliziten Wert festzulegen. Weitere Informationen finden Sie unter [explizite Werte für generierte Eigenschaften](../saving/explicit-values-generated-properties.md).
 
 > [!WARNING]
-> Wie der Wert für hinzugefügter und aktualisierter Entitäten generiert wird, hängt, wenn den Datenbankanbieter, der verwendet wird. Datenbankanbieter können automatisch Generation der Wert für einige Eigenschaftstypen einrichten, während andere Benutzer müssen Sie manuell einrichten, wie der Wert generiert wird.
+> Die Art und Weise, wie der Wert für hinzugefügte und aktualisierte Entitäten generiert wird, hängt vom verwendeten Datenbankanbieter ab. Datenbankanbieter können die Wert Generierung für einige Eigenschafts Typen automatisch einrichten, während andere die Generierung des Werts manuell einrichten müssen.
 > 
-> Bei Verwendung von SQL Server, beispielsweise `byte[]` Eigenschaften, wie auf generiert festgelegt werden, hinzufügen oder aktualisieren und als parallelitätstoken, wird Setup mit der `rowversion` -Datentyp - so, dass Werte in der Datenbank generiert werden. Aber wenn Sie, dass angeben eine `DateTime` -Eigenschaft generiert wird auf hinzuzufügen oder zu aktualisieren, müssen Sie einrichten, eine Möglichkeit für die Werte generiert werden soll. Eine Möglichkeit dazu besteht darin konfigurieren Sie den Standardwert `GETDATE()` (finden Sie unter [Standardwerte](relational/default-values.md)) zum Generieren von Werten für neue Zeilen. Sie können dann einen Trigger auf Datenbankebene verwenden, zum Generieren von Werten während eines Updates (z. B. die folgenden Beispiele für Trigger).
+> Wenn Sie z. b. SQL Server `byte[]` verwenden, werden Eigenschaften, die beim Hinzufügen oder aktualisieren als generiert und als Parallelitäts Token gekennzeichnet sind, mit `rowversion` dem-Datentyp eingerichtet, sodass Werte in der Datenbank generiert werden. Wenn Sie jedoch angeben, dass eine `DateTime` Eigenschaft beim Hinzufügen oder aktualisieren generiert wird, müssen Sie eine Möglichkeit einrichten, damit die Werte generiert werden. Eine Möglichkeit hierfür besteht darin, den Standardwert `GETDATE()` (siehe [Standardwerte](relational/default-values.md)) zu konfigurieren, um Werte für neue Zeilen zu generieren. Sie können dann mithilfe eines Daten Bank Auslösers Werte während der Aktualisierung generieren (z. b. im folgenden Beispiel-auslösen).
 > 
-> [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.sql)]
+> [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.sql)]
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention nicht zusammengesetzte Primärschlüssel vom Typ short, Int, long oder Guid wird eingerichtet werden, dass Werte generiert, auf Hinzufügen. Alle anderen Eigenschaften werden Setup kein Wert generiert.
+Gemäß der Konvention werden nicht zusammengesetzte Primärschlüssel vom Typ Short, int, Long oder GUID eingerichtet, sodass beim Hinzufügen Werte generiert werden. Alle anderen Eigenschaften werden ohne Wert Generierung eingerichtet.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-### <a name="no-value-generation-data-annotations"></a>Kein Wert generiert (Datenanmerkungen)
+### <a name="no-value-generation-data-annotations"></a>Keine Wert Generierung (Daten Anmerkungen)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/ValueGeneratedNever.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs#Sample)]
 
-### <a name="value-generated-on-add-data-annotations"></a>Mehrwert generiert (Datenanmerkungen)
+### <a name="value-generated-on-add-data-annotations"></a>Beim Hinzufügen generierter Wert (Daten Anmerkungen)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/ValueGeneratedOnAdd.cs#Sample)]
-
-> [!WARNING]  
-> Dadurch können nur EF darüber informiert, dass die Werte für hinzugefügte Entitäten generiert werden, dies garantiert nicht, dass EF den eigentlichen Mechanismus zum Generieren von Werten einrichten werden. Finden Sie unter [Mehrwert generiert](#value-generated-on-add) finden Sie weitere Details.
-
-### <a name="value-generated-on-add-or-update-data-annotations"></a>Generiert am Wert hinzufügen oder aktualisieren (Datenanmerkungen)
-
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> Dadurch können nur EF darüber informiert, dass die Werte für hinzugefügte oder aktualisierte Entitäten generiert werden, dies garantiert nicht, dass EF den eigentlichen Mechanismus zum Generieren von Werten einrichten werden. Finden Sie unter [auf generierter Wert hinzufügen oder Aktualisieren von](#value-generated-on-add-or-update) finden Sie weitere Details.
+> Dies ermöglicht EF nur zu wissen, dass Werte für hinzugefügte Entitäten generiert werden, und es wird nicht garantiert, dass EF den eigentlichen Mechanismus zum Generieren von Werten eingibt. Weitere Informationen finden [Sie unter im Abschnitt "hinzufügen" generierter Wert](#value-generated-on-add) .
+
+### <a name="value-generated-on-add-or-update-data-annotations"></a>Beim Hinzufügen oder aktualisieren generierter Wert (Daten Anmerkungen)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+
+> [!WARNING]  
+> Dies ermöglicht EF nur zu wissen, dass Werte für hinzugefügte oder aktualisierte Entitäten generiert werden. es wird nicht garantiert, dass EF den eigentlichen Mechanismus zum Generieren von Werten eingibt. Weitere Informationen finden [Sie im Abschnitt hinzufügen oder aktualisieren generierter Wert](#value-generated-on-add-or-update) .
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, um das Value-Generation-Muster für eine bestimmte Eigenschaft zu ändern.
+Sie können die fließende API verwenden, um das Muster für die Generierung von Werten für eine bestimmte Eigenschaft zu ändern.
 
-### <a name="no-value-generation-fluent-api"></a>Kein Wert generiert (Fluent-API)
+### <a name="no-value-generation-fluent-api"></a>Keine Wert Generierung (fließende API)
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedNever.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs#Sample)]
 
-### <a name="value-generated-on-add-fluent-api"></a>Mehrwert generiert (Fluent-API)
+### <a name="value-generated-on-add-fluent-api"></a>Beim Hinzufügen generierter Wert (fließende API)
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAdd.cs#Sample)]
-
-> [!WARNING]  
-> `ValueGeneratedOnAdd()` können nur wissen, dass Werte für hinzugefügte Entitäten generiert werden, dies garantiert nicht, dass EF den eigentlichen Mechanismus zum Generieren von Werten einrichten, wird EF.  Finden Sie unter [Mehrwert generiert](#value-generated-on-add) finden Sie weitere Details.
-
-### <a name="value-generated-on-add-or-update-fluent-api"></a>Generiert am Wert hinzufügen oder aktualisieren (Fluent-API)
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> Dadurch können nur EF darüber informiert, dass die Werte für hinzugefügte oder aktualisierte Entitäten generiert werden, dies garantiert nicht, dass EF den eigentlichen Mechanismus zum Generieren von Werten einrichten werden. Finden Sie unter [auf generierter Wert hinzufügen oder Aktualisieren von](#value-generated-on-add-or-update) finden Sie weitere Details.
+> `ValueGeneratedOnAdd()`Sie können EF nur wissen, dass Werte für hinzugefügte Entitäten generiert werden, und es wird nicht garantiert, dass EF den eigentlichen Mechanismus zum Generieren von Werten eingibt.  Weitere Informationen finden [Sie unter im Abschnitt "hinzufügen" generierter Wert](#value-generated-on-add) .
+
+### <a name="value-generated-on-add-or-update-fluent-api"></a>Beim Hinzufügen oder aktualisieren generierter Wert (fließende API)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+
+> [!WARNING]  
+> Dies ermöglicht EF nur zu wissen, dass Werte für hinzugefügte oder aktualisierte Entitäten generiert werden. es wird nicht garantiert, dass EF den eigentlichen Mechanismus zum Generieren von Werten eingibt. Weitere Informationen finden [Sie im Abschnitt hinzufügen oder aktualisieren generierter Wert](#value-generated-on-add-or-update) .

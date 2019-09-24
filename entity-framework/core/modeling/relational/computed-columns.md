@@ -1,22 +1,22 @@
 ---
-title: Berechnete Spalten – EF Core
+title: Berechnete Spalten-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e9d81f06-805d-45c9-97c2-3546df654829
 uid: core/modeling/relational/computed-columns
-ms.openlocfilehash: b88efdf69e5100e4eff55f3a41925d2d8e7c3178
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: da106c94698a202744d7cd465aa84d0d72802833
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993952"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197236"
 ---
 # <a name="computed-columns"></a>Berechnete Spalten
 
 > [!NOTE]  
 > Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken. Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).
 
-Eine berechnete Spalte ist eine Spalte, deren Wert in der Datenbank berechnet wird. Eine berechnete Spalte kann andere Spalten in der Tabelle verwenden, um den Wert zu berechnen.
+Eine berechnete Spalte ist eine Spalte, deren Wert in der Datenbank berechnet wird. Für eine berechnete Spalte können andere Spalten in der Tabelle verwendet werden, um ihren Wert zu berechnen.
 
 ## <a name="conventions"></a>Konventionen
 
@@ -24,13 +24,13 @@ Gemäß der Konvention werden berechnete Spalten nicht im Modell erstellt.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Berechnete Spalten können nicht mit Datenanmerkungen konfiguriert werden.
+Berechnete Spalten können nicht mit Daten Anmerkungen konfiguriert werden.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, um anzugeben, dass eine Eigenschaft an eine berechnete Spalte zugeordnet werden soll.
+Sie können die fließende API verwenden, um anzugeben, dass eine Eigenschaft einer berechneten Spalte zugeordnet werden soll.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/ComputedColumn.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/ComputedColumn.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {

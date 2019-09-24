@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9d2e647f-29e4-483b-af00-74269eb06e8f
 uid: core/modeling/relational/data-types
-ms.openlocfilehash: d667cbcb821e321faed36d097b531c7c55b81248
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 26664ebe18abcdeaa2b9c8dc23a6410204f53c8e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149157"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197178"
 ---
 # <a name="data-types"></a>Datentypen
 
@@ -30,10 +30,10 @@ Mithilfe von Daten Anmerkungen können Sie einen exakten Datentyp für eine Spal
 
 `Url` Der folgende Code konfiguriert z. b. als nicht-Unicode-Zeichenfolge mit einer maximalen Länge von `200` und `Rating` als Dezimal `5` Länge mit einer `2`Genauigkeit von und einer Skala von.
 
-[!code-csharp[Main](../../../../samples/core/Modeling/DataAnnotations/Samples/Relational/DataType.cs?name=Entities&highlight=4,6)]
+[!code-csharp[Main](../../../../samples/core/Modeling/DataAnnotations/Relational/DataType.cs?name=Entities&highlight=4,6)]
 
 ## <a name="fluent-api"></a>Fluent-API
 
 Sie können auch die fließende API verwenden, um dieselben Datentypen für die Spalten anzugeben.
 
-[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Samples/Relational/DataType.cs?name=Model&highlight=9-10)]
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/DataType.cs?name=Model&highlight=9-10)]

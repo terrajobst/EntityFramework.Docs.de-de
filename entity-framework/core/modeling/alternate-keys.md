@@ -1,30 +1,30 @@
 ---
-title: Alternative Schlüssel – EF Core
+title: Alternative Schlüssel-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8a5931d4-b480-4298-af36-0e29d74a37c0
 uid: core/modeling/alternate-keys
-ms.openlocfilehash: b26d8bc1630af9e811d9c4e7da850a618bc8042e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 87df5d174a1db12fb3ab763ac76c3b863a83087e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996970"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197474"
 ---
-# <a name="alternate-keys"></a>Alternative Schlüssel
+# <a name="alternate-keys"></a>Alternativschlüssel
 
-Ein alternativer Schlüssel dient als eines alternativen eindeutigen Bezeichners für jede Entitätsinstanz zusätzlich zu den primären Schlüssel. Alternative Schlüssel können als Ziel einer Beziehung verwendet werden. Bei Verwendung eine relationale Datenbank wird hier das Konzept der eine eindeutige Index/Einschränkung für die alternative Schlüsselspalte(n) und eine oder mehrere foreign Key-Einschränkungen, die auf Spalten verweisen zugeordnet.
+Ein alternativer Schlüssel dient als alternativer eindeutiger Bezeichner für jede Entitäts Instanz zusätzlich zum Primärschlüssel. Alternative Schlüssel können als Ziel einer Beziehung verwendet werden. Bei Verwendung einer relationalen Datenbank wird diese dem Konzept eines eindeutigen Indexes/einer eindeutigen Einschränkung in den alternativen Schlüssel Spalten und einer oder mehrerer Foreign Key-Einschränkungen zugeordnet, die auf die Spalte (n) verweisen.
 
 > [!TIP]  
-> Wenn Sie nur die Eindeutigkeit einer Spalte zu erzwingen, sollten Sie einen eindeutigen Index anstelle eines alternativen Schlüssels möchten, finden Sie unter [Indizes](indexes.md). In EF bieten alternative Schlüssel mehr Funktionen als eindeutige Indizes, da sie als Ziel eines Fremdschlüssels verwendet werden können.
+> Wenn Sie nur die Eindeutigkeit einer Spalte erzwingen möchten, benötigen Sie einen eindeutigen Index anstelle eines alternativen Schlüssels. Weitere Informationen finden Sie unter [Indizes](indexes.md). In EF bieten alternative Schlüssel mehr Funktionalität als eindeutige Indizes, da Sie als Ziel eines fremd Schlüssels verwendet werden können.
 
-Alternative Schlüssel werden in der Regel für die Sie bei Bedarf eingeführt, und Sie müssen nicht manuell konfigurieren. Finden Sie unter [Konventionen](#conventions) Weitere Details.
+Alternative Schlüssel werden in der Regel bei Bedarf für Sie eingeführt, und Sie müssen Sie nicht manuell konfigurieren. Weitere Informationen finden Sie unter [Konventionen](#conventions) .
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention wird als alternativer Schlüssel für Sie eingeführt, wenn Sie eine Eigenschaft identifizieren, die den Primärschlüssel, nicht als Ziel einer Beziehung ist.
+Gemäß der Konvention wird ein alternativer Schlüssel für Sie eingeführt, wenn Sie eine Eigenschaft, die nicht der Primärschlüssel ist, als Ziel einer Beziehung identifizieren.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/AlternateKey.cs?highlight=12)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/AlternateKey.cs?highlight=12)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -62,13 +62,13 @@ public class Post
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Alternative Schlüssel können nicht mithilfe von Datenanmerkungen konfiguriert werden.
+Alternative Schlüssel können nicht mithilfe von Daten Anmerkungen konfiguriert werden.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, so konfigurieren Sie eine einzelne Eigenschaft, um einen alternativen Schlüssel sein.
+Sie können die fließende API verwenden, um eine einzelne Eigenschaft als alternativen Schlüssel zu konfigurieren.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeySingle.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeySingle.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -90,9 +90,9 @@ class Car
 }
 ```
 
-Sie können auch die Fluent-API verwenden, so konfigurieren Sie mehrere Eigenschaften um einen alternativen Schlüssel (bekannt als einen zusammengesetzten Schlüssel für die alternative) sein.
+Sie können auch die fließende API verwenden, um mehrere Eigenschaften als alternativen Schlüssel (als zusammengesetzten alternativen Schlüssel bezeichnet) zu konfigurieren.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeyComposite.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeyComposite.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {

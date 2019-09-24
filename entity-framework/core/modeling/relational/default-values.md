@@ -1,36 +1,36 @@
 ---
-title: Standardwerte – EF Core
+title: Standardwerte-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e541366a-130f-47dd-9997-1b110a11febe
 uid: core/modeling/relational/default-values
-ms.openlocfilehash: 341f243ddddc345bb4236e5c34f814694b71e32a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0d3613606f21a78e22cfe0ee752ea982a6a17f93
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996251"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196988"
 ---
 # <a name="default-values"></a>Standardwerte
 
 > [!NOTE]  
 > Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken. Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).
 
-Der Standardwert einer Spalte ist der Wert, der eingefügt wird, wenn eine neue Zeile eingefügt wird, aber für die Spalte kein Wert angegeben ist.
+Der Standardwert einer Spalte ist der Wert, der eingefügt wird, wenn eine neue Zeile eingefügt wird, aber für die Spalte kein Wert angegeben wird.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention ist ein Standardwert nicht konfiguriert.
+Gemäß der Konvention ist kein Standardwert konfiguriert.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Sie können einen Standardwert, der mithilfe von Datenanmerkungen nicht festlegen.
+Mithilfe von Daten Anmerkungen können Sie keinen Standardwert festlegen.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, um den Standardwert für eine Eigenschaft angeben.
+Sie können die fließende API verwenden, um den Standardwert für eine Eigenschaft anzugeben.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValue.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/DefaultValue.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -52,9 +52,9 @@ public class Blog
 }
 ```
 
-Sie können auch eine SQL-Fragment angeben, die verwendet wird, um den Standardwert zu berechnen.
+Sie können auch ein SQL-Fragment angeben, das verwendet wird, um den Standardwert zu berechnen.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValueSql.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/DefaultValueSql.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {

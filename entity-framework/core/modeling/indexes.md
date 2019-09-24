@@ -1,33 +1,33 @@
 ---
-title: Indizes – EF Core
+title: Indizes-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 85b92003-b692-417d-ac1d-76d40dce664b
 uid: core/modeling/indexes
-ms.openlocfilehash: 87fe893243377e3ab83d419ae9bedf813ca50c3f
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: b6f11401b69bd8e8795f6b22e5392ba16fc9ba2e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995479"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197243"
 ---
 # <a name="indexes"></a>Indizes
 
-Indizes sind ein gängiges Konzept für viele Datenspeicher. Obwohl deren Implementierung im Datenspeicher variieren kann, müssen sie dienen zum Suchen auf Grundlage einer Spalte (oder eine Gruppe von Spalten) stärker effizient.
+Indizes sind ein gängiges Konzept in vielen Daten speichern. Während Ihre Implementierung im Datenspeicher variieren kann, werden Sie verwendet, um Suchvorgänge auf Grundlage einer Spalte (oder einer Gruppe von Spalten) effizienter zu gestalten.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention ist ein Index erstellt, in jeder Eigenschaft (oder einen Satz von Eigenschaften) an, die als Fremdschlüssel verwendet werden.
+Gemäß der Konvention wird ein Index in jeder Eigenschaft (oder einem Satz von Eigenschaften) erstellt, die als Fremdschlüssel verwendet wird.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 
-Indizes können nicht mithilfe von datenanmerkungen erstellt werden.
+Indizes können nicht mithilfe von Daten Anmerkungen erstellt werden.
 
 ## <a name="fluent-api"></a>Fluent-API
 
-Sie können die Fluent-API verwenden, um einen Index für eine einzelne Eigenschaft angeben. Standardmäßig sind die Indizes nicht eindeutig.
+Sie können die fließende API verwenden, um einen Index für eine einzelne Eigenschaft anzugeben. Standardmäßig sind Indizes nicht eindeutig.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Index.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Index.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -47,18 +47,18 @@ public class Blog
 }
 ```
 
-Sie können auch angeben, dass ein Index muss eindeutig sein, was bedeutet, dass keine zwei Entitäten, die gleichen Werte für die angegebenen Eigenschaften verfügen können.
+Sie können auch angeben, dass ein Index eindeutig sein soll. Dies bedeutet, dass keine zwei Entitäten für die angegebene Eigenschaft (n) die gleichen Werte aufweisen dürfen.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IndexUnique.cs?highlight=3)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/IndexUnique.cs?highlight=3)] -->
 ``` csharp
         modelBuilder.Entity<Blog>()
             .HasIndex(b => b.Url)
             .IsUnique();
 ```
 
-Sie können auch einen Index über mehr als eine Spalte angeben.
+Sie können einen Index auch über mehr als eine Spalte angeben.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IndexComposite.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/IndexComposite.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -80,4 +80,4 @@ public class Person
 ```
 
 > [!TIP]  
-> Es gibt nur einen Index pro Satz von Eigenschaften. Wenn Sie die Fluent-API verwenden, so konfigurieren Sie einen Index für eine Gruppe von Eigenschaften, die bereits einen Index definiert wird, entweder durch Konventionen oder vorherigen Konfiguration werden dann Sie die Definition des Index ändern. Dies ist nützlich, wenn Sie möchten, um einen Index zu konfigurieren, der gemäß der Konvention erstellt wurde.
+> Pro eindeutigem Satz von Eigenschaften gibt es nur einen Index. Wenn Sie die fließende API verwenden, um einen Index für eine Gruppe von Eigenschaften zu konfigurieren, für die bereits ein Index definiert wurde (entweder durch Konvention oder vorherige Konfiguration), ändern Sie die Definition des Indexes. Dies ist hilfreich, wenn Sie einen von der Konvention erstellten Index weiter konfigurieren möchten.
