@@ -1,30 +1,30 @@
 ---
-title: Der Tabellenzuordnung – EF Core
+title: Tabellen Zuordnung-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c807aa4c-7845-443d-b8d0-bfc9b42691a3
 uid: core/modeling/relational/tables
-ms.openlocfilehash: 32c5e3cc0e498005ce8e6be1f1ee7e8ddf9b510d
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 62dce317b901bc862b3c7d20ed1d176805bb24dd
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994136"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196966"
 ---
-# <a name="table-mapping"></a><span data-ttu-id="7dae0-102">Tabellenzuordnung</span><span class="sxs-lookup"><span data-stu-id="7dae0-102">Table Mapping</span></span>
+# <a name="table-mapping"></a><span data-ttu-id="3f6cc-102">Tabellenzuordnung</span><span class="sxs-lookup"><span data-stu-id="3f6cc-102">Table Mapping</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="7dae0-103">Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken.</span><span class="sxs-lookup"><span data-stu-id="7dae0-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="7dae0-104">Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).</span><span class="sxs-lookup"><span data-stu-id="7dae0-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
+> <span data-ttu-id="3f6cc-103">Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="3f6cc-104">Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).</span><span class="sxs-lookup"><span data-stu-id="3f6cc-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
 
-<span data-ttu-id="7dae0-105">Zuordnung zu einer Tabelle identifiziert die Tabellendaten aus abgefragt und in der Datenbank gespeichert werden sollten.</span><span class="sxs-lookup"><span data-stu-id="7dae0-105">Table mapping identifies which table data should be queried from and saved to in the database.</span></span>
+<span data-ttu-id="3f6cc-105">Die Tabellen Zuordnung identifiziert, welche Tabellendaten in der Datenbank abgefragt und in der Datenbank gespeichert werden sollen.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-105">Table mapping identifies which table data should be queried from and saved to in the database.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="7dae0-106">Konventionen</span><span class="sxs-lookup"><span data-stu-id="7dae0-106">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="3f6cc-106">Konventionen</span><span class="sxs-lookup"><span data-stu-id="3f6cc-106">Conventions</span></span>
 
-<span data-ttu-id="7dae0-107">Gemäß der Konvention, jede Entität wird so eingerichtet werden in eine Tabelle mit dem gleichen Namen wie ordnen die `DbSet<TEntity>` -Eigenschaft, die die Entität für den abgeleiteten Kontext verfügbar macht.</span><span class="sxs-lookup"><span data-stu-id="7dae0-107">By convention, each entity will be set up to map to a table with the same name as the `DbSet<TEntity>` property that exposes the entity on the derived context.</span></span> <span data-ttu-id="7dae0-108">Wenn kein `DbSet<TEntity>` enthalten ist für die angegebene Entität, den Namen der Klasse verwendet wird.</span><span class="sxs-lookup"><span data-stu-id="7dae0-108">If no `DbSet<TEntity>` is included for the given entity, the class name is used.</span></span>
+<span data-ttu-id="3f6cc-107">Gemäß der Konvention ist jede Entität so eingerichtet, dass sie einer Tabelle mit dem gleichen Namen wie die `DbSet<TEntity>`-Eigenschaft zugeordnet ist, die die Entität für den abgeleiteten Kontext verfügbar macht.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-107">By convention, each entity will be set up to map to a table with the same name as the `DbSet<TEntity>` property that exposes the entity on the derived context.</span></span> <span data-ttu-id="3f6cc-108">Wenn für `DbSet<TEntity>` die angegebene Entität kein enthalten ist, wird der Klassenname verwendet.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-108">If no `DbSet<TEntity>` is included for the given entity, the class name is used.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="7dae0-109">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="7dae0-109">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="3f6cc-109">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="3f6cc-109">Data Annotations</span></span>
 
-<span data-ttu-id="7dae0-110">Sie können Datenanmerkungen verwenden, so konfigurieren Sie die Tabelle, der die ein Typ zugeordnet ist.</span><span class="sxs-lookup"><span data-stu-id="7dae0-110">You can use Data Annotations to configure the table that a type maps to.</span></span>
+<span data-ttu-id="3f6cc-110">Sie können Daten Anmerkungen verwenden, um die Tabelle zu konfigurieren, der ein Typ zugeordnet ist.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-110">You can use Data Annotations to configure the table that a type maps to.</span></span>
 
 ``` csharp
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,7 +38,7 @@ public class Blog
 }
 ```
 
-<span data-ttu-id="7dae0-111">Sie können auch ein Schema angeben, zu der die Tabelle gehört.</span><span class="sxs-lookup"><span data-stu-id="7dae0-111">You can also specify a schema that the table belongs to.</span></span>
+<span data-ttu-id="3f6cc-111">Sie können auch ein Schema angeben, zu dem die Tabelle gehört.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-111">You can also specify a schema that the table belongs to.</span></span>
 
 ``` csharp
 [Table("blogs", Schema = "blogging")]
@@ -49,9 +49,9 @@ public class Blog
 }
 ```
 
-## <a name="fluent-api"></a><span data-ttu-id="7dae0-112">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="7dae0-112">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="3f6cc-112">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="3f6cc-112">Fluent API</span></span>
 
-<span data-ttu-id="7dae0-113">Sie können die Fluent-API verwenden, so konfigurieren Sie die Tabelle, der die ein Typ zugeordnet ist.</span><span class="sxs-lookup"><span data-stu-id="7dae0-113">You can use the Fluent API to configure the table that a type maps to.</span></span>
+<span data-ttu-id="3f6cc-113">Sie können die fließende API verwenden, um die Tabelle zu konfigurieren, der ein Typ zugeordnet ist.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-113">You can use the Fluent API to configure the table that a type maps to.</span></span>
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -75,9 +75,9 @@ public class Blog
 }
 ```
 
-<span data-ttu-id="7dae0-114">Sie können auch ein Schema angeben, zu der die Tabelle gehört.</span><span class="sxs-lookup"><span data-stu-id="7dae0-114">You can also specify a schema that the table belongs to.</span></span>
+<span data-ttu-id="3f6cc-114">Sie können auch ein Schema angeben, zu dem die Tabelle gehört.</span><span class="sxs-lookup"><span data-stu-id="3f6cc-114">You can also specify a schema that the table belongs to.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/TableAndSchema.cs?highlight=2)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/TableAndSchema.cs?highlight=2)] -->
 ``` csharp
         modelBuilder.Entity<Blog>()
             .ToTable("blogs", schema: "blogging");
