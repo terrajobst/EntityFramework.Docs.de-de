@@ -5,16 +5,16 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/keyless-entity-types
-ms.openlocfilehash: b968ac9602b9aa1f1c1e3181b6b76a64394d70f0
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: e78b9f91fd2505de300ced7b5e73291b5d1ad3b4
+ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150788"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71266774"
 ---
-# <a name="keyless-entity-types"></a>Typen von Keyless-Entitäten
+# <a name="keyless-entity-types"></a>Schlüssellose Entitätstypen
 > [!NOTE]
-> Dieses Feature ist neu in EF Core 2.1. Vor 3,0 wurden Sie als Abfrage Typen bezeichnet.
+> Diese Funktion wurde in EF Core 2,1 unter dem Namen der Abfrage Typen hinzugefügt. In EF Core 3,0 wurde das Konzept in schlüssellose Entitäts Typen umbenannt.
 
 Zusätzlich zu regulären Entitäts Typen kann ein EF Core Modell _Schlüssel-Entitäts Typen_enthalten, die verwendet werden können, um Datenbankabfragen für Daten auszuführen, die keine Schlüsselwerte enthalten.
 
@@ -56,7 +56,7 @@ Die Zuordnung eines Entitäts Typs mit einer anderen Tastatur zu einem Daten Ban
 Das folgende Beispiel zeigt, wie Sie schlüssellose Entitäts Typen verwenden, um eine Daten Bank Sicht abzufragen.
 
 > [!TIP]
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/QueryTypes) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) finden Sie auf GitHub.
 
 Zuerst definieren wir ein einfaches Blog und Post-Modell:
 

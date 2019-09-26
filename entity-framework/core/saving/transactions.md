@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 4c50d6694c6678678c0af8defe2601abee923af1
-ms.sourcegitcommit: 5f11a5fa5d2cde81a4e4d0d5c3a60aa74b83cbd4
+ms.openlocfilehash: ff12c4e7ace1f1b9e503cb2353bcdd53efd87cce
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54226191"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197900"
 ---
 # <a name="using-transactions"></a>Verwenden von Transaktionen
 
 Mit Transaktionen können mehrere Datenbankvorgänge einzeln verarbeitet werden. Wenn die Transaktion committet wird, werden alle Vorgänge erfolgreich auf die Datenbank angewendet. Falls für die Transaktion ein Rollback ausgeführt wird, wird keiner der Vorgänge für die Datenbank übernommen.
 
 > [!TIP]  
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Transactions/) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Transactions/) finden Sie auf GitHub.
 
 ## <a name="default-transaction-behavior"></a>Standardtransaktionsverhalten
 
@@ -30,7 +30,7 @@ Mit der `DbContext.Database`-API können Sie Transaktionen beginnen, committen u
 
 Nicht alle Datenbankanbieter unterstützen Transaktionen. In diesem Fall wird ein Fehler ausgelöst oder kein Vorgang gestartet, wenn Transaktions-APIs aufgerufen werden.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
 
 ## <a name="cross-context-transaction-relational-databases-only"></a>Kontextübergreifende Transaktionen (nur relationale Datenbanken)
 
@@ -47,7 +47,7 @@ Die einfachste Möglichkeit, eine externe Bereitstellung von `DbConnection` zuzu
 > [!TIP]  
 > `DbContextOptionsBuilder` ist die API, die Sie in `DbContext.OnConfiguring` zum Konfigurieren des Kontexts verwendet haben. Jetzt werden Sie es extern verwenden und `DbContextOptions` erstellen.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
 
 Alternativ können Sie weiterhin `DbContext.OnConfiguring` verwenden und eine `DbConnection` akzeptieren, die gespeichert und dann in `DbContext.OnConfiguring` verwendet wird.
 
@@ -74,7 +74,7 @@ public class BloggingContext : DbContext
 
 Sie können nun mehrere Kontextinstanzen erstellen, die die gleiche Verbindung verwenden. Anschließend tragen Sie mit der `DbContext.Database.UseTransaction(DbTransaction)`-API beide Kontexte in derselben Transaktion ein.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
 
 ## <a name="using-external-dbtransactions-relational-databases-only"></a>Verwenden von externen DbTransactions (nur relationale Datenbanken)
 
@@ -82,7 +82,7 @@ Wenn Sie mit verschiedenen Datenzugriffstechnologien auf eine relationale Datenb
 
 Im folgenden Beispiel wird gezeigt, wie ein ADO.NET SqlClient-Vorgang und ein Entity Framework Core-Vorgang in derselben Transaktion ausgeführt werden.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
 
 ## <a name="using-systemtransactions"></a>Verwenden von System.Transactions
 
@@ -91,11 +91,11 @@ Im folgenden Beispiel wird gezeigt, wie ein ADO.NET SqlClient-Vorgang und ein En
 
 Es ist möglich, Ambient-Transaktionen zu verwenden, wenn Sie einen größeren Bereich koordinieren müssen.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
 
 Sie können auch eine Eintragung in einer expliziten Transaktion vornehmen.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
 
 ### <a name="limitations-of-systemtransactions"></a>Einschränkungen von System.Transactions  
 

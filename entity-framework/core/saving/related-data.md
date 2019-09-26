@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 uid: core/saving/related-data
-ms.openlocfilehash: 7349c57c0dccd3c911178641d3b34a478a4f6194
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 45c7b8e4bfa4ce7967ad76ef4a7d4818b0d3aebf
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994743"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197887"
 ---
 # <a name="saving-related-data"></a>Speichern relevanter Daten
 
 Zusätzlich zu isolierten Entitäten können Sie auch die Beziehungen verwenden, die in Ihrem Modell definiert sind.
 
 > [!TIP]  
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/RelatedData/) finden Sie auf GitHub.
 
 ## <a name="adding-a-graph-of-new-entities"></a>Hinzufügen eines Diagramms neuer Entitäten
 
@@ -24,7 +24,7 @@ Wenn Sie mehrere neue verknüpfte Entitäten erstellen, und Sie eine dem Kontext
 
 Im folgenden Beispiel werden der Blog und drei relevante Beiträge in die Datenbank eingefügt. Die Beiträge werden gefunden und hinzugefügt, da sie über die Navigationseigenschaft `Blog.Posts` erreichbar sind.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
 
 > [!TIP]  
 > Verwenden Sie die Eigenschaft EntityEntry.State, um den Zustand einer einzelnen Entität festzulegen. Beispielsweise `context.Entry(blog).State = EntityState.Modified`.
@@ -35,7 +35,7 @@ Wenn Sie auf eine neue Entität aus der Navigationseigenschaft einer Entität ve
 
 Im folgenden Beispiel wird die Entität `post` eingefügt, da sie der `Posts`-Eigenschaft der `blog`-Entität hinzugefügt wird, die aus der Datenbank abgerufen wurde.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingRelatedEntity)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#AddingRelatedEntity)]
 
 ## <a name="changing-relationships"></a>Ändern von Beziehungen
 
@@ -43,7 +43,7 @@ Wenn Sie die Navigationseigenschaft einer Entität ändern, werden die entsprech
 
 Im folgenden Beispiel wird die Entität `post` aktualisiert, sodass sie zur neuen `blog`-Entität gehört, da ihre `Blog`-Navigationseigenschaft so festgelegt ist, dass sie auf `blog` zeigt. Beachten Sie, dass `blog` ebenfalls in die Datenbank eingefügt wird, da es eine neue Entität ist, die von der Navigationseigenschaft einer Entität referenziert wird, die bereits über den Kontext (`post`) nachverfolgt wird.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#ChangingRelationships)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#ChangingRelationships)]
 
 ## <a name="removing-relationships"></a>Entfernen von Beziehungen
 
@@ -59,4 +59,4 @@ Ausführliche Informationen zur Funktionsweise des kaskadierenden Deletes, wie e
 
 Im folgenden Beispiel wird das kaskadierende Delete der Beziehung zwischen `Blog` und `Post` konfiguriert, sodass die Entität `post` aus der Datenbank gelöscht wird.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#RemovingRelationships)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#RemovingRelationships)]

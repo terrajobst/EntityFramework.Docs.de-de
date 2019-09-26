@@ -3,12 +3,12 @@ title: Handhaben von Nebenläufigkeitskonflikten
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: e050b17bfa31a4785161c700bc0355e83162b405
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4d6ff24e58caa0b228e9c1e4313beda78d1025fc
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993111"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197831"
 ---
 # <a name="handling-concurrency-conflicts"></a>Behandlung von Parallelitätskonflikten
 
@@ -16,7 +16,7 @@ ms.locfileid: "42993111"
 > Auf dieser Seite wird erläutert, wie Parallelität in EF Core funktioniert und wie sich Nebenläufigkeitskonflikte in Ihrer Anwendung handhaben lassen. Weitere Informationen zum Konfigurieren von Parallelitätstoken in Ihrem Modell finden Sie unter [Parallelitätstoken](xref:core/modeling/concurrency).
 
 > [!TIP]
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Concurrency/) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) finden Sie auf GitHub.
 
 _Datenbankparallelität_ ist gegeben, wenn mehrere Prozesse oder Benutzer gleichzeitig auf dieselben Daten in einer Datenbank zugreifen oder diese ändern. Mit _Parallelitätssteuerung_ sind bestimmte Mechanismen gemeint, mit denen die Datenkonsistenz bei gleichzeitigen Änderungen sichergestellt wird.
 
@@ -71,4 +71,4 @@ Nebenläufigkeitskonflikte werden im Allgemeinen folgendermaßen behoben:
 
 Im folgenden Beispiel werden `Person.FirstName` und `Person.LastName` als Parallelitätstoken eingerichtet. Dort, wo Sie die anwendungsspezifische Logik platzieren, nach der der zu speichernde Wert ausgewählt wird, befindet sich ein `// TODO:`-Kommentar.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]
+[!code-csharp[Main](../../../samples/core/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]
