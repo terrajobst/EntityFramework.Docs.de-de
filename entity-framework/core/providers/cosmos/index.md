@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 09/12/2019
 ms.assetid: 28264681-4486-4891-888c-be5e4ade24f1
 uid: core/providers/cosmos/index
-ms.openlocfilehash: c753bb71089c91cbb26b970cddd118645fb18d56
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 683436aa485d2fef9aa8bf6c6ff02b00dfeb28cf
+ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150727"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317559"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB-Anbieter
 
@@ -34,7 +34,9 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel finden Sie auf GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).
 
-Wie bei anderen Anbietern besteht der erste Schritt darin, `UseCosmos` aufzurufen: [!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
+Wie bei anderen Anbietern besteht der erste Schritt darin, `UseCosmos` aufzurufen:
+
+[!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
 > Der Endpunkt und der Schlüssel sind aus Gründen der Einfachheit hier hartcodiert, aber in einer Produktions-App sollten sie [sicher gespeichert werden](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager).
@@ -45,7 +47,9 @@ In diesem Beispiel ist `Order` eine einfache Entität mit einem Verweis auf den 
 
 [!code-csharp[StreetAddress](../../../../samples/core/Cosmos/ModelBuilding/StreetAddress.cs?name=StreetAddress)]
 
-Das Speichern und Abfragen von Daten folgt dem normalen EF-Muster: [!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
+Das Speichern und Abfragen von Daten folgt dem normalen EF-Muster:
+
+[!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
 > Der Aufruf von `EnsureCreated` ist erforderlich, um die erforderlichen Sammlungen zu erstellen und die [Seeddaten](../../modeling/data-seeding.md) einzufügen, wenn Sie im Modell vorhanden sind. `EnsureCreated` sollte jedoch nur während der Bereitstellung und nicht im normalen Betrieb aufgerufen werden, da dies zu Leistungsproblemen führen kann.
