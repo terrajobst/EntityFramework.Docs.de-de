@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 04487291f24bb702dad4b497c34234afdd5e3c9a
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.openlocfilehash: f7c241159c689d4648b2778b53e50c22f580deb0
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005585"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197920"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Breaking Changes in EF Core 3.0
 Die folgenden API-Änderungen und Behavior Changes können dazu führen, dass vorhandene Anwendungen beim Upgrade auf 3.0.0 nicht mehr funktionieren.
-Änderungen, die sich voraussichtlich nur auf Datenbankanbieter auswirken, sind unter [Änderungen mit Auswirkungen auf den Anbieter](../../providers/provider-log.md) dokumentiert.
+Änderungen, die sich voraussichtlich nur auf Datenbankanbieter auswirken, sind unter [Änderungen mit Auswirkungen auf den Anbieter](xref:core/providers/provider-log) dokumentiert.
 Breaking Changes, die zwischen zwei Vorschauversionen von EF Core 3.0 eingeführt wurden, sind hier nicht dokumentiert.
 
 ## <a name="summary"></a>Zusammenfassung
@@ -23,6 +23,7 @@ Breaking Changes, die zwischen zwei Vorschauversionen von EF Core 3.0 eingeführ
 | [LINQ-Abfragen werden nicht mehr auf dem Client ausgewertet](#linq-queries-are-no-longer-evaluated-on-the-client)         | Hoch       |
 | [EF Core 3.0 zielt auf .NET Standard 2.1 und nicht auf .NET Standard 2.0 ab](#netstandard21) | Hoch      |
 | [Das EF Core-Befehlszeilentool (dotnet ef) ist nicht mehr Bestandteil des .NET Core SDK](#dotnet-ef) | Hoch      |
+| [DetectChanges berücksichtigt vom Speicher generierte Schlüsselwerte](#dc) | Hoch      |
 | [FromSql, ExecuteSql und ExecuteSqlAsync wurden umbenannt](#fromsql) | Hoch      |
 | [Abfragetypen werden mit Entitätstypen zusammengeführt](#qt) | Hoch      |
 | [Entity Framework Core ist nicht mehr Bestandteil des gemeinsam verwendeten ASP.NET Core-Frameworks](#no-longer) | Mittel      |
@@ -37,7 +38,6 @@ Breaking Changes, die zwischen zwei Vorschauversionen von EF Core 3.0 eingeführ
 | [FromSql-Methoden können nur für die Stammelemente der Abfrage angegeben werden](#fromsql) | Niedrig      |
 | [~~Die Abfrageausführung wird auf Debugebene protokolliert~~ – zurückgesetzt](#qe) | Niedrig      |
 | [Temporäre Schlüsselwerte werden nicht mehr Entitätsinstanzen zugewiesen](#tkv) | Niedrig      |
-| [DetectChanges berücksichtigt vom Speicher generierte Schlüsselwerte](#dc) | Niedrig      |
 | [Abhängige Entitäten, die die Tabelle gemeinsam mit dem Prinzipal verwenden, sind jetzt optional](#de) | Niedrig      |
 | [Alle Entitäten, die eine Tabelle mit einer Spalte für das Parallelitätstoken gemeinsam verwenden, müssen diese einer Eigenschaft zuordnen](#aes) | Niedrig      |
 | [Geerbte Eigenschaften von nicht zugeordneten Typen sind nun einer einzelnen Spalte für alle abgeleiteten Typen zugeordnet](#ip) | Niedrig      |
@@ -69,6 +69,7 @@ Breaking Changes, die zwischen zwei Vorschauversionen von EF Core 3.0 eingeführ
 | [SQLitePCL.raw wurde auf Version 2.0.0 aktualisiert](#SQLitePCL) | Niedrig      |
 | [NetTopologySuite wurde auf Version 2.0.0 aktualisiert](#NetTopologySuite) | Niedrig      |
 | [Beziehungen mit mehreren mehrdeutigen Selbstverweisen müssen nun konfiguriert werden](#mersa) | Niedrig      |
+| [DbFunction.Schema ist NULL oder eine leere Zeichenfolge und ist deshalb so konfiguriert, dass es im Standardschema des Modells ist](#udf-empty-string) | Niedrig      |
 
 ### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>LINQ-Abfragen werden nicht mehr auf dem Client ausgewertet
 
@@ -174,7 +175,7 @@ Durch diese Änderung kann `dotnet ef` als reguläres .NET-CLI-Tool für NuGet v
 Um Migrationen zu verwalten oder ein Gerüst für `DbContext` zu erstellen, installieren Sie `dotnet-ef` als globales Tool:
 
   ``` console
-    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+    $ dotnet tool install --global dotnet-ef
   ```
 
 Eine Verwendung als lokales Tool ist ebenfalls möglich, wenn Sie die Abhängigkeiten eines Projekts wiederherstellen, das das Tool mithilfe einer [Toolmanifestdatei](https://github.com/dotnet/cli/issues/10288) als Toolabhängigkeit deklariert.
@@ -420,7 +421,7 @@ Diese Änderung wird in Vorschauversion 3 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
-Vor Version 3.0 wurden in EF Core [Abfragetypen](xref:core/modeling/query-types) dazu verwendet, Daten abzufragen, in denen kein Primärschlüssel auf strukturierte Weise festgelegt war.
+Vor Version 3.0 wurden in EF Core [Abfragetypen](xref:core/modeling/keyless-entity-types) dazu verwendet, Daten abzufragen, in denen kein Primärschlüssel auf strukturierte Weise festgelegt war.
 Abfragetypen wurden also für die Zuordnung von Entitätstypen ohne Schlüssel verwendet (in der Regel in einer Sicht, in einigen Fällen aber auch in einer Tabelle), während reguläre Entitätstypen für einen verfügbaren Schlüssel verwendet wurden (in der Regel in einer Tabelle, in einigen Fällen aber auch in einer Sicht).
 
 **Neues Verhalten**
@@ -873,7 +874,7 @@ Diese Änderung wird in Vorschauversion 4 von EF Core 3.0 eingeführt.
 
 **Altes Verhalten**
 
-Vor Version 3.0 konnte in EF Core eine Eigenschaft durch einen Zeichenfolgenwert angegeben werden, und wenn keine Eigenschaft mit diesem Namen im CLR-Typ gefunden wurde, versuchte EF Core, mithilfe von Konventionsregeln ein übereinstimmendes Feld zu finden.
+Vor Version 3.0 konnte in EF Core eine Eigenschaft durch einen Zeichenfolgenwert angegeben werden, und wenn keine Eigenschaft mit diesem Namen im .NET-Typ gefunden wurde, versuchte EF Core, mithilfe von Konventionsregeln ein übereinstimmendes Feld zu finden.
 ```C#
 private class Blog
 {
@@ -1714,4 +1715,39 @@ modelBuilder
      .Entity<User>()
      .HasOne(e => e.UpdatedBy)
      .WithMany();
+```
+
+<a name="udf-empty-string"></a>
+### <a name="dbfunctionschema-being-null-or-empty-string-configures-it-to-be-in-models-default-schema"></a>DbFunction.Schema ist NULL oder eine leere Zeichenfolge und ist deshalb so konfiguriert, dass es im Standardschema des Modells ist
+
+[Issue #12757](https://github.com/aspnet/EntityFrameworkCore/issues/12757)
+
+Diese Änderung wird in Vorschauversion 7 von EF Core 3.0 eingeführt.
+
+**Altes Verhalten**
+
+Eine mit dem Schema als leere Zeichenfolge konfigurierte DbFunction wurde als integrierte Funktion ohne Schema behandelt. Der folgende Code ordnet z. B. die CLR-Funktion `DatePart` der integrierten Funktion `DATEPART` auf SqlServer zu.
+
+```C#
+[DbFunction("DATEPART", Schema = "")]
+public static int? DatePart(string datePartArg, DateTime? date) => throw new Exception();
+
+```
+
+**Neues Verhalten**
+
+Alle DbFunction-Zuordnungen werden als einer benutzerdefinierten Funktion zugeordnet betrachtet. Daher würde die Funktion durch einen leeren Zeichenfolgenwert in das Standardschema für das Modell eingefügt werden. Dies könnte das Schema sein, das explizit über eine fließende `modelBuilder.HasDefaultSchema()`- oder anderweitig über eine `dbo`-API konfiguriert wurde.
+
+**Hintergründe**
+
+Weil das Schema vorher leer war, konnte man erreichen, dass die Funktion integriert, aber die Logik nur für SqlServer anwendbar war, wo integrierte Funktionen nicht zu einem Schema gehören.
+
+**Vorbeugende Maßnahmen**
+
+Konfigurieren Sie die Übersetzung von DbFunction manuell, um Sie einer integrierten Funktion zuzuordnen.
+
+```C#
+modelBuilder
+    .HasDbFunction(typeof(MyContext).GetMethod(nameof(MyContext.DatePart)))
+    .HasTranslation(args => SqlFunctionExpression.Create("DatePart", args, typeof(int?), null));
 ```

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 15b7e69676ef9aeb70121fcec404c34a17e5e2bb
-ms.sourcegitcommit: 8d04a2ad98036f32ca70c77ce3040c5edb1cdf82
+ms.openlocfilehash: ec04de4eab2a28e3aa81ff27accef4fc11c83995
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44384838"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197793"
 ---
 # <a name="cascade-delete"></a>Kaskadierendes Delete
 
@@ -38,9 +38,9 @@ Bei optionalen Beziehungen (NULL-Werte zulassender Fremdschlüssel) _kann_ ein N
 | Name des Verhaltens               | Auswirkung auf abhängige/untergeordnete Entität im Speicher    | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
 | **Cascade**                 | Entitäten werden gelöscht                   | Entitäten werden gelöscht                   |
-| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften werden auf NULL festgelegt | Keiner                                   |
+| **ClientSetNull** (Standard) | Fremdschlüsseleigenschaften werden auf NULL festgelegt | Keine                                   |
 | **SetNull**                 | Fremdschlüsseleigenschaften werden auf NULL festgelegt | Fremdschlüsseleigenschaften werden auf NULL festgelegt |
-| **Restrict**                | Keiner                                   | Keiner                                   |
+| **Restrict**                | Keine                                   | Keine                                   |
 
 ### <a name="required-relationships"></a>Erforderliche Beziehungen
 Bei erforderlichen Beziehungen (keine NULL-Werte zulassender Fremdschlüssel) kann _kein_ NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
@@ -48,9 +48,9 @@ Bei erforderlichen Beziehungen (keine NULL-Werte zulassender Fremdschlüssel) ka
 | Name des Verhaltens         | Auswirkung auf abhängige/untergeordnete Entität im Speicher | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank |
 |:----------------------|:------------------------------------|:--------------------------------------|
 | **Cascade** (Standard) | Entitäten werden gelöscht                | Entitäten werden gelöscht                  |
-| **ClientSetNull**     | Auslösung durch SaveChanges                  | Keiner                                  |
+| **ClientSetNull**     | Auslösung durch SaveChanges                  | Keine                                  |
 | **SetNull**           | Auslösung durch SaveChanges                  | Auslösung durch SaveChanges                    |
-| **Restrict**          | Keiner                                | Keiner                                  |
+| **Restrict**          | Keine                                | Keine                                  |
 
 In den obigen Tabellen kann *Keiner* zu einer Einschränkungsverletzung führen. Wenn beispielsweise eine Prinzipalentität/untergeordnete Entität gelöscht wird, jedoch keine Maßnahmen zum Ändern des Fremdschlüssels einer abhängigen/untergeordneten Entität ergriffen werden, ist die Wahrscheinlichkeit groß, dass es in der Datenbank aufgrund einer Einschränkungsverletzung zu einer Auslösung durch SaveChanges kommt.
 
@@ -70,9 +70,9 @@ Allgemein:
 
 ## <a name="entity-deletion-examples"></a>Beispiele für das Löschen von Entitäten
 
-Der folgende Code ist Teil eines [Beispiels](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/), das heruntergeladen und ausgeführt werden kann. Das Beispiel zeigt, was bei jedem Löschverhalten bei optionalen und erforderlichen Beziehungen geschieht, wenn eine übergeordnete Entität gelöscht wird.
+Der folgende Code ist Teil eines [Beispiels](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/), das heruntergeladen und ausgeführt werden kann. Das Beispiel zeigt, was bei jedem Löschverhalten bei optionalen und erforderlichen Beziehungen geschieht, wenn eine übergeordnete Entität gelöscht wird.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
 Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betrachtet.
 
@@ -181,9 +181,9 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ## <a name="delete-orphans-examples"></a>Beispiele für das Löschen verwaister Entitäten
 
-Der folgende Code ist Teil eines [Beispiels](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/), das heruntergeladen und ausgeführt werden kann. Im Beispiel wird gezeigt, was bei jedem Löschverhalten bei optionalen und erforderlichen Beziehungen geschieht, wenn die Beziehung zwischen einer Prinzipalentität/übergeordneten Entität und den zugehörigen abhängigen/untergeordneten Entitäten getrennt wird. In diesem Beispiel wird die Beziehung durch Entfernen der abhängigen/untergeordneten Entitäten (Beiträge) aus der Navigationseigenschaft der Sammlung in der Prinzipalentität/übergeordneten Entität (Blog) getrennt. Das Verhalten ist jedoch identisch, wenn der Verweis von abhängigen/untergeordneten Entitäten auf die Prinzipalentität/übergeordnete Entität stattdessen auf NULL festgelegt wird.
+Der folgende Code ist Teil eines [Beispiels](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/), das heruntergeladen und ausgeführt werden kann. Im Beispiel wird gezeigt, was bei jedem Löschverhalten bei optionalen und erforderlichen Beziehungen geschieht, wenn die Beziehung zwischen einer Prinzipalentität/übergeordneten Entität und den zugehörigen abhängigen/untergeordneten Entitäten getrennt wird. In diesem Beispiel wird die Beziehung durch Entfernen der abhängigen/untergeordneten Entitäten (Beiträge) aus der Navigationseigenschaft der Sammlung in der Prinzipalentität/übergeordneten Entität (Blog) getrennt. Das Verhalten ist jedoch identisch, wenn der Verweis von abhängigen/untergeordneten Entitäten auf die Prinzipalentität/übergeordnete Entität stattdessen auf NULL festgelegt wird.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 
 Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betrachtet.
 
