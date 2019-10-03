@@ -1,96 +1,98 @@
 ---
-title: Designer CUD gespeicherte Prozeduren – EF6
+title: Gespeicherte Prozeduren für Designer-CUD-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 35a00aa817c8643352c517c233977efd49e3baac
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: bdb0df969c33d5ad3f103bfa9af6002c9c2bb9b3
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489556"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813558"
 ---
-# <a name="designer-cud-stored-procedures"></a>Designer CRUD-gespeicherte Prozeduren
-Dieser schrittweise erläuterten exemplarischen zeigen, wie Sie ordnen den erstellen\\einfügen, aktualisieren und Löschvorgänge eines Entitätstyps zu gespeicherten Prozeduren, die mit dem Entity Framework Designer (EF-Designer) (CRUD).  Standardmäßig generiert Entity Framework automatisch die SQL-Anweisungen für die CRUD-Vorgänge, aber Sie können auch gespeicherte Prozeduren zuordnen, um diese Vorgänge.  
+# <a name="designer-cud-stored-procedures"></a>Designer-CUD-Prozeduren
 
-Beachten Sie, dass Code First-Zuordnung zu gespeicherten Prozeduren oder Funktionen nicht unterstützt. Allerdings können Sie gespeicherte Prozeduren oder Funktionen mithilfe der System.Data.Entity.DbSet.SqlQuery-Methode aufrufen. Zum Beispiel:
+In dieser schrittweisen exemplarischen Vorgehensweise wird veranschaulicht, wie die Vorgänge Create @ no__t-0insert, Update und DELETE (CUD) eines Entitäts Typs mithilfe der Entity Framework Designer (EF-Designer) zu gespeicherten Prozeduren zugeordnet werden.  Standardmäßig generiert das Entity Framework automatisch die SQL-Anweisungen für die CUD-Vorgänge, Sie können jedoch auch gespeicherte Prozeduren zu diesen Vorgängen zuordnen.  
+
+Beachten Sie, dass Code First keine Zuordnung zu gespeicherten Prozeduren oder Funktionen unterstützt. Allerdings können Sie gespeicherte Prozeduren oder Funktionen mithilfe der System. Data. Entity. dbset. sqlQuery-Methode abrufen. Zum Beispiel:
+
 ``` csharp
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]");
 ```
 
-## <a name="considerations-when-mapping-the-cud-operations-to-stored-procedures"></a>Überlegungen bei der Zuordnung die CUD-Vorgänge für gespeicherte Prozeduren
+## <a name="considerations-when-mapping-the-cud-operations-to-stored-procedures"></a>Überlegungen bei der Zuordnung der CUD-Vorgänge zu gespeicherten Prozeduren
 
-Beim Zuordnen von CRUD-Vorgänge zu gespeicherten Prozeduren gelten die folgenden Überlegungen: 
+Bei der Zuordnung der CUD-Vorgänge zu gespeicherten Prozeduren gelten die folgenden Überlegungen:
 
--   Wenn Sie eines der CRUD-Operationen zu einer gespeicherten Prozedur zuordnen, ordnen Sie alle. Wenn Sie nicht alle drei zuordnen, die nicht zugeordneten Vorgänge fehl, wenn ausgeführt, und eine **"UpdateException"** ausgelöst.
--   Sie müssen jeden Parameter der gespeicherten Prozedur, an Entitätseigenschaften zuordnen.
--   Wenn der Server den Primärschlüsselwert für die eingefügte Zeile generiert, müssen Sie diesen Wert an die Schlüsseleigenschaft der Entität zuordnen. In der folgenden Beispiel die **InsertPerson** gespeicherte Prozedur gibt die neu erstellten Primärschlüssel als Teil des Resultsets für die gespeicherte Prozedur zurück. Der Entitätsschlüssel der primäre Schlüssel zugeordnet ist (**PersonID**) mithilfe der **&lt;Result Binding hinzufügen&gt;** Feature von EF Designer.
--   Aufrufe der gespeicherten Prozedur werden die zugeordneten 1:1 mit den Entitäten im konzeptionellen Modell. Z. B. Wenn Sie eine Vererbungshierarchie in Ihrem konzeptionellen Modell und klicken Sie dann Zuordnung implementieren die CUD-Prozeduren für die **übergeordneten** (Basis-) und die **untergeordneten** (abgeleitete) Entitäten, die beim Speichern der **Untergeordneten** Änderungen ruft nur die **untergeordneten**die gespeicherten Prozeduren, nicht löst die **übergeordneten**die gespeicherten Prozeduren aufrufen.
+- Wenn Sie einen der CUD-Vorgänge einer gespeicherten Prozedur zuordnen, ordnen Sie alle zu. Wenn Sie nicht alle drei zuordnen, schlagen die nicht zugeordneten Vorgänge fehl, wenn Sie ausgeführt werden und eine **Update Exception**- ausgelöst wird.
+- Sie müssen den einzelnen Parametern der gespeicherten Prozedur Entitäts Eigenschaften zuordnen.
+- Wenn der Server den Primärschlüssel Wert für die eingefügte Zeile generiert, müssen Sie diesen Wert wieder der Schlüsseleigenschaft der Entität zuordnen. Im folgenden Beispiel gibt die gespeicherte Prozedur **InsertPerson** Den neu erstellten Primärschlüssel als Teil des Resultsets der gespeicherten Prozedur zurück. Der Primärschlüssel wird dem Entitäts Schlüssel (**PersonID**) mithilfe des **&lt;ADD result Binding @ no__t-3** feature des EF-Designers zugeordnet.
+- Die Aufrufe gespeicherter Prozeduren werden 1:1 mit den Entitäten im konzeptionellen Modell zugeordnet. Wenn Sie z. b. eine Vererbungs Hierarchie in ihrem konzeptionellen Modell implementieren und dann die gespeicherten CUD-Prozeduren für die übergeordneten **(Basis** -) und untergeordneten (abgeleiteten) Entitäten zuordnen, wird beim Speichern der untergeordneten **Änderungen nur** das unter **geordnete** **Element "** s gespeicherte Prozeduren, löst keine Aufrufe der gespeicherten Prozeduren des über **geordneten**Elements aus.
 
 ## <a name="prerequisites"></a>Erforderliche Komponenten
 
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 
 - Eine aktuelle Version von Visual Studio.
-- Die [Beispieldatenbank ' School '](~/ef6/resources/school-database.md).
+- Die [Beispieldatenbank "School](~/ef6/resources/school-database.md)".
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
--   Öffnen Sie Visual Studio 2012.
--   Wählen Sie **Dateien&gt; neu –&gt; Projekt**
--   Klicken Sie im linken Bereich auf **Visual C\#**, und wählen Sie dann die **Konsole** Vorlage.
--   Geben Sie **CUDSProcsSample** als Namen.
--   Klicken Sie auf **OK**.
+- Öffnen Sie Visual Studio 2012.
+- **Datei &gt; New-&gt;-Projekt** auswählen
+- Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+- Geben Sie " **cudsprocssample**"  Als Name ein.
+- Wählen Sie **OK**aus.
 
 ## <a name="create-a-model"></a>Erstellen eines Modells
 
--   Mit der rechten Maustaste des Projektnamen im Projektmappen-Explorer, und wählen **hinzufügen –&gt; neues Element**.
--   Wählen Sie **Daten** aus dem linken Menü und wählen Sie dann **ADO.NET Entity Data Model** im Bereich Vorlagen.
--   Geben Sie **CUDSProcs.edmx** für den Dateinamen ein, und klicken Sie dann auf **hinzufügen**.
--   Wählen Sie im Dialogfeld "Modellinhalte" **aus Datenbank generieren**, und klicken Sie dann auf **Weiter**.
--   Klicken Sie auf **neue Verbindung**. Geben Sie den Servernamen, klicken Sie im Dialogfeld "Verbindungseigenschaften" (z. B. **(Localdb)\\Mssqllocaldb**), wählen die Authentifizierungsmethode, Typ **School** für den Datenbanknamen, und klicken Sie dann Klicken Sie auf **OK**.
-    Das Dialogfeld "Wählen Sie Ihre Datenverbindung" wird mit Ihrem datenbankverbindungseinstellung aktualisiert.
--   Auswählen Ihrer Datenbankobjekte Dialogfeld unter die **Tabellen** Knoten die **Person** Tabelle.
--   Wählen Sie außerdem die folgenden gespeicherten Prozeduren in der **gespeicherte Prozeduren und Funktionen** Knoten: **DeletePerson**, **InsertPerson**, und **UpdatePerson** . 
--   Ab Visual Studio 2012 die EF-Designer unterstützt Massenexport und-Import von gespeicherten Prozeduren. Die **Import ausgewählten gespeicherten Prozeduren und Funktionen in das Entitätsmodell** ist standardmäßig aktiviert. Da in diesem Beispiel wir Prozeduren, die einfügen gespeichert haben, aktualisieren und Löschen von Entitätstypen, wir nicht importieren möchten, und es wird, deaktivieren Sie dieses Kontrollkästchen. 
+- Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen, und wählen Sie **Add-&gt; New Item**aus.
+- Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.
+- Geben Sie für den Dateinamen " **cudsprocs. edmx** " ein, und klicken Sie dann auf **Hinzufügen**.
+- Wählen Sie im Dialogfeld Modell Inhalte auswählen die Option **aus Datenbank generieren aus**, und klicken Sie dann auf **weiter**.
+- Klicken Sie auf **neue Verbindung**. Geben Sie im Dialogfeld Verbindungs Eigenschaften den Servernamen ein (z. b. **(localdb\\) mssqllocaldb**), wählen Sie die Authentifizierungsmethode aus, geben Sie als Datenbanknamen **School** ein, und klicken Sie dann auf **OK**.
+    Das Dialogfeld Wählen Sie Ihre Datenverbindung aus wird mit Ihrer Daten bankverbindungs Einstellung aktualisiert.
+- Wählen Sie im Dialogfeld Datenbankobjekte auswählen unter dem Knoten **Tabellen** Die **Person** -Tabelle aus.
+- Wählen Sie außerdem im Knoten **gespeicherte Prozeduren und Funktionen** die folgenden gespeicherten Prozeduren aus: **DeletePerson**, **InsertPerson**und **updateperson**.
+- Ab Visual Studio 2012 unterstützt der EF-Designer den Massen Import gespeicherter Prozeduren. Die Option zum **importieren ausgewählter gespeicherter Prozeduren und Funktionen in das Entitäts Modell** ist standardmäßig aktiviert. Da in diesem Beispiel gespeicherte Prozeduren zum Einfügen, aktualisieren und Löschen von Entitäts Typen verwendet werden, die nicht importiert werden sollen, wird dieses Kontrollkästchen nicht mehr unternimmt.
 
-    ![S Prozesse importieren](~/ef6/media/importsprocs.jpg)
+    ![S-Prozeduren importieren](~/ef6/media/importsprocs.jpg)
 
--   Klicken Sie auf **Fertig stellen**.
-    Im EF Designer, der bietet eine Entwurfsoberfläche zum Bearbeiten des Modells, wird angezeigt.
+- Klicken Sie auf **Finish**.
+    Der EF-Designer, der eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt.
 
-## <a name="map-the-person-entity-to-stored-procedures"></a>Zuordnen von der Person-Entität zu gespeicherten Prozeduren
+## <a name="map-the-person-entity-to-stored-procedures"></a>Zuordnen der Person-Entität zu gespeicherten Prozeduren
 
--   Mit der rechten Maustaste die **Person** Entitätstyp, und wählen Sie **Zuordnung der gespeicherten Prozedur**.
--   Die gespeicherte Prozedur Zuordnungen angezeigt, der **Mappingdetails** Fenster.
--   Klicken Sie auf  **&lt;Insert Select-Funktion&gt;**.
+- Klicken Sie mit der rechten Maustaste auf den Entitätstyp **Person** , und wählen Sie **Zuordnung der gespeicherten Prozedur**
+- Die Zuordnungen gespeicherter Prozeduren werden in den **Mappingdetails** window angezeigt.
+- Klicken Sie auf **&lt;select Function @ no__t-2**.
     Das Feld wird zu einer Dropdownliste mit den gespeicherten Prozeduren im Speichermodell, die Entitätstypen im konzeptionellen Modell zugeordnet werden können.
-    Wählen Sie **InsertPerson** aus der Dropdown-Liste.
--   Es werden Standardmappings zwischen Parametern gespeicherter Prozeduren und Entitätseigenschaften angezeigt. Pfeile geben die Mappingrichtung an: Eigenschaftswerte sind Parametern gespeicherter Prozeduren zugeordnet.
--   Klicken Sie auf  **&lt;Result Binding hinzufügen&gt;**.
--   Typ **NewPersonID**, den Namen des Parameters, die zurückgegeben werden, indem die **InsertPerson** gespeicherte Prozedur. Stellen Sie sicher, dass keine führende oder nachfolgende Leerzeichen eingeben.
--   Drücken Sie die **EINGABETASTE**.
--   In der Standardeinstellung **NewPersonID** zugeordnet ist, um den Entitätsschlüssel **PersonID**. Ein Pfeil gibt die Mappingrichtung an: Der Wert der Ergebnisspalte ist der Eigenschaft zugeordnet.
+    Wählen Sie **InsertPerson** In der Dropdown Liste aus.
+- Es werden Standardmappings zwischen Parametern gespeicherter Prozeduren und Entitätseigenschaften angezeigt. Beachten Sie, dass Pfeile die Mappingrichtung angeben: Eigenschaftswerte werden für Parameter gespeicherter Prozeduren bereitgestellt.
+- Klicken Sie **&lt;ADD result Binding @ no__t-2**.
+- Geben Sie **NewPersonID**ein, den Namen des Parameters, der von der **InsertPerson** gespeicherten Prozedur zurückgegeben wird. Stellen Sie sicher, dass Sie keine führenden oder nachfolgenden Leerzeichen eingeben.
+- Drücken **Sie Eingabe**Taste.
+- Standardmäßig wird **NewPersonID** dem Entitäts Schlüssel **PersonID**zugeordnet. Beachten Sie, dass ein Pfeil die Richtung der Zuordnung angibt: Der Wert der Ergebnisspalte wird für die-Eigenschaft bereitgestellt.
 
-    ![Zuordnungsdetails](~/ef6/media/mappingdetails.png)
+    ![Mappingdetails](~/ef6/media/mappingdetails.png)
 
--   Klicken Sie auf **&lt;Update Function auswählen&gt;** , und wählen Sie **UpdatePerson** aus der resultierenden Dropdownliste aus.
--   Es werden Standardmappings zwischen Parametern gespeicherter Prozeduren und Entitätseigenschaften angezeigt.
--   Klicken Sie auf **&lt;Delete Function auswählen&gt;** , und wählen Sie **DeletePerson** aus der resultierenden Dropdownliste aus.
--   Es werden Standardmappings zwischen Parametern gespeicherter Prozeduren und Entitätseigenschaften angezeigt.
+- Klicken Sie **&lt;Wählen Sie Update Funktion @ no__t-2** aus, und wählen Sie in der resultierenden Dropdown Liste **updateperson** aus.
+- Es werden Standardmappings zwischen Parametern gespeicherter Prozeduren und Entitätseigenschaften angezeigt.
+- Klicken Sie **&lt;Wählen Sie Delete Function @ no__t-2** aus, und wählen Sie in der resultierenden Dropdown Liste die Option **DeletePerson** aus.
+- Es werden Standardmappings zwischen Parametern gespeicherter Prozeduren und Entitätseigenschaften angezeigt.
 
-Einfügen, aktualisieren und löschen Sie Prozesse für die **Person** Entitätstyp werden nun gespeicherten Prozeduren zugeordnet.
+Die Einfüge-, Aktualisierungs-und Löschvorgänge des Entitäts Typs **Person**  sind nun gespeicherten Prozeduren zugeordnet.
 
-Wenn Sie die parallelitätsprüfung beim Aktualisieren oder Löschen einer Entität mit gespeicherten Prozeduren aktivieren möchten, verwenden Sie eine der folgenden Optionen aus:
+Wenn Sie die Parallelitäts Überprüfung beim Aktualisieren oder Löschen einer Entität mit gespeicherten Prozeduren aktivieren möchten, verwenden Sie eine der folgenden Optionen:
 
--   Verwenden einer **Ausgabe** Parameter zum Zurückgeben der Anzahl der betroffenen Zeilen aus der gespeicherten Prozedur und überprüfen Sie die **Parameter für betroffene Zeilen** Kontrollkästchen neben den Namen des Parameters. Wenn der zurückgegebene Wert 0 (null) ist, wenn der Vorgang aufgerufen wird, eine [ **OptimisticConcurrencyException** ](https://msdn.microsoft.com/library/system.data.optimisticconcurrencyexception.aspx) ausgelöst.
--   Überprüfen Sie die **Originalwert verwenden** Kontrollkästchen neben einer Eigenschaft, die Sie für die parallelitätsüberprüfung verwenden möchten. Wenn ein Update versucht wird, wird der Wert der Eigenschaft, die ursprünglich aus der Datenbank gelesen wurde verwendet werden, beim Schreiben von Daten in der Datenbank gesichert. Wenn der Wert wird nicht den Wert in der Datenbank entspricht einer **OptimisticConcurrencyException** ausgelöst.
+- Verwenden Sie einen **Output** -Parameter, um die Anzahl der betroffenen Zeilen von der gespeicherten Prozedur zurückzugeben, und überprüfen Sie den **betroffenen Zeilen Parameter** checkbox neben dem Parameternamen. Wenn der zurückgegebene Wert 0 (null) ist, wenn der Vorgang aufgerufen wird, wird eine  [**optimistic-** ](https://msdn.microsoft.com/library/system.data.optimisticconcurrencyexception.aspx)Ereignis   ausgelöst.
+- Aktivieren Sie das Kontrollkästchen **ursprünglichen Wert verwenden** neben einer Eigenschaft, die Sie für die Parallelitäts Überprüfung verwenden möchten. Wenn versucht wird, ein Update auszuführen, wird der Wert der Eigenschaft, die ursprünglich aus der Datenbank gelesen wurde, beim Zurückschreiben von Daten in die Datenbank verwendet. Wenn der Wert nicht mit dem Wert in der Datenbank identisch ist, wird eine **optimistic-** Ereignis  ausgelöst.
 
-## <a name="use-the-model"></a>Verwenden Sie das Modell
+## <a name="use-the-model"></a>Verwenden des Modells
 
-Öffnen der **"Program.cs"** -Datei, in der **Main** Methode definiert ist. Fügen Sie der Main-Funktion mit den folgenden Code.
+Öffnen Sie die Datei **Program.cs** , in der die **Main** -Methode definiert ist. Fügen Sie der Main-Funktion den folgenden Code hinzu.
 
-Der Code erstellt ein neues **Person** -Objekt, klicken Sie dann das Objekt aktualisiert und löscht schließlich das-Objekt.         
+Der Code erstellt ein neues **Person** -Objekt, aktualisiert dann das-Objekt und löscht schließlich das-Objekt.
 
 ``` csharp
     using (var context = new SchoolEntities())
@@ -140,17 +142,18 @@ Der Code erstellt ein neues **Person** -Objekt, klicken Sie dann das Objekt aktu
     }
 ```
 
--   Kompilieren Sie die Anwendung, und führen Sie sie aus. Das Programm erzeugt die folgende Ausgabe *
-    >[!NOTE]
-> PersonID wird vom Server automatisch generiert, damit wahrscheinlich eine unterschiedliche Anzahl * angezeigt wird
+- Kompilieren Sie die Anwendung, und führen Sie sie aus. Das Programm erzeugt die folgende Ausgabe *
 
-```
+> [!NOTE]
+> PersonID wird vom Server automatisch generiert, sodass Sie wahrscheinlich eine andere Anzahl sehen *
+
+``` Output
 Added Robyn Martin to the context.
 Before SaveChanges, the PersonID is: 0
 After SaveChanges, the PersonID is: 51
 A person with PersonID 51 was deleted.
 ```
 
-Wenn Sie mit der endgültigen Version von Visual Studio arbeiten, können Sie Intellitrace mit dem Debugger verwenden, um die SQL-Anweisungen, die ausgeführt werden, finden Sie unter.
+Wenn Sie mit der Ultimate-Version von Visual Studio arbeiten, können Sie IntelliTrace mit dem Debugger verwenden, um die ausgeführten SQL-Anweisungen anzuzeigen.
 
 ![IntelliTrace](~/ef6/media/intellitrace.png)

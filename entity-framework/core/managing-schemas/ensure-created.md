@@ -1,38 +1,38 @@
 ---
-title: Erstellen und Löschen von APIs – EF Core
+title: 'Erstellen und Löschen von APIs: EF Core'
 author: bricelam
 ms.author: bricelam
-ms.date: 11/7/2018
-ms.openlocfilehash: 40d9e3aa0aba1bf2bc341f01dd815ed7cb7b48fa
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.date: 11/07/2018
+ms.openlocfilehash: 88c1403d2fae740ad78bb7c41d404b0dd91e86ae
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688628"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813439"
 ---
 # <a name="create-and-drop-apis"></a>Erstellen und Löschen von APIs
 
-Die Methoden EnsureCreated und EnsureDeleted bieten eine einfache Alternative zur [Migrationen](migrations/index.md) für die Verwaltung des Datenbankschemas. Diese Methoden sind in Szenarien nützlich, wenn die Daten vorübergehend ist und gelöscht werden, können Wenn das Schema ändert. Beispielsweise während der Erstellung von Prototypen, Tests oder für den lokalen Caches.
+Die ensuneu-und ensuredeleted-Methoden stellen eine leichte Alternative zu [Migrationen](migrations/index.md) zum Verwalten des Datenbankschemas dar. Diese Methoden sind in Szenarios nützlich, in denen die Daten vorübergehend sind und gelöscht werden können, wenn sich das Schema ändert. Beispielsweise während der Prototyperstellung in Tests oder für lokale Caches.
 
-Einige Anbieter (insbesondere nicht relationale diejenigen) unterstützen keine Migrationen. Bei diesen Anbietern lautet ist EnsureCreated oft die einfachste Möglichkeit zum Initialisieren des Datenbankschemas.
+Einige Anbieter (insbesondere nicht relationale) unterstützen keine Migrationen. Für diese Anbieter ist "ensuneu" oft die einfachste Möglichkeit, das Datenbankschema zu initialisieren.
 
 > [!WARNING]
-> EnsureCreated und Migrationen funktionieren nicht gut zusammen. Wenn Sie Migrationen verwenden, verwenden Sie keine EnsureCreated um das Schema zu initialisieren.
+> Ensuneu erstellte und Migrationen funktionieren nicht gut zusammen. Wenn Sie Migrationen verwenden, verwenden Sie "ensurecreated" nicht, um das Schema zu initialisieren.
 
-Übergang von EnsureCreated zu Migrationen ist nicht nahtlos. Die einfachste Möglichkeit dafür ist die Datenbank löschen und erneut mithilfe von Migrationen erstellen. Wenn sich abzeichnet, Migrationen in Zukunft verwenden, empfiehlt es sich, nur mit Migrationen zu beginnen, anstatt EnsureCreated.
+Der Übergang von ensuneu in Migrationen ist nicht nahtlos. Die einfachste Möglichkeit hierzu besteht darin, die Datenbank zu löschen und Sie mithilfe von Migrationen neu zu erstellen. Wenn Sie die Verwendung von Migrationen in der Zukunft erwarten, empfiehlt es sich, einfach mit Migrationen zu beginnen, anstatt "ensuneu" zu verwenden.
 
-## <a name="ensuredeleted"></a>EnsureDeleted
+## <a name="ensuredeleted"></a>Ensuredeleted
 
-Die Ensuredeleted--Methode wird die Datenbank löschen, wenn es vorhanden ist. Wenn Sie die entsprechenden Berechtigungen haben, wird eine Ausnahme ausgelöst.
+Die ensuredeleted-Methode löscht die Datenbank, wenn Sie vorhanden ist. Wenn Sie nicht über die entsprechenden Berechtigungen verfügen, wird eine Ausnahme ausgelöst.
 
 ``` csharp
 // Drop the database if it exists
 dbContext.Database.EnsureDeleted();
 ```
 
-## <a name="ensurecreated"></a>EnsureCreated
+## <a name="ensurecreated"></a>Ensuneu erstellt
 
-EnsureCreated wird die Datenbank erstellt, wenn er nicht vorhanden, und initialisieren das Datenbankschema. Wenn Tabellen vorhanden sind wird nicht durch das (einschließlich der Tabellen für ein anderes DbContext-Klasse) Schema initialisiert werden.
+Ensuneu erstellt erstellt die Datenbank, wenn Sie nicht vorhanden ist, und initialisiert das Datenbankschema. Wenn Tabellen vorhanden sind (einschließlich Tabellen für eine andere dbcontext-Klasse), wird das Schema nicht initialisiert.
 
 ``` csharp
 // Create the database if it doesn't exist
@@ -40,19 +40,19 @@ dbContext.Database.EnsureCreated();
 ```
 
 > [!TIP]
-> Asynchrone Versionen dieser Methoden sind auch verfügbar.
+> Asynchrone Versionen dieser Methoden sind ebenfalls verfügbar.
 
 ## <a name="sql-script"></a>SQL-Skript
 
-Rufen Sie die SQL von EnsureCreated verwendet, können Sie die GenerateCreateScript-Methode verwenden.
+Um das von ensuneu verwendete SQL zu erhalten, können Sie die generatecreatescript-Methode verwenden.
 
 ``` csharp
 var sql = dbContext.Database.GenerateCreateScript();
 ```
 
-## <a name="multiple-dbcontext-classes"></a>Mehrere "DbContext"-Klassen
+## <a name="multiple-dbcontext-classes"></a>Mehrere dbcontext-Klassen
 
-EnsureCreated funktioniert nur, wenn keine Tabellen in der Datenbank vorhanden sind. Bei Bedarf können Sie Ihre eigene Überprüfung, um festzustellen, ob das Schema initialisiert werden muss, schreiben und verwenden den zugrunde liegenden IRelationalDatabaseCreator-Dienst, um das Schema zu initialisieren.
+Ensuneu erstellt funktioniert nur, wenn keine Tabellen in der Datenbank vorhanden sind. Bei Bedarf können Sie eine eigene Überprüfung schreiben, um festzustellen, ob das Schema initialisiert werden muss, und den zugrunde liegenden irelationaldatabasecreator-Dienst verwenden, um das Schema zu initialisieren.
 
 ``` csharp
 // TODO: Check whether the schema needs to be initialized
