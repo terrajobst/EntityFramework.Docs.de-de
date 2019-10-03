@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: ebec5775770c0f1e297eaaf35bf644c605a69afc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: d8f52edfdf4bd7776ab8d81185c867cbfd7bcf44
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197772"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813597"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 
@@ -62,7 +62,6 @@ Als Alternative zu `FromSqlRaw` können sie `FromSqlInterpolated` verwenden, um 
 
 > [!NOTE]
 > Vor Version 3.0 waren `FromSqlRaw` und `FromSqlInterpolated` zwei Überladungen namens `FromSql`. Weitere Informationen finden Sie im Abschnitt [Frühere Versionen](#previous-versions).
-
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -172,6 +171,6 @@ Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkung
 
 * Beachten Sie, dass SQL Server das Zusammensetzen über gespeicherte Prozeduraufrufe nicht zulässt, sodass jeder Versuch, zusätzliche Abfrageoperatoren auf einen solchen Aufruf anzuwenden, zu ungültiger SQL führt. Abfrageoperatoren können nach `AsEnumerable()` für die Clientauswertung eingeführt werden.
 
-# <a name="previous-versions"></a>Frühere Versionen
+## <a name="previous-versions"></a>Frühere Versionen
 
 In EF Core Version 2.2 und früher gab es zwei Überladungen namens `FromSql`, die sich wie die neueren `FromSqlRaw` und `FromSqlInterpolated` verhielten. Dadurch wurde sehr leicht versehentlich die Methode für unformatierte Zeichenfolgen aufgerufen, wenn eigentlich beabsichtigt war, die Methode für interpolierte Zeichenfolgen aufzurufen (und umgekehrt). Dadurch werden Abfragen möglicherweise nicht parametrisiert, obwohl dies der Fall sein sollte.
