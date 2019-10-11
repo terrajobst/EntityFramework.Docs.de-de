@@ -1,55 +1,55 @@
 ---
-title: SSDL-Spezifikation - EF6
+title: SSDL-Spezifikation-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
-ms.openlocfilehash: a8b1f844a34c44d283982a52cef3bf80afd7e679
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: b20d1f99f1da9c53a8a164fccc461e07d19c879d
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490349"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182546"
 ---
 # <a name="ssdl-specification"></a>SSDL-Spezifikation
 Die Datenspeicherschema-Definitionssprache (Store Schema Definition Language, SSDL) ist eine XML-basierte Sprache, die das Speichermodell einer Entity Framework-Anwendung beschreibt.
 
-In einer Entity Framework-Anwendung Metadaten des Speichermodells aus einer SSDL-Datei (geschrieben in SSDL) in eine Instanz von der System.Data.Metadata.Edm.StoreItemCollection geladen wird und kann mit Verwendung von Methoden in der System.Data.Metadata.Edm.MetadataWorkspace-Klasse. Entitätsframework verwendet Metadaten des Speichermodells, um Abfragen für das konzeptionelle Modell in datenspeicherspezifische Befehle zu übersetzen.
+In einer Entity Framework Anwendung werden die Metadaten des Speicher Modells aus einer SSDL-Datei (geschrieben in SSDL) in eine Instanz der System. Data. Metadata. Edm. StoreItemCollection geladen und können mithilfe von Methoden im System. Data. Metadata. Edm. MetadataWorkspace-Klasse. Entity Framework verwendet Metadaten des Speicher Modells, um Abfragen für das konzeptionelle Modell in Speicher spezifische Befehle zu übersetzen.
 
-Die Entity Framework Designer (EF-Designer) speichert Informationen zum Speichermodell in einer EDMX-Datei zur Entwurfszeit. Zum Zeitpunkt der Erstellung verwendet der Entity Designer Informationen in einer EDMX-Datei aus, um die SSDL-Datei zu erstellen, die zur Laufzeit vom Entity Framework benötigt wird.
+Der Entity Framework Designer (EF-Designer) speichert Speichermodell Informationen in einer EDMX-Datei zur Entwurfszeit. Zum Zeitpunkt der Erstellung verwendet der Entity Designer Informationen in einer EDMX-Datei, um die SSDL-Datei zu erstellen, die zur Laufzeit von Entity Framework benötigt wird.
 
 Die verschiedenen Versionen von SSDL werden durch XML-Namespaces unterschieden.
 
 | SSDL-Version | XML-Namespace                                     |
 |:-------------|:--------------------------------------------------|
-| SSDL v1      | http://schemas.microsoft.com/ado/2006/04/edm/ssdl |
-| SSDL-v2      | http://schemas.microsoft.com/ado/2009/02/edm/ssdl |
-| SSDL v3      | http://schemas.microsoft.com/ado/2009/11/edm/ssdl |
+| SSDL v1      | https://schemas.microsoft.com/ado/2006/04/edm/ssdl |
+| SSDL v2      | https://schemas.microsoft.com/ado/2009/02/edm/ssdl |
+| SSDL v3      | https://schemas.microsoft.com/ado/2009/11/edm/ssdl |
 
 ## <a name="association-element-ssdl"></a>Zuordnungselement (SSDL)
 
-Ein **Zuordnung** Element in der Datenspeicherschema-Definitionssprache (SSDL) gibt Tabellenspalten, die beteiligt sind, in eine foreign Key-Einschränkung in der zugrunde liegenden Datenbank. Geben Sie zwei erforderliche untergeordnete Endelemente Tabellen an den Enden der Zuordnung und die Multiplizität an jedem Ende. Ein optionales ReferentialConstraint-Element gibt das prinzipalende und das abhängige Ende der Zuordnung sowie die teilnehmenden Spalten an. Wenn kein **ReferentialConstraint** -Element vorhanden ist, AssociationSetMapping-Elements muss verwendet werden, um die spaltenzuordnungen für die Zuordnung anzugeben.
+Ein **Association** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) gibt Tabellen Spalten an, die an einer FOREIGN KEY-Einschränkung in der zugrunde liegenden Datenbank beteiligt sind. Zwei erforderliche untergeordnete Endelemente geben Tabellen an den Enden der Zuordnung und die Multiplizität an jedem Ende an. Ein optionales referentialeinschränkungs-Element gibt den Prinzipal und die abhängigen Enden der Zuordnung sowie die beteiligten Spalten an. Wenn kein **referentialeinschränkungselement** vorhanden ist, muss ein AssociationSetMapping-Element verwendet werden, um die Spalten Zuordnungen für die Zuordnung anzugeben.
 
-Die **Zuordnung** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **Association** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   Ende (genau zwei Elemente)
--   ReferentialConstraint (0 (null) oder 1)
--   Anmerkungselemente (null oder mehr)
+-   Dokumentation (0 (null) oder 1)
+-   Ende (genau zwei)
+-   Referenentialeinschränkung (null oder 1)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **Zuordnung** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Association** -Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                                                            |
 |:---------------|:------------|:---------------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name der entsprechenden Fremdschlüsseleinschränkung in der zugrunde liegenden Datenbank. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **Zuordnung** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **Association** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Zuordnung** -Element, das verwendet eine **ReferentialConstraint** Element, um die Spalten anzugeben, die Teilnahme an der **FK\_CustomerOrders**  foreign Key-Einschränkung:
+Das folgende Beispiel zeigt ein **Association** -Element, das ein **referentialeinschränkung** -Element verwendet, um die Spalten anzugeben, die an der FOREIGN KEY-Einschränkung " **FK @ no__t-3customerorders** " beteiligt sind:
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -72,31 +72,31 @@ Das folgende Beispiel zeigt eine **Zuordnung** -Element, das verwendet eine **Re
 
 ## <a name="associationset-element-ssdl"></a>AssociationSet-Element (SSDL)
 
-Die **AssociationSet** -Element in der Datenspeicherschema-Definitionssprache (SSDL) stellt eine fremdschlüsseleinschränkung zwischen zwei Tabellen in der zugrunde liegenden Datenbank dar. Die Tabellenspalten, die in der foreign Key-Einschränkung einbezogen werden in ein Association-Elements angegeben. Die **Zuordnung** Element, das entspricht, einer angegebenen **AssociationSet** Element wird angegeben, der **Zuordnung** Attribut der **AssociationSet**  Element.
+Das **AssociationSet** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) stellt eine FOREIGN KEY-Einschränkung zwischen zwei Tabellen in der zugrunde liegenden Datenbank dar. Die Tabellen Spalten, die an der FOREIGN KEY-Einschränkung beteiligt sind, werden in einem Association-Element angegeben. Das **Association** -Element, das einem bestimmten **AssociationSet** -Element entspricht, wird im **Association** -Attribut des **AssociationSet** -Elements angegeben.
 
-SSDL-Zuordnungssätze werden CSDL-Zuordnungssätzen von einem AssociationSetMapping-Element zugeordnet. Wenn die CSDL-Zuordnung für eine bestimmte CSDL-Zuordnung festgelegt ist jedoch mit einem ReferentialConstraint-Element, das kein entsprechendes definiert **AssociationSetMapping** Element ist erforderlich. In diesem Fall wenn ein **AssociationSetMapping** -Element vorhanden ist, werden von der die Zuordnungen definiert überschrieben der **ReferentialConstraint** Element.
+SSDL-Zuordnungs Sätze werden CSDL-Zuordnungs Sätzen von einem AssociationSetMapping-Element zugeordnet. Wenn jedoch die CSDL-Zuordnung für einen bestimmten CSDL-Zuordnungs Satz mithilfe eines referentialeinschränkung-Elements definiert wird, ist kein entsprechendes **AssociationSetMapping** -Element erforderlich. Wenn in diesem Fall ein **AssociationSetMapping** -Element vorhanden ist, werden die von ihm definierten Zuordnungen durch das **referentialeinschränkung** -Element überschrieben.
 
-Die **AssociationSet** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **AssociationSet** -Element kann über die folgenden untergeordneten Elemente verfügen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   Ende (0 (null) oder zwei)
--   Anmerkungselemente (null oder mehr)
+-   Dokumentation (0 (null) oder 1)
+-   End (0 (null) oder zwei)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **AssociationSet** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **AssociationSet** -Element angewendet werden können.
 
 | Attributname  | Ist erforderlich | Wert                                                                                                |
 |:----------------|:------------|:-----------------------------------------------------------------------------------------------------|
 | **Name**        | Ja         | Der Name der Fremdschlüsseleinschränkung, die der Zuordnungssatz darstellt.                          |
-| **Zuordnung** | Ja         | Der Name der Zuordnung, die die Spalten definiert, die an der Fremdschlüsseleinschränkung teilnehmen. |
+| **Anwalt** | Ja         | Der Name der Zuordnung, die die Spalten definiert, die an der Fremdschlüsseleinschränkung teilnehmen. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **AssociationSet** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **AssociationSet** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **AssociationSet** Element und die repräsentiert die `FK_CustomerOrders` foreign Key-Einschränkung in der zugrunde liegenden Datenbank:
+Das folgende Beispiel zeigt ein **AssociationSet** -Element, das die `FK_CustomerOrders`-Foreign Key-Einschränkung in der zugrunde liegenden Datenbank darstellt:
 
 ``` xml
  <AssociationSet Name="FK_CustomerOrders"
@@ -108,14 +108,14 @@ Das folgende Beispiel zeigt eine **AssociationSet** Element und die repräsentie
 
 ## <a name="collectiontype-element-ssdl"></a>CollectionType-Element (SSDL)
 
-Die **CollectionType** Element in der Datenspeicherschema-Definitionssprache (SSDL) gibt an, dass ein Funktionsrückgabetyp eine Auflistung. Die **CollectionType** Element ist ein untergeordnetes Element des ReturnType-Element. Der Typ der Auflistung wird angegeben, mit dem untergeordneten RowType-Element:
+Das **CollectionType** -Element in der Speicher Schema-Definitions Sprache (SSDL) gibt an, dass der Rückgabetyp einer Funktion eine Auflistung ist. Das **CollectionType** -Element ist ein untergeordnetes Element des ReturnType-Elements. Der Sammlungstyp wird mithilfe des untergeordneten RowType-Elements angegeben:
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **CollectionType** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **CollectionType** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine Funktion, verwendet eine **CollectionType** Element, um anzugeben, dass die Funktion eine Auflistung von Zeilen zurückgibt.
+Das folgende Beispiel zeigt eine Funktion, die ein **CollectionType** -Element verwendet, um anzugeben, dass die Funktion eine Auflistung von Zeilen zurückgibt.
 
 ``` xml
    <Function Name="GetProducts" IsComposable="true" Schema="dbo">
@@ -135,15 +135,15 @@ Das folgende Beispiel zeigt eine Funktion, verwendet eine **CollectionType** Ele
 
 ## <a name="commandtext-element-ssdl"></a>CommandText-Element (SSDL)
 
-Die **CommandText** Element in der Datenspeicherschema-Definitionssprache (SSDL) ist ein untergeordnetes Element des Function-Element, mit dem Sie eine SQL-Anweisung zu definieren, die in der Datenbank ausgeführt wird. Die **CommandText** -Element können Sie zum Hinzufügen von Funktionen, die an eine gespeicherte Prozedur in der Datenbank ähnelt, aber Sie definieren die **CommandText** -Element im Speichermodell.
+Das **CommandText** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) ist ein untergeordnetes Element des Function-Elements, mit dem Sie eine SQL-Anweisung definieren können, die in der Datenbank ausgeführt wird. Mit dem **CommandText** -Element können Sie Funktionen hinzufügen, die einer gespeicherten Prozedur in der-Datenbank ähneln, aber Sie definieren das **CommandText** -Element im Speichermodell.
 
-Die **CommandText** Element darf keine untergeordneten Elemente. Der Hauptteil der **CommandText** Element muss eine gültige SQL­Anweisung für die zugrunde liegende Datenbank sein.
+Das **CommandText** -Element darf keine untergeordneten Elemente aufweisen. Der **Text des CommandText** -Elements muss eine gültige SQL-Anweisung für die zugrunde liegende Datenbank sein.
 
-Es sind keine Attribute für die **CommandText** Element.
+Für das **CommandText** -Element sind keine Attribute anwendbar.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Funktion** -Element mit einem untergeordneten **CommandText** Element. Bereitstellen der **UpdateProductInOrder** Funktion als Methode für den ObjectContext durch in das konzeptionelle Modell importieren.  
+Das folgende Beispiel zeigt ein **Function** -Element mit einem untergeordneten **CommandText** -Element. Machen Sie die Funktion **updateproductinorder** als Methode für ObjectContext verfügbar, indem Sie Sie in das konzeptionelle Modell importieren.  
 
 ``` xml
  <Function Name="UpdateProductInOrder" IsComposable="false">
@@ -163,9 +163,9 @@ Das folgende Beispiel zeigt eine **Funktion** -Element mit einem untergeordneten
 
 ## <a name="definingquery-element-ssdl"></a>DefiningQuery-Element (SSDL)
 
-Die **DefiningQuery** Element in der Datenspeicherschema-Definitionssprache (SSDL) können Sie eine SQL-Anweisung direkt in der zugrunde liegenden Datenbank ausführen. Die **DefiningQuery** Element wird häufig verwendet, wie eine Datenbanksicht, aber die Ansicht im Speichermodell nicht in der Datenbank definiert ist. Die Sicht definiert, die einem **DefiningQuery** Element eines Entitätstyps im konzeptionellen Modell über ein EntitySetMapping-Element zugeordnet werden kann. Diese Zuordnungen sind schreibgeschützt.  
+Mit dem **DefiningQuery** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) können Sie eine SQL-Anweisung direkt in der zugrunde liegenden Datenbank ausführen. Das **DefiningQuery** -Element wird häufig wie eine Daten Bank Sicht verwendet, aber die Sicht wird im Speichermodell anstelle der Datenbank definiert. Die in einem **DefiningQuery** -Element definierte Sicht kann mithilfe eines EntitySetMapping-Elements einem Entitätstyp im konzeptionellen Modell zugeordnet werden. Diese Zuordnungen sind schreibgeschützt.  
 
-Die folgende SSDL-Syntax zeigt die Deklaration einer **EntitySet** gefolgt von der **DefiningQuery** Element, das eine Abfrage zum Abrufen der Sicht enthält.
+Die folgende SSDL-Syntax zeigt die Deklaration eines **EntitySet** , gefolgt vom **DefiningQuery** -Element, das eine Abfrage enthält, die zum Abrufen der Sicht verwendet wird.
 
 ``` xml
  <Schema>
@@ -180,33 +180,33 @@ Die folgende SSDL-Syntax zeigt die Deklaration einer **EntitySet** gefolgt von d
  </Schema>
 ```
 
-Sie können gespeicherte Prozeduren zum Aktivieren der Lese-/ schreibszenarien über Ansichten im Entity Framework verwenden. Sie können entweder eine Datenquellensicht oder eine Entity SQL-Sicht als Basistabelle zum Abrufen von Daten und zum Verarbeiten von Änderungen durch gespeicherte Prozeduren verwenden.
+Sie können gespeicherte Prozeduren in der Entity Framework verwenden, um Szenarien mit Lese-/Schreibzugriff zu ermöglichen. Sie können entweder eine Datenquellen Sicht oder eine Entity SQL Sicht als Basistabelle zum Abrufen von Daten und zur Änderungs Verarbeitung durch gespeicherte Prozeduren verwenden.
 
-Sie können die **DefiningQuery** Element in Microsoft SQL Server Compact 3.5 als Ziel. Obwohl SQL Server Compact 3.5 keine gespeicherte Prozeduren unterstützt, können Sie ähnliche Funktionalität mit implementieren die **DefiningQuery** Element. Es kann auch beim Erstellen gespeicherter Prozeduren nützlich sein, um einen Konflikt zwischen den in der Programmiersprache und den in der Datenquelle verwendeten Datentypen zu lösen. Sie könnten eine **DefiningQuery** , die einen bestimmten Satz von Parametern akzeptiert und ruft dann eine gespeicherte Prozedur mit einem anderen Satz von Parametern, z. B. eine gespeicherte Prozedur, die Daten löscht.
+Sie können das **DefiningQuery** -Element verwenden, um Microsoft SQL Server Compact 3,5-Ziel zu verwenden. Obwohl SQL Server Compact 3,5 keine gespeicherten Prozeduren unterstützt, können Sie eine ähnliche Funktionalität mit dem **DefiningQuery** -Element implementieren. Es kann auch beim Erstellen gespeicherter Prozeduren nützlich sein, um einen Konflikt zwischen den in der Programmiersprache und den in der Datenquelle verwendeten Datentypen zu lösen. Sie könnten eine **DefiningQuery** schreiben, die einen bestimmten Satz von Parametern annimmt, und dann eine gespeicherte Prozedur mit einem anderen Satz von Parametern aufrufen, z. b. eine gespeicherte Prozedur, die Daten löscht.
 
 ## <a name="dependent-element-ssdl"></a>Abhängiges Element (SSDL)
 
-Die **abhängige** Element in der Datenspeicherschema-Definitionssprache (SSDL) ist ein untergeordnetes Element mit dem ReferentialConstraint-Element, das abhängige Ende einer fremdschlüsseleinschränkung (auch referenzielle Einschränkung genannt) definiert. Die **abhängige** Element gibt die Spalte (oder Spalten) in einer Tabelle, die eine primäre Schlüsselspalte (oder Spalten) zu verweisen. **PropertyRef** Elemente anzugeben, welche Spalten verwiesen werden. Der Prinzipal Element gibt die Primärschlüsselspalten, die durch Spalten, die im angegebenen verwiesen werden die **abhängige** Element.
+Das **abhängige** Element in der Speicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) ist ein untergeordnetes Element des referentialeinschränkung-Elements, das das abhängige Ende einer FOREIGN KEY-Einschränkung definiert (auch referenzielle Einschränkung genannt). Das **abhängige** Element gibt die Spalte (oder Spalten) in einer Tabelle an, die auf eine Primärschlüssel Spalte (oder Spalten) verweisen. **PropertyRef** -Elemente geben an, auf welche Spalten verwiesen wird. Das Principal-Element gibt die Primärschlüssel Spalten an, auf die von Spalten verwiesen wird, die im **abhängigen** Element angegeben sind.
 
-Die **abhängige** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **abhängige** Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   PropertyRef (mindestens)
--   Anmerkungselemente (null oder mehr)
+-   PropertyRef (ein oder mehr)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **abhängige** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **abhängige** Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                                                                                                                                       |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Rolle**       | Ja         | Der gleiche Wert wie die **Rolle** Attributs (sofern verwendet) des entsprechenden Elements Ende; andernfalls der Name der Tabelle enthält, die die verweisende Spalte. |
+| **Spielen**       | Ja         | Der gleiche Wert wie das **Role** -Attribut (sofern verwendet) des entsprechenden End-Elements. andernfalls der Name der Tabelle, die die verweisende Spalte enthält. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **abhängige** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **abhängige** Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein Association-Element, das verwendet eine **ReferentialConstraint** Element, um die Spalten anzugeben, die Teilnahme an der **FK\_CustomerOrders** Fremdschlüssel Einschränkung. Die **abhängige** -Element gibt an die **"CustomerID"** Spalte die **Reihenfolge** Tabelle als das abhängige Ende der Einschränkung.
+Das folgende Beispiel zeigt ein Association-Element, das ein **referentialeinschränkung** -Element verwendet, um die Spalten anzugeben, die an der FOREIGN KEY-Einschränkung " **FK @ no__t-2customerorders** " beteiligt sind. Das **abhängige** Element gibt die **CustomerID-** Spalte der **Order** -Tabelle als abhängiges Ende der Einschränkung an.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -229,20 +229,20 @@ Das folgende Beispiel zeigt ein Association-Element, das verwendet eine **Refere
 
 ## <a name="documentation-element-ssdl"></a>Documentation-Element (SSDL)
 
-Die **Dokumentation** -Element in der Datenspeicherschema-Definitionssprache (SSDL) verwendet werden kann, um Informationen zu einem Objekt bereitzustellen, die in einem übergeordneten Element definiert ist.
+Das **Dokumentations** Element in der Datenspeicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) kann verwendet werden, um Informationen zu einem Objekt bereitzustellen, das in einem übergeordneten Element definiert
 
-Die **Dokumentation** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **Documentation** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   **Zusammenfassung**: eine kurze Beschreibung des übergeordneten Elements. (kein (Null) oder ein Element)
--   **LongDescription**: eine ausführliche Beschreibung des übergeordneten Elements. (kein (Null) oder ein Element)
+-   **Zusammenfassung**: Eine kurze Beschreibung des übergeordneten Elements. (kein (Null) oder ein Element)
+-   **LongDescription**: Eine ausführliche Beschreibung des übergeordneten Elements. (kein (Null) oder ein Element)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **Dokumentation** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **Documentation** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt die **Dokumentation** Element als untergeordnetes Element eines EntityType-Elements.
+Das folgende Beispiel zeigt das **Documentation** -Element als untergeordnetes Element eines EntityType-Elements.
 
 ``` xml
  <EntityType Name="Customers">
@@ -260,34 +260,34 @@ Das folgende Beispiel zeigt die **Dokumentation** Element als untergeordnetes El
 
 ## <a name="end-element-ssdl"></a>End-Element (SSDL)
 
-Die **End** Element in der Datenspeicherschema-Definitionssprache (SSDL) gibt die Tabelle und die Anzahl der Zeilen an einem Ende einer fremdschlüsseleinschränkung in der zugrunde liegenden Datenbank an. Die **End** Element kann ein untergeordnetes Element des Association-Element oder das AssociationSet-Element sein. In jedem dieser Fälle sind andere untergeordnete Elemente und anwendbare Attribute die möglich.
+Das **End** -Element in der Datenspeicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) gibt die Tabelle und die Anzahl der Zeilen an einem Ende einer Fremdschlüssel Einschränkung in der zugrunde liegenden Datenbank an. Das **End** -Element kann ein untergeordnetes Element des Association-Elements oder des AssociationSet-Elements sein. In jedem dieser Fälle sind andere untergeordnete Elemente und anwendbare Attribute die möglich.
 
 ### <a name="end-element-as-a-child-of-the-association-element"></a>Das End-Element als untergeordnetes Objekt des Association-Elements
 
-Ein **End** Element (als untergeordnetes Element der **Zuordnung** Element) gibt die Tabelle und die Anzahl der Zeilen am Ende einer foreign Key-Einschränkung mit der **Typ** und **Multiplizität** -Attribut an. Die Enden einer Fremdschlüsseleinschränkung sind als Teil einer SSDL-Zuordnung definiert. Eine SSDL-Zuordnung muss genau zwei Enden aufweisen.
+Ein **End** -Element (als untergeordnetes Element des **Association** -Elements) gibt die Tabelle und die Anzahl der Zeilen am Ende einer Foreign **Key-Einschränkung** mit dem **Type** -Attribut und dem Multiplizitätsattribut an. Die Enden einer Fremdschlüsseleinschränkung sind als Teil einer SSDL-Zuordnung definiert. Eine SSDL-Zuordnung muss genau zwei Enden aufweisen.
 
-Ein **End** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Ein **Endelement** kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   OnDelete (0 (null) oder ein Element)
--   Anmerkungselemente (null oder mehr Elemente)
+-   Dokumentation (kein (null) oder ein Element)
+-   OnDelete (kein (null) oder ein Element)
+-   Annotation-Elemente (0 (null) oder mehr Elemente)
 
 #### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **End** -Element, wenn es sich um das untergeordnete Element ist ein **Zuordnung** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **End** -Element angewendet werden können, wenn es sich um das untergeordnete Element eines **Association** -Elements handelt.
 
 | Attributname   | Ist erforderlich | Wert                                                                                                                                                                                                                                                                                                                                                                                      |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Type**         | Ja         | Der voll gekennzeichnete Name der SSDL-Entitätenmenge, die am Ende der foreign Key-Einschränkung ist.                                                                                                                                                                                                                                                                                          |
-| **Rolle**         | Nein          | Der Wert des der **Rolle** -Attribut im dem Prinzipal- oder abhängigen Element von der entsprechenden ReferentialConstraint-Element (sofern verwendet).                                                                                                                                                                                                                                             |
-| **Multiplizität** | Ja         | **1**, **0.. 1**, oder **\*** abhängig von der Anzahl der Zeilen, die am Ende der foreign Key-Einschränkung sein können. <br/> **1** gibt an, dass genau eine Zeile, die am Ende foreign Key-Einschränkung vorhanden ist. <br/> **0.. 1** gibt an, dass maximal eine Zeile, die am Ende foreign Key-Einschränkung vorhanden ist. <br/> **\*** Gibt an, dass 0 (null), einer oder mehreren Zeilen am Ende foreign Key-Einschränkung vorhanden sind. |
+| **Typ**         | Ja         | Der voll qualifizierte Name der SSDL-Entitätenmenge, die sich am Ende der FOREIGN KEY-Einschränkung befindet.                                                                                                                                                                                                                                                                                          |
+| **Spielen**         | Nein          | Der Wert des **Role** -Attributs im Prinzipal-oder abhängigen Element des entsprechenden referentialeinschränkung-Elements (sofern verwendet).                                                                                                                                                                                                                                             |
+| **Deu** | Ja         | **1**, **0.. 1**oder **\*** , abhängig von der Anzahl der Zeilen, die am Ende der FOREIGN KEY-Einschränkung liegen können. <br/> der Wert **1** gibt an, dass genau eine Zeile am Ende der Fremdschlüssel Einschränkung vorhanden ist. <br/> **0.. 1** gibt an, dass keine oder eine Zeile am Ende der Fremdschlüssel Einschränkung vorhanden ist. <br/> **\*** gibt an, dass keine, eine oder mehrere Zeilen am Ende der FOREIGN KEY-Einschränkung vorhanden sind. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **End** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **End** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 #### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Zuordnung** -Element, definiert der **FK\_CustomerOrders** foreign Key-Einschränkung. Die **Multiplizität** auf jedem angegebenen Werte **End** Element anzugeben, dass viele Zeilen in der **Bestellungen** Tabelle kann mit einer Zeile im verbunden werden die **Kunden**  Tabelle, jedoch nur eine Zeile in der **Kunden** Tabelle möglich mit einer Zeile in der **Bestellungen** Tabelle. Darüber hinaus die **OnDelete** Element gibt an, dass alle Zeilen in der **Bestellungen** Tabelle, die eine bestimmte Zeile in verweisen auf die **Kunden** Tabelle gelöscht werden, wenn die Zeile in die **Kunden** Tabelle gelöscht wird.
+Das folgende Beispiel zeigt ein **Association** -Element, das die FOREIGN KEY-Einschränkung " **FK @ no__t-2customerorders** " definiert. Die **für** jedes **End** -Element angegebenen multiplizitätswerte geben an, dass viele Zeilen in der **Orders** -Tabelle einer Zeile in der **Customers** -Tabelle zugeordnet werden können, aber nur eine Zeile in der **Customers** -Tabelle mit einer Zeile verknüpft werden kann. in der Tabelle **Orders** . Außerdem gibt das **OnDelete** -Element an, dass alle Zeilen in der **Orders** -Tabelle, die auf eine bestimmte Zeile in der **Customers** -Tabelle verweisen, gelöscht werden, wenn die Zeile in der **Customers** -Tabelle gelöscht wird.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -310,28 +310,28 @@ Das folgende Beispiel zeigt eine **Zuordnung** -Element, definiert der **FK\_Cus
 
 ### <a name="end-element-as-a-child-of-the-associationset-element"></a>Das End-Element als untergeordnetes Objekt des AssociationSet-Elements
 
-Die **End** -Element (als untergeordnetes Element der **AssociationSet** Element) gibt eine Tabelle an einem Ende einer fremdschlüsseleinschränkung in der zugrunde liegenden Datenbank.
+Das **End** -Element (als untergeordnetes Element des **AssociationSet** -Elements) gibt eine Tabelle an einem Ende einer FOREIGN KEY-Einschränkung in der zugrunde liegenden Datenbank an.
 
-Ein **End** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Ein **Endelement** kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   Anmerkungselemente (null oder mehr)
+-   Dokumentation (0 (null) oder 1)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 #### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **End** -Element, wenn es sich um das untergeordnete Element ist ein **AssociationSet** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **End** -Element angewendet werden können, wenn es sich um das untergeordnete Element eines **AssociationSet** -Elements handelt.
 
 | Attributname | Ist erforderlich | Wert                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------|
-| **EntitySet**  | Ja         | Der Name der SSDL-Entitätenmenge, die am Ende der foreign Key-Einschränkung ist.                                      |
-| **Rolle**       | Nein          | Der Wert eines der **Rolle** auf einem angegebenen Attribute **End** Element des entsprechenden Association-Elements. |
+| **EntitySet**  | Ja         | Der Name der SSDL-Entitätenmenge, die sich am Ende der FOREIGN KEY-Einschränkung befindet.                                      |
+| **Spielen**       | Nein          | Der Wert eines der **Rollen** Attribute, der in einem **Endelement** des entsprechenden Association-Elements angegeben ist. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **End** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **End** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 #### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **EntityContainer** -Element mit einem **AssociationSet** -Element mit zwei **End** Elemente:
+Das folgende Beispiel zeigt ein **EntityContainer** -Element mit einem **AssociationSet** -Element mit zwei **Endelementen** :
 
 ``` xml
  <EntityContainer Name="ExampleModelStoreContainer">
@@ -351,11 +351,11 @@ Das folgende Beispiel zeigt eine **EntityContainer** -Element mit einem **Associ
 
 ## <a name="entitycontainer-element-ssdl"></a>EntityContainer-Element (SSDL)
 
-Ein **EntityContainer** Element in der Datenspeicherschema-Definitionssprache (SSDL) beschreibt die Struktur der zugrunde liegenden Datenquelle in einer Entity Framework-Anwendung: SSDL-Entitätenmengen (definiert in EntitySet-Elemente) stellen Tabellen dar. eine Datenbank, SSDL-Entitätstypen (definiert im EntityType-Elemente) Zeilen in einer Tabelle und Zuordnungssätze (definiert in AssociationSet-Elementen) darstellen foreign Key-Einschränkungen in einer Datenbank. Ein Speichermodell-Entitätscontainer wird über die EntityContainerMapping-Element ein konzeptioneller modellentitätscontainer zugeordnet.
+Ein **EntityContainer** -Element in der Datenspeicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) beschreibt die Struktur der zugrunde liegenden Datenquelle in einer Entity Framework Anwendung: SSDL-Entitätenmengen (in EntitySet-Elementen definiert) stellen Tabellen in einer Datenbank dar, SSDL-Entitäts Typen (definiert in EntityType-Elementen) stellen Zeilen in einer Tabelle dar, und Zuordnungs Sätze (die in AssociationSet-Elementen definiert sind) stellen Fremdschlüssel Einschränkungen in einem Verbindung. Ein Speichermodell-Entitäts Container wird einem Entitätencontainer des konzeptionellen Modells über das EntityContainerMapping-Element zugeordnet.
 
-Ein **EntityContainer** -Element kann NULL oder eine dokumentationselemente aufweisen. Wenn eine **Dokumentation** -Element vorhanden ist, sie müssen vor allen anderen untergeordneten Elementen stehen.
+Ein **EntityContainer** -Element kann über 0 (null) oder ein Dokumentations Element verfügen. Wenn ein **Documentation** -Element vorhanden ist, muss es allen anderen untergeordneten Elementen vorangestellt werden.
 
-Ein **EntityContainer** -Element kann 0 (null) oder mehrere der folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet) aufweisen:
+Ein **EntityContainer** -Element kann über 0 (null) oder mehrere der folgenden untergeordneten Elemente verfügen (in der angegebenen Reihenfolge):
 
 -   EntitySet
 -   AssociationSet
@@ -363,18 +363,18 @@ Ein **EntityContainer** -Element kann 0 (null) oder mehrere der folgenden unterg
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **EntityContainer** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **EntityContainer** -Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                                                   |
 |:---------------|:------------|:------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name des Entitätscontainers. Dieser Name darf keine Punkte (.) enthalten. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **EntityContainer** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **EntityContainer** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **EntityContainer** Element, das zwei Entitätenmengen und einen Zuordnungssatz definiert. Beachten Sie, dass die Namen des Entitätstyps und des Zuordnungstyps mit dem Namespace des konzeptionellen Modellnamens qualifiziert werden.
+Das folgende Beispiel zeigt ein **EntityContainer** -Element, das zwei Entitätenmengen und einen Zuordnungs Satz definiert. Beachten Sie, dass die Namen des Entitätstyps und des Zuordnungstyps mit dem Namespace des konzeptionellen Modellnamens qualifiziert werden.
 
 ``` xml
  <EntityContainer Name="ExampleModelStoreContainer">
@@ -394,20 +394,20 @@ Das folgende Beispiel zeigt eine **EntityContainer** Element, das zwei Entitäte
 
 ## <a name="entityset-element-ssdl"></a>EntitySet-Element (SSDL)
 
-Ein **EntitySet** -Element der Datenspeicherschema-Definitionssprache (SSDL) stellt dar, eine Tabelle oder Sicht in der zugrunde liegenden Datenbank. Ein EntityType-Element in SSDL stellt eine Zeile in der Tabelle oder Sicht dar. Die **EntityType** Attribut eine **EntitySet** Element gibt an, die bestimmten SSDL-Entitätstyp, der Zeilen in einer SSDL-Entitätenmenge darstellt. Die Zuordnung zwischen einer CSDL-Entitätenmenge und einer SSDL-Entitätenmenge, die in einem EntitySetMapping-Element angegeben ist.
+Ein **EntitySet** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) stellt eine Tabelle oder Sicht in der zugrunde liegenden Datenbank dar. Ein EntityType-Element in SSDL stellt eine Zeile in der Tabelle oder Sicht dar. Das **EntityType** -Attribut eines **EntitySet** -Elements gibt den spezifischen SSDL-Entitätstyp an, der Zeilen in einer SSDL-Entitätenmenge darstellt. Die Zuordnung zwischen einer CSDL-Entitätenmenge und einer SSDL-Entitätenmenge wird in einem EntitySetMapping-Element angegeben.
 
-Die **EntitySet** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **EntitySet** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   DefiningQuery (0 (null) oder ein Element)
+-   Dokumentation (kein (null) oder ein Element)
+-   DefiningQuery (kein (null) oder ein Element)
 -   Anmerkungselemente
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **EntitySet** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **EntitySet** -Element angewendet werden können.
 
 > [!NOTE]
-> Einige Attribute (hier nicht aufgeführt) qualifiziert werden können, mit der **speichern** Alias. Diese Attribute werden durch den Modellaktualisierungs-Assistenten verwendet, wenn ein Modell aktualisieren.
+> Einige (hier nicht aufgelistete) Attribute können mit dem **Store** -Alias qualifiziert werden. Diese Attribute werden vom Modellaktualisierungs-Assistenten beim Aktualisieren eines Modells verwendet.
 
 | Attributname | Ist erforderlich | Wert                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
@@ -417,11 +417,11 @@ Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die
 | **Table**      | Nein          | Die Datenbanktabelle.                                                                      |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **EntitySet** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **EntitySet** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **EntityContainer** -Element, das zwei **EntitySet** Elemente und ein **AssociationSet** Element:
+Das folgende Beispiel zeigt ein **EntityContainer** -Element, das über zwei **EntitySet** -Elemente und ein **AssociationSet** -Element verfügt:
 
 ``` xml
  <EntityContainer Name="ExampleModelStoreContainer">
@@ -441,28 +441,28 @@ Das folgende Beispiel zeigt eine **EntityContainer** -Element, das zwei **Entity
 
 ## <a name="entitytype-element-ssdl"></a>EntityType-Element (SSDL)
 
-Ein **EntityType** Element in der Datenspeicherschema-Definitionssprache (SSDL) stellt eine Zeile in einer Tabelle oder Sicht der zugrunde liegenden Datenbank dar. Ein EntitySet-Element in SSDL stellt dar, die Tabelle oder Sicht, die in der Zeilen enthalten. Die **EntityType** Attribut eine **EntitySet** Element gibt an, die bestimmten SSDL-Entitätstyp, der Zeilen in einer SSDL-Entitätenmenge darstellt. Die Zuordnung zwischen einer SSDL-Entitätstyp und einer CSDL-Entitätstyp wird in einem EntityTypeMapping-Element angegeben.
+Ein **EntityType** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) stellt eine Zeile in einer Tabelle oder Sicht der zugrunde liegenden Datenbank dar. Ein EntitySet-Element in SSDL stellt die Tabelle oder Sicht dar, in der Zeilen auftreten. Das **EntityType** -Attribut eines **EntitySet** -Elements gibt den spezifischen SSDL-Entitätstyp an, der Zeilen in einer SSDL-Entitätenmenge darstellt. Die Zuordnung zwischen einem SSDL-Entitätstyp und einem CSDL-Entitätstyp wird in einem EntityTypeMapping-Element angegeben.
 
-Die **EntityType** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **EntityType** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   Schlüssel (0 (null) oder ein Element)
+-   Dokumentation (kein (null) oder ein Element)
+-   Key (kein oder ein Element)
 -   Anmerkungselemente
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **EntityType** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **EntityType** -Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                                                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name des Entitätstyps. Dieser Wert ist normalerweise der gleiche wie der Name der Tabelle, in der der Entitätstyp eine Zeile darstellt. Dieser Wert darf keine Punkte (.) enthalten. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **EntityType** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **EntityType** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **EntityType** -Element mit zwei Eigenschaften:
+Das folgende Beispiel zeigt ein **EntityType** -Element mit zwei Eigenschaften:
 
 ``` xml
  <EntityType Name="Customers">
@@ -480,51 +480,51 @@ Das folgende Beispiel zeigt eine **EntityType** -Element mit zwei Eigenschaften:
 
 ## <a name="function-element-ssdl"></a>Function-Element (SSDL)
 
-Die **Funktion** Element in der Datenspeicherschema-Definitionssprache (SSDL) gibt eine vorhandene gespeicherte Prozedur in der zugrunde liegenden Datenbank.
+Das **Function** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) gibt eine gespeicherte Prozedur an, die in der zugrunde liegenden Datenbank vorhanden ist.
 
-Die **Funktion** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **Function** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   Parameter (null oder mehr)
--   CommandText-Eigenschaft (0 (null) oder 1)
--   ReturnType (null oder mehr)
--   Anmerkungselemente (null oder mehr)
+-   Dokumentation (0 (null) oder 1)
+-   Parameter (0 (null) oder mehr)
+-   CommandText (0 (null) oder 1)
+-   ReturnType (0 (null) oder mehr)
+-   Annotation-Elemente (0 (null) oder mehr)
 
-Ein Rückgabewert für eine Funktion muss angegeben werden, entweder mit der **ReturnType** Element oder die **ReturnType** -Attribut (siehe unten), aber nicht beides.
+Ein Rückgabetyp für eine Funktion muss entweder mit dem **returnType** -Element oder dem **returnType** -Attribut angegeben werden (siehe unten), aber nicht mit beiden.
 
-Gespeicherte Prozeduren, die im Speichermodell angegeben sind, können in das konzeptionelle Modell einer Anwendung importiert werden. Weitere Informationen finden Sie unter [Abfragen mit gespeicherten Prozeduren](~/ef6/modeling/designer/stored-procedures/query.md). Die **Funktion** -Element kann auch verwendet werden, um benutzerdefinierte Funktionen im Speichermodell zu definieren.  
+Gespeicherte Prozeduren, die im Speichermodell angegeben sind, können in das konzeptionelle Modell einer Anwendung importiert werden. Weitere Informationen finden Sie unter [Abfragen mit gespeicherten Prozeduren](~/ef6/modeling/designer/stored-procedures/query.md). Das **Function** -Element kann auch verwendet werden, um benutzerdefinierte Funktionen im Speichermodell zu definieren.  
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **Funktion** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Function** -Element angewendet werden können.
 
 > [!NOTE]
-> Einige Attribute (hier nicht aufgeführt) qualifiziert werden können, mit der **speichern** Alias. Diese Attribute werden durch den Modellaktualisierungs-Assistenten verwendet, wenn ein Modell aktualisieren.
+> Einige (hier nicht aufgelistete) Attribute können mit dem **Store** -Alias qualifiziert werden. Diese Attribute werden vom Modellaktualisierungs-Assistenten beim Aktualisieren eines Modells verwendet.
 
 | Attributname             | Ist erforderlich | Wert                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Name**                   | Ja         | Der Name der gespeicherten Prozedur.                                                                                                                                                                                  |
 | **ReturnType**             | Nein          | Der Rückgabetyp der gespeicherten Prozedur.                                                                                                                                                                           |
-| **Aggregat**              | Nein          | **"True"** , wenn die gespeicherte Prozedur einen Aggregatwert zurückgibt. andernfalls **"false"**.                                                                                                                                  |
-| **"Vordefiniert"**                | Nein          | **"True"** ist die Funktion eine integrierte<sup>1</sup> funktioniert; andernfalls **"false"**.                                                                                                                                  |
-| **StoreFunctionName**      | Nein          | Der Name der gespeicherten Prozedur.                                                                                                                                                                                  |
-| **NiladicFunction**        | Nein          | **"True"** ist die Funktion eine Niladic<sup>2</sup> Funktion. **"False"** andernfalls.                                                                                                                                   |
-| **IsComposable**           | Nein          | **"True"** ist die Funktion eine zusammensetzbare<sup>3</sup> Funktion. **"False"** andernfalls.                                                                                                                                |
-| **ParameterTypeSemantics** | Nein          | Die Enumeration, die die Typsemantik definiert, die zum Auflösen von Funktionsüberladungen verwendet wird. Die Enumeration ist im Anbietermanifest für jede Funktionsdefinition definiert. Der Standardwert ist **AllowImplicitConversion**. |
+| **Aggregat**              | Nein          | **True** , wenn die gespeicherte Prozedur einen Aggregatwert zurückgibt. andernfalls **false**.                                                                                                                                  |
+| **Builtin**                | Nein          | **True** , wenn es sich bei der Funktion um eine integrierte<sup>1</sup> -Funktion handelt. andernfalls **false**.                                                                                                                                  |
+| **Storefunctionname**      | Nein          | Der Name der gespeicherten Prozedur.                                                                                                                                                                                  |
+| **NiladicFunction**        | Nein          | **True** , wenn es sich bei der Funktion um eine NILADIC<sup>2</sup> -Funktion handelt. Andernfalls **false** .                                                                                                                                   |
+| **IsComposable**           | Nein          | **True** , wenn die Funktion eine Zusammensetz Bare<sup>3</sup> -Funktion ist. Andernfalls **false** .                                                                                                                                |
+| **Das** | Nein          | Die Enumeration, die die Typsemantik definiert, die zum Auflösen von Funktionsüberladungen verwendet wird. Die Enumeration ist im Anbietermanifest für jede Funktionsdefinition definiert. Der Standardwert ist " **zuzubemplicitconversion**". |
 | **Schema**                 | Nein          | Der Name des Schemas, in dem die gespeicherte Prozedur definiert ist.                                                                                                                                                   |
 
 <sup>1</sup> eine integrierte Funktion ist eine Funktion, die in der Datenbank definiert ist. Informationen zu Funktionen, die im Speichermodell definiert sind, finden Sie unter CommandText-Element (SSDL).
 
-<sup>2</sup> eine Niladic-Funktion ist eine Funktion, die keine Parameter akzeptiert und bei Aufruf keine Klammern erforderlich.
+<sup>2</sup> eine NILADIC-Funktion ist eine Funktion, die keine Parameter akzeptiert und, wenn Sie aufgerufen wird, keine Klammern erfordert.
 
-<sup>3</sup> zwei Funktionen sind zusammensetzbar, wenn die Ausgabe einer Funktion die Eingabe für die andere Funktion werden kann.
+<sup>3</sup> zwei Funktionen sind zusammensetzbar, wenn die Ausgabe einer Funktion als Eingabe für die andere Funktion dienen kann.
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **Funktion** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **Function** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Funktion** Element, das entspricht, dem **UpdateOrderQuantity** gespeicherte Prozedur. Die gespeicherte Prozedur akzeptiert zwei Parameter und gibt keinen Wert zurück.
+Das folgende Beispiel zeigt ein **Function** -Element, das der gespeicherten Prozedur **updateordermenge** entspricht. Die gespeicherte Prozedur akzeptiert zwei Parameter und gibt keinen Wert zurück.
 
 ``` xml
  <Function Name="UpdateOrderQuantity"
@@ -541,18 +541,18 @@ Das folgende Beispiel zeigt eine **Funktion** Element, das entspricht, dem **Upd
 
 ## <a name="key-element-ssdl"></a>Key-Element (SSDL)
 
-Die **Schlüssel** -Element der Datenspeicherschema-Definitionssprache (SSDL) stellt den Primärschlüssel einer Tabelle in der zugrunde liegenden Datenbank dar. **Schlüssel** ist ein untergeordnetes Element des EntityType-Element, das eine Zeile in einer Tabelle darstellt. Der Primärschlüssel wird definiert, der **Schlüssel** Element durch einen Verweis auf ein oder mehrere Eigenschaft-Elemente, die auf definiert sind die **EntityType** Element.
+Das **Schlüssel** Element in der Datenspeicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) stellt den Primärschlüssel einer Tabelle in der zugrunde liegenden Datenbank dar. **Key** ist ein untergeordnetes Element eines EntityType-Elements, das eine Zeile in einer Tabelle darstellt. Der Primärschlüssel wird im **Key** -Element definiert, indem auf ein oder mehrere Eigenschafts Elemente verwiesen wird, die für das **EntityType** -Element definiert sind.
 
-Die **Schlüssel** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **Key** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   PropertyRef (mindestens)
+-   PropertyRef (ein oder mehr)
 -   Anmerkungselemente
 
-Es sind keine Attribute für die **Schlüssel** Element.
+Für das **Key** -Element sind keine Attribute anwendbar.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **EntityType** Elements mit einem Schlüssel, der eine Eigenschaft verweist:
+Das folgende Beispiel zeigt ein **EntityType** -Element mit einem Schlüssel, der auf eine Eigenschaft verweist:
 
 ``` xml
  <EntityType Name="Customers">
@@ -570,27 +570,27 @@ Das folgende Beispiel zeigt eine **EntityType** Elements mit einem Schlüssel, d
 
 ## <a name="ondelete-element-ssdl"></a>OnDelete-Element (SSDL)
 
-Die **OnDelete** Element in der Datenspeicherschema-Definitionssprache (SSDL) spiegelt das Datenbankverhalten wider, wenn eine Zeile, die Teil einer foreign Key-Einschränkung gelöscht wird. Wenn die Aktion, um festgelegt ist **Cascade**, und klicken Sie dann die Zeilen, die eine Zeile verweisen, die gelöscht wird ebenfalls gelöscht werden. Wenn die Aktion, um festgelegt ist **keine**, und klicken Sie dann die Zeilen, die eine Zeile verweisen, die gelöscht wird, nicht gelöscht. Ein **OnDelete** Element ist ein untergeordnetes Element eines End-Elements.
+Das **OnDelete** -Element in der Datenspeicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) spiegelt das Daten Bank Verhalten wider, wenn eine Zeile, die Teil einer FOREIGN KEY-Einschränkung Wenn die Aktion auf **Cascade**festgelegt ist, werden Zeilen, die auf eine Zeile verweisen, die gelöscht wird, ebenfalls gelöscht. Wenn die Aktion auf **None**festgelegt ist, werden Zeilen, die auf eine Zeile verweisen, die gelöscht wird, nicht ebenfalls gelöscht. Ein **OnDelete** -Element ist ein untergeordnetes Element eines End-Elements.
 
-Ein **OnDelete** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Ein **OnDelete** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   Anmerkungselemente (null oder mehr)
+-   Dokumentation (0 (null) oder 1)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **OnDelete** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **OnDelete** -Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                                                                               |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
-| **Aktion**     | Ja         | **CASCADE** oder **keine**. (Der Wert **Restricted** ist gültig, aber hat das gleiche Verhalten wie **keine**.) |
+| **Aktion**     | Ja         | **Cascade** oder **None**. (Der Wert " **restricted** " ist gültig, hat jedoch das gleiche Verhalten wie " **None**".) |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **OnDelete** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **OnDelete** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Zuordnung** -Element, definiert der **FK\_CustomerOrders** foreign Key-Einschränkung. Die **OnDelete** Element gibt an, dass alle Zeilen in der **Bestellungen** Tabelle, die eine bestimmte Zeile in verweisen auf die **Kunden** Tabelle gelöscht werden, wenn die Zeile in der **Kunden** Tabelle gelöscht wird.
+Das folgende Beispiel zeigt ein **Association** -Element, das die FOREIGN KEY-Einschränkung " **FK @ no__t-2customerorders** " definiert. Das **OnDelete** -Element gibt an, dass alle Zeilen in der **Orders** -Tabelle, die auf eine bestimmte Zeile in der **Customers** -Tabelle verweisen, gelöscht werden, wenn die Zeile in der **Customers** -Tabelle gelöscht wird.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -613,33 +613,33 @@ Das folgende Beispiel zeigt eine **Zuordnung** -Element, definiert der **FK\_Cus
 
 ## <a name="parameter-element-ssdl"></a>Parameter-Element (SSDL)
 
-Die **Parameter** Element in der Datenspeicherschema-Definitionssprache (SSDL) ist ein untergeordnetes Element des Function-Element, das Parameter für eine gespeicherte Prozedur in der Datenbank angibt.
+Das **Parameter** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) ist ein untergeordnetes Element des Function-Elements, das Parameter für eine gespeicherte Prozedur in der Datenbank angibt.
 
-Die **Parameter** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **Parameter** -Element kann die folgenden untergeordneten Elemente aufweisen (in der angegebenen Reihenfolge):
 
--   Dokumentation (0 (null) oder ein Element)
--   Anmerkungselemente (null oder mehr)
+-   Dokumentation (0 (null) oder 1)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **Parameter** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Parameter** -Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name des Parameters.                                                                                                                                                                                                      |
-| **Type**       | Ja         | Der Typ des Parameters.                                                                                                                                                                                                             |
-| **Modus**       | Nein          | **In**, **Out**, oder **InOut** abhängig davon, ob der Parameter eine Eingabe, Ausgabe oder Eingabe-/Ausgabeparameter.                                                                                                                |
+| **Typ**       | Ja         | Der Typ des Parameters.                                                                                                                                                                                                             |
+| **Modus**       | Nein          | **In**, out oder **INOUT** , je nachdem, ob der Parameter ein Eingabe-, Ausgabe-oder Eingabe- **/Ausgabeparameter**ist.                                                                                                                |
 | **MaxLength**  | Nein          | Die maximale Länge des Parameters.                                                                                                                                                                                            |
 | **Genauigkeit**  | Nein          | Die Genauigkeit des Parameters.                                                                                                                                                                                                 |
 | **Scale** (Skalieren)      | Nein          | Die Skalierung des Parameters.                                                                                                                                                                                                     |
-| **SRID**       | Nein          | Räumliche Verweis Systembezeichner. Gilt nur für Parameter des räumlichen Typen. Weitere Informationen finden Sie unter [SRID](http://en.wikipedia.org/wiki/SRID) und [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **SRID**       | Nein          | Verweis Bezeichner für räumliche Systeme. Nur für Parameter räumlicher Typen gültig. Weitere Informationen finden Sie unter [SRID](https://en.wikipedia.org/wiki/SRID) und [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **Parameter** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **Parameter** Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Funktion** -Element, das zwei **Parameter** Elemente, die Eingabeparameter angeben:
+Das folgende Beispiel zeigt ein **Function** -Element, das über zwei **Parameter** Elemente verfügt, die Eingabeparameter angeben:
 
 ``` xml
  <Function Name="UpdateOrderQuantity"
@@ -656,27 +656,27 @@ Das folgende Beispiel zeigt eine **Funktion** -Element, das zwei **Parameter** E
 
 ## <a name="principal-element-ssdl"></a>Prinzipalelement (SSDL)
 
-Die **Principal** Element in der Datenspeicherschema-Definitionssprache (SSDL) ist ein untergeordnetes Element mit dem ReferentialConstraint-Element, das prinzipalende einer fremdschlüsseleinschränkung (auch referenzielle Einschränkung genannt) definiert. Die **Principal** Element gibt die Primärschlüsselspalte (oder Spalten) in einer Tabelle, die von einer anderen Spalte (oder Spalten) verwiesen wird. **PropertyRef** Elemente anzugeben, welche Spalten verwiesen werden. Dependent-Element gibt die Spalten, die die Primärschlüsselspalten, die im angegebenen verweisen die **Principal** Element.
+Das **Principal** -Element in der Speicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) ist ein untergeordnetes Element des referentialeinschränkung-Elements, das das Prinzipal Ende einer FOREIGN KEY-Einschränkung definiert (auch referenzielle Einschränkung genannt). Das **Principal** -Element gibt die Primärschlüssel Spalte (oder Spalten) in einer Tabelle an, auf die von einer anderen Spalte (oder Spalten) verwiesen wird. **PropertyRef** -Elemente geben an, auf welche Spalten verwiesen wird. Das abhängige Element gibt die Spalten an, die auf die Primärschlüssel Spalten verweisen, die im **Principal** -Element angegeben sind.
 
-Die **Principal** Element haben die folgenden untergeordneten Elemente (in entsprechender Reihenfolge aufgelistet):
+Das **Principal** -Element kann über die folgenden untergeordneten Elemente verfügen (in der angegebenen Reihenfolge):
 
--   PropertyRef (mindestens)
--   Anmerkungselemente (null oder mehr)
+-   PropertyRef (ein oder mehr)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **Principal** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Principal** -Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                                                                                                                                      |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Rolle**       | Ja         | Der gleiche Wert wie die **Rolle** Attributs (sofern verwendet) des entsprechenden Elements Ende; andernfalls der Name der Tabelle enthält die Spalte, auf die verwiesen wird. |
+| **Spielen**       | Ja         | Der gleiche Wert wie das **Role** -Attribut (sofern verwendet) des entsprechenden End-Elements. andernfalls der Name der Tabelle, die die Spalte enthält, auf die verwiesen wird. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **Principal** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **Principal** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein Association-Element, das verwendet eine **ReferentialConstraint** Element, um die Spalten anzugeben, die Teilnahme an der **FK\_CustomerOrders** Fremdschlüssel Einschränkung. Die **Principal** -Element gibt an die **"CustomerID"** Spalte die **Kunden** Tabelle als das prinzipalende der Einschränkung.
+Das folgende Beispiel zeigt ein Association-Element, das ein **referentialeinschränkung** -Element verwendet, um die Spalten anzugeben, die an der FOREIGN KEY-Einschränkung " **FK @ no__t-2customerorders** " beteiligt sind. Das **Principal** -Element gibt die **CustomerID-** Spalte der **Customer** -Tabelle als Prinzipal Ende der Einschränkung an.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -699,35 +699,35 @@ Das folgende Beispiel zeigt ein Association-Element, das verwendet eine **Refere
 
 ## <a name="property-element-ssdl"></a>Property-Element (SSDL)
 
-Die **Eigenschaft** Element in der Datenspeicherschema-Definitionssprache (SSDL) stellt eine Spalte in einer Tabelle in der zugrunde liegenden Datenbank dar. **Eigenschaft** Elemente sind untergeordnete Elemente des EntityType-Elemente, die Zeilen in einer Tabelle darstellen. Jede **Eigenschaft** Element definiert eine **EntityType** -Element stellt eine Spalte dar.
+Das **Property** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) stellt eine Spalte in einer Tabelle in der zugrunde liegenden Datenbank dar. **Eigenschaften** Elemente sind untergeordnete Elemente von EntityType-Elementen, die Zeilen in einer Tabelle darstellen. Jedes für ein **EntityType** -Element definierte **Eigenschafts** Element stellt eine Spalte dar.
 
-Ein **Eigenschaft** Element kann keine untergeordneten Elemente aufweisen.
+Ein **Property** -Element kann keine untergeordneten Elemente aufweisen.
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **Eigenschaft** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Property** -Element angewendet werden können.
 
 | Attributname            | Ist erforderlich | Wert                                                                                                                                                                                                                           |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Name**                  | Ja         | Der Name der zugehörigen Spalte.                                                                                                                                                                                           |
-| **Type**                  | Ja         | Der Typ der zugehörigen Spalte.                                                                                                                                                                                           |
-| **NULL-Werte zulässt**              | Nein          | **"True"** (Standardwert) oder **"false"** abhängig davon, ob die entsprechende Spalte einen null-Wert haben kann.                                                                                                                  |
+| **Typ**                  | Ja         | Der Typ der zugehörigen Spalte.                                                                                                                                                                                           |
+| **NULL zulassen**              | Nein          | **True** (Standardwert) oder **false** , abhängig davon, ob die entsprechende Spalte einen NULL-Wert aufweisen kann.                                                                                                                  |
 | **DefaultValue**          | Nein          | Der Standardwert der zugehörigen Spalte.                                                                                                                                                                                  |
 | **MaxLength**             | Nein          | Maximale Länge der zugehörigen Spalte.                                                                                                                                                                                 |
-| **FixedLength**           | Nein          | **"True"** oder **"false"** abhängig davon, ob der entsprechende Spaltenwert als Zeichenfolge mit fester Länge gespeichert wird.                                                                                                              |
+| **FixedLength**           | Nein          | **True** oder **false** , abhängig davon, ob der entsprechende Spaltenwert als Zeichenfolge mit fester Länge gespeichert wird.                                                                                                              |
 | **Genauigkeit**             | Nein          | Die Genauigkeit der zugehörigen Spalte.                                                                                                                                                                                      |
 | **Scale** (Skalieren)                 | Nein          | Die Dezimalstellenanzahl der zugehörigen Spalte.                                                                                                                                                                                          |
-| **Unicode**               | Nein          | **"True"** oder **"false"** abhängig davon, ob der entsprechende Spaltenwert als Unicode-Zeichenfolge gespeichert wird.                                                                                                                   |
+| **Unicode**               | Nein          | **True** oder **false** , abhängig davon, ob der entsprechende Spaltenwert als Unicode-Zeichenfolge gespeichert wird.                                                                                                                   |
 | **Sortierung**             | Nein          | Eine Zeichenfolge, die die Sortierreihenfolge angibt, die in der Datenquelle verwendet werden soll.                                                                                                                                                   |
-| **SRID**                  | Nein          | Räumliche Verweis Systembezeichner. Gilt nur für Eigenschaften des räumlichen Typen. Weitere Informationen finden Sie unter [SRID](http://en.wikipedia.org/wiki/SRID) und [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
-| **StoreGeneratedPattern** | Nein          | **Keine**, **Identität** (ist der entsprechende Spaltenwert eine Identität, die in der Datenbank generiert wird), oder **berechnet** (sofern der entsprechende Spaltenwert in der Datenbank generiert wird). Nicht gültig für RowType-Eigenschaften. |
+| **SRID**                  | Nein          | Verweis Bezeichner für räumliche Systeme. Nur für Eigenschaften räumlicher Typen gültig. Weitere Informationen finden Sie unter [SRID](https://en.wikipedia.org/wiki/SRID) und [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **StoreGeneratedPattern** | Nein          | **None**, **Identity** (wenn der entsprechende Spaltenwert eine in der Datenbank generierte Identität ist) oder **berechnet** (wenn der entsprechende Spaltenwert in der Datenbank berechnet wird). Ungültig für RowType-Eigenschaften. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **Eigenschaft** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **Property** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **EntityType** -Element mit zwei untergeordneten **Eigenschaft** Elemente:
+Das folgende Beispiel zeigt ein **EntityType** -Element mit zwei untergeordneten **Eigenschaften** Elementen:
 
 ``` xml
  <EntityType Name="Customers">
@@ -745,30 +745,30 @@ Das folgende Beispiel zeigt eine **EntityType** -Element mit zwei untergeordnete
 
 ## <a name="propertyref-element-ssdl"></a>PropertyRef-Element (SSDL)
 
-Die **PropertyRef** Element in der Datenspeicherschema-Definitionssprache (SSDL) verweist auf eine Eigenschaft für ein EntityType-Element, um anzugeben, dass die Eigenschaft eine der folgenden Rollen ausführt:
+Das **PropertyRef** -Element in der Speicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) verweist auf eine für ein EntityType-Element definierte Eigenschaft, um anzugeben, dass die-Eigenschaft eine der folgenden Rollen ausführt:
 
--   Teil des Primärschlüssels der Tabelle sein, die die **EntityType** darstellt. Eine oder mehrere **PropertyRef** -Elemente können verwendet werden, um einen Primärschlüssel zu definieren. Weitere Informationen finden Sie in der Key-Element.
--   Sie ist das abhängige Ende oder das Prinzipalende einer referenziellen Einschränkung. Weitere Informationen finden Sie unter ReferentialConstraint-Element.
+-   Ist Teil des Primärschlüssels der Tabelle, die der **EntityType** darstellt. Ein oder mehrere **PropertyRef** -Elemente können verwendet werden, um einen Primärschlüssel zu definieren. Weitere Informationen finden Sie unter Key-Element.
+-   Sie ist das abhängige Ende oder das Prinzipalende einer referenziellen Einschränkung. Weitere Informationen finden Sie unter referentialeinschränkung-Element.
 
-Die **PropertyRef** -Element kann nur die folgenden untergeordneten Elemente aufweisen:
+Das **PropertyRef** -Element kann nur die folgenden untergeordneten Elemente aufweisen:
 
--   Dokumentation (0 (null) oder ein Element)
+-   Dokumentation (0 (null) oder 1)
 -   Anmerkungselemente
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute, die angewendet werden können die **PropertyRef** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **PropertyRef** -Element angewendet werden können.
 
 | Attributname | Ist erforderlich | Wert                                |
 |:---------------|:------------|:-------------------------------------|
 | **Name**       | Ja         | Der Name der referenzierten Eigenschaft. |
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **PropertyRef** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **PropertyRef** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **PropertyRef** Element so definieren Sie einen Primärschlüssel verweisen auf eine Eigenschaft, die auf definiert ist, verwendet eine **EntityType** Element.
+Das folgende Beispiel zeigt ein **PropertyRef** -Element, das verwendet wird, um einen Primärschlüssel zu definieren, indem auf eine Eigenschaft verwiesen wird, die für ein **EntityType** -Element definiert ist.
 
 ``` xml
  <EntityType Name="Customers">
@@ -786,24 +786,24 @@ Das folgende Beispiel zeigt eine **PropertyRef** Element so definieren Sie einen
 
 ## <a name="referentialconstraint-element-ssdl"></a>ReferentialConstraint-Element (SSDL)
 
-Die **ReferentialConstraint** Element in der Datenspeicherschema-Definitionssprache (SSDL) stellt eine fremdschlüsseleinschränkung (auch Einschränkung der referenziellen Integrität genannt) in der zugrunde liegenden Datenbank. Das prinzipalende und das abhängige Ende der Einschränkung werden durch die Prinzipal- und die abhängigen untergeordneten Elemente angegeben. Spalten, die in den Dienstprinzipalnamen und die abhängigen enden beteiligt sind, werden mit PropertyRef-Elemente verwiesen.
+Das **referentialeinschränkungs** -Element in der Datenspeicher Schema-Definitions Sprache (SSDL) stellt eine FOREIGN KEY-Einschränkung (auch referenzielle Integritäts Einschränkung genannt) in der zugrunde liegenden Datenbank dar. Das Prinzipal Ende und das abhängige Ende der Einschränkung werden durch die Prinzipal-bzw. abhängigen untergeordneten Elemente angegeben. Auf Spalten, die am Prinzipal und den abhängigen enden beteiligt sind, wird mit PropertyRef-Elementen verwiesen.
 
-Die **ReferentialConstraint** Element ist ein optionales untergeordnetes Element des Association-Elements. Wenn eine **ReferentialConstraint** Element wird nicht zum Zuordnen von foreign Key-Einschränkung, die im angegebenen verwendet die **Zuordnung** Element AssociationSetMapping-Element muss zu diesem Zweck verwendet werden.
+Das **referentialeinschränkung** -Element ist ein optionales untergeordnetes Element des Association-Elements. Wenn ein **referentialeinschränkungs** -Element nicht verwendet wird, um die FOREIGN KEY-Einschränkung zuzuordnen, die im **Association** -Element angegeben ist, muss hierfür ein AssociationSetMapping-Element verwendet werden.
 
-Die **ReferentialConstraint** -Element kann die folgenden untergeordneten Elemente aufweisen:
+Das **referentialeinschränkung** -Element kann die folgenden untergeordneten Elemente aufweisen:
 
--   Dokumentation (0 (null) oder ein Element)
--   Prinzipal (genau ein Element)
--   Abhängige (genau ein Element)
--   Anmerkungselemente (null oder mehr)
+-   Dokumentation (0 (null) oder 1)
+-   Prinzipal (genau 1)
+-   Abhängig (genau 1)
+-   Annotation-Elemente (0 (null) oder mehr)
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **ReferentialConstraint** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **referentialeinschränkung** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Zuordnung** -Element, das verwendet eine **ReferentialConstraint** Element, um die Spalten anzugeben, die Teilnahme an der **FK\_CustomerOrders**  foreign Key-Einschränkung:
+Das folgende Beispiel zeigt ein **Association** -Element, das ein **referentialeinschränkung** -Element verwendet, um die Spalten anzugeben, die an der FOREIGN KEY-Einschränkung " **FK @ no__t-3customerorders** " beteiligt sind:
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -826,20 +826,20 @@ Das folgende Beispiel zeigt eine **Zuordnung** -Element, das verwendet eine **Re
 
 ## <a name="returntype-element-ssdl"></a>ReturnType-Element (SSDL)
 
-Die **ReturnType** Element in der Datenspeicherschema-Definitionssprache (SSDL) gibt an, den Rückgabetyp für eine Funktion, die in definiert ist eine **Funktion** Element. Eine Funktion, der Rückgabetyp kann auch angegeben werden, mit einem **ReturnType** Attribut.
+Das **returnType** -Element in der Speicher Schema-Definitions Sprache (SSDL) gibt den Rückgabetyp für eine Funktion an, die in einem **Function** -Element definiert ist. Ein Funktions Rückgabetyp kann auch mit einem **returnType** -Attribut angegeben werden.
 
-Der Rückgabetyp einer Funktion wird angegeben, mit der **Typ** Attribut oder das **ReturnType** Element.
+Der Rückgabetyp einer Funktion wird mit dem **Type** -Attribut oder dem **returnType** -Element angegeben.
 
-Die **ReturnType** -Element kann die folgenden untergeordneten Elemente aufweisen:
+Das **returnType** -Element kann die folgenden untergeordneten Elemente aufweisen:
 
 - CollectionType (eins)  
 
 > [!NOTE]
-> Kann eine beliebige Anzahl von anmerkungsattribute (benutzerdefinierte XML-Attribute) angewendet werden, um die **ReturnType** Element. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
+> Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **returnType** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für SSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
 
 ### <a name="example"></a>Beispiel
 
-Im folgenden Beispiel wird eine **Funktion** , die eine Auflistung von Zeilen zurückgibt.
+Im folgenden Beispiel wird eine **Funktion** verwendet, die eine Auflistung von Zeilen zurückgibt.
 
 ``` xml
    <Function Name="GetProducts" IsComposable="true" Schema="dbo">
@@ -860,17 +860,17 @@ Im folgenden Beispiel wird eine **Funktion** , die eine Auflistung von Zeilen zu
 
 ## <a name="rowtype-element-ssdl"></a>RowType-Element (SSDL)
 
-Ein **RowType** -Element der Datenspeicherschema-Definitionssprache (SSDL) definiert eine unbenannte Struktur als eine Rückgabe für eine Funktion, die im Speicher definiert.
+Ein **RowType** -Element in der Speicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) definiert eine unbenannte Struktur als Rückgabetyp für eine im Speicher definierte Funktion.
 
-Ein **RowType** Element ist das untergeordnete Element des **CollectionType** Element:
+Ein **RowType** -Element ist das untergeordnete Element des **CollectionType** -Elements:
 
 Ein **RowType** -Element kann die folgenden untergeordneten Elemente aufweisen:
 
-- Eigenschaft (ein oder mehrere)  
+- Eigenschaft (mindestens eine)  
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine Store-Funktion, verwendet eine **CollectionType** Element, um anzugeben, dass die Funktion eine Auflistung von Zeilen zurückgibt (gemäß den Angaben in der **RowType** Element).
+Das folgende Beispiel zeigt eine Store-Funktion, die ein **CollectionType** -Element verwendet, um anzugeben, dass die Funktion eine Auflistung von Zeilen zurückgibt (wie im **RowType** -Element angegeben).
 
 
 ``` xml
@@ -891,39 +891,39 @@ Das folgende Beispiel zeigt eine Store-Funktion, verwendet eine **CollectionType
 
 ## <a name="schema-element-ssdl"></a>Schema-Element (SSDL)
 
-Die **Schema** Element in der Datenspeicherschema-Definitionssprache (SSDL) ist das Stammelement einer speichermodelldefinition. Es enthält Definitionen für die Objekte, Funktionen und Container, die zusammen ein Speichermodell bilden.
+Das **Schema** -Element in der Speicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) ist das Stamm Element einer Speichermodell Definition. Es enthält Definitionen für die Objekte, Funktionen und Container, die zusammen ein Speichermodell bilden.
 
-Die **Schema** -Element kann 0 (null) oder mehrere der folgenden untergeordneten Elemente enthalten:
+Das **Schema** Element kann NULL oder mehr der folgenden untergeordneten Elemente enthalten:
 
 -   Zuordnung
 -   EntityType
 -   EntityContainer
 -   Funktion
 
-Die **Schema** -Element verwendet die **Namespace** Attribut, um den Namespace für die Entität und des Zuordnungstyps der Objekte in einem Speichermodell definieren. Innerhalb eines Namespace müssen alle Objekte eine eindeutige Bezeichnung aufweisen.
+Das **Schema** -Element verwendet das **Namespace** -Attribut, um den Namespace für den Entitätstyp und die Zuordnungs Objekte in einem Speichermodell zu definieren. Innerhalb eines Namespace müssen alle Objekte eine eindeutige Bezeichnung aufweisen.
 
-Namespace für ein Speichermodell unterscheidet sich von den XML-Namespace die **Schema** Element. Namespace für ein Speichermodell (gemäß der **Namespace** Attribut) ist ein logischer Container für Entitätstypen und Zuordnungstypen. Der XML-Namespace (angegeben durch die **Xmlns** Attribut) des eine **Schema** Element ist der Standardnamespace für untergeordnete Elemente und Attribute des der **Schema** Element. XML-Namespaces im Format http://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (, wobei YYYY und MM ein Jahr und Monat darstellen) sind für SSDL reserviert. Benutzerdefinierte Elemente und Attribute können nicht in Namespaces mit diesem Format vorhanden sein.
+Ein Speichermodell-Namespace unterscheidet sich vom XML-Namespace des **Schema** -Elements. Ein Speichermodell-Namespace (wie durch das **Namespace** -Attribut definiert) ist ein logischer Container für Entitäts Typen und Zuordnungs Typen. Der XML-Namespace (angegeben durch das **xmlns** -Attribut) eines **Schema** -Elements ist der Standard Namespace für untergeordnete Elemente und Attribute des **Schema** -Elements. XML-Namespaces im Format https://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (wobei yyyy und mm jeweils ein Jahr und einen Monat darstellen) sind für SSDL reserviert. Benutzerdefinierte Elemente und Attribute können nicht in Namespaces mit diesem Format vorhanden sein.
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
-Die folgende Tabelle beschreibt die Attribute angewendet werden können, um die **Schema** Element.
+In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Schema** Element angewendet werden können.
 
 | Attributname            | Ist erforderlich | Wert                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**             | Ja         | Der Namespace für das Speichermodell. Der Wert des der **Namespace** Attribut wird verwendet, um den vollqualifizierten Namen eines Typs zu bilden. Z. B. wenn ein **EntityType** mit dem Namen *Kunden* befindet sich im Simple.example.Model-Namespace, und klicken Sie dann auf den vollqualifizierten Namen des der **EntityType** ist ExampleModel.Store.Customer. <br/> Die folgenden Zeichenfolgen können nicht verwendet werden, als Wert für die **Namespace** Attribut: **System**, **vorübergehende**, oder **Edm**. Der Wert für die **Namespace** Attribut kann nicht übereinstimmen, den der Wert für die **Namespace** Attribut im CSDL-Schema-Element. |
-| **Alias**                 | Nein          | Ein anstelle der Namespacebezeichnung verwendeter Bezeichner. Z. B. wenn ein **EntityType** mit dem Namen *Kunden* befindet sich im Simple.example.Model-Namespace und den Wert des der **Alias** Attribut *StorageModel*, dann kann StorageModel.Customer als vollqualifizierter Name des können Sie die **EntityType.**                                                                                                                                                                                                                                                                                    |
+| **Namespace**             | Ja         | Der Namespace für das Speichermodell. Der Wert des **Namespace** -Attributs wird verwendet, um den voll qualifizierten Namen eines Typs zu bilden. Wenn sich beispielsweise ein **EntityType** mit dem Namen *Customer* im examplemodel. Store-Namespace befindet, ist der voll qualifizierte Name von **EntityType** examplemodel. Store. Customer. <br/> Die folgenden Zeichen folgen können nicht als Wert für das **Namespace** -Attribut verwendet werden: **System**, **transient**oder **EDM**. Der Wert für das **Namespace** -Attribut darf nicht mit dem Wert für das **Namespace** -Attribut im CSDL-Schema Element identisch sein. |
+| **Alias**                 | Nein          | Ein anstelle der Namespacebezeichnung verwendeter Bezeichner. Wenn sich z. b. ein **EntityType** mit dem Namen *Customer* im examplemodel. Store-Namespace befindet und der Wert des **Alias** -Attributs *storagemodel*ist, können Sie storagemodel. Customer als voll qualifizierten Namen von **verwenden. EntityType.**                                                                                                                                                                                                                                                                                    |
 | **Anbieter**              | Ja         | Der Datenanbieter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **ProviderManifestToken** | Ja         | Ein Token, das dem Anbieter angibt, welches Anbietermanifest zurückgegeben werden soll. Für das Token ist kein Format definiert. Die für das Token möglichen Werte werden vom Anbieter definiert. Informationen zu SQL Server-Anbietermanifesttoken finden Sie in SqlClient für Entity Framework.                                                                                                                                                                                                                                                                                                                        |
+| **ProviderManifestToken** | Ja         | Ein Token, das dem Anbieter angibt, welches Anbietermanifest zurückgegeben werden soll. Für das Token ist kein Format definiert. Die für das Token möglichen Werte werden vom Anbieter definiert. Informationen zu SQL Server-Anbieter Manifest-Token finden Sie unter SqlClient for Entity Framework.                                                                                                                                                                                                                                                                                                                        |
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt eine **Schema** -Element mit einem **EntityContainer** Element, zwei **EntityType** -Elemente und ein **Zuordnung** Element.
+Das folgende Beispiel zeigt ein **Schema** -Element, das ein **EntityContainer** -Element, zwei **EntityType** -Elemente und ein **Association** -Element enthält.
 
 ``` xml
  <Schema Namespace="ExampleModel.Store"
        Alias="Self" Provider="System.Data.SqlClient"
        ProviderManifestToken="2008"
-       xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+       xmlns="https://schemas.microsoft.com/ado/2009/11/edm/ssdl">
    <EntityContainer Name="ExampleModelStoreContainer">
      <EntitySet Name="Customers"
                 EntityType="ExampleModel.Store.Customers"
@@ -1010,11 +1010,11 @@ Anmerkungsattribute sind in der Datenspeicherschema-Definitionssprache (Store Sc
 -   Anmerkungsattribute dürfen sich in keinem XML-Namespace befinden, der für SSDL reserviert ist.
 -   Die vollqualifizierten Namen zweier Anmerkungsattribute dürfen nicht übereinstimmen.
 
-Für ein angegebenes SSDL-Element kann mehr als ein Anmerkungsattribut übernommen werden. Metadaten in Anmerkungselementen kann zur Laufzeit zugegriffen werden, mithilfe von Klassen im Namespace System.Data.Metadata.Edm.
+Für ein angegebenes SSDL-Element kann mehr als ein Anmerkungsattribut übernommen werden. Auf Metadaten, die in Anmerkung-Elementen enthalten sind, kann zur Laufzeit mithilfe von Klassen im System. Data. Metadata. Edm-Namespace zugegriffen werden.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein EntityType-Element, das ein anmerkungsattribut übernommen verfügt die **"OrderID"** Eigenschaft. Das Beispiel zeigt außerdem ein Anmerkungselement, das hinzugefügt, die **EntityType** Element.
+Das folgende Beispiel zeigt ein EntityType-Element, das über ein Anmerkung-Attribut verfügt, das auf die **OrderID** -Eigenschaft angewendet wird. Das Beispiel zeigt auch ein Anmerkung-Element, das dem **EntityType** -Element hinzugefügt wurde.
 
 ``` xml
  <EntityType Name="Orders" xmlns:c="http://CustomNamespace">
@@ -1040,11 +1040,11 @@ Anmerkungselemente sind in der Datenspeicherschema-Definitionssprache (Store Sch
 -   Die vollqualifizierten Namen zweier Anmerkungselemente dürfen nicht übereinstimmen.
 -   Anmerkungselemente müssen nach allen anderen untergeordneten Elementen eines angegebenen SSDL-Elements angeordnet werden.
 
-Mehrere Anmerkungselemente können untergeordnete Elemente eines angegebenen SSDL-Elements sein. Ab .NET Framework, Version 4, kann in Anmerkungselementen enthaltene Metadaten zur Laufzeit zugegriffen werden mithilfe von Klassen im Namespace System.Data.Metadata.Edm.
+Mehrere Anmerkungselemente können untergeordnete Elemente eines angegebenen SSDL-Elements sein. Ab Version 4 von .NET Framework können mithilfe von Klassen im Namespace "System. Data. Metadata. Edm" zur Laufzeit auf Metadaten zugegriffen werden, die in Anmerkung-Elementen enthalten sind.
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein EntityType-Element, das ein Annotation-Element hat (**CustomElement**). Das Beispiel zeigt außerdem ein anmerkungsattribut übernommen werden, um die **"OrderID"** Eigenschaft.
+Das folgende Beispiel zeigt ein EntityType-Element, das über ein Anmerkung-Element (**customelement**) verfügt. Das Beispiel zeigt auch ein Anmerkung-Attribut, das auf die **OrderID** -Eigenschaft angewendet wird.
 
 ``` xml
  <EntityType Name="Orders" xmlns:c="http://CustomNamespace">
@@ -1064,7 +1064,7 @@ Das folgende Beispiel zeigt ein EntityType-Element, das ein Annotation-Element h
 
 ## <a name="facets-ssdl"></a>Facets (SSDL)
 
-Facets in Datenspeicherschema-Definitionssprache (SSDL) stellen Einschränkungen für Spaltentypen, die in Eigenschaftenelementen angegeben sind dar. Facets werden als XML-Attribute auf implementiert **Eigenschaft** Elemente.
+Facetten in der Datenspeicher Schema-Definitions Sprache (Store Schema Definition Language, SSDL) stellen Einschränkungen für Spaltentypen dar, die in Eigenschafts Elementen Facetten werden als XML-Attribute für **Eigenschaften** Elemente implementiert.
 
 In der folgenden Tabelle werden die in SSDL unterstützten Facets beschrieben:
 
@@ -1073,6 +1073,6 @@ In der folgenden Tabelle werden die in SSDL unterstützten Facets beschrieben:
 | **Sortierung**   | Gibt die bei Vergleich- und Sortiervorgängen zu verwendende Sortierreihenfolge für die Werte der Eigenschaft an.                                                                                                             |
 | **FixedLength** | Gibt an, ob sich die Länge des Spaltenwerts ändern kann.                                                                                                                                                                                                  |
 | **MaxLength**   | Gibt die maximale Länge des Spaltenwerts an.                                                                                                                                                                                                           |
-| **Genauigkeit**   | Bei Eigenschaften vom Typ **Decimal**, gibt die Anzahl der Ziffern ein Eigenschaftswert verfügen kann. Bei Eigenschaften vom Typ **Zeit**, **"DateTime"**, und **DateTimeOffset**, gibt die Anzahl von Ziffern für den Bruchteil der Sekunden des Spaltenwerts. |
+| **Genauigkeit**   | Gibt bei Eigenschaften vom Typ **Decimal**die Anzahl der Ziffern an, die ein Eigenschafts Wert aufweisen kann. Bei Eigenschaften vom Typ **time**, **DateTime**und **DateTimeOffset**wird die Anzahl von Ziffern für die Sekundenbruchteile des Spaltenwerts angegeben. |
 | **Scale** (Skalieren)       | Gibt die Anzahl der Dezimalstellen für den Spaltenwert an.                                                                                                                                                                      |
 | **Unicode**     | Gibt an, ob der Spaltenwert als Unicode gespeichert wird.                                                                                                                                                                                                    |

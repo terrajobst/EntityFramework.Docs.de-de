@@ -1,45 +1,45 @@
 ---
-title: Fluent-API in VB.NET - EF6
+title: Fließende API mit VB.net-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: 6aa74fa72296f66f0b069b9b5ee7e2e016570525
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: df3e61fa5e2d24873336511e90231a7d78d32535
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283744"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182662"
 ---
-# <a name="fluent-api-with-vbnet"></a>Fluent-API in VB.NET
-Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.NET-Klassen. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden. In dieser exemplarischen Vorgehensweise veranschaulicht führen Sie die fluent-API-Konfiguration mithilfe von VB.NET.
+# <a name="fluent-api-with-vbnet"></a>Fließende API mit VB.net
+Mit Code First können Sie das Modell mithilfe der Klassen C @ no__t-0 oder VB.net definieren. Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden. Diese exemplarische Vorgehensweise veranschaulicht, wie Sie mithilfe von VB.net eine fließende API-Konfiguration ausführen.
 
-Auf dieser Seite wird davon ausgegangen, dass Sie ein grundlegendes Verständnis der Code First haben. Sehen Sie sich die folgenden exemplarischen Vorgehensweisen für Weitere Informationen zu Code First:
+Auf dieser Seite wird davon ausgegangen, dass Sie über grundlegende Kenntnisse Code First verfügen. Weitere Informationen zu Code First finden Sie in den folgenden exemplarischen Vorgehensweisen:
 
--   [Code First für eine neue Datenbank](~/ef6/modeling/code-first/workflows/new-database.md)
--   [Code First mit einer vorhandenen Datenbank](~/ef6/modeling/code-first/workflows/existing-database.md)
+-   [Code First einer neuen Datenbank](~/ef6/modeling/code-first/workflows/new-database.md)
+-   [Code First an eine vorhandene Datenbank](~/ef6/modeling/code-first/workflows/existing-database.md)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
-Sie benötigen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert werden, um diese exemplarische Vorgehensweise abgeschlossen haben.
+Sie müssen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert haben, um diese exemplarische Vorgehensweise abzuschließen.
 
-Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch haben [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installiert
+Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
 
 ## <a name="create-the-application"></a>Erstellen der Anwendung
 
-Einfachheit halber werden wir eine einfache Konsolenanwendung zu erstellen, die Code First verwendet, um die Daten zugreift.
+Um die Dinge einfach zu halten, erstellen wir eine einfache Konsolenanwendung, die Code First verwendet, um Daten Zugriffe auszuführen.
 
 -   Öffnen Sie Visual Studio.
--   **Datei -&gt; neu –&gt; Projekt...**
--   Wählen Sie **Windows** im linken Menü und **-Konsolenanwendung**
--   Geben Sie **CodeFirstVBSample** als Name
+-   **Datei-&gt; New-&gt;-Projekt...**
+-   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
+-   Geben Sie **codefirstvbsample** als Name ein.
 -   Wählen Sie **OK** aus.
 
-## <a name="define-the-model"></a>Definieren Sie das Modell
+## <a name="define-the-model"></a>Definieren des Modells
 
-In diesem Schritt definieren Sie VB.NET POCO Entitätstypen, die das konzeptionelle Modell darstellen. Die Klassen müssen nicht von den Basisklassen abgeleitet werden oder Schnittstellen implementieren.
+In diesem Schritt definieren Sie VB.net poco-Entitäts Typen, die das konzeptionelle Modell darstellen. Die Klassen müssen nicht von Basisklassen abgeleitet werden oder keine Schnittstellen implementieren.
 
--   Fügen Sie dem Projekt eine neue Klasse geben Sie **"SchoolModel"** für den Namen der Klasse
--   Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden code
+-   Fügen Sie dem Projekt eine neue Klasse hinzu, geben Sie **SchoolModel** als Klassennamen ein.
+-   Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden Code:
 
 ``` vb
    Public Class Department
@@ -133,21 +133,21 @@ In diesem Schritt definieren Sie VB.NET POCO Entitätstypen, die das konzeptione
     End Class
 ```
 
-## <a name="define-a-derived-context"></a>Definiert einen abgeleiteten Kontext
+## <a name="define-a-derived-context"></a>Definieren eines abgeleiteten Kontexts
 
-Wir sind zu beginnen, verwenden Typen von Entity Framework, daher wir das EntityFramework NuGet-Paket hinzufügen müssen.
+Wir beginnen mit der Verwendung von Typen aus der Entity Framework daher müssen wir das nuget-Paket "EntityFramework" hinzufügen.
 
--   **-Projekt –&gt; **NuGet-Pakete verwalten...**
+-   \* * Project – &gt; **nuget-Pakete verwalten...**
 > [!NOTE]
-> Wenn Sie nicht über verfügen den **NuGet-Pakete verwalten...** Option Sie installieren die [neueste Version von NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
--   Wählen Sie die **Online** Registerkarte
--   Wählen Sie die **EntityFramework** Paket
--   Klicken Sie auf **installieren**
+> Wenn Sie nicht über die **nuget-Pakete verwalten verfügen...** Option Sie sollten die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
+-   Auswählen der Registerkarte " **Online** "
+-   Auswählen des " **EntityFramework** "-Pakets
+-   Klicken Sie auf **Installieren**
 
-Jetzt ist es Zeit, einen abgeleiteten Kontext, steht für eine Sitzung mit der Datenbank, die es uns ermöglicht, Abfragen und Speichern von Daten zu definieren. Wir definieren einen Kontext an, die von System.Data.Entity.DbContext abgeleitet und stellt einen typisierten "DbSet"&lt;TEntity&gt; für jede Klasse in unserem Modell.
+Nun ist es an der Zeit, einen abgeleiteten Kontext zu definieren, der eine Sitzung mit der Datenbank darstellt, sodass wir Daten Abfragen und speichern können. Wir definieren einen Kontext, der von System. Data. Entity. dbcontext abgeleitet ist und für jede Klasse in unserem Modell ein typisiertes dbset @ no__t-0tentity @ no__t-1 verfügbar macht.
 
--   Fügen Sie dem Projekt eine neue Klasse geben Sie **SchoolContext** für den Namen der Klasse
--   Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden code
+-   Fügen Sie dem Projekt eine neue Klasse hinzu, geben Sie " **schoolContext** " als Klassennamen ein.
+-   Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden Code:
 
 ``` vb
     Imports System.Data.Entity
@@ -169,11 +169,11 @@ Jetzt ist es Zeit, einen abgeleiteten Kontext, steht für eine Sitzung mit der D
     End Class
 ```
 
-## <a name="configuring-with-the-fluent-api"></a>Konfigurieren mit der Fluent-API
+## <a name="configuring-with-the-fluent-api"></a>Konfigurieren mit der fließend-API
 
-In diesem Abschnitt wird veranschaulicht, wie die fluent-APIs zu verwenden, um Typen zu Tabellen, die Eigenschaften für die Zuordnung, um die Zuordnung der Spalten und Beziehungen zwischen Tabellen konfigurieren\\Typen im Modell. Die fluent-API verfügbar gemacht wird, über die **DbModelBuilder** geben und am häufigsten zugegriffen wird, durch das Überschreiben der **"onmodelcreating"** Methode **"DbContext"**.
+In diesem Abschnitt wird veranschaulicht, wie Sie mithilfe der fließenden APIs Typen für die Tabellen Zuordnung, die Eigenschaften für die Spalten Zuordnung und Beziehungen zwischen den Tabellen @ no__t-0type in Ihrem Modell konfigurieren. Die fließende API wird über den Typ " **dbmodelbuilder** " verfügbar gemacht und wird am häufigsten aufgerufen, indem die **onmodelcreating** -Methode für **dbcontext**überschrieben wird.
 
--   Kopieren Sie den folgenden Code ein, und fügen sie der **"onmodelcreating"** Methode definiert, auf die **SchoolContext** Klasse die Kommentare erklären, was bewirkt, dass jede Zuordnung
+-   Kopieren Sie den folgenden Code, und fügen Sie ihn der **onmodelcreating** -Methode hinzu, die in der **schoolContext** -Klasse definiert ist
 
 ``` vb
 ' Configure Code First to ignore PluralizingTableName convention
@@ -363,12 +363,12 @@ modelBuilder.Entity(Of Course)().
     WillCascadeOnDelete(False)
 ```
 
-## <a name="using-the-model"></a>Mithilfe des Modells
+## <a name="using-the-model"></a>Verwenden des Modells
 
-Führen Sie nun einige Daten mittels der **SchoolContext** hochskalieren als Modell in Aktion zu sehen.
+Wir führen einige Daten Zugriffe mithilfe von **schoolContext** aus, um das Modell in Aktion zu sehen.
 
--   Öffnen Sie die Datei "Module1.vb", in die Main-Funktion definiert ist
--   Kopieren Sie die folgende Definition einer Module1
+-   Öffnen Sie die Datei Module1. vb, in der die Main-Funktion definiert ist.
+-   Kopieren und fügen Sie die folgende Module1-Definition ein.
 
 ``` vb
 Imports System.Data.Entity
@@ -408,9 +408,9 @@ Module Module1
 End Module
 ```
 
-Sie können jetzt die Anwendung auszuführen, und probieren Sie es aus.
+Sie können die Anwendung jetzt ausführen und testen.
 
-```
+```console
 Enter a name for a new Department: Computing
 All Departments in the database:
 Computing

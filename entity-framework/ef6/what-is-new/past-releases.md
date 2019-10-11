@@ -3,12 +3,12 @@ title: Frühere Releases von Entity Framework-EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 3ee433ac0932f89841b5cc42fb864eefb9419ef2
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 478dec6b2401efd554e84a231fe78e71dcbf5771
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149286"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182118"
 ---
 # <a name="past-releases-of-entity-framework"></a>Frühere Releases von Entity Framework
 
@@ -88,7 +88,7 @@ Dieses geringfügige Update umfasst eine beträchtliche Anzahl neuer Features:
 
 - Die Tool **Konsolidierung** bietet eine konsistente Möglichkeit zum Erstellen eines neuen EF-Modells. Dieses Feature [erweitert den ADO.NET Entity Data Model-Assistenten, um das Erstellen von Code First Modellen](~/ef6/modeling/code-first/workflows/existing-database.md), einschließlich Reverse Engineering aus einer vorhandenen Datenbank, zu unterstützen. Diese Features waren zuvor in den EF Power Tools in der Beta Qualität verfügbar.
 - Die **[Behandlung von transaktionscommitfehlern](~/ef6/fundamentals/connection-resiliency/commit-failures.md)** bietet commitfailurehandler, der die neu eingeführte Möglichkeit zum Abfangen von Transaktions Vorgängen nutzt. Commitfailurehandler ermöglicht die automatische Wiederherstellung nach Verbindungsfehlern beim Ausführen eines Commits für eine Transaktion.
-- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** ermöglicht das Angeben von Indizes durch Platzieren eines `[Index]` Attributs für eine Eigenschaft (oder Eigenschaften) im Code First Modell. Code First erstellt dann einen entsprechenden Index in der Datenbank.
+- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** ermöglicht das Angeben von Indizes durch das Platzieren eines `[Index]`-Attributs für eine Eigenschaft (oder Eigenschaften) in Ihrem Code First Modell. Code First erstellt dann einen entsprechenden Index in der Datenbank.
 - **Die öffentliche Mapping-API** bietet Zugriff auf die Informationen, die EF für die Zuordnung von Eigenschaften und Typen zu Spalten und Tabellen in der Datenbank bietet. In früheren Versionen war diese API intern.
 - Wenn **[Sie Interceptors über die Datei "App/Web. config" Konfigurieren](~/ef6/fundamentals/configuring/config-file.md)** möchten, können Sie Interceptors hinzufügen, ohne die Anwendung neu kompilieren zu müssen.
 - **System. Data. Entity. Infrastructure. intercep. databaselogger**ist ein neuer Interceptor, mit dem Sie problemlos alle Daten Bank Vorgänge in einer Datei protokollieren können. In Kombination mit der vorherigen Funktion können Sie auf diese Weise problemlos [auf die Protokollierung von Daten Bank Vorgängen für eine bereitgestellte Anwendung umstellen](~/ef6/fundamentals/configuring/config-file.md), ohne dass eine erneute Kompilierung erforderlich ist.
@@ -125,7 +125,7 @@ Die folgenden Features funktionieren für Modelle, die mit Code First oder dem E
 - Enumerationen **, räumliche und bessere Leistung in .NET 4,0** : indem die Kernkomponenten, die in der .NET Framework verwendet wurden, in das EF-nuget-Paket verschoben werden, bieten wir nun Unterstützung für Enumerationen, räumliche Datentypen und Leistungsverbesserungen von EF5 auf .NET 4,0.
 - **Verbesserte Leistung von Enumerable. enthält in LINQ-Abfragen**.
 - **Verbesserte Aufwärmzeit (Ansichts Generierung)** , insbesondere bei großen Modellen.
-- **Pluggable Pluralization &amp;** -Singular-Dienst.
+- **Pluggable Pluralization &amp; singularisierungsdienst**.
 - **Benutzerdefinierte Implementierungen von "Gleichheits-oder GetHashCode** " für Entitäts Klassen werden jetzt unterstützt.
 - **Dbset. AddRange/RemoveRange** bietet eine optimierte Möglichkeit zum Hinzufügen oder Entfernen mehrerer Entitäten aus einer Menge.
 - **Dbchangetracker. HasChanges** bietet eine einfache und effiziente Möglichkeit, um festzustellen, ob ausstehende Änderungen in der Datenbank gespeichert werden müssen.
@@ -138,9 +138,9 @@ Die folgenden Funktionen gelten nur für Code First:
 - **[Idempotente Migrations Skripts](~/ef6/modeling/code-first/migrations/index.md)** ermöglichen es Ihnen, ein SQL-Skript zu generieren, das eine Datenbank auf eine beliebige Version bis zur neuesten Version aktualisieren kann.
 - Mithilfe der **[konfigurierbaren Migrations](~/ef6/modeling/code-first/migrations/history-customization.md)** Verlaufs Tabelle können Sie die Definition der Migrations Verlaufs Tabelle anpassen. Dies ist besonders nützlich für Datenbankanbieter, die die entsprechenden Datentypen benötigen usw., um anzugeben, dass die Migrations Verlaufs Tabelle ordnungsgemäß funktioniert.
 - **Mehrere Kontexte pro Datenbank** entfernen bei der Verwendung von Migrationen oder bei der automatischen Erstellung der Datenbank durch Code First die vorherige Einschränkung von einem Code First Modell pro Datenbank.
-- **[Dbmodelbuilder. hasdefaultschema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** ist eine neue Code First-API, mit der das standardmäßige Datenbankschema für ein Code First Modell an einem Ort konfiguriert werden kann. Zuvor war das Code First Standardschema für &quot;dbo&quot; hart codiert, und die einzige Möglichkeit zum Konfigurieren des Schemas, zu dem eine Tabelle gehörte, war die-API-API.
+- **[Dbmodelbuilder. hasdefaultschema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** ist eine neue Code First-API, mit der das standardmäßige Datenbankschema für ein Code First Modell an einem Ort konfiguriert werden kann. Zuvor war das Code First Standardschema hart codiert für &quot;dbo @ no__t-1, und die einzige Möglichkeit zum Konfigurieren des Schemas, zu dem eine Tabelle gehörte, war die API-basierte API.
 - Mit der **dbmodelbuilder. Konfigurationen. addfromassembly-Methode** können Sie problemlos alle Konfigurations Klassen hinzufügen, die in einer Assembly definiert sind, wenn Sie Konfigurations Klassen mit der Code First fließend-API verwenden.
-- Mithilfe von **[benutzerdefinierten Migrations Vorgängen](http://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** können Sie zusätzliche Vorgänge hinzufügen, die in Ihren Code basierten Migrationen verwendet werden.
+- Mithilfe von **[benutzerdefinierten Migrations Vorgängen](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** können Sie zusätzliche Vorgänge hinzufügen, die in Ihren Code basierten Migrationen verwendet werden.
 - **Die standardmäßige Transaktions Isolationsstufe wird** für Datenbanken, die mit Code First erstellt wurden, in READ_COMMITTED_SNAPSHOT geändert, was eine höhere Skalierbarkeit und weniger Deadlocks ermöglicht.
 - **Entitäts Typen und komplexe Typen können jetzt geschaltenende Klassen sein**. |
 

@@ -1,19 +1,19 @@
 ---
-title: Gespeicherte Prozeduren – EF6 Designer Abfragen
+title: Gespeicherte Prozeduren für Designer Abfragen EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-ms.openlocfilehash: 04478ea1c8cd43a7ba4ee788e464992af3de7f64
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 2e0092b526278597e8477d47eeb642598647bb91
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283900"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182481"
 ---
-# <a name="designer-query-stored-procedures"></a>Designer-Abfrage, gespeicherten Prozeduren
-Dieser schrittweise erläuterten exemplarischen zeigen, wie das Entity Framework Designer (EF-Designer) zum Importieren von gespeicherter Prozeduren verwenden, in ein Modell aus, und rufen Sie dann die importierten gespeicherten Prozeduren, um Ergebnisse abzurufen. 
+# <a name="designer-query-stored-procedures"></a>Gespeicherte Prozeduren für Designer Abfragen
+In dieser schrittweisen exemplarischen Vorgehensweise wird veranschaulicht, wie Sie mit dem Entity Framework Designer (EF-Designer) gespeicherte Prozeduren in ein Modell importieren und dann die importierten gespeicherten Prozeduren aufrufen, um Ergebnisse abzurufen. 
 
-Beachten Sie, dass Code First-Zuordnung zu gespeicherten Prozeduren oder Funktionen nicht unterstützt. Allerdings können Sie gespeicherte Prozeduren oder Funktionen mithilfe der System.Data.Entity.DbSet.SqlQuery-Methode aufrufen. Zum Beispiel:
+Beachten Sie, dass Code First keine Zuordnung zu gespeicherten Prozeduren oder Funktionen unterstützt. Allerdings können Sie gespeicherte Prozeduren oder Funktionen mithilfe der System. Data. Entity. dbset. sqlQuery-Methode abrufen. Zum Beispiel:
 ``` csharp
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 ```
@@ -23,47 +23,47 @@ var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 
 - Eine aktuelle Version von Visual Studio.
-- Die [Beispieldatenbank ' School '](~/ef6/resources/school-database.md).
+- Die [Beispieldatenbank "School](~/ef6/resources/school-database.md)".
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
 -   Öffnen Sie Visual Studio 2012.
--   Wählen Sie **Dateien&gt; neu –&gt; Projekt**
--   Klicken Sie im linken Bereich auf **Visual C\#**, und wählen Sie dann die **Konsole** Vorlage.
--   Geben Sie **EFwithSProcsSample** als Namen.
--   Klicken Sie auf **OK**.
+-   **Datei &gt; New-&gt;-Projekt** auswählen
+-   Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+-   Geben Sie **efwithsprocssample** Als Name ein.
+-   Wählen Sie **OK**aus.
 
 ## <a name="create-a-model"></a>Erstellen eines Modells
 
--   Mit der rechten Maustaste in des Projekts im Projektmappen-Explorer, und wählen Sie **hinzufügen –&gt; neues Element**.
--   Wählen Sie **Daten** aus dem linken Menü und wählen Sie dann **ADO.NET Entity Data Model** im Bereich Vorlagen.
--   Geben Sie **EFwithSProcsModel.edmx** für den Dateinamen ein, und klicken Sie dann auf **hinzufügen**.
--   Wählen Sie im Dialogfeld "Modellinhalte" **aus Datenbank generieren**, und klicken Sie dann auf **Weiter**.
--   Klicken Sie auf **neue Verbindung**.  
-    Geben Sie den Servernamen, klicken Sie im Dialogfeld "Verbindungseigenschaften" (z. B. **(Localdb)\\Mssqllocaldb**), wählen die Authentifizierungsmethode, Typ **School** für den Datenbanknamen, und klicken Sie dann Klicken Sie auf **OK**.  
-    Das Dialogfeld "Wählen Sie Ihre Datenverbindung" wird mit Ihrem datenbankverbindungseinstellung aktualisiert.
--   Klicken Sie im Dialogfeld "Datenbankobjekte auswählen" Überprüfen der **Tabellen** Kontrollkästchen, um alle Tabellen auszuwählen.  
-    Wählen Sie außerdem die folgenden gespeicherten Prozeduren in der **gespeicherte Prozeduren und Funktionen** Knoten: **GetStudentGrades** und **GetDepartmentName**. 
+-   Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf das Projekt, und wählen Sie **Add-&gt; New Item**aus.
+-   Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.
+-   Geben Sie als Dateiname **efwithsprocsmodel. edmx** ein, und klicken Sie dann auf **Hinzufügen**.
+-   Wählen Sie im Dialogfeld Modell Inhalte auswählen die Option **aus Datenbank generieren aus**, und klicken Sie dann auf **weiter**.
+-   Klicken Sie auf **neue Verbindung**.  
+    Geben Sie im Dialogfeld Verbindungs Eigenschaften den Servernamen ein (z. b. **(localdb) \\mssqllocaldb**), wählen Sie die Authentifizierungsmethode aus, geben Sie **School** Als Datenbankname ein, und klicken Sie dann auf **OK**.  
+    Das Dialogfeld Wählen Sie Ihre Datenverbindung aus wird mit Ihrer Daten bankverbindungs Einstellung aktualisiert.
+-   Aktivieren Sie im Dialogfeld Wählen Sie Ihre Datenbankobjekte aus das Kontrollkästchen **Tabellen** , um alle Tabellen auszuwählen.  
+    Wählen Sie außerdem im Knoten **gespeicherte Prozeduren und Funktionen** die folgenden gespeicherten Prozeduren aus: **GetStudentGrades** und **GetDepartmentName**. 
 
     ![Importieren](~/ef6/media/import.jpg)
 
-    *Ab Visual Studio 2012 die EF-Designer unterstützt Massenexport und-Import von gespeicherten Prozeduren. Die **Import ausgewählten gespeicherten Prozeduren und Funktionen in Elem Modell** ist standardmäßig aktiviert.*
--   Klicken Sie auf **Fertig stellen**.
+    *beginnend mit Visual Studio 2012 unterstützt der EF-Designer den Massen Import gespeicherter Prozeduren. Die Option zum **importieren ausgewählter gespeicherter Prozeduren und Funktionen in das Entitäts Modell** ist standardmäßig aktiviert.*
+-   Klicken Sie auf **Finish**.
 
-Standardmäßig wird die Ergebnisform jedes importierte gespeicherte Prozedur oder Funktion, die mehr als eine Spalte zurückgibt automatisch ein neuer komplexer Typ sein. In diesem Beispiel die Ergebnisse der zugeordnet werden soll die **GetStudentGrades** -Funktion der **StudentGrade** Entität und die Ergebnisse der **GetDepartmentName** zu **keine** (**keine** ist der Standardwert).
+Standardmäßig wird die Ergebnis Form jeder importierten gespeicherten Prozedur oder Funktion, die mehr als eine Spalte zurückgibt, automatisch zu einem neuen komplexen Typ. In diesem Beispiel möchten wir die Ergebnisse der Funktion " **GetStudentGrades** " der Entität " **StudentGrade** " und die Ergebnisse von " **GetDepartmentName** " zu " **None** " zuordnen ("**None** " ist der Standardwert).
 
-Damit ein Funktionsimport einen Entitätstyp zurückgegeben müssen die von der entsprechenden gespeicherten Prozedur zurückgegebenen Spalten genau mit die skalaren Eigenschaften der zurückgegebenen Entitätstyp übereinstimmen. Ein Funktionsimport kann Auflistungen von einfachen Typen, komplexen Typen oder kein Wert zurückgegeben werden.
+Damit ein Funktions Import einen Entitätstyp zurückgibt, müssen die von der entsprechenden gespeicherten Prozedur zurückgegebenen Spalten genau mit den skalaren Eigenschaften des zurückgegebenen Entitäts Typs übereinstimmen. Ein Funktions Import kann auch Auflistungen von einfachen Typen, komplexen Typen oder keinen Wert zurückgeben.
 
--   Mit der rechten Maustaste Entwurfsoberfläche, und wählen **Modellbrowser**.
--   In **Modellbrowser**Option **Funktionsimporte**, und doppelklicken Sie dann auf die **GetStudentGrades** Funktion.
--   Wählen Sie in das Dialogfeld Funktionsimport bearbeiten, **Entitäten** , und wählen Sie **StudentGrade**.  
-    *Die **Funktionsimport zusammensetzbar ist** Kontrollkästchen am Anfang der **Funktionsimporte** Dialogfeld können Sie die zusammensetzbare Funktionen zuordnen. Wenn Sie dieses Kontrollkästchen deaktivieren, erscheinen nur zusammensetzbare Funktionen (Table-valued Function) in der **gespeicherte Prozedur / Funktionsnamen** Dropdown-Liste. Wenn dieses Kontrollkästchen nicht aktiviert, werden nur für nicht zusammensetzbare Funktionen in der Liste angezeigt werden.*
+-   Klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie **Modell Browser**
+-   Wählen Sie im **Modell Browser** **Funktions Importe**aus, und doppelklicken Sie dann auf die Funktion **GetStudentGrades** .
+-   Wählen Sie im Dialogfeld Funktions Import bearbeiten die Option **Entitäten** Aus, und wählen Sie dann **StudentGrade**aus.  
+    *Das Kontrollkästchen **Funktions Import ist zusammensetzbar** am oberen Rand des Dialog Felds **Funktions Importe** ermöglicht Ihnen die Zuordnung zu Zusammensetz baren Funktionen. Wenn Sie dieses Kontrollkästchen aktivieren, werden nur Zusammensetz Bare Funktionen (Tabellenwert Funktionen) in der Dropdown Liste **Name der gespeicherten Prozedur/Funktion** angezeigt. Wenn Sie dieses Kontrollkästchen nicht aktivieren, werden nur nicht Zusammensetz Bare Funktionen in der Liste angezeigt.*
 
-## <a name="use-the-model"></a>Verwenden Sie das Modell
+## <a name="use-the-model"></a>Verwenden des Modells
 
-Öffnen der **"Program.cs"** -Datei, in der **Main** Methode definiert ist. Fügen Sie der Main-Funktion mit den folgenden Code.
+Öffnen Sie die Datei **Program.cs** , in der die **Main** -Methode definiert ist. Fügen Sie der Main-Funktion den folgenden Code hinzu.
 
-Der Code ruft zwei gespeicherte Prozeduren: **GetStudentGrades** (gibt **StudentGrades** für den angegebenen *"StudentID"*) und **GetDepartmentName** (der Name der Abteilung im Ausgabeparameter zurückgegeben).  
+Der Code ruft zwei gespeicherte Prozeduren auf: **GetStudentGrades** (gibt **studentgrades** für die angegebene *Studentin TID*zurück) und **GetDepartmentName** (gibt den Namen der Abteilung im Output-Parameter zurück).  
 
 ``` csharp
     using (SchoolEntities context = new SchoolEntities())
@@ -89,7 +89,7 @@ Der Code ruft zwei gespeicherte Prozeduren: **GetStudentGrades** (gibt **Student
 
 Kompilieren Sie die Anwendung, und führen Sie sie aus. Das Programm erzeugt die folgende Ausgabe:
 
-```
+```console
 StudentID: 2
 Student grade: 4.00
 StudentID: 2
@@ -100,4 +100,4 @@ The department name is Engineering
 <a name="output-parameters"></a>Ausgabeparameter
 -----------------
 
-Wenn Output-Parameter verwendet werden, werden ihre Werte nicht verfügbar, bis die Ergebnisse vollständig gelesen wurden. Dies liegt an der zugrunde liegende Verhalten von DbDataReader, finden Sie unter [Abrufen von Daten mit einem DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) Weitere Details.
+Wenn Output-Parameter verwendet werden, sind ihre Werte erst verfügbar, wenn die Ergebnisse vollständig gelesen wurden. Dies ist auf das zugrunde liegende Verhalten von DbDataReader zurückzuführen. Weitere Informationen finden [Sie unter Abrufen von Daten mithilfe eines DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) .

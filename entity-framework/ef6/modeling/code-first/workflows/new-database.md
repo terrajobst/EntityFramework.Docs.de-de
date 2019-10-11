@@ -1,46 +1,46 @@
 ---
-title: Code First für eine neue Datenbank – EF6
+title: Code First einer neuen Datenbank EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: a19db575b685cde98509fff4a0efaf26106b26bc
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: d540fc6e84049f345ae22998f94c309e0be73fc3
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284121"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182572"
 ---
-# <a name="code-first-to-a-new-database"></a>Code First für eine neue Datenbank
-Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code können Sie Ihr Modell mithilfe von C definieren zuerst\# oder VB.Net-Klassen. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
+# <a name="code-first-to-a-new-database"></a>Code First einer neuen Datenbank
+Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einführung in Code First Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt wird, oder eine leere Datenbank, der Code First neue Tabellen hinzugefügt werden. Mit Code First können Sie das Modell mithilfe der Klassen C @ no__t-0 oder VB.net definieren. Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.
 
 ## <a name="watch-the-video"></a>Video ansehen
-Dieses Video bietet eine Einführung in die Code First-Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt oder eine leere Datenbank, Code First werden neue Tabellen hinzufügen. Code zuerst können Sie Ihr Modell mithilfe von C# oder VB.NET. Klassen definieren. Verwenden von Attributen auf Klassen und Eigenschaften oder mithilfe einer fluent-API kann optional zusätzliche Konfigurationsschritte ausgeführt werden.
+Dieses Video bietet eine Einführung in Code First Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt wird, oder eine leere Datenbank, der Code First neue Tabellen hinzugefügt werden. Mit Code First können Sie das Modell mithilfe C# von-oder VB.NET-Klassen definieren. Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.
 
-**Präsentation:** [Rowan Miller](http://romiller.com/)
+**Präsentiert von**: [Rowan-Miller](https://romiller.com/)
 
 **Video**: [WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
-Sie benötigen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert werden, um diese exemplarische Vorgehensweise abgeschlossen haben.
+Sie müssen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert haben, um diese exemplarische Vorgehensweise abzuschließen.
 
-Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch haben [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installiert.
+Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
 
 ## <a name="1-create-the-application"></a>1. Erstellen der Anwendung
 
-Einfachheit halber werden wir eine einfache Konsolenanwendung zu erstellen, die Code First verwendet, um die Daten zugreift.
+Um die Dinge einfach zu halten, erstellen wir eine einfache Konsolenanwendung, die Code First verwendet, um Daten Zugriffe auszuführen.
 
 -   Öffnen Sie Visual Studio.
--   **Datei -&gt; neu –&gt; Projekt...**
--   Wählen Sie **Windows** im linken Menü und **-Konsolenanwendung**
--   Geben Sie **CodeFirstNewDatabaseSample** als Name
+-   **Datei-&gt; New-&gt;-Projekt...**
+-   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
+-   Geben Sie **codefirstnewdatabasesample** als Name ein.
 -   Wählen Sie **OK** aus.
 
 ## <a name="2-create-the-model"></a>2. Erstellen des Modells
 
-Definieren Sie ein sehr einfaches Modell, die mithilfe von Klassen. Wir definieren einfach sie in der Datei "Program.cs" jedoch in einer realen Anwendung, die Sie Ihre Klassen sich in separaten Dateien und ggf. ein separates Projekt Teilen würde.
+Definieren wir ein sehr einfaches Modell mithilfe von Klassen. Wir definieren Sie lediglich in der Program.cs-Datei, aber in einer realen Anwendung würden Sie Ihre Klassen in separate Dateien und potenziell ein separates Projekt aufteilen.
 
-Fügen Sie unterhalb der Definition der Programmklasse in "Program.cs" die folgenden zwei Klassen ein.
+Fügen Sie unter der Programm Klassendefinition in Program.cs die beiden folgenden Klassen hinzu.
 
 ``` csharp
 public class Blog
@@ -62,27 +62,27 @@ public class Post
 }
 ```
 
-Sie werden feststellen, dass wir die zwei Navigationseigenschaften (Blog.Posts und Post.Blog) virtuellen vornehmen. Dies ermöglicht die Lazy Loading-Funktion von Entity Framework. Lazy Loading bedeutet, dass der Inhalt dieser Eigenschaften automatisch aus der Datenbank geladen werden, wenn Sie versuchen, darauf zuzugreifen.
+Sie werden feststellen, dass die beiden Navigations Eigenschaften (Blog. Posts und Post. Blog) virtuell sind. Dies ermöglicht die Lazy Load-Funktion von Entity Framework. Lazy Load bedeutet, dass der Inhalt dieser Eigenschaften automatisch aus der Datenbank geladen wird, wenn Sie versuchen, darauf zuzugreifen.
 
-## <a name="3-create-a-context"></a>3. Erstellen Sie einen Kontext
+## <a name="3-create-a-context"></a>3. Erstellen eines Kontexts
 
-Jetzt ist es Zeit, einen abgeleiteten Kontext, steht für eine Sitzung mit der Datenbank, die es uns ermöglicht, Abfragen und Speichern von Daten zu definieren. Wir definieren einen Kontext an, die von System.Data.Entity.DbContext abgeleitet und stellt einen typisierten "DbSet"&lt;TEntity&gt; für jede Klasse in unserem Modell.
+Nun ist es an der Zeit, einen abgeleiteten Kontext zu definieren, der eine Sitzung mit der Datenbank darstellt, sodass wir Daten Abfragen und speichern können. Wir definieren einen Kontext, der von System. Data. Entity. dbcontext abgeleitet ist und für jede Klasse in unserem Modell ein typisiertes dbset @ no__t-0tentity @ no__t-1 verfügbar macht.
 
-Beginnen wir nun auf die Typen aus dem Entity Framework verwenden, daher wir das EntityFramework NuGet-Paket hinzufügen müssen.
+Wir beginnen jetzt mit der Verwendung von Typen aus der Entity Framework daher müssen wir das nuget-Paket "EntityFramework" hinzufügen.
 
--   **Projekt:&gt; NuGet-Pakete verwalten...**
-    Hinweis: Wenn Sie nicht über verfügen den **NuGet-Pakete verwalten...** Option Sie installieren die [neueste Version von NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
--   Wählen Sie die **Online** Registerkarte
--   Wählen Sie die **EntityFramework** Paket
--   Klicken Sie auf **installieren**
+-   **Project – &gt; nuget-Pakete verwalten...**
+    Hinweis: Wenn Sie nicht über die **nuget-Pakete verwalten verfügen...** Option Sie sollten die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
+-   Auswählen der Registerkarte " **Online** "
+-   Auswählen des " **EntityFramework** "-Pakets
+-   Klicken Sie auf **Installieren**
 
-Hinzufügen einer using-Anweisung für System.Data.Entity am Anfang der Datei "Program.cs".
+Fügen Sie am Anfang von Program.cs eine using-Anweisung für System. Data. Entity hinzu.
 
 ``` csharp
 using System.Data.Entity;
 ```
 
-Fügen Sie unterhalb der Post-Klasse in "Program.cs" die folgenden abgeleiteten Kontext aus.
+Fügen Sie unter der Post-Klasse in Program.cs den folgenden abgeleiteten Kontext hinzu.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -92,7 +92,7 @@ public class BloggingContext : DbContext
 }
 ```
 
-Hier ist eine vollständige Liste der was "Program.cs" jetzt enthalten soll.
+Im folgenden finden Sie eine komplette Liste der Komponenten, die Program.cs jetzt enthalten sollte.
 
 ``` csharp
 using System;
@@ -137,11 +137,11 @@ namespace CodeFirstNewDatabaseSample
 }
 ```
 
-Das ist der Code zu speichern und Abrufen von Daten benötigten. Natürlich gibt es einiges hinter den Kulissen passiert ist, und wir werden sehen Sie sich, dass in Kürze jedoch lassen Sie uns in Aktion sehen.
+Dies ist der gesamte Code, der zum Speichern und Abrufen von Daten erforderlich ist. Natürlich gibt es im Hintergrund etwas, das wir in einem Moment sehen werden, aber zuerst sehen wir uns dies in Aktion an.
 
-## <a name="4-reading--writing-data"></a>4. Lesen und Schreiben von Daten
+## <a name="4-reading--writing-data"></a>4. Lesen & Schreiben von Daten
 
-Implementieren Sie die Main-Methode in "Program.cs" ein, wie unten dargestellt. Dieser Code erstellt eine neue Instanz unseres Kontexts und anschließend verwendet, um einen neuen Blog einfügen. Anschließend wird eine LINQ-Abfrage zum Abrufen aller Blogs aus der Datenbank nach Titel alphabetisch angeordnet sind.
+Implementieren Sie die Main-Methode in Program.cs, wie unten gezeigt. Mit diesem Code wird eine neue Instanz des Kontexts erstellt und anschließend verwendet, um einen neuen Blog einzufügen. Anschließend wird eine LINQ-Abfrage verwendet, um alle Blogs aus der Datenbank alphabetisch nach Titel abzurufen.
 
 ``` csharp
 class Program
@@ -176,9 +176,9 @@ class Program
 }
 ```
 
-Sie können jetzt die Anwendung auszuführen, und probieren Sie es aus.
+Sie können die Anwendung jetzt ausführen und testen.
 
-```
+```console
 Enter a name for a new Blog: ADO.NET Blog
 All blogs in the database:
 ADO.NET Blog
@@ -186,44 +186,44 @@ Press any key to exit...
 ```
 ### <a name="wheres-my-data"></a>Wo sind meine Daten?
 
-Gemäß der Konvention erstellt "DbContext" eine Datenbank für Sie.
+Gemäß der Konvention hat dbcontext eine Datenbank für Sie erstellt.
 
--   Wenn eine lokale Instanz von SQL Express verfügbar ist (standardmäßig installiert, mit Visual Studio 2010) klicken Sie dann hat Code First die Datenbank für diese Instanz
--   Wenn Sie SQL Express ist nicht verfügbar, und Code First wird zu verwenden, [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) (standardmäßig installiert, mit Visual Studio 2012)
--   Die Datenbank ist nach der vollqualifizierte Name des abgeleiteten Kontexts, in unserem Fall, die mit dem Namen **CodeFirstNewDatabaseSample.BloggingContext**
+-   Wenn eine lokale SQL Express-Instanz verfügbar ist (standardmäßig mit Visual Studio 2010 installiert), hat Code First die Datenbank auf dieser Instanz erstellt.
+-   Wenn SQL Express nicht verfügbar ist, werden Code First versuchen, [localdb](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) (standardmäßig mit Visual Studio 2012 installiert) zu verwenden.
+-   Die Datenbank wird nach dem voll qualifizierten Namen des abgeleiteten Kontexts benannt, in unserem Fall **codefirstnewdatabasesample. bloggingcontext.**
 
-Hierbei handelt es sich um nur den Standardkonventionen und es gibt verschiedene Möglichkeiten zum Ändern der Datenbank, die Code First verwendet, Weitere Informationen finden Sie in der **wie "DbContext" für das Modell und die Datenbankverbindung ermittelt** Thema.
-Sie können mit dieser Datenbank mithilfe von Server-Explorer in Visual Studio verbinden.
+Dabei handelt es sich nur um die Standard Konventionen, und es gibt verschiedene Möglichkeiten, die Datenbank zu ändern, die Code First verwendet. Weitere Informationen finden Sie im Thema **wie dbcontext das Modell und die Datenbankverbindung** erkennt.
+Sie können mit Server-Explorer in Visual Studio eine Verbindung mit dieser Datenbank herstellen.
 
--   **Ansicht – Profiler -&gt; Server-Explorer**
--   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen** , und wählen Sie **Verbindung hinzufügen...**
--   Wenn Sie vor dem müssen Sie Microsoft SQL Server als Datenquelle wählen im Server-Explorer mit einer Datenbank verbunden haben
+-   **View-&gt; Server-Explorer**
+-   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen** , und wählen Sie **Verbindung hinzufügen aus.**
+-   Wenn Sie über Server-Explorer keine Verbindung mit einer Datenbank hergestellt haben, müssen Sie Microsoft SQL Server als Datenquelle auswählen.
 
-    ![Auswählen einer Datenquelle](~/ef6/media/selectdatasource.png)
+    ![Datenquelle auswählen](~/ef6/media/selectdatasource.png)
 
--   Eine Verbindung mit LocalDB oder SQL Express, je nachdem, welches Sie installiert haben
+-   Stellen Sie eine Verbindung mit localdb oder SQL Express her, je nachdem, welche installiert wurde.
 
-Wir können nun das Schema zu überprüfen, das Code First erstellt haben.
+Wir können nun das Schema überprüfen, das von Code First erstellt wurde.
 
-![Schema anfängliche](~/ef6/media/schemainitial.png)
+![Schema anfänglich](~/ef6/media/schemainitial.png)
 
-"DbContext" hat, welche Klassen sollen in das Modell anhand der DbSet-Eigenschaften, die wir definiert haben. Dann wird den Standardsatz von Code First-Konventionen verwendet, um festzustellen, Tabellen- und Spaltennamen, Datentypen zu bestimmen, Primärschlüssel, usw. zu finden. Weiter unten in dieser exemplarischen Vorgehensweise betrachten wir, wie Sie diese Konventionen überschreiben können.
+Dbcontext hat festgelegt, welche Klassen in das Modell aufgenommen werden sollen, indem wir die von uns definierten dbset-Eigenschaften betrachten. Anschließend wird der Standardsatz von Code First Konventionen verwendet, um Tabellen-und Spaltennamen zu bestimmen, Datentypen zu ermitteln, Primärschlüssel zu suchen usw. Später in dieser exemplarischen Vorgehensweise wird erläutert, wie Sie diese Konventionen überschreiben können.
 
-## <a name="5-dealing-with-model-changes"></a>5. Umgang mit Änderungen des Datenmodells
+## <a name="5-dealing-with-model-changes"></a>5. Umgang mit Modelländerungen
 
-Jetzt ist es Zeit, einige Änderungen auf unserem Modell vornehmen, wenn wir diese Änderungen vornehmen, die wir auch das Datenbankschema zu aktualisieren müssen. Zu diesem Zweck werden wir eine Funktion wird aufgerufen, kurz Code First-Migrationen oder Migrationen verwenden.
+Nun ist es an der Zeit, einige Änderungen an unserem Modell vorzunehmen, wenn wir diese Änderungen vornehmen, müssen wir auch das Datenbankschema aktualisieren. Zu diesem Zweck wird eine Funktion namens "Code First-Migrationen" oder "Migrationen" verwendet.
 
-Migrationen können wir eine geordnete Menge von Schritten, die beschreiben, wie Sie unsere Datenbankschema aktualisieren (und ein Downgrade durchführen). Jeder dieser Schritte, die eine Migration genannt enthält Code, der beschreibt, die Änderungen angewendet werden. 
+Migrationen ermöglichen es uns, einen geordneten Satz von Schritten zu haben, die beschreiben, wie das Datenbankschema aktualisiert (und herabgestuft) werden kann. Jeder dieser Schritte, die als Migration bezeichnet wird, enthält Code, der die anzuwendenden Änderungen beschreibt. 
 
-Der erste Schritt ist für unsere BloggingContext Code First-Migrationen zu aktivieren.
+Der erste Schritt besteht darin, Code First-Migrationen für den bloggingcontext zu aktivieren.
 
--   **Extras -&gt; Bibliothekspaket-Manager -&gt; -Paket-Manager-Konsole**
+-   **Tools-&gt; Bibliothekspaket-Manager-&gt; Paket-Manager-Konsole**
 -   Führen Sie in der Paket-Manager-Konsole den Befehl **Enable-Migrations** aus.
--   Ein neuer Ordner "Migrations" wurde zu Ihrem Projekt hinzugefügt, die zwei Elemente enthält:
-    -   **Configuration.cs** – diese Datei enthält die Einstellungen, die für die Migration Migrationen verwenden BloggingContext. Wir müssen nicht alles in dieser exemplarischen Vorgehensweise ändern, aber dies ist in dem Sie die Seed-Daten, Register-Anbieter für andere Datenbanken geändert wird, den Namespace angeben können, dass Migrationen etc. generiert werden.
-    -   **&lt;Zeitstempel&gt;\_InitialCreate.cs** – Dies ist Ihre erste Migration, es stellt die Änderungen, die bereits in der Datenbank wird eine leere Datenbank zu einem mit der Blogs und Beiträgen machen angewendet wurden . Obwohl wir können Code First, erstellen Sie diese Tabellen automatisch für uns jetzt an, dass es sich um Migrationen entschieden haben, die sie in einer Migration konvertiert wurden. Code hat, dass diese Migration bereits angewendet wurde zuerst auch in der lokalen Datenbank aufgezeichnet. Der Zeitstempel auf den Dateinamen wird verwendet, für die Sortierung zu.
+-   Dem Projekt wurde ein neuer Migrations Ordner hinzugefügt, der zwei Elemente enthält:
+    -   **Configuration.cs** – diese Datei enthält die Einstellungen, die Migrationen zum Migrieren von bloggingcontext verwenden. Wir müssen nichts für diese exemplarische Vorgehensweise ändern, aber hier können Sie Seed-Daten angeben, Anbieter für andere Datenbanken registrieren, den Namespace ändern, in dem Migrationen generiert werden usw.
+    -   **&lt;timestamp @ no__t-2\_InitialCreate.cs** – Dies ist die erste Migration. Sie stellt die Änderungen dar, die bereits auf die Datenbank angewendet wurden, damit Sie aus einer leeren Datenbank zu einer Datenbank mit den Tabellen Blogs und Posts werden. Obwohl wir Code First diese Tabellen für uns automatisch erstellen lassen, haben wir nun die Migration in eine Migration durchführen. Code First wurde auch in unserer lokalen Datenbank aufgezeichnet, dass diese Migration bereits angewendet wurde. Der Zeitstempel des Datei namens wird zu bestellzwecken verwendet.
 
-    Jetzt sehen wir eine Änderung an unser Modell vornehmen, fügen Sie eine Url-Eigenschaft der Blog-Klasse:
+    Nehmen wir nun eine Änderung an unserem Modell vor. Fügen Sie der Blog-Klasse eine URL-Eigenschaft hinzu:
 
 ``` csharp
 public class Blog
@@ -236,9 +236,9 @@ public class Blog
 }
 ```
 
--   Führen Sie die **Add-Migration AddUrl** im Paket-Manager-Konsole den Befehl.
-    Der Befehl Add-Migration Änderungen seit der letzten Migration überprüft und erstellt das Gerüst für einer neuen Migrations mit den Änderungen, die gefunden werden. Wir können die Migrationen einen Namen geben, In diesem Fall werden wir die Migration "AddUrl" aufrufen.
-    Der eingerüstete Code wird darüber informiert, dass wir eine Url-Spalte, die Zeichenfolgendaten enthalten kann, das "Dbo" hinzufügen. Blogs-Tabelle. Bei Bedarf bearbeiten wir konnten den Gerüstcode, aber, die in diesem Fall nicht erforderlich.
+-   Führen Sie den Befehl **Add-Migration addurl** in der Paket-Manager-Konsole aus.
+    Der Befehl "Add-Migration" prüft seit der letzten Migration auf Änderungen und richtet eine neue Migration mit gefundenen Änderungen ein. Wir können Migrationen einen Namen übergeben. in diesem Fall rufen wir die Migration "addUrl" auf.
+    Der Gerüst Code besagt, dass wir eine URL-Spalte, die Zeichen folgen Daten enthalten kann, zum dbo hinzufügen müssen. Blogs-Tabelle. Bei Bedarf könnten wir den gerüdierten Code bearbeiten, dies ist in diesem Fall jedoch nicht erforderlich.
 
 ``` csharp
 namespace CodeFirstNewDatabaseSample.Migrations
@@ -261,18 +261,18 @@ namespace CodeFirstNewDatabaseSample.Migrations
 }
 ```
 
--   Führen Sie die **Update-Database** im Paket-Manager-Konsole den Befehl. Mit diesem Befehl wird die ausstehenden Migrationen auf die Datenbank anzuwenden. Unsere InitialCreate Migration wurde bereits angewendet wurde, wendet nur Migrationen unsere neue AddUrl Migration an.
-    Tipp: Sie können die **– Verbose** wechseln, beim Aufrufen des Update-Database, um die SQL-Anweisung anzuzeigen, die für die Datenbank ausgeführt wird.
+-   Führen Sie den Befehl **Update-Database** in der Paket-Manager-Konsole aus. Mit diesem Befehl werden alle ausstehenden Migrationen auf die Datenbank angewendet. Unsere InitialCreate-Migration wurde bereits angewendet, sodass bei der Migration nur die neue addurl-Migration angewendet wird.
+    Tipp: Sie können den Schalter " **– verbose** " verwenden, wenn Sie "Update-Database" aufrufen, um die SQL-Anweisung anzuzeigen, die für die Datenbank ausgeführt wird.
 
-Die neue Url-Spalte wird nun die Blogs-Tabelle in der Datenbank hinzugefügt:
+Die neue URL-Spalte wird nun der Tabelle Blogs in der-Datenbank hinzugefügt:
 
-![Schema mit Url](~/ef6/media/schemawithurl.png)
+![Schema mit URL](~/ef6/media/schemawithurl.png)
 
 ## <a name="6-data-annotations"></a>6. Datenanmerkungen
 
-Bisher haben wir nur EF, die das Modell unter Verwendung der Standardkonventionen ermitteln können, aber es wird zunächst wie oft werden, wenn die Klassen nicht die Konventionen strikt befolgen, und wir müssen weitere Konfigurationsschritte ausführen können. Es gibt zwei Optionen für diesen ein. Wir werden Datenanmerkungen in diesem Abschnitt, und klicken Sie dann die fluent-API im nächsten Abschnitt betrachten.
+Bisher haben wir EF das Modell nur mit seinen Standard Konventionen ermitteln lassen, aber es gibt Zeiten, in denen unsere Klassen nicht den Konventionen folgen und eine weitere Konfiguration durchführen müssen. Hierfür gibt es zwei Optionen: Wir betrachten die Daten Anmerkungen in diesem Abschnitt und dann die fließende API im nächsten Abschnitt.
 
--   Fügen Sie eine Klasse zum Modell
+-   Fügen wir unserem Modell eine Benutzerklasse hinzu.
 
 ``` csharp
 public class User
@@ -282,7 +282,7 @@ public class User
 }
 ```
 
--   Wir müssen auch einen Satz an unsere abgeleiteten Kontext hinzufügen
+-   Wir müssen dem abgeleiteten Kontext auch eine Menge hinzufügen.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -293,14 +293,14 @@ public class BloggingContext : DbContext
 }
 ```
 
--   Wenn wir versuchen, eine Migration hinzuzufügen erhalten wir einen Fehler mit dem Text "*EntityType 'User' ist kein Schlüssel definiert. Definieren Sie den Schlüssel für diesen EntityType."* Da EF keine Möglichkeit hat, zu wissen, dass die Benutzernamen, den primären Schlüssel für den Benutzer werden soll.
--   Wir werden jetzt von Datenanmerkungen zu verwenden, daher wir zum Hinzufügen einer using müssen-Anweisung am oberen Rand der Datei "Program.cs"
+-   Wenn wir versuchen, eine Migration hinzuzufügen, wird eine Fehlermeldung angezeigt, die besagt, dass für *entitytype ' User ' kein Schlüssel definiert ist. Hiermit wird der Schlüssel für diesen EntityType definiert. "* EF kann nicht wissen, dass der Benutzername der Primärschlüssel für den Benutzer sein sollte.
+-   Wir verwenden jetzt Daten Anmerkungen, damit wir am Anfang von Program.cs eine using-Anweisung hinzufügen müssen.
 
-```
+```csharp
 using System.ComponentModel.DataAnnotations;
 ```
 
--   Kommentieren Sie die Username-Eigenschaft, um anzugeben, dass sie den primären Schlüssel ist jetzt
+-   Kommentieren Sie nun die UserName-Eigenschaft, um festzustellen, dass es sich um den Primärschlüssel handelt.
 
 ``` csharp
 public class User
@@ -311,38 +311,38 @@ public class User
 }
 ```
 
--   Verwenden der **Add-Migration AddUser** Befehl zum Erstellen des Gerüsts für einer Migrations zum Anwenden dieser Änderungen in der Datenbank
--   Führen Sie die **Update-Database** Befehl aus, um die neue Migration auf die Datenbank anzuwenden.
+-   Verwenden Sie den Befehl **Add-Migration adduser** zum Gerüstbau einer Migration, um diese Änderungen auf die Datenbank anzuwenden.
+-   Führen Sie den **Update-Database-** Befehl aus, um die neue Migration auf die Datenbank anzuwenden.
 
-Die neue Tabelle wird jetzt in der Datenbank hinzugefügt werden:
+Die neue Tabelle wird nun der-Datenbank hinzugefügt:
 
-![Schema für Benutzer](~/ef6/media/schemawithusers.png)
+![Schema mit Benutzern](~/ef6/media/schemawithusers.png)
 
-Die vollständige Liste der Anmerkungen, die von EF unterstützt wird:
+Die vollständige Liste der von EF unterstützten Anmerkungen lautet wie folgt:
 
--   [KeyAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.keyattribute)
+-   [Keyattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.keyattribute)
 -   [StringLengthAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.stringlengthattribute)
 -   [MaxLengthAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.maxlengthattribute)
--   [ConcurrencyCheckAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.concurrencycheckattribute)
+-   ["-Attribut"](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.concurrencycheckattribute)
 -   [RequiredAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.requiredattribute)
--   [TimestampAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.timestampattribute)
--   [ComplexTypeAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.complextypeattribute)
+-   [Timestampattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.timestampattribute)
+-   [Complextypeattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.complextypeattribute)
 -   [ColumnAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.columnattribute)
 -   [TableAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.tableattribute)
--   [InversePropertyAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.inversepropertyattribute)
--   [ForeignKeyAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.foreignkeyattribute)
--   [DatabaseGeneratedAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.databasegeneratedattribute)
--   [NotMappedAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.notmappedattribute)
+-   [Invertspropertyattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.inversepropertyattribute)
+-   [Fremdschlüssel Attribut](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.foreignkeyattribute)
+-   [Databasegeneratedattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.databasegeneratedattribute)
+-   [Notmappeer dattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.notmappedattribute)
 
 ## <a name="7-fluent-api"></a>7. Fluent-API
 
-Im vorherigen Abschnitt haben Sie mithilfe von Datenanmerkungen zu ergänzen oder zu überschreiben, was gemäß der Konvention erkannt wurde. Eine andere Möglichkeit, die das Modell konfigurieren, erfolgt über die Code First fluent-API.
+Im vorherigen Abschnitt haben wir uns mit der Verwendung von Daten Anmerkungen beschäftigt, um zu ergänzen oder zu überschreiben, was von der Konvention erkannt wurde. Die andere Möglichkeit, das Modell zu konfigurieren, ist über die Code First fließende API.
 
-Konfiguration für die meisten erfolgen mithilfe von einfachen Daten-Anmerkungen. Die fluent-API ist eine erweiterte Methode der Angabe der Konfiguration, die alles abdeckt, die von datenanmerkungen auf einige Informationen zur erweiterten Konfiguration mit datenanmerkungen nicht möglich. darüber hinaus durchführen können. Datenanmerkungen und die fluent-API können zusammen verwendet werden.
+Die meisten Modell Konfigurationen können mithilfe von einfachen Daten Anmerkungen durchgeführt werden. Die fließende API ist eine fortgeschrittenere Methode zum Angeben der Modell Konfiguration, die alles abdeckt, was Daten Anmerkungen zusätzlich zu einer erweiterten Konfiguration tun können, die mit Daten Anmerkungen nicht möglich ist. Daten Anmerkungen und die fließende API können gleichzeitig verwendet werden.
 
-Für den Zugriff auf die fluent-API überschreiben Sie die OnModelCreating-Methode in der "DbContext". Angenommen, wir wollten die Spalte umbenennen, die User.DisplayName anzuzeigende in gespeicherten\_Name.
+Für den Zugriff auf die fließende API überschreiben Sie die onmodelcreating-Methode in dbcontext. Nehmen wir an, Sie möchten die Spalte, in der User. Display Name gespeichert ist, umbenennen, um @ no__t-0name anzuzeigen.
 
--   Überschreiben der OnModelCreating-Methode auf BloggingContext durch den folgenden code
+-   Überschreiben Sie die onmodelcreating-Methode auf bloggingcontext mit dem folgenden Code:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -360,13 +360,13 @@ public class BloggingContext : DbContext
 }
 ```
 
--   Verwenden der **Add-Migration ChangeDisplayName** Befehl zum Erstellen des Gerüsts für einer Migrations zum Anwenden dieser Änderungen in der Datenbank.
--   Führen Sie die **Update-Database** Befehl aus, um die neue Migration auf die Datenbank anzuwenden.
+-   Verwenden Sie den Befehl **Add-Migration changedisplayname** , um ein Gerüst für eine Migration zum Anwenden dieser Änderungen auf die Datenbank zu verwenden.
+-   Führen Sie den **Update-Database-** Befehl aus, um die neue Migration auf die Datenbank anzuwenden.
 
-Zum Anzeigen die Spalte "DisplayName" umbenannt\_Name:
+Die Spalte Display Name wurde nun in Anzeige @ no__t-0name umbenannt:
 
-![Schema mit dem Anzeigenamen, die umbenannt](~/ef6/media/schemawithdisplaynamerenamed.png)
+![Schema mit umbenannten anzeigen Amen](~/ef6/media/schemawithdisplaynamerenamed.png)
 
 ## <a name="summary"></a>Zusammenfassung
 
-In dieser exemplarischen Vorgehensweise haben Sie eine neue Datenbank mit Code First-Entwicklung. Wir definierten ein Modell mithilfe von Klassen und verwendet dieses Modell zum Erstellen einer Datenbank und speichern und Abrufen von Daten. Nach der Erstellung der Datenbank verwendet haben wir Code First-Migrationen zum Ändern des Schemas als unser Modell entwickelt. Wir haben auch ein Modell mit Datenanmerkungen und die Fluent-API zu konfigurieren.
+In dieser exemplarischen Vorgehensweise haben wir Code First Entwicklung mit einer neuen Datenbank untersucht. Wir haben ein Modell mithilfe von Klassen definiert und dann das Modell verwendet, um eine Datenbank zu erstellen und Daten zu speichern und abzurufen. Nachdem die Datenbank erstellt wurde, haben wir Code First-Migrationen verwendet, um das Schema zu ändern, als das Modell entwickelt wurde. Außerdem wurde erläutert, wie ein Modell mithilfe von Daten Anmerkungen und der fließenden API konfiguriert wird.

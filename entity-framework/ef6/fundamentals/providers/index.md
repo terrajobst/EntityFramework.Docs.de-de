@@ -3,12 +3,12 @@ title: 'Entity Framework-Anbieter: EF6'
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: f6e34d1273bd1004ce9d1610ce3613068088eb5e
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: bf07296503e4bb5d1e13f5f6f29e7118cbbde61d
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668738"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181688"
 ---
 # <a name="entity-framework-6-providers"></a>Anbieter von Entity Framework 6
 > [!NOTE]
@@ -21,15 +21,15 @@ Das Entity Framework wird nun unter einer Open Source-Lizenz entwickelt, und EF6
 Anbieter, von denen wir wissen, dass Sie für EF6 neu erstellt wurden:
 
 *   **Microsoft SQL Server-Anbieter**
-    *   Erstellt aus der [Open Sources-Codebasis des Entity Framework](http://github.com/aspnet/EntityFramework6)
-    *   Geliefert als Teil des [EntityFramework NuGet-Pakets](http://nuget.org/packages/EntityFramework)
+    *   Erstellt aus der [Open Sources-Codebasis des Entity Framework](https://github.com/aspnet/EntityFramework6)
+    *   Geliefert als Teil des [EntityFramework NuGet-Pakets](https://nuget.org/packages/EntityFramework)
 *   **Microsoft SQL Server Compact Edition-Anbieter**
-    *   Erstellt aus der [Open Sources-Codebasis des Entity Framework](http://github.com/aspnet/EntityFramework6)
-    *   Im Lieferumfang des [EntityFramework.SqlServerCompact NuGet-Pakets](http://nuget.org/packages/EntityFramework.SqlServerCompact)
-*   [**Devart dotConnect-Datenanbieter**](http://www.devart.com/dotconnect/)
-    *   Es gibt Anbieter von Drittanbietern von [Devart](http://www.devart.com/) für eine Vielzahl von Datenbanken, einschließlich Oracle, MySQL, PostgreSQL, SQLite, Salesforce, DB2 und SQL Server.
-*   [**CData Software-Anbieter**](http://www.cdata.com/ado/)
-    *   Es gibt Anbieter von Drittanbietern von [CData Software](http://www.cdata.com/ado/) für eine Vielzahl von Datenspeichern, einschließlich Salesforce, Azure Table Storage, MySql und viele mehr.
+    *   Erstellt aus der [Open Sources-Codebasis des Entity Framework](https://github.com/aspnet/EntityFramework6)
+    *   Im Lieferumfang des [EntityFramework.SqlServerCompact NuGet-Pakets](https://nuget.org/packages/EntityFramework.SqlServerCompact)
+*   [**Devart dotConnect-Datenanbieter**](https://www.devart.com/dotconnect/)
+    *   Es gibt Anbieter von Drittanbietern von [Devart](https://www.devart.com/) für eine Vielzahl von Datenbanken, einschließlich Oracle, MySQL, PostgreSQL, SQLite, Salesforce, DB2 und SQL Server.
+*   [**CData Software-Anbieter**](https://www.cdata.com/ado/)
+    *   Es gibt Anbieter von Drittanbietern von [CData Software](https://www.cdata.com/ado/) für eine Vielzahl von Datenspeichern, einschließlich Salesforce, Azure Table Storage, MySql und viele mehr.
 *   **Firebird-Anbieter**
     *   Verfügbar als [NuGet-Paket](https://www.nuget.org/packages/EntityFramework.Firebird/)
 *   **Visual FoxPro-Anbieter**
@@ -68,7 +68,7 @@ Der Typ („type“) in dieser Registrierung ist der Name mit Assemblyqualifikat
 
 ### <a name="code-based-registration"></a>Codebasierte Registrierung
 
-Ab Entity Framework 6 kann die anwendungsweite Konfiguration für EF im Code angegeben werden. Ausführliche Informationen dazu finden Sie unter _[Entity Framework – Code-Based Configuration (Codebasierte Konfiguration von Entity Framework)](https://msdn.microsoft.com/data/jj680699)_. Normalerweise wird ein EF-Anbieter, der die codebasierter Konfiguration verwendet, durch Erstellung einer neuen Klasse registriert, die von System.Data.Entity.DbConfiguration abstammt und in der gleichen Assembly platziert wird, wie Ihre DbContext-Klasse. Ihre DbConfiguration-Klasse sollte dann den Anbieter in ihrem Konstruktor registrieren. Die DbConfiguration-Klasse sieht wie folgt aus, um beispielsweise den SQL Compact-Anbieter zu registrieren:
+Ab Entity Framework 6 kann die anwendungsweite Konfiguration für EF im Code angegeben werden. Ausführliche Informationen dazu finden Sie unter _[Entity Framework – Code-Based Configuration (Codebasierte Konfiguration von Entity Framework)](https://msdn.microsoft.com/data/jj680699)_ . Normalerweise wird ein EF-Anbieter, der die codebasierter Konfiguration verwendet, durch Erstellung einer neuen Klasse registriert, die von System.Data.Entity.DbConfiguration abstammt und in der gleichen Assembly platziert wird, wie Ihre DbContext-Klasse. Ihre DbConfiguration-Klasse sollte dann den Anbieter in ihrem Konstruktor registrieren. Die DbConfiguration-Klasse sieht wie folgt aus, um beispielsweise den SQL Compact-Anbieter zu registrieren:
 
 ``` csharp
     public class MyConfiguration : DbConfiguration

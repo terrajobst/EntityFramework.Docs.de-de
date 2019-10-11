@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: d93be5c2b727d8fbaddd103f8f367c699ae80a7c
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 588dee012039ce5ecc83f0ecf263a4ea6ca38c29
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921653"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181990"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Abfragen mit Nachverfolgung im Vergleich zu Abfragen ohne Nachverfolgung
 
@@ -63,7 +63,7 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> Abfragen ohne Nachverfolgung führen weiterhin die Identitätsauflösung in der ausführenden Abfrage aus. Wenn die Ergebnisse mehrmals dieselbe Entität enthalten, wird die gleiche Instanz der Entitätsklasse für jedes Vorkommen in den Ergebnissen zurückgegeben. Allerdings werden schwache Verweise verwendet, um bereits zurückgegebene Entitäten nachzuverfolgen. Wenn ein vorheriges Ergebnis mit derselben Identität den gültigen Bereich verlässt und die Garbage Collection ausgeführt wird, können Sie eine neue Entitätsinstanz abrufen. Weitere Informationen finden Sie unter [Funktionsweise von Abfragen](overview.md).
+> Abfragen ohne Nachverfolgung führen weiterhin die Identitätsauflösung in der ausführenden Abfrage aus. Wenn die Ergebnisse mehrmals dieselbe Entität enthalten, wird die gleiche Instanz der Entitätsklasse für jedes Vorkommen in den Ergebnissen zurückgegeben. Allerdings werden schwache Verweise verwendet, um bereits zurückgegebene Entitäten nachzuverfolgen. Wenn ein vorheriges Ergebnis mit derselben Identität den gültigen Bereich verlässt und die Garbage Collection ausgeführt wird, können Sie eine neue Entitätsinstanz abrufen. Weitere Informationen finden Sie unter [Funktionsweise von Abfragen](xref:core/querying/how-query-works).
 
 ## <a name="tracking-and-projections"></a>Nachverfolgung und Projektionen
 

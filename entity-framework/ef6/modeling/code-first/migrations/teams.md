@@ -1,181 +1,181 @@
 ---
-title: Code First-Migrationen in Teamumgebungen - EF6
+title: Code First-Migrationen in Team Umgebungen-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: 53460b6cdd454099ccf93b4e2133e4ea21278a64
-ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
+ms.openlocfilehash: b3c4c35d636caf4ddd251dd78e026587abc57d42
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52857467"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182614"
 ---
-# <a name="code-first-migrations-in-team-environments"></a>Code First-Migrationen in Teamumgebungen
+# <a name="code-first-migrations-in-team-environments"></a>In Team Umgebungen Code First-Migrationen
 > [!NOTE]
-> In diesem Artikel wird davon ausgegangen, dass Sie wissen, wie Code First-Migrationen in grundlegenden Szenarien verwenden. Wenn Sie dies nicht tun, müssen Sie lesen [Code First-Migrationen](~/ef6/modeling/code-first/migrations/index.md) vor dem fortfahren.
+> In diesem Artikel wird davon ausgegangen, dass Sie wissen, wie Code First-Migrationen in einfachen Szenarien verwendet wird. Andernfalls müssen Sie [Code First-Migrationen](~/ef6/modeling/code-first/migrations/index.md) lesen, bevor Sie fortfahren.
 
-## <a name="grab-a-coffee-you-need-to-read-this-whole-article"></a>Einen Kaffee, müssen Sie diesen gesamten Artikel lesen
+## <a name="grab-a-coffee-you-need-to-read-this-whole-article"></a>Holen Sie sich einen Kaffee. Sie müssen diesen Artikel lesen.
 
-Die Probleme in teamumgebungen sind hauptsächlich, um das Zusammenführen von Migrationen, bei der zwei Entwickler Migrationen in ihrer lokalen Codebasis generiert haben. Während Sie die Schritte mit der diese ziemlich einfach sind, erforderlich sind Sie solide Kenntnisse über die Funktionsweise von Migrationen. Sie nicht nur fahren Sie mit der End-finden Sie im gesamten Artikel, um sicherzustellen, dass Sie erfolgreich sind die Zeit in Anspruch nehmen.
+Die Probleme in Team Umgebungen sind hauptsächlich das Zusammenführen von Migrationen, wenn zwei Entwickler in Ihrer lokalen Codebasis Migrationen generiert haben. Die Schritte zum Lösen dieser Probleme sind recht einfach, Sie erfordern jedoch ein solides Verständnis der Funktionsweise von Migrationen. Fahren Sie nicht einfach mit dem Ende fort – nehmen Sie sich die Zeit, den gesamten Artikel zu lesen, um sicherzustellen, dass Sie erfolgreich sind.
 
-## <a name="some-general-guidelines"></a>Einige allgemeinen Richtlinien
+## <a name="some-general-guidelines"></a>Allgemeine Richtlinien
 
-Bevor wir näher so verwalten Sie das Zusammenführen von Migrationen, die von mehreren Entwicklern generiert untersuchen, sind hier einige allgemeinen Richtlinien, die Sie festlegen, Erfolge.
+Bevor wir uns mit der Verwaltung von Zusammenführungs Migrationen befassen, die von mehreren Entwicklern generiert werden, finden Sie hier einige allgemeine Richtlinien, die Sie für einen erfolgreichen Einstieg einrichten
 
-### <a name="each-team-member-should-have-a-local-development-database"></a>Jedes Teammitglied sollte eine lokale Entwicklungs-Datenbank verfügen.
+### <a name="each-team-member-should-have-a-local-development-database"></a>Jedes Teammitglied sollte über eine lokale Entwicklungs Datenbank verfügen.
 
-Migrationen verwendet die  **\_ \_MigrationsHistory** Tabelle zum Speichern, welche Migrationen auf die Datenbank angewendet wurden. Wenn mehrere generieren Weitere Migrationen beim Versuch Entwickler, die an dieselbe Datenbank gerichtet (und somit eine  **\_ \_MigrationsHistory** Tabelle) Migrationen sehr verwirrt werden soll.
+Migrationen verwenden die Tabelle **\_ @ no__t-2migrationshistory** , um zu speichern, welche Migrationen auf die Datenbank angewendet wurden. Wenn Sie über mehrere Entwickler verfügen, die beim Versuch, auf dieselbe Datenbank zu abzielen (und damit eine **\_ @ no__t-2migrationshistory-** Tabelle freigeben), eine sehr verwirrende Migration erzielen.
 
-Wenn Sie Teammitglieder, die Migrationen zu generieren haben, werden nicht, besteht natürlich kein Problem, müssen sie eine zentrale Development-Datenbank gemeinsam nutzen.
+Wenn Sie Teammitglieder haben, die keine Migrationen erzeugen, besteht natürlich kein Problem, dass Sie eine zentrale Entwicklungs Datenbank gemeinsam nutzen.
 
-### <a name="avoid-automatic-migrations"></a>Vermeiden Sie automatische Migrationen
+### <a name="avoid-automatic-migrations"></a>Vermeiden automatischer Migrationen
 
-Das Fazit ist, dass automatische Migrationen anfänglich in teamumgebungen gut aussehen, aber in Wirklichkeit nur funktionieren nicht. Wenn Sie wissen, warum, lesen – beibehalten möchten, dann können Sie mit dem nächsten Abschnitt fortfahren.
+Die untere Zeile ist, dass automatische Migrationen anfänglich in den Team Umgebungen gut aussehen, aber in Wirklichkeit funktionieren Sie einfach nicht. Wenn Sie wissen möchten, lesen Sie – falls nicht, können Sie mit dem nächsten Abschnitt fortfahren.
 
-Automatische Migrationen können Sie das Datenbankschema aktualisiert, um das aktuelle Modell ohne die Notwendigkeit zum Generieren von Codedateien (Code-basierte Migrationen) übereinstimmen. Automatische Migrationen funktioniert sehr gut in einer teamumgebung, wenn Sie nur einmal verwendet und nie Code-basierte Migrationen generiert. Das Problem besteht darin, dass automatische Migrationen sind beschränkt und nicht behandeln eine Reihe von Operationen Eigenschaftenspalte/benennt, Verschieben von Daten in einer anderen Tabelle usw. Für solche Szenarien entworfen, erhalten Sie letztlich, Generieren von Code-basierte Migrationen (und Bearbeiten des eingerüsteten Codes), die zwischen den Änderungen gemischt werden, die durch automatische Migrationen behandelt werden. Dadurch wird es in der Nähe auf unmöglich, Änderungen zu mergen, wenn zwei Entwickler bei Migrationen aktivieren.
+Automatische Migrationen ermöglichen es Ihnen, das Datenbankschema so zu aktualisieren, dass es dem aktuellen Modell entspricht, ohne Code Dateien (Code basierte Migrationen) generieren zu müssen. Automatische Migrationen funktionieren in einer Team Umgebung sehr gut, wenn Sie Sie zuvor verwendet haben und nie Code basierte Migrationen generiert haben. Das Problem besteht darin, dass automatische Migrationen eingeschränkt sind und keine Reihe von Vorgängen verarbeiten können – Eigenschaften-/Spalten Umbenennungen, Verschieben von Daten in eine andere Tabelle usw. Um diese Szenarien zu behandeln, erzeugen Sie am Ende Code basierte Migrationen (und Bearbeiten des Gerüst Codes), die zwischen den Änderungen gemischt werden, die von automatischen Migrationen behandelt werden. Dadurch ist es nahezu unmöglich, Änderungen zusammenzuführen, wenn zwei Entwickler Migrationen einchecken.
 
 ## <a name="screencasts"></a>Screencasts
 
-Wenn Sie stattdessen sehen Sie sich einen Screencast als diesen Artikel lesen würde, behandelt die beiden folgenden Videos den gleichen Inhalt wie in diesem Artikel.
+Wenn Sie lieber einen Screencast sehen möchten, als diesen Artikel zu lesen, befassen sich die beiden folgenden Videos mit dem gleichen Inhalt wie dieser Artikel.
 
-### <a name="video-one-migrations---under-the-hood"></a>Video 1: "Migrations - im Hintergrund"
+### <a name="video-one-migrations---under-the-hood"></a>Video 1: "Migrationen" im Hintergrund
 
-[Dieser Screencast](http://channel9.msdn.com/blogs/ef/migrations-under-the-hood) befasst sich mit Migrationen wie nachverfolgt und Informationen über das Modell zum Erkennen von Änderungen des Datenmodells verwendet.
+[Dieser Screencast](https://channel9.msdn.com/blogs/ef/migrations-under-the-hood) erläutert, wie Migrationen Informationen über das Modell nachverfolgt und verwendet, um Modelländerungen zu erkennen.
 
-### <a name="video-two-migrations---team-environments"></a>Video 2: "Migrations - Teamumgebungen"
+### <a name="video-two-migrations---team-environments"></a>Video 2: "Migrationen-Team Umgebungen"
 
-Erstellen auf den Konzepten von der früheren Video behandelt, [diesem Screencast](http://channel9.msdn.com/blogs/ef/migrations-team-environments) behandelt die Probleme, die in einer teamumgebung und zu deren Lösung auftreten.
+Auf Grundlage der Konzepte aus dem vorherigen Video behandelt [dieser Screencast](https://channel9.msdn.com/blogs/ef/migrations-team-environments) die Probleme, die in einer Team Umgebung auftreten, und wie Sie Sie beheben können.
 
-## <a name="understanding-how-migrations-works"></a>Grundlegendes zur Funktionsweise von Migrationen
+## <a name="understanding-how-migrations-works"></a>Funktionsweise von Migrationen
 
-Der Schlüssel beim Verwenden von Migrationen erfolgreich in einer teamumgebung stellt ein grundlegendes Verständnis, wie Migrationen nachverfolgt und Informationen über das Modell zum Erkennen von Änderungen des Datenmodells verwendet.
+Der Schlüssel für die erfolgreiche Verwendung von Migrationen in einer Team Umgebung ist ein grundlegendes Verständnis dafür, wie Migrationen Informationen über das Modell zum Erkennen von Modelländerungen nachverfolgen und verwenden.
 
-### <a name="the-first-migration"></a>Die erste migration
+### <a name="the-first-migration"></a>Erste Migration
 
-Wenn Sie die erste Migration zu Ihrem Projekt hinzufügen, führen Sie etwa **Add-Migration erste** in Paket-Manager-Konsole. Die allgemeinen Schritte, die mit diesem Befehl wird, sind unten dargestellt.
+Wenn Sie die erste Migration zu Ihrem Projekt hinzufügen, führen Sie in der Paket-Manager-Konsole etwas wie " **Add-Migration First** " aus. Die von diesem Befehl ausgeführten Schritte auf hoher Ebene sind unten dargestellt.
 
 ![Erste Migration](~/ef6/media/firstmigration.png)
 
-Das aktuelle Modell wird im Code (1) berechnet. Die erforderlichen Datenbankobjekte werden dann berechnet, indem das Modell unterscheiden (2) – da dies die erste Migration des Modells ist, unterscheiden sich lediglich verwendet ein leeres Modell für den Vergleich. Die erforderlichen Änderungen werden übergeben, um den Code-Generator, um den Code für eine Migration erforderlich (3) erstellen, die Visual Studio-Projektmappe (4) klicken Sie dann hinzugefügt wird.
+Das aktuelle Modell wird aus Ihrem Code berechnet (1). Die erforderlichen Datenbankobjekte werden dann vom Modell unterschiedlich berechnet (2) – da es sich hierbei um die erste Migration handelt, verwendet das Modell nur ein leeres Modell für den Vergleich. Die erforderlichen Änderungen werden an den Code-Generator weitergegeben, um den erforderlichen Migrations Code (3) zu erstellen, der dann Ihrer Visual Studio-Projekt Mappe hinzugefügt wird (4).
 
-Migrationen zusätzlich zu die eigentliche Migration-Code, der in der Haupt-Codedatei gespeichert wird, auch einige zusätzliche Code-Behind-Dateien generiert. Diese Dateien sind Metadaten, die von Migrationen verwendet wird, und es sind nicht etwas, die Sie bearbeiten sollte. Eine dieser Dateien ist eine Ressourcendatei (.resx), die eine Momentaufnahme des Modells zum Zeitpunkt enthält, die die Migration wurde generiert. Sie werden sehen, wie dies im nächsten Schritt verwendet wird.
+Zusätzlich zum eigentlichen Migrations Code, der in der Haupt Codedatei gespeichert ist, generiert Migrationen auch einige zusätzliche Code Behind-Dateien. Bei diesen Dateien handelt es sich um Metadaten, die von Migrationen verwendet werden. Sie sollten nicht bearbeitet werden. Eine dieser Dateien ist eine Ressourcen Datei (. resx), die eine Momentaufnahme des Modells zu dem Zeitpunkt enthält, zu dem die Migration generiert wurde. Sie sehen, wie dies im nächsten Schritt verwendet wird.
 
-An dieser Stelle würden Sie wahrscheinlich ausführen **Update-Database** gelten die Änderungen für die Datenbank, und wechseln dann zu anderen Bereichen Ihrer Anwendung implementieren.
+An diesem Punkt würden Sie wahrscheinlich " **Update-Database** " ausführen, um die Änderungen auf die Datenbank anzuwenden, und dann die Implementierung anderer Bereiche Ihrer Anwendung durchführen.
 
 ### <a name="subsequent-migrations"></a>Nachfolgende Migrationen
 
-Später zurückkehren, und einige Änderungen an Ihrem Modell vornehmen – in unserem Beispiel fügen wir eine **Url** Eigenschaft **Blog**. Klicken Sie dann geben Sie einen Befehl wie z. B. **Add-Migration AddUrl** Änderungen per Gerüstbau eine Migration zum Anwenden der entsprechenden Datenbank einrichten. Die allgemeinen Schritte, die mit diesem Befehl wird, sind unten dargestellt.
+Wenn Sie zu einem späteren Zeitpunkt einige Änderungen an Ihrem Modell vornehmen – in unserem Beispiel fügen wir dem **Blog**eine **URL** -Eigenschaft hinzu. Anschließend geben Sie einen Befehl wie " **Add-Migration addurl** " aus, um eine Migration durchzusetzen, um die entsprechenden Daten Bank Änderungen anzuwenden. Die von diesem Befehl ausgeführten Schritte auf hoher Ebene sind unten dargestellt.
 
 ![Zweite Migration](~/ef6/media/secondmigration.png)
 
-Nur wie beim letzten Mal wird das aktuelle Modell von Code (1) berechnet. Aber dieses Mal sind vorhandene Migrationen, sodass das vorherige Modell aus der letzten Migration (2) abgerufen werden. Diese beiden Modelle sind mit die erforderlichen datenbankänderungen (3) finden, und klicken Sie dann den Vorgang abschließt wie zuvor.
+Ebenso wie das letzte Mal wird das aktuelle Modell aus Code (1) berechnet. Dieses Mal werden jedoch Migrationen durchlaufen, damit das vorherige Modell von der neuesten Migration (2) abgerufen wird. Diese beiden Modelle werden untersucht, um die erforderlichen Daten Bank Änderungen zu finden (3), und der Prozess wird wie zuvor abgeschlossen.
 
-Dieser Prozess wird für alle weiteren Migrationen verwendet, die Sie dem Projekt hinzu.
+Dieser Prozess wird für alle weiteren Migrationen verwendet, die Sie dem Projekt hinzufügen.
 
-### <a name="why-bother-with-the-model-snapshot"></a>Wozu benötigen Sie die Momentaufnahme des Modells?
+### <a name="why-bother-with-the-model-snapshot"></a>Warum sollten Sie sich mit der Modell Momentaufnahme beschäftigen?
 
-Sie vielleicht, warum draußen von EF mit der Momentaufnahme des Modells – Warum suchen Sie in der Datenbank nicht einfach. Wenn dies der Fall, lesen Sie weiter. Wenn Sie nicht interessiert sind, können Sie diesen Abschnitt überspringen.
+Sie Fragen sich vielleicht, warum EF mit der Modell Momentaufnahme zu tun hat – warum nicht nur die Datenbank. Wenn dies der Fall ist, lesen Sie weiter. Wenn Sie nicht interessiert sind, können Sie diesen Abschnitt überspringen.
 
-Es gibt zahlreiche Gründe, aus denen EF die Momentaufnahme des Modells um behält:
+EF gibt eine Reihe von Gründen für die Modell Momentaufnahme aus:
 
--   Sie können Ihre Datenbank aus dem EF-Modell abweichen. Diese Änderungen können direkt in der Datenbank vorgenommen werden, oder Sie können den eingerüsteten Code ändern, in Ihrer Migrationen, um die Änderungen vorzunehmen. Hier sind einige Beispiele der in der Praxis:
-    -   Ein eingefügter und aktualisierte Spalte an eine oder mehrere Tabellen hinzufügen möchten, aber keine dieser Spalten in der EF-Datenmodell enthalten sein sollen. Wenn die Datenbank Migrationen, die es ständig versuchen würde betrachtet, diese Spalten zu löschen, jedes Mal, wenn Sie eine Migration erstellt haben. Verwenden die Momentaufnahme des Modells, erkennt EF nur legitime Änderungen am Modell.
-    -   Ändern Sie den Text einer gespeicherten Prozedur, die für Updates verwendet, um einige Protokollierung einschließen möchten. Wenn diese gespeicherte Prozedur aus der Datenbank Migrationen betrachtet kontinuierlich, wieder zurück auf die Definition, die von EF erwartet zurückgesetzt. Verwenden Sie die Momentaufnahme des Modells, Gerüst die EF wird immer nur Code, um die gespeicherte Prozedur zu ändern, wenn Sie die Form der Prozedur in der EF-Modell zu ändern.
-    -   Diese gleichen Prinzipien gelten für Hinzufügen von zusätzlichen Indizes, einschließlich zusätzliche Tabellen in der Datenbank, zum Zuordnen von EF zu einer Datenbanksicht, die über eine Tabelle usw. befindet.
--   Das EF-Modell enthält mehr als nur die Form der Datenbank. Müssen das gesamte Modell kann die Migrationen zu Informationen über die Eigenschaften und Klassen in Ihrem Modell und wie sie die Spalten und Tabellen zugeordnet. Diese Informationen kann Migrationen intelligentere im Code sein, die sie erstellt das Gerüst für. Wenn Sie den Namen der Spalte ändern, die eine Eigenschaft zu Migrationen zuordnet können z. B. das Umbenennen von erkennen, sehen, dass es sich um die gleiche Eigenschaft – etwas, die erfolgen kann ist, wenn Sie nur das Schema der Datenbank verfügen. 
+-   Dadurch kann Ihre Datenbank vom EF-Modell abweichen. Diese Änderungen können direkt in der Datenbank vorgenommen werden, oder Sie können den erstellten Code in den Migrationen ändern, um die Änderungen vorzunehmen. Dies sind einige Beispiele für diese Vorgehensweise:
+    -   Sie möchten eine eingefügte und aktualisierte Spalte zu einer oder mehreren Tabellen hinzufügen, aber Sie möchten diese Spalten nicht in das EF-Modell einschließen. Wenn in der Datenbank Migrationen durchgeführt wurden, würde es immer wieder versuchen, diese Spalten jedes Mal zu löschen, wenn Sie ein Gerüst für eine Migration verwenden. Mit der Modell Momentaufnahme erkennt EF immer nur legitime Änderungen am Modell.
+    -   Sie möchten den Text einer gespeicherten Prozedur ändern, die für Updates verwendet wird, um die Protokollierung einzubeziehen. Wenn die Migrationen diese gespeicherte Prozedur aus der Datenbank betrachten, wird diese regelmäßig wieder auf die Definition zurückgesetzt, die EF erwartet. Durch die Verwendung der Modell Momentaufnahme erstellt EF immer nur einen gerüstalten Code, um die gespeicherte Prozedur zu ändern, wenn Sie die Form der Prozedur im EF-Modell ändern.
+    -   Die gleichen Prinzipien gelten für das Hinzufügen zusätzlicher Indizes, einschließlich zusätzlicher Tabellen in der Datenbank, die Zuordnung von EF zu einer Daten Bank Sicht, die sich über einer Tabelle befindet, usw.
+-   Das EF-Modell enthält mehr als nur die Form der Datenbank. Das gesamte Modell ermöglicht Migrationen, Informationen zu den Eigenschaften und Klassen in Ihrem Modell und deren Zuordnung zu den Spalten und Tabellen zu überprüfen. Diese Informationen ermöglichen es, dass Migrationen in dem Code, den Sie Gerüsten, intelligenter werden. Wenn Sie z. b. den Namen der Spalte ändern, die eine Eigenschaft migriert, können Sie die Umbenennung erkennen, indem Sie sehen, dass es sich um dieselbe Eigenschaft handelt – etwas, das nicht ausgeführt werden kann, wenn Sie nur über das Datenbankschema verfügen. 
 
-## <a name="what-causes-issues-in-team-environments"></a>Was bewirkt, dass Probleme in teamumgebungen
+## <a name="what-causes-issues-in-team-environments"></a>Was verursacht Probleme in Team Umgebungen?
 
-Der Workflow, die in den vorherigen Abschnitt funktioniert hervorragend behandelt werden, wenn Sie einen einzelnen Entwickler, die eine Anwendung sind. Dies funktioniert auch gut in einer teamumgebung, wenn Sie die einzige Person, die Änderungen an das Modell sind. In diesem Szenario können modelländerungen vornehmen, Migrationen zu generieren und diese an die quellcodeverwaltung zu senden. Andere Entwickler können Ihre Änderungen zu synchronisieren und ausführen **Update-Database** die schemaänderungen angewendet haben.
+Der im vorherigen Abschnitt behandelte Workflow funktioniert hervorragend, wenn Sie ein einzelner Entwickler an einer Anwendung arbeiten. Es funktioniert auch gut in einer Team Umgebung, wenn Sie die einzige Person sind, die Änderungen am Modell vornimmt. In diesem Szenario können Sie Modelländerungen vornehmen, Migrationen generieren und diese an die Quell Code Verwaltung senden. Andere Entwickler können Ihre Änderungen synchronisieren und **Update-Database** ausführen, damit die Schema Änderungen angewendet werden.
 
-Probleme beginnen auftreten, wenn mehrere Entwickler Änderungen an das EF-Modell, und übermitteln zur quellcodeverwaltung, zur gleichen Zeit. Was verfügt nicht über die EF ist eine erstklassige Möglichkeit, Ihre lokalen Migrationen mit Migrationen zusammenzuführen, die ein anderer Entwickler in die quellcodeverwaltung gesendet hat, seit Sie zuletzt synchronisiert.
+Es treten Probleme auf, wenn mehrere Entwickler Änderungen am EF-Modell vornehmen und gleichzeitig an die Quell Code Verwaltung senden. Was EF fehlt, ist eine erstklassige Möglichkeit, ihre lokalen Migrationen mit Migrationen zusammenzuführen, die von einem anderen Entwickler seit der letzten Synchronisierung an die Quell Code Verwaltung übermittelt wurden.
 
-## <a name="an-example-of-a-merge-conflict"></a>Ein Beispiel für ein Zusammenführungskonflikt
+## <a name="an-example-of-a-merge-conflict"></a>Ein Beispiel für einen Mergekonflikt
 
-Zuerst sehen wir uns diese eines Mergekonflikts ein konkretes Beispiel. Wir werden auf das Beispiel weiterhin, die, denen uns zuvor betrachtete. Als Ausgangspunkt zeigen wir davon aus, die Änderungen aus dem vorherigen Abschnitt wurden vom ursprünglichen Entwickler eingecheckt. Wir werden zwei Entwickler verfolgen, wie sie Änderungen an Code Codebasis vornehmen zu müssen.
+Zunächst sehen wir uns ein konkretes Beispiel für einen solchen Mergekonflikt an. Wir arbeiten mit dem Beispiel fort, das wir zuvor gesehen haben. Als Ausgangspunkt gehen wir davon aus, dass die Änderungen aus dem vorherigen Abschnitt vom ursprünglichen Entwickler eingeglichen wurden. Wir verfolgen zwei Entwickler nach, wenn Sie Änderungen an der Codebasis vornehmen.
 
-Das EF-Modell und die Migrationen über eine Reihe von Änderungen nachverfolgt. Für einen Ausgangspunkt haben sowohl Entwickler als auch mit den Quellcodeverwaltungs-Repository, synchronisiert, wie in der folgenden Abbildung dargestellt ist.
+Wir verfolgen das EF-Modell und die Migrationen durch eine Reihe von Änderungen. Als Ausgangspunkt haben beide Entwickler mit dem Quellcodeverwaltungs-Repository synchronisiert, wie in der folgenden Abbildung dargestellt.
 
 ![Startpunkt](~/ef6/media/startingpoint.png)
 
-Entwickler \#1 und Entwickler \#2 jetzt nimmt einige Änderungen an das EF-Modell in ihrem lokalen Code Basis. Entwickler \#1 fügt eine **Bewertung** Eigenschaft **Blog** – und generiert eine **AddRating** Migration, um die Änderungen auf die Datenbank anzuwenden. Entwickler \#2 Fügt eine **Leser** Eigenschaft **Blog** – und generiert den entsprechenden **AddReaders** Migration. Führen Sie sowohl Entwickler als auch **Update-Database**, zum Anwenden der Änderungen auf ihren lokalen Datenbanken, und fahren die Entwicklung der Anwendung.
+Developer \#1 und Developer \#2 führt jetzt einige Änderungen am EF-Modell in der lokalen Codebasis durch. Developer \#1 fügt dem **Blog** – eine **Bewertungs** Eigenschaft hinzu und generiert eine **addrating** -Migration, um die Änderungen auf die Datenbank anzuwenden. Developer \#2 fügt dem **Blog** – eine **Readers** -Eigenschaft hinzu und generiert die entsprechende Migration von **adressadern** . Beide Entwickler führen **Update-Database**aus, um die Änderungen auf Ihre lokalen Datenbanken anzuwenden und dann die Entwicklung der Anwendung fortzusetzen.
 
 > [!NOTE]
-> Migrationen werden mit dem Präfix mit einem Zeitstempel, damit, die die Grafik darstellt der AddReaders-Migration von Developer \#2 wird nach der Migration AddRating Entwickler \#1. Ob Entwickler \#1 oder \#2 generiert die erste Migration macht keinerlei Auswirkung auf die Lösung von Problemen in einem Team oder der Prozess zum Zusammenführen, die wir im nächsten Abschnitt betrachten werde.
+> Migrationen wird ein Zeitstempel vorangestellt. Daher stellt unsere Grafik dar, dass die Migration der adressader von Developer \#2 nach dem Migrieren der Migration von Developer \#1 erfolgt. Ob Developer \#1 oder \#2 die Migration generiert hat, ist kein Unterschied zu den Problemen bei der Arbeit in einem Team oder dem Verfahren zum Zusammenführen der Anwendungen, die wir im nächsten Abschnitt betrachten werden.
 
 ![Lokale Änderungen](~/ef6/media/localchanges.png)
 
-Es ist ein Glück Tag für Entwickler \#1 wiedergibt, um ihre Änderungen zuerst zu übermitteln. Da es sich bei keinem anderen Benutzer eingecheckt wurde, da sie ihrem Repository synchronisiert, können sie einfach ihre Änderungen senden, ohne jede zusammenführen.
+Es ist ein glücklicher Tag für Developer \#1, da Sie Ihre Änderungen zuerst übermitteln. Da keine andere Person eingehakt hat, weil Sie Ihr Repository synchronisiert haben, können Sie Ihre Änderungen nur übermitteln, ohne eine Zusammenführung auszuführen.
 
 ![Senden](~/ef6/media/submit.png)
 
-Nun ist es Zeit für Entwickler \#2 zu übermitteln. Sie sind nicht so viel Glück. Da eine andere Person Änderungen übermittelt hat, da sie synchronisiert, müssen sie die Änderungen und Merge per pull abgerufen. Das Quellcodeverwaltungssystem wird wahrscheinlich in der Lage, die Änderungen auf der Codeebene automatisch zusammenzuführen, da sie sehr einfach sind. Der Status des Entwicklers \#2 des lokalen Repository nach der Synchronisierung in der folgenden Abbildung dargestellt ist. 
+Nun ist es an der Zeit, \#2 für Entwickler zu übermitteln. Sie sind nicht so glücklich. Da eine andere Person Änderungen gesendet hat, seit Sie synchronisiert wurden, müssen Sie die Änderungen abrufen und zusammenführen. Das Quell Code Verwaltungssystem kann die Änderungen wahrscheinlich auf Codeebene automatisch zusammenführen, da Sie sehr einfach sind. Der Status des lokalen Repository von Developer \#2 nach der Synchronisierung wird in der folgenden Abbildung dargestellt. 
 
-![Pull](~/ef6/media/pull.png)
+![Auszu](~/ef6/media/pull.png)
 
-Auf dieser Stufe Developer \#2 ausführen können **Update-Database** erkennt die neuen **AddRating** Migration (die wurde nicht angewendet. Entwickler \#2 Datenbank) und diese anzuwenden. Jetzt die **Bewertung** Spalte wird hinzugefügt, um die **Blogs** Tabelle und die Datenbank ist mit dem Modell.
+Auf dieser Stufe kann Developer \#2 **Update-Database** ausführen, wodurch **die neue Migrations** Migration (die nicht auf die Datenbank des Entwicklers \#2 angewendet wurde) erkannt und angewendet wird. Nun wird die Spalte **Bewertung** der Tabelle **Blogs** hinzugefügt, und die Datenbank ist mit dem Modell synchron.
 
 Es gibt jedoch einige Probleme:
 
-1.  Obwohl **Update-Database** gelten die **AddRating** Migration wird es auch eine Warnung ausgelöst: *kann nicht zum Aktualisieren der Datenbank, um das aktuelle Modell übereinstimmen, da es ausstehende Änderungen gibt und Automatische Migration wird deaktiviert...*
-    Das Problem besteht darin, dass die Momentaufnahme des Modells in der letzten Migration gespeichert (**AddReader**) fehlt die **Bewertung** Eigenschaft **Blog** (da er Teil des Modells wurde nicht beim der Migration generiert wurde). Code erkennt zuerst an, dass das Modell in der letzten Migration nicht das aktuelle Modell entspricht und die Warnung auslöst.
-2.  Ausführen der Anwendung führt zu einer InvalidOperationException, die besagt, dass "*des Modells, das den Kontext 'BloggingContext' unterstützt wurde geändert, da die Datenbank erstellt wurde. Erwägen Sie die Verwendung von Code First-Migrationen zum Aktualisieren der Datenbank..."*
-    In diesem Fall wird das Problem der modellmomentaufnahme in der letzten Migration gespeichert, das aktuelle Modell entspricht.
-3.  Schließlich erwarten wir, Ausführung **Add-Migration** jetzt generiert eine leere Migration (da es keine Änderungen auf die Datenbank anwenden sind). Aber da Migrationen vergleicht das aktuelle Modell auf den von der letzten Migration (die ist nicht vorhanden der **Bewertung** Eigenschaft) Es ist tatsächlich Erstellen des Gerüsts für eine andere **AddColumn** Aufruf zum Hinzufügen in der **Bewertung** Spalte. Natürlich würde diese Migration während fehlschlagen **Update-Database** da die **Bewertung** Spalte ist bereits vorhanden.
+1.  Obwohl **Update-Database** die Migration **addrating** anwendet, wird auch eine Warnung ausgegeben: *Die Datenbank kann nicht so aktualisiert werden, dass Sie dem aktuellen Modell entspricht, weil ausstehende Änderungen vorhanden sind und die automatische Migration deaktiviert ist...*
+    Das Problem besteht darin, dass in der in der letzten Migration (dem**adressader**) gespeicherten Modell Momentaufnahme die **Bewertungs** Eigenschaft im **Blog** fehlt (da Sie beim Generieren der Migration nicht Teil des Modells war). Code First erkennt, dass das Modell in der letzten Migration nicht mit dem aktuellen Modell identisch ist, und löst die Warnung aus.
+2.  Das Ausführen der Anwendung führt zu einer InvalidOperationException, die besagt, dass "*Das Modell, das den" bloggingcontext "-Kontext unterstützt, seit der Erstellung der Datenbank geändert wurde. Verwenden Sie Code First-Migrationen, um die Datenbank zu aktualisieren... "*
+    Das Problem ist, dass die in der letzten Migration gespeicherte Modell Momentaufnahme nicht mit dem aktuellen Modell identisch ist.
+3.  Schließlich würden wir erwarten, dass durch das Ausführen von " **Add-Migration** " nun eine leere Migration generiert wird (da es keine Änderungen gibt, die auf die Datenbank angewendet werden müssen). Doch da Migrationen das aktuelle Modell mit dem der letzten Migration vergleichen (was die **Bewertungs** Eigenschaft fehlt), wird ein weiterer **AddColumn** -Befehl zum Hinzufügen in der **Bewertungs** Spalte erstellt. Natürlich würde diese Migration bei **Update-Database** fehlschlagen, da die **Bewertungs** Spalte bereits vorhanden ist.
 
-## <a name="resolving-the-merge-conflict"></a>Den Merge-Konflikt auflösen
+## <a name="resolving-the-merge-conflict"></a>Auflösen des Mergekonflikts
 
-Die gute Nachricht ist, dass es nicht zu schwierig, die den Merge manuell – Behandlung bereitgestellt haben Sie einen Überblick über die Funktionsweise von Migrationen. Wenn Sie direkt zu diesem Abschnitt übersprungen haben... Leider müssen Sie zurückkehren und den Rest dieses Artikels zunächst lesen!
+Die gute Nachricht ist, dass es nicht zu schwierig ist, den Merge manuell zu behandeln – vorausgesetzt, Sie haben ein Verständnis für die Funktionsweise von Migrationen. Wenn Sie also diesen Abschnitt übersprungen haben... Leider müssen Sie den Rest des Artikels zuerst lesen.
 
-Es gibt zwei Möglichkeiten, eine leere Migration zu generieren, das richtige aktuelle Modell als eine Momentaufnahme der einfachste Weg ist. Die zweite Option ist beim Aktualisieren der Momentaufnahme in die letzte Migration, damit die richtige Momentaufnahme des Modells. Die zweite Option ist etwas komplizierter und kann nicht in jedem Szenario verwendet werden, aber es ist auch übersichtlicher, da es nicht erforderlich ist, Hinzufügen einer zusätzlichen Migrations.
+Es gibt zwei Möglichkeiten: am einfachsten ist es, eine leere Migration zu generieren, die das richtige aktuelle Modell als Momentaufnahme hat. Die zweite Option besteht darin, die Momentaufnahme in der letzten Migration zu aktualisieren, damit die richtige Modell Momentaufnahme vorhanden ist. Die zweite Option ist ein wenig schwieriger und kann nicht in jedem Szenario verwendet werden, aber Sie ist auch sauberer, da Sie keine zusätzliche Migration hinzufügen muss.
 
-### <a name="option-1-add-a-blank-merge-migration"></a>Option 1: Hinzufügen einer leeren 'Merge'-Migrations
+### <a name="option-1-add-a-blank-merge-migration"></a>Option 1: Hinzufügen einer leeren Migration "Merge"
 
-Bei dieser Option generiert eine leere Migration ausschließlich zum Zweck der sicherstellen, dass die neueste Migration verfügt über die Momentaufnahme des richtigen Modells darin gespeichert.
+Bei dieser Option generieren wir lediglich eine leere Migration, um sicherzustellen, dass die aktuelle Migration die richtige Modell Momentaufnahme enthält.
 
-Diese Option kann unabhängig davon verwendet werden, die letzte Migration generiert hat. Im Beispiel wir haben Entwickler nach wurde \#2 zuständig ist die Zusammenführung aus, und sie aufgetreten sind, um die letzte Migration zu generieren. Aber die gleichen Schritte können verwendet werden, wenn Entwickler \#1 generiert, die letzte Migration. Die Schritte gelten auch, wenn mehrere livemigrationen beteiligt sind – wir nur zwei gesucht wurde, haben um einfach zu halten.
+Diese Option kann unabhängig von der Person verwendet werden, die die letzte Migration generiert hat. Im Beispiel haben wir den Entwickler \#2 kümmert sich um die Zusammenführung, und Sie haben die letzte Migration generiert. Diese Schritte können jedoch auch verwendet werden, wenn Developer \#1 die letzte Migration generiert hat. Diese Schritte gelten auch, wenn mehrere Migrationen beteiligt sind – wir haben gerade zwei untersucht, um Sie einfach zu halten.
 
-Für diesen Ansatz, beginnend ab dem Zeitpunkt, der Sie feststellen, dass Sie Änderungen vornehmen möchten, die aus der quellcodeverwaltung synchronisiert werden müssen, kann der folgende Prozess verwendet werden.
+Der folgende Prozess kann für diese Vorgehensweise verwendet werden, beginnend ab dem Zeitpunkt, an dem Sie wissen, dass Sie über Änderungen verfügen, die über die Quell Code Verwaltung synchronisiert werden müssen.
 
-1.  Stellen Sie sicher, dass alle ausstehenden modelländerungen in Ihrer lokalen Codebasis für eine Migration geschrieben wurden. Dadurch wird sichergestellt, dass keine legitimen Änderungen nicht entgehen, wenn es Zeit, die zum Generieren der Migrations leer ist.
-2.  Synchronisieren Sie mit der quellcodeverwaltung.
-3.  Führen Sie **Update-Database** , alle neuen Migrationen anzuwenden, die andere Entwickler eingecheckt haben.
-    **_Hinweis:_**  *Wenn Sie keine Warnungen, von der Update-Database-Befehl erhalten dann gab es keine neuen Migrationen von anderen Entwicklern und besteht keine Notwendigkeit zum Ausführen der weiter zusammenführen.*
-4.  Führen Sie **Add-Migration &lt;auswählen\_eine\_Namen&gt; – IgnoreChanges** (z. B. **Merge Add-Migration – IgnoreChanges**). Dies erzeugt eine Migration mit dem alle Metadaten (einschließlich einer Momentaufnahme des aktuellen Modells), jedoch ignoriert, dass alle Änderungen, die erkennt, wenn das aktuelle Modell mit Momentaufnahme in den letzten Migrationen zu vergleichen (d. h., Sie erhalten ein leeres **einrichten** und **Unten** Methode).
-5.  Weiterentwickeln, oder Senden an die quellcodeverwaltung (nachdem Ihre Komponententests ausführen von tests).
+1.  Stellen Sie sicher, dass alle ausstehenden Modelländerungen in der lokalen Codebasis in eine Migration geschrieben wurden. Mit diesem Schritt wird sichergestellt, dass Sie keine legitimen Änderungen übersehen, wenn es an der Zeit ist, die leere Migration zu generieren.
+2.  Mit Quell Code Verwaltung synchronisieren.
+3.  Führen Sie **Update-Database** aus, um alle neuen Migrationen anzuwenden, die andere Entwickler eingecheckten.
+    **_Hinweis:_** *Wenn Sie keine Warnungen vom Update-Database-Befehl erhalten, gab es keine neuen Migrationen von anderen Entwicklern, und es besteht keine Notwendigkeit, eine weitere Zusammenführung auszuführen.*
+4.  Führen **Sie Add-Migration &lt;pick @ no__t-2a @ no__t-3Name @ no__t-4 – ignorechanges** aus (z. b. **Add-Migration Merge – ignorechanges**). Dadurch wird eine Migration mit allen Metadaten (einschließlich einer Momentaufnahme des aktuellen Modells) generiert, aber alle Änderungen, die erkannt werden, beim Vergleich des aktuellen Modells mit der Momentaufnahme in den letzten Migrationen werden ignoriert (was bedeutet, dass Sie eine leere **up** -und **down** -Methode erhalten).
+5.  Setzen Sie die Entwicklung fort, oder übermitteln Sie die Quell Code Verwaltung (nachdem Sie die Komponententests natürlich ausgeführt haben).
 
-Hier ist der Status des Entwicklers \#2 des lokalen Codebasis nach der Verwendung dieses Ansatzes.
+Hier ist der Status der lokalen Codebasis von Developer \#2, nachdem dieser Ansatz verwendet wurde.
 
 ![Zusammenführen der Migration](~/ef6/media/mergemigration.png)
 
-### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>Option 2: Aktualisieren der modellmomentaufnahme in der letzten migration
+### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>Option 2: Aktualisieren der Modell Momentaufnahme in der letzten Migration
 
-Diese Option ist sehr ähnlich, Option 1, aber die zusätzliche leere Migration – entfernt, da seien wir ehrlich, zusätzlichen Code-Dateien in ihre Projektmappe möchte.
+Diese Option ist mit Option 1 sehr ähnlich, entfernt jedoch die zusätzliche leere Migration – da wir Sie sehen können, wer zusätzliche Code Dateien in der Projekt Mappe wünscht.
 
-**Dieser Ansatz ist nur möglich, wenn die neueste Migration ist nur in Ihrer lokalen Codebasis vorhanden und noch nicht, Datenquellen-Steuerelement übermittelt wurde (z. B., wenn die letzte Migration durch den Benutzer, die die Zusammenführung ausführen generiert wurde)**. Bearbeiten Sie die Metadaten für Migrationen, die andere Entwickler möglicherweise bereits in ihrer Entwicklungsdatenbank – oder sogar angewendet haben kann auf eine Produktionsdatenbank – noch schlimmer ist angewendet unerwartete Nebeneffekte führen. Während des Prozesses stellen wir zum Rollback für der letzten Migrations in der lokalen Datenbank, und wenden Sie es erneut mit der aktualisierten Metadaten.
+**Diese Vorgehensweise ist nur möglich, wenn die aktuelle Migration nur in der lokalen Codebasis vorhanden ist und noch nicht an die Quell Code Verwaltung übermittelt wurde (z. b. wenn die letzte Migration vom Benutzer generiert wurde, der die Zusammenführung durchgeführt hat)** . Das Bearbeiten der Metadaten von Migrationen, die andere Entwickler möglicherweise bereits auf Ihre Entwicklungs Datenbank angewendet haben – oder noch schlimmer auf eine Produktionsdatenbank – kann zu unerwarteten Nebeneffekten führen. Während des Vorgangs wird für die letzte Migration in der lokalen Datenbank ein Rollback ausgeführt und mit aktualisierten Metadaten erneut angewendet.
 
-Während die letzte Migration einfach muss sein, in der lokalen Codebasis bestehen keine Einschränkungen der Anzahl oder Reihenfolge der Migrationen, bei die sie fortfahren. Es können mehrere livemigrationen von mehreren anderen Entwicklern vorhanden sein und die gleichen Schritte gelten – wir haben nur zwei gesucht wurde, um einfach zu halten.
+Während sich die letzte Migration nur in der lokalen Codebasis befinden muss, gibt es keine Einschränkungen hinsichtlich der Anzahl oder Reihenfolge der Migrationen, die Sie fortsetzen. Es können mehrere Migrationen von mehreren verschiedenen Entwicklern vorhanden sein, und die gleichen Schritte werden angewendet – wir haben gerade nur zwei untersucht, um Sie einfach zu halten.
 
-Für diesen Ansatz, beginnend ab dem Zeitpunkt, der Sie feststellen, dass Sie Änderungen vornehmen möchten, die aus der quellcodeverwaltung synchronisiert werden müssen, kann der folgende Prozess verwendet werden.
+Der folgende Prozess kann für diese Vorgehensweise verwendet werden, beginnend ab dem Zeitpunkt, an dem Sie wissen, dass Sie über Änderungen verfügen, die über die Quell Code Verwaltung synchronisiert werden müssen.
 
-1.  Stellen Sie sicher, dass alle ausstehenden modelländerungen in Ihrer lokalen Codebasis für eine Migration geschrieben wurden. Dadurch wird sichergestellt, dass keine legitimen Änderungen nicht entgehen, wenn es Zeit, die zum Generieren der Migrations leer ist.
-2.  Synchronisieren Sie mit dem Datenquellen-Steuerelement.
-3.  Führen Sie **Update-Database** , alle neuen Migrationen anzuwenden, die andere Entwickler eingecheckt haben.
-    **_Hinweis:_**  *Wenn Sie keine Warnungen, von der Update-Database-Befehl erhalten dann gab es keine neuen Migrationen von anderen Entwicklern und besteht keine Notwendigkeit zum Ausführen der weiter zusammenführen.*
-4.  Führen Sie **Update-Database – TargetMigration &lt;zweite\_letzten\_Migration&gt;**  (im Beispiel wir haben nach wurde dies wäre **Update-Database: TargetMigration AddRating**). Diese Rollen, die die Datenbank wieder in den Zustand der zweiten der letzten Migration – effektiv "nicht anwenden" der letzten Migrations aus der Datenbank.
-    **_Hinweis:_**  *dieser Schritt ist erforderlich, um es sicher so bearbeiten Sie die Metadaten der Migration, da die Metadaten auch in gespeichert ist die \_ \_MigrationsHistoryTable der Datenbank. Daher ist diese Option nur verwenden sollten, ist die letzte Migration nur in der lokalen Codebasis. Wenn andere Datenbanken die letzte Migration angewendet haben, müssten Sie auch zum Rollback für sie und wenden Sie die letzte Migration zum Aktualisieren der Metadaten.* 
-5.  Führen Sie **Add-Migration &lt;vollständige\_Namen\_einschließlich\_Zeitstempel\_von\_letzten\_Migration** &gt; (im Beispiel Wir haben folgende wurde dies wäre etwa **Add-Migration 201311062215252\_AddReaders**).
-    **_Hinweis:_**  *müssen Sie die Zeitstempel enthalten, sodass Migrationen weiß, dass der Gerüstbau eine neue, anstatt die vorhandene Migration bearbeitet werden soll.*
-    Dadurch werden die Metadaten für die letzte Migration das aktuelle Modell entsprechend aktualisiert. Sie erhalten die folgende Warnung, wenn der Befehl abgeschlossen ist, aber das ist genau das, erwünscht. "*Nur der Designer-Code für die Migration" 201311062215252\_AddReaders wurde erneut erstellten. Um die gesamte Migration erneut ein Gerüst erstellen, verwenden Sie den - Force-Parameter. "*
-6.  Führen Sie **Update-Database** die neueste Migration mit den aktualisierten Metadaten erneut anwenden.
-7.  Weiterentwickeln, oder Senden an die quellcodeverwaltung (nachdem Ihre Komponententests ausführen von tests).
+1.  Stellen Sie sicher, dass alle ausstehenden Modelländerungen in der lokalen Codebasis in eine Migration geschrieben wurden. Mit diesem Schritt wird sichergestellt, dass Sie keine legitimen Änderungen übersehen, wenn es an der Zeit ist, die leere Migration zu generieren.
+2.  Synchronisierung mit der Quell Code Verwaltung.
+3.  Führen Sie **Update-Database** aus, um alle neuen Migrationen anzuwenden, die andere Entwickler eingecheckten.
+    **_Hinweis:_** *Wenn Sie keine Warnungen vom Update-Database-Befehl erhalten, gab es keine neuen Migrationen von anderen Entwicklern, und es besteht keine Notwendigkeit, eine weitere Zusammenführung auszuführen.*
+4.  Führen Sie **Update-Database – targetmigration &lt;second @ no__t-2last @ no__t-3migration @ no__t-4** aus (in dem Beispiel, das folgt, wäre **Update-Database – targetmigration addrating**). Dadurch wird die Datenbank wieder in den Zustand der zweiten letzten Migration versetzt – die die letzte Migration von der Datenbank wird tatsächlich aufgehoben.
+    **_Nebenbei_** *dieser Schritt ist erforderlich, damit die Metadaten der Migration sicher bearbeitet werden können, da die Metadaten ebenfalls im \_ @ no__t-2migrationshistorytable der Datenbank gespeichert werden. Aus diesem Grund sollten Sie diese Option nur verwenden, wenn die letzte Migration nur in der lokalen Codebasis erfolgt. Wenn die letzte Migration für andere Datenbanken angewendet wurde, müssten Sie auch ein Rollback durchführen und die letzte Migration erneut anwenden, um die Metadaten zu aktualisieren.* 
+5.  Führen **Sie Add-Migration &lt;full @ no__t-2name @ no__t-3einschließlich @ no__t-4timestamp @ no__t-5of @ no__t-6last @ no__t-7migration**&gt; aus (in dem Beispiel, das folgt, wie **Add-Migration 201311062215252 @ no__ t-10adressader**).
+    **_Nebenbei_** *Sie müssen den Zeitstempel einschließen, damit Migrationen wissen, dass Sie die vorhandene Migration bearbeiten möchten, anstatt eine neue zu Gerüstbau.*
+    Dadurch werden die Metadaten für die letzte Migration entsprechend dem aktuellen Modell aktualisiert. Wenn der Befehl abgeschlossen ist, erhalten Sie die folgende Warnung, aber genau das ist das, was Sie möchten. "*nur der Designer Code für die Migration ' 201311062215252 @ no__t-1adressaders ' wurde neu gerüsteht. Verwenden Sie den Parameter "-Force", um die gesamte Migration neu zu erstellen.*
+6.  Führen Sie **Update-Database** aus, um die neueste Migration mit den aktualisierten Metadaten erneut anzuwenden.
+7.  Setzen Sie die Entwicklung fort, oder übermitteln Sie die Quell Code Verwaltung (nachdem Sie die Komponententests natürlich ausgeführt haben).
 
-Hier ist der Status des Entwicklers \#2 des lokalen Codebasis nach der Verwendung dieses Ansatzes.
+Hier ist der Status der lokalen Codebasis von Developer \#2, nachdem dieser Ansatz verwendet wurde.
 
-![Metadaten wurden aktualisiert](~/ef6/media/updatedmetadata.png)
+![Aktualisierte Metadaten](~/ef6/media/updatedmetadata.png)
 
 ## <a name="summary"></a>Zusammenfassung
 
-Es sind einige Probleme auf, wenn Sie Code First-Migrationen in einer teamumgebung zu verwenden. Jedoch ein grundlegendes Verständnis der Funktionsweise von Migrationen und einige einfache Methoden zum Auflösen von Zusammenführungskonflikten erleichtern Ihnen diese Herausforderungen zu bewältigen.
+Bei der Verwendung von Code First-Migrationen in einer Team Umgebung gibt es einige Herausforderungen. Ein grundlegendes Verständnis der Funktionsweise von Migrationen und einige einfache Ansätze zum Auflösen von Mergekonflikten erleichtern es Ihnen, diese Herausforderungen zu meistern.
 
-Das grundlegende Problem ist nicht korrekt in die neueste Migration gespeicherten Metadaten. Dies bewirkt, dass Code First fälschlicherweise anzeigt, dass das aktuelle Modell und das Datenbankschema nicht übereinstimmen und falschen Code in der nächsten Migration erstellen. Diese Situation kann durch eine leere Migration mit dem richtigen Modell generieren oder Aktualisieren der Metadaten in der letzten Migration überwunden werden.
+Das grundlegende Problem sind falsche Metadaten, die in der letzten Migration gespeichert wurden. Dies bewirkt, dass Code First fälschlicherweise erkennen, dass das aktuelle Modell und das Datenbankschema nicht identisch sind, und dass bei der nächsten Migration falscher Code Gerüstbau ist. Diese Situation kann umgangen werden, indem eine leere Migration mit dem richtigen Modell erzeugt oder die Metadaten in der letzten Migration aktualisiert werden.

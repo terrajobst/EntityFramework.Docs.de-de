@@ -1,40 +1,40 @@
 ---
-title: SQLite-Datenbank-Anbieter - Einschränkungen – EF Core
+title: SQLite-Datenbankanbieter-Einschränkungen-EF Core
 author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
-ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
+ms.openlocfilehash: 2f80dc195265787318ac4925dd937da45ffad011
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394803"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72179769"
 ---
-# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core-Datenbank-Anbieter-Einschränkungen
+# <a name="sqlite-ef-core-database-provider-limitations"></a>Einschränkungen für SQLite EF Core-Datenbankanbieter
 
-Der SQLite-Anbieter hat einige Einschränkungen für Migrationen. Die meisten dieser Einschränkungen sind ein Ergebnis von Einschränkungen in der zugrunde liegenden SQLite-Datenbank-Engine und sind nicht spezifisch für EF.
+Der SQLite-Anbieter hat eine Reihe von Migrations Einschränkungen. Die meisten dieser Einschränkungen sind das Ergebnis von Einschränkungen in der zugrunde liegenden SQLite-Datenbank-Engine und nicht spezifisch für EF.
 
-## <a name="modeling-limitations"></a>Modellierungseinschränkungen
+## <a name="modeling-limitations"></a>Modellierungs Einschränkungen
 
-Die allgemeine relationale-Bibliothek, die (vom Anbieter für Entity Framework relationaler Datenbanken freigegeben) definiert die APIs für die Modellierung der Konzepte, die für die meisten relationalen Datenbank-Engines gelten. Eine Reihe von diese Konzepte werden von der SQLite-Anbieter nicht unterstützt.
+Die gemeinsame relationale Bibliothek (die von Entity Framework relationalen Datenbankanbietern gemeinsam verwendet wird) definiert APIs zum Modellieren von Konzepten, die für die meisten relationalen Daten Bank Engines Einige dieser Konzepte werden vom SQLite-Anbieter nicht unterstützt.
 
 * Schemata
 * Sequenzen
 * Berechnete Spalten
 
-## <a name="query-limitations"></a>Abfrage-Einschränkungen
+## <a name="query-limitations"></a>Abfrage Einschränkungen
 
-SQLite bietet keine native Unterstützung für die folgenden Datentypen. EF Core kann lesen und Schreiben Sie Werte für diese Typen und Abfragen hinsichtlich ihrer Gleichheit (`where e.Property == value`) wird ebenfalls unterstützt. Andere Vorgänge, wie jedoch Vergleich aus, und Sortierung ist die Bewertung auf dem Client erforderlich.
+SQLite unterstützt die folgenden Datentypen nicht nativ. EF Core können Werte dieser Typen lesen und schreiben, und die Abfrage auf Gleichheit (`where e.Property == value`) wird ebenfalls unterstützt. Für andere Vorgänge, wie z. b. Vergleich und Reihenfolge, ist jedoch eine Auswertung auf dem Client erforderlich.
 
 * DateTimeOffset
 * Decimal
 * TimeSpan
 * UInt64
 
-Anstelle von `DateTimeOffset`, es wird empfohlen, DateTime-Werte. Bei der Behandlung von verschiedenen Zeitzonen wird empfohlen, beim Konvertieren der Werte in UTC, bevor Sie speichern, und klicken Sie dann zurück in die entsprechende Zeitzone konvertieren.
+Anstelle von `DateTimeOffset` empfiehlt es sich, DateTime-Werte zu verwenden. Wenn Sie mehrere Zeitzonen verarbeiten, empfiehlt es sich, die Werte vor dem Speichern in die UTC zu umrechnen und dann wieder in die entsprechende Zeitzone umzuwandeln.
 
-Die `Decimal` bietet ein hohes Maß an Genauigkeit. Wenn Sie diesen Grad an Genauigkeit nicht benötigen, wird jedoch empfohlen, stattdessen mit double. Sie können eine [Wertkonverter](../../modeling/value-conversions.md) weiterhin Dezimalzahl in Ihren Klassen.
+Der `Decimal`-Typ bietet eine hohe Genauigkeit. Wenn Sie diese Genauigkeits Stufe nicht benötigen, empfiehlt sich stattdessen die Verwendung von Double. Sie können einen [Wert Konverter](../../modeling/value-conversions.md) verwenden, um in ihren Klassen weiterhin Decimal zu verwenden.
 
 ``` csharp
 modelBuilder.Entity<MyEntity>()
@@ -42,11 +42,11 @@ modelBuilder.Entity<MyEntity>()
     .HasConversion<double>();
 ```
 
-## <a name="migrations-limitations"></a>Einschränkungen für Migrationen
+## <a name="migrations-limitations"></a>Migrations Einschränkungen
 
-Die SQLite-Datenbank-Engine unterstützt nicht mehrere Schemavorgänge, die von der Mehrheit der anderen relationalen Datenbanken unterstützt werden. Wenn Sie versuchen, eine nicht unterstützte Vorgänge auf eine SQLite-Datenbank anwenden und dann eine `NotSupportedException` ausgelöst.
+Die SQLite-Datenbank-Engine unterstützt keine Reihe von Schema Vorgängen, die von den meisten anderen relationalen Datenbanken unterstützt werden. Wenn Sie versuchen, einen der nicht unterstützten Vorgänge auf eine SQLite-Datenbank anzuwenden, wird eine `NotSupportedException` ausgelöst.
 
-| Vorgang            | Unterstützt? | Erfordert version |
+| Vorgang            | Unterstützt? | Erfordert Version |
 |:---------------------|:-----------|:-----------------|
 | AddColumn            | ✔          | 1.0              |
 | AddForeignKey        | ✗          |                  |
@@ -61,19 +61,19 @@ Die SQLite-Datenbank-Engine unterstützt nicht mehrere Schemavorgänge, die von 
 | DropPrimaryKey       | ✗          |                  |
 | DropTable            | ✔          | 1.0              |
 | DropUniqueConstraint | ✗          |                  |
-| RenameColumn         | ✔          | 2.2.2            |
-| RenameIndex          | ✔          | 2.1              |
+| Renamecolumn         | ✔          | 2.2.2            |
+| Renameingedex          | ✔          | 2.1              |
 | RenameTable          | ✔          | 1.0              |
-| EnsureSchema         | ✔ (ohne-Op)  | 2.0              |
-| DropSchema           | ✔ (ohne-Op)  | 2.0              |
+| Ensureschema         | ✔ (No-OP)  | 2.0              |
+| DropSchema           | ✔ (No-OP)  | 2.0              |
 | Insert               | ✔          | 2.0              |
 | Update               | ✔          | 2.0              |
 | Löschen               | ✔          | 2.0              |
 
-## <a name="migrations-limitations-workaround"></a>Migrationen Einschränkungen problemumgehung
+## <a name="migrations-limitations-workaround"></a>Problem Umgehung der Migrations Einschränkungen
 
-Sie können einige umgehen dieser Einschränkungen durch Schreiben von Code manuell in Ihre Migrationen zu führen Sie eine Tabelle neu zu erstellen. Eine Tabellenneuerstellung umfasst Umbenennen der vorhandenen Tabelle, Erstellen einer neuen Tabelle, Kopieren von Daten in die neue Tabelle und Löschen der alten Tabelle. Sie benötigen, verwenden Sie die `Sql(string)` Methode, um einige dieser Schritte durchzuführen.
+Sie können einige dieser Einschränkungen umgehen, indem Sie Code in ihren Migrationen manuell schreiben, um eine Tabellen Neuerstellung durchzuführen. Eine Tabellenneuerstellung umfasst Umbenennen der vorhandenen Tabelle, Erstellen einer neuen Tabelle, Kopieren von Daten in die neue Tabelle und Löschen der alten Tabelle. Sie müssen die `Sql(string)`-Methode verwenden, um einige dieser Schritte auszuführen.
 
-Finden Sie unter [machen andere Arten von Tabelle Schemaänderungen](http://sqlite.org/lang_altertable.html#otheralter) in der SQLite-Dokumentation für weitere Details.
+Weitere Informationen finden Sie unter [vornehmen anderer Arten von Tabellen Schema Änderungen](https://sqlite.org/lang_altertable.html#otheralter) in der SQLite-Dokumentation.
 
-In Zukunft EF einige dieser Operationen unterstützen möglicherweise mit den Ansatz mit Tabelle Neuerstellung im Hintergrund. Sie können [verfolgen Sie dieses Feature auf unserem GitHub-Projekt](https://github.com/aspnet/EntityFrameworkCore/issues/329).
+In Zukunft kann EF einige dieser Vorgänge unterstützen, indem er den Ansatz für die Tabellen Neuerstellung unter den Decken verwendet. Sie können [Diese Funktion in unserem GitHub-Projekt nachverfolgen](https://github.com/aspnet/EntityFrameworkCore/issues/329).

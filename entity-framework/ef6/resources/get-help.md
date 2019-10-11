@@ -1,22 +1,22 @@
 ---
-title: Hilfe zur Verwendung von Entitätsframework – EF6
+title: Hilfe bei der Verwendung von Entity Framework-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 592cae61-02e1-485a-bbb0-a508ade9c67d
-ms.openlocfilehash: 7a513b413fced6ccdb1d2434afd8a38bb41189b2
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: d6c925f15900feb1c1f71c07656775857ea402dc
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488934"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182392"
 ---
-# <a name="get-help-using-entity-framework"></a>Hier erhalten Sie Hilfe, die mithilfe von Entitätsframework
-## <a name="stackoverflowef6mediastackoverflowpng-questions-about-using-ef"></a>![Stack Overflow](~/ef6/media/stackoverflow.png) Fragen zur Verwendung von EF  
+# <a name="get-help-using-entity-framework"></a>Hilfe bei der Verwendung von Entity Framework
+## <a name="stackoverflowef6mediastackoverflowpng-questions-about-using-ef"></a>![StackOverflow](~/ef6/media/stackoverflow.png) Fragen zur Verwendung von EF  
 
-Die beste Möglichkeit zum Abrufen von Hilfe bei der Verwendung von Entity Framework werden [eine Frage in Stack Overflow](http://stackoverflow.com/questions/ask) mithilfe der **Entity Framework-** Tag.  
+Die beste Möglichkeit, um Hilfe bei der Verwendung von Entity Framework zu erhalten, besteht darin, mithilfe des **Entity Framework-** Tags [eine Frage an Stack Overflow zu senden](https://stackoverflow.com/questions/ask) .  
 
-Wenn Sie nicht mit Stack Overflow vertraut sind, müssen Sie [lesen die Richtlinien stellen von Fragen](http://stackoverflow.com/help/asking). Insbesondere keine verwenden Sie Stack Overflow zum Melden von Fehlern, Fragen Sie Roadmap für die oder vorschlagen Sie neue Funktionen.  
+Wenn Sie mit Stack Overflow nicht vertraut sind, lesen Sie unbedingt [die Richtlinien zum stellen von Fragen](https://stackoverflow.com/help/asking). Verwenden Sie insbesondere Stack Overflow nicht, um Fehler zu melden, Roadmap-Fragen zu stellen oder neue Features vorzuschlagen.  
 
-## <a name="github-markef6mediagithub-mark-32pxpng-bug-reports-and-feature-requests"></a>![Markieren von GitHub](~/ef6/media/github-mark-32px.png) Problemberichten und Featureanforderungen  
+## <a name="github-markef6mediagithub-mark-32pxpng-bug-reports-and-feature-requests"></a>![GitHub-Markierung](~/ef6/media/github-mark-32px.png) Fehlerberichte und Featureanforderungen  
 
-Wenn Sie gefunden haben, ein Fehler, die Sie denken sollten behoben werden, verfügen über eine Funktion, die Sie gerne implementiert oder eine Frage konnte nicht finden Sie eine Antwort auf ein Problem auf Erstellen [das EF6-GitHub-Repository](https://github.com/aspnet/EntityFramework6/issues).
+Wenn Sie einen Fehler festgestellt haben, den Sie als fehlerhaft betrachten, haben Sie ein Feature, das Sie implementieren möchten, oder eine Frage, die Sie nicht finden können, und erstellen Sie ein Problem im [GitHub-Repository EF6](https://github.com/aspnet/EntityFramework6/issues).

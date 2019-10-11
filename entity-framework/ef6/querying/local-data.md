@@ -1,21 +1,21 @@
 ---
-title: Lokale Daten – EF6
+title: Lokale Daten EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2eda668b-1e5d-487d-9a8c-0e3beef03fcb
-ms.openlocfilehash: 400b9e1337edac1b9fa4f0ec9e1384ca58aa2fbc
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: efd646348d8a18bbeed2d0a0e708d4d36eb26eac
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490453"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182431"
 ---
 # <a name="local-data"></a>Lokale Daten
-Ausführen einer LINQ-Abfrage direkt für ein "DbSet" wird immer eine Abfrage an die Datenbank senden können, aber Sie die Daten, die derzeit im Arbeitsspeicher mithilfe der DbSet.Local-Eigenschaft. Sie können auch die zusätzliche Daten, die von die EF nachverfolgt zugreifen, zu Ihrer Entitäten mit dem die "DbContext.Entry" und DbContext.ChangeTracker.Entries-Methode. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
+Wenn Sie eine LINQ-Abfrage direkt für ein dbset ausführen, wird immer eine Abfrage an die Datenbank gesendet. Sie können jedoch auf die Daten zugreifen, die derzeit im Arbeitsspeicher vorhanden sind, indem Sie die dbset. Local-Eigenschaft verwenden. Sie können auch auf die zusätzlichen Informationen zugreifen, die EF über die Entitäten nachverfolgt, indem Sie die Methoden dbcontext. Entry und dbcontext. ChangeTracker. Entries verwenden. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
-## <a name="using-local-to-look-at-local-data"></a>Verwenden Sie lokale betrachten Sie die lokalen Daten  
+## <a name="using-local-to-look-at-local-data"></a>Verwenden von local, um lokale Daten zu untersuchen  
 
-Die lokale Eigenschaft von "DbSet" bietet einfachen Zugriff auf die Entitäten der Gruppe, die derzeit vom Kontext nachverfolgt wird und nicht als gelöscht gekennzeichnet wurden. Zugriff auf die lokale Eigenschaft bewirkt nie, dass eine Abfrage an die Datenbank gesendet werden. Dies bedeutet, dass sie in der Regel verwendet wird, nachdem bereits eine Abfrage ausgeführt wurde. Die Load-Erweiterungsmethode kann zum Ausführen einer Abfrage so, dass der Kontext verfolgt, die Ergebnisse werden nach verwendet werden. Zum Beispiel:  
+Die Local-Eigenschaft von dbset bietet einfachen Zugriff auf die Entitäten der Menge, die zurzeit vom Kontext nachverfolgt werden und nicht als gelöscht markiert wurden. Der Zugriff auf die lokale Eigenschaft bewirkt nie, dass eine Abfrage an die Datenbank gesendet wird. Dies bedeutet, dass Sie normalerweise verwendet wird, wenn bereits eine Abfrage durchgeführt wurde. Die Load-Erweiterungsmethode kann verwendet werden, um eine Abfrage auszuführen, sodass der Kontext die Ergebnisse nachverfolgt. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -53,9 +53,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Wenn wir zwei Blogs in der Datenbank - "ADO.NET-Blog" mit einem BlogId 1- und "Visual Studio-Blog" mit einem BlogId 2 mussten konnten wir erwarten, dass die folgende Ausgabe:  
+Wenn wir zwei Blogs in der Datenbank haben: "ADO.net Blog" with a BlogId of 1 und "The Visual Studio Blog" with a BlogId of 2-Wir könnten die folgende Ausgabe erwarten:  
 
-```  
+```console
 In Local:
 Found 0: My New Blog with state Added
 Found 2: The Visual Studio Blog with state Unchanged
@@ -65,21 +65,21 @@ Found 1: ADO.NET Blog with state Deleted
 Found 2: The Visual Studio Blog with state Unchanged
 ```  
 
-Dies verdeutlicht die drei Punkte:  
+Dies veranschaulicht drei Punkte:  
 
-- Neue Blog "Meine neuen Blog" ist in der lokalen Auflistung enthalten, auch wenn sie noch nicht mit der Datenbank gespeichert wurde. Dieser Blog verfügt über einen Primärschlüssel 0 (null) aus, da die Datenbank eine tatsächliche Taste für die Entität noch nicht generiert wurde.  
-- "ADO.NET Blog" ist nicht in der lokalen Auflistung enthalten, auch wenn es immer noch vom Kontext nachverfolgt wird. Dies ist, da wir es aus und kennzeichnen es als gelöscht "DbSet" entfernt.  
-- Wenn "DbSet" verwendet wird, um eine Abfrage auszuführen im Blog zur Löschung (ADO.NET-Blog) gekennzeichnet in den Ergebnissen enthalten ist, und die neue Blog (Blog zur meine neue), das noch nicht mit der Datenbank gespeichert wurde, ist nicht in den Ergebnissen enthalten. Dies ist daran, dass "DbSet" eine Abfrage für die Datenbank führt und die Ergebnisse immer widerspiegeln, was in der Datenbank ist.  
+- Der neue Blog "Mein neuer Blog" ist in der lokalen Sammlung enthalten, obwohl er noch nicht in der Datenbank gespeichert wurde. In diesem Blog ist der Primärschlüssel 0 (null), da die Datenbank noch keinen echten Schlüssel für die Entität generiert hat.  
+- Der ADO.net-Blog ist nicht in der lokalen Auflistung enthalten, obwohl er noch vom Kontext nachverfolgt wird. Der Grund hierfür ist, dass wir ihn aus dem dbset entfernt haben und ihn als gelöscht markieren.  
+- Wenn dbset zum Ausführen einer Abfrage verwendet wird, ist der zum Löschen markierte Blog (ADO.net-Blog) in den Ergebnissen enthalten, und der neue Blog (mein neuer Blog), der noch nicht in der Datenbank gespeichert wurde, ist nicht in den Ergebnissen enthalten. Dies liegt daran, dass dbset eine Abfrage für die Datenbank ausführt und die zurückgegebenen Ergebnisse immer den Inhalt der Datenbank widerspiegeln.  
 
-## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>Verwenden Sie lokale hinzufügen und Entfernen von Entitäten aus dem Kontext  
+## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>Verwenden von local zum Hinzufügen und Entfernen von Entitäten aus dem Kontext  
 
-Gibt zurück, die lokale Eigenschaft auf "DbSet" eine [ObservableCollection](https://msdn.microsoft.com/library/ms668604.aspx) mit Ereignissen verknüpft, mit dem Inhalt der Kontext synchron bleibt. Dies bedeutet, dass die Entitäten können hinzugefügt oder entfernt aus der lokalen Auflistung oder "DbSet". Dies bedeutet auch, dass in der lokalen Auflistung mit diesen Entitäten aktualisiert führt Abfragen, die neue Entitäten in den Kontext zu bieten. Zum Beispiel:  
+Die Local-Eigenschaft in dbset gibt eine [ObservableCollection](https://msdn.microsoft.com/library/ms668604.aspx) mit gehockten Ereignissen zurück, sodass Sie mit dem Inhalt des Kontexts synchron bleibt. Dies bedeutet, dass Entitäten entweder der lokalen Auflistung oder dem dbset hinzugefügt oder daraus entfernt werden können. Dies bedeutet auch, dass Abfragen, die neue Entitäten in den Kontext bringen, dazu führen, dass die lokale Sammlung mit diesen Entitäten aktualisiert wird. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
 {
     // Load some posts from the database into the context
-    context.Posts.Where(p => p.Tags.Contains("entity-framework").Load();  
+    context.Posts.Where(p => p.Tags.Contains("entity-framework")).Load();  
 
     // Get the local collection and make some changes to it
     var localPosts = context.Posts.Local;
@@ -119,9 +119,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Angenommen, Sie hatten wir ein paar Beiträge markiert mit 'Entity Framework' und 'asp.net"die Ausgabe kann etwa wie folgt aussehen:  
+Wenn einige Beiträge mit "Entity-Framework" und "ASP.net" gekennzeichnet sind, sieht die Ausgabe in etwa wie folgt aus:  
 
-```  
+```console
 In Local after entity-framework query:
 Found 3: EF Designer Basics with state Unchanged
 Found 5: EF Code First Basics with state Unchanged
@@ -135,27 +135,27 @@ Found 0: What's New in EF with state Added
 Found 4: ASP.NET Beginners Guide with state Unchanged
 ```  
 
-Dies verdeutlicht die drei Punkte:  
+Dies veranschaulicht drei Punkte:  
 
-- Die neue Bereitstellung "EF Neuigkeiten in", die hinzugefügt wurde der lokalen Auflistung durch den Kontext im Zustand Added nachverfolgt wird. Es wird daher in der Datenbank eingefügt werden, wenn SaveChanges aufgerufen wird.  
-- Der Beitrag, der aus der lokalen Auflistung (EF Beginners Guide) entfernt wurde, ist nun markiert, in den Kontext als gelöscht. Es wird daher aus der Datenbank gelöscht werden, wenn SaveChanges aufgerufen wird.  
-- Die zusätzliche Post (Handbuch für Einsteiger ASP.NET), die in den Kontext mit der zweiten Abfrage geladen wird automatisch der lokalen Auflistung hinzugefügt werden.  
+- Der neue Beitrag ' What es New in EF ', der der lokalen Auflistung hinzugefügt wurde, wird vom Kontext im hinzugefügten Zustand nachverfolgt. Sie wird daher in die Datenbank eingefügt, wenn SaveChanges aufgerufen wird.  
+- Der Beitrag, der aus der lokalen Sammlung entfernt wurde (EF-Anfänger Handbuch) ist jetzt im Kontext als gelöscht gekennzeichnet. Daher wird Sie aus der Datenbank gelöscht, wenn SaveChanges aufgerufen wird.  
+- Der zusätzliche Post (ASP.net Beginners Guide), der mit der zweiten Abfrage in den Kontext geladen wird, wird der lokalen Auflistung automatisch hinzugefügt.  
 
-Eine letzte wichtige lokale beachtende liegt, die es handelt sich um eine ObservableCollection-Leistung nicht für eine große Anzahl von Entitäten ist. Aus diesem Grund Proxyproblemen mit Tausenden von Entitäten im Kontext Ihrer es ratsam, verwenden Sie lokale möglicherweise nicht.  
+Eine letzte Anmerkung zu Local ist, dass es sich bei einer ObservableCollection-Leistung nicht hervorragend für eine große Anzahl von Entitäten eignet. Wenn Sie also Tausende von Entitäten in ihrem Kontext verwenden, ist es möglicherweise nicht empfehlenswert, lokale zu verwenden.  
 
-## <a name="using-local-for-wpf-data-binding"></a>Verwenden Sie lokale für WPF-Datenbindung  
+## <a name="using-local-for-wpf-data-binding"></a>Verwenden von Local für die WPF-Datenbindung  
 
-Die lokale Eigenschaft auf "DbSet" kann direkt für die Datenbindung in einer WPF-Anwendung verwendet werden, da es sich um eine Instanz der ObservableCollection handelt. Wie in den vorherigen Abschnitten beschrieben, die Dies bedeutet, es automatisch synchron werden, mit dem Inhalt des Kontexts gehalten wird und der Inhalt des Kontexts automatisch werden, gehalten Sie synchron werden, damit. Beachten Sie, dass Sie benötigen, um der lokalen Auflistung mit Daten für die es gibt nichts zu binden, da lokale nie eine Datenbankabfrage löst vorab zu füllen.  
+Die lokale Eigenschaft in dbset kann direkt für die Datenbindung in einer WPF-Anwendung verwendet werden, da es sich um eine Instanz von ObservableCollection handelt. Wie in den vorherigen Abschnitten beschrieben, bedeutet dies, dass Sie automatisch mit dem Inhalt des Kontexts synchronisiert wird und der Inhalt des Kontexts automatisch synchron bleibt. Beachten Sie, dass Sie die lokale Sammlung mit Daten füllen müssen, damit Sie an eine Bindung gebunden werden, da local nie eine Datenbankabfrage verursacht.  
 
-Dies ist keiner geeigneten Stelle für eine vollständige WPF-Bindung Datenbeispiel, jedoch werden die Schlüsselelemente:  
+Dies ist kein geeigneter Ort für ein vollständiges WPF-Daten Bindungs Beispiel, aber die wichtigsten Elemente sind:  
 
-- Einrichten der Bindungsquelle  
-- Binden Sie es auf die lokale Eigenschaft Ihrer Gruppe  
-- Füllen Sie die lokalen mithilfe einer Abfrage mit der Datenbank.  
+- Einrichten einer Bindungs Quelle  
+- Binden Sie es an die lokale Eigenschaft ihrer Gruppe.  
+- Füllen Sie local mithilfe einer Abfrage an die Datenbank auf.  
 
-## <a name="wpf-binding-to-navigation-properties"></a>WPF-Datenbindung zu Navigationseigenschaften  
+## <a name="wpf-binding-to-navigation-properties"></a>WPF-Bindung an Navigations Eigenschaften  
 
-Beim Ausführen unter Umständen Master/Detail-Daten, die Bindung, die Sie die Detailansicht an eine Navigationseigenschaft einer Ihrer Entitäten binden möchten. Damit dies funktioniert eine einfache Möglichkeit ist die Verwendung eine ObservableCollection für die Navigationseigenschaft. Zum Beispiel:  
+Wenn Sie die Master/Detail-Datenbindung durchgeführt haben, möchten Sie möglicherweise die Detailansicht an eine Navigations Eigenschaft einer ihrer Entitäten binden. Eine einfache Möglichkeit, dies zu tun, ist die Verwendung einer ObservableCollection für die Navigations Eigenschaft. Zum Beispiel:  
 
 ``` csharp
 public class Blog
@@ -173,9 +173,9 @@ public class Blog
 }
 ```  
 
-## <a name="using-local-to-clean-up-entities-in-savechanges"></a>Verwenden Sie lokale zum Bereinigen von Entitäten in "SaveChanges"  
+## <a name="using-local-to-clean-up-entities-in-savechanges"></a>Verwenden von local zum Bereinigen von Entitäten in SaveChanges  
 
-In den meisten Fällen werden Entitäten, die von einer Navigationseigenschaft entfernt nicht automatisch markiert werden in den Kontext als gelöscht. Z. B. Wenn Sie eine Post-Objekt aus der Auflistung Blog.Posts entfernen, und klicken Sie dann die Sendung werden nicht automatisch gelöscht werden, wenn SaveChanges aufgerufen wird. Bei Bedarf gelöscht werden müssen Sie Sie dann diese verbleibende Entitäten suchen und markieren Sie sie als vor dem Aufruf von "SaveChanges" oder als Teil einer überschriebenen "SaveChanges" gelöscht. Zum Beispiel:  
+In den meisten Fällen werden Entitäten, die aus einer Navigations Eigenschaft entfernt werden, im Kontext nicht automatisch als gelöscht markiert. Wenn Sie z. b. ein Post-Objekt aus der Blog. Posts-Sammlung entfernen, wird dieser Beitrag nicht automatisch gelöscht, wenn SaveChanges aufgerufen wird. Wenn Sie den Löschvorgang benötigen, müssen Sie möglicherweise diese verbleibenden Entitäten suchen und als gelöscht markieren, bevor Sie SaveChanges oder als Teil einer überschriebenen SaveChanges aufrufen. Zum Beispiel:  
 
 ``` csharp
 public override int SaveChanges()
@@ -192,23 +192,23 @@ public override int SaveChanges()
 }
 ```  
 
-Der obige Code verwendet die lokale Auflistung finden Sie alle Beiträge und markiert alle, die keinen Blog-Verweis verfügen, als gelöscht. Die ToList-Aufrufs ist erforderlich, da andernfalls die Auflistung von entfernen geändert wird aufgerufen werden, während es aufgelistet wird. In den meisten anderen Fällen können Sie direkt für die lokale Eigenschaft Abfragen, ohne zuerst mithilfe von "ToList".  
+Der obige Code verwendet die lokale Auflistung, um nach allen Beiträgen zu suchen, und kennzeichnet alle, die keinen Blog Verweis als gelöscht haben. Der Auflistungs aufrufsvorgang ist erforderlich, da die Auflistung andernfalls durch den remove-Befehl geändert wird, während diese aufgelistet wird. In den meisten anderen Situationen können Sie die lokale Eigenschaft direkt Abfragen, ohne zuerst zuerst "-List" zu verwenden.  
 
-## <a name="using-local-and-tobindinglist-for-windows-forms-data-binding"></a>Mit der lokalen und ToBindingList für Windows Forms-Datenbindung  
+## <a name="using-local-and-tobindinglist-for-windows-forms-data-binding"></a>Verwenden von "local" und "ToBindingList" für Windows Forms Datenbindung  
 
-Windows Forms unterstützt keine uneingeschränkt Datenbindung ObservableCollection direkt verwenden. Allerdings immer noch können die "DbSet" Local-Eigenschaft für die Datenbindung Sie die Vorteile, die für die in den vorherigen Abschnitten beschrieben werden. Erfolgt dies durch die Erweiterungsmethode ToBindingList erstellt eine [IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx) Implementierung, die von der lokalen ObservableCollection unterstützt.  
+Windows Forms unterstützt die Datenbindung mit vollständiger Genauigkeit nicht direkt mithilfe von ObservableCollection. Sie können jedoch weiterhin die lokale dbset-Eigenschaft für die Datenbindung verwenden, um alle Vorteile zu erhalten, die in den vorherigen Abschnitten beschrieben wurden. Dies wird durch die "debindinglist"-Erweiterungsmethode erreicht, die eine [IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx) -Implementierung erstellt, die von der lokalen ObservableCollection unterstützt wird.  
 
-Dies ist keiner geeigneten Stelle für eine vollständige Windows Forms-Bindung Datenbeispiel, jedoch werden die Schlüsselelemente:  
+Dies ist kein geeigneter Ort für ein vollständiges Windows Forms Daten Bindungs Beispiel, aber die wichtigsten Elemente sind:  
 
-- Einrichten der Bindungsquelle ein Objekt  
-- Binden Sie es auf die lokale Eigenschaft aus, der den Satz mit Local.ToBindingList()  
-- Füllen Sie lokal mit einer Abfrage mit der Datenbank  
+- Einrichten einer Objekt Bindungs Quelle  
+- Binden Sie es an die lokale Eigenschaft ihrer Gruppe, indem Sie local. debindinglist () verwenden.  
+- Lokales Auffüllen mithilfe einer Abfrage an die Datenbank  
 
-## <a name="getting-detailed-information-about-tracked-entities"></a>Abrufen von ausführliche Informationen zu nachverfolgten Entitäten  
+## <a name="getting-detailed-information-about-tracked-entities"></a>Ausführliche Informationen zu nach verfolgten Entitäten  
 
-Viele der Beispiele in dieser Reihe verwenden die Entry-Methode, um eine "dbentityentry"-Instanz für eine Entität zurückzugeben. Dieser eintragsobjekt fungiert dann als Ausgangspunkt für das Sammeln von Informationen über die Entität wie z. B. ihres aktuellen Zustands sowie zum Ausführen von Vorgängen für die Entität wie z. B. das explizite Laden von einer verknüpften Entität.  
+Viele der Beispiele in dieser Reihe verwenden die Entry-Methode, um eine dbentityentry-Instanz für eine Entität zurückzugeben. Dieses Einstiegs Objekt fungiert dann als Ausgangspunkt für das Sammeln von Informationen über die Entität, z. b. den aktuellen Status, sowie für das Ausführen von Vorgängen für die Entität, z. b. das explizite Laden einer verknüpften Entität  
 
-Die Einträge-Methoden zurückgeben "dbentityentry"-Objekte für viele oder alle Entitäten, die vom Kontext nachverfolgt wird. Dadurch können Sie zum Sammeln von Informationen oder Ausführen von Vorgängen für viele Entitäten statt nur einen einzelnen Eintrag. Zum Beispiel:  
+Die Entries-Methoden geben dbentityentry-Objekte für viele oder alle Entitäten zurück, die vom Kontext nachverfolgt werden. Dies ermöglicht es Ihnen, Informationen zu sammeln oder Vorgänge für viele Entitäten statt nur für einen einzelnen Eintrag auszuführen. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -265,7 +265,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Sie werden bemerken, werden wir eine Klasse erstellen und eines Smartcardlesers eingeführt, in dem Beispiel – beide Klassen implementieren die IPerson-Schnittstelle.  
+Sie werden feststellen, dass wir eine Author-und Reader-Klasse in das Beispiel einführen. beide Klassen implementieren die IPerson-Schnittstelle.  
 
 ``` csharp
 public class Author : IPerson
@@ -288,17 +288,17 @@ public interface IPerson
 }
 ```  
 
-Nehmen wir an, dass wir die folgenden Daten in der Datenbank zu erhalten:
+Angenommen, wir haben die folgenden Daten in der Datenbank:
 
-Blog mit BlogId = 1 "und" Name = "ADO.NET Blog"  
-Blog mit BlogId = 2 "und" Name = "Im Visual Studio-Blog"  
-Blog mit BlogId = 3 "und" Name = ".NET Framework-Blog"  
-Erstellen mit AutorID = 1 "und" Name = "Joe Bloggs"  
-Reader mit ReaderId = 1 "und" Name = "John Doe"  
+Blog mit BlogId = 1 und Name = "ADO.net Blog"  
+Blog mit BlogId = 2 und Name = "der Visual Studio-Blog"  
+Blog mit BlogId = 3 und Name = ".NET Framework Blog"  
+Autor mit AutorID = 1 und Name = ' Joe Bloggs '  
+Reader mit readerid = 1 und Name = ' John Doe '  
 
-Die Ausgabe der Ausführung des Codes wäre:  
+Die Ausgabe der Ausführung des Codes lautet wie folgt:  
 
-```  
+```console
 All tracked entities:
 Found entity of type Blog with state Modified
 Found entity of type Blog with state Deleted
@@ -322,10 +322,10 @@ Found Person Joe Bloggs
 Found Person Jane Doe
 ```  
 
-Diese Beispiele veranschaulichen einige Punkte:  
+In diesen Beispielen werden mehrere Punkte veranschaulicht:  
 
-- Die Einträge-Methoden geben alle Zustände, einschließlich gelöschter Einträge für Entitäten zurück. Vergleichen Sie diese Option, um lokale die schließt gelöschte Entitäten.  
-- Einträge für alle Entitätstypen werden zurückgegeben, wenn die Einträge nicht generische Methode verwendet wird. Wenn die Einträge der generischen Methode verwendet wird werden Einträge nur für Entitäten zurückgegeben, die Instanzen des generischen Typs. Dies wurde weiter oben verwendet, um Einträge für alle Blogs zu erhalten. Es wurde auch verwendet, um Einträge für alle Entitäten zu erhalten, die IPerson zu implementieren. Dies zeigt, dass der generische Typ nicht unbedingt einen tatsächlichen Entitätstyp sein.  
-- LINQ to Objects kann verwendet werden, um die zurückgegebenen Ergebnisse zu filtern. Dies wurde oben verwendet, um Entitäten eines beliebigen Typs zu finden, solange sie geändert werden.  
+- Die Entries-Methoden geben Einträge für Entitäten in allen Zuständen zurück, einschließlich des gelöschten. Vergleichen Sie dies mit Local, wodurch gelöschte Entitäten ausgeschlossen werden.  
+- Einträge für alle Entitäts Typen werden zurückgegeben, wenn die nicht generische Entries-Methode verwendet wird. Wenn die generische Entries-Methode verwendet wird, werden Einträge nur für Entitäten zurückgegeben, die Instanzen des generischen Typs sind. Dies wurde oben verwendet, um Einträge für alle Blogs zu erhalten. Es wurde auch verwendet, um Einträge für alle Entitäten zu erhalten, die IPerson implementieren. Dies zeigt, dass es sich bei dem generischen Typ nicht um einen tatsächlichen Entitätstyp handeln muss.  
+- LINQ to Objects können verwendet werden, um die zurückgegebenen Ergebnisse zu filtern. Dies wurde oben verwendet, um Entitäten eines beliebigen Typs zu suchen, solange Sie geändert werden.  
 
-Beachten Sie, dass "dbentityentry"-Instanzen immer eine nicht-Null-Entität enthalten. Beziehung und Stub-Einträge werden nicht als "dbentityentry"-Instanzen dargestellt, daher keine Notwendigkeit besteht, für diese zu filtern.
+Beachten Sie, dass die dbentityentry-Instanzen immer eine Entität ungleich NULL enthalten. Beziehungs Einträge und Stub-Einträge werden nicht als dbentityentry-Instanzen dargestellt, sodass es nicht erforderlich ist, diese zu filtern.

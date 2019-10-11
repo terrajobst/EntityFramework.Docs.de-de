@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 026df735473e31f1c1463c1fbc6f46c4fd6dfd4f
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921733"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181391"
 ---
 # <a name="spatial-data"></a>Räumliche Daten
 
@@ -32,7 +32,7 @@ Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. entityframeworkcore. PostgreS
 
 ## <a name="reverse-engineering"></a>Reverse Engineering
 
-Die räumlichen nuget-Pakete ermöglichen auch die [Reverse Engineering](../managing-schemas/scaffolding.md) von Modellen mit räumlichen Eigenschaften. Sie müssen das Paket jedoch vor `Scaffold-DbContext` dem `dotnet ef dbcontext scaffold`Ausführen von oder installieren. Wenn Sie dies nicht tun, erhalten Sie Warnungen, wenn Sie keine Typzuordnungen für die Spalten finden und die Spalten übersprungen werden.
+Die räumlichen nuget-Pakete ermöglichen auch das [Reverse Engineering](../managing-schemas/scaffolding.md) von Modellen mit räumlichen Eigenschaften. Sie müssen jedoch das Paket installieren, ***bevor*** Sie `Scaffold-DbContext` oder `dotnet ef dbcontext scaffold` ausführen. Wenn Sie dies nicht tun, erhalten Sie Warnungen, wenn Sie keine Typzuordnungen für die Spalten finden und die Spalten übersprungen werden.
 
 ## <a name="nettopologysuite-nts"></a>Nettopologysuite (NTS)
 
@@ -46,9 +46,9 @@ optionsBuilder.UseSqlServer(
     x => x.UseNetTopologySuite());
 ```
 
-Es gibt mehrere räumliche Datentypen. Welcher Typ Sie verwenden, hängt von den Formen der Formen ab, die Sie zulassen möchten. Hier ist die Hierarchie der NTS-Typen, die Sie für Eigenschaften im Modell verwenden können. Sie befinden sich im `NetTopologySuite.Geometries` -Namespace.
+Es gibt mehrere räumliche Datentypen. Welcher Typ Sie verwenden, hängt von den Formen der Formen ab, die Sie zulassen möchten. Hier ist die Hierarchie der NTS-Typen, die Sie für Eigenschaften im Modell verwenden können. Sie befinden sich im `NetTopologySuite.Geometries`-Namespace.
 
-* et
+* Et
   * Punkt
   * LineString
   * Polygon
@@ -62,7 +62,7 @@ Es gibt mehrere räumliche Datentypen. Welcher Typ Sie verwenden, hängt von den
 
 Mit dem basisgeometry-Typ kann jeder Typ von Form von der-Eigenschaft angegeben werden.
 
-Die folgenden Entitäts Klassen können verwendet werden, um Tabellen in der [Beispieldatenbank Wide World Importern](http://go.microsoft.com/fwlink/?LinkID=800630)zuzuordnen.
+Die folgenden Entitäts Klassen können verwendet werden, um Tabellen in der [Beispieldatenbank Wide World Importern](https://go.microsoft.com/fwlink/?LinkID=800630)zuzuordnen.
 
 ``` csharp
 [Table("Cities", Schema = "Application"))]
@@ -101,7 +101,7 @@ var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
 
 ### <a name="longitude-and-latitude"></a>Längen-und Breitengrad
 
-Die Koordinaten in den NTS sind X-und Y-Werte. Um Längen-und Breitengrad darzustellen, verwenden Sie X für Längengrad und Y für Breitengrad. Beachten Sie, dass dies nicht das `latitude, longitude` Format hat, in dem normalerweise diese Werte angezeigt werden.
+Die Koordinaten in den NTS sind X-und Y-Werte. Um Längen-und Breitengrad darzustellen, verwenden Sie X für Längengrad und Y für Breitengrad. Beachten Sie, dass **sich diese** Werte im `latitude, longitude`-Format befinden, in dem Sie normalerweise diese Werte sehen.
 
 ### <a name="srid-ignored-during-client-operations"></a>SRID wird bei Client Vorgängen ignoriert.
 
@@ -213,15 +213,15 @@ Wenn Sie SQL Server verwenden, müssen Sie einige zusätzliche Punkte beachten.
 
 ### <a name="geography-or-geometry"></a>Geography oder Geometry
 
-Standardmäßig sind räumliche Eigenschaften `geography` Spalten in SQL Server zugeordnet. Konfigurieren Sie `geometry` [den Spaltentyp](xref:core/modeling/relational/data-types) in Ihrem Modell, um zu verwenden.
+Standardmäßig werden räumliche Eigenschaften `geography`-Spalten in SQL Server zugeordnet. Um `geometry` zu verwenden, [Konfigurieren Sie den Spaltentyp](xref:core/modeling/relational/data-types) in Ihrem Modell.
 
 ### <a name="geography-polygon-rings"></a>Polygon-Polygon Ringe
 
-Wenn der `geography` Spaltentyp verwendet wird, werden von SQL Server zusätzliche Anforderungen an den äußeren Ring (oder die Shell) und die inneren Ringe (oder Löcher) auferlegt. Der äußere Ring muss gegen den Uhrzeigersinn und die inneren Ringe im Uhrzeigersinn ausgerichtet werden. NTS überprüft dies, bevor Werte an die Datenbank gesendet werden.
+Wenn Sie den Spaltentyp `geography` verwenden, setzt SQL Server zusätzliche Anforderungen für den äußeren Ring (oder die Shell) und die inneren Ringe (oder Löcher). Der äußere Ring muss gegen den Uhrzeigersinn und die inneren Ringe im Uhrzeigersinn ausgerichtet werden. NTS überprüft dies, bevor Werte an die Datenbank gesendet werden.
 
 ### <a name="fullglobe"></a>FullGlobe
 
-SQL Server weist einen nicht standardmäßigen Geometry-Typ auf, der den vollständigen Globus `geography` darstellt, wenn der Spaltentyp verwendet wird. Außerdem bietet es eine Möglichkeit, Polygone auf der ganzen Welt (ohne äußeren Ring) darzustellen. Keines dieser beiden wird von NTS unterstützt.
+SQL Server weist einen nicht standardmäßigen Geometry-Typ auf, der den vollständigen Globus darstellt, wenn der `geography`-Spaltentyp verwendet wird. Außerdem bietet es eine Möglichkeit, Polygone auf der ganzen Welt (ohne äußeren Ring) darzustellen. Keines dieser beiden wird von NTS unterstützt.
 
 > [!WARNING]
 > Fullglobe und Polygone, die darauf basieren, werden von NTS nicht unterstützt.
@@ -244,7 +244,7 @@ brew install libspatialite
 
 ### <a name="configuring-srid"></a>Konfigurieren von SRID
 
-In spatialite müssen Spalten eine SRID pro Spalte angeben. Der Standard-SRID `0`ist. Geben Sie einen anderen SRID mithilfe der forsqlitehassrid-Methode an.
+In spatialite müssen Spalten eine SRID pro Spalte angeben. Der Standard-SRID ist `0`. Geben Sie einen anderen SRID mithilfe der forsqlitehassrid-Methode an.
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
@@ -331,5 +331,5 @@ Polygon. numinteriorrings | ✔ | ✔ | ✔ | ✔
 
 * [Räumliche Daten in SQL Server](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [Spatialite-Homepage](https://www.gaia-gis.it/fossil/libspatialite)
-* [Räumliche Dokumentation zu npgsql](http://www.npgsql.org/efcore/mapping/nts.html)
-* [PostGIS-Dokumentation](http://postgis.net/documentation/)
+* [Räumliche Dokumentation zu npgsql](https://www.npgsql.org/efcore/mapping/nts.html)
+* [PostGIS-Dokumentation](https://postgis.net/documentation/)

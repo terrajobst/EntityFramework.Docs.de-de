@@ -3,17 +3,17 @@ title: Entitäten mit Selbstnachverfolgung – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: b098736ef47e79c916f4bf054716022d5032eee5
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 3bb9759d89fbd0c10b911625aa7d0afd7747de14
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283809"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181730"
 ---
 # <a name="self-tracking-entities"></a>Entitäten mit Selbstnachverfolgung
 
 > [!IMPORTANT]
-> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](http://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
+> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](https://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
 
 In einer auf Entity Framework basierenden Anwendung ist ein Kontext für das Nachverfolgen von Änderungen in den Objekten zuständig. Verwenden Sie anschließend zum Speichern der Änderungen in der Datenbank die SaveChanges-Methode. Bei der Arbeit mit N-schichtigen Anwendungen wird die Verbindung der Entitätsobjekte zum Kontext in der Regel getrennt. Sie müssen dann entscheiden, wie Änderungen nachverfolgt und an den Kontext zurückgemeldet werden. Mithilfe von Entitäten mit Selbstnachverfolgung (Self-Tracking Entities, STEs) können Sie Änderungen in jeder Ebene nachverfolgen und anschließend zur Speicherung in einem Kontext wiedergeben.  
 
@@ -30,7 +30,7 @@ Informationen zu den ersten Schritten finden Sie auf der Seite [Self-Tracking En
 
 ## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>Funktionale Überlegungen für die Verwendung von Entitäten mit Selbstnachverfolgung  
 > [!IMPORTANT]
-> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](http://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
+> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](https://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
 
 Beachten Sie bei der Verwendung von Entitäten mit Selbstnachverfolgung Folgendes:  
 
@@ -39,7 +39,7 @@ Beachten Sie bei der Verwendung von Entitäten mit Selbstnachverfolgung Folgende
 - Wenn Sie das auf dem Client geänderte Diagramm an den Dienst senden und anschließend auf dem Client weiterhin dasselbe Diagramm verwenden möchten, müssen Sie das Diagramm auf dem Client manuell durchlaufen und die **AcceptChanges**-Methode für alle Objekte aufrufen, um die Änderungsnachverfolgung zurückzusetzen.  
 
     > Wenn Objekte im Diagramm Eigenschaften mit datenbankgenerierten Werten (z.B. Identitäts- oder Parallelitätswerte) enthalten, ersetzt Entity Framework die Werte dieser Eigenschaften durch die datenbankgenerierten Werte, nachdem die **SaveChanges**-Methode aufgerufen wurde. Sie können den Dienstvorgang implementieren, um gespeicherte Objekte oder eine Liste generierter Eigenschaftenwerte für die Objekte an den Client zurückzugeben. Der Client müsste dann die Objektinstanzen oder Objekteigenschaftenwerte durch die vom Dienstvorgang zurückgegebenen Objekte oder Eigenschaftenwerte ersetzen.  
-- Das Zusammenführen von Diagrammen aus mehreren Dienstanforderungen kann zu Objekten mit doppelten Schlüsselwerten im resultierenden Diagramm führen. Entity Framework entfernt die Objekte mit doppelten Schlüsseln nicht, wenn Sie die **ApplyChanges**-Methode aufrufen. Stattdessen wird eine Ausnahme ausgelöst. Halten Sie sich zur Vermeidung von Diagrammen mit doppelten Schlüsselwerten an eines der im folgenden Blog beschriebenen Muster: [Self-Tracking Entities: ApplyChanges and duplicate entities (Entitäten mit Selbstnachverfolgung: ApplyChanges und doppelte Entitäten)](https://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
+- Das Zusammenführen von Diagrammen aus mehreren Dienstanforderungen kann zu Objekten mit doppelten Schlüsselwerten im resultierenden Diagramm führen. Entity Framework entfernt die Objekte mit doppelten Schlüsseln nicht, wenn Sie die **ApplyChanges**-Methode aufrufen. Stattdessen wird eine Ausnahme ausgelöst. Halten Sie sich zur Vermeidung von Diagrammen mit doppelten Schlüsselwerten an eines der im folgenden Blog beschriebenen Muster: [Entitäten mit Selbstnachverfolgung: ApplyChanges und doppelte Entitäten](https://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
 - Wenn Sie die Beziehung zwischen Objekten durch Festlegen der Fremdschlüsseleigenschaft ändern, wird die Verweisnavigationseigenschaft auf NULL festgelegt und nicht mit der entsprechenden Prinzipalentität auf dem Client synchronisiert. Nachdem das Diagramm an den Objektkontext angefügt wurde (z.B. nach dem Aufrufen der **ApplyChanges**-Methode), werden die Fremdschlüssel- und Navigationseigenschaften synchronisiert.  
 
     > Die nicht erfolgte Synchronisierung einer Verweisnavigationseigenschaft mit dem entsprechenden Prinzipalobjekt kann ein Problem sein, wenn Sie die Löschweitergabe für die Fremdschlüsselbeziehung festgelegt haben. Wenn Sie das Prinzipalobjekt löschen, wird der Löschvorgang nicht an die abhängigen Objekte weitergegeben. Wenn Sie Löschweitergaben festgelegt haben, verwenden Sie Navigationseigenschaften zum Ändern der Beziehungen, statt die Fremdschlüsseleigenschaft festzulegen.  

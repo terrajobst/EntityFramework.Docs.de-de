@@ -1,30 +1,30 @@
 ---
-title: Arbeiten mit Eigenschaftswerten - EF6
+title: Arbeiten mit Eigenschafts Werten EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
-ms.openlocfilehash: afde503bb4ed15fcf83a57053541cd5da8c89835
-ms.sourcegitcommit: 50521b4a2f71139e6a7210a69ac73da582ef46cf
+ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/27/2019
-ms.locfileid: "67416675"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182147"
 ---
-# <a name="working-with-property-values"></a>Verwenden von Eigenschaftswerten
-In den meisten Fällen übernimmt Entity Framework der nachverfolgung von Status, die ursprünglichen Werte und die aktuellen Werte der Eigenschaften der Entitätsinstanzen. Möglicherweise gibt es jedoch einige Fälle – z. B. nicht verbundenen Szenarien – angezeigt oder bearbeitet, die EF bietet Informationen zu den Eigenschaften werden sollen. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
+# <a name="working-with-property-values"></a>Arbeiten mit Eigenschafts Werten
+In den meisten Fällen übernimmt Entity Framework die Nachverfolgung des Zustands, der ursprünglichen Werte und der aktuellen Werte der Eigenschaften der Entitäts Instanzen. Es gibt jedoch einige Fälle, z. b. getrennte Szenarios, in denen Sie die Informationen anzeigen oder bearbeiten möchten, die EF über die Eigenschaften verfügt. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
-Entitätsframework verfolgt des zwei Werte für jede Eigenschaft einer verfolgten Entität. Der aktuelle Wert ist, wie der Name, den aktuellen Wert der Eigenschaft in der Entität. Der ursprüngliche Wert ist der Wert, den die Eigenschaft hätte, wenn die Entität aus der Datenbank abgefragt oder an den Kontext angefügt wurde.  
+Entity Framework verfolgt zwei Werte für jede Eigenschaft einer nach verfolgten Entität nach. Der aktuelle Wert ist, wie der Name zeigt, der aktuelle Wert der-Eigenschaft in der Entität. Der ursprüngliche Wert ist der Wert, den die Eigenschaft hatte, als die Entität von der Datenbank abgefragt oder an den Kontext angefügt wurde.  
 
-Es gibt zwei allgemeine Mechanismen für die Arbeit mit Eigenschaftswerten aus:  
+Es gibt zwei allgemeine Mechanismen zum Arbeiten mit Eigenschafts Werten:  
 
-- Der Wert einer einzelnen Eigenschaft kann auf eine stark typisierte Weise mithilfe der Methode für die Eigenschaft abgerufen werden.  
-- Werte für alle Eigenschaften einer Entität können in ein DbPropertyValues-Objekt gelesen werden. DbPropertyValues stellt dann eine wörterbuchähnliche-Objekt können Sie Eigenschaftswerte zum Lesen und festlegen. Die Werte in einem DbPropertyValues-Objekt können von Werten in einem anderen DbPropertyValues-Objekt oder von Werten in ein anderes Objekt, z. B. eine weitere Kopie der Entität oder ein einfaches datentransferobjekt (DTO) festgelegt werden.  
+- Der Wert einer einzelnen Eigenschaft kann mithilfe der-Eigenschaften Methode in einer stark typisierten Weise abgerufen werden.  
+- Werte für alle Eigenschaften einer Entität können in ein dbpropertyvalues-Objekt eingelesen werden. Dbpropertyvalues fungiert dann als Wörterbuch ähnliches Objekt, um das Lesen und Festlegen von Eigenschafts Werten zuzulassen. Die Werte in einem dbpropertyvalues-Objekt können aus Werten in einem anderen dbpropertyvalues-Objekt oder aus Werten in einem anderen Objekt, z. b. einer anderen Kopie der Entität oder einem einfachen Datenübertragungs Objekt (Data Transfer Object, dto), festgelegt werden.  
 
-In den folgenden Abschnitten sind Beispiele für beide der oben genannten Mechanismen an.  
+In den folgenden Abschnitten sind Beispiele für die Verwendung der beiden oben genannten Mechanismen aufgeführt.  
 
-## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>Abrufen und Festlegen des aktuellen oder den ursprünglichen Werts einer einzelnen Eigenschaft  
+## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>Festlegen und Festlegen des aktuellen oder ursprünglichen Werts einer einzelnen Eigenschaft  
 
-Das folgende Beispiel zeigt, wie der aktuelle Wert einer Eigenschaft zu lesen und klicken Sie dann auf einen neuen Wert festgelegt werden kann:  
+Im folgenden Beispiel wird gezeigt, wie der aktuelle Wert einer Eigenschaft gelesen und dann auf einen neuen Wert festgelegt werden kann:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -45,17 +45,17 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Verwenden Sie die OriginalValue-Eigenschaft anstelle der CurrentValue-Eigenschaft zu lesen, oder legen Sie den ursprünglichen Wert.  
+Verwenden Sie die Eigenschaft OriginalValue anstelle der Eigenschaft CurrentValue, um den ursprünglichen Wert zu lesen oder festzulegen.  
 
-Beachten Sie, dass der zurückgegebene Wert als "Object" eingegeben wird, wenn eine Zeichenfolge mit dem Namen der Eigenschaft angegeben. Auf der anderen Seite ist der Rückgabewert stark typisiert, wenn ein Lambda-Ausdruck verwendet wird.  
+Beachten Sie, dass der zurückgegebene Wert als "Object" typisiert wird, wenn eine Zeichenfolge verwendet wird, um den Namen der Eigenschaft anzugeben. Auf der anderen Seite ist der zurückgegebene Wert stark typisiert, wenn ein Lambda-Ausdruck verwendet wird.  
 
-Festlegen des Eigenschaftswerts wie folgt, wird nur die Eigenschaft markieren, als geändert, wenn der neue Wert den alten Wert unterscheidet.  
+Wenn Sie den Eigenschafts Wert auf diese Weise festlegen, wird die Eigenschaft nur als geändert markiert, wenn der neue Wert vom alten Wert abweicht.  
 
-Wenn ein Eigenschaftswert, auf diese Weise festgelegt ist wird die Änderung automatisch erkannt werden, auch wenn AutoDetectChanges deaktiviert ist.  
+Wenn ein Eigenschafts Wert auf diese Weise festgelegt wird, wird die Änderung automatisch erkannt, auch wenn autodetectchanges deaktiviert ist.  
 
-## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>Abrufen und Festlegen von den aktuellen Wert einer nicht zugeordneten Eigenschaft.  
+## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>Der aktuelle Wert einer nicht zugeordneten Eigenschaft wird erhalten und festgelegt.  
 
-Der aktuelle Wert einer Eigenschaft, die nicht in der Datenbank zugeordnet ist, kann auch gelesen werden. Ein Beispiel für eine nicht zugeordnete Eigenschaft ist möglicherweise eine Eigenschaft RssLink-Blog. Dieser Wert kann basierend auf den BlogId berechnet werden und daher nicht in der Datenbank gespeichert werden muss. Zum Beispiel:  
+Der aktuelle Wert einer Eigenschaft, die nicht der Datenbank zugeordnet ist, kann ebenfalls gelesen werden. Ein Beispiel für eine nicht zugeordnete Eigenschaft könnte eine rsslink-Eigenschaft im Blog sein. Dieser Wert kann basierend auf der BlogId berechnet werden und muss daher nicht in der Datenbank gespeichert werden. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -69,9 +69,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Der aktuelle Wert kann auch festgelegt werden, wenn die Eigenschaft einen Setter verfügbar macht.  
+Der aktuelle Wert kann auch festgelegt werden, wenn die-Eigenschaft einen Setter verfügbar macht.  
 
-Lesen die Werte der Eigenschaften, die nicht zugeordneten ist nützlich, beim Durchführen von Entity Framework-Überprüfung von nicht zugeordneten Eigenschaften. Aus demselben Grund können aktuelle Werte lesen und für die Eigenschaften von Entitäten, die aktuell nicht vom Kontext verfolgt werden eingestellt werden. Zum Beispiel:  
+Das Lesen der Werte nicht zugeordneter Eigenschaften ist nützlich, wenn Entity Framework Überprüfung nicht zugeordneter Eigenschaften durchgeführt wird. Aus demselben Grund können aktuelle Werte gelesen und für Eigenschaften von Entitäten festgelegt werden, die derzeit nicht durch den Kontext verfolgt werden. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -87,11 +87,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass die ursprünglichen Werte sind nicht verfügbar, für nicht zugeordnete Eigenschaften oder Eigenschaften von Entitäten, die nicht vom Kontext nachverfolgt werden.  
+Beachten Sie, dass die ursprünglichen Werte für nicht zugeordnete Eigenschaften oder für Eigenschaften von Entitäten, die nicht vom Kontext nachverfolgt werden, nicht verfügbar sind.  
 
-## <a name="checking-whether-a-property-is-marked-as-modified"></a>Überprüft, ob eine Eigenschaft als geändert markiert ist  
+## <a name="checking-whether-a-property-is-marked-as-modified"></a>Es wird überprüft, ob eine Eigenschaft als geändert markiert ist.  
 
-Das folgende Beispiel zeigt, wie Sie überprüfen, und zwar unabhängig davon, ob eine einzelne Eigenschaft als geändert markiert ist:  
+Im folgenden Beispiel wird gezeigt, wie Sie überprüfen können, ob eine einzelne Eigenschaft als geändert gekennzeichnet ist:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -105,11 +105,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Die Werte der geänderten Eigenschaften sind als Updates an die Datenbank gesendet, wenn SaveChanges aufgerufen wird.  
+Die Werte der geänderten Eigenschaften werden als Aktualisierungen an die Datenbank gesendet, wenn SaveChanges aufgerufen wird.  
 
-##  <a name="marking-a-property-as-modified"></a>Eine Eigenschaft als geändert markieren  
+##  <a name="marking-a-property-as-modified"></a>Markieren einer Eigenschaft als geändert  
 
-Das folgende Beispiel zeigt, wie Sie erzwingen, dass für eine einzelne Eigenschaft als geändert markiert werden:  
+Das folgende Beispiel zeigt, wie Sie erzwingen können, dass eine einzelne Eigenschaft als geändert markiert wird:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -123,13 +123,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Markieren eine Eigenschaft als geänderte erzwingt ein Update für werden an die Datenbank für die Eigenschaft aus, wenn SaveChanges aufgerufen wird, selbst wenn der aktuelle Wert der Eigenschaft den ursprünglichen Wert identisch ist.  
+Wenn eine Eigenschaft als geändert markiert wird, wird ein Update für die-Eigenschaft an die Datenbank gesendet, wenn SaveChanges aufgerufen wird, auch wenn der aktuelle Wert der-Eigenschaft mit dem ursprünglichen Wert übereinstimmt.  
 
-Es ist nicht aktuell möglich ist, zum Zurücksetzen einer einzelnen Eigenschaft nicht geändert werden, nachdem er als geändert gekennzeichnet wurde. Dies ist etwas, das wir in einer zukünftigen Version unterstützt werden soll.  
+Es ist derzeit nicht möglich, eine einzelne Eigenschaft zurückzusetzen, sodass Sie nicht geändert wird, nachdem Sie als geändert markiert wurde. Dies wird in einer zukünftigen Version unterstützt.  
 
-## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>Beim Lesen der aktuellen und ursprünglichen Datenbankwerte für alle Eigenschaften einer Entität  
+## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>Lesen aktueller, ursprünglicher und Daten Bankwerte für alle Eigenschaften einer Entität  
 
-Das folgende Beispiel zeigt, wie Sie die aktuellen Werte, die ursprünglichen Werte und die Werte tatsächlich in der Datenbank für alle zugeordneten Eigenschaften einer Entität zu lesen.  
+Das folgende Beispiel zeigt, wie die aktuellen Werte, die ursprünglichen Werte und die Werte in der Datenbank für alle zugeordneten Eigenschaften einer Entität gelesen werden.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -163,11 +163,11 @@ public static void PrintValues(DbPropertyValues values)
 }
 ```  
 
-Die aktuellen Werte sind die Werte, die die Eigenschaften der Entität derzeit enthalten. Die ursprünglichen Werte werden die Werte, die aus der Datenbank gelesen wurden, wenn die Entität abgefragt wurde. Die Datenbankwerte sind die Werte, da sie derzeit in der Datenbank gespeichert werden. Abrufen der Datenbankwerte ist nützlich, wenn die Werte in der Datenbank geändert haben können, da die Entität abgefragt wurde, wie z. B. wenn eine gleichzeitige bearbeiten, um die Datenbank von einem anderen Benutzer vorgenommen wurde.  
+Die aktuellen Werte sind die Werte, die die Eigenschaften der Entität derzeit enthalten. Bei den ursprünglichen Werten handelt es sich um die Werte, die aus der Datenbank gelesen wurden, als die Entität abgefragt wurde. Bei den Daten bankwerten handelt es sich um die Werte, die aktuell in der Datenbank gespeichert sind. Das übertragen der Daten Bankwerte ist hilfreich, wenn sich die Werte in der Datenbank möglicherweise seit der Abfrage der Entität geändert haben, z. b. Wenn ein anderer Benutzer eine gleichzeitige Bearbeitung der Datenbank durchgeführt hat.  
 
-## <a name="setting-current-or-original-values-from-another-object"></a>Festlegen der aktuelle oder den ursprüngliche Werten aus einem anderen Objekt  
+## <a name="setting-current-or-original-values-from-another-object"></a>Festlegen aktueller oder ursprünglicher Werte aus einem anderen Objekt  
 
-Die aktuelle oder ursprüngliche Werte einer verfolgten Entität können durch Kopieren der Werte aus einem anderen Objekt aktualisiert werden. Zum Beispiel:  
+Die aktuellen oder ursprünglichen Werte einer nach verfolgten Entität können aktualisiert werden, indem Werte aus einem anderen Objekt kopiert werden. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -196,9 +196,9 @@ public class BlogDto
 }
 ```  
 
-Ausführen des obigen Codes werden ausgeben:  
+Wenn Sie den obigen Code ausführen, wird Folgendes gedruckt:  
 
-```  
+```console
 Current values:
 Property Id has value 1
 Property Name has value My Cool Blog
@@ -208,13 +208,13 @@ Property Id has value 1
 Property Name has value My Boring Blog
 ```  
 
-Diese Technik wird manchmal verwendet, bei der Aktualisierung einer Entitätstyps mit den Werten, die von einem Dienstaufruf oder einem Client in eine n-schichtige Anwendung abgerufen. Beachten Sie, dass das Objekt, nicht desselben Typs wie die Entität zu werden unbedingt, solange es Eigenschaften verfügt, deren Namen mit denen der Entität entsprechen. Im obigen Beispiel wird eine Instanz von BlogDTO zum Aktualisieren der ursprünglichen Werte verwendet.  
+Diese Technik wird manchmal beim Aktualisieren einer Entität mit Werten verwendet, die von einem Dienst-oder Client in einer n-Tier-Anwendung abgerufen werden. Beachten Sie, dass das verwendete Objekt nicht denselben Typ wie die Entität aufweisen muss, solange es über Eigenschaften verfügt, deren Namen mit denen der Entität übereinstimmen. Im obigen Beispiel wird eine Instanz von blogdto verwendet, um die ursprünglichen Werte zu aktualisieren.  
 
-Beachten Sie, dass nur die Eigenschaften, die auf unterschiedliche Werte beim Kopieren aus dem anderen Objekt festgelegt werden als geändert markiert werden.  
+Beachten Sie, dass nur Eigenschaften, die auf verschiedene Werte festgelegt sind, wenn Sie aus dem anderen Objekt kopiert werden, als geändert gekennzeichnet werden.  
 
-## <a name="setting-current-or-original-values-from-a-dictionary"></a>Festlegen der aktuelle oder den ursprüngliche Werten aus einem Wörterbuch  
+## <a name="setting-current-or-original-values-from-a-dictionary"></a>Festlegen aktueller oder ursprünglicher Werte aus einem Wörterbuch  
 
-Die aktuelle oder ursprüngliche Werte einer verfolgten Entität können durch Kopieren von Werten aus einem Wörterbuch oder eine andere Datenstruktur aktualisiert werden. Zum Beispiel:  
+Die aktuellen oder ursprünglichen Werte einer nach verfolgten Entität können aktualisiert werden, indem Werte aus einem Wörterbuch oder einer anderen Datenstruktur kopiert werden. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -238,11 +238,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Verwenden Sie die OriginalValues-Eigenschaft anstelle der CurrentValues-Eigenschaft, um ursprüngliche Werte festzulegen.  
+Verwenden Sie die OriginalValues-Eigenschaft anstelle der CurrentValues-Eigenschaft, um die ursprünglichen Werte festzulegen.  
 
-## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>Festlegen der aktuelle oder den ursprüngliche Werten aus einem Wörterbuch mit der Eigenschaft  
+## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>Festlegen aktueller oder ursprünglicher Werte aus einem Wörterbuch mithilfe der-Eigenschaft  
 
-Eine Alternative zur Verwendung von CurrentValues oder OriginalValues wie oben gezeigt ist die Verwendung die Property-Methode zum Festlegen des Werts für jede Eigenschaft. Dies kann besser sein, wenn Sie die Werte von komplexen Eigenschaften festlegen müssen. Zum Beispiel:  
+Eine Alternative zur Verwendung von CurrentValues oder OriginalValues, wie oben gezeigt, besteht darin, die-Eigenschaften Methode zum Festlegen des Werts der einzelnen Eigenschaften zu verwenden. Dies ist vorzuziehen, wenn Sie die Werte komplexer Eigenschaften festlegen müssen. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -266,11 +266,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Im Beispiel oben komplexe Eigenschaften erfolgt mithilfe von Namen in punktierter Schreibweise. Weitere Informationen zum Zugriff auf komplexe Eigenschaften finden Sie unter den beiden Abschnitten unten in diesem Thema, insbesondere zu komplexen Eigenschaften zu erhalten.  
+Im obigen Beispiel erfolgt der Zugriff auf komplexe Eigenschaften mithilfe von punktierten Namen. Weitere Möglichkeiten, um auf komplexe Eigenschaften zuzugreifen, finden Sie in den beiden Abschnitten weiter unten in diesem Thema speziell zu komplexen Eigenschaften.  
 
-## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>Erstellen ein geklontes Objekt, das mit Datenbankwerte, ursprüngliche oder aktuelle  
+## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>Erstellen eines geklonten Objekts mit aktuellen, ursprünglichen oder Daten bankwerten  
 
-Das Objekt DbPropertyValues Merry CurrentValues, OriginalValues, oder GetDatabaseValues können verwendet werden, um einen Klon der Entität zu erstellen. Dieser Klon enthält die Eigenschaftswerte aus dem DbPropertyValues-Objekt verwendet, um es zu erstellen. Zum Beispiel:  
+Das von CurrentValues, OriginalValues oder getdatabasevalues zurückgegebene dbpropertyvalues-Objekt kann verwendet werden, um einen Klon der Entität zu erstellen. Dieser Klon enthält die Eigenschaftswerte aus dem dbpropertyvalues-Objekt, das zur Erstellung verwendet wird. Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -281,13 +281,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass das zurückgegebene Objekt nicht die Entität und nicht vom Kontext nachverfolgt wird. Das zurückgegebene Objekt muss auch keine Beziehungen zu anderen Objekten festgelegt.  
+Beachten Sie, dass das zurückgegebene Objekt nicht die Entität ist und nicht vom Kontext nachverfolgt wird. Für das zurückgegebene Objekt sind auch keine Beziehungen auf andere Objekte festgelegt.  
 
-Das geklonte Objekt möglich nützlich zum Lösen von Problemen im Zusammenhang mit gleichzeitiger Aktualisierungen der Datenbank, insbesondere, in denen eine Benutzeroberfläche, die die Datenbindung an Objekte eines bestimmten Typs umfasst verwendet wird.  
+Das geklonte Objekt kann nützlich sein, um Probleme im Zusammenhang mit gleichzeitigen Aktualisierungen der Datenbank zu beheben. Dies gilt insbesondere, wenn eine Benutzeroberfläche verwendet wird, die eine Datenbindung an Objekte eines bestimmten Typs einschließt.  
 
-## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Abrufen und Festlegen der aktuellen oder den ursprünglichen Werten der Eigenschaften, die komplexe  
+## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Erhalten und Festlegen der aktuellen oder ursprünglichen Werte komplexer Eigenschaften  
 
-Der Wert eines ganzen komplexen Objekts kann sein, lesen und mit der Property-Methode, so wie es für eine primitive Eigenschaft sein kann. Darüber hinaus können Sie das komplexe Objekt und gelesen oder festgelegt Eigenschaften dieses Objekts, oder sogar ein geschachteltes Objekt aufgliedern. Hier einige Beispiele:  
+Der Wert eines gesamten komplexen Objekts kann mithilfe der-Eigenschaften Methode gelesen und festgelegt werden, so wie es für eine primitive Eigenschaft möglich ist. Außerdem können Sie einen Drilldown in das komplexe Objekt durchführen und die Eigenschaften des Objekts oder sogar ein geschieetes Objekt lesen oder festlegen. Hier einige Beispiele:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -334,13 +334,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Verwenden Sie den OriginalValue-Eigenschaft anstelle der CurrentValue-Eigenschaft, um einen ursprünglichen Wert abgerufen oder festgelegt.  
+Verwenden Sie die OriginalValue-Eigenschaft anstelle der CurrentValue-Eigenschaft, um einen ursprünglichen Wert zu erhalten oder festzulegen.  
 
-Beachten Sie, dass entweder die Eigenschaft oder der ComplexProperty-Methode verwendet werden kann, um eine komplexe Eigenschaft zuzugreifen. Allerdings muss die ComplexProperty-Methode verwendet werden, wenn Sie einen Drilldown in das komplexe Objekt mit zusätzlichen Eigenschaft möchten oder ComplexProperty aufruft.  
+Beachten Sie, dass entweder die-Eigenschaft oder die ComplexProperty-Methode für den Zugriff auf eine komplexe Eigenschaft verwendet werden kann. Allerdings muss die ComplexProperty-Methode verwendet werden, wenn Sie einen Drilldown in das komplexe Objekt mit zusätzlichen Eigenschafts-oder ComplexProperty-aufrufen durchführen möchten.  
 
-## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>Verwenden den Zugriff auf komplexe Eigenschaften DbPropertyValues  
+## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>Verwenden von dbpropertyvalues zum Zugreifen auf komplexe Eigenschaften  
 
-Wenn Sie CurrentValues OriginalValues oder GetDatabaseValues verwenden, um die aktuelle ursprüngliche zu erhalten, oder Datenbankwerte für eine Entität, die Werte der komplexen Eigenschaften werden als geschachtelte DbPropertyValues Objekte zurückgegeben. Diese geschachtelte Objekte kann dann verwendet werden, um die Werte des komplexen Objekts zu erhalten. Beispielsweise wird die folgende Methode, die Werte aller Eigenschaften, einschließlich der Werte von komplexen Eigenschaften und verschachtelte komplexe Eigenschaften ausgegeben.  
+Wenn Sie "CurrentValues", "OriginalValues" oder "getdatabasevalues" verwenden, um alle aktuellen, ursprünglichen oder Daten Bankwerte für eine Entität zu erhalten, werden die Werte aller komplexen Eigenschaften als geduckte dbpropertyvalues-Objekte zurückgegeben. Diese-Objekte können dann verwendet werden, um Werte für das komplexe Objekt zu erhalten. Mit der folgenden Methode werden z. b. die Werte aller Eigenschaften gedruckt, einschließlich der Werte aller komplexen Eigenschaften und der in der Tabelle komplexen komplexen Eigenschaften.  
 
 ``` csharp
 public static void WritePropertyValues(string parentPropertyName, DbPropertyValues propertyValues)
@@ -362,7 +362,7 @@ public static void WritePropertyValues(string parentPropertyName, DbPropertyValu
 }
 ```  
 
-Um die Methode alle aktuellen Eigenschaftswerte auszudrucken würde wie folgt aufgerufen werden:  
+Um alle aktuellen Eigenschaftswerte auszugeben, wird die-Methode wie folgt aufgerufen:  
 
 ``` csharp
 using (var context = new BloggingContext())

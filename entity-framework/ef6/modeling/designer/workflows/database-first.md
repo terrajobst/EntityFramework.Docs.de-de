@@ -1,65 +1,65 @@
 ---
-title: Database First – EF6
+title: Database First-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: c81025fe7c3ad6398f003f7be2a3f9f072eec327
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: d40cff4ddccf43a394ef4f244653372a5a89b05a
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284082"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182452"
 ---
-# <a name="database-first"></a>Zunächst-Datenbank
-Dieses video und schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Verwendung von Entity Framework Database First-Entwicklung. Datenbank können Sie für das reverse Engineering zuerst ein Modell aus einer vorhandenen Datenbank. Das Modell kann im Entity Framework Designer wird in einer EDMX-Datei (EDMX-Erweiterung) gespeichert und angezeigt und bearbeitet werden. Die Klassen, die Sie in Ihrer Anwendung interagieren, werden automatisch aus der EDMX-Datei generiert.
+# <a name="database-first"></a>Database First
+Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Database First Entwicklung mit Entity Framework. Mit Database First können Sie ein Modell aus einer vorhandenen Datenbank umkehren. Das Modell wird in einer EDMX-Datei (edmx-Erweiterung) gespeichert und kann in der Entity Framework Designer angezeigt und bearbeitet werden. Die Klassen, mit denen Sie in Ihrer Anwendung interagieren, werden automatisch aus der EDMX-Datei generiert.
 
 ## <a name="watch-the-video"></a>Video ansehen
-Dieses Video bietet eine Einführung in die Verwendung von Entity Framework Database First-Entwicklung. Datenbank können Sie für das reverse Engineering zuerst ein Modell aus einer vorhandenen Datenbank. Das Modell kann im Entity Framework Designer wird in einer EDMX-Datei (EDMX-Erweiterung) gespeichert und angezeigt und bearbeitet werden. Die Klassen, die Sie in Ihrer Anwendung interagieren, werden automatisch aus der EDMX-Datei generiert.
+Dieses Video bietet eine Einführung in die Database First Entwicklung mit Entity Framework. Mit Database First können Sie ein Modell aus einer vorhandenen Datenbank umkehren. Das Modell wird in einer EDMX-Datei (edmx-Erweiterung) gespeichert und kann in der Entity Framework Designer angezeigt und bearbeitet werden. Die Klassen, mit denen Sie in Ihrer Anwendung interagieren, werden automatisch aus der EDMX-Datei generiert.
 
-**Präsentation:** [Rowan Miller](http://romiller.com/)
+**Präsentiert von**: [Rowan-Miller](https://romiller.com/)
 
 **Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
-Sie benötigen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert werden, um diese exemplarische Vorgehensweise abgeschlossen haben.
+Sie müssen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert haben, um diese exemplarische Vorgehensweise abzuschließen.
 
-Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch haben [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installiert.
+Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
 
- 
+ 
 
-## <a name="1-create-an-existing-database"></a>1. Erstellen Sie eine vorhandene Datenbank
+## <a name="1-create-an-existing-database"></a>1. Erstellen einer vorhandenen Datenbank
 
-In der Regel müssen, wenn Sie eine vorhandene Datenbank verwenden möchten, die sie bereits erstellt wird, aber in dieser exemplarischen Vorgehensweise wir zum Erstellen einer Datenbank auf.
+Wenn Sie eine vorhandene Datenbank als Ziel haben, wird Sie in der Regel bereits erstellt, aber in dieser exemplarischen Vorgehensweise müssen wir eine Datenbank erstellen, auf die zugegriffen werden kann.
 
-Der Datenbankserver, der mit Visual Studio installiert ist, unterscheidet sich abhängig von der Version von Visual Studio, die Sie installiert haben:
+Der Datenbankserver, der mit Visual Studio installiert wird, unterscheidet sich abhängig von der installierten Version von Visual Studio:
 
--   Wenn Sie Visual Studio 2010 verwenden erstellen Sie eine SQL Express-Datenbank.
--   Wenn Sie Visual Studio 2012 verwenden, und klicken Sie dann Sie erstellen eine [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) Datenbank.
+-   Wenn Sie Visual Studio 2010 verwenden, erstellen Sie eine SQL Express-Datenbank.
+-   Wenn Sie Visual Studio 2012 verwenden, erstellen Sie eine [localdb](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) -Datenbank.
 
- 
+ 
 
-Wir jetzt, und Erstellen der Datenbank.
+Nun generieren wir die Datenbank.
 
 -   Öffnen Sie Visual Studio.
--   **Ansicht – Profiler -&gt; Server-Explorer**
--   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen -&gt; Verbindung hinzufügen...**
--   Wenn Sie vor dem müssen Sie Microsoft SQL Server als Datenquelle wählen im Server-Explorer mit einer Datenbank verbunden haben
+-   **View-&gt; Server-Explorer**
+-   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen-&gt; Verbindung hinzufügen...**
+-   Wenn Sie über Server-Explorer keine Verbindung mit einer Datenbank hergestellt haben, müssen Sie Microsoft SQL Server als Datenquelle auswählen.
 
-    ![Auswählen einer Datenquelle](~/ef6/media/selectdatasource.png)
+    ![Datenquelle auswählen](~/ef6/media/selectdatasource.png)
 
--   Eine Verbindung mit LocalDB oder SQL Express, je nachdem, welches Sie installiert haben, und geben Sie **DatabaseFirst.Blogging** als Datenbankname
+-   Stellen Sie eine Verbindung mit localdb oder SQL Express her, je nachdem, welche installiert wurde, und geben Sie **databasefirst. blogals** Datenbanknamen ein.
 
-    ![SQL Express-Verbindung DF](~/ef6/media/sqlexpressconnectiondf.png)
+    ![SQL Express-Verbindung (DF)](~/ef6/media/sqlexpressconnectiondf.png)
 
-    ![LocalDB Verbindung DF](~/ef6/media/localdbconnectiondf.png)
+    ![Localdb-Verbindung (DF)](~/ef6/media/localdbconnectiondf.png)
 
--   Wählen Sie **OK** und Sie werden gefragt, ob Sie eine neue Datenbank, die auf erstellen möchten **Ja**
+-   Wählen Sie **OK** aus, und Sie werden gefragt, ob Sie eine neue Datenbank erstellen möchten, und wählen Sie **Ja** aus.
 
-    ![Datenbank-Dialogfeld "erstellen"](~/ef6/media/createdatabasedialog.png)
+    ![Dialog Feld Create Database](~/ef6/media/createdatabasedialog.png)
 
--   Die neue Datenbank wird jetzt im Server-Explorer angezeigt. mit der rechten Maustaste darauf und wählen Sie **neue Abfrage**
--   Kopieren Sie die folgende SQL-Anweisung in die neue Abfrage, und klicken Sie dann mit der rechten Maustaste auf die Abfrage, und wählen **ausführen**
+-   Die neue Datenbank wird nun in Server-Explorer angezeigt, klicken Sie mit der rechten Maustaste darauf, und wählen Sie **neue Abfrage** aus.
+-   Kopieren Sie den folgenden SQL-Befehl in die neue Abfrage, klicken Sie mit der rechten Maustaste auf die Abfrage, und wählen Sie **Ausführen** .
 
 ``` SQL
 CREATE TABLE [dbo].[Blogs] (
@@ -81,75 +81,75 @@ CREATE TABLE [dbo].[Posts] (
 
 ## <a name="2-create-the-application"></a>2. Erstellen der Anwendung
 
-Einfachheit halber werden wir eine einfache Konsolenanwendung zu erstellen, die das Database First verwendet, auf Daten zugreift:
+Um dies zu gewährleisten, erstellen wir eine einfache Konsolenanwendung, die die Database First für den Datenzugriff verwendet:
 
 -   Öffnen Sie Visual Studio.
--   **Datei -&gt; neu –&gt; Projekt...**
--   Wählen Sie **Windows** im linken Menü und **-Konsolenanwendung**
--   Geben Sie **DatabaseFirstSample** als Name
+-   **Datei-&gt; New-&gt;-Projekt...**
+-   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
+-   Geben Sie **databasefirstsample** als Name ein.
 -   Wählen Sie **OK** aus.
 
- 
+ 
 
-## <a name="3-reverse-engineer-model"></a>3. Reverse Engineering-Modells
+## <a name="3-reverse-engineer-model"></a>3. Reverse Engineering-Modell
 
-Wir werden die Verwendung von Entity Framework Designer, die als Teil von Visual Studio enthalten ist, um unser Modell zu erstellen.
+Wir verwenden Entity Framework Designer, die als Teil von Visual Studio enthalten ist, um das Modell zu erstellen.
 
--   **Projekt -&gt; neues Element hinzufügen...**
--   Wählen Sie **Daten** im linken Menü und dann **ADO.NET Entity Data Model**
--   Geben Sie **BloggingModel** als ein, und klicken Sie auf **OK**
--   Dadurch wird die **Entity Data Model-Assistenten**
--   Wählen Sie **aus Datenbank generieren** , und klicken Sie auf **weiter**
+-   **Project-&gt; neues Element hinzufügen...**
+-   Wählen Sie im linken Menü **Daten** aus, und klicken Sie dann auf **ADO.NET Entity Data Model**
+-   Geben Sie als Name **bloggingmodel** ein, und klicken Sie auf **OK** .
+-   Dadurch wird der **Entity Data Model-Assistent** gestartet.
+-   Wählen Sie **aus Datenbank generieren aus** , und klicken Sie auf **weiter**
 
-    ![Assistent, Schritt 1](~/ef6/media/wizardstep1.png)
+    ![Schritt 1 des Assistenten](~/ef6/media/wizardstep1.png)
 
--   Wählen Sie die Verbindung mit der Datenbank, die Sie im ersten Abschnitt erstellt haben, geben Sie **BloggingContext** als Namen für die Verbindungszeichenfolge und klicken Sie auf **weiter**
+-   Wählen Sie die Verbindung mit der Datenbank aus, die Sie im ersten Abschnitt erstellt haben, geben Sie **bloggingcontext** als Namen der Verbindungs Zeichenfolge ein, und klicken Sie auf **weiter** .
 
-    ![Schritt 2](~/ef6/media/wizardstep2.png)
+    ![Assistent Schritt 2](~/ef6/media/wizardstep2.png)
 
--   Klicken Sie auf das Kontrollkästchen neben "Tabellen", um alle Tabellen importiert werden, und klicken Sie auf "Fertig stellen"
+-   Aktivieren Sie das Kontrollkästchen neben "Tables", um alle Tabellen zu importieren, und klicken Sie auf "Fertigstellen"
 
-    ![Schritt 3](~/ef6/media/wizardstep3.png)
+    ![Assistent Schritt 3](~/ef6/media/wizardstep3.png)
 
- 
+ 
 
-Nach Abschluss der reverse-Engineering-Prozess ist das neue Modell dem Projekt hinzugefügt und eröffnet Ihnen im Entity Framework Designer angezeigt. Zu Ihrem Projekt mit den Verbindungsdetails für die Datenbank wurde auch eine Datei "App.config" hinzugefügt.
+Sobald der Reverse-Engineering-Prozess abgeschlossen ist, wird das neue Modell dem Projekt hinzugefügt und geöffnet, damit Sie es im Entity Framework Designer anzeigen können. Eine APP. config-Datei wurde dem Projekt auch mit den Verbindungsdetails für die Datenbank hinzugefügt.
 
-![Anfängliche modellieren](~/ef6/media/modelinitial.png)
+![Modell anfänglich](~/ef6/media/modelinitial.png)
 
-### <a name="additional-steps-in-visual-studio-2010"></a>Zusätzliche Schritte in Visual Studio 2010
+### <a name="additional-steps-in-visual-studio-2010"></a>Weitere Schritte in Visual Studio 2010
 
-Wenn Sie in Visual Studio 2010 arbeiten gibt es jedoch einige zusätzliche Schritte, die Sie befolgen, um auf die neueste Version von Entity Framework zu aktualisieren müssen. Es ist wichtig, ein Upgrade, da sie Zugriff auf eine verbesserte API-Oberfläche, die viel einfacher erhalten zu verwenden ist, sowie die neuesten Updates.
+Wenn Sie in Visual Studio 2010 arbeiten, müssen Sie einige zusätzliche Schritte ausführen, um ein Upgrade auf die neueste Version von Entity Framework durchzuführen. Das Upgrade ist wichtig, da Sie Ihnen Zugriff auf eine verbesserte API-Oberfläche, die viel einfacher zu verwenden ist, sowie auf die neuesten Fehlerbehebungen bietet.
 
-Zuerst muss, um die neueste Version von Entity Framework von NuGet zu erhalten.
+Zuerst müssen wir die neueste Version von Entity Framework von nuget erhalten.
 
--   **Projekt:&gt; NuGet-Pakete verwalten... ** 
-     *Wenn Ihnen keine der **NuGet-Pakete verwalten... ** Option Sie installieren die [neueste Version von NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
--   Wählen Sie die **Online** Registerkarte
--   Wählen Sie die **EntityFramework** Paket
--   Klicken Sie auf **installieren**
+-   **Project – &gt; nuget-Pakete verwalten...** 
+    *Wenn Sie nicht über die Option " **nuget-Pakete verwalten..** ." verfügen, sollten Sie die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.*
+-   Auswählen der Registerkarte " **Online** "
+-   Auswählen des " **EntityFramework** "-Pakets
+-   Klicken Sie auf **Installieren**
 
-Als Nächstes müssen wir unser Modell zum Generieren von Code, mit der die DbContext-API verwenden, die in höheren Versionen von Entity Framework eingeführte, austauschen.
+Als nächstes müssen wir das Modell austauschen, um Code zu generieren, der die dbcontext-API nutzt, die in späteren Versionen von Entity Framework eingeführt wurde.
 
--   Mit der rechten Maustaste auf eine leere Stelle des Modells im EF Designer, und wählen Sie **Codegenerierungselement hinzufügen...**
--   Wählen Sie **Onlinevorlagen** aus dem linken Menü und die Suche nach **"DbContext"**
--   Wählen Sie die EF **5.x DbContext Generator für C\#**, geben Sie **BloggingModel** als ein, und klicken Sie auf **hinzufügen**
+-   Klicken Sie mit der rechten Maustaste auf eine leere Stelle des Modells im EF-Designer, und wählen Sie **Code Generierungs Element hinzufügen... aus.**
+-   Wählen Sie im linken Menü **Online Vorlagen** aus, und suchen Sie nach **dbcontext** .
+-   Wählen Sie den EF **5. x dbcontext Generator für C @ no__t-1 aus**, geben Sie **bloggingmodel** als Name ein, und klicken Sie auf **Hinzufügen** .
 
-    !["DbContext"-Vorlage](~/ef6/media/dbcontexttemplate.png)
+    ![Dbcontext-Vorlage](~/ef6/media/dbcontexttemplate.png)
 
- 
+ 
 
-## <a name="4-reading--writing-data"></a>4. Lesen und Schreiben von Daten
+## <a name="4-reading--writing-data"></a>4. Lesen & Schreiben von Daten
 
-Nun, da es sich um ein Modell verfügen, ist es Zeit, die sie verwenden, um einige Daten zuzugreifen. Die Klassen werden wir Sie verwenden, um den Zugriff auf Daten werden wird automatisch generiert basierend auf die EDMX-Datei.
+Nachdem wir nun über ein Modell verfügen, ist es an der Zeit, es für den Zugriff auf einige Daten zu verwenden. Die Klassen, die für den Zugriff auf Daten verwendet werden, werden automatisch für Sie basierend auf der EDMX-Datei generiert.
 
-*Dieser Screenshot stammt aus Visual Studio 2012, bei Verwendung von Visual Studio 2010 die BloggingModel.tt und BloggingModel.Context.tt Dateien werden direkt unterhalb des Projekts und nicht als geschachtelte unter der EDMX-Datei.*
+*Dieser Screenshot ist von Visual Studio 2012. Wenn Sie Visual Studio 2010 verwenden, befinden sich die Dateien BloggingModel.TT und BloggingModel.Context.tt direkt unter Ihrem Projekt, anstatt Sie in der EDMX-Datei zu untersuchen.*
 
-![Generierte Klassen DF](~/ef6/media/generatedclassesdf.png)
+![Generierte Klassen (DF)](~/ef6/media/generatedclassesdf.png)
 
- 
+ 
 
-Implementieren Sie die Main-Methode in "Program.cs" ein, wie unten dargestellt. Dieser Code erstellt eine neue Instanz unseres Kontexts und anschließend verwendet, um einen neuen Blog einfügen. Anschließend wird eine LINQ-Abfrage zum Abrufen aller Blogs aus der Datenbank nach Titel alphabetisch angeordnet sind.
+Implementieren Sie die Main-Methode in Program.cs, wie unten gezeigt. Mit diesem Code wird eine neue Instanz des Kontexts erstellt und anschließend verwendet, um einen neuen Blog einzufügen. Anschließend wird eine LINQ-Abfrage verwendet, um alle Blogs aus der Datenbank alphabetisch nach Titel abzurufen.
 
 ``` csharp
 class Program
@@ -184,24 +184,24 @@ class Program
 }
 ```
 
-Sie können jetzt die Anwendung auszuführen, und probieren Sie es aus.
+Sie können die Anwendung jetzt ausführen und testen.
 
-```
+```console
 Enter a name for a new Blog: ADO.NET Blog
 All blogs in the database:
 ADO.NET Blog
 Press any key to exit...
 ```
- 
+ 
 
-## <a name="5-dealing-with-database-changes"></a>5. Umgang mit Änderungen in der Datenbank
+## <a name="5-dealing-with-database-changes"></a>5. Umgang mit Daten Bank Änderungen
 
-Jetzt ist es Zeit für unsere Datenbankschema, einige Änderungen vornehmen, wenn wir diese Änderungen vornehmen, die wir auch unser Modell entsprechend aktualisieren müssen.
+Nun ist es an der Zeit, Änderungen am Datenbankschema vorzunehmen, wenn wir diese Änderungen vornehmen, müssen wir auch unser Modell aktualisieren, um diese Änderungen widerzuspiegeln.
 
-Der erste Schritt ist, einige Änderungen am Datenbankschema vornehmen. Wir werden das Schema einer Benutzertabelle hinzu.
+Der erste Schritt besteht darin, einige Änderungen am Datenbankschema vorzunehmen. Wir fügen dem Schema eine Tabelle "Users" (Benutzer) hinzu.
 
--   Mit der rechten Maustaste auf die **DatabaseFirst.Blogging** Datenbank im Server-Explorer, und wählen Sie **neue Abfrage**
--   Kopieren Sie die folgende SQL-Anweisung in die neue Abfrage, und klicken Sie dann mit der rechten Maustaste auf die Abfrage, und wählen **ausführen**
+-   Klicken Sie in Server-Explorer mit der rechten Maustaste auf die Datenbank **databasefirst. Blog,** und wählen Sie **neue Abfrage** aus.
+-   Kopieren Sie den folgenden SQL-Befehl in die neue Abfrage, klicken Sie mit der rechten Maustaste auf die Abfrage, und wählen Sie **Ausführen** .
 
 ``` SQL
 CREATE TABLE [dbo].[Users]
@@ -211,22 +211,22 @@ CREATE TABLE [dbo].[Users]
 )
 ```
 
-Nachdem das Schema aktualisiert wird, ist es Zeit, um das Modell mit diesen Änderungen aktualisieren.
+Nachdem das Schema aktualisiert wurde, ist es an der Zeit, das Modell mit diesen Änderungen zu aktualisieren.
 
--   Mit der rechten Maustaste auf eine leere Stelle Ihres Modells im EF Designer und wählen "Updatemodell aus der Datenbank...", dadurch wird die Update-Assistenten
--   Auf der Registerkarte für das Hinzufügen der Update-Assistenten aktivieren Sie das Kontrollkästchen neben den Tabellen gibt dies an, dass alle neuen Tabellen aus dem Schema hinzugefügt werden soll.
-    *Die Registerkarte "Aktualisieren" zeigt alle bestehenden Tabellen im Modell, das während des Updates auf Änderungen überprüft werden. Die Delete-Registerkarten zeigen alle Tabellen, die aus dem Schema entfernt wurden, und werden ebenfalls aus dem Modell im Rahmen des Updates entfernt werden. Die Informationen zu diesen beiden Registerkarten wird automatisch erkannt und dient nur zu Informationszwecken können nicht Sie keine Einstellungen geändert.*
+-   Klicken Sie mit der rechten Maustaste auf eine leere Stelle des Modells im EF-Designer, und wählen Sie "Modell aus Datenbank aktualisieren..." aus. Dadurch wird der Update-Assistent gestartet.
+-   Aktivieren Sie auf der Registerkarte hinzufügen des Update-Assistenten das Kontrollkästchen neben Tabellen, was bedeutet, dass wir neue Tabellen aus dem Schema hinzufügen möchten.
+    *Die Registerkarte Aktualisieren zeigt alle vorhandenen Tabellen im Modell an, die während des Updates auf Änderungen geprüft werden. Auf den Registerkarten löschen werden alle Tabellen angezeigt, die aus dem Schema entfernt wurden. Sie werden auch als Teil des Updates aus dem Modell entfernt. Die Informationen auf diesen beiden Registerkarten werden automatisch erkannt und dienen nur zu Informationszwecken. Sie können keine Einstellungen ändern.*
 
-    ![Assistent zum Aktualisieren](~/ef6/media/refreshwizard.png)
+    ![Aktualisierungs-Assistent](~/ef6/media/refreshwizard.png)
 
--   Klicken Sie auf "Fertig stellen", die Update-Assistenten
+-   Klicken Sie im Update-Assistenten auf Fertigstellen.
 
- 
+ 
 
-Das Modell wurde aktualisiert, um eine neue Benutzerentität enthalten, die der Tabelle zugeordnet, die wir in der Datenbank hinzugefügt.
+Das Modell wird nun so aktualisiert, dass es eine neue Benutzer Entität enthält, die der Benutzertabelle zugeordnet ist, die der Datenbank hinzugefügt wurde.
 
 ![Modell aktualisiert](~/ef6/media/modelupdated.png)
 
 ## <a name="summary"></a>Zusammenfassung
 
-In dieser exemplarischen Vorgehensweise, die wir uns Database First-Entwicklung angesehen haben, hatten die wir ein Modell im EF Designer basierend auf einer vorhandenen Datenbank zu erstellen. Klicken Sie dann verwendet das Modell lesen und Schreiben von Daten aus der Datenbank. Abschließend aktualisiert wir das Modell, um die Änderungen, die wir am Datenbankschema vorgenommen.
+In dieser exemplarischen Vorgehensweise haben wir uns mit Database First Entwicklung beschäftigt, mit der wir ein Modell im EF-Designer basierend auf einer vorhandenen Datenbank erstellen konnten. Anschließend haben wir dieses Modell verwendet, um Daten aus der Datenbank zu lesen und zu schreiben. Schließlich haben wir das Modell aktualisiert, um Änderungen widerzuspiegeln, die wir am Datenbankschema vorgenommen haben.

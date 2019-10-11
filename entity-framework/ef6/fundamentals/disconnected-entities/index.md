@@ -3,12 +3,12 @@ title: 'Arbeiten mit getrennten Entitäten: EF6'
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: 11ca2a9a4161e02d32d98bf03dd4cf28545334b7
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: f1ce44e7b00ec4c60a81ed850ce5c9d866495e1b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022170"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181766"
 ---
 # <a name="working-with-disconnected-entities"></a>Arbeiten mit getrennten Entitäten
 In einer Anwendung, die auf Entity Framework basiert, ist eine Kontextklasse für das Erfassen von Änderungen zuständig, die an nachverfolgten Entitäten vorgenommen werden. Durch Aufruf der SaveChanges-Methode werden vom Kontext nachverfolgte Änderungen in der Datenbank gespeichert. Bei der Arbeit mit n-schichtigen Anwendungen werden Entitätsobjekte normalerweise modifiziert, wenn keine Verbindung zum Kontext besteht. Sie müssen dann entscheiden, wie Änderungen nachverfolgt und an den Kontext zurückgemeldet werden. In diesem Artikel wird beschrieben, welche Möglichkeiten Sie haben, wenn Sie Entity Framework mit getrennten Entitäten verwenden.   
@@ -30,4 +30,4 @@ Das Nachverfolgen von Änderungen an beliebigen Entitätsdiagrammen, die vom EF-
 Diese Vorlage kann nur mit Modellen verwendet werden, die mit dem EF-Designer erstellt wurden, und nicht mit Code First-Modellen. Weitere Informationen finden Sie unter [Self-Tracking Entities (Entitäten mit Selbstnachverfolgung)](self-tracking-entities/index.md).  
 
 > [!IMPORTANT]
-> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit getrennten Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](http://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
+> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit getrennten Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](https://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.

@@ -1,60 +1,60 @@
 ---
-title: Räumliche - Code First – EF6
+title: Spatial-Code First-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d617aed1-15f2-48a9-b187-186991c666e3
-ms.openlocfilehash: b8f2485a7002dcb4079f4045432f3224123fdb2f
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 018f480c1f0f1e74fc9f7a8950a6880e96f1facc
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283601"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182648"
 ---
-# <a name="spatial---code-first"></a>Räumliche - Code First
+# <a name="spatial---code-first"></a>Räumliche Code First
 > [!NOTE]
-> **EF5 oder höher, nur** -APIs, die Funktionen erläutert, die auf dieser Seite usw. in Entity Framework 5 eingeführt wurden. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
+> **Nur EF5** : die Features, APIs usw., die auf dieser Seite erläutert wurden, wurden in Entity Framework 5 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
 
-Die Video- und schrittweise exemplarische Vorgehensweise veranschaulicht das Zuordnen von räumlichen Typen mit Entity Framework Code First. Darüber hinaus veranschaulicht eine LINQ-Abfrage verwenden, um einen Abstand zwischen zwei Orten zu finden.
+Das Video und die schrittweise exemplarische Vorgehensweise zeigen, wie räumliche Typen mit Entity Framework Code First zugeordnet werden. Außerdem wird veranschaulicht, wie eine LINQ-Abfrage verwendet wird, um einen Abstand zwischen zwei Standorten zu ermitteln.
 
-In dieser exemplarischen Vorgehensweise wird Code First verwenden, um eine neue Datenbank zu erstellen, aber Sie können auch [Code First mit einer vorhandenen Datenbank](~/ef6/modeling/code-first/workflows/existing-database.md).
+In dieser exemplarischen Vorgehensweise wird Code First verwendet, um eine neue Datenbank zu erstellen, aber Sie können [Code First auch für eine vorhandene Datenbank](~/ef6/modeling/code-first/workflows/existing-database.md)verwenden.
 
-Unterstützung von räumlichen Typen wurde in Entity Framework 5 eingeführt. Beachten Sie, um die neuen Features wie räumlichen Typen, Enumerationen und Tabellenwertfunktionen zu verwenden, Sie .NET Framework 4.5 als Ziel haben müssen. Visual Studio 2012 ist standardmäßig die Zielversion .NET 4.5.
+Die Unterstützung räumlicher Typen wurde in Entity Framework 5 eingeführt. Beachten Sie, dass Sie für die Verwendung der neuen Funktionen, wie z. b. räumlichem Typ, aufzählen und Tabellenwert Funktionen, auf .NET Framework 4,5 abzielen müssen. Visual Studio 2012 hat standardmäßig .NET 4,5 als Ziel.
 
-Verwendung der Typen von räumlichen Daten müssen Sie auch einen Entity Framework-Anbieter verwenden, der Unterstützung von räumlichen Daten verfügt. Finden Sie unter [anbieterunterstützung für räumliche Typen](~/ef6/fundamentals/providers/spatial-support.md) für Weitere Informationen.
+Um räumliche Datentypen zu verwenden, müssen Sie auch einen Entity Framework Anbieter verwenden, der über räumliche Unterstützung verfügt. Weitere Informationen finden Sie [unter Anbieter Unterstützung für räumliche Typen](~/ef6/fundamentals/providers/spatial-support.md) .
 
-Es gibt zwei Arten von main räumliche Daten: Geography und Geometry. Der Geography-Datentyp speichert ellipsenförmige Daten (z. B. GPS-Breiten- und Längengrad koordiniert). Der Geometry-Datentyp stellt euklidischen (flachen) Koordinatensystem dar.
+Es gibt zwei Haupt Datentypen für räumliche Daten: Geography und Geometry. Der geography-Datentyp speichert Ellipsen Daten (z. b. GPS-breiten-und Längenkoordinaten). Der geometry-Datentyp stellt das euklidische (flache) Koordinatensystem dar.
 
 ## <a name="watch-the-video"></a>Video ansehen
-Dieses Video zeigt, wie räumliche Typen mit Entity Framework Code First zugeordnet wird. Darüber hinaus veranschaulicht eine LINQ-Abfrage verwenden, um einen Abstand zwischen zwei Orten zu finden.
+In diesem Video wird gezeigt, wie räumliche Typen mit Entity Framework Code First zugeordnet werden. Außerdem wird veranschaulicht, wie eine LINQ-Abfrage verwendet wird, um einen Abstand zwischen zwei Standorten zu ermitteln.
 
-**Präsentiert von**: Julia Kornich
+**Präsentiert von**: Julia kornich
 
 **Video**: [WMV](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
-Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express Edition installiert, um diese exemplarische Vorgehensweise abgeschlossen haben.
+Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express Edition installiert haben, um diese exemplarische Vorgehensweise abzuschließen.
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
-1.  Visual Studio 2012 öffnen
-2.  Auf der **Datei** Startmenü **neu**, und klicken Sie dann auf **Projekt**
-3.  Klicken Sie im linken Bereich auf **Visual C\#**, und wählen Sie dann die **Konsole** Vorlage
-4.  Geben Sie **SpatialCodeFirst** als Namen für das Projekt und auf **OK**
+1.  Öffnen Sie Visual Studio 2012
+2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
+3.  Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+4.  Geben Sie **spatialcode First** als Namen für das Projekt ein, und klicken Sie auf **OK** .
 
-## <a name="define-a-new-model-using-code-first"></a>Definieren Sie ein neues Modell mit Code First
+## <a name="define-a-new-model-using-code-first"></a>Definieren eines neuen Modells mit Code First
 
-Bei Verwendung von Code First-Entwicklung beginnen Sie in der Regel durch das Schreiben von .NET Framework-Klassen, die das konzeptionelle (Domäne)-Modell zu definieren. Der folgende Code definiert die University-Klasse.
+Wenn Sie Code First Entwicklung verwenden, schreiben Sie in der Regel .NET Framework Klassen, die ihr konzeptionelles (Domänen-) Modell definieren. Der folgende Code definiert die University-Klasse.
 
-Die Universität hat die Location-Eigenschaft des Typs DbGeography. Um den Typ der DbGeography verwenden zu können, müssen Sie fügen einen Verweis auf die Assembly System.Data.Entity und auch die System.Data.Spatial using-Anweisung.
+Die University verfügt über die Location-Eigenschaft des dbgeography-Typs. Wenn Sie den dbgeography-Typ verwenden möchten, müssen Sie einen Verweis auf die System. Data. Entity-Assembly hinzufügen und auch die System. Data. Spatial using-Anweisung hinzufügen.
 
-Öffnen Sie die Datei "Program.cs", und fügen Sie die folgenden using-Anweisungen am Anfang der Datei:
+Öffnen Sie die Datei Program.cs, und fügen Sie die folgenden using-Anweisungen am Anfang der Datei ein:
 
 ``` csharp
 using System.Data.Spatial;
 ```
 
-Fügen Sie die folgende Klassendefinition in University in die Datei "Program.cs" hinzu.
+Fügen Sie der Program.cs-Datei die folgende Definition der University-Klasse hinzu.
 
 ``` csharp
 public class University  
@@ -65,28 +65,28 @@ public class University
 }
 ```
 
-## <a name="define-the-dbcontext-derived-type"></a>Definieren Sie die "DbContext" abgeleiteten Typ
+## <a name="define-the-dbcontext-derived-type"></a>Definieren des abgeleiteten dbcontext-Typs
 
-Zusätzlich zum Definieren von Entitäten, müssen Sie eine Klasse definieren, die von "DbContext" abgeleitet und stellt "DbSet"&lt;TEntity&gt; Eigenschaften. "DbSet"&lt;TEntity&gt; Eigenschaften können Sie den Kontext, die wissen, welche Typen im Modell enthalten sein sollen.
+Zusätzlich zum Definieren von Entitäten müssen Sie eine Klasse definieren, die von dbcontext abgeleitet ist und die dbset @ no__t-0tentity @ no__t-1-Eigenschaften verfügbar macht. Die dbset @ no__t-0tentity @ no__t-1-Eigenschaften lassen den Kontext wissen, welche Typen Sie in das Modell einschließen möchten.
 
-Eine Instanz des Typs "DbContext" abgeleitet verwaltet die Entitätsobjekte während der Laufzeit, einschließlich ausfüllenden Objekten mit Daten aus einer Datenbank, verfolgen und Speichern von Daten in der Datenbank zu ändern.
+Eine Instanz des abgeleiteten dbcontext-Typs verwaltet die Entitäts Objekte zur Laufzeit. dazu gehören das Auffüllen von Objekten mit Daten aus einer Datenbank, die Änderungs Nachverfolgung und das Beibehalten von Daten in der Datenbank.
 
-Die "DbContext" und "DbSet"-Typen werden in der EntityFramework-Assembly definiert. Es wird einen Verweis auf diese DLL-Datei mit EntityFramework NuGet-Paket hinzufügen.
+Die Typen "dbcontext" und "dbset" werden in der EntityFramework-Assembly definiert. Wir fügen mit dem nuget-Paket "EntityFramework" einen Verweis auf diese dll hinzu.
 
-1.  Im Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen.
-2.  Wählen Sie **NuGet-Pakete verwalten...**
-3.  Wählen Sie in das Dialogfeld "NuGet-Pakete verwalten" die **Online** Registerkarte, und wählen Sie die **EntityFramework** Paket.
-4.  Klicken Sie auf **installieren**
+1.  Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen.
+2.  Wählen Sie **nuget-Pakete verwalten... aus.**
+3.  Wählen Sie im Dialogfeld nuget-Pakete verwalten die Registerkarte **Online** aus, und wählen Sie das Paket **EntityFramework** aus.
+4.  Klicken Sie auf **Installieren**
 
-Beachten Sie, dass zusätzlich zu den EntityFramework-Assembly auch ein Verweis auf die System.ComponentModel.DataAnnotations-Assembly hinzugefügt wird.
+Beachten Sie, dass zusätzlich zur EntityFramework-Assembly auch ein Verweis auf die System. ComponentModel. DataAnnotations-Assembly hinzugefügt wird.
 
-Fügen Sie am Anfang der Datei "Program.cs" die folgenden using-Anweisung:
+Fügen Sie am Anfang der Program.cs-Datei die folgende using-Anweisung hinzu:
 
 ``` csharp
 using System.Data.Entity;
 ```
 
-Fügen Sie die Kontextdefinition in "Program.cs" hinzu. 
+Fügen Sie in Program.cs die Kontext Definition hinzu. 
 
 ``` csharp
 public partial class UniversityContext : DbContext
@@ -95,11 +95,11 @@ public partial class UniversityContext : DbContext
 }
 ```
 
-## <a name="persist-and-retrieve-data"></a>Speichern und Abrufen von Daten
+## <a name="persist-and-retrieve-data"></a>Persistenz und Abrufen von Daten
 
-Öffnen Sie die Datei "Program.cs", die, in die Main-Methode definiert ist. Fügen Sie der Main-Funktion mit den folgenden Code.
+Öffnen Sie die Datei Program.cs, in der die Main-Methode definiert ist. Fügen Sie der Main-Funktion den folgenden Code hinzu.
 
-Der Code fügt zwei neue University-Objekte in den Kontext an. Räumliche Eigenschaften werden mithilfe der Methode DbGeography.FromText initialisiert. Der Geography-Punkt dargestellt, wie WellKnownText an die Methode übergeben wird. Der Code speichert dann die Daten. Klicken Sie dann die LINQ-Abfrage, die ein University-Objekt zurückgegeben, bei denen am Speicherort am nächsten am angegebenen Speicherort erstellt und ausgeführt wird.
+Der Code fügt dem Kontext zwei neue University-Objekte hinzu. Räumliche Eigenschaften werden mithilfe der Methode "dbgeography. fromtext" initialisiert. Der als wellknowntext dargestellte geografiepunkt wird an die-Methode übermittelt. Der Code speichert die Daten dann. Anschließend wird die LINQ-Abfrage, die ein University-Objekt zurückgibt, dessen Standort dem angegebenen Speicherort am nächsten liegt, erstellt und ausgeführt.
 
 ``` csharp
 using (var context = new UniversityContext ())
@@ -132,24 +132,24 @@ using (var context = new UniversityContext ())
 
 Kompilieren Sie die Anwendung, und führen Sie sie aus. Das Programm erzeugt die folgende Ausgabe:
 
-```
+```console
 The closest University to you is: School of Fine Art.
 ```
 
-## <a name="view-the-generated-database"></a>Anzeigen der generierten Datenbank.
+## <a name="view-the-generated-database"></a>Anzeigen der generierten Datenbank
 
-Wenn Sie die Anwendung zum ersten Mal ausführen, erstellt Entity Framework eine Datenbank für Sie. Da wir Visual Studio 2012 installiert haben, wird die Datenbank für die LocalDB-Instanz erstellt werden. In der Standardeinstellung benennt Entity Framework die Datenbank nach der vollqualifizierte Name des abgeleiteten Kontexts (in diesem Beispiel **SpatialCodeFirst.UniversityContext**). Die nachfolgende, wie oft die vorhandene Datenbank verwendet wird.  
+Wenn Sie die Anwendung zum ersten Mal ausführen, erstellt die Entity Framework eine Datenbank für Sie. Da Visual Studio 2012 installiert ist, wird die Datenbank auf der localdb-Instanz erstellt. Standardmäßig benennt die-Entity Framework die Datenbank nach dem voll qualifizierten Namen des abgeleiteten Kontexts (in diesem Beispiel " **spatialcodefirst. universitycontext**"). Nachfolgend wird die vorhandene Datenbank verwendet.  
 
-Beachten Sie, dass wenn Sie Änderungen an Ihrem Modell vornehmen, nachdem die Datenbank erstellt wurde, sollten Sie Code First-Migrationen verwenden, um das Datenbankschema aktualisieren. Finden Sie unter [Code First in eine neue Datenbank](~/ef6/modeling/code-first/workflows/new-database.md) ein Beispiel für die Verwendung von Migrationen.
+Beachten Sie Folgendes: Wenn Sie Änderungen am Modell vornehmen, nachdem die Datenbank erstellt wurde, sollten Sie Code First-Migrationen zum Aktualisieren des Datenbankschemas verwenden. Ein Beispiel für die Verwendung von Migrationen finden Sie [unter Code First einer neuen Datenbank](~/ef6/modeling/code-first/workflows/new-database.md) .
 
-Um die Datenbank und die Daten anzuzeigen, führen Sie folgende Schritte aus:
+Gehen Sie folgendermaßen vor, um die Datenbank und die Daten anzuzeigen:
 
-1.  Wählen Sie im Hauptmenü von Visual Studio 2012 **Ansicht**  - &gt; **Objekt-Explorer von SQL Server**.
-2.  Wenn LocalDB nicht in der Liste der Server ist, klicken Sie auf die rechten Maustaste **SQL Server** , und wählen Sie **SQL Server hinzufügen** verwenden Sie die Standardeinstellung **Windows-Authentifizierung** zum Herstellen einer Verbindung mit der die LocalDB-Instanz
-3.  Erweitern Sie den Knoten für LocalDB
-4.  Erweitern der **Datenbanken** Ordner finden Sie unter der neuen Datenbank aus, und navigieren Sie zu der **Universitäten** Tabelle
-5.  Daten anzeigen, mit der rechten Maustaste auf die Tabelle aus, und wählen Sie **Anzeigedaten**
+1.  Wählen Sie im Hauptmenü von Visual Studio 2012 die Option **View** - @ no__t-2 **SQL Server-Objekt-Explorer**.
+2.  Wenn localdb nicht in der Liste der Server enthalten ist, klicken Sie auf **SQL Server** mit der rechten Maustaste, und wählen Sie **hinzu SQL Server fügen** aus, um die Verbindung mit der localdb-Instanz mit der standardmäßigen **Windows-Authentifizierung** herzustellen.
+3.  Erweitern Sie den Knoten localdb.
+4.  Erweitern Sie den Ordner **Datenbanken** , um die neue Datenbank anzuzeigen und zur Tabelle **Universitäten** zu navigieren.
+5.  Um Daten anzuzeigen, klicken Sie mit der rechten Maustaste auf die Tabelle, und wählen Sie **Daten anzeigen**
 
 ## <a name="summary"></a>Zusammenfassung
 
-In dieser exemplarischen Vorgehensweise erläutert, wie Sie räumliche Typen mit Entity Framework Code First zu verwenden. 
+In dieser exemplarischen Vorgehensweise wurde erläutert, wie räumliche Typen mit Entity Framework Code First verwendet werden. 

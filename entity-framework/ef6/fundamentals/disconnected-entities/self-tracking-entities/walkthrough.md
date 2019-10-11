@@ -1,63 +1,63 @@
 ---
-title: Self-Tracking Entities Exemplarische Vorgehensweise – EF6
+title: Exemplarische Vorgehensweise für Entitäten mit selbst Nachverfolgung EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: d89c452410d34bea71e8220aae141c3bfca3e1ce
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9bd644461f50a7eff1006cb8866ca9a3b08b6b8d
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490272"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181714"
 ---
-# <a name="self-tracking-entities-walkthrough"></a>Self-Tracking Entities Exemplarische Vorgehensweise
+# <a name="self-tracking-entities-walkthrough"></a>Exemplarische Vorgehensweise zur Self-Tracking
 > [!IMPORTANT]
-> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](http://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
+> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](https://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
 
-Diese exemplarische Vorgehensweise veranschaulicht das Szenario, in dem ein Windows Communication Foundation (WCF)-Dienst einen Vorgang verfügbar macht, der ein Diagramm für die Entität zurückgibt. Als Nächstes eine Clientanwendung das Diagramm bearbeitet und übermittelt die Änderungen auf einen Dienstvorgang, der überprüft und die Updates in einer Datenbank mithilfe von Entity Framework speichert.
+Diese exemplarische Vorgehensweise veranschaulicht das Szenario, in dem ein Windows Communication Foundation (WCF)-Dienst einen Vorgang verfügbar macht, der ein Entitäts Diagramm zurückgibt. Anschließend bearbeitet eine Client Anwendung dieses Diagramm und übermittelt die Änderungen an einen Dienst Vorgang, der die Updates in einer Datenbank mithilfe Entity Framework überprüft und speichert.
 
-Vor dem Durchführen dieser exemplarischen Vorgehensweise stellen Sie sicher, dass Sie lesen die [Self-Tracking Entities](index.md) Seite.
+Bevor Sie diese exemplarische Vorgehensweise durcharbeiten, sollten Sie die Seite [Entitäten mit selbst Nachverfolgung](index.md) lesen.
 
 Diese exemplarische Vorgehensweise umfasst die folgenden Aktionen:
 
--   Erstellt eine Datenbank auf.
--   Erstellt eine Klassenbibliothek mit dem Modell an.
--   Austausch von Bereitstellungen der Self-Tracking Entity-Generator-Vorlage.
--   Wird die Entitätsklassen in ein separates Projekt verschoben.
--   Erstellt einen WCF-Dienst, der Vorgänge zum Abfragen und Speichern von Entitäten bereitstellt.
--   Erstellt Anwendungen (Konsole und WPF), die den Dienst zu nutzen.
+-   Erstellt eine Datenbank, auf die zugegriffen werden soll.
+-   Erstellt eine Klassenbibliothek, die das Modell enthält.
+-   Vertauscht zur Vorlage für Entitäts-Generator mit selbst Nachverfolgung.
+-   Verschiebt die Entitäts Klassen in ein separates Projekt.
+-   Erstellt einen WCF-Dienst, der Vorgänge zum Abfragen und Speichern von Entitäten verfügbar macht.
+-   Erstellt Client Anwendungen (Konsole und WPF), die den-Dienst nutzen.
 
-Database First in dieser exemplarischen Vorgehensweise verwendet, aber die gleichen Techniken gelten auch für die Model First.
+Wir verwenden Database First in dieser exemplarischen Vorgehensweise, aber dieselben Verfahren gelten auch für Model First.
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
-Zum Durchführen dieser exemplarischen Vorgehensweise benötigen Sie eine aktuelle Version von Visual Studio.
+Um diese exemplarische Vorgehensweise abzuschließen, benötigen Sie eine aktuelle Version von Visual Studio.
 
-## <a name="create-a-database"></a>Erstellen Sie eine Datenbank
+## <a name="create-a-database"></a>Erstellen einer Datenbank
 
-Der Datenbankserver, der mit Visual Studio installiert ist, unterscheidet sich abhängig von der Version von Visual Studio, die Sie installiert haben:
+Der Datenbankserver, der mit Visual Studio installiert wird, unterscheidet sich abhängig von der installierten Version von Visual Studio:
 
--   Wenn Sie Visual Studio 2012 verwenden, wird Sie eine LocalDB-Datenbank erstellen.
--   Wenn Sie Visual Studio 2010 verwenden erstellen Sie eine SQL Express-Datenbank.
+-   Wenn Sie Visual Studio 2012 verwenden, erstellen Sie eine localdb-Datenbank.
+-   Wenn Sie Visual Studio 2010 verwenden, erstellen Sie eine SQL Express-Datenbank.
 
-Wir jetzt, und Erstellen der Datenbank.
+Nun generieren wir die Datenbank.
 
 -   Öffnen Sie Visual Studio.
--   **Ansicht – Profiler -&gt; Server-Explorer**
--   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen -&gt; Verbindung hinzufügen...**
--   Wenn Sie vor dem müssen auswählen, im Server-Explorer mit einer Datenbank verbunden haben **Microsoft SQL Server** als Datenquelle
--   Eine Verbindung mit LocalDB oder SQL Express, je nachdem, welches Sie installiert haben
--   Geben Sie **STESample** als Datenbankname
--   Wählen Sie **OK** und Sie werden gefragt, ob Sie eine neue Datenbank, die auf erstellen möchten **Ja**
--   Die neue Datenbank wird jetzt im Server-Explorer angezeigt.
--   Bei Verwendung von Visual Studio 2012
-    -   Mit der rechten Maustaste auf die Datenbank im Server-Explorer, und wählen Sie **neue Abfrage**
-    -   Kopieren Sie die folgende SQL-Anweisung in die neue Abfrage, und klicken Sie dann mit der rechten Maustaste auf die Abfrage, und wählen **ausführen**
+-   **View-&gt; Server-Explorer**
+-   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen-&gt; Verbindung hinzufügen...**
+-   Wenn Sie über Server-Explorer keine Verbindung mit einer Datenbank hergestellt haben, müssen Sie **Microsoft SQL Server** als Datenquelle auswählen.
+-   Stellen Sie eine Verbindung mit localdb oder SQL Express her, je nachdem, welche installiert wurde.
+-   Geben Sie **stesample** als Datenbanknamen ein.
+-   Wählen Sie **OK** aus, und Sie werden gefragt, ob Sie eine neue Datenbank erstellen möchten, und wählen Sie **Ja** aus.
+-   Die neue Datenbank wird nun in Server-Explorer
+-   Wenn Sie Visual Studio 2012 verwenden
+    -   Klicken Sie in Server-Explorer mit der rechten Maustaste auf die Datenbank, und wählen Sie **neue Abfrage** .
+    -   Kopieren Sie den folgenden SQL-Befehl in die neue Abfrage, klicken Sie mit der rechten Maustaste auf die Abfrage, und wählen Sie **Ausführen** .
 -   Wenn Sie Visual Studio 2010 verwenden
-    -   Wählen Sie **Daten per Push –&gt; Transact-SQL-Editor –&gt; neue Abfrageverbindung...**
-    -   Geben Sie **.\\ SQLEXPRESS** als Server ein, und klicken Sie auf **OK**
-    -   Wählen Sie die **STESample** Datenbank aus der Dropdownliste unten am oberen Rand des Abfrage-Editors
-    -   Kopieren Sie die folgende SQL-Anweisung in die neue Abfrage, und klicken Sie dann mit der rechten Maustaste auf die Abfrage, und wählen **SQL ausführen**
+    -   Wählen Sie **Data-&gt; Transact SQL-Editor-&gt; neue Abfrage Verbindung...**
+    -   Geben Sie **. \\sqlexpress** als Servernamen ein, und klicken Sie auf **OK** .
+    -   Wählen Sie in der Dropdown-Datei am oberen Rand des Abfrage-Editors die **stesample** -Datenbank aus.
+    -   Kopieren Sie das folgende SQL in die neue Abfrage, klicken Sie mit der rechten Maustaste auf die Abfrage, und wählen Sie **SQL ausführen** aus.
 
 ``` SQL
     CREATE TABLE [dbo].[Blogs] (
@@ -85,103 +85,103 @@ Wir jetzt, und Erstellen der Datenbank.
 
 ## <a name="create-the-model"></a>Erstellen des Modells
 
-Eingerichtet ist, benötigen wir zunächst ein Projekt für das Modell.
+Zuerst wird ein Projekt benötigt, in das das Modell eingefügt werden kann.
 
--   **Datei -&gt; neu –&gt; Projekt...**
--   Wählen Sie **Visual C\#**  im linken Bereich und dann **-Klassenbibliothek**
--   Geben Sie **STESample** als ein, und klicken Sie auf **OK**
+-   **Datei-&gt; New-&gt;-Projekt...**
+-   Wählen Sie im linken Bereich **Visual C @ no__t-1** und dann **Klassenbibliothek** aus.
+-   Geben Sie **stesample** als Name ein, und klicken Sie auf **OK** .
 
-Jetzt erstellen wir ein einfaches Modell im EF Designer den Zugriff auf unsere Datenbank:
+Im EF-Designer erstellen wir nun ein einfaches Modell für den Zugriff auf unsere Datenbank:
 
--   **Projekt -&gt; neues Element hinzufügen...**
--   Wählen Sie **Daten** im linken Bereich und dann **ADO.NET Entity Data Model**
--   Geben Sie **BloggingModel** als ein, und klicken Sie auf **OK**
--   Wählen Sie **aus Datenbank generieren** , und klicken Sie auf **weiter**
--   Geben Sie die Verbindungsinformationen für die Datenbank, die Sie im vorherigen Abschnitt erstellt haben.
--   Geben Sie **BloggingContext** als Namen für die Verbindungszeichenfolge und klicken Sie auf **weiter**
--   Aktivieren Sie das Kontrollkästchen neben **Tabellen** , und klicken Sie auf **Fertig stellen**
+-   **Project-&gt; neues Element hinzufügen...**
+-   Wählen Sie im linken Bereich **Daten** aus, und klicken Sie dann auf **ADO.NET Entity Data Model**
+-   Geben Sie als Name **bloggingmodel** ein, und klicken Sie auf **OK** .
+-   Wählen Sie **aus Datenbank generieren aus** , und klicken Sie auf **weiter**
+-   Geben Sie die Verbindungsinformationen für die Datenbank ein, die Sie im vorherigen Abschnitt erstellt haben.
+-   Geben Sie **bloggingcontext** als Namen für die Verbindungs Zeichenfolge ein, und klicken Sie auf **weiter** .
+-   Aktivieren Sie das Kontrollkästchen neben **Tabellen** und klicken Sie auf **Fertig** stellen.
 
-## <a name="swap-to-ste-code-generation"></a>Wechseln Sie in die STE-Codegenerierung
+## <a name="swap-to-ste-code-generation"></a>An ste-Code Generierung austauschen
 
-Nun müssen wir die standardmäßige codegenerierung und wechseln zu Self-Tracking Entities deaktivieren.
+Nun müssen wir die Standard Codegenerierung deaktivieren und in Entitäten mit selbst Nachverfolgung wechseln.
 
-### <a name="if-you-are-using-visual-studio-2012"></a>Bei Verwendung von Visual Studio 2012
+### <a name="if-you-are-using-visual-studio-2012"></a>Wenn Sie Visual Studio 2012 verwenden
 
--   Erweitern Sie **BloggingModel.edmx** in **Projektmappen-Explorer** und löschen Sie die **BloggingModel.tt** und **BloggingModel.Context.tt** 
-     *Dadurch wird die standardmäßige codegenerierung deaktiviert.*
--   Mit der rechten Maustaste auf die EF-Designer, Entwurfsoberfläche, und wählen eines leeren Bereichs **Codegenerierungselement hinzufügen...**
--   Wählen Sie **Online** aus dem linken Bereich und suchen Sie nach **AL-Generator**
--   Wählen Sie die **AL-Generator für C\#**  Vorlage, geben Sie **STETemplate** als ein, und klicken Sie auf **hinzufügen**
--   Die **STETemplate.tt** und **STETemplate.Context.tt** Dateien werden unter der Datei BloggingModel.edmx geschachtelte hinzugefügt
+-   Erweitern Sie in **Projektmappen-Explorer** **bloggingmodel. edmx** , und löschen Sie die **BloggingModel.tt** und **BloggingModel.Context.tt**
+    *dadurch wird die Standard Codegenerierung deaktiviert* .
+-   Klicken Sie mit der rechten Maustaste auf einen leeren Bereich auf der EF-Designer Oberfläche, und wählen Sie **Code Generierungs Element hinzufügen aus.**
+-   Wählen Sie im linken Bereich **Online** aus, und suchen Sie nach **ste Generator** .
+-   Wählen Sie die Vorlage **ste Generator for C @ no__t-1 aus** , geben Sie **stetemplate** als Namen ein, und klicken Sie auf **Hinzufügen** .
+-   Die Dateien **STETemplate.tt** und **STETemplate.Context.tt** werden unter der Datei bloggingmodel. edmx hinzugefügt.
 
 ### <a name="if-you-are-using-visual-studio-2010"></a>Wenn Sie Visual Studio 2010 verwenden
 
--   Mit der rechten Maustaste auf die EF-Designer, Entwurfsoberfläche, und wählen eines leeren Bereichs **Codegenerierungselement hinzufügen...**
--   Wählen Sie **Code** im linken Bereich und dann **ADO.NET-Entitäts-Generator**
--   Geben Sie **STETemplate** als ein, und klicken Sie auf **hinzufügen**
--   Die **STETemplate.tt** und **STETemplate.Context.tt** Dateien werden direkt in Ihrem Projekt hinzugefügt.
+-   Klicken Sie mit der rechten Maustaste auf einen leeren Bereich auf der EF-Designer Oberfläche, und wählen Sie **Code Generierungs Element hinzufügen aus.**
+-   Wählen Sie im linken Bereich **Code** und dann **ADO.net Entitäts-Generator mit selbst Nachverfolgung** aus.
+-   Geben Sie **stetemplate** als Name ein, und klicken Sie auf **Hinzufügen**
+-   Die Dateien **STETemplate.tt** und **STETemplate.Context.tt** werden direkt dem Projekt hinzugefügt.
 
-## <a name="move-entity-types-into-separate-project"></a>Entitätstypen in separaten Projekt verschieben
+## <a name="move-entity-types-into-separate-project"></a>Verschieben von Entitäts Typen in ein separates Projekt
 
-Zur Verwendung von Self-Tracking Entities benötigt die Clientanwendung den Zugriff auf die Entitätsklassen aus unserem Modell generiert. Da wir nicht, um das gesamte Modell an die Clientanwendung verfügbar zu machen möchten werden wir die Entitätsklassen in ein separates Projekt verschoben.
+Zur Verwendung von Entitäten mit selbst Nachverfolgung benötigt unsere Client Anwendung Zugriff auf die Entitäts Klassen, die aus dem Modell generiert werden. Da wir das gesamte Modell nicht für die Client Anwendung verfügbar machen möchten, verschieben wir die Entitäts Klassen in ein separates Projekt.
 
-Der erste Schritt ist zum Generieren von Entitätsklassen in das vorhandene Projekt zu beenden:
+Im ersten Schritt wird das Erstellen von Entitäts Klassen im vorhandenen Projekt beendet:
 
--   Mit der rechten Maustaste auf **STETemplate.tt** in **Projektmappen-Explorer** , und wählen Sie **Eigenschaften**
--   In der **Eigenschaften** Fenster-clear **TextTemplatingFileGenerator** aus der **CustomTool** Eigenschaft
--   Erweitern Sie **STETemplate.tt** in **Projektmappen-Explorer** und löschen Sie alle Dateien, die geschachtelt sind
+-   Klicken Sie in **Projektmappen-Explorer** mit der rechten Maustaste auf **STETemplate.tt** , und wählen Sie **Eigenschaften**
+-   Löschen Sie im **Eigenschaften** Fenster **TextTemplatingFileGenerator** aus der **CustomTool** -Eigenschaft.
+-   Erweitern Sie in **Projektmappen-Explorer** den Eintrag **STETemplate.tt** , und löschen Sie alle Dateien, die darin gespeichert sind
 
-Als Nächstes werden wir ein neues Projekt hinzufügen und Generieren von Entitätsklassen darin
+Als Nächstes fügen wir ein neues Projekt hinzu und generieren die Entitäts Klassen darin.
 
--   **Datei -&gt; hinzufügen –&gt; Projekt...**
--   Wählen Sie **Visual C\#**  im linken Bereich und dann **-Klassenbibliothek**
--   Geben Sie **STESample.Entities** als ein, und klicken Sie auf **OK**
--   **Projekt -&gt; vorhandenes Element hinzufügen...**
--   Navigieren Sie zu der **STESample** Projektordner
--   Wählen Sie zum Anzeigen von **alle Dateien (\*.\*)**
--   Wählen Sie die **STETemplate.tt** Datei
--   Klicken Sie auf den Dropdownpfeil neben der **hinzufügen** Schaltfläche, und wählen **als Link hinzufügen**
+-   **Datei &gt; Add-&gt;-Projekt...**
+-   Wählen Sie im linken Bereich **Visual C @ no__t-1** und dann **Klassenbibliothek** aus.
+-   Geben Sie **stesample. Entities** als Name ein, und klicken Sie auf **OK** .
+-   **Project-&gt; vorhandenes Element hinzufügen...**
+-   Navigieren Sie zum Projektordner " **stesample** ".
+-   Wählen Sie diese Option aus, um **alle Dateien anzuzeigen (\*. \*).**
+-   Wählen Sie die Datei **STETemplate.tt** aus.
+-   Klicken Sie auf den Dropdown Pfeil neben der Schaltfläche **Hinzufügen** , und wählen Sie **als Link hinzufügen** aus.
 
-    ![Fügen Sie verknüpfte Vorlage hinzu.](~/ef6/media/addlinkedtemplate.png)
+    ![Verknüpfte Vorlage hinzufügen](~/ef6/media/addlinkedtemplate.png)
 
-Wir werden auch sicherstellen, dass die Entitätsklassen im selben Namespace wie der Kontext generiert. Dies reduziert lediglich die Anzahl der using-Anweisungen, die wir in unserer Anwendung hinzufügen möchten.
+Wir stellen auch sicher, dass die Entitäts Klassen im gleichen Namespace wie der Kontext generiert werden. Dadurch wird lediglich die Anzahl der using-Anweisungen reduziert, die wir in der gesamten Anwendung hinzufügen müssen.
 
--   Mit der rechten Maustaste auf die verknüpften **STETemplate.tt** in **Projektmappen-Explorer** , und wählen Sie **Eigenschaften**
--   In der **Eigenschaften** legen **Custom Tool Namespace** zu **STESample**
+-   Klicken Sie in **Projektmappen-Explorer** mit der rechten Maustaste auf die verknüpfte **STETemplate.tt** , und wählen Sie **Eigenschaften**
+-   Legen Sie im **Eigenschaften** Fenster **benutzerdefinierter Tool Namespace** auf **stesample** fest.
 
-Der Code, der von der AL-Vorlage generiert wird, benötigen einen Verweis auf **System.Runtime.Serialization** zum Kompilieren. Diese Bibliothek ist erforderlich, für die WCF **DataContract** und **DataMember** Attribute, die für die serialisierbaren Entitätstypen verwendet werden.
+Der von der ste-Vorlage generierte Code benötigt einen Verweis auf " **System. Runtime. Serialization** ", damit er kompiliert werden kann. Diese Bibliothek wird für die WCF **DataContract** -und **DataMember** -Attribute benötigt, die für die serialisierbaren Entitäts Typen verwendet werden.
 
--   Klicken Sie mit der rechten Maustaste auf die **STESample.Entities** Projekt **Projektmappen-Explorer** , und wählen Sie **Verweis hinzufügen...**
-    -   In Visual Studio 2012 – aktivieren Sie das Kontrollkästchen neben **System.Runtime.Serialization** , und klicken Sie auf **OK**
-    -   Wählen Sie in Visual Studio 2010 - **System.Runtime.Serialization** , und klicken Sie auf **OK**
+-   Klicken Sie in **Projektmappen-Explorer** mit der rechten Maustaste auf das Projekt **stesample. Entities** , und wählen Sie **Verweis hinzufügen...**
+    -   Aktivieren Sie in Visual Studio 2012 das Kontrollkästchen neben **System. Runtime. Serialization** , und klicken Sie auf **OK** .
+    -   Wählen Sie in Visual Studio 2010 die Option **System. Runtime. Serialization** aus, und klicken Sie auf **OK** .
 
-Schließlich wird das Projekt mit unserem Kontext darin einen Verweis auf den Entitätstypen benötigen.
+Schließlich benötigt das Projekt mit unserem Kontext darin einen Verweis auf die Entitäts Typen.
 
--   Klicken Sie mit der rechten Maustaste auf die **STESample** Projekt **Projektmappen-Explorer** , und wählen Sie **Verweis hinzufügen...**
-    -   Wählen Sie in Visual Studio 2012 - **Lösung** aktivieren Sie im linken Bereich das Kontrollkästchen neben **STESample.Entities** , und klicken Sie auf **OK**
-    -   Wählen Sie in Visual Studio 2010 – die **Projekte** Registerkarte **STESample.Entities** , und klicken Sie auf **OK**
+-   Klicken Sie in **Projektmappen-Explorer** mit der rechten Maustaste auf das Projekt **stesample** , und wählen Sie **Verweis hinzufügen aus.**
+    -   Wählen Sie in Visual Studio 2012 im linken Bereich Projekt Mappe aus, **Aktivieren Sie das** Kontrollkästchen neben **stesample. Entities** , und klicken Sie auf **OK** .
+    -   Wählen Sie in Visual Studio 2010 die Registerkarte **Projekte** aus, wählen Sie **stesample. Entities** aus, und klicken Sie auf **OK** .
 
 >[!NOTE]
-> Eine weitere Möglichkeit zum Verschieben von Entitätstypen in einem separaten Projekt ist, verschieben Sie die Vorlagendatei, anstatt es aus seinem Standardspeicherort zu verknüpfen. Wenn Sie dies tun, müssen Sie zum Aktualisieren der **InputFile** Variable in der Vorlage, geben Sie den relativen Pfad der Edmx-Datei (in diesem Beispiel, die **... \\BloggingModel.edmx**).
+> Eine weitere Möglichkeit zum Verschieben der Entitäts Typen in ein separates Projekt besteht darin, die Vorlagen Datei zu verschieben, anstatt Sie von Ihrem Standard Speicherort zu verknüpfen. Wenn Sie dies tun, müssen Sie die Variable " **inputFile** " in der Vorlage aktualisieren, um den relativen Pfad zur EDMX-Datei bereitzustellen (in diesem Beispiel: **. \\bloggingmodel. edmx**).
 
-## <a name="create-a-wcf-service"></a>Erstellen Sie einen WCF-Dienst
+## <a name="create-a-wcf-service"></a>Erstellen eines WCF-Dienstanbieter
 
-Nun ist es Zeit zum Hinzufügen eines WCF-Diensts, um unsere Daten verfügbar zu machen, beginnen wir, indem Sie das Projekt erstellen.
+Nun ist es an der Zeit, einen WCF-Dienst hinzuzufügen, um unsere Daten verfügbar zu machen. wir beginnen mit der Erstellung des Projekts.
 
--   **Datei -&gt; hinzufügen –&gt; Projekt...**
--   Wählen Sie **Visual C\#**  im linken Bereich und dann **WCF-Dienstanwendung**
--   Geben Sie **STESample.Service** als ein, und klicken Sie auf **OK**
--   Hinzufügen eines Verweises auf die **System.Data.Entity** Assembly
--   Hinzufügen eines Verweises auf die **STESample** und **STESample.Entities** Projekte
+-   **Datei &gt; Add-&gt;-Projekt...**
+-   Wählen Sie im linken Bereich **Visual C @ no__t-1** und dann **WCF-Dienst Anwendung** aus.
+-   Geben Sie **stesample. Service** als Name ein, und klicken Sie auf **OK** .
+-   Fügen Sie einen Verweis auf die **System. Data. Entity** -Assembly hinzu.
+-   Hinzufügen eines Verweises auf die Projekte " **stesample** " und " **stesample. Entities** "
 
-Wir müssen die EF-Verbindungszeichenfolge auf dieses Projekt zu kopieren, damit sie zur Laufzeit gefunden wird.
+Wir müssen die EF-Verbindungs Zeichenfolge in dieses Projekt kopieren, damit Sie zur Laufzeit gefunden wird.
 
--   Öffnen der **"App.config"** -Datei für die ** STESample **-Projekt und kopiert die **ConnectionStrings** Element
--   Fügen Sie der **ConnectionStrings** -Element als untergeordnetes Element des der **Konfiguration** Element der **"Web.config"** Datei die **STESample.Service** Projekt
+-   Öffnen Sie die Datei " **app. config** " für das **stesample **-Projekt, und kopieren Sie das **connectionStrings** -Element.
+-   Fügen Sie das **connectionStrings** -Element als untergeordnetes Element des **Configuration** -Elements der Datei " **Web. config** " im Projekt " **stesample. Service** " ein.
 
-Jetzt ist es Zeit, um den Dienst zu implementieren.
+Nun ist es an der Zeit, den eigentlichen Dienst zu implementieren.
 
--   Open **IService1.cs** und Ersetzen Sie den Inhalt durch den folgenden Code
+-   Öffnen Sie **IService1.cs** , und ersetzen Sie den Inhalt durch den folgenden Code:
 
 ``` csharp
     using System.Collections.Generic;
@@ -201,7 +201,7 @@ Jetzt ist es Zeit, um den Dienst zu implementieren.
     }
 ```
 
--   Open **Service1.svc** und Ersetzen Sie den Inhalt durch den folgenden Code
+-   Öffnen Sie **Service1. svc** , und ersetzen Sie den Inhalt durch den folgenden Code.
 
 ``` csharp
     using System;
@@ -254,24 +254,24 @@ Jetzt ist es Zeit, um den Dienst zu implementieren.
     }
 ```
 
-## <a name="consume-the-service-from-a-console-application"></a>Nutzen Sie den Dienst aus einer Konsolenanwendung
+## <a name="consume-the-service-from-a-console-application"></a>Nutzen des dienstanwendungs aus einer Konsolenanwendung
 
 Wir erstellen eine Konsolenanwendung, die unseren Dienst verwendet.
 
--   **Datei -&gt; neu –&gt; Projekt...**
--   Wählen Sie **Visual C\#**  im linken Bereich und dann **-Konsolenanwendung**
--   Geben Sie **STESample.ConsoleTest** als ein, und klicken Sie auf **OK**
--   Hinzufügen eines Verweises auf die **STESample.Entities** Projekt
+-   **Datei-&gt; New-&gt;-Projekt...**
+-   Wählen Sie im linken Bereich **Visual C @ no__t-1** und dann **Konsolenanwendung** aus.
+-   Geben Sie **stesample. consoletest** als Name ein, und klicken Sie auf **OK** .
+-   Hinzufügen eines Verweises auf das Projekt " **stesample. Entities** "
 
-Wir benötigen einen Dienstverweis an den WCF-Dienst
+Wir benötigen einen Dienst Verweis auf den WCF-Dienst.
 
--   Mit der rechten Maustaste die **STESample.ConsoleTest** Projekt **Projektmappen-Explorer** , und wählen Sie **Dienstverweis hinzufügen...**
+-   Klicken Sie in **Projektmappen-Explorer** mit der rechten Maustaste auf das Projekt **stesample. consoletest** , und wählen Sie **Dienstverweis hinzufügen...**
 -   Klicken Sie auf **ermitteln**
--   Geben Sie **BloggingService** als Namespace, und klicken Sie auf **OK**
+-   Geben Sie **bloggingservice** als Namespace ein, und klicken Sie auf **OK** .
 
-Jetzt schreiben wir Code, um den Dienst zu nutzen.
+Nun können wir Code schreiben, um den Dienst zu nutzen.
 
--   Open **"Program.cs"** und Ersetzen Sie den Inhalt durch den folgenden Code.
+-   Öffnen Sie **Program.cs** , und ersetzen Sie den Inhalt durch den folgenden Code.
 
 ``` csharp
     using STESample.ConsoleTest.BloggingService;
@@ -400,11 +400,11 @@ Jetzt schreiben wir Code, um den Dienst zu nutzen.
 
 Sie können die Anwendung jetzt ausführen, um sie in Aktion zu sehen.
 
--   Mit der rechten Maustaste die **STESample.ConsoleTest** Projekt **Projektmappen-Explorer** , und wählen Sie **Debuggen -&gt; neue Instanz starten**
+-   Klicken Sie mit der rechten Maustaste auf das Projekt **stesample. consoletest** in **Projektmappen-Explorer** und wählen Sie **Debuggen-&gt; neue Instanz starten** aus.
 
-Sie sehen die folgende Ausgabe, wenn die Anwendung ausgeführt wird.
+Die folgende Ausgabe wird angezeigt, wenn die Anwendung ausgeführt wird.
 
-```
+```console
 Initial Data:
 ADO.NET Blog
 - Intro to EF
@@ -434,24 +434,24 @@ ADO.NET Blog
 Press any key to exit...
 ```
 
-## <a name="consume-the-service-from-a-wpf-application"></a>Nutzen Sie den Dienst aus einer WPF-Anwendung
+## <a name="consume-the-service-from-a-wpf-application"></a>Nutzen des dienstanwendungs aus einer WPF-Anwendung
 
-Erstellen wir eine WPF-Anwendung, die unseren Dienst verwendet.
+Erstellen Sie eine WPF-Anwendung, die unseren Dienst verwendet.
 
--   **Datei -&gt; neu –&gt; Projekt...**
--   Wählen Sie **Visual C\#**  im linken Bereich und dann **WPF-Anwendung**
--   Geben Sie **STESample.WPFTest** als ein, und klicken Sie auf **OK**
--   Hinzufügen eines Verweises auf die **STESample.Entities** Projekt
+-   **Datei-&gt; New-&gt;-Projekt...**
+-   Wählen Sie im linken Bereich **Visual C @ no__t-1** aus, und klicken Sie dann auf **WPF-Anwendung** .
+-   Geben Sie **stesample. wpftest** als Name ein, und klicken Sie auf **OK** .
+-   Hinzufügen eines Verweises auf das Projekt " **stesample. Entities** "
 
-Wir benötigen einen Dienstverweis an den WCF-Dienst
+Wir benötigen einen Dienst Verweis auf den WCF-Dienst.
 
--   Mit der rechten Maustaste die **STESample.WPFTest** Projekt **Projektmappen-Explorer** , und wählen Sie **Dienstverweis hinzufügen...**
+-   Klicken Sie in **Projektmappen-Explorer** mit der rechten Maustaste auf das Projekt **stesample. wpftest** , und wählen Sie **Dienstverweis hinzufügen...**
 -   Klicken Sie auf **ermitteln**
--   Geben Sie **BloggingService** als Namespace, und klicken Sie auf **OK**
+-   Geben Sie **bloggingservice** als Namespace ein, und klicken Sie auf **OK** .
 
-Jetzt schreiben wir Code, um den Dienst zu nutzen.
+Nun können wir Code schreiben, um den Dienst zu nutzen.
 
--   Open **"MainWindow.xaml"** und Ersetzen Sie den Inhalt durch den folgenden Code.
+-   Öffnen Sie " **MainWindow. XAML** ", und ersetzen Sie den Inhalt durch den folgenden Code.
 
 ``` xaml
     <Window
@@ -495,7 +495,7 @@ Jetzt schreiben wir Code, um den Dienst zu nutzen.
     </Window>
 ```
 
--   Öffnen den Code-behind für MainWindow-Element (**"MainWindow.Xaml.cs"**), und Ersetzen Sie den Inhalt durch den folgenden Code
+-   Öffnen Sie den Code Behind für MainWindow (**MainWindow.XAML.cs**), und ersetzen Sie den Inhalt durch den folgenden Code.
 
 ``` csharp
     using STESample.WPFTest.BloggingService;
@@ -549,7 +549,7 @@ Jetzt schreiben wir Code, um den Dienst zu nutzen.
 
 Sie können die Anwendung jetzt ausführen, um sie in Aktion zu sehen.
 
--   Mit der rechten Maustaste die **STESample.WPFTest** Projekt **Projektmappen-Explorer** , und wählen Sie **Debuggen -&gt; neue Instanz starten**
--   Können Sie die Daten, die mit dem Bildschirm bearbeiten und speichern Sie es über den Dienst mithilfe der **speichern** Schaltfläche
+-   Klicken Sie mit der rechten Maustaste auf das Projekt **stesample. wpftest** in **Projektmappen-Explorer** und wählen Sie **Debuggen-&gt; neue Instanz starten** aus.
+-   Sie können die Daten mithilfe des Bildschirms bearbeiten und mithilfe der Schaltfläche " **Speichern** " über den Dienst speichern.
 
 ![WPF-Hauptfenster](~/ef6/media/wpf.png)

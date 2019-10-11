@@ -3,12 +3,12 @@ title: Asynchrone Abfrage und speichern-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: ae578976ffc88b407ef0aaa0017935005bedd093
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 0642dc13e7aa3906fa1495031c62701fc16f0192
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921627"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181843"
 ---
 # <a name="async-query-and-save"></a>Asynchrone Abfrage und Speicherung
 > [!NOTE]
@@ -30,7 +30,7 @@ Hier finden Sie weitere Informationen zu Async:
 
 -   [Brandon Bray: Übersicht über Async/Erwartung in .NET 4,5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
 -   [Asynchrone Programmier](https://msdn.microsoft.com/library/hh191443.aspx) Seiten in der MSDN Library
--   [Erstellen von ASP.NET-Webanwendungen mithilfe von Async](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (enthält eine Demo zu erhöhtem Server Durchsatz)
+-   [Erstellen von ASP.NET-Webanwendungen mithilfe von Async](https://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (enthält eine Demo zu erhöhtem Server Durchsatz)
 
 ## <a name="create-the-model"></a>Erstellen des Modells
 
@@ -222,12 +222,12 @@ Eine umfassende Liste der verfügbaren Erweiterungs Methoden im System. Data. En
 Nun, da der Code asynchron ist, können wir einen anderen Ausführungs Fluss beobachten, wenn wir das Programm ausführen:
 
 1. **SaveChanges** beginnt, den neuen **Blog** an die Datenbank zu überbringen.  
-    *Nachdem der Befehl an die Datenbank gesendet wurde, ist für den aktuell verwalteten Thread keine Compute-Zeit mehr erforderlich. Die **performdatabaseoperations** -Methode gibt zurück (obwohl die Ausführung noch nicht abgeschlossen ist), und der Programmablauf in der Main-Methode wird fortgesetzt.*
+    *nachdem der Befehl an die Datenbank gesendet wurde, ist für den aktuell verwalteten Thread keine Compute-Zeit mehr erforderlich. Die **performdatabaseoperations** -Methode gibt zurück (obwohl die Ausführung noch nicht abgeschlossen ist), und der Programmablauf in der Main-Methode wird fortgesetzt.*
 2. **Das Anführungszeichen des Tages wird in die Konsole geschrieben.**  
-    *Da keine weiteren Aufgaben in der Main-Methode durchgeführt werden müssen, wird der verwaltete Thread für den Wait-Vorgang blockiert, bis der Daten Bank Vorgang abgeschlossen ist. Sobald der Vorgang abgeschlossen ist, werden die restlichen **performdatabaseoperations** ausgeführt.*
+    *DA keine weiteren Aufgaben in der Main-Methode durchgeführt werden müssen, wird der verwaltete Thread für den Wait-Vorgang blockiert, bis der Daten Bank Vorgang abgeschlossen ist. Sobald der Vorgang abgeschlossen ist, werden die restlichen **performdatabaseoperations** ausgeführt.*
 3.  **SaveChanges** ist abgeschlossen.  
 4.  Die Abfrage für alle **Blogs** wird an die Datenbank gesendet.  
-    *Auch hier kann der verwaltete Thread andere Aufgaben ausführen, während die Abfrage in der Datenbank verarbeitet wird. Da die Ausführung der anderen Ausführung abgeschlossen ist, hält der Thread den Wait-Befehl jedoch nur an.*
+    *wieder kann der verwaltete Thread andere Aufgaben ausführen, während die Abfrage in der Datenbank verarbeitet wird. Da die Ausführung der anderen Ausführung abgeschlossen ist, hält der Thread den Wait-Befehl jedoch nur an.*
 5.  Abfrage Rückgabe und Ergebnisse werden in die **Konsole** geschrieben  
 
 ![Asynchrone Ausgabe](~/ef6/media/asyncoutput.png) 

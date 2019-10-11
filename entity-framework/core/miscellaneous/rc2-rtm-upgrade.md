@@ -1,63 +1,65 @@
 ---
-title: Aktualisieren von EF Core 1.0 RC2 auf RTM – EF Core
+title: Aktualisieren von EF Core 1,0 rc2 auf RTM-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 1b95b2ab1943dfb541b3a7c873cff3cb4c16d9c1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e7f121d18931e26e7b5d11842da6da4a9b789efe
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998318"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181365"
 ---
-# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Aktualisieren von EF Core 1.0 RC2 auf RTM-Version
+# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Aktualisieren von EF Core 1,0 rc2 auf RTM
 
-Dieser Artikel enthält Anleitungen zum Verschieben von einer Anwendung erstellt, mit dem RC2-Paketen auf 1.0.0 RTM-Version.
+Dieser Artikel enthält Anleitungen zum Verschieben einer Anwendung, die mit den RC2-Paketen erstellt wurde, in 1.0.0 RTM.
 
 ## <a name="package-versions"></a>Paketversionen
 
-Die Namen der Pakete auf oberster Ebene, die Sie in der Regel in eine Anwendung installieren würden wurde zwischen RC2 und RTM-Version nicht geändert werden.
+Die Namen der Pakete auf oberster Ebene, die normalerweise in einer Anwendung installiert werden, haben sich zwischen RC2 und RTM nicht geändert.
 
-**Sie müssen die installierten Pakete auf die RTM-Versionen zu aktualisieren:**
+**Sie müssen die installierten Pakete auf die RTM-Versionen aktualisieren:**
 
-* Runtime-Pakete (z. B. `Microsoft.EntityFrameworkCore.SqlServer`) von geändert `1.0.0-rc2-final` zu `1.0.0`.
+* Lauf Zeit Pakete (z. b. `Microsoft.EntityFrameworkCore.SqlServer`) wurden von `1.0.0-rc2-final` in `1.0.0` geändert.
 
-* Die `Microsoft.EntityFrameworkCore.Tools` Paket geändert `1.0.0-preview1-final` zu `1.0.0-preview2-final`. Beachten Sie, dass Tools immer noch eine Vorabversion.
+* Das Paket "`Microsoft.EntityFrameworkCore.Tools`" wurde von `1.0.0-preview1-final` in `1.0.0-preview2-final` geändert. Beachten Sie, dass die Tools noch vorab veröffentlicht werden.
 
-## <a name="existing-migrations-may-need-maxlength-added"></a>Vorhandene Migrationen möglicherweise MaxLength hinzugefügt
+## <a name="existing-migrations-may-need-maxlength-added"></a>Vorhandene Migrationen müssen möglicherweise MaxLength hinzugefügt werden.
 
-In RC2, sah die Spaltendefinition in einer Migration `table.Column<string>(nullable: true)` und die Länge der Spalte in einige Metadaten wir in den Code hinter der Migration speichern gesucht wurde. In der RTM-Version ist jetzt die Länge in dem eingerüsteten Code enthalten `table.Column<string>(maxLength: 450, nullable: true)`.
+In RC2 betrachtete die Spaltendefinition in einer Migration wie `table.Column<string>(nullable: true)`, und die Länge der Spalte wurde in einigen Metadaten gesucht, die im Code hinter der Migration gespeichert werden. In RTM ist die Länge jetzt im Gerüsten Code `table.Column<string>(maxLength: 450, nullable: true)` enthalten.
 
-Alle vorhandenen Migrationen, bei denen Gerüst erstellt wurden, vor der Verwendung von RTM-Version müssen nicht die `maxLength` Argument angegeben. Dies bedeutet, dass die maximale Länge, die von der Datenbank unterstützt werden kann (`nvarchar(max)` auf SQL Server). Dies ist möglicherweise für einige Spalten, aber die Spalten, die Teil eines Schlüssels, foreign key- oder Index müssen aktualisiert werden, um eine maximale Länge enthalten. Gemäß der Konvention ist 450, die maximale Länge für Schlüssel, Fremdschlüssel, verwendet und die indizierten Spalten. Wenn Sie eine Länge explizit in das Modell konfiguriert haben, sollten Sie stattdessen diese Länge verwenden.
+Für alle vorhandenen Migrationen, die vor der Verwendung von RTM erstellt wurden, ist das `maxLength`-Argument nicht angegeben. Dies bedeutet, dass die maximale Länge, die von der Datenbank unterstützt wird, verwendet wird (`nvarchar(max)` auf SQL Server). Dies kann für einige Spalten in Ordnung sein, aber Spalten, die Teil eines Schlüssels, eines fremd Schlüssels oder eines Indexes sind, müssen aktualisiert werden, damit Sie eine maximale Länge enthalten. Gemäß der Konvention ist 450 die maximale Länge, die für Schlüssel, Fremdschlüssel und indizierte Spalten verwendet wird. Wenn Sie im Modell explizit eine Länge konfiguriert haben, sollten Sie diese Länge stattdessen verwenden.
 
 **ASP.NET Identity**
 
-Diese Änderung wirkt sich auf die Projekte, die aus einer vorab erstellten und Verwenden von ASP.NET Identity-RTM-Projektvorlage. Die Projektvorlage enthält eine Migration verwendet, um die Datenbank zu erstellen. Diese Migration muss bearbeitet werden, zum Angeben einer maximalen Länge von `256` für die folgenden Spalten.
+Diese Änderung wirkt sich auf Projekte aus, die ASP.net Identity verwenden und aus einer Pre-RTM-Projektvorlage erstellt wurden. Die Projektvorlage enthält eine Migration, mit der die Datenbank erstellt wird. Diese Migration muss bearbeitet werden, um für die folgenden Spalten eine maximale Länge von `256` anzugeben.
 
 *  **AspNetRoles**
 
-    * name
+    * Name
 
-    * NormalizedName
+    * Normalizedname
 
 *  **AspNetUsers**
 
    * E-Mail
 
-   * NormalizedEmail
+   * Normalizedebug
 
    * NormalizedUserName
 
    * UserName
 
-Fehler für diese Änderung führt in der folgenden Ausnahme, wenn die ursprüngliche Migration auf eine Datenbank angewendet wird.
+Wenn Sie diese Änderung nicht vornehmen, wird die folgende Ausnahme ausgelöst, wenn die anfängliche Migration auf eine Datenbank angewendet wird.
 
-    System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+```console
+System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+```
 
-## <a name="net-core-remove-imports-in-projectjson"></a>.NET Core: Entfernen von "Imports" in "Project.JSON"
+## <a name="net-core-remove-imports-in-projectjson"></a>.NET Core: "Importe" in "Project. JSON" entfernen
 
-Wenn Sie .NET Core mit RC2 verwenden wurden, mussten Sie fügen `imports` Datei "Project.JSON" als vorübergehende problemumgehung für einige der EF Core Abhängigkeiten, die nicht unterstützen .NET Standard. Diese können jetzt entfernt werden.
+Wenn Sie .net Core mit RC2 als Zielplattform verwendet haben, mussten Sie "Project. JSON" `imports` als temporäre Problem Umgehung für einige EF Core Abhängigkeiten hinzufügen, die .NET Standard nicht unterstützen. Diese können nun entfernt werden.
 
 ``` json
 {
@@ -70,17 +72,19 @@ Wenn Sie .NET Core mit RC2 verwenden wurden, mussten Sie fügen `imports` Datei 
 ```
 
 > [!NOTE]  
-> Ab Version 1.0 RTM-Version der [.NET Core SDK](https://www.microsoft.com/net/download/core) unterstützt nicht mehr `project.json` oder .NET Core-Anwendungen mit Visual Studio 2015 entwickeln. Es wird empfohlen, [eine Migration von „project.json“ zu „csproj“ durchzuführen](https://docs.microsoft.com/dotnet/articles/core/migration/). Wenn Sie Visual Studio verwenden, sollten Sie Sie ein upgrade auf [Visual Studio 2017](https://www.visualstudio.com/downloads/).
+> Ab Version 1,0 RTM unterstützt die [.net Core SDK](https://www.microsoft.com/net/download/core) nicht mehr `project.json` oder die Entwicklung von .net Core-Anwendungen mit Visual Studio 2015. Es wird empfohlen, [eine Migration von „project.json“ zu „csproj“ durchzuführen](https://docs.microsoft.com/dotnet/articles/core/migration/). Wenn Sie Visual Studio verwenden, wird empfohlen, ein Upgrade auf [Visual Studio 2017](https://www.visualstudio.com/downloads/)auszuführen.
 
-## <a name="uwp-add-binding-redirects"></a>UWP: Fügen Sie bindungsumleitungen hinzu
+## <a name="uwp-add-binding-redirects"></a>UWP Bindungs Umleitungen hinzufügen
 
-Es wird versucht, EF-Befehle auf der universellen Windows-Plattform (UWP) von Teamprojekten führt zu folgendem Fehler ausgeführt:
+Der Versuch, EF-Befehle für universelle Windows-Plattform-Projekte (UWP) auszuführen, führt zu folgendem Fehler:
 
-    System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```console
+System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```
 
-Sie müssen das UWP-Projekt manuell bindungsumleitungen hinzufügen. Erstellen Sie eine Datei mit dem Namen `App.config` im Projekt Stammordner, und die richtigen Assemblyversionen umleitungen hinzugefügt.
+Sie müssen dem UWP-Projekt manuell Bindungs Umleitungen hinzufügen. Erstellen Sie eine Datei mit dem Namen "`App.config`" im Projektstamm Ordner, und fügen Sie den richtigen Assemblyversionen Umleitungen hinzu.
 
-``` xml
+```xml
 <configuration>
  <runtime>
    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">

@@ -1,37 +1,37 @@
 ---
-title: EF Core-Tools-Verweis (Paket-Manager-Konsole) – EF Core
+title: Referenz zu EF Core Tools (Paket-Manager-Konsole)-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: cb05e3fb66adf96f8a6778711a76520d0be24c71
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: 45370a82131da9db8b724fe395d41b1e3641fcf8
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419769"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181332"
 ---
-# <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Toolreferenz Entity Framework Core - Paket-Manager-Konsole in Visual Studio
+# <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Referenz zur Entity Framework Core Tools-Paket-Manager-Konsole in Visual Studio
 
-Die Paket-Manager-Konsole (PMC)-Tools für Entity Framework Core führen Sie während der Entwurfszeit-Entwicklungsaufgaben. Angenommen, sie erstellen [Migrationen](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), Anwenden von Migrationen und Code für ein Modell basierend auf einer vorhandenen Datenbank generieren. Ausführen der Befehle in Visual Studio mit der [-Paket-Manager-Konsole](/nuget/tools/package-manager-console). Diese Tools funktionieren sowohl mit .NET Framework- als auch mit .NET Core-Projekten.
+Die Paket-Manager-Konsole (PMC)-Tools für Entity Framework Core die Entwicklungsaufgaben zur Entwurfszeit ausführen. Beispielsweise erstellen Sie [Migrationen](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0), wenden Migrationen an und generieren Code für ein Modell, das auf einer vorhandenen Datenbank basiert. Die Befehle werden innerhalb von Visual Studio mithilfe der [Paket-Manager-Konsole](/nuget/tools/package-manager-console)ausgeführt. Diese Tools funktionieren sowohl mit .NET Framework- als auch mit .NET Core-Projekten.
 
-Wenn Sie Visual Studio nicht verwenden, empfehlen wir die [EF Core-Befehlszeilentools](dotnet.md) stattdessen. Die CLI-Tools sind – plattformübergreifend und in einer Eingabeaufforderung ausführen.
+Wenn Sie Visual Studio nicht verwenden, empfiehlt es sich, stattdessen die [EF Core Befehlszeilen Tools](dotnet.md) zu verwenden. Die CLI-Tools sind plattformübergreifend und werden innerhalb einer Eingabeaufforderung ausgeführt.
 
 ## <a name="installing-the-tools"></a>Installieren der Tools
 
-Die Verfahren zum Installieren und aktualisieren die Tools unterscheiden sich zwischen ASP.NET Core 2.1 + und früheren Versionen oder anderen Projekttypen.
+Die Verfahren zum Installieren und Aktualisieren der Tools unterscheiden sich zwischen ASP.net Core 2.1 und früheren Versionen oder anderen Projekttypen.
 
-### <a name="aspnet-core-version-21-and-later"></a>ASP.NET Core Version 2.1 und höher
+### <a name="aspnet-core-version-21-and-later"></a>ASP.net Core Version 2,1 und höher
 
-Die Tools sind automatisch in einem Projekt auf ASP.NET Core 2.1 enthalten, da die `Microsoft.EntityFrameworkCore.Tools` Paket befindet sich auf die [Microsoft.AspNetCore.App metapaket](/aspnet/core/fundamentals/metapackage-app).
+Die Tools werden automatisch in ein ASP.net Core 2.1 +-Projekt eingeschlossen, da das `Microsoft.EntityFrameworkCore.Tools`-Paket im [Metapaket "Microsoft. aspnetcore. app](/aspnet/core/fundamentals/metapackage-app)" enthalten ist.
 
-Aus diesem Grund, Sie müssen nichts tun, um die Tools installieren, jedoch müssen Sie:
-* Stellen Sie Pakete wieder her, bevor Sie mit den Tools in einem neuen Projekt.
+Daher müssen Sie keine weiteren Schritte ausführen, um die Tools zu installieren, aber Sie müssen folgende Schritte ausführen:
+* Stellen Sie Pakete wieder her, bevor Sie die Tools in einem neuen Projekt verwenden.
 * Installieren Sie ein Paket, um die Tools auf eine neuere Version zu aktualisieren.
 
-Um sicherzustellen, dass Sie die neueste Version der Tools erhalten, empfehlen wir, dass Sie auch die folgende Schritte durchführen:
+Um sicherzustellen, dass Sie die neueste Version der Tools erhalten, empfiehlt es sich, auch den folgenden Schritt durchzuführen:
 
-* Bearbeiten Ihrer *csproj* -Datei und fügen Sie eine Zeile, in die neueste Version von der [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/) Paket. Z. B. die *csproj* Datei sind zum Beispiel eine `ItemGroup` , sieht folgendermaßen aus:
+* Bearbeiten Sie die *csproj* -Datei, und fügen Sie eine Zeile hinzu, die die neueste Version des [Microsoft. entityframeworkcore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/) -Pakets angibt. Die CSPROJ-Datei kann z *. b.* eine `ItemGroup` enthalten, die wie folgt aussieht:
 
   ```xml
   <ItemGroup>
@@ -41,38 +41,38 @@ Um sicherzustellen, dass Sie die neueste Version der Tools erhalten, empfehlen w
   </ItemGroup>
   ```
 
-Aktualisieren Sie die Tools aus, wenn eine Meldung wie im folgenden Beispiel angezeigt:
+Aktualisieren Sie die Tools, wenn Sie eine Meldung wie im folgenden Beispiel erhalten:
 
-> Die EF Core-Tools-Version "2.1.1-rtm-30846" ist älter als der die Laufzeit "2.1.3-rtm-32065". Aktualisieren Sie die Tools für die neuesten Features und Fehlerbehebungen.
+> Die EF Core Tools-Version "2.1.1-RTM-30846" ist älter als die der Runtime "2.1.3-RTM-32065". Aktualisieren Sie die Tools für die neuesten Features und Fehlerbehebungen.
 
 So aktualisieren Sie die Tools:
-* Installieren Sie das neueste .NET Core SDK an.
-* Visual Studio auf die neueste Version zu aktualisieren.
-* Bearbeiten der *csproj* Datei, sodass sie einen Paketverweis auf die neuesten Tools-Paket enthält, wie oben beschrieben.
+* Installieren Sie die neueste .net Core SDK.
+* Aktualisieren Sie Visual Studio auf die neueste Version.
+* Bearbeiten Sie die *csproj* -Datei so, dass Sie einen Paket Verweis auf das aktuellste Tool Paket enthält, wie zuvor gezeigt.
 
 ### <a name="other-versions-and-project-types"></a>Andere Versionen und Projekttypen
 
-Installieren Sie die Tools-Paket-Manager-Konsole mithilfe des folgenden Befehls **-Paket-Manager-Konsole**:
+Installieren Sie die Paket-Manager-Konsole, indem Sie den folgenden Befehl in der **Paket-Manager-Konsole**ausführen:
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
-Aktualisieren Sie die Tools, mithilfe des folgenden Befehls **-Paket-Manager-Konsole**.
+Aktualisieren Sie die Tools, indem Sie den folgenden Befehl in der **Paket-Manager-Konsole**ausführen.
 
 ``` powershell
 Update-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
-### <a name="verify-the-installation"></a>Überprüfen Sie die installation
+### <a name="verify-the-installation"></a>Überprüfen der Installation
 
-Stellen Sie sicher, dass die Tools installiert sind, mit dem folgenden Befehl:
+Stellen Sie sicher, dass die Tools installiert sind, indem Sie folgenden Befehl ausführen:
 
 ``` powershell
 Get-Help about_EntityFrameworkCore
 ```
 
-Die Ausgabe sieht folgendermaßen aus (nicht teilt es Ihnen die Version der Tools, die Sie verwenden):
+Die Ausgabe sieht wie folgt aus (Sie gibt nicht an, welche Version der Tools Sie verwenden):
 
 ```console
 
@@ -94,53 +94,53 @@ SHORT DESCRIPTION
 
 ## <a name="using-the-tools"></a>Mithilfe der Tools
 
-Bevor Sie mit den Tools:
-* Erfahren Sie, den Unterschied zwischen Ziel- und Startup-Projekt.
+Vor der Verwendung der Tools:
+* Verstehen Sie den Unterschied Zwischenziel und Startprojekt.
 * Erfahren Sie, wie Sie die Tools mit .NET Standard-Klassenbibliotheken verwenden.
-* Legen Sie die Umgebung für ASP.NET Core-Projekte.
+* Legen Sie für ASP.net Core Projekte die Umgebung fest.
 
-### <a name="target-and-startup-project"></a>Ziel und Startup-Projekt
+### <a name="target-and-startup-project"></a>Ziel-und Startprojekt
 
-Die Befehle finden Sie in einem *Projekt* und ein *Startprojekt*.
+Die Befehle verweisen auf ein *Projekt* und ein *Startprojekt*.
 
-* Die *Projekt* ist auch bekannt als die *Zielprojekt* da es sich handelt, in dem Sie die Befehle zum Hinzufügen oder Entfernen von Dateien. In der Standardeinstellung die **Standardprojekt** im **-Paket-Manager-Konsole** ist das Zielprojekt. Sie können ein anderes Projekt als Zielprojekt angeben, mit der <nobr> `--project` </nobr> Option.
+* Das *Projekt* wird auch als *Ziel Projekt* bezeichnet, weil die Befehle Dateien hinzufügen oder entfernen. Standardmäßig ist das **Standard Projekt** , das in der **Paket-Manager-Konsole** ausgewählt ist, das Ziel Projekt. Sie können ein anderes Projekt als Ziel Projekt angeben, indem Sie die Option <nobr>`--project`</nobr> verwenden.
 
-* Die *Startprojekt* ist diejenige, die die Tools erstellen und ausführen. Die Tools werden zum Ausführen der Anwendungscode zur Entwurfszeit zum Abrufen von Informationen über das Projekt, z. B. die Datenbank-Verbindungszeichenfolge und die Konfiguration des Modells. In der Standardeinstellung die **Startprojekt** in **Projektmappen-Explorer** das Startprojekt ist. Sie können ein anderes Projekt als Startprojekt angeben, mit der <nobr> `--startup-project` </nobr> Option.
+* Das *Startprojekt ist das Startprojekt* , das von den Tools erstellt und ausgeführt wird. Die Tools müssen Anwendungscode zur Entwurfszeit ausführen, um Informationen zum Projekt zu erhalten, z. b. die Daten bankverbindungs Zeichenfolge und die Konfiguration des Modells. Standardmäßig ist das **Startprojekt** in **Projektmappen-Explorer** das Startprojekt. Sie können ein anderes Projekt als Startprojekt angeben, indem Sie die Option <nobr>`--startup-project`</nobr> verwenden.
 
-Das Startprojekt und ein Zielprojekt sind häufig die gleichen Projekt. Ein typisches Szenario, in dem sie separate Projekte sind, ist:
+Das Startprojekt und das Ziel Projekt sind häufig das gleiche Projekt. Ein typisches Szenario, bei dem es sich um separate Projekte handelt, sind folgende:
 
-* Die EF Core-Kontext und Entitätsklassen-Klassen sind in einer .NET Core-Klassenbibliothek.
-* Ein .NET Core-Konsolen-app oder Web-app verweist auf die Klassenbibliothek.
+* Die EF Core Kontext-und Entitäts Klassen befinden sich in einer .net Core-Klassenbibliothek.
+* Eine .net Core-Konsolen-APP oder-Web-App verweist auf die Klassenbibliothek.
 
-Es ist auch möglich, [platzieren migrationscode in eine Klassenbibliothek, die getrennt von den Entity Framework Core-Kontext](xref:core/managing-schemas/migrations/projects).
+Es ist auch möglich, [Migrations Code in einer Klassenbibliothek zu platzieren, getrennt vom EF Core Kontext](xref:core/managing-schemas/migrations/projects).
 
-### <a name="other-target-frameworks"></a>Andere Zielframeworks
+### <a name="other-target-frameworks"></a>Andere Ziel-Frameworks
 
-Die Paket-Manager-Konsole-Tools funktionieren mit .NET Core oder .NET Framework-Projekte. Apps, die EF Core-Modell in einer .NET Standard-Klassenbibliothek verfügen, möglicherweise keiner .NET Core- oder .NET Framework-Projekt. Dies ist z. B. "true" mit Xamarin und die universelle Windows-Plattform-apps. In solchen Fällen können Sie ein .NET Core oder .NET Framework-Konsolenanwendungsprojekt erstellen, dessen einziger Zweck ist es, als Startprojekt für die Tools zu fungieren. Das Projekt kann ein dummyprojekt ohne realen Code sein &mdash; ist nur erforderlich, ein Ziel für die Tools bereitzustellen.
+Die Paket-Manager-Konsolen Tools können mit .net Core-oder .NET Framework-Projekten verwendet werden. Apps, die über das EF Core Modell in einer .NET Standard-Klassenbibliothek verfügen, verfügen möglicherweise nicht über ein .net Core-oder .NET Framework-Projekt. Dies gilt z. b. für xamarin-und universelle Windows-Plattform-apps. In solchen Fällen können Sie ein .net Core-oder .NET Framework Konsolen-App-Projekt erstellen, dessen einziger Zweck darin besteht, als Startprojekt für die Tools zu fungieren. Das Projekt kann ein Dummyprojekt ohne echten Code sein &mdash; ist nur erforderlich, um ein Ziel für die Tools bereitzustellen.
 
-Warum ist ein dummyprojekt erforderlich? Wie bereits erwähnt, haben die Tools zum Ausführen der Anwendungscode zur Entwurfszeit an. Zu diesem Zweck müssen sie die .NET Core oder .NET Framework-Laufzeit verwenden. Wenn die EF Core-Modell in einem Projekt, die auf .NET Core oder .NET Framework abzielt ist, nutzen die EF Core-Tools die Laufzeit aus dem Projekt. Sie können nicht dies tun, wenn das EF Core-Modell in einer .NET Standard-Klassenbibliothek ist. .NET Standard ist keine tatsächliche Implementierung von .NET. Es ist eine Spezifikation eines Satzes von APIs, die .NET-Implementierungen unterstützt wird müssen. Aus diesem Grund ist .NET Standard nicht ausreichend für die EF Core-Tools, um Anwendungscode auszuführen. Dem dummyprojekt, die Sie erstellen, für die Verwendung als Startup-Projekt enthält eine konkrete Zielplattform, die in der die Tools die .NET Standard-Klassenbibliothek laden können.
+Warum ist ein Dummyprojekt erforderlich? Wie bereits erwähnt, müssen die Tools Anwendungscode zur Entwurfszeit ausführen. Hierzu müssen Sie die .net Core-oder .NET Framework-Laufzeit verwenden. Wenn sich das EF Core Modell in einem Projekt befindet, das .net Core oder .NET Framework als Ziel hat, wird die Laufzeit von den EF Core Tools aus dem Projekt ausgeliehen. Dies ist nicht möglich, wenn sich das EF Core Modell in einer .NET Standard Klassenbibliothek befindet. Der .NET Standard ist keine tatsächliche .NET-Implementierung. Es handelt sich um eine Spezifikation für eine Reihe von APIs, die von .net-Implementierungen unterstützt werden müssen. Daher ist .NET Standard für die EF Core Tools nicht ausreichend, um Anwendungscode auszuführen. Das Dummyprojekt, das Sie als Startprojekt verwenden, stellt eine konkrete Zielplattform bereit, in die die Tools die .NET Standard Klassenbibliothek laden können.
 
-### <a name="aspnet-core-environment"></a>ASP.NET Core-Umgebung
+### <a name="aspnet-core-environment"></a>ASP.net Core Umgebung
 
-Legen Sie zum Angeben der Umgebung für ASP.NET Core-Projekten **Env:ASPNETCORE_ENVIRONMENT** vor dem Ausführen der Befehle.
+Wenn Sie die Umgebung für ASP.net Core Projekte angeben möchten, legen Sie **ENV: ASPNETCORE_ENVIRONMENT** vor dem Ausführen von Befehlen fest.
 
 ## <a name="common-parameters"></a>Allgemeine Parameter
 
-Die folgende Tabelle zeigt die Parameter, die für alle EF Core-Befehle gelten:
+In der folgenden Tabelle sind die Parameter aufgeführt, die für alle EF Core-Befehle gelten:
 
 | Parameter                 | Beschreibung                                                                                                                                                                                                          |
 |:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| -Kontext \<Zeichenfolge >        | Die `DbContext`-Klasse, die verwendet werden soll. Name der Klasse nur oder mit Namespaces vollqualifiziert.  Wenn dieser Parameter ausgelassen wird, sucht Entity Framework Core die Context-Klasse. Dieser Parameter ist erforderlich, wenn es mehrere Kontextklassen sind. |
-| -Project \<String>        | Das Zielprojekt. Wenn dieser Parameter ausgelassen wird, die **Standardprojekt** für **-Paket-Manager-Konsole** als das Zielprojekt verwendet wird.                                                                             |
-| -StartupProject \<String> | Das Startprojekt. Wenn dieser Parameter ausgelassen wird, die **Startprojekt** in **Projektmappeneigenschaften** als das Zielprojekt verwendet wird.                                                                                 |
-| -Verbose                  | Zeigen Sie ausführlichen Ausgabe.                                                                                                                                                                                                 |
+| -Der Kontext \<string >        | Die `DbContext`-Klasse, die verwendet werden soll. Der Klassenname oder voll qualifiziert mit Namespaces.  Wenn dieser Parameter ausgelassen wird, wird EF Core die Kontext Klasse findet. Wenn mehrere Kontext Klassen vorhanden sind, ist dieser Parameter erforderlich. |
+| -Project \<string >        | Das Ziel Projekt. Wenn dieser Parameter ausgelassen wird, wird das **Standard Projekt** für die **Paket-Manager-Konsole** als Ziel Projekt verwendet.                                                                             |
+| -StartupProject \<string > | Das Startprojekt. Wenn dieser Parameter ausgelassen wird, wird das **Startprojekt** in Projektmappeneigenschaften als Ziel Projekt verwendet.                                                                                 |
+| -Verbose                  | Zeigt eine ausführliche Ausgabe an.                                                                                                                                                                                                 |
 
-Um Hilfeinformationen zu einem Befehl zu anzuzeigen, verwenden Sie PowerShell `Get-Help` Befehl.
+Um Hilfe Informationen zu einem Befehl anzuzeigen, verwenden Sie den `Get-Help`-Befehl von PowerShell.
 
 > [!TIP]
-> Der Kontext, Projekt- und StartupProject parameterunterstützung Tab-Taste.
+> Die Parameter "Context", "Project" und "StartupProject" unterstützen die Tab-Erweiterung.
 
-## <a name="add-migration"></a>Add-Migration
+## <a name="add-migration"></a>Migration hinzufügen
 
 Fügt eine neue Migration hinzu.
 
@@ -148,8 +148,8 @@ Parameter:
 
 | Parameter                         | Beschreibung                                                                                                             |
 |:----------------------------------|:------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-Name \<String><nobr>       | Der Name der Migration. Dies ist ein Positionsparameter und ist erforderlich.                                              |
-| <nobr>-OutputDir \<String></nobr> | Das Verzeichnis (und Sub-Namespace) verwenden. Pfade sind relativ zum Zielprojektverzeichnis. Der Standardwert ist "Migrations". |
+| @no__t -0-Name \< String > <nobr>       | Der Name der Migration. Dies ist ein Positions Parameter, der erforderlich ist.                                              |
+| <nobr>-OutputDir \<String></nobr> | Das zu verwendende Verzeichnis (und der untergeordnete Namespace). Pfade sind relativ zum Ziel Projektverzeichnis. Der Standardwert ist "Migrationen". |
 
 ## <a name="drop-database"></a>Drop-Database
 
@@ -159,40 +159,40 @@ Parameter:
 
 | Parameter | Beschreibung                                              |
 |:----------|:---------------------------------------------------------|
-| -WhatIf   | Anzeigen der Datenbank gelöscht werden würde, dies jedoch noch nicht. |
+| -WhatIf   | Zeigen Sie an, welche Datenbank gelöscht werden soll, aber löschen Sie Sie nicht. |
 
-## <a name="get-dbcontext"></a>Get-DbContext
+## <a name="get-dbcontext"></a>Get-dbcontext
 
-Ruft Informationen über eine `DbContext` Typ.
+Ruft Informationen zu einem `DbContext`-Typ ab.
 
 ## <a name="remove-migration"></a>Remove-Migration
 
-Entfernt die letzte Migration (Rollback die codeänderungen, die für die Migration durchgeführt wurden).
+Entfernt die letzte Migration (führt einen Rollback für die Codeänderungen aus, die für die Migration durchgeführt wurden).
 
 Parameter:
 
 | Parameter | Beschreibung                                                                     |
 |:----------|:--------------------------------------------------------------------------------|
-| -Force    | Zurücksetzen die Migration (ein Rollback die Änderungen, die auf die Datenbank angewendet wurden). |
+| -Force    | Setzen Sie die Migration zurück (führen Sie ein Rollback der Änderungen aus, die auf die Datenbank angewendet wurden). |
 
 ## <a name="scaffold-dbcontext"></a>Scaffold-DbContext
 
-Generiert Code für eine `DbContext` und Entitätstypen für eine Datenbank. In der Reihenfolge für `Scaffold-DbContext` zum Generieren eines Entitätstyps muss in der Datenbanktabelle über einen Primärschlüssel verfügen.
+Generiert Code für einen `DbContext`-und Entitäts Typen für eine Datenbank. Damit `Scaffold-DbContext` einen Entitätstyp generieren kann, muss die Datenbanktabelle über einen Primärschlüssel verfügen.
 
 Parameter:
 
 | Parameter                          | Beschreibung                                                                                                                                                                                                                                                             |
 |:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-Connection \<Zeichenfolge ></nobr> | Die Verbindungszeichenfolge in der Datenbank. Der Wert kann für ASP.NET Core 2.x-Projekte sein *Name =\<Name der Verbindungszeichenfolge >*. In diesem Fall stammt der Name der Konfigurationsquellen, die für das Projekt eingerichtet sind. Dies ist ein Positionsparameter und ist erforderlich. |
-| <nobr>-Anbieter \<Zeichenfolge ></nobr>   | Die zu verwendende Anbieter. Normalerweise hat der Name des NuGet-Pakets, z. B.: `Microsoft.EntityFrameworkCore.SqlServer`. Dies ist ein Positionsparameter und ist erforderlich.                                                                                           |
-| -OutputDir \<String>               | Zum Einfügen von Dateien im Verzeichnis. Pfade sind relativ zum Projektverzeichnis.                                                                                                                                                                                             |
-| -ContextDir \<String>              | Verzeichnis zum Ablegen der `DbContext` Datei. Pfade sind relativ zum Projektverzeichnis.                                                                                                                                                                              |
-| -Kontext \<Zeichenfolge >                 | Der Name des der `DbContext` Klasse generiert.                                                                                                                                                                                                                          |
-| -Schemas \<String [] >               | Die Schemas der Tabellen zur Generierung von Entitätstypen für. Wenn dieser Parameter ausgelassen wird, sind alle Schemas enthalten.                                                                                                                                                             |
-| -Tabellen \<String [] >                | Die Tabellen zur Generierung von Entitätstypen für werden soll. Wenn dieser Parameter ausgelassen wird, sind alle Tabellen enthalten.                                                                                                                                                                         |
-| -DataAnnotations                   | Verwenden Sie Attribute, um das Modell (sofern möglich) zu konfigurieren. Wenn dieser Parameter ausgelassen wird, wird nur die fluent-API verwendet.                                                                                                                                                      |
-| -UseDatabaseNames                  | Verwenden Sie Tabellen- und Spaltennamen, genau wie in der Datenbank. Wenn dieser Parameter ausgelassen wird, werden die Datenbanknamen geändert, um genauer zu Konventionen für C#-Namen entsprechen.                                                                                       |
-| -Force                             | Überschreiben Sie vorhandene Dateien.                                                                                                                                                                                                                                               |
+| <nobr>-Connection \< Zeichenfolge ></nobr> | Die Verbindungs Zeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name = \<name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. Dies ist ein Positions Parameter, der erforderlich ist. |
+| <nobr>-Anbieter \< Zeichenfolge ></nobr>   | Der zu verwendende Anbieter. In der Regel ist dies der Name des nuget-Pakets, z. b.: `Microsoft.EntityFrameworkCore.SqlServer`. Dies ist ein Positions Parameter, der erforderlich ist.                                                                                           |
+| -OutputDir \<string >               | Das Verzeichnis, in dem Dateien abgelegt werden sollen. Pfade sind relativ zum Projektverzeichnis.                                                                                                                                                                                             |
+| -Contextdir \<string >              | Das Verzeichnis, in das die `DbContext`-Datei eingefügt werden soll. Pfade sind relativ zum Projektverzeichnis.                                                                                                                                                                              |
+| -Der Kontext \<string >                 | Der Name der zu generierenden `DbContext`-Klasse.                                                                                                                                                                                                                          |
+| -Schemas \<string [] >               | Die Schemas von Tabellen, für die Entitäts Typen generiert werden sollen. Wenn dieser Parameter ausgelassen wird, werden alle Schemas eingeschlossen.                                                                                                                                                             |
+| -Tables \<string [] >                | Die Tabellen, für die Entitäts Typen generiert werden sollen. Wenn dieser Parameter ausgelassen wird, werden alle Tabellen eingeschlossen.                                                                                                                                                                         |
+| -DataAnnotations                   | Verwenden Sie Attribute, um das Modell zu konfigurieren (sofern möglich). Wenn dieser Parameter ausgelassen wird, wird nur die fließende API verwendet.                                                                                                                                                      |
+| -UseDatabaseNames                  | Verwenden Sie Tabellen-und Spaltennamen genau so, wie Sie in der Datenbank angezeigt werden. Wenn dieser Parameter ausgelassen wird, werden die Datenbanknamen entsprechend den C# Namensformat Konventionen genauer angepasst.                                                                                       |
+| -Force                             | Überschreibt vorhandene Dateien.                                                                                                                                                                                                                                               |
 
 Beispiel:
 
@@ -200,35 +200,35 @@ Beispiel:
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
 
-Ein Beispiel, die nur ausgewählte Tabellen erstellt das Gerüst für den Kontext in einem separaten Ordner mit dem angegebenen Namen erstellt:
+Beispiel, bei dem nur ausgewählte Tabellen gerüziert werden und der Kontext in einem separaten Ordner mit einem angegebenen Namen erstellt wird:
 
 ```powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext
 ```
 
-## <a name="script-migration"></a>Script-Migration
+## <a name="script-migration"></a>Skript-Migration
 
-Generiert ein SQL­Skript, das alle Änderungen von einem ausgewählten Migration auf die Migration zu einem anderen ausgewählten angewendet wird.
+Generiert ein SQL-Skript, mit dem alle Änderungen von einer ausgewählten Migration zu einer anderen ausgewählten Migration übernommen werden.
 
 Parameter:
 
 | Parameter                | Beschreibung                                                                                                                                                                                                                |
 |:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| *-From* \<String>        | Die Migration der ab. Migrationen können nach Name oder ID identifiziert werden Die Zahl 0 ist ein Sonderfall, das bedeutet, dass *vor der ersten Migration*. Der Standardwert ist 0.                                                              |
-| *-To* \<String>          | Der Endpunkt-Migration. Ist standardmäßig auf die letzte Migration ein.                                                                                                                                                                      |
-| <nobr>-Idempotent</nobr> | Generieren Sie ein Skript, das für eine Datenbank auf eine Migration verwendet werden kann.                                                                                                                                                         |
-| -Ausgabe \<Zeichenfolge >        | Die Datei, schreibt das Ergebnis. Wenn dieser Parameter ausgelassen wird, wird die Datei mit einem generierten Namen im gleichen Ordner erstellt, wie die app Runtime-Dateien, z. B. erstellt werden: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*. |
+| *-From* \< Zeichenfolge >        | Die Migration wird gestartet. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration*liegt. Der Standardwert ist 0.                                                              |
+| *-Zu* \< Zeichenfolge >          | Die Beendigung der Migration. Standardmäßig wird die letzte Migration verwendet.                                                                                                                                                                      |
+| <nobr>-Idempotent</nobr> | Generieren Sie ein Skript, das bei jeder Migration in einer Datenbank verwendet werden kann.                                                                                                                                                         |
+| -Ausgabe \<zeichenfolge >        | Die Datei, in die das Ergebnis geschrieben werden soll. Wenn dieser Parameter ausgelassen wird, wird die Datei mit einem generierten Namen im selben Ordner erstellt, in dem die Laufzeitdateien der App erstellt werden, z. b.: */obj/Debug/netcoreapp2.1/ghbkztfz.SQL/* . |
 
 > [!TIP]
-> To, From, und Output-Parameter unterstützen die Tab-Taste.
+> Die Parameter to, from und Output unterstützen die Tab-Erweiterung.
 
-Das folgende Beispiel erstellt ein Skript für die InitialCreate-Migration, die mit dem Migrationsnamen.
+Im folgenden Beispiel wird ein Skript für die InitialCreate-Migration mit dem Namen der Migration erstellt.
 
 ```powershell
 Script-Migration -To InitialCreate
 ```
 
-Das folgende Beispiel erstellt ein Skript für alle Migrationen nach der Migration InitialCreate mithilfe der Migration-ID.
+Im folgenden Beispiel wird ein Skript für alle Migrationen nach der InitialCreate-Migration mit der Migrations-ID erstellt.
 
 ```powershell
 Script-Migration -From 20180904195021_InitialCreate
@@ -236,22 +236,22 @@ Script-Migration -From 20180904195021_InitialCreate
 
 ## <a name="update-database"></a>Update-Database
 
-Aktualisiert die Datenbank aus, um die letzte Migration oder für eine angegebene Migration.
+Aktualisiert die Datenbank auf die letzte Migration oder eine angegebene Migration.
 
 | Parameter                           | Beschreibung                                                                                                                                                                                                                                                     |
 |:------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>*-Migration* \<String></nobr> | Die Ziel-Migration. Migrationen können nach Name oder ID identifiziert werden Die Zahl 0 ist ein Sonderfall, das bedeutet, dass *vor der ersten Migration* und bewirkt, dass alle Migrationen zu rückgängig gemacht werden. Wenn keine Migration angegeben ist, verwendet der Befehl auf die letzte Migration. |
+| <nobr> *-Migration* \<string ></nobr> | Die Ziel Migration. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration* steht und bewirkt, dass alle Migrationen rückgängig gemacht werden. Wenn keine Migration angegeben ist, wird für den Befehl standardmäßig die letzte Migration verwendet. |
 
 > [!TIP]
-> Der Parameter für die Migration unterstützt die Tab-Taste.
+> Der Migrations Parameter unterstützt die Erweiterung der Registerkarte.
 
-Im folgende Beispiel wird bei allen Migrationen zurückgesetzt.
+Im folgenden Beispiel werden alle Migrationen wieder hergestellt.
 
 ```powershell
 Update-Database -Migration 0
 ```
 
-In den folgenden Beispielen wird die Datenbank für eine angegebene Migration aktualisieren. Das erste verwendet den Migrationsnamen aus, und die zweite verwendet den Migrations-ID:
+In den folgenden Beispielen wird die-Datenbank auf eine angegebene Migration aktualisiert. Der erste verwendet den Migrations Namen, der zweite verwendet die Migrations-ID:
 
 ```powershell
 Update-Database -Migration InitialCreate

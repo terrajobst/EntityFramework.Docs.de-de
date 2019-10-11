@@ -1,93 +1,93 @@
 ---
-title: Räumliche - EF Designer - EF6
+title: Spatial-EF-Designer-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 06baa6e1-d680-4a95-845b-81305c87a962
-ms.openlocfilehash: 67cc6c007a4477b650e7c4875de8fac36a9ba2be
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: a9c54fbc14dd02ce5d4d91449a0d5f9e72f7f0f7
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283757"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182501"
 ---
-# <a name="spatial---ef-designer"></a>Räumliche - EF-Designer
+# <a name="spatial---ef-designer"></a>Räumlich: EF-Designer
 > [!NOTE]
-> **EF5 oder höher, nur** -APIs, die Funktionen erläutert, die auf dieser Seite usw. in Entity Framework 5 eingeführt wurden. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
+> **Nur EF5** : die Features, APIs usw., die auf dieser Seite erläutert wurden, wurden in Entity Framework 5 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
 
-Die video und schrittweise exemplarische Vorgehensweise zeigt, wie räumliche Typen, mit dem Entity Framework Designer zugeordnet wird. Darüber hinaus veranschaulicht eine LINQ-Abfrage verwenden, um einen Abstand zwischen zwei Orten zu finden.
+Im Video und in der exemplarischen Vorgehensweise wird gezeigt, wie räumliche Typen mit dem Entity Framework Designer zugeordnet werden. Außerdem wird veranschaulicht, wie eine LINQ-Abfrage verwendet wird, um einen Abstand zwischen zwei Standorten zu ermitteln.
 
-In dieser exemplarischen Vorgehensweise wird zum Erstellen einer neuen Datenbank Model First verwenden, aber dem EF Designer kann auch verwendet werden, mit der [Database First](~/ef6/modeling/designer/workflows/database-first.md) Workflow um eine vorhandene Datenbank zuzuordnen.
+In dieser exemplarischen Vorgehensweise wird Model First verwendet, um eine neue Datenbank zu erstellen, aber der EF-Designer kann auch mit dem [Database First](~/ef6/modeling/designer/workflows/database-first.md) Workflow verwendet werden, um eine Zuordnung zu einer vorhandenen Datenbank herzustellen.
 
-Unterstützung von räumlichen Typen wurde in Entity Framework 5 eingeführt. Beachten Sie, um die neuen Features wie räumlichen Typen, Enumerationen und Tabellenwertfunktionen zu verwenden, Sie .NET Framework 4.5 als Ziel haben müssen. Visual Studio 2012 ist standardmäßig die Zielversion .NET 4.5.
+Die Unterstützung räumlicher Typen wurde in Entity Framework 5 eingeführt. Beachten Sie, dass Sie für die Verwendung der neuen Funktionen, wie z. b. räumlichem Typ, aufzählen und Tabellenwert Funktionen, auf .NET Framework 4,5 abzielen müssen. Visual Studio 2012 hat standardmäßig .NET 4,5 als Ziel.
 
-Verwendung der Typen von räumlichen Daten müssen Sie auch einen Entity Framework-Anbieter verwenden, der Unterstützung von räumlichen Daten verfügt. Finden Sie unter [anbieterunterstützung für räumliche Typen](~/ef6/fundamentals/providers/spatial-support.md) für Weitere Informationen.
+Um räumliche Datentypen zu verwenden, müssen Sie auch einen Entity Framework Anbieter verwenden, der über räumliche Unterstützung verfügt. Weitere Informationen finden Sie [unter Anbieter Unterstützung für räumliche Typen](~/ef6/fundamentals/providers/spatial-support.md) .
 
-Es gibt zwei Arten von main räumliche Daten: Geography und Geometry. Der Geography-Datentyp speichert ellipsenförmige Daten (z. B. GPS-Breiten- und Längengrad koordiniert). Der Geometry-Datentyp stellt euklidischen (flachen) Koordinatensystem dar.
+Es gibt zwei Haupt Datentypen für räumliche Daten: Geography und Geometry. Der geography-Datentyp speichert Ellipsen Daten (z. b. GPS-breiten-und Längenkoordinaten). Der geometry-Datentyp stellt das euklidische (flache) Koordinatensystem dar.
 
 ## <a name="watch-the-video"></a>Video ansehen
-Dieses Video zeigt, wie Sie räumliche Typen, mit dem Entity Framework Designer zuordnen. Darüber hinaus veranschaulicht eine LINQ-Abfrage verwenden, um einen Abstand zwischen zwei Orten zu finden.
+In diesem Video wird gezeigt, wie räumliche Typen dem Entity Framework Designer zugeordnet werden. Außerdem wird veranschaulicht, wie eine LINQ-Abfrage verwendet wird, um einen Abstand zwischen zwei Standorten zu ermitteln.
 
-**Präsentiert von**: Julia Kornich
+**Präsentiert von**: Julia kornich
 
 **Video**: [WMV](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
-Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express Edition installiert, um diese exemplarische Vorgehensweise abgeschlossen haben.
+Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express Edition installiert haben, um diese exemplarische Vorgehensweise abzuschließen.
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
-1.  Visual Studio 2012 öffnen
-2.  Auf der **Datei** Startmenü **neu**, und klicken Sie dann auf **Projekt**
-3.  Klicken Sie im linken Bereich auf **Visual C\#**, und wählen Sie dann die **Konsole** Vorlage
-4.  Geben Sie **SpatialEFDesigner** als Namen für das Projekt und auf **OK**
+1.  Öffnen Sie Visual Studio 2012
+2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
+3.  Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+4.  Geben Sie **spatialefdesigner** als Namen für das Projekt ein, und klicken Sie auf **OK** .
 
 ## <a name="create-a-new-model-using-the-ef-designer"></a>Erstellen eines neuen Modells mit dem EF-Designer
 
-1.  Mit der rechten Maustaste des Projektnamen im Projektmappen-Explorer, zeigen Sie auf **hinzufügen**, und klicken Sie dann auf **neues Element**
-2.  Wählen Sie **Daten** aus dem linken Menü und wählen Sie dann **ADO.NET Entity Data Model** im Bereich Vorlagen
-3.  Geben Sie **UniversityModel.edmx** für den Dateinamen ein, und klicken Sie dann auf **hinzufügen**
-4.  Wählen Sie auf der Seite Assistenten für Entity Data Model **leeres Modell** im Dialogfeld ' Modellinhalte auswählen '
-5.  Klicken Sie auf **Fertig stellen**
+1.  Klicken Sie mit der rechten Maustaste auf den Projektnamen Projektmappen-Explorer, zeigen Sie auf **Hinzufügen**, und klicken Sie dann auf **Neues Element**
+2.  Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.
+3.  Geben Sie für den Dateinamen " **universitymodel. edmx** " ein, und klicken Sie auf **Hinzufügen** .
+4.  Wählen Sie auf der Seite des Entity Data Model-Assistenten im Dialogfeld Modell Inhalte auswählen die Option **leeres Modell** aus.
+5.  Klicken auf **Fertig** stellen
 
-Im Entity Designer, der bietet eine Entwurfsoberfläche zum Bearbeiten des Modells, wird angezeigt.
+Die Entity Designer, die eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt.
 
 Der Assistent führt die folgenden Aktionen aus:
 
--   Generiert die EnumTestModel.edmx-Datei, die das konzeptionelle Modell, Speichermodell und die Zuordnung definiert. Legt die Verarbeitung der Metadatenartefakte-Eigenschaft der EDMX-Datei zum Einbetten in Ausgabeassembly fest, damit die generierten Metadaten-Dateien in die Assembly eingebettet werden.
--   Fügt einen Verweis auf die folgenden Assemblys hinzu: EntityFramework System.ComponentModel.DataAnnotations und System.Data.Entity.
--   UniversityModel.tt und UniversityModel.Context.tt-Dateien erstellt, und klicken Sie unter der EDMX-Datei hinzugefügt. Diese Dateien der T4-Vorlage generieren den Code, der definiert, die "DbContext" abgeleitet und POCO-Typen, die die Entitäten in der EDMX-Modell zuordnen
+-   Generiert die Datei "enumtestmodel. edmx", die das konzeptionelle Modell, das Speichermodell und die Zuordnung zwischen Ihnen definiert. Legt die metadatenartefaktverarbeitungs-Eigenschaft der EDMX-Datei fest, die in die Ausgabeassembly eingebettet werden soll, sodass die generierten Metadatendateien in die Assembly eingebettet werden
+-   Fügt einen Verweis auf die folgenden Assemblys hinzu: EntityFramework, System. ComponentModel. DataAnnotations und System. Data. Entity.
+-   Erstellt UniversityModel.TT-und UniversityModel.Context.tt-Dateien und fügt Sie der EDMX-Datei hinzu. Diese T4-Vorlagen Dateien generieren den Code, der den von dbcontext abgeleiteten Typ und poco-Typen definiert, die den Entitäten im edmx-Modell zugeordnet werden.
 
-## <a name="add-a-new-entity-type"></a>Fügen Sie einen neuen Entitätstyp hinzu
+## <a name="add-a-new-entity-type"></a>Neuen Entitätstyp hinzufügen
 
-1.  Mit der rechten Maustaste in eines leeren Bereichs der Entwurfsoberfläche, wählen **hinzufügen –&gt; Entität**, das Dialogfeld "neue Entität" angezeigt wird
-2.  Geben Sie **University** für den Typ ein, und geben **Universitäts** für den Namen "Key"-Eigenschaft wählen Sie in den Typ als **Int32**
+1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, wählen Sie **Add-&gt; Entity**aus, das Dialogfeld neue Entität wird angezeigt.
+2.  Geben Sie **University** **als Typnamen** an, und geben Sie für den Schlüssel Eigenschaftsnamen die Angabe " **universityid** " an.
 3.  Klicken Sie auf **OK**.
-4.  Mit der rechten Maustaste in der Entitäts, und wählen Sie **Add New -&gt; Skalareigenschaft**
-5.  Benennen Sie die neue Eigenschaft **Name**
-6.  Fügen Sie eine andere skalare Eigenschaft hinzu und benennen Sie sie in **Speicherort** öffnen Sie das Fenster "Eigenschaften" aus, und ändern Sie den Typ der neuen Eigenschaft, die **Geography**
-7.  Speichern Sie das Modell, und erstellen Sie das Projekt
+4.  Klicken Sie mit der rechten Maustaste auf die Entität, und wählen Sie **Add New-&gt; Scalar Property**
+5.  Benennen Sie die neue Eigenschaft in **Name** um.
+6.  Fügen Sie eine weitere skalare Eigenschaft hinzu, und benennen Sie Sie in **Location** um. Öffnen Sie die Eigenschaftenfenster, und ändern Sie den Typ der neuen Eigenschaft in **geography**
+7.  Speichern Sie das Modell, und erstellen Sie das Projekt.
     > [!NOTE]
-    > Bei der Erstellung können Warnungen zu nicht zugeordneten Entitäten und Zuordnungen in der Fehlerliste angezeigt. Sie können diese Warnungen ignorieren, da nach dem wir die Datenbank aus dem Modell generieren möchten, die Fehler verschwinden werden.
+    > Wenn Sie erstellen, werden möglicherweise Warnungen zu nicht zugeordneten Entitäten und Zuordnungen in der Fehlerliste angezeigt. Sie können diese Warnungen ignorieren, da die Fehler nach dem Generieren der Datenbank aus dem Modell entfernt werden.
 
 ## <a name="generate-database-from-model"></a>Datenbank aus Modell generieren
 
-Jetzt können wir eine Datenbank generieren, die für das Modell basiert.
+Nun können wir eine Datenbank generieren, die auf dem Modell basiert.
 
-1.  Mit der rechten Maustaste in eines leeren Bereich der Entity-Designer, und wählen **Datenbank aus Modell generieren**
-2.  Wählen Sie Ihre Daten Verbindungsdialogfeld des Assistenten zum Generieren von Datenbanken wird angezeigt, klicken Sie auf die **neue Verbindung** Schaltfläche geben **(Localdb)\\Mssqllocaldb** für den Servernamen und  **University** für die Datenbank und auf **OK**
-3.  Ein Dialogfeld gefragt, ob Sie eine neue Datenbank erstellen möchten, wird angezeigt, klicken Sie auf **Ja**.
-4.  Klicken Sie auf **Weiter** und der Assistent zur Datenbankgenerierung generiert die Datendefinitionssprache (DDL) für eine Datenbank erstellen, die generierte DDL angezeigt wird, in der Zusammenfassung und Einstellungen Dialogfeld das Beachten Sie, dass, die die DDL-Anweisungen keine Definition für enthält eine Tabelle, in den Enumerationstyp zugeordnet.
-5.  Klicken Sie auf **Fertig stellen** durch Klicken auf Fertig stellen das DDL-Skript nicht ausgeführt.
-6.  Der Assistent zur Datenbankgenerierung bewirkt Folgendes: Öffnet die **UniversityModel.edmx.sql** in T-SQL-Editor generiert Datei in den Store-Schemas und der Mapping-Abschnitten, die Zielimplementierung des zu Informationen zur Verbindungszeichenfolge fügt die Datei "App.config"
-7.  Klicken Sie auf der rechten Maustaste im T-SQL-Editor, und wählen Sie **Execute** das Herstellen einer Verbindung mit Server-Dialogfeld angezeigt wird, geben Sie die Verbindungsinformationen aus Schritt 2, und klicken Sie auf **verbinden**
-8.  Klicken Sie zum Anzeigen des generierten Schemas mit der rechten Maustaste auf den Datenbanknamen im Objekt-Explorer von SQL Server, und wählen Sie **aktualisieren**
+1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich auf der Entity Designer Oberfläche, und wählen Sie **Datenbank aus Modell generieren** .
+2.  Das Dialog Feld Datenverbindung auswählen des Assistenten zum Generieren von Datenbanken wird angezeigt. Klicken Sie auf die Schaltfläche **neue Verbindung** , und geben Sie **(localdb) \\mssqllocaldb** für den Servernamen und die **University** für die Datenbank an, und klicken Sie auf **OK**
+3.  Wenn Sie in einem Dialogfeld gefragt werden, ob Sie eine neue Datenbank erstellen möchten, klicken Sie auf **Ja**.
+4.  Klicken Sie auf **weiter** , und der Assistent zum Erstellen einer Datenbank generiert die Datendefinitionssprache (DDL) zum Erstellen einer Datenbank. die generierte DDL wird im Dialog Feld Zusammenfassung und Einstellungen angezeigt. Hinweis: die DDL enthält keine Definition für eine Tabelle, die dem Enumerationstyp
+5.  Klicken Sie auf **Fertig** stellen klicken Sie das DDL-Skript nicht aus.
+6.  Der Assistent zum Erstellen einer Datenbank führt folgende Schritte aus: Öffnet die Datei " **universitymodel. edmx. SQL** " im T-SQL-Editor, generiert die Abschnitte "Store Schema" und "Mapping" der EDMX-Datei und fügt der Datei "App. config" Verbindungs Zeichenfolgen
+7.  Klicken Sie im T-SQL-Editor auf die Rechte Maustaste, und wählen Sie das Dialogfeld Verbindung mit Server herstellen aus, und **Geben Sie** die Verbindungsinformationen aus Schritt 2 ein.
+8.  Um das generierte Schema anzuzeigen, klicken Sie in SQL Server-Objekt-Explorer mit der rechten Maustaste auf den Datenbanknamen, und wählen Sie **Aktualisieren** .
 
-## <a name="persist-and-retrieve-data"></a>Speichern und Abrufen von Daten
+## <a name="persist-and-retrieve-data"></a>Persistenz und Abrufen von Daten
 
-Öffnen Sie die Datei "Program.cs", die, in die Main-Methode definiert ist. Fügen Sie der Main-Funktion mit den folgenden Code.
+Öffnen Sie die Datei Program.cs, in der die Main-Methode definiert ist. Fügen Sie der Main-Funktion den folgenden Code hinzu.
 
-Der Code fügt zwei neue University-Objekte in den Kontext an. Räumliche Eigenschaften werden mithilfe der Methode DbGeography.FromText initialisiert. Der Geography-Punkt dargestellt, wie WellKnownText an die Methode übergeben wird. Der Code speichert dann die Daten. Klicken Sie dann die LINQ-Abfrage, die ein University-Objekt zurückgegeben, bei denen am Speicherort am nächsten am angegebenen Speicherort erstellt und ausgeführt wird.
+Der Code fügt dem Kontext zwei neue University-Objekte hinzu. Räumliche Eigenschaften werden mithilfe der Methode "dbgeography. fromtext" initialisiert. Der als wellknowntext dargestellte geografiepunkt wird an die-Methode übermittelt. Der Code speichert die Daten dann. Anschließend wird die LINQ-Abfrage, die ein University-Objekt zurückgibt, dessen Standort dem angegebenen Speicherort am nächsten liegt, erstellt und ausgeführt.
 
 ``` csharp
 using (var context = new UniversityModelContainer())
@@ -120,12 +120,12 @@ using (var context = new UniversityModelContainer())
 
 Kompilieren Sie die Anwendung, und führen Sie sie aus. Das Programm erzeugt die folgende Ausgabe:
 
-```
+```console
 The closest University to you is: School of Fine Art.
 ```
 
-Klicken Sie zum Anzeigen von Daten in der Datenbank, mit der rechten Maustaste auf den Datenbanknamen im Objekt-Explorer von SQL Server, und wählen Sie **aktualisieren**. Klicken Sie dann auf der rechten Maustaste auf die Tabelle, und wählen **Ansichtsdaten**.
+Zum Anzeigen von Daten in der Datenbank klicken Sie in SQL Server-Objekt-Explorer mit der rechten Maustaste auf den Datenbanknamen, und wählen Sie **Aktualisieren**aus. Klicken Sie dann auf die Rechte Maustaste in der Tabelle, und wählen Sie **Daten anzeigen**aus.
 
 ## <a name="summary"></a>Zusammenfassung
 
-In dieser exemplarischen Vorgehensweise erläutert, wie räumliche Typen, die mit dem Entity Framework Designer zuordnen und räumliche Typen im Code verwenden. 
+In dieser exemplarischen Vorgehensweise wurde erläutert, wie räumliche Typen mithilfe der Entity Framework Designer zugeordnet werden und wie räumliche Typen im Code verwendet werden. 

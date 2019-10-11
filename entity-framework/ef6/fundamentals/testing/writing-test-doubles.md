@@ -1,51 +1,51 @@
 ---
-title: Tests mit Ihren eigenen Testdoubles - EF6
+title: Testen mit ihren eigenen Test Doubles-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 9db56e28cd89084fece36c3e5a2c1b4495991d01
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: 4631206ae26d364e92c932857fa1970804a7a335
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419730"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181418"
 ---
-# <a name="testing-with-your-own-test-doubles"></a>Tests mit Ihren eigenen Testdoubles
+# <a name="testing-with-your-own-test-doubles"></a>Testen mit ihren eigenen Test Doubles
 > [!NOTE]
 > **Nur EF6 und höher:** Die Features, APIs usw., die auf dieser Seite erläutert werden, wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
 
-Beim Schreiben von Tests für Ihre Anwendung ist es oft wünschenswert, überschreiten die Datenbank zu vermeiden.  Entitätsframework ermöglicht Ihnen, dies zu erreichen, indem ein Kontext erstellt werden – von den Tests – definierten Verhalten, dass die Daten im Arbeitsspeicher verwendet.  
+Beim Schreiben von Tests für Ihre Anwendung ist es häufig wünschenswert, das Erreichen der Datenbank zu vermeiden.  Entity Framework ermöglicht es Ihnen, dies zu erreichen, indem Sie einen Kontext – mit von den Tests definiertem Verhalten – erstellen, der Daten im Arbeitsspeicher nutzt.  
 
-## <a name="options-for-creating-test-doubles"></a>Optionen zum Erstellen von Testdoubles  
+## <a name="options-for-creating-test-doubles"></a>Optionen zum Erstellen von Test Doubles  
 
-Es gibt zwei Ansätze, die verwendet werden können, um eine in-Memory-Version Ihres Kontexts erstellen.  
+Es gibt zwei verschiedene Ansätze, die verwendet werden können, um eine in-Memory-Version Ihres Kontexts zu erstellen.  
 
-- **Erstellen Sie eigene Testdoubles** – bei diesem Ansatz muss Ihre eigene in-Memory-Implementierung, der den Kontext und die "dbsets" schreiben. Dies bietet Ihnen viele steuern, wie die Klassen Verhalten sich jedoch betreffen können, schreiben und eine angemessene Menge an Code besitzt.  
-- **Verwenden Sie zum Erstellen von Testdoubles ein Mockframework** – Verwendung eines Simulationsframeworks (wie etwa Moq) können Sie die in-Memory-Implementierungen von Ihnen Kontext und legt fest, die dynamisch zur Laufzeit für Sie erstellt haben.  
+- **Erstellen Sie eigene Test Doubles** – diese Vorgehensweise umfasst das Schreiben einer eigenen in-Memory-Implementierung Ihres Kontexts und von dbsets. Dadurch haben Sie viele Kontrolle darüber, wie sich die Klassen Verhalten, aber Sie können das Schreiben und das Besitz einer angemessenen Menge an Code einschließen.  
+- **Verwenden eines kontextbasierten Frameworks zum Erstellen von Test Doubles** – mithilfe eines kontextbasierten Frameworks (wie z. b. von muq) können Sie die in-Memory-Implementierungen Ihres Kontexts und Sätze dynamisch zur Laufzeit erstellen.  
 
-Erstellen eigene Tests double wird in diesem Artikel behandeln. Weitere Informationen zur Verwendung eines Simulationsframeworks finden Sie unter [Testen mit einem Mocking-Framework](mocking.md).  
+In diesem Artikel wird das Erstellen eines eigenen Test Double behandelt. Weitere Informationen zur Verwendung eines-Frameworks finden Sie unter [Testen mit einem](mocking.md)-Frameworks.  
 
-## <a name="testing-with-pre-ef6-versions"></a>Vor EF6 Versionen testen  
+## <a name="testing-with-pre-ef6-versions"></a>Testen mit Pre-EF6-Versionen  
 
-Der Code in diesem Artikel ist kompatibel mit EF6. Testen mit EF5 und frühere Versionen finden Sie unter [Testen mit einem Fake-Kontext](http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/).  
+Der in diesem Artikel gezeigte Code ist kompatibel mit EF6. Informationen zu Tests mit EF5 und einer früheren Version finden Sie [untertests mit einem gefälschten Kontext](https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/).  
 
-## <a name="limitations-of-ef-in-memory-test-doubles"></a>Einschränkungen von EF-in-Memory-Test-doubles  
+## <a name="limitations-of-ef-in-memory-test-doubles"></a>Einschränkungen von EF-in-Memory-Test Doubles  
 
-In-Memory-Test-Doubles möglich, dass eine gute Möglichkeit zum Bereitstellen von Komponententests für Servicelevel-Abdeckung der Bits der Anwendung, die EF verwenden. Jedoch dabei verwenden Sie LINQ to Objects, um Abfragen für Daten im Arbeitsspeicher auszuführen. Dadurch können zu unterschiedlichem Verhalten als die Verwendung von EF LINQ-Anbieter (LINQ to Entities), um Abfragen in SQL zu übersetzen, die für Ihre Datenbank ausgeführt wird.  
+In-Memory-Test Doubles können eine gute Möglichkeit zum Bereitstellen von Komponenten Testebene für Bits Ihrer Anwendung sein, die EF verwenden. Dabei verwenden Sie jedoch LINQ to Objects, um Abfragen für in-Memory-Daten auszuführen. Dies kann zu einem anderen Verhalten führen als die Verwendung des LINQ-Anbieters (LINQ to Entities) von EF, um Abfragen in SQL zu übersetzen, die für die Datenbank ausgeführt werden.  
 
-Ein Beispiel für einen solchen Unterschied lädt verwandte Daten. Wenn Sie eine Reihe von Blogs erstellen, die jeweils haben Beiträgen und dann bei Verwendung von in-Memory-Daten Beiträge werden immer geladen werden für jeden Blog. Allerdings werden bei der Ausführung für eine Datenbank die Daten nur geladen werden, wenn Sie die Include-Methode verwenden.  
+Ein Beispiel für einen solchen Unterschied besteht darin, verknüpfte Daten zu laden. Wenn Sie eine Reihe von Blogs erstellen, die jeweils über verwandte Beiträge verfügen, werden bei der Verwendung von in-Memory-Daten die zugehörigen Beiträge immer für jeden Blog geladen. Wenn Sie jedoch für eine Datenbank ausführen, werden die Daten nur geladen, wenn Sie die Include-Methode verwenden.  
 
-Aus diesem Grund wird empfohlen, immer gewisse End-to-End-Tests (zusätzlich zu den Komponententests), um sicherzustellen, dass Ihre Anwendung funktioniert korrekt für eine Datenbank enthalten.  
+Aus diesem Grund empfiehlt es sich, immer einen gewissen Grad an End-to-End-Tests (zusätzlich zu den Komponententests) einzubeziehen, um sicherzustellen, dass Ihre Anwendung für eine Datenbank ordnungsgemäß funktioniert.  
 
-## <a name="following-along-with-this-article"></a>Verbindung mit diesem Artikel befolgen  
+## <a name="following-along-with-this-article"></a>Im Anschluss an diesen Artikel  
 
-Dieser Artikel bietet vollständige codeauflistungen, die Sie, in Visual Studio kopieren können nachvollziehen können, wenn Sie möchten. Am einfachsten erstellen Sie eine **Komponententestprojekt** , und Sie müssen Ziel **.NET Framework 4.5** in den Abschnitten ausführen, die asynchrone verwenden.  
+Dieser Artikel enthält umfassende Code Auflistungen, die Sie in Visual Studio kopieren können, wenn Sie möchten. Es ist am einfachsten, ein Komponenten **Test Projekt** zu erstellen, und Sie müssen **.NET Framework 4,5** als Ziel verwenden, um die Abschnitte mit "Async" zu vervollständigen.  
 
-## <a name="creating-a-context-interface"></a>Erstellen eine Kontextschnittstelle  
+## <a name="creating-a-context-interface"></a>Erstellen einer Kontext Schnittstelle  
 
-Wir werden sehen Sie sich das Testen eines Diensts, die von einem EF nutzt Modell. Um unser EF-Kontext mit einer in-Memory-Version zum Testen ersetzen können, definieren wir eine Schnittstelle, die unser EF-Kontext (und deren in-Memory-Double-Wert) implementiert werden.
+Wir sehen uns nun an, wie wir einen Dienst testen, der ein EF-Modell verwendet. Um unseren EF-Kontext durch eine in-Memory-Version für Tests ersetzen zu können, definieren wir eine Schnittstelle, die der EF-Kontext (und der in-Memory-Double) implementiert.
 
-Der Dienst zum Testen der hier verwendeten Abfragen und Ändern von Daten, die mit den Eigenschaften "DbSet" von unserem Kontext und auch aufrufen, "SaveChanges", um die Änderungen in der Datenbank zu übertragen. Wir haben also diese Member der Schnittstelle einschließlich.  
+Der Dienst, den wir testen werden, fragt und ändert Daten mithilfe der dbset-Eigenschaften unseres Kontexts und ruft auch SaveChanges auf, um Änderungen an die Datenbank zu übernehmen. Daher fügen wir diese Member in die Schnittstelle ein.  
 
 ``` csharp
 using System.Data.Entity;
@@ -63,7 +63,7 @@ namespace TestingDemo
 
 ## <a name="the-ef-model"></a>Das EF-Modell  
 
-Der Dienst, die wir testen wollen nutzt ein EF Modell setzt sich aus der BloggingContext und den Blog und Post-Klassen. Dieser Code wurde möglicherweise vom EF-Designer generiert oder ein Code First-Modell.  
+Der zu testende Dienst nutzt ein EF-Modell, das aus dem bloggingcontext und den Blog-und Post-Klassen besteht. Dieser Code wurde möglicherweise vom EF-Designer generiert oder ist ein Code First Modell.  
 
 ``` csharp
 using System.Collections.Generic;
@@ -98,19 +98,19 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="implementing-the-context-interface-with-the-ef-designer"></a>Implementieren der Kontextschnittstelle, mit dem EF Designer  
+### <a name="implementing-the-context-interface-with-the-ef-designer"></a>Implementieren der Kontext Schnittstelle mit dem EF-Designer  
 
-Beachten Sie, dass es sich bei unserem Kontext die IBloggingContext-Schnittstelle implementiert.  
+Beachten Sie, dass unser Kontext die ibloggingcontext-Schnittstelle implementiert.  
 
-Wenn Sie Code First verwenden, können Sie den Kontext direkt zum Implementieren der Schnittstelle bearbeiten. Wenn Sie dem EF Designer verwenden, müssen Sie die T4-Vorlage zu bearbeiten, die den Kontext generiert. Öffnen Sie die \<Model_name\>. Context.tt-Datei, die unter der Sie Edmx-Datei, geschachtelt ist finden das folgende Fragment des Codes, und fügen in der Schnittstelle, wie gezeigt.  
+Wenn Sie Code First verwenden, können Sie den Kontext direkt bearbeiten, um die-Schnittstelle zu implementieren. Wenn Sie den EF-Designer verwenden, müssen Sie die T4-Vorlage bearbeiten, mit der ihr Kontext generiert wird. Öffnen Sie die \<model_name @ no__t-1. Context.tt-Datei, die unter der EDMX-Datei gespeichert ist, das folgende Code Fragment suchen und wie gezeigt in der-Schnittstelle hinzufügen.  
 
 ``` csharp  
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IBloggingContext
 ```  
 
-## <a name="service-to-be-tested"></a>Dienst getestet werden  
+## <a name="service-to-be-tested"></a>Zu testender Dienst  
 
-Um zu veranschaulichen, mit in-Memory-Test-Doubles testen werden wir eine Reihe von Tests für eine BlogService schreiben. Der Dienst ist, erstellen neue Blogs (AddBlog) kann ein, und anhand des Namens (GetAllBlogs) sortiert alle Blogs zurückgegeben. Neben GetAllBlogs haben wir auch eine Methode bereitgestellt, die asynchron alle Blogs, sortiert nach Name (GetAllBlogsAsync) erhält.  
+Um Tests mit in-Memory-Test Doubles zu veranschaulichen, schreiben wir einige Tests für einen Blogservice. Der Dienst ist in der Lage, neue Blogs (addblog) zu erstellen und alle Blogs nach Namen (getallblogs) nach Namen zurückzugeben. Zusätzlich zu getallblogs haben wir auch eine Methode bereitgestellt, die asynchron alle Blogs geordnet nach Namen (getallblogsasync) erhält.  
 
 ``` csharp
 using System.Collections.Generic;
@@ -159,13 +159,13 @@ namespace TestingDemo
 }
 ```  
 
-<a name="creating-the-in-memory-test-doubles"/> ## Verdoppelt erstellen die in-Memory-Tests  
+<a name="creating-the-in-memory-test-doubles"/> # # Erstellen der in-Memory-Test Doubles  
 
-Nun, wir haben das echte EF-Modell und dem Dienst, der sie verwenden können, ist es Zeit, des in-Memory-Tests double zu erstellen, dass es für Tests verwenden können. Wir haben einen TestContext-Test für unsere Kontext doppelte erstellt. Test-Doubles, die wir erhalten, um das Verhalten auswählen, um die Tests unterstützen sollten, werden wir ausgeführt. In diesem Beispiel haben wir nur erfasst die Anzahl der Häufigkeit, mit die SaveChanges aufgerufen wird, aber Sie können aufnehmen, automatisierungsszenario zugeschnittene Logik erforderlich ist, um das Szenario zu überprüfen, das Sie testen.  
+Nachdem wir nun über das echte EF-Modell und den Dienst verfügen, die es verwenden können, ist es an der Zeit, den in-Memory-Test Double zu erstellen, den wir für Tests verwenden können. Wir haben einen TestContext-Test Double für den Kontext erstellt. In Test Doubles wählen wir das gewünschte Verhalten aus, um die Tests zu unterstützen, die wir ausführen möchten. In diesem Beispiel erfassen wir einfach, wie oft SaveChanges aufgerufen wird, aber Sie können die erforderliche Logik zum Überprüfen des Szenarios einschließen, das Sie testen.  
 
-Wir haben auch eine TestDbSet erstellt, die eine in-Memory-Implementierung von "DbSet" bereitstellt. Wir haben eine vollständige gesammelte für alle Methoden bereitgestellt, auf "DbSet" (mit Ausnahme von Suchen), jedoch müssen Sie nur die Member zu implementieren, die Ihr Testszenario verwendet werden.  
+Wir haben auch ein testdbset erstellt, das eine in-Memory-Implementierung von dbset bereitstellt. Wir haben eine vollständige Implementierung für alle Methoden in dbset (mit Ausnahme von Find) bereitgestellt, Sie müssen jedoch nur die Member implementieren, die in Ihrem Testszenario verwendet werden.  
 
-TestDbSet nutzt einige andere Infrastruktur-Klassen, die wir eingefügt haben, um sicherzustellen, dass die Async-Abfragen verarbeitet werden können.  
+Testdbset nutzt einige andere Infrastruktur Klassen, die wir enthalten haben, um sicherzustellen, dass asynchrone Abfragen verarbeitet werden können.  
 
 ``` csharp
 using System;
@@ -372,9 +372,9 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="implementing-find"></a>Implementieren von Suchen  
+### <a name="implementing-find"></a>Implementieren der Suche  
 
-Die Find-Methode ist schwierig, die auf generische Weise implementieren. Wenn Sie testen möchten den Code, mit der, verwenden, der Find-Methode, die am einfachsten erstellen Sie einen Test aus, suchen "DbSet" für jeden der Entitätstypen, die unterstützt werden müssen. Anschließend können Sie die Logik zum Suchen dieses bestimmten Typs Entität schreiben, wie unten dargestellt.  
+Die Find-Methode ist in einer generischen Weise schwierig zu implementieren. Wenn Sie Code testen müssen, der die Find-Methode verwendet, ist es am einfachsten, ein Test-dbset für jeden Entitätstyp zu erstellen, der die Suche unterstützen muss. Anschließend können Sie die Logik zum Auffinden dieses bestimmten Entitäts Typs schreiben, wie unten gezeigt.  
 
 ``` csharp
 using System.Linq;
@@ -392,11 +392,11 @@ namespace TestingDemo
 }
 ```  
 
-## <a name="writing-some-tests"></a>Schreiben einiger tests  
+## <a name="writing-some-tests"></a>Schreiben von Tests  
 
-Das ist alles, was, die wir tun, um die Tests starten müssen. Der folgende Test erstellt einen TestContext und dann ein Dienst für diesen Kontext basiert. Der Dienst wird dann verwendet, um einen neuen Blog – mithilfe der AddBlog-Methode zu erstellen. Abschließend vergewissert sich, dass der Dienst einen neuen Blog in der Kontexteigenschaft Blogs hinzugefügt und "SaveChanges" benannt im Kontext des Tests.  
+Das ist alles, was wir tun müssen, um den Test zu starten. Der folgende Test erstellt ein TestContext und dann einen Dienst, der auf diesem Kontext basiert. Der Dienst wird dann verwendet, um mithilfe der addblog-Methode einen neuen Blog – zu erstellen. Schließlich überprüft der Test, ob der Dienst einen neuen Blog zur Blogs-Eigenschaft des Kontexts hinzugefügt hat und "SaveChanges" im Kontext heißt.  
 
-Dies ist nur ein Beispiel der Typen von Dinge, die Sie mit einer in-Memory-Testdouble testen können, und Sie können die Logik des Test-Doubles und die Überprüfung nach Ihren Anforderungen anpassen.  
+Dies ist nur ein Beispiel für die Art der Dinge, die Sie mit einem in-Memory-Test Double testen können, und Sie können die Logik der Test Doubles und die Überprüfung an Ihre Anforderungen anpassen.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -424,7 +424,7 @@ namespace TestingDemo
 }
 ```  
 
-Hier ist ein weiteres Beispiel für einen Test - diesmal eine, die eine Abfrage ausführt. Der Test wird durch das Erstellen einer Testkontext mit einigen Daten in der Blog-Eigenschaft – Beachten Sie, dass die Daten nicht in alphabetischer Reihenfolge. Wir können eine BlogService basierend auf unseren Testkontext erstellen und stellen Sie sicher, dass die Daten, die wir aus GetAllBlogs erhalten nach Namen sortiert werden.  
+Im folgenden finden Sie ein weiteres Beispiel für einen Test. dieser Zeitpunkt führt eine Abfrage aus. Der Test beginnt mit dem Erstellen eines Test Kontexts mit einigen Daten in seiner Blog-Eigenschaft. Beachten Sie, dass die Daten nicht in alphabetischer Reihenfolge vorliegen. Wir können dann basierend auf dem Test Kontext einen BlogService erstellen und sicherstellen, dass die Daten, die wir von getallblogs erhalten, nach dem Namen geordnet sind.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -454,7 +454,7 @@ namespace TestingDemo
 }
 ```  
 
-Schließlich schreiben wir eine weitere Tests, die die Async-Methode verwendet, um sicherzustellen, dass wir in enthalten die Async-Infrastruktur [TestDbSet](#creating-the-in-memory-test-doubles) arbeitet.  
+Schließlich schreiben wir einen weiteren Test, der unsere Async-Methode verwendet, um sicherzustellen, dass die in [testdbset](#creating-the-in-memory-test-doubles) enthaltene Async-Infrastruktur funktioniert.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
