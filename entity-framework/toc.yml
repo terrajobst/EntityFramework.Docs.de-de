@@ -175,8 +175,6 @@
           items:
             - name: Übersicht
               href: core/querying/index.md
-            - name: Grundlegende Abfrage
-              href: core/querying/basic.md
             - name: Laden zugehöriger Daten
               href: core/querying/related-data.md
             - name: Clientauswertung im Vergleich zur Serverauswertung
@@ -188,7 +186,7 @@
             - name: Asynchrone Abfragen
               href: core/querying/async.md
             - name: Funktionsweise von Abfragen
-              href: core/querying/overview.md
+              href: core/querying/how-query-works.md
             - name: Globale Abfragefilter
               href: core/querying/filters.md
             - name: Abfragetags
