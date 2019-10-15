@@ -1,42 +1,32 @@
 ---
 title: Unformatierte SQL-Abfragen – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+author: smitpatel
+ms.date: 10/08/2019
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: d8f52edfdf4bd7776ab8d81185c867cbfd7bcf44
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: 33601d570fa0b7a1fcada1705843da3798c00094
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813597"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181970"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
 
-Mit Entity Framework Core können Sie bei der Arbeit mit einer relationalen Datenbank die Struktur unformatierter SQL-Abfragen maximieren. Dies kann nützlich sein, wenn die durchzuführende Abfrage nicht mit LINQ formuliert werden kann oder wenn die Verwendung einer LINQ-Abfrage zu einer ineffizienten SQL-Abfrage führt. Unformatierte SQL-Abfragen können reguläre Entitätstypen oder [schlüssellose Entitätstypen](xref:core/modeling/keyless-entity-types) zurückgeben, die Teil des Modells sind.
+Mit Entity Framework Core können Sie bei der Arbeit mit einer relationalen Datenbank die Struktur unformatierter SQL-Abfragen maximieren. Unformatierte SQL-Abfragen sind nützlich, wenn die gewünschte Abfrage nicht mithilfe von LINQ ausgedrückt werden kann. Unformatierte SQL-Abfragen werden auch verwendet, wenn eine LINQ-Abfrage zu einer ineffizienten SQL-Abfrage führt. Unformatierte SQL-Abfragen können reguläre Entitätstypen oder [schlüssellose Entitätstypen](xref:core/modeling/keyless-entity-types) zurückgeben, die Teil des Modells sind.
 
 > [!TIP]  
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying/Querying/RawSQL/Sample.cs) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying/RawSQL/Sample.cs) finden Sie auf GitHub.
 
 ## <a name="basic-raw-sql-queries"></a>Grundlegende unformatierte SQL-Abfragen
 
-Sie können die `FromSqlRaw`-Erweiterungsmethode verwenden, um eine LINQ-Abfrage basierend auf einer unformatierten SQL-Abfrage zu starten.
+Sie können die `FromSqlRaw`-Erweiterungsmethode verwenden, um eine LINQ-Abfrage basierend auf einer unformatierten SQL-Abfrage zu starten. `FromSqlRaw` kann nur für Abfragestämme verwendet werden, die sich direkt in der `DbSet<>`-Klasse befinden.
 
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var blogs = context.Blogs
-    .FromSqlRaw("SELECT * FROM dbo.Blogs")
-    .ToList();
-```
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRaw)]
 
 Unformatierte SQL-Abfragen können für die Ausführung einer gespeicherten Prozedur verwendet werden.
 
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var blogs = context.Blogs
-    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogs")
-    .ToList();
-```
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedure)]
 
 ## <a name="passing-parameters"></a>Übergeben von Parametern
 
@@ -47,130 +37,72 @@ var blogs = context.Blogs
 >
 > Übergeben Sie insbesondere niemals eine verkettete oder interpolierte Zeichenfolge (`$""`) mit nicht validierten und von Benutzern bereitgestellten Werten in `FromSqlRaw` oder `ExecuteSqlRaw`. Dank der `FromSqlInterpolated`- und `ExecuteSqlInterpolated`-Methode kann die Zeichenfolgeninterpolationssyntax so eingesetzt werden, dass sie vor Angriffen durch Einschleusung von SQL-Befehlen schützt.
 
-Im folgenden Beispiel wird ein einzelner Parameter an eine gespeicherte Prozedur übergeben, indem ein Parameterplatzhalter in die SQL-Abfragezeichenfolge eingeschlossen und ein zusätzliches Argument bereitgestellt wird. Obwohl dies `String.Format`-Syntax ähnelt, ist der bereitgestellte Wert in einen `DbParameter` eingeschlossen. Der Name des generierten Parameters wird dort eingefügt, wo der `{0}`-Platzhalter angegeben wurde.
+Im folgenden Beispiel wird ein einzelner Parameter an eine gespeicherte Prozedur übergeben, indem ein Parameterplatzhalter in die SQL-Abfragezeichenfolge eingeschlossen und ein zusätzliches Argument bereitgestellt wird. Diese Syntax sieht zwar aus wie eine `String.Format`-Syntax, jedoch wird der angegebene Wert in einer `DbParameter`-Klasse eingeschlossen und der generierte Parametername wird dort eingefügt, wo der `{0}`-Platzhalter angegeben wurde.
 
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var user = "johndoe";
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureParameter)]
 
-var blogs = context.Blogs
-    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogsForUser {0}", user)
-    .ToList();
-```
-
-Als Alternative zu `FromSqlRaw` können sie `FromSqlInterpolated` verwenden, um eine sichere Verwendung der Zeichenfolgeninterpolation zu ermöglichen. Wie im vorherigen Beispiel wird der Wert in einen `DbParameter` konvertiert und ist daher nicht anfällig für die Einschleusung von SQL-Befehlen:
+`FromSqlInterpolated` ähnelt `FromSqlRaw`, lässt jedoch die Verwendung der Zeichenfolgeninterpolationsyntax zu. `FromSqlInterpolated` kann wie `FromSqlRaw` nur für Abfragestämme verwendet werden. Wie im vorherigen Beispiel wird der Wert in eine `DbParameter`-Klasse konvertiert und ist nicht anfällig für die Einschleusung von SQL-Befehlen.
 
 > [!NOTE]
-> Vor Version 3.0 waren `FromSqlRaw` und `FromSqlInterpolated` zwei Überladungen namens `FromSql`. Weitere Informationen finden Sie im Abschnitt [Frühere Versionen](#previous-versions).
+> Vor Version 3.0 waren `FromSqlRaw` und `FromSqlInterpolated` zwei Überladungen namens `FromSql`. Weitere Informationen finden Sie im [Abschnitt zu vorherigen Versionen](#previous-versions).
 
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var user = "johndoe";
-
-var blogs = context.Blogs
-    .FromSqlInterpolated($"EXECUTE dbo.GetMostPopularBlogsForUser {user}")
-    .ToList();
-```
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedStoredProcedureParameter)]
 
 Sie können auch einen DbParameter erstellen und diesen als Parameterwert bereitstellen. Da anstelle eines Zeichenfolgeplatzhalters ein regulärer SQL-Parameterplatzhalter verwendet wird, kann `FromSqlRaw` sicher verwendet werden:
 
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var user = new SqlParameter("user", "johndoe");
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureSqlParameter)]
 
-var blogs = context.Blogs
-    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
-    .ToList();
-```
+Mit `FromSqlRaw` können Sie benannte Parameter in der SQL-Abfragezeichenfolge verwenden. Dies ist nützlich, wenn eine gespeicherte Prozedur optionale Parameter aufweist:
 
-Dadurch können Sie benannte Parameter in der SQL-Abfragezeichenfolge verwenden. Dies ist nützlich, wenn eine gespeicherte Prozedur optionale Parameter aufweist:
-
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var user = new SqlParameter("user", "johndoe");
-
-var blogs = context.Blogs
-    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogs @filterByUser=@user", user)
-    .ToList();
-```
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureNamedSqlParameter)]
 
 ## <a name="composing-with-linq"></a>Zusammensetzen mit LINQ
 
-Wenn die SQL-Abfrage in der Datenbank zusammengesetzt werden kann, können Sie die erste unformatierte SQL-Abfrage mit LINQ-Operatoren zusammensetzen. Zusammensetzbare SQL-Abfragen beginnen mit dem Schlüsselwort `SELECT`.
+Mithilfe von LINQ-Operatoren können Sie die zunächst unformatierten SQL-Abfragen zusammensetzen. EF Core behandelt diese als Unterabfragen und fügt sie in der Datenbank zusammen. Im folgenden Beispiel wird eine unformatierte SQL-Abfrage verwendet, die aus einer Tabellenwertfunktion auswählt. Anschließend wird sie mithilfe von LINQ zusammengesetzt, um die Filterung und Sortierung durchzuführen.
 
-Im folgenden Beispiel wird eine unformatierte SQL-Abfrage verwendet, die eine Auswahl aus einer Tabellenwertfunktion trifft und diese anschließend mit LINQ zur Durchführung einer Filterung und Sortierung zusammensetzt.
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedComposed)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var searchTerm = ".NET";
+Mit der obigen Abfrage wird folgendes SQL generiert:
 
-var blogs = context.Blogs
-    .FromSqlInterpolated($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
-    .Where(b => b.Rating > 3)
-    .OrderByDescending(b => b.Rating)
-    .ToList();
+```sql
+SELECT [b].[BlogId], [b].[OwnerId], [b].[Rating], [b].[Url]
+FROM (
+    SELECT * FROM dbo.SearchBlogs(@p0)
+) AS [b]
+WHERE [b].[Rating] > 3
+ORDER BY [b].[Rating] DESC
 ```
 
-Dadurch wird die folgende SQL-Abfrage erzeugt:
-
-``` sql
-SELECT [b].[Id], [b].[Name], [b].[Rating]
-        FROM (
-            SELECT * FROM dbo.SearchBlogs(@p0)
-        ) AS b
-        WHERE b."Rating" > 3
-        ORDER BY b."Rating" DESC
-```
-
-## <a name="change-tracking"></a>Änderungsnachverfolgung
-
-Abfragen, die die `FromSql`-Methode verwenden, befolgen genau dieselben Änderungsnachverfolgungsregeln wie jede andere LINQ-Abfrage in EF Core. Wenn beispielsweise die Abfrage Entitätstypen projiziert, werden die Ergebnisse standardmäßig nachverfolgt.
-
-Im folgenden Beispiel wird eine unformatierte SQL-Abfrage verwendet, die aus einer Tabellenwertfunktion (TVF) auswählt und anschließend die Änderungsnachverfolgung mit dem Aufruf auf `AsNoTracking` deaktiviert:
-
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var searchTerm = ".NET";
-
-var blogs = context.Query<SearchBlogsDto>()
-    .FromSqlInterpolated($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
-    .AsNoTracking()
-    .ToList();
-```
-
-## <a name="including-related-data"></a>Einschließen zugehöriger Daten
+### <a name="including-related-data"></a>Einschließen zugehöriger Daten
 
 Die `Include`-Methode kann verwendet werden, um verwandte Daten einzuschließen, genauso wie bei jeder anderen LINQ-Abfrage:
 
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var searchTerm = ".NET";
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedInclude)]
 
-var blogs = context.Blogs
-    .FromSqlInterpolated($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
-    .Include(b => b.Posts)
-    .ToList();
-```
+Für die Zusammensetzung mit LINQ muss Ihre unformatierte SQL-Abfrage zusammensetzbar sein, da EF Core das angegebene SQL als Unterabfrage behandelt. Zusammensetzbare SQL-Abfragen beginnen mit dem Schlüsselwort `SELECT`. Außerdem sollte übergebenes SQL keine Zeichen oder Optionen enthalten, die für eine Unterabfrage ungültig sind, zum Beispiel:
 
-Beachten Sie, dass erforderlich ist, dass Ihre unformatierte SQL-Abfrage zusammensetzbar ist. Sie funktioniert insbesondere bei gespeicherten Prozeduraufrufen nicht. Weitere Informationen finden Sie bei der Zusammensetzbarkeit unter [Einschränkungen](#limitations).
+- Ein nachfolgendes Semikolon
+- Auf SQL Server ein nachfolgender Hinweis auf Abfrageebene, z.B. `OPTION (HASH JOIN)`
+- Eine `ORDER BY`-Klausel in SQL Server, die nicht mit `OFFSET 0` ODER `TOP 100 PERCENT` in der `SELECT`-Klausel verwendet wird
+
+SQL Server erlaubt die Zusammensetzung von Aufrufen gespeicherter Prozeduren nicht. Daher resultieren Versuche, zusätzliche Abfrageoperatoren auf solche Aufrufe anzuwenden, in ungültigem SQL. Verwenden Sie die `AsEnumerable`- oder `AsAsyncEnumerable`-Methode direkt nach der `FromSqlRaw`- oder `FromSqlInterpolated`-Methode, um sicherzustellen, dass EF Core nicht ersucht, eine gespeicherte Prozedur zusammenzusetzen.
+
+## <a name="change-tracking"></a>Änderungsnachverfolgung
+
+Abfragen, die die `FromSqlRaw`- oder `FromSqlInterpolated`-Methode verwenden, befolgen genau dieselben Änderungsnachverfolgungsregeln wie jede andere LINQ-Abfrage in EF Core. Wenn beispielsweise die Abfrage Entitätstypen projiziert, werden die Ergebnisse standardmäßig nachverfolgt.
+
+Im folgenden Beispiel wird eine unformatierte SQL-Abfrage verwendet, die aus einer Tabellenwertfunktion (TVF) auswählt und anschließend die Änderungsnachverfolgung mit dem Aufruf auf `AsNoTracking` deaktiviert:
+
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedAsNoTracking)]
 
 ## <a name="limitations"></a>Einschränkungen
 
 Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkungen zu beachten:
 
-* Die SQL-Abfrage muss Daten für sämtliche Eigenschaften des Entitätstyps zurückgeben.
-
-* Die Spaltennamen im Resultset müssen mit den Spaltennamen übereinstimmen, denen Eigenschaften zugewiesen sind. Beachten Sie, dass sich dies von EF 6 unterscheidet. Dort wurde die Zuordnung von Eigenschaften/Spalten bei unformatierten SQL-Abfragen ignoriert, und Spaltennamen in einem Resultset mussten mit den Eigenschaftsnamen übereinstimmen.
-
-* Die SQL-Abfrage darf keine zugehörigen Daten enthalten. In vielen Fällen können Sie die Abfrage jedoch mit dem Operator `Include` zusammensetzen, damit zugehörige Daten zurückgegeben werden (siehe [Einschließen zugehöriger Daten](#including-related-data)).
-
-* An diese Methode übergebene `SELECT`-Anweisungen müssen in der Regel zusammensetzbar sein: Wenn EF Core zusätzliche Abfrageoperatoren auf dem Server auswerten muss (z. B. um nach den `FromSql`-Methoden angewandte LINQ-Operatoren zu verschieben), wird die bereitgestellte SQL-Abfrage wie eine Unterabfrage behandelt. Das heißt, dass die übergebene SQL-Abfrage keine Zeichen oder Optionen enthalten sollte, die in einer Unterabfrage ungültig sind, wie z.B.:
-  * Ein nachfolgendes Semikolon
-  * Auf SQL Server ein nachfolgender Hinweis auf Abfrageebene, z.B. `OPTION (HASH JOIN)`
-  * In SQL Server eine `ORDER BY`-Klausel, die nicht durch `OFFSET 0` ODER `TOP 100 PERCENT` in der `SELECT`-Klausel ergänzt wird
-
-* Beachten Sie, dass SQL Server das Zusammensetzen über gespeicherte Prozeduraufrufe nicht zulässt, sodass jeder Versuch, zusätzliche Abfrageoperatoren auf einen solchen Aufruf anzuwenden, zu ungültiger SQL führt. Abfrageoperatoren können nach `AsEnumerable()` für die Clientauswertung eingeführt werden.
+- Die SQL-Abfrage muss Daten für sämtliche Eigenschaften des Entitätstyps zurückgeben.
+- Die Spaltennamen im Resultset müssen mit den Spaltennamen übereinstimmen, denen Eigenschaften zugewiesen sind. Beachten Sie, dass sich dieses Verhalten von EF6 unterscheidet. EF6 ignoriert die Zuordnung von Eigenschaften zu Spalten bei unformatierten SQL-Abfragen, und Spaltennamen von Resultsets mussten mit den Eigenschaftennamen übereinstimmen.
+- Die SQL-Abfrage darf keine zugehörigen Daten enthalten. In vielen Fällen können Sie die Abfrage jedoch mit dem Operator `Include` zusammensetzen, damit zugehörige Daten zurückgegeben werden (siehe [Einschließen zugehöriger Daten](#including-related-data)).
 
 ## <a name="previous-versions"></a>Frühere Versionen
 
-In EF Core Version 2.2 und früher gab es zwei Überladungen namens `FromSql`, die sich wie die neueren `FromSqlRaw` und `FromSqlInterpolated` verhielten. Dadurch wurde sehr leicht versehentlich die Methode für unformatierte Zeichenfolgen aufgerufen, wenn eigentlich beabsichtigt war, die Methode für interpolierte Zeichenfolgen aufzurufen (und umgekehrt). Dadurch werden Abfragen möglicherweise nicht parametrisiert, obwohl dies der Fall sein sollte.
+In EF Core Version 2.2 und früher gab es zwei Überladungen für eine Methode namens `FromSql`, die sich wie die neueren Methoden `FromSqlRaw` und `FromSqlInterpolated` verhielten. Es war leicht, versehentlich die unformatierte Zeichenfolgenmethode aufzurufen, wenn eigentlich ein Aufruf der interpolierten Zeichenfolgenmethode beabsichtigt war oder umgekehrt. Versehentliche Aufrufe der falschen Überladung konnten dazu führen, dass Abfragen nicht parametrisiert wurden, wenn sie parametrisiert werden sollten.

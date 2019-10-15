@@ -3,12 +3,12 @@ title: Erste Schritte mit Entity Framework 6 – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
-ms.openlocfilehash: c25bf16bd2c39530d54b286b7743ceb83c941e4d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: bf54879ea94e597dfeac3e4bd70571dad290dd9e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489286"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181395"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Erste Schritte mit Entity Framework 6
 
@@ -24,7 +24,7 @@ Dieser Leitfaden enthält Links zu ausgewählten Dokumentationsartikeln, exempla
 
   Möchten Sie Ihr EF-Modell lieber durch Schreiben von Code oder Zeichnen von Feldern und Linien entwerfen?
 Werden Sie EF verwenden, um Ihre Objekte einer vorhandenen Datenbank zuzuweisen oder soll EF eine Datenbank erstellen, die perfekt auf Ihre Objekte abgestimmt ist?
-Hier erfahren Sie mehr zu den zwei Ansätze zur Verwendung von EF6: EF-Designer und Code First.
+Hier erfahren Sie mehr zu den zwei Ansätzen zur Verwendung von EF6: EF-Designer und Code First.
 Verfolgen Sie die Diskussion, und sehen Sie sich das Video zu den Unterschieden an.
 
 * [Arbeiten mit DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
@@ -35,7 +35,7 @@ Verfolgen Sie die Diskussion, und sehen Sie sich das Video zu den Unterschieden 
 
   Finden Sie heraus, wie Sie Hilfe von Experten erhalten und mit Ihren eigenen Antworten zur Community beitragen können.
 
-* [Mitwirken](http://github.com/aspnet/EntityFramework6/)
+* [Mitwirken](https://github.com/aspnet/EntityFramework6/)
 
   Entity Framework 6 verwendet ein offenes Entwicklungsmodell. Erfahren Sie im GitHub-Repository, wie Sie EF noch besser machen können.
 

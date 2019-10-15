@@ -1,75 +1,68 @@
 ---
 title: Clientauswertung im Vergleich zur Serverauswertung – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+author: smitpatel
+ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: cb207d9e1b1004a4084dd6fc66712183b5bdd5dc
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 3d70324f0b57a0ea9b165b5140a2154001c326f4
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921705"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181906"
 ---
 # <a name="client-vs-server-evaluation"></a>Clientauswertung im Vergleich zur Serverauswertung
 
-Entity Framework Core unterstützt Teile der Abfrage, die auf dem Client ausgewertet werden, und Teile der Abfrage, die mithilfe von Push in die Datenbank übertragen werden. Der Datenbankanbieter bestimmt, welche Teile der Abfrage in der Datenbank ausgewertet werden.
+Im Allgemeinen versucht Entity Framework Core, eine Abfrage auf dem Server möglichst weitgehend auszuwerten. EF Core konvertiert Teile der Abfrage in Parameter, die auf dem Client ausgewertet werden können. Der Rest der Abfrage wird (mitsamt den generierten Parametern) an die Datenbankanbieter übermittelt, um die entsprechende auszuwertende Datenbankabfrage auf dem Server zu ermitteln. EF Core unterstützt die teilweise Clientauswertung der Projektion auf oberster Ebene (den letzten Aufruf von `Select()`). Wenn die Projektion auf oberster Ebene in der Abfrage nicht auf den Server übersetzt werden kann, ruft EF Core alle erforderlichen Daten vom Server an und wertet die übrigen Teile der Abfrage auf dem Client aus. Wenn EF Core einen Ausdruck ermittelt, der sich außerhalb der Projektion auf oberster Ebene befindet und nicht auf den Server übersetzt werden kann, wird eine Laufzeitausnahme ausgelöst. Informationen dazu, wie EF Core ermittelt, was nicht auf Server übersetzt werden kann, finden Sie unter [Funktionsweise von Abfragen](xref:core/querying/how-query-works).
 
-> [!TIP]  
+> [!NOTE]
+> Vor Version 3.0 hat Entity Framework Core die Clientauswertung überall in der Abfrage unterstützt. Weitere Informationen finden Sie im [Abschnitt zu vorherigen Versionen](#previous-versions).
+
+## <a name="client-evaluation-in-the-top-level-projection"></a>Clientauswertung in der Projektion auf oberster Ebene
+
+> [!TIP]
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
 
-## <a name="client-evaluation"></a>Clientauswertung
+Im folgenden Beispiel wird eine Hilfsmethode verwendet, um URLs für Blogs zu standardisieren, die von einer SQL Server-Datenbank zurückgegeben werden. Da der SQL Server-Anbieter keinen Einblick darin hat, wie diese Methode implementiert wird, kann sie nicht in SQL übersetzt werden. Alle anderen Aspekte der Abfrage werden in der Datenbank ausgewertet. Die Rückgabe der `URL` über diese Methode erfolgt jedoch über den Client.
 
-Im folgenden Beispiel werden URLs für Blogs, die von einer SQL Server-Datenbank zurückgegeben werden, mit einer Hilfsmethode standardisiert. Da der SQL Server-Anbieter keinen Einblick darin hat, wie diese Methode implementiert wird, kann sie nicht in SQL verschoben werden. Alle anderen Aspekte der Abfrage werden in der Datenbank ausgewertet. Die Rückgabe der `URL` über diese Methode erfolgt jedoch über den Client.
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientProjection)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs?highlight=6)] -->
-``` csharp
-var blogs = context.Blogs
-    .OrderByDescending(blog => blog.Rating)
-    .Select(blog => new
-    {
-        Id = blog.BlogId,
-        Url = StandardizeUrl(blog.Url)
-    })
-    .ToList();
-```
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientMethod)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
-``` csharp
-public static string StandardizeUrl(string url)
-{
-    url = url.ToLower();
+## <a name="unsupported-client-evaluation"></a>Nicht unterstützte Clientauswertung
 
-    if (!url.StartsWith("http://"))
-    {
-        url = string.Concat("http://", url);
-    }
+Obwohl die Clientauswertung nützlich ist, kann sie manchmal zu Leistungseinbußen führen. Betrachten Sie die folgende Abfrage, in der die Hilfsmethode nun in einem Where-Filter verwendet wird. Da der Filter nicht in der Datenbank angewendet werden kann, müssen alle Daten in den Arbeitsspeicher gepullt werden, um den Filter auf den Client anzuwenden. Basierend auf dem Filter und der Menge der Daten auf dem Server, könnte die Clientauswertung zu Leistungseinbußen führen. Daher blockiert Entity Framework Core diese Clientauswertung und löst eine Laufzeitausnahme aus.
 
-    return url;
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientWhere)]
 
-## <a name="client-evaluation-performance-issues"></a>Leistungsprobleme bei der Clientauswertung
+## <a name="explicit-client-evaluation"></a>Explizite Clientauswertung
 
-Die Clientauswertung kann sehr hilfreich sein, in manchen Fällen kann sie jedoch auch zu einer schlechten Leistung führen. Betrachten Sie die folgende Abfrage, in der die Hilfsmethode jetzt in einem Filter verwendet wird. Da dieser Vorgang nicht in der Datenbank durchgeführt werden kann, werden sämtliche Daten mithilfe von Pull in den Speicher übertragen. Anschließend wird der Filter auf den Client angewendet. Abhängig vom Umfang der Daten und davon, wie viele dieser Daten herausgefiltert werden, könnte dies zu einer schlechten Leistung führen.
+In bestimmten Fällen müssen Sie die Clientauswertung explizit erzwingen, zum Beispiel in den folgenden:
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
-``` csharp
-var blogs = context.Blogs
-    .Where(blog => StandardizeUrl(blog.Url).Contains("dotnet"))
-    .ToList();
-```
+- Wenn die Menge der Daten so klein ist, dass die Auswertung auf dem Client zu keinen großen Leistungseinbußen führt.
+- Wenn der verwendete LINQ-Operator über keine serverseitige Übersetzung verfügt.
 
-## <a name="client-evaluation-logging"></a>Protokollieren der Clientauswertung
+In solchen Fällen können Sie die Clientauswertung explizit aktivieren, indem Sie Methoden wie `AsEnumerable` oder `ToList` (`AsAsyncEnumerable` oder `ToListAsync` bei asynchronen Abfragen) aufrufen. Wenn Sie `AsEnumerable` verwenden, würden Sie die Ergebnisse streamen. Wenn Sie jedoch `ToList` verwenden, würde eine Pufferung verursacht werden, indem eine Liste erstellt wird, was ebenfalls zusätzlichen Arbeitsspeicher erfordert. Wenn Sie jedoch mehrere Aufzählungen durchführen, ist das Speichern der Ergebnisse in einer Liste hilfreicher, da die Datenbank nur einmal abgefragt wird. Abhängig von der jeweiligen Nutzung sollten Sie auswerten, welche Methode sich am besten eignet.
 
-Standardmäßig protokolliert EF Core bei der Durchführung einer Auswertung eine Warnung. Weitere Informationen zum Anzeigen von Protokollierungsausgaben finden Sie unter [Protokollierung](../miscellaneous/logging.md). 
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ExplicitClientEval)]
 
-## <a name="optional-behavior-throw-an-exception-for-client-evaluation"></a>Optionales Verhalten: Auslösen einer Ausnahme für die Clientauswertung
+## <a name="potential-memory-leak-in-client-evaluation"></a>Potenzieller Arbeitsspeicherverlust bei der Clientauswertung
 
-Sie können das Verhalten bei einer Clientauswertung auslösen oder nichts unternehmen. Dies geschieht, wenn die Optionen für Ihren Kontext – normalerweise in `DbContext.OnConfiguring` oder `Startup.cs` – bei Verwendung von ASP.NET Core eingerichtet werden.
+Da die Übersetzung und Kompilierung von Abfragen leistungsintensiv ist, wird der kompilierte Abfrageplan von EF Core zwischengespeichert. Der zwischengespeicherte Delegat kann Clientcode während der Clientauswertung der Projektion auf oberster Ebene verwenden. EF Core generiert Parameter für die vom Client ausgewerteten Teile der Struktur und verwendet den Abfrageplan erneut, indem die Parameterwerte ersetzt werden. Gewisse Konstanten in der Ausdrucksbaumstruktur können jedoch nicht in Parameter konvertiert werden. Wenn der zwischengespeicherte Delegat solche Konstanten enthält, kann keine Garbage Collection für diese Objekte durchgeführt werden, da immer noch auf sie verwiesen wird. Wenn ein solches Objekt eine DbContext-Instanz oder andere Dienste enthält, würde die Arbeitsspeichernutzung der App mit der Zeit wachsen. In der Regel ist dieses Verhalten ein Anzeichen für Arbeitsspeicherverlust. EF Core löst eine Ausnahme aus, wenn Konstanten eines Typs ermittelt werden, die nicht mithilfe des aktuellen Datenbankanbieters zugeordnet werden können. Häufige Gründe und Lösungen lauten wie folgt:
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
-``` csharp
+- **Verwendung einer Instanzmethode:** Wenn Instanzmethoden in einer Clientprojektion verwendet werden, enthält die Ausdrucksbaumstruktur eine Konstante der Instanz. Wenn Ihre Methode keine Daten aus der Instanz verwendet, sollten Sie in Betracht ziehen, die Methode als statisch festzulegen. Wenn Sie Instanzdaten in den Methodentext einfügen müssen, übergeben Sie die spezifischen Daten als Argument an die Methode.
+- **Übergeben konstanter Argumente an die Methode:** Dieser Fall tritt im Allgemeinen auf, wenn `this` in einem Argument für die Clientmethode verwendet wird. Erwägen Sie, das Argument in mehrere skalare Argumente aufzuteilen, die vom Datenbankanbieter zugeordnet werden können.
+- **Andere Konstanten:** Wenn eine Konstante in einem anderen Fall ermittelt wird, können Sie bestimmen, ob diese Konstante für die Verarbeitung erforderlich ist. Wenn die Konstante erforderlich ist oder Sie keine Lösung aus den obigen Fällen verwenden können, erstellen Sie eine lokale Variable, um den Wert zu speichern und die lokale Variable in der Abfrage zu verwenden. EF Core konvertiert die lokale Variable in einen Parameter.
+
+## <a name="previous-versions"></a>Frühere Versionen
+
+Der folgende Abschnitt gilt für Versionen von EF Core vor Version 3.0.
+
+Ältere EF Core-Versionen haben die Clientauswertung in beliebigen Teilen der Abfrage unterstützt, nicht nur in der Projektion auf oberster Ebene. Daher haben Abfragen wie die im Abschnitt [Nicht unterstützte Clientauswertung](#unsupported-client-evaluation) ordnungsgemäß funktioniert. Da dieses Verhalten zu unbemerkten Leistungsproblemen führte, hat EF Core eine Warnung für die Clientauswertung protokolliert. Weitere Informationen zum Anzeigen von Protokollierungsausgaben finden Sie unter [Protokollierung](xref:core/miscellaneous/logging).
+
+Optional konnten Sie das Standardverhalten mit EF Core ändern, um bei der Clientauswertung entweder eine Ausnahme auszulösen oder keine Aktion durchzuführen (außer bei der Projektion). Das Verhalten zum Auslösen einer Ausnahme ähnelt dem Verhalten von Version 3.0. Zum Ändern des Verhaltens müssen Sie Warnungen konfigurieren, während Sie die Optionen für Ihren Kontext einrichten. Dies erfolgt in der Regel in `DbContext.OnConfiguring` oder in `Startup.cs`, wenn Sie ASP.NET Core verwenden.
+
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
     optionsBuilder
