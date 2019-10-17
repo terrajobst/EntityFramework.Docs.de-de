@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: f7f04efa8fb8ebc1eb06f256b8ccbd3110af47ab
-ms.sourcegitcommit: 705e898b4684e639a57c787fb45c932a27650c2d
+ms.openlocfilehash: 690c7828cfe5019f4e7ae904c92430fab4726cb9
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71934883"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72446016"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Breaking Changes in EF Core 3.0
 Die folgenden API-Änderungen und Behavior Changes können dazu führen, dass vorhandene Anwendungen beim Upgrade auf 3.0.0 nicht mehr funktionieren.
@@ -416,7 +416,7 @@ Das Ausgeben mehrerer Abfragen zum Implementieren einer einzelnen LINQ-Abfrage f
 
 **Vorbeugende Maßnahmen**
 
-Zwar ist dies technisch gesehen kein Breaking Change, jedoch könnte es erhebliche Auswirkungen auf die Leistung der Anwendung haben, wenn eine einzelne Abfrage eine große Anzahl von `Include`-Operatoren für Sammlungsnavigationen enthält. Weitere Informationen sowie Informationen zum Umschreiben von Abfragen auf eine effizientere Weise finden Sie [in diesem Kommentar](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-537219137).
+Zwar ist dies technisch gesehen kein Breaking Change, jedoch könnte es erhebliche Auswirkungen auf die Leistung der Anwendung haben, wenn eine einzelne Abfrage eine große Anzahl von `Include`-Operatoren für Sammlungsnavigationen enthält. Weitere Informationen sowie Informationen zum Umschreiben von Abfragen auf eine effizientere Weise finden Sie [in diesem Kommentar](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-542397085).
 
 **
 

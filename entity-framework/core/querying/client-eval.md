@@ -4,12 +4,12 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 3d70324f0b57a0ea9b165b5140a2154001c326f4
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 5cfb05041f04246712fb699f58b407f70a75ce92
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181906"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445964"
 ---
 # <a name="client-vs-server-evaluation"></a>Clientauswertung im Vergleich zur Serverauswertung
 
@@ -18,10 +18,10 @@ Im Allgemeinen versucht Entity Framework Core, eine Abfrage auf dem Server mögl
 > [!NOTE]
 > Vor Version 3.0 hat Entity Framework Core die Clientauswertung überall in der Abfrage unterstützt. Weitere Informationen finden Sie im [Abschnitt zu vorherigen Versionen](#previous-versions).
 
-## <a name="client-evaluation-in-the-top-level-projection"></a>Clientauswertung in der Projektion auf oberster Ebene
-
 > [!TIP]
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) finden Sie auf GitHub.
+
+## <a name="client-evaluation-in-the-top-level-projection"></a>Clientauswertung in der Projektion auf oberster Ebene
 
 Im folgenden Beispiel wird eine Hilfsmethode verwendet, um URLs für Blogs zu standardisieren, die von einer SQL Server-Datenbank zurückgegeben werden. Da der SQL Server-Anbieter keinen Einblick darin hat, wie diese Methode implementiert wird, kann sie nicht in SQL übersetzt werden. Alle anderen Aspekte der Abfrage werden in der Datenbank ausgewertet. Die Rückgabe der `URL` über diese Methode erfolgt jedoch über den Client.
 
