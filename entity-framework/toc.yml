@@ -175,22 +175,24 @@
           items:
             - name: Übersicht
               href: core/querying/index.md
-            - name: Laden zugehöriger Daten
-              href: core/querying/related-data.md
             - name: Clientauswertung im Vergleich zur Serverauswertung
               href: core/querying/client-eval.md
             - name: Abfragen mit Nachverfolgung im Vergleich zu Ohne Nachverfolgung
               href: core/querying/tracking.md
-            - name: Unformatierte SQL-Abfragen
-              href: core/querying/raw-sql.md
+            - name: Komplexe Abfrageoperatoren
+              href: core/querying/complex-query-operators.md
+            - name: Laden zugehöriger Daten
+              href: core/querying/related-data.md
             - name: Asynchrone Abfragen
               href: core/querying/async.md
-            - name: Funktionsweise von Abfragen
-              href: core/querying/how-query-works.md
+            - name: Unformatierte SQL-Abfragen
+              href: core/querying/raw-sql.md
             - name: Globale Abfragefilter
               href: core/querying/filters.md
             - name: Abfragetags
               href: core/querying/tags.md
+            - name: Funktionsweise von Abfragen
+              href: core/querying/how-query-works.md
         - name: Speichern von Daten
           items:
             - name: Übersicht
