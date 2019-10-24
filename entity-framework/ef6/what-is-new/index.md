@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: c49f4cba0066d1e218f11c3959d96f9cafa913f4
-ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
+ms.openlocfilehash: 9daae787d0cec0ca536413e6263bb363ba76ff2c
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71266784"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812138"
 ---
 # <a name="whats-new-in-ef6"></a>Neuerungen in EF6
 
@@ -25,8 +25,8 @@ Die EF 6.3.0-Runtime wurde im September 2019 für NuGet veröffentlicht. Das Hau
   - Das EntityFramework-Paket verwendet nun .NET Standard 2.1 zusätzlich zu .NET Framework 4.x als Ziel.
   - Dies bedeutet, dass EF 6.3 plattformübergreifend ist und auf anderen Betriebssystemen als Windows unterstützt wird, wie z. B. Linux und macOS.
   - Die Migrationsbefehle wurden so umgeschrieben, dass Sie außerhalb des Prozesses ausgeführt werden und mit Projekten im SDK-Stil funktionieren.
-- Unterstützung für HierarchyId von SQL Server
-- Verbesserte Kompatibilität mit PackageReference von Roslyn und NuGet
+- Unterstützung für HierarchyId von SQL Server.
+- Verbesserte Kompatibilität mit PackageReference von Roslyn und NuGet.
 - Das `ef6.exe`-Dienstprogramm wurde zum Aktivieren, Hinzufügen, Skripten und Anwenden von Migrationen aus Assemblys hinzugefügt. Hierdurch wird `migrate.exe` ersetzt.
 
 ### <a name="ef-designer-support"></a>Unterstützung des EF-Designers
