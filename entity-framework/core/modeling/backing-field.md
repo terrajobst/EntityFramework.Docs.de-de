@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: c3ca8bb97992c192672e8c2f2040b0de029df68d
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 288440a4494117fe59d27187e24424c4d2fd44ab
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197480"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811874"
 ---
 # <a name="backing-fields"></a>Unterstützungsfelder
 
@@ -51,16 +51,12 @@ Sie können konfigurieren, wann EF das Feld oder die Eigenschaft verwendet. Die 
 
 Sie können auch eine konzeptionelle Eigenschaft in Ihrem Modell erstellen, die nicht über eine entsprechende CLR-Eigenschaft in der Entitäts Klasse verfügt, sondern stattdessen ein Feld zum Speichern der Daten in der Entität verwendet. Dies unterscheidet sich von den [Schatten Eigenschaften](shadow-properties.md), bei denen die Daten in der Änderungs Nachverfolgung gespeichert werden. Dies wird normalerweise verwendet, wenn die Entitäts Klasse Methoden verwendet, um Werte zu erhalten bzw. festzulegen.
 
-Sie können EF den Namen des Felds in der `Property(...)` API übergeben. Wenn keine Eigenschaft mit dem angegebenen Namen vorhanden ist, sucht EF nach einem Feld.
+Sie können EF den Namen des Felds in der `Property(...)`-API übergeben. Wenn keine Eigenschaft mit dem angegebenen Namen vorhanden ist, sucht EF nach einem Feld.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldNoProperty.cs#Sample)]
 
-Sie können auch festlegen, dass der Eigenschaft ein anderer Name als der Feldname zugewiesen wird. Dieser Name wird dann verwendet, wenn das Modell erstellt wird. insbesondere wird er für den Spaltennamen verwendet, der in der Datenbank zugeordnet ist.
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldConceptualProperty.cs#Sample)]
-
-Wenn in der Entitäts Klasse keine Eigenschaft vorhanden ist, können Sie die `EF.Property(...)` -Methode in einer LINQ-Abfrage verwenden, um auf die Eigenschaft zu verweisen, die konzeptionell Teil des Modells ist.
+Wenn in der Entitäts Klasse keine Eigenschaft vorhanden ist, können Sie die `EF.Property(...)`-Methode in einer LINQ-Abfrage verwenden, um auf die Eigenschaft zu verweisen, die konzeptionell Teil des Modells ist.
 
 ``` csharp
-var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "Url"));
+var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));
 ```

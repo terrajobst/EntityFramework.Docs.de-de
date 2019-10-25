@@ -4,18 +4,19 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: e5b42275aa575d711e1dcdf3d2ba3cb29a036727
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 29434c26a503fabb16b43ee8f0c36136a0b5b745
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181257"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811975"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenz zu Entity Framework Core Tools: .net CLI
 
 Die CLI-Tools (Command-Line Interface, Befehlszeilenschnittstelle) für Entity Framework Core die Entwicklungsaufgaben zur Entwurfszeit ausführen. Beispielsweise erstellen Sie [Migrationen](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0), wenden Migrationen an und generieren Code für ein Modell, das auf einer vorhandenen Datenbank basiert. Die Befehle sind eine Erweiterung des plattformübergreifenden [dotnet](/dotnet/core/tools) -Befehls, der Teil der [.net Core SDK](https://www.microsoft.com/net/core)ist. Diese Tools funktionieren mit .net Core-Projekten.
 
 Wenn Sie Visual Studio verwenden, empfehlen wir stattdessen die [Tools der Paket-Manager-Konsole](powershell.md) :
+
 * Sie arbeiten automatisch mit dem aktuellen Projekt, das in der **Paket-Manager-Konsole** ausgewählt ist, ohne dass Sie manuell Verzeichnisse wechseln müssten.
 * Dateien, die von einem Befehl generiert werden, werden automatisch geöffnet, nachdem der Befehl abgeschlossen wurde.
 
@@ -30,7 +31,7 @@ Das Installationsverfahren hängt vom Projekttyp und der Version ab:
 
 ### <a name="ef-core-3x"></a>EF Core 3. x
 
-* `dotnet ef` muss als globales oder lokales Tool installiert werden. Die meisten Entwickler installieren `dotnet ef` als globales Tool mit dem folgenden Befehl:
+* `dotnet ef` müssen als globales oder lokales Tool installiert werden. Die meisten Entwickler installieren `dotnet ef` als globales Tool mit dem folgenden Befehl:
 
   ``` console
   dotnet tool install --global dotnet-ef
@@ -40,7 +41,7 @@ Das Installationsverfahren hängt vom Projekttyp und der Version ab:
 
 * Installieren Sie den [.net Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio verfügen.
 
-* Installieren Sie das neueste `Microsoft.EntityFrameworkCore.Design`-Paket.
+* Installieren Sie das neueste `Microsoft.EntityFrameworkCore.Design` Paket.
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -50,15 +51,15 @@ Das Installationsverfahren hängt vom Projekttyp und der Version ab:
 
 * Installieren Sie die aktuelle [.net Core SDK](https://www.microsoft.com/net/download/core). Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio 2017 verfügen.
 
-  Dies ist alles, was für ASP.net Core 2.1 und höher erforderlich ist, da das `Microsoft.EntityFrameworkCore.Design`-Paket im [Metapaket "Microsoft. aspnetcore. app](/aspnet/core/fundamentals/metapackage-app)" enthalten ist.
+  Dies ist alles, was für ASP.net Core 2.1 und höher erforderlich ist, da das `Microsoft.EntityFrameworkCore.Design`-Paket im [Microsoft. aspnetcore. app-Metapaket](/aspnet/core/fundamentals/metapackage-app)enthalten ist.
 
 ### <a name="ef-core-2x-not-aspnet-core"></a>EF Core 2. x (nicht ASP.net Core)
 
-Die `dotnet ef`-Befehle sind in der .net Core SDK enthalten, um jedoch die Befehle zu aktivieren, die Sie zum Installieren des `Microsoft.EntityFrameworkCore.Design`-Pakets haben.
+Die `dotnet ef` Befehle sind in der .net Core SDK enthalten, um jedoch die Befehle zu aktivieren, die Sie zum Installieren des `Microsoft.EntityFrameworkCore.Design` Pakets haben.
 
 * Installieren Sie die aktuelle [.net Core SDK](https://www.microsoft.com/net/download/core). Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio verfügen.
 
-* Installieren Sie das neueste stabile `Microsoft.EntityFrameworkCore.Design`-Paket.
+* Installieren Sie das neueste stabile `Microsoft.EntityFrameworkCore.Design` Paket.
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -70,9 +71,9 @@ Die `dotnet ef`-Befehle sind in der .net Core SDK enthalten, um jedoch die Befeh
 
 * Konfigurieren Sie die Anwendung für die Verwendung der 2.1.200 SDK-Version, indem Sie Ihre [Global. JSON](/dotnet/core/tools/global-json) -Datei ändern. Diese Datei ist normalerweise im Projektmappenverzeichnis enthalten (eines oberhalb des Projekts).
 
-* Bearbeiten Sie die Projektdatei, und fügen Sie `Microsoft.EntityFrameworkCore.Tools.DotNet` als `DotNetCliToolReference`-Element hinzu. Geben Sie die neueste Version von 1. x an, z. b.: 1.1.6. Weitere Informationen finden Sie im Beispiel für eine Projektdatei am Ende dieses Abschnitts.
+* Bearbeiten Sie die Projektdatei, und fügen Sie `Microsoft.EntityFrameworkCore.Tools.DotNet` als `DotNetCliToolReference` Element hinzu. Geben Sie die neueste Version von 1. x an, z. b.: 1.1.6. Weitere Informationen finden Sie im Beispiel für eine Projektdatei am Ende dieses Abschnitts.
 
-* Installieren Sie die neueste Version von 1. x des Pakets "`Microsoft.EntityFrameworkCore.Design`", z. b.:
+* Installieren Sie die neueste Version von 1. x des `Microsoft.EntityFrameworkCore.Design` Pakets, z. b.:
 
   ```console
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
@@ -98,7 +99,7 @@ Die `dotnet ef`-Befehle sind in der .net Core SDK enthalten, um jedoch die Befeh
   </Project>
   ```
 
-  Ein Paket Verweis mit `PrivateAssets="All"` ist nicht für Projekte verfügbar, die auf dieses Projekt verweisen. Diese Einschränkung ist besonders nützlich für Pakete, die in der Regel nur während der Entwicklung verwendet werden.
+  Ein Paket Verweis mit `PrivateAssets="All"` wird nicht für Projekte verfügbar gemacht, die auf dieses Projekt verweisen. Diese Einschränkung ist besonders nützlich für Pakete, die in der Regel nur während der Entwicklung verwendet werden.
 
 ### <a name="verify-installation"></a>Überprüfen der Installation
 
@@ -125,7 +126,7 @@ Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
 <Usage documentation follows, not shown.>
 ```
 
-## <a name="using-the-tools"></a>Mithilfe der Tools
+## <a name="using-the-tools"></a>Verwenden der Tools
 
 Vor der Verwendung der Tools müssen Sie möglicherweise ein Startprojekt erstellen oder die Umgebung festlegen.
 
@@ -146,7 +147,7 @@ Es ist auch möglich, [Migrations Code in einer Klassenbibliothek zu platzieren,
 
 ### <a name="other-target-frameworks"></a>Andere Ziel-Frameworks
 
-Die CLI-Tools funktionieren mit .net Core-Projekten und .NET Framework Projekten. Apps, die über das EF Core Modell in einer .NET Standard-Klassenbibliothek verfügen, verfügen möglicherweise nicht über ein .net Core-oder .NET Framework-Projekt. Dies gilt z. b. für xamarin-und universelle Windows-Plattform-apps. In solchen Fällen können Sie ein .net Core-Konsolen-App-Projekt erstellen, dessen einziger Zweck darin besteht, als Startprojekt für die Tools zu fungieren. Das Projekt kann ein Dummyprojekt ohne echten Code sein &mdash; ist nur erforderlich, um ein Ziel für die Tools bereitzustellen.
+Die CLI-Tools funktionieren mit .net Core-Projekten und .NET Framework Projekten. Apps, die über das EF Core Modell in einer .NET Standard-Klassenbibliothek verfügen, verfügen möglicherweise nicht über ein .net Core-oder .NET Framework-Projekt. Dies gilt z. b. für xamarin-und universelle Windows-Plattform-apps. In solchen Fällen können Sie ein .net Core-Konsolen-App-Projekt erstellen, dessen einziger Zweck darin besteht, als Startprojekt für die Tools zu fungieren. Das Projekt kann ein Dummyprojekt ohne echten Code sein &mdash; es ist nur erforderlich, um ein Ziel für die Tools bereitzustellen.
 
 Warum ist ein Dummyprojekt erforderlich? Wie bereits erwähnt, müssen die Tools Anwendungscode zur Entwurfszeit ausführen. Hierzu müssen Sie die .net Core-Laufzeit verwenden. Wenn sich das EF Core Modell in einem Projekt befindet, das .net Core oder .NET Framework als Ziel hat, wird die Laufzeit von den EF Core Tools aus dem Projekt ausgeliehen. Dies ist nicht möglich, wenn sich das EF Core Modell in einer .NET Standard Klassenbibliothek befindet. Der .NET Standard ist keine tatsächliche .NET-Implementierung. Es handelt sich um eine Spezifikation für eine Reihe von APIs, die von .net-Implementierungen unterstützt werden müssen. Daher ist .NET Standard für die EF Core Tools nicht ausreichend, um Anwendungscode auszuführen. Das Dummyprojekt, das Sie als Startprojekt verwenden, stellt eine konkrete Zielplattform bereit, in die die Tools die .NET Standard Klassenbibliothek laden können.
 
@@ -163,14 +164,14 @@ Um die Umgebung für ASP.net Core Projekte anzugeben, legen Sie die **ASPNETCORE
 | `-p`              | `--project <PROJECT>`             | Relativer Pfad zum Projektordner des Ziel Projekts.  Der Standardwert ist der aktuelle Ordner.                                                                                                                                                              |
 | `-s`              | `--startup-project <PROJECT>`     | Relativer Pfad zum Projektordner des Start Projekts. Der Standardwert ist der aktuelle Ordner.                                                                                                                                                              |
 |                   | `--framework <FRAMEWORK>`         | Der [zielframeworkmoniker](/dotnet/standard/frameworks#supported-target-framework-versions) für das [Ziel Framework](/dotnet/standard/frameworks).  Verwenden Sie, wenn die Projektdatei mehrere Ziel-Frameworks angibt, und wählen Sie eine davon aus. |
-|                   | `--configuration <CONFIGURATION>` | Die Buildkonfiguration, z. b.: `Debug` oder `Release`.                                                                                                                                                                                                   |
+|                   | `--configuration <CONFIGURATION>` | Die Buildkonfiguration, z. b. `Debug` oder `Release`.                                                                                                                                                                                                   |
 |                   | `--runtime <IDENTIFIER>`          | Der Bezeichner der Ziel Laufzeit, für die Pakete wieder hergestellt werden sollen. Eine Liste der Runtime-IDs (RIDs) finden Sie unter [RID-Katalog](/dotnet/core/rid-catalog).                                                                                                      |
 | `-h`              | `--help`                          | Anzeigen von Hilfe Informationen.                                                                                                                                                                                                                                        |
 | `-v`              | `--verbose`                       | Zeigt eine ausführliche Ausgabe an.                                                                                                                                                                                                                                          |
 |                   | `--no-color`                      | Ausgabe nicht einfärben.                                                                                                                                                                                                                                        |
 |                   | `--prefix-output`                 | Präfix Ausgabe mit Ebene.                                                                                                                                                                                                                                     |
 
-## <a name="dotnet-ef-database-drop"></a>dotnet ef database drop
+## <a name="dotnet-ef-database-drop"></a>DotNet EF-Datenbank löschen
 
 Löscht die Datenbank.
 
@@ -181,7 +182,7 @@ Optionen:
 | <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Nicht bestätigen.                                           |
 |                   | <nobr>`--dry-run`</nobr> | Zeigen Sie an, welche Datenbank gelöscht werden soll, aber löschen Sie Sie nicht. |
 
-## <a name="dotnet-ef-database-update"></a>dotnet ef database update
+## <a name="dotnet-ef-database-update"></a>DotNet EF-Datenbankupdate
 
 Aktualisiert die Datenbank auf die letzte Migration oder eine angegebene Migration.
 
@@ -198,24 +199,24 @@ dotnet ef database update InitialCreate
 dotnet ef database update 20180904195021_InitialCreate
 ```
 
-## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext info
+## <a name="dotnet-ef-dbcontext-info"></a>DotNet EF dbcontext-Informationen
 
-Ruft Informationen zu einem `DbContext`-Typ ab.
+Ruft Informationen zu einem `DbContext` Typs ab.
 
-## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext list
+## <a name="dotnet-ef-dbcontext-list"></a>DotNet EF-dbcontext-Liste
 
-Listet verfügbare `DbContext`-Typen auf.
+Listet verfügbare `DbContext` Typen auf.
 
-## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext scaffold
+## <a name="dotnet-ef-dbcontext-scaffold"></a>DotNet EF-dbcontext-Gerüst
 
-Generiert Code für einen `DbContext`-und Entitäts Typen für eine Datenbank. Damit dieser Befehl einen Entitätstyp generieren kann, muss die Datenbanktabelle über einen Primärschlüssel verfügen.
+Generiert Code für eine `DbContext` und Entitäts Typen für eine Datenbank. Damit dieser Befehl einen Entitätstyp generieren kann, muss die Datenbanktabelle über einen Primärschlüssel verfügen.
 
 Argumente:
 
 | Argument       | Beschreibung                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Die Verbindungs Zeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name = \<name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. |
-| `<PROVIDER>`   | Der zu verwendende Anbieter. In der Regel ist dies der Name des nuget-Pakets, z. b.: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
+| `<CONNECTION>` | Die Verbindungs Zeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name =\<Name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. |
+| `<PROVIDER>`   | Der zu verwendende Anbieter. In der Regel ist dies der Name des nuget-Pakets, z. b. `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Optionen:
 
@@ -223,10 +224,10 @@ Optionen:
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <nobr>-d</nobr> | `--data-annotations`                     | Verwenden Sie Attribute, um das Modell zu konfigurieren (sofern möglich). Wenn diese Option weggelassen wird, wird nur die fließende API verwendet.                                                                |
 | `-c`            | `--context <NAME>`                       | Der Name der zu generierenden `DbContext`-Klasse.                                                                                                                                 |
-|                 | `--context-dir <PATH>`                   | Das Verzeichnis, in das die `DbContext`-Klassendatei eingefügt werden soll. Pfade sind relativ zum Projektverzeichnis. Namespaces werden aus den Ordnernamen abgeleitet.                                 |
+|                 | `--context-dir <PATH>`                   | Das Verzeichnis, in das die `DbContext` Klassendatei eingefügt werden soll. Pfade sind relativ zum Projektverzeichnis. Namespaces werden aus den Ordnernamen abgeleitet.                                 |
 | `-f`            | `--force`                                | Überschreibt vorhandene Dateien.                                                                                                                                                      |
 | `-o`            | `--output-dir <PATH>`                    | Das Verzeichnis, in dem Entitäts Klassendateien abgelegt werden sollen. Pfade sind relativ zum Projektverzeichnis.                                                                                       |
-|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Die Schemas von Tabellen, für die Entitäts Typen generiert werden sollen. Wenn Sie mehrere Schemas angeben möchten, wiederholen Sie die `--schema` für jeden. Wenn diese Option weggelassen wird, werden alle Schemas eingeschlossen.          |
+|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Die Schemas von Tabellen, für die Entitäts Typen generiert werden sollen. Wenn Sie mehrere Schemas angeben möchten, wiederholen Sie die `--schema`. Wenn diese Option weggelassen wird, werden alle Schemas eingeschlossen.          |
 | `-t`            | `--table <TABLE_NAME>`...                | Die Tabellen, für die Entitäts Typen generiert werden sollen. Wenn Sie mehrere Tabellen angeben möchten, wiederholen Sie die `-t` oder `--table`. Wenn diese Option weggelassen wird, werden alle Tabellen eingeschlossen.                |
 |                 | `--use-database-names`                   | Verwenden Sie Tabellen-und Spaltennamen genau so, wie Sie in der Datenbank angezeigt werden. Wenn diese Option weggelassen wird, werden die Datenbanknamen entsprechend den C# Namensformat Konventionen genauer angepasst. |
 
@@ -242,7 +243,7 @@ Im folgenden Beispiel wird nur ein Gerüst für ausgewählte Tabellen erstellt, 
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
 ```
 
-## <a name="dotnet-ef-migrations-add"></a>dotnet ef migrations add
+## <a name="dotnet-ef-migrations-add"></a>DotNet EF-Migrationen hinzufügen
 
 Fügt eine neue Migration hinzu.
 
@@ -258,11 +259,11 @@ Optionen:
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | Das zu verwendende Verzeichnis (und der untergeordnete Namespace). Pfade sind relativ zum Projektverzeichnis. Der Standardwert ist "Migrationen". |
 
-## <a name="dotnet-ef-migrations-list"></a>dotnet ef migrations list
+## <a name="dotnet-ef-migrations-list"></a>DotNet EF-Migrations Liste
 
 Listet verfügbare Migrationen auf.
 
-## <a name="dotnet-ef-migrations-remove"></a>dotnet ef migrations remove
+## <a name="dotnet-ef-migrations-remove"></a>DotNet EF-Migrationen entfernen
 
 Entfernt die letzte Migration (führt einen Rollback für die Codeänderungen aus, die für die Migration durchgeführt wurden).
 
@@ -272,7 +273,7 @@ Optionen:
 |:------------------|:----------|:--------------------------------------------------------------------------------|
 | <nobr>`-f`</nobr> | `--force` | Setzen Sie die Migration zurück (führen Sie ein Rollback der Änderungen aus, die auf die Datenbank angewendet wurden). |
 
-## <a name="dotnet-ef-migrations-script"></a>dotnet ef migrations script
+## <a name="dotnet-ef-migrations-script"></a>DotNet EF-Migrations Skript
 
 Generiert ein SQL-Skript aus Migrationen.
 

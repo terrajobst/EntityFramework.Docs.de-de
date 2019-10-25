@@ -1,22 +1,23 @@
 ---
-title: Migrationen in Teamumgebungen – EF Core
+title: Migrationen in Team Umgebungen-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
-ms.openlocfilehash: e8ff7f468d5ab6dbd6285f1abf9199e413288d10
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+uid: core/managing-schemas/migrations/teams
+ms.openlocfilehash: e6a1b86761a201cbcae34cced7e64f11df37a420
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997694"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811984"
 ---
-<a name="migrations-in-team-environments"></a>Migrationen in Teamumgebungen
-===============================
-Bei der Arbeit mit Migrationen in teamumgebungen Achten Sie zusätzliche auf der Snapshot-Modelldatei. Diese Datei können Sie erkennen, wenn Ihre Kollegin der Migration ordnungsgemäß mit dem eigenen zusammengeführt oder Sie einen Konflikt zu beheben, erstellen Sie Ihre Migration, bevor er freigegeben wird müssen.
+# <a name="migrations-in-team-environments"></a>Migrationen in Teamumgebungen
 
-<a name="merging"></a>Zusammenführen
--------
-Beim Zusammenführen von Migrationen von Ihren Teamkollegen erhalten Sie möglicherweise Konflikte in Ihrem Modell Datenbankmomentaufnahme-Datei. Wenn beide Änderungen unabhängig sind, die Zusammenführung ist einfach, und zwei livemigrationen können gleichzeitig vorhanden sein. Beispielsweise erhalten Sie möglicherweise ein Zusammenführungskonflikt in der typenkonfiguration der Customer-Entität, die folgendermaßen aussieht:
+Wenn Sie mit Migrationen in Team Umgebungen arbeiten, achten Sie besonders auf die Modell Momentaufnahme-Datei. Diese Datei kann Ihnen mitteilen, ob die Migration Ihres Teamkollegen ordnungsgemäß mit Ihrem zusammengeführt wird oder ob Sie einen Konflikt auflösen müssen, indem Sie die Migration neu erstellen, bevor Sie Sie freigeben.
+
+## <a name="merging"></a>Zusammenführen
+
+Wenn Sie Migrationen von ihren Teamkollegen zusammenführen, treten möglicherweise Konflikte in der Modell Momentaufnahme-Datei auf. Wenn beide Änderungen nicht miteinander verbunden sind, ist die Zusammenführung trivial, und die beiden Migrationen können nebeneinander bestehen. Beispielsweise erhalten Sie möglicherweise einen Mergekonflikt in der Customer-Entitätstyp Konfiguration, der wie folgt aussieht:
 
     <<<<<<< Mine
     b.Property<bool>("Deactivated");
@@ -24,18 +25,18 @@ Beim Zusammenführen von Migrationen von Ihren Teamkollegen erhalten Sie möglic
     b.Property<int>("LoyaltyPoints");
     >>>>>>> Theirs
 
-Da diese beiden Eigenschaften im endgültigen Modell vorhanden sind müssen, führen Sie die Zusammenführung durch beide Eigenschaften hinzufügen. In vielen Fällen kann Ihr Versionskontrollsystem solche Änderungen automatisch für Sie zusammenführen.
+Da diese beiden Eigenschaften im endgültigen Modell vorhanden sein müssen, müssen Sie die Zusammenführung durch Hinzufügen beider Eigenschaften vervollständigen. In vielen Fällen kann Ihr Versionskontrollsystem solche Änderungen automatisch zusammenführen.
 
 ``` csharp
 b.Property<bool>("Deactivated");
 b.Property<int>("LoyaltyPoints");
 ```
 
-In diesen Fällen sind die Migration und Ihre Kollegin der Migration unabhängig voneinander. Da es sich bei einem der beiden zuerst angewendet werden kann, müssen Sie keine weiteren Änderungen vornehmen, um die Migration, bevor er mit Ihrem Team freigegeben wird.
+In diesen Fällen sind die Migration und die Migration Ihres Teamkollegen voneinander unabhängig. Da eine der beiden Optionen zuerst angewendet werden kann, müssen Sie keine weiteren Änderungen an der Migration vornehmen, bevor Sie Sie für Ihr Team freigeben.
 
-<a name="resolving-conflicts"></a>Lösen von Konflikten
--------------------
-Sie treten gelegentlich einen Konflikt mit "true", beim mergen der Modell-Momentaufnahme-Modell. Angenommen, Sie und Ihre Kollegin möglicherweise jeweils die gleiche Eigenschaft umbenannt.
+## <a name="resolving-conflicts"></a>Auflösen von Konflikten
+
+Manchmal tritt beim Zusammenführen des Modell Momentaufnahme-Modells ein echter Konflikt auf. Beispielsweise können Sie und Ihr Teamkollegen die gleiche Eigenschaft umbenennen.
 
     <<<<<<< Mine
     b.Property<string>("Username");
@@ -43,13 +44,13 @@ Sie treten gelegentlich einen Konflikt mit "true", beim mergen der Modell-Moment
     b.Property<string>("Alias");
     >>>>>>> Theirs
 
-Wenn Sie diese Art von Konflikt auftritt, müssen beheben Sie ihn, indem der Migration neu zu erstellen. Führen Sie folgende Schritte aus:
+Wenn diese Art von Konflikt auftritt, beheben Sie diese, indem Sie die Migration neu erstellen. Führen Sie folgende Schritte aus:
 
-1. Abbrechen der zusammenführen und ein Rollback in Ihr Arbeitsverzeichnis vor der Zusammenführung
-2. Entfernen Sie die Migration (aber behalten Sie Ihr Modell ändert)
-3. Ihre Kollegin der Änderungen in Ihrem Arbeitsverzeichnis zusammenführen
-4. Fügen Sie Ihre Migration erneut hinzu.
+1. Abbrechen des Merge und Zurücksetzen auf das Arbeitsverzeichnis vor dem Merge
+2. Entfernen der Migration (behalten Sie jedoch Ihre Modelländerungen bei)
+3. Zusammenführen der Änderungen Ihres Teamkollegen in Ihrem Arbeitsverzeichnis
+4. Erneutes Hinzufügen der Migration
 
-Nachdem Sie auf diese Weise können die zwei Migrationen in der richtigen Reihenfolge angewendet werden. Ihre Migration wird zuerst angewendet, die Spalte umbenennen *Alias*, danach Ihre Migration benennt es um *Benutzername*.
+Anschließend können die beiden Migrationen in der richtigen Reihenfolge angewendet werden. Die Migration wird zuerst angewendet, und die Spalte wird in *Alias*umbenannt. Anschließend wird Sie von der Migration in *username*umbenannt.
 
-Die Migration kann mit dem Rest des Teams sicher freigegeben werden.
+Ihre Migration kann für den Rest des Teams sicher freigegeben werden.

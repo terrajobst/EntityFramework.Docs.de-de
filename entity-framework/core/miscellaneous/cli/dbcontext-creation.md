@@ -4,24 +4,24 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/16/2019
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: f83d4b16227d114a1cac1514667484a908fea4ac
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: c36dae150085b1ab509288f6fabfdd8ed7201ca8
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197579"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812019"
 ---
-<a name="design-time-dbcontext-creation"></a>DbContext-Instanzerstellung zur Entwurfszeit
-==============================
-Einige der EF Core Tools-Befehle (z. b. die [Migrations][1] Befehle) erfordern, `DbContext` dass eine abgeleitete Instanz zur Entwurfszeit erstellt wird, um Details zu den Entitäts Typen der Anwendung und deren Zuordnung zu einem Datenbankschema zu erfassen. In den meisten Fällen ist es wünschenswert, `DbContext` dass die, die erstellt wird, auf ähnliche Weise konfiguriert wird, wie Sie zur [Laufzeit konfiguriert][2]wird.
+# <a name="design-time-dbcontext-creation"></a>DbContext-Instanzerstellung zur Entwurfszeit
 
-Es gibt verschiedene Möglichkeiten, die Tools zu erstellen `DbContext`:
+Einige der EF Core Tools-Befehle (z. b. die [Migrations][1] Befehle) erfordern, dass eine abgeleitete `DbContext` Instanz zur Entwurfszeit erstellt wird, um Details zu den Entitäts Typen der Anwendung und deren Zuordnung zu einem Datenbankschema zu erfassen. In den meisten Fällen ist es wünschenswert, dass die `DbContext`, die auf diese Weise erstellt wird, auf ähnliche Weise wie Sie zur [Laufzeit][2]konfiguriert wird.
 
-<a name="from-application-services"></a>Aus Anwendungsdiensten
--------------------------
+Es gibt verschiedene Möglichkeiten, wie die Tools versuchen, den `DbContext`zu erstellen:
+
+## <a name="from-application-services"></a>Aus Anwendungsdiensten
+
 Wenn das Startprojekt den [ASP.net Core Webhost][3] oder den [generischen .net Core-Host][4]verwendet, versuchen die Tools, das dbcontext-Objekt vom Dienstanbieter der Anwendung abzurufen.
 
-Die Tools versuchen zunächst, den Dienstanbieter abzurufen `Program.CreateHostBuilder()`, indem Sie aufrufen `Build()`und dann auf die `Services` -Eigenschaft zugreifen.
+Die Tools versuchen zunächst, den Dienstanbieter abzurufen, indem Sie `Program.CreateHostBuilder()`aufrufen, `Build()`aufrufen und dann auf die `Services`-Eigenschaft zugreifen.
 
 ``` csharp
 public class Program
@@ -54,15 +54,15 @@ public class ApplicationDbContext : DbContext
 > [!NOTE]
 > Wenn Sie eine neue ASP.net Core Anwendung erstellen, ist dieser Hook standardmäßig enthalten.
 
-Die `DbContext` selbst und alle Abhängigkeiten im Konstruktor müssen als Dienste im Dienstanbieter der Anwendung registriert werden. Dies kann problemlos erreicht werden, indem [ein Konstruktor für den `DbContext` verwendet wird, der eine `DbContextOptions<TContext>` Instanz von als Argument annimmt][5] und [ `AddDbContext<TContext>` ][6]die-Methode verwendet.
+Die `DbContext` selbst und alle Abhängigkeiten im Konstruktor müssen als Dienste im Dienstanbieter der Anwendung registriert werden. Dies kann problemlos erreicht werden, indem [ein Konstruktor für den `DbContext` verwendet wird, der eine Instanz von `DbContextOptions<TContext>` als Argument annimmt][5] und die [`AddDbContext<TContext>`-Methode][6]verwendet.
 
-<a name="using-a-constructor-with-no-parameters"></a>Verwenden eines Konstruktors ohne Parameter
---------------------------------------
-Wenn dbcontext vom Anwendungs Dienstanbieter nicht abgerufen werden kann, suchen die Tools im Projekt nach dem `DbContext` abgeleiteten Typ. Anschließend wird versucht, eine Instanz mit einem Konstruktor ohne Parameter zu erstellen. Dies kann der Standardkonstruktor sein, `DbContext` wenn mithilfe der [`OnConfiguring`][7] -Methode konfiguriert wird.
+## <a name="using-a-constructor-with-no-parameters"></a>Verwenden eines Konstruktors ohne Parameter
 
-<a name="from-a-design-time-factory"></a>Aus einer Entwurfszeit Factory
---------------------------
-Sie können die Tools auch darüber informieren, wie Sie dbcontext erstellen, indem `IDesignTimeDbContextFactory<TContext>` Sie die-Schnittstelle implementieren: Wenn eine Klasse, die diese Schnittstelle implementiert, sich im gleichen Projekt wie die `DbContext` abgeleitete oder das Startprojekt der Anwendung befindet, umgehen die Tools die anderen Methoden zum Erstellen von dbcontext und verwenden stattdessen die entwurfszeitfactory.
+Wenn dbcontext vom Anwendungs Dienstanbieter nicht abgerufen werden kann, suchen die Tools im Projekt nach dem abgeleiteten `DbContext` Typ. Anschließend wird versucht, eine Instanz mit einem Konstruktor ohne Parameter zu erstellen. Dies kann der Standardkonstruktor sein, wenn die `DbContext` mit der [`OnConfiguring`][7] -Methode konfiguriert wird.
+
+## <a name="from-a-design-time-factory"></a>Aus einer Entwurfszeit Factory
+
+Sie können den Tools auch mitteilen, wie Sie dbcontext erstellen, indem Sie die `IDesignTimeDbContextFactory<TContext>`-Schnittstelle implementieren: Wenn eine Klasse, die diese Schnittstelle implementiert, sich im selben Projekt befindet wie die abgeleitete `DbContext` oder im Startprojekt der Anwendung, umgehen die Tools die andere Möglichkeiten zum Erstellen von dbcontext und Verwenden der entwurfszeitfactory.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -85,9 +85,9 @@ namespace MyProject
 ```
 
 > [!NOTE]
-> Der `args` -Parameter wird derzeit nicht verwendet. Es gibt [ein Problem][8] bei der Nachverfolgung der Möglichkeit, Entwurfszeit Argumente aus den Tools anzugeben.
+> Der `args`-Parameter wird derzeit nicht verwendet. Es gibt [ein Problem][8] bei der Nachverfolgung der Möglichkeit, Entwurfszeit Argumente aus den Tools anzugeben.
 
-Eine Entwurfszeit Factory kann besonders nützlich sein, wenn Sie dbcontext zur Entwurfszeit anders konfigurieren müssen als zur Laufzeit, wenn der `DbContext` Konstruktor zusätzliche Parameter benötigt, die nicht in di registriert sind, wenn Sie di überhaupt nicht verwenden, oder wenn Sie für einige der Grund dafür ist, dass Sie `BuildWebHost` nicht in der `Main` Klasse der ASP.net Core Anwendung eine Methode haben möchten.
+Eine Entwurfszeit Factory kann besonders nützlich sein, wenn Sie dbcontext zur Entwurfszeit anders konfigurieren müssen als zur Laufzeit, wenn der `DbContext`-Konstruktor zusätzliche Parameter nicht in di registriert ist, wenn Sie di überhaupt nicht verwenden oder wenn Sie aus irgendeinem Grund Es empfiehlt sich, keine `BuildWebHost`-Methode in der `Main` Klasse Ihrer ASP.net Core Anwendung zu haben.
 
   [1]: xref:core/managing-schemas/migrations/index
   [2]: xref:core/miscellaneous/configuring-dbcontext

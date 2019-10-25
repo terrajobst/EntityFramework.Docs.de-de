@@ -1,26 +1,27 @@
 ---
-title: Migrationen mit mehreren Anbietern – EF Core
+title: Migrationen mit mehreren Anbietern-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/08/2017
-ms.openlocfilehash: 75c055221609679db3f00016b9cb44c6c8c6e473
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+uid: core/managing-schemas/migrations/providers
+ms.openlocfilehash: c9b1a2563ef548e592374f90a6242b0bd851bc98
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488776"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811956"
 ---
-<a name="migrations-with-multiple-providers"></a>Migrationen mit mehreren Anbietern
-==================================
-Die [EF Core Tools] [ 1] Gerüst nur Migrationen für den aktiven Anbieter. In einigen Fällen sollten Sie jedoch mehrere Anbieter (z. B. Microsoft SQL Server und SQLite) mit Ihr "DbContext" verwenden. Es gibt zwei Möglichkeiten, dies mit Migrationen behandeln. Sie können zwei Gruppen verwalten für Migrationen – eine für jeden Anbieter-- oder zusammenführen, die sie in einem einzelnen festgelegt, kann die auf beide.
+# <a name="migrations-with-multiple-providers"></a>Migrationen mit mehreren Anbietern
 
-<a name="two-migration-sets"></a>Zwei Sätze von migration
-------------------
-In der ersten Methode generieren Sie zwei livemigrationen für jede modelländerung.
+Mit den [EF Core Tools][1] werden nur die Migrationen für den aktiven Anbieter Gerüstbau. Manchmal möchten Sie jedoch möglicherweise mehr als einen Anbieter (z. b. Microsoft SQL Server und SQLite) mit dbcontext verwenden. Es gibt zwei Möglichkeiten, dies mit Migrationen zu behandeln. Sie können zwei Sätze von Migrationen verwalten: eine für jeden Anbieter, oder Sie können Sie in einem einzelnen Satz zusammenführen, der für beides geeignet ist.
 
-Eine Möglichkeit, Sie ist jede Migration Satz einzufügenden [in einer separaten Assembly] [ 2] und manuelles wechseln von der aktiven Anbieter (und Migrationen Assembly) zwischen die beiden Migrationen hinzufügen.
+## <a name="two-migration-sets"></a>Zwei Migrations Sätze
 
-Ein anderer Ansatz, der erleichtert die Arbeit mit den Tools vereinfachen das Erstellen eines neuen Typs, das Ihr "DbContext" abgeleitet und überschreibt die aktiven Anbieter. Dieser Typ wird verwendet, zur Entwurfszeit Zeit beim Hinzufügen oder Durchführen von Migrationen.
+Beim ersten Ansatz generieren Sie zwei Migrationen für jede Modell Änderung.
+
+Eine Möglichkeit besteht darin, jeden Migrations Satz [in einer separaten Assembly][2] zu platzieren und den aktiven Anbieter (und die Migrationsassembly) manuell zwischen dem Hinzufügen der beiden Migrationen zu wechseln.
+
+Ein weiterer Ansatz, der die Arbeit mit den Tools vereinfacht, besteht darin, einen neuen Typ zu erstellen, der von dbcontext abgeleitet ist und den aktiven Anbieter überschreibt. Dieser Typ wird zur Entwurfszeit beim Hinzufügen oder Anwenden von Migrationen verwendet.
 
 ``` csharp
 class MySqliteDbContext : MyDbContext
@@ -31,27 +32,28 @@ class MySqliteDbContext : MyDbContext
 ```
 
 > [!NOTE]
-> Da jede Migration ihre eigenen "DbContext"-Typen verwendet werden, erforderlich nicht bei diesem Ansatz mit einer Assembly separate Migrationen.
+> Da für jeden Migrations Satz seine eigenen dbcontext-Typen verwendet werden, ist für diese Vorgehensweise die Verwendung einer separaten Migrationsassembly nicht erforderlich.
 
-Wenn Sie neue Migration hinzufügen, wird Geben Sie die Kontexttypen an.
+Beim Hinzufügen einer neuen Migration geben Sie die Kontext Typen an.
 
 ``` powershell
 Add-Migration InitialCreate -Context MyDbContext -OutputDir Migrations\SqlServerMigrations
 Add-Migration InitialCreate -Context MySqliteDbContext -OutputDir Migrations\SqliteMigrations
 ```
+
 ``` Console
 dotnet ef migrations add InitialCreate --context MyDbContext --output-dir Migrations/SqlServerMigrations
 dotnet ef migrations add InitialCreate --context MySqliteDbContext --output-dir Migrations/SqliteMigrations
 ```
 
 > [!TIP]
-> Sie müssen nicht das Ausgabeverzeichnis für nachfolgende Migrationen angeben, da sie als gleichgeordnete Elemente bis zum letzten erstellt werden.
+> Sie müssen das Ausgabeverzeichnis für nachfolgende Migrationen nicht angeben, da diese als gleich geordnete Elemente der letzten erstellt werden.
 
-<a name="one-migration-set"></a>Eine Migration Satz
------------------
-Wenn Sie nicht, müssen zwei Sätze von Migrationen möchten, können Sie sie manuell in einem einzigen Satz kombinieren, die auf beide Anbieter angewendet werden können.
+## <a name="one-migration-set"></a>Ein Migrations Satz
 
-Anmerkungen können gleichzeitig verwendet werden, da es sich bei ein Anbieter alle Anmerkungen ignoriert, die sie nicht versteht. Beispielsweise könnte eine Primärschlüsselspalte, die mit Microsoft SQL Server- und SQLite funktioniert wie folgt aussehen.
+Wenn Sie nicht möchten, dass zwei Migrations Sätze vorhanden sind, können Sie diese manuell in einem einzelnen Satz kombinieren, der auf beide Anbieter angewendet werden kann.
+
+Anmerkungen können gleichzeitig vorhanden sein, da ein Anbieter alle Anmerkungen ignoriert, die er nicht versteht. Beispielsweise könnte eine Primärschlüssel Spalte, die sowohl mit Microsoft SQL Server als auch mit SQLite funktioniert, wie folgt aussehen.
 
 ``` csharp
 Id = table.Column<int>(nullable: false)
@@ -60,7 +62,7 @@ Id = table.Column<int>(nullable: false)
     .Annotation("Sqlite:Autoincrement", true),
 ```
 
-Wenn Vorgänge nur auf einem Anbieter angewendet werden können (oder sie unterschiedlich zwischen Anbietern sind), verwenden Sie die `ActiveProvider` Eigenschaft mitteilen, welche Anbieter aktiv ist.
+Wenn Vorgänge nur auf einen Anbieter angewendet werden können (oder zwischen den Anbietern unterschiedlich sind), verwenden Sie die `ActiveProvider`-Eigenschaft, um festzustellen, welcher Anbieter aktiv ist.
 
 ``` csharp
 if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
@@ -69,7 +71,6 @@ if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer"
         name: "EntityFrameworkHiLoSequence");
 }
 ```
-
 
   [1]: ../../miscellaneous/cli/index.md
   [2]: projects.md

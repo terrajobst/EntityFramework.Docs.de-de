@@ -1,31 +1,32 @@
 ---
-title: Migrationen mit mehreren Projekten – EF Core
+title: Verwenden eines separaten Migrations Projekts-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/projects
-ms.openlocfilehash: 30a6afad1488e74ce2585be3d780186311379a97
-ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
+ms.openlocfilehash: 0082b0af2905fe9e5c3c6509516f622c9d4f8370
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/28/2018
-ms.locfileid: "47447143"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812029"
 ---
-<a name="using-a-separate-project"></a>Verwenden eines separaten Projekts
-========================
-Empfiehlt, speichern Ihre Migrationen in einer anderen Assembly als die mit Ihrer `DbContext`. Sie können auch diese Strategie, um mehrere Sätze von Migrationen zu verwalten, z. B., eine für die Entwicklung und eine andere Version-zu-Release-Upgrades verwenden.
+# <a name="using-a-separate-migrations-project"></a>Verwenden eines separaten Migrations Projekts
+
+Möglicherweise möchten Sie Ihre Migrationen in einer anderen Assembly speichern, als die, die ihre `DbContext`enthält. Sie können diese Strategie auch verwenden, um mehrere Sätze von Migrationen beizubehalten, z. b. eine für die Entwicklung und eine andere für releaseaktualisierungen.
 
 Aufgabe
 
 1. Erstellen Sie eine neue Klassenbibliothek.
 
-2. Fügen Sie einen Verweis auf die "DbContext"-Assembly hinzu.
+2. Fügen Sie einen Verweis auf die dbcontext-Assembly hinzu.
 
-3. Verschieben Sie die Migrationen und Momentaufnahme-Modelldateien, die Klassenbibliothek.
+3. Verschieben Sie die Migrationen und die Modell Momentaufnahme-Dateien in die Klassenbibliothek.
    > [!TIP]
-   > Wenn Sie keine vorhandenen Migrationen haben, generieren Sie, in dem die "DbContext", und verschieben Sie es. Dies ist wichtig, denn wenn die Assembly Migrationen nicht mit eine Migration von vorhandene enthält, der Befehl Add-Migration wurde nicht gefunden "DbContext".
+   > Wenn keine Migrationen vorhanden sind, generieren Sie eine im Projekt, das den dbcontext enthält, und verschieben Sie Sie dann.
+   > Dies ist wichtig, denn wenn die Migrationsassembly keine vorhandene Migration enthält, kann der Befehl "Add-Migration" den dbcontext nicht finden.
 
-4. Konfigurieren Sie die Assembly Migrationen:
+4. Konfigurieren Sie die Migrations Assembly:
 
    ``` csharp
    options.UseSqlServer(
@@ -33,8 +34,8 @@ Aufgabe
        x => x.MigrationsAssembly("MyApp.Migrations"));
    ```
 
-5. Fügen Sie einen Verweis auf die Assembly für die Migration aus der Startassembly hinzu.
-   * Wenn dies bewirkt, eine ringabhängigkeit dass, aktualisieren Sie den Ausgabepfad der Klassenbibliothek:
+5. Fügen Sie einen Verweis auf ihre Migrationen-Assembly aus der Startassembly hinzu.
+   * Wenn dies eine zirkuläre Abhängigkeit verursacht, aktualisieren Sie den Ausgabepfad der Klassenbibliothek:
 
      ``` xml
      <PropertyGroup>
@@ -42,11 +43,12 @@ Aufgabe
      </PropertyGroup>
      ```
 
-Wenn Sie alles richtig gemacht haben, sollten Sie neue Migrationen zum Projekt hinzufügen können.
+Wenn Sie alles ordnungsgemäß durchgeführt haben, sollten Sie dem Projekt neue Migrationen hinzufügen können.
 
 ``` powershell
 Add-Migration NewMigration -Project MyApp.Migrations
 ```
+
 ``` Console
 dotnet ef migrations add NewMigration --project MyApp.Migrations
 ```
