@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: c660107619470a726fe13ad8eee2850749e6dcd9
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 381d1878007bb78b359eb49649f4356f1e5eb04a
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812081"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655629"
 ---
 # <a name="inheritance-relational-database"></a>Vererbung (relationale Datenbank)
 
@@ -29,25 +29,7 @@ EF Core wird nur dann eine Vererbung eingerichtet, wenn mindestens zwei geerbte 
 
 Im folgenden finden Sie ein Beispiel für ein einfaches Vererbungs Szenario und die in einer relationalen Datenbanktabelle gespeicherten Daten mithilfe des TPH-Musters. Die *diskriminatorspalte* gibt an, welcher Typ von *Blog* in den einzelnen Zeilen gespeichert wird.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/InheritanceDbSets.cs)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<RssBlog> RssBlogs { get; set; }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-}
-
-public class RssBlog : Blog
-{
-    public string RssUrl { get; set; }
-}
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/Conventions/InheritanceDbSets.cs#Model)]
 
 ![Bild](_static/inheritance-tph-data.png)
 
@@ -62,32 +44,7 @@ Zum Konfigurieren der Vererbung können keine Daten Anmerkungen verwendet werden
 
 Sie können die fließende API verwenden, um den Namen und den Typ der diskriminatorspalte und die Werte zu konfigurieren, die zum Identifizieren der einzelnen Typen in der Hierarchie verwendet werden.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasDiscriminator<string>("blog_type")
-            .HasValue<Blog>("blog_base")
-            .HasValue<RssBlog>("blog_rss");
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-}
-
-public class RssBlog : Blog
-{
-    public string RssUrl { get; set; }
-}
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/InheritanceTPHDiscriminator.cs#Inheritance)]
 
 ## <a name="configuring-the-discriminator-property"></a>Konfigurieren der diskriminatoreigenschaft
 

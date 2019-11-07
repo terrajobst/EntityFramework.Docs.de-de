@@ -1,107 +1,108 @@
 ---
-title: Protokoll des Anbieter-Auswirkungen auf die Änderungen – EF Core
+title: Protokoll von Änderungen, die sich auf den Anbieter auswirken-EF Core
 author: ajcvickers
 ms.author: avickers
 ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 61a58bd6119763d90731fac62343b983af510cb6
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: b911a2da493e20c4e4ce6f1e25024bd0efd38b44
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929874"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656131"
 ---
-# <a name="provider-impacting-changes"></a>Anbieter-Auswirkungen auf Änderungen
+# <a name="provider-impacting-changes"></a>Änderungen mit Auswirkungen auf den Anbieter
 
-Diese Seite enthält Links zum pull-Anforderungen, die auf das EF Core-Repository, das Autoren von anderen Datenbankanbietern, reagieren möglicherweise erfordern. Die Absicht ist einen Ausgangspunkt für Autoren von vorhandene Drittanbieter-Datenbankanbieter angeben, wenn es sich bei ihren Anbieter zu einer neuen Version zu aktualisieren.
+Diese Seite enthält Links zu Pull Requests, die auf dem EF Core-Repository vorgenommen werden, die möglicherweise von Autoren anderer Datenbankanbieter reagiert werden müssen. Die Absicht besteht darin, einen Ausgangspunkt für Autoren vorhandener Datenbankanbieter von Drittanbietern bereitzustellen, wenn der Anbieter auf eine neue Version aktualisiert wird.
 
-Dieses Protokoll beginnen wir mit Änderungen vom 2.1 und 2.2. Vor dem 2.1 verwendet die [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) und [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) Bezeichnungen auf unseren Problemen und Pull-Anforderungen.
+Dieses Protokoll wird mit Änderungen von 2,1 bis 2,2 gestartet. Vor 2,1 haben wir die [`providers-beware`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) -und [`providers-fyi`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) Bezeichnungen für unsere Probleme und Pull Requests verwendet.
 
-## <a name="22-----30"></a>2.2 ---> 3.0
+## <a name="22-----30"></a>2,2---> 3,0
 
-Beachten Sie, dass viele der der [wichtige Änderungen auf Anwendungsebene](../what-is-new/ef-core-3.0/breaking-changes.md) wirkt sich auch auf die Anbieter.
+Beachten Sie, dass sich viele der wichtigen [Änderungen auf Anwendungsebene](../what-is-new/ef-core-3.0/breaking-changes.md) auch auf Anbieter auswirken.
 
-* https://github.com/aspnet/EntityFrameworkCore/pull/14022
-  * Entfernt veraltete APIs und reduzierte optionalen Parameter-Überladungen
-  * Entfernte DatabaseColumn.GetUnderlyingStoreType()
-* https://github.com/aspnet/EntityFrameworkCore/pull/14589
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14022>
+  * Veraltete veraltete APIs und reduzierte optionale Parameter Überladungen wurden entfernt.
+  * Databasecolumschlag. getunderlyingstoretype () wurde entfernt.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14589>
   * Veraltete APIs entfernt
-* https://github.com/aspnet/EntityFrameworkCore/pull/15044
-  * Unterklassen von CharTypeMapping möglicherweise aufgrund von verhaltensänderungen, die erforderlich sind, für die Behebung von ein paar Fehler in der basisimplementierung unterbrochen wurden.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15090
-  * Eine Basisklasse für IDatabaseModelFactory hinzugefügt und aktualisiert, um ein Objekt für die Parameter zu verwenden, um zukünftige Unterbrechungen zu minimieren.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15123
-  * Parameter-Objekten können Sie in MigrationsSqlGenerator verwendet, um zukünftige Unterbrechungen zu minimieren.
-* https://github.com/aspnet/EntityFrameworkCore/pull/14972
-  * Explizite Konfiguration der Protokollebenen erforderlich, einige Änderungen an APIs, die möglicherweise von Anbietern verwendet werden. Insbesondere wenn der Anbieter der Protokollierungsinfrastruktur direkt verwenden, kann dann diese Änderung verwenden beeinträchtigt werden. Darüber hinaus Anbieter, die die Infrastruktur zu verwenden (die öffentlich sein wird) in Zukunft für die Ableitung müssen `LoggingDefinitions` oder `RelationalLoggingDefinitions`. Die SQL Server und in-Memory-Anbieter für Beispiele angezeigt.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15091
-  * Core, relationale und Abstraktionen Ressourcenzeichenfolgen sind jetzt öffentlich.
-  * `CoreLoggerExtensions` und `RelationalLoggerExtensions` jetzt öffentlich sind. Anbieter sollten diese APIs verwenden, beim Protokollieren von Ereignissen, die auf Core oder relationalen Ebene definiert werden. Ressourcen für die Protokollierung nicht direkt auf; Diese sind weiterhin intern.
-  * `IRawSqlCommandBuilder` wurde von einem Singleton-Dienst in einen bereichsbezogenen Dienst geändert
-  * `IMigrationsSqlGenerator` wurde von einem Singleton-Dienst in einen bereichsbezogenen Dienst geändert
-* https://github.com/aspnet/EntityFrameworkCore/pull/14706
-  * Die Infrastruktur für die Erstellung von relationaler Befehlen wurde veröffentlicht, damit es sicher von Anbietern verwendet und etwas umgestaltet werden kann.
-* https://github.com/aspnet/EntityFrameworkCore/pull/14733
-  * `ILazyLoader` wurde von einen bereichsbezogenen Dienst in einem vorübergehenden Dienst geändert
-* https://github.com/aspnet/EntityFrameworkCore/pull/14610
-  * `IUpdateSqlGenerator` wurde von einen bereichsbezogenen Dienst in ein Singleton-Dienst geändert
-  * Darüber hinaus `ISingletonUpdateSqlGenerator` wurde entfernt
-* https://github.com/aspnet/EntityFrameworkCore/pull/15067
-  * Ein Großteil der internen Code, der von Anbietern verwendet wird, wurde jetzt öffentliche wurde
-  * Wird nicht mehr Necssary auf `IndentedStringBuilder` , da sie aus den Stellen aufgeteilt hat, die sie verfügbar gemacht
-  * Verwendung von `NonCapturingLazyInitializer` sollte ersetzt werden durch `LazyInitializer` aus der BCL
-* https://github.com/aspnet/EntityFrameworkCore/pull/14608
-  * Diese Änderung wird in der Anwendung, die wichtige Änderungen Dokument vollständig behandelt. Für Anbieter kann dies sein, weitere beeinträchtigt, da Tests EF Core oft dazu dieses Problem zu drücken führen kann, damit der Test-Infrastruktur geändert hat, um, die weniger wahrscheinlich zu machen.
-* https://github.com/aspnet/EntityFrameworkCore/issues/13961
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15044>
+  * Unterklassen von chartypemapping wurden möglicherweise aufgrund von Verhaltensänderungen, die zum Beheben einiger Fehler in der Basis Implementierung erforderlich sind, beschädigt.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15090>
+  * Es wurde eine Basisklasse für idatabasemodelfactory hinzugefügt und zur Verwendung eines Parameter-Objekts aktualisiert, um zukünftige Unterbrechungen zu vermeiden.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15123>
+  * Verwenden Sie Parameter Objekte in migrationssqlgenerator, um zukünftige Unterbrechungen zu vermeiden.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14972>
+  * Die explizite Konfiguration von Protokolliergraden erforderte einige Änderungen an APIs, die von Anbietern möglicherweise verwendet werden. Insbesondere wenn Anbieter die Protokollierungs Infrastruktur direkt verwenden, kann diese Änderung die Verwendung von unterbrechen. Außerdem müssen Anbieter, die die Infrastruktur verwenden (die öffentlich sein wird), von `LoggingDefinitions` oder `RelationalLoggingDefinitions`abgeleitet werden. Beispiele finden Sie in den SQL Server-und in-Memory-Anbietern.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15091>
+  * Die Ressourcen Zeichenfolgen Core, Relational und Abstraktionen sind jetzt öffentlich.
+  * `CoreLoggerExtensions` und `RelationalLoggerExtensions` sind jetzt öffentlich. Anbieter sollten diese APIs verwenden, wenn Sie Ereignisse protokollieren, die auf der Core-oder relationalen Ebene definiert sind. Nicht direkt auf Protokoll Ressourcen zugreifen; Diese sind immer noch intern.
+  * `IRawSqlCommandBuilder` hat sich von einem Singleton-Dienst zu einem Bereichs bezogenen Dienst geändert.
+  * `IMigrationsSqlGenerator` hat sich von einem Singleton-Dienst zu einem Bereichs bezogenen Dienst geändert.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14706>
+  * Die Infrastruktur zum Aufbau von relationalen Befehlen wurde öffentlich gemacht, sodass Sie von Anbietern sicher verwendet und leicht umgestaltet werden kann.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14733>
+  * `ILazyLoader` hat sich von einem Bereichs bezogenen Dienst zu einem vorübergehenden Dienst geändert.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14610>
+  * `IUpdateSqlGenerator` hat sich von einem Bereichs bezogenen Dienst zu einem Singleton Dienst geändert.
+  * Außerdem wurde `ISingletonUpdateSqlGenerator` entfernt.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15067>
+  * Viele interner Codes, die von Anbietern verwendet wurden, wurden nun öffentlich gemacht.
+  * Es sollte nicht mehr notwendig sein, um auf `IndentedStringBuilder` zu verweisen, da es von den Orten, die es verfügbar gemacht haben, berücksichtigt wurde.
+  * Die Verwendung von `NonCapturingLazyInitializer` sollte durch `LazyInitializer` aus der BCL ersetzt werden.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14608>
+  * Diese Änderung wird vollständig im Dokument "Änderungen der Anwendungs Änderungen" behandelt. Für Anbieter kann dies eine Beeinträchtigung der Auswirkung haben, da das Testen von EF Core häufig zu diesem Problem führen kann, sodass sich die Testinfrastruktur so geändert hat, dass dies weniger wahrscheinlich ist.
+* <https://github.com/aspnet/EntityFrameworkCore/issues/13961>
   * `EntityMaterializerSource` wurde vereinfacht
-* https://github.com/aspnet/EntityFrameworkCore/pull/14895
-  * "StartsWith" Übersetzung hat auf eine Weise geändert, die Anbieter möchten/müssen möglicherweise reagieren
-* https://github.com/aspnet/EntityFrameworkCore/pull/15168
-  * Konvention Satz Dienste haben sich geändert. Anbieter sollten jetzt über "ProviderConventionSet" oder "RelationalConventionSet" erben.
-  * Anpassungen können hinzugefügt werden, über `IConventionSetCustomizer` Services, aber dies richtet sich an, die von anderen Erweiterungen, die nicht von Anbietern verwendet werden.
-  * Zur Laufzeit verwendete Konventionen aus aufgelöst werden soll `IConventionSetBuilder`.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/15288](https://github.com/aspnet/EntityFrameworkCore/pull/15288) -Daten seeding wurde in eine öffentliche API zum Vermeiden von internen Typen verwendet werden müssen umgestaltet. Dies sollte nur auf nicht-relationalen Anbieter, auswirken, da das seeding durch die relationale Basisklasse für alle relationalen Anbieter behandelt wird.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14895>
+  * StartWith Translation hat sich auf eine Weise geändert, die Anbieter möglicherweise benötigen/benötigen.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15168>
+  * Die changesetsedienstedienste wurden geändert. Anbieter sollten jetzt entweder von "providerkonventiontionset" oder "relationalkonventiontionset" erben.
+  * Anpassungen können über `IConventionSetCustomizer` Services hinzugefügt werden. Dies ist jedoch für die Verwendung durch andere Erweiterungen, nicht für Anbieter vorgesehen.
+  * Konventionen, die zur Laufzeit verwendet werden, sollten aus `IConventionSetBuilder`aufgelöst werden.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15288>
+  * Das datenseeding wurde in einer öffentlichen API umgestaltet, um zu vermeiden, dass interne Typen verwendet werden müssen. Dies wirkt sich nur auf nicht relationale Anbieter aus, da das Seeding von der relationalen Basisklasse für alle relationalen Anbieter verarbeitet wird.
 
-## <a name="21-----22"></a>2.1 ---> 2.2
+## <a name="21-----22"></a>2,1---> 2,2
 
-### <a name="test-only-changes"></a>Änderungen nur im Test
+### <a name="test-only-changes"></a>Nur-Test-Änderungen
 
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12057](https://github.com/aspnet/EntityFrameworkCore/pull/12057) -Anpassbare SQL Trennzeichen in Tests zulassen
-  * Testen von Änderungen, die außerhalb des strict-floating-Point-Vergleiche in BuiltInDataTypesTestBase zu ermöglichen.
-  * Test-Änderungen, die Abfragetests erneut mit anderen SQL-Trennzeichen verwendet werden können.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12072](https://github.com/aspnet/EntityFrameworkCore/pull/12072) -DbFunction Tests für die relationale Spezifikation Tests hinzufügen
-  * So, dass diese Tests für alle Datenbankanbieter ausgeführt werden können
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12362](https://github.com/aspnet/EntityFrameworkCore/pull/12362) -Async testbereinigung
-  * Entfernen Sie `Wait` Aufrufe nicht benötigte Async und einige Testmethoden umbenannt
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12666](https://github.com/aspnet/EntityFrameworkCore/pull/12666) -Vereinheitlichen der Protokollierung von Test-Infrastruktur
-  * Hinzugefügt `CreateListLoggerFactory` und einige vorherige Infrastruktur für die Protokollierung, die Anbieter mit, dass diese Tests reagieren erforderlich ist, wird entfernt
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12500](https://github.com/aspnet/EntityFrameworkCore/pull/12500) – Führen Sie weitere Abfragetests, synchrone und asynchrone
-  * Testnamen und die faktorisierung geändert hat, müssen die Anbieter mit, dass diese Tests reagieren
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12766](https://github.com/aspnet/EntityFrameworkCore/pull/12766) -Umbenennen von Navigationen in das Modell ComplexNavigations
-  * Anbieter, die mithilfe dieser Tests möglicherweise reagieren
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12141](https://github.com/aspnet/EntityFrameworkCore/pull/12141) -Zurückgeben Sie Kontext an den Pool anstatt in Funktionstests disposing
-  * Diese Änderung umfasst einige Tests refactoring Anbieter, zu reagieren ist möglicherweise erforderlich
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12057>: anpassbare SQL-delimeter in Tests zulassen
+  * Test Änderungen, die nicht strikte Gleit Komma Vergleiche in builtindatatypstestbase zulassen
+  * Test Änderungen, die die Wiederverwendung von Abfrage Tests mit unterschiedlichen SQL-Trennzeichen zulassen
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12072>: Hinzufügen von dbfunction-Tests zu den relationalen Spezifikationstests
+  * So können diese Tests für alle Datenbankanbieter ausgeführt werden.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12362> Async-Test Bereinigung
+  * Entfernen von `Wait` aufrufen, nicht benötigtes Async und Umbenennen einiger Testmethoden
+* Testinfrastruktur für die <https://github.com/aspnet/EntityFrameworkCore/pull/12666> vereinheitlichen Protokollierung
+  * Es wurde `CreateListLoggerFactory` hinzugefügt, und es wurde eine vorherige Protokollierungs Infrastruktur entfernt.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12500> mehrere Abfrage Tests synchron und asynchron auszuführen.
+  * Testnamen und Factoring wurden geändert, sodass Anbieter, die diese Tests verwenden, reagieren müssen.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12766> Umbenennen von Navigationen im complexnavigingmodell
+  * Anbieter, die diese Tests verwenden, müssen möglicherweise reagieren
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12141>: der Kontext wird an den Pool zurückgegeben, anstatt in Funktionstests zu verwerfen.
+  * Diese Änderung umfasst einige Test Umgestaltung, bei der Anbieter möglicherweise reagieren müssen.
 
-### <a name="test-and-product-code-changes"></a>Test und Produkt codeänderungen
+### <a name="test-and-product-code-changes"></a>Test-und Produktcode Änderungen
 
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12109](https://github.com/aspnet/EntityFrameworkCore/pull/12109) -Konsolidieren RelationalTypeMapping.Clone-Methoden
-  * Änderungen in 2.1 die RelationalTypeMapping für eine Vereinfachung in abgeleiteten Klassen zulässig. Wir glauben nicht diese für Anbieter wichtige wurde allerdings Anbieter profitieren von dieser Änderung in ihrer abgeleiteten Typ zuordnen von Klassen.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12069](https://github.com/aspnet/EntityFrameworkCore/pull/12069) -Markierten oder benannte Abfragen
-  * Fügt die Infrastruktur für die Kennzeichnung von LINQ-Abfragen und having-diese Tags als Kommentare in die SQL-Anweisung angezeigt werden. Dies erfordert möglicherweise die Anbieter, in der SQL-Generierung zu reagieren.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13115](https://github.com/aspnet/EntityFrameworkCore/pull/13115) – Unterstützung von räumlichen Daten über NTS
-  * Ermöglicht die Typmappings und Member Übersetzer außerhalb der Anbieter registriert werden
-    * Anbieter müssen Basisklasse aufrufen. FindMapping() in ihrer Implementierung ITypeMappingSource, damit es funktioniert
-  * Führen Sie dieses Muster zum Hinzufügen von Unterstützung von räumlichen Daten an Ihren Anbieter, die über Anbieter hinweg konsistent ist.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13199](https://github.com/aspnet/EntityFrameworkCore/pull/13199) – Fügen Sie erweiterte Debuggen für die diensterstellung-Anbieter hinzu
-  * Ermöglicht das DbContextOptionsExtensions, um eine neue Schnittstelle zu implementieren, mit deren Hilfe können Benutzer zu verstehen, warum der internen Dienstanbieter neu erstellt wird
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13289](https://github.com/aspnet/EntityFrameworkCore/pull/13289) -Fügt CanConnect-API für die Verwendung von integritätsprüfungen
-  * Dieser Pull Request hinzugefügt, das Konzept der `CanConnect` das von ASP.NET Core-Health verwendet wird überprüft, um festzustellen, ob die Datenbank verfügbar ist. Standardmäßig ruft die relationalen Implementierung nur `Exist`, aber der Anbieter etwas anderes implementieren können, falls erforderlich. Nicht relationale Anbieter müssen zum Implementieren der neuen API in der Reihenfolge für die integritätsprüfung verwendet werden kann.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -Basis RelationalTypeMapping DbParameter-Größe nicht entsprechend zu aktualisieren
-  * Beenden Sie die Größe wird standardmäßig festgelegt, da dies Abschneiden führen kann. Anbieter müssen möglicherweise ihre eigene Logik hinzufügen, wenn die Größe muss festgelegt werden.
-* (https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng: Geben Sie immer Spaltentyp für die decimal-Spalten
-  * Konfigurieren Sie immer Spaltentyp für dezimalspalten in eingerüsteten Code und nicht gemäß der Konvention konfigurieren.
-  * Anbieter sollten keine Änderungen auf ihrer Seite erforderlich.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -Fügt CaseExpression zum Generieren von SQL-CASE-Ausdrücke
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13648](https://github.com/aspnet/EntityFrameworkCore/pull/13648) -Fügt die Möglichkeit, geben Sie die replikationsdatentyp-Zuordnungen auf SqlFunctionExpression Store Typrückschluss von Argumenten und Ergebnisse zu verbessern.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12109>-Konsolidieren von relationaltypemapping. Clone-Methoden
+  * Änderungen in 2,1 in relationaltypemapping, die für eine Vereinfachung in abgeleiteten Klassen zulässig sind. Wir glauben nicht, dass dies zu Anbietern gehörte, aber Anbieter können diese Änderung in den abgeleiteten Typmapping-Klassen nutzen.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12069> markierte oder benannte Abfragen
+  * Fügt eine Infrastruktur zum Markieren von LINQ-Abfragen hinzu, und diese Tags werden als Kommentare in SQL angezeigt. Dies erfordert möglicherweise, dass Anbieter bei der SQL-Generierung reagieren.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13115>-Unterstützung räumlicher Daten per NTS
+  * Ermöglicht das Registrieren von Typzuordnungen und Mitglieds Übersetzer außerhalb des Anbieters.
+    * Anbieter müssen die Basisklasse aufzurufen. Findmapping () in ihrer itypmappingsource-Implementierung, damit es funktioniert
+  * Verwenden Sie dieses Muster, um dem Anbieter räumliche Unterstützung hinzuzufügen, der über mehrere Anbieter hinweg konsistent ist.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13199>: erweitertes Debuggen für die Erstellung von Dienstanbietern hinzufügen
+  * Ermöglicht dbcontextoptionsextensions, eine neue Schnittstelle zu implementieren, mit der Benutzer verstehen können, warum der interne Dienstanbieter neu erstellt wird.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13289>: fügt die canConnect-API zur Verwendung durch Integritätsprüfungen hinzu.
+  * Mit diesem PR wird das Konzept der `CanConnect` hinzugefügt, die von ASP.net Core Integritätsprüfungen verwendet werden, um zu bestimmen, ob die Datenbank verfügbar ist. Standardmäßig ruft die relationale Implementierung nur `Exist`auf, aber Anbieter können bei Bedarf etwas anderes implementieren. Nicht relationale Anbieter müssen die neue API implementieren, damit die Integritätsprüfung verwendet werden kann.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13306>-Basis relationaltypemapping, sodass die DbParameter-Größe nicht festgelegt wird
+  * Legen Sie die Einstellungs Größe standardmäßig fest, da es zu einem Abschneiden führen kann. Anbieter müssen möglicherweise Ihre eigene Logik hinzufügen, wenn die Größe festgelegt werden muss.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13372>-reveng: Geben Sie immer den Spaltentyp für Dezimal Spalten an.
+  * Konfigurieren Sie immer den Spaltentyp für Dezimal Spalten in einem Gerüst Code, anstatt Sie nach Konvention zu konfigurieren.
+  * Anbieter sollten keine Änderungen am Ende benötigen.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13469>: fügt caseexpression zum Erstellen von SQL-Case-Ausdrücken hinzu.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13648>: fügt die Möglichkeit hinzu, Typzuordnungen für "sqlfunctionexpression" anzugeben, um den abprückschluss eines Speicher Typs für Argumente und Ergebnisse zu verbessern

@@ -3,12 +3,13 @@ title: Frühere Releases von Entity Framework-EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 478dec6b2401efd554e84a231fe78e71dcbf5771
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+uid: ef6/what-is-new/past-releases
+ms.openlocfilehash: fada7740453cd9a55a1d0069236efcecbd9aa314
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182118"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656142"
 ---
 # <a name="past-releases-of-entity-framework"></a>Frühere Releases von Entity Framework
 
@@ -58,7 +59,7 @@ Die EF 6.1.3 Runtime wurde im Oktober von 2015 für nuget freigegeben.
 Diese Version enthält nur Korrekturen für Fehler mit hoher Priorität und Regressionen, die in der 6.1.2-Version gemeldet werden.
 Die Korrekturen umfassen Folgendes:
 
-- Abfrage: Regression in EF 6.1.2: OUTER APPLY führte und komplexere Abfragen für 1:1-Beziehungen und eine Let-Klausel ein.
+- Query: Regression in EF 6.1.2: OUTER APPLY führte und komplexere Abfragen für 1:1-Beziehungen und "Let"-Klausel ein.
 - TPT-Problem beim Ausblenden der Basisklassen Eigenschaft in der geerbten Klasse
 - Dbmigration. SQL schlägt fehl, wenn das Wort "Go" im Text enthalten ist.
 - Create Compatibility-Flag für die Unterstützung von UnionAll und INTERSECT-Unterstützung
@@ -79,7 +80,7 @@ Bei dieser Version geht es hauptsächlich um Fehlerbehebungen. Wir haben auch ei
 ## <a name="ef-611"></a>EF 6.1.1
 Die EF 6.1.1 Runtime wurde im Juni von 2014 für nuget freigegeben.
 Diese Version enthält Fehlerbehebungen für Probleme, die eine Reihe von Personen gefunden hat. Unter anderem:
-- Designer Fehler beim Öffnen von EF5 edmx mit dezimaler Genauigkeit im EF6-Designer.
+- Designer: Fehler beim Öffnen von EF5 edmx mit dezimaler Genauigkeit im EF6-Designer
 - Die Standard Instanz-Erkennungs Logik für localdb funktioniert nicht mit SQL Server 2014
 
 ## <a name="ef-610"></a>EF 6.1.0
@@ -138,11 +139,11 @@ Die folgenden Funktionen gelten nur für Code First:
 - **[Idempotente Migrations Skripts](~/ef6/modeling/code-first/migrations/index.md)** ermöglichen es Ihnen, ein SQL-Skript zu generieren, das eine Datenbank auf eine beliebige Version bis zur neuesten Version aktualisieren kann.
 - Mithilfe der **[konfigurierbaren Migrations](~/ef6/modeling/code-first/migrations/history-customization.md)** Verlaufs Tabelle können Sie die Definition der Migrations Verlaufs Tabelle anpassen. Dies ist besonders nützlich für Datenbankanbieter, die die entsprechenden Datentypen benötigen usw., um anzugeben, dass die Migrations Verlaufs Tabelle ordnungsgemäß funktioniert.
 - **Mehrere Kontexte pro Datenbank** entfernen bei der Verwendung von Migrationen oder bei der automatischen Erstellung der Datenbank durch Code First die vorherige Einschränkung von einem Code First Modell pro Datenbank.
-- **[Dbmodelbuilder. hasdefaultschema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** ist eine neue Code First-API, mit der das standardmäßige Datenbankschema für ein Code First Modell an einem Ort konfiguriert werden kann. Zuvor war das Code First Standardschema hart codiert für &quot;dbo @ no__t-1, und die einzige Möglichkeit zum Konfigurieren des Schemas, zu dem eine Tabelle gehörte, war die API-basierte API.
+- **[Dbmodelbuilder. hasdefaultschema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** ist eine neue Code First-API, mit der das standardmäßige Datenbankschema für ein Code First Modell an einem Ort konfiguriert werden kann. Zuvor war das Code First-Standardschema hart codiert, um dbo&quot; zu &quot;. die einzige Möglichkeit, das Schema zu konfigurieren, zu dem eine Tabelle gehörte, war die-API-API.
 - Mit der **dbmodelbuilder. Konfigurationen. addfromassembly-Methode** können Sie problemlos alle Konfigurations Klassen hinzufügen, die in einer Assembly definiert sind, wenn Sie Konfigurations Klassen mit der Code First fließend-API verwenden.
 - Mithilfe von **[benutzerdefinierten Migrations Vorgängen](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** können Sie zusätzliche Vorgänge hinzufügen, die in Ihren Code basierten Migrationen verwendet werden.
 - **Die standardmäßige Transaktions Isolationsstufe wird** für Datenbanken, die mit Code First erstellt wurden, in READ_COMMITTED_SNAPSHOT geändert, was eine höhere Skalierbarkeit und weniger Deadlocks ermöglicht.
-- **Entitäts Typen und komplexe Typen können jetzt geschaltenende Klassen sein**. |
+- **Entitäts Typen und komplexe Typen können jetzt geschaltenende Klassen sein**.
 
 ## <a name="ef-50"></a>EF 5,0
 Die EF 5.0.0 Runtime wurde im August von 2012 für nuget veröffentlicht.
@@ -150,7 +151,7 @@ In dieser Version werden einige neue Features eingeführt, u.a. enumerationsunte
 
 Der Entity Framework Designer in Visual Studio 2012 bietet auch Unterstützung für mehrere Diagramme pro Modell, die Farbgebung von Formen auf der Entwurfs Oberfläche und den Batch Import gespeicherter Prozeduren.
 
-Im folgenden finden Sie eine Liste von Inhalten, die wir speziell für die EF 5-Version eingefügt haben.
+Im folgenden finden Sie eine Liste von Inhalten, die wir speziell für die EF 5-Version eingefügt haben:
 
 -   [EF 5-releasebeitrag](https://blogs.msdn.com/b/adonet/archive/2012/08/15/ef5-released.aspx)
 -   Neue Features in EF5
@@ -217,7 +218,7 @@ Im folgenden finden Sie eine Liste von Inhalten, die wir speziell für die EF 5-
 Die EF 4.3.1 Runtime wurde im Februar 2012 kurz nach EF 4.3.0 für nuget veröffentlicht.
 Diese Patchversion enthielt einige Fehlerbehebungen für die EF 4,3-Version und führte zu einer besseren localdb-Unterstützung für Kunden, die EF 4,3 mit Visual Studio 2012 verwenden.
 
-Im folgenden finden Sie eine Liste von Inhalten, die wir speziell für die EF 4.3.1-Version eingefügt haben. die meisten Inhalte, die für EF 4,1 bereitgestellt werden, gelten weiterhin auch für EF 4,3.
+Im folgenden finden Sie eine Liste von Inhalten, die wir speziell für die EF 4.3.1-Version eingefügt haben. die meisten Inhalte, die für EF 4,1 bereitgestellt werden, gelten weiterhin auch für EF 4,3:
 
 -   [EF 4.3.1 Release-Blog Beitrag](https://blogs.msdn.com/b/adonet/archive/2012/02/29/ef4-3-1-and-ef5-beta-1-available-on-nuget.aspx)
 
@@ -235,7 +236,7 @@ Die EF 4.2.0-Runtime wurde im November von 2011 für nuget freigegeben.
 Diese Version enthält Fehlerbehebungen für die EF 4.1.1-Version.
 Da diese Version nur Fehlerbehebungen enthielt, war Sie möglicherweise die Version EF 4.1.2 Patch, aber wir haben uns entschieden, zu 4,2 zu wechseln, um uns von den in den Versionen 4.1. x verwendeten datumsbasierten patchversionsnummern zu übernehmen und den [semantischen Versionsstandard](https://semver.org) für s zu übernehmen. emantic Versionierung.
 
-Im folgenden finden Sie eine Liste von Inhalten, die wir speziell für die EF 4,2-Version bereitgestellt haben. die Inhalte für EF 4,1 gelten weiterhin auch für EF 4,2.
+Im folgenden finden Sie eine Liste von Inhalten, die wir speziell für die EF 4,2-Version bereitgestellt haben. die Inhalte für EF 4,1 gelten weiterhin auch für EF 4,2:
 
 -   [EF 4,2-releasebeitrag](https://blogs.msdn.com/b/adonet/archive/2011/11/01/ef-4-2-released.aspx)
 -   [Exemplarische Vorgehensweise Code First](https://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-code-first-walkthrough.aspx)

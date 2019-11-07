@@ -1,81 +1,82 @@
 ---
-title: Entity Framework-Glossar – EF6
+title: Entity Framework Glossar-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 4e42e5870879524b814cecdc361e688d36f0180f
-ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
+uid: ef6/resources/glossary
+ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58131389"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656155"
 ---
-# <a name="entity-framework-glossary"></a>Entity Framework – Glossar
+# <a name="entity-framework-glossary"></a>Entity Framework Glossar
 ## <a name="code-first"></a>Code First
-Erstellen eines Entity Framework-Datenmodells mithilfe von Code. Das Modell kann einer vorhandenen Datenbank oder eine neue Datenbank als Ziel.
+Erstellen eines Entity Framework Modells mithilfe von Code. Das Modell kann eine vorhandene Datenbank oder eine neue Datenbank als Ziel haben.
 
 ## <a name="context"></a>Kontext
-Eine Klasse darstellt, die eine Sitzung mit der Datenbank, sodass Sie Abfragen und Speichern von Daten. Ein Kontext wird von der "DbContext" bzw. ObjectContext-Klasse abgeleitet.
+Eine-Klasse, die eine Sitzung mit der Datenbank darstellt, sodass Sie Daten Abfragen und speichern können. Ein Kontext wird von der dbcontext-Klasse oder der ObjectContext-Klasse abgeleitet.
 
 ## <a name="convention-code-first"></a>Konvention (Code First)
-Eine Regel, die Entity Framework verwendet wird, um die Form des Modells aus Ihren Klassen abzuleiten.
+Eine Regel, die von Entity Framework verwendet wird, um die Form des Modells aus den Klassen abzuleiten.
 
-## <a name="database-first"></a>Zunächst-Datenbank
-Erstellen ein Entity Framework-Datenmodell, das mit dem EF-Designer, die eine vorhandene Datenbank ausgerichtet ist.
+## <a name="database-first"></a>Database First
+Erstellen eines Entity Framework Modells mit dem EF-Designer, der auf eine vorhandene Datenbank abzielt.
 
 ## <a name="eager-loading"></a>Eager Loading
-Ein Muster laden zugehöriger Daten, in dem eine Abfrage für einen Entitätstyp auch verknüpfte Entitäten als Teil der Abfrage wird geladen.
+Ein Muster zum Laden verwandter Daten, bei denen eine Abfrage für einen Entitätstyp auch Verwandte Entitäten als Teil der Abfrage lädt.
 
 ## <a name="ef-designer"></a>EF-Designer
-Ein visueller Designer in Visual Studio, die Sie erstellen ein Entity Framework-Datenmodell, das mithilfe der Felder und Linien können.
+Ein visueller Designer in Visual Studio, der es Ihnen ermöglicht, mithilfe von Feldern und Linien ein Entity Framework Modell zu erstellen.
 
 ## <a name="entity"></a>Entität
 Eine Klasse oder ein Objekt, die oder das Anwendungsdaten darstellt, z. B. Kunden, Bestellungen und Produkte.
 
 ## <a name="entity-data-model"></a>Entity Data Model
-Ein Modell, das Entitäten und die Beziehungen zwischen ihnen beschrieben werden. EF verwendet EDM, um das konzeptionelle Modell für das Beschreiben der Developer-Programmen. EDM baut auf dem Entitätsbeziehungsmodell von Dr. eingeführt. Peter Chen. Das EDM wurde ursprünglich mit der primäre Zweck von zu common Data Model für eine Suite von Entwickler- und servertechnologien von Microsoft entwickelt. EDM wird auch als Teil des OData-Protokolls verwendet.
+Ein Modell, das Entitäten und die Beziehungen zwischen Ihnen beschreibt. EF verwendet EDM, um das konzeptionelle Modell zu beschreiben, mit dem Entwickler programmiert werden. EDM basiert auf dem von Dr. Peter Chen eingeführten Entitäts Beziehungsmodell. Das EDM wurde ursprünglich mit dem Hauptziel entwickelt, das Common Data Model in einer Suite von Entwickler-und Server Technologien von Microsoft zu werden. EDM wird auch als Teil des odata-Protokolls verwendet.
 
 ## <a name="explicit-loading"></a>Explizites Laden
-Ein Muster laden zugehöriger Daten, in dem verbundene Objekte geladen werden, indem Sie eine API aufruft.
+Ein Muster zum Laden von verknüpften Daten, bei denen verbundene Objekte durch Aufrufen einer API geladen werden.
 
 ## <a name="fluent-api"></a>Fluent-API
-Eine API, die zum Konfigurieren eines Code First-Modells verwendet werden kann.
+Eine API, die verwendet werden kann, um ein Code First Modell zu konfigurieren.
 
-## <a name="foreign-key-association"></a>Fremdschlüsselzuordnung
-Eine Zuordnung zwischen Entitäten, in denen eine Eigenschaft, die den Fremdschlüssel darstellt, in der Klasse der abhängigen Entität enthalten ist. Produkt enthält z. B. eine CategoryId-Eigenschaft.
+## <a name="foreign-key-association"></a>Fremdschlüssel Zuordnung
+Eine Zuordnung zwischen Entitäten, bei der eine Eigenschaft, die den Fremdschlüssel darstellt, in der Klasse der abhängigen Entität enthalten ist. Das Produkt enthält z. b. eine CategoryID-Eigenschaft.
 
-## <a name="identifying-relationship"></a>Identifizierende Beziehung
+## <a name="identifying-relationship"></a>Identifikation der Beziehung
 Eine Beziehung, in der der Primärschlüssel der Prinzipalentität Teil des Primärschlüssels der abhängigen Entität ist. Bei diesem Beziehungstyp kann die abhängige Entität nicht ohne die Prinzipalentität vorhanden sein.
 
 ## <a name="independent-association"></a>Unabhängige Zuordnung
-Eine Zuordnung zwischen Entitäten, es keine Eigenschaft gibt, die den Fremdschlüssel in der Klasse der abhängigen Entität darstellt. Beispielsweise enthält eine Product-Klasse eine Beziehung zur aber keine CategoryId-Eigenschaft. Entitätsframework verfolgt den Status der Zuordnung unabhängig von den Zustand der Entitäten an die beiden Zuordnungsenden.
+Eine Zuordnung zwischen Entitäten, bei der keine Eigenschaft vorhanden ist, die den Fremdschlüssel in der Klasse der abhängigen Entität darstellt. Beispielsweise enthält eine Produktklasse eine Beziehung zur Kategorie, aber keine CategoryID-Eigenschaft. Entity Framework verfolgt den Zustand der Zuordnung unabhängig vom Zustand der Entitäten an den beiden Zuordnungs enden.
 
 ## <a name="lazy-loading"></a>Lazy Loading
-Ein Muster zum Laden von verknüpften Daten, in denen verknüpfte Objekte automatisch geladen werden, wenn eine Navigationseigenschaft zugegriffen wird.
+Ein Muster zum Laden verwandter Daten, bei dem verknüpfte Objekte automatisch geladen werden, wenn auf eine Navigations Eigenschaft zugegriffen wird.
 
 ## <a name="model-first"></a>Model First
-Erstellen ein Entity Framework-Datenmodell, das mit dem EF-Designer wird, klicken Sie dann zum Erstellen einer neuen Datenbank.
+Erstellen eines Entity Framework Modells mit dem EF-Designer, das dann verwendet wird, um eine neue Datenbank zu erstellen.
 
 ## <a name="navigation-property"></a>Navigationseigenschaft
-Eine Eigenschaft einer Entität, die auf eine andere Entität verweist. Z. B. Produkt enthält eine Navigationseigenschaft für die Kategorie und Kategorie enthält eine Navigationseigenschaft für Produkte.
+Eine Eigenschaft einer Entität, die auf eine andere Entität verweist. Das Produkt enthält z. b. eine Kategorie-Navigations Eigenschaft, und die Kategorie enthält eine Eigenschaft für die PRODUKTNAVIGATION.
 
 ## <a name="poco"></a>POCO
-Abkürzung für einfache alte CLR-Objekt. Eine einfache Klasse, die keine Abhängigkeiten mit jeden Framework enthält. Im Kontext von Entity Framework, einer Entitätsklasse, die nicht von "EntityObject" abgeleitet ist, alle Schnittstellen implementiert oder enthält alle Attribute in EF definiert. Solche Entitätsklassen, die von der persistenzframework entkoppelt sind werden auch als "Persistenzignoranz".  
+Das Akronym für das Plain Old CLR-Objekt. Eine einfache Benutzerklasse, die über keine Abhängigkeiten mit einem Framework verfügt. Im Kontext von EF ist eine Entitäts Klasse, die nicht von EntityObject abgeleitet wird, beliebige Schnittstellen implementiert oder alle in EF definierten Attribute enthält. Solche Entitäts Klassen, die vom Persistenzframework entkoppelt werden, werden auch als "Persistenz ignorierend" bezeichnet.  
 
-## <a name="relationship-inverse"></a>Beziehung inverse
-Die entgegengesetzten Ende einer Beziehung, z. B. Produkt. Kategorie "und" Kategorie ". Das Produkt.
+## <a name="relationship-inverse"></a>Beziehung umgekehrt
+Das gegenüberliegende Ende einer Beziehung, z. b. Product. Kategorie und Kategorie. Product.
 
-## <a name="self-tracking-entity"></a>Entität mit selbstnachverfolgung
-Eine Entität aus einer Vorlage für die codegenerierung, die mit N-Tier-Entwicklung unterstützen erstellt.
+## <a name="self-tracking-entity"></a>Entität mit selbst Nachverfolgung
+Eine Entität, die aus einer Code Generierungs Vorlage erstellt wurde und bei der N-Tier-Entwicklung hilft.
 
 ## <a name="table-per-concrete-type-tpc"></a>Tabelle pro konkretem Typ (TPC)
-Eine Methode der Zuordnung der Vererbung, wobei jeder nicht abstrakten Typ in der Hierarchie zugeordnet ist, auf die um Tabelle in der Datenbank zu trennen.
+Eine Methode zum Zuordnen der Vererbung, bei der jeder nicht abstrakte Typ in der Hierarchie einer separaten Tabelle in der Datenbank zugeordnet wird.
 
 ## <a name="table-per-hierarchy-tph"></a>Tabelle pro Hierarchie (TPH)
-Eine Methode der Zuordnung der Vererbung, in dem alle Typen in der Hierarchie auf dieselbe Tabelle in der Datenbank zugeordnet sind. Diskriminator Spalte(n) wird verwendet, um zu identifizieren, welche Art von jeder Zeile zugeordnet ist.
+Eine Methode zum Zuordnen der Vererbung, in der alle Typen in der Hierarchie derselben Tabelle in der Datenbank zugeordnet werden. Eine diskriminatorspalte wird verwendet, um den Typ zu identifizieren, dem jede Zeile zugeordnet ist.
 
 ## <a name="table-per-type-tpt"></a>Tabelle pro Typ (TPT)
-Eine Methode der Zuordnung der Vererbung, in dem die allgemeinen Eigenschaften aller Typen in der Hierarchie auf dieselbe Tabelle in der Datenbank zugeordnet sind, aber die eindeutige Eigenschaften für jeden Typ in eine separate Tabelle zugeordnet sind.
+Eine Methode zum Zuordnen der Vererbung, bei der die allgemeinen Eigenschaften aller Typen in der Hierarchie derselben Tabelle in der Datenbank zugeordnet werden, aber Eigenschaften, die für jeden Typ eindeutig sind, werden einer separaten Tabelle zugeordnet.
 
-## <a name="type-discovery"></a>Typermittlung
-Der Prozess zum Identifizieren der Typen, die ein Entity Framework-Modell enthalten sein soll.
+## <a name="type-discovery"></a>Typanmittlung
+Der Prozess, bei dem die Typen identifiziert werden, die Teil eines Entity Framework Modells sein sollen.

@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 335d4f3a601624f7c994b7dcacefe4ef6798beb3
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181391"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655613"
 ---
 # <a name="spatial-data"></a>Räumliche Daten
 
@@ -32,7 +32,7 @@ Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. entityframeworkcore. PostgreS
 
 ## <a name="reverse-engineering"></a>Reverse Engineering
 
-Die räumlichen nuget-Pakete ermöglichen auch das [Reverse Engineering](../managing-schemas/scaffolding.md) von Modellen mit räumlichen Eigenschaften. Sie müssen jedoch das Paket installieren, ***bevor*** Sie `Scaffold-DbContext` oder `dotnet ef dbcontext scaffold` ausführen. Wenn Sie dies nicht tun, erhalten Sie Warnungen, wenn Sie keine Typzuordnungen für die Spalten finden und die Spalten übersprungen werden.
+Die räumlichen nuget-Pakete ermöglichen auch das [Reverse Engineering](../managing-schemas/scaffolding.md) von Modellen mit räumlichen Eigenschaften. Sie müssen das Paket jedoch ***vor*** dem Ausführen `Scaffold-DbContext` oder `dotnet ef dbcontext scaffold`installieren. Wenn Sie dies nicht tun, erhalten Sie Warnungen, wenn Sie keine Typzuordnungen für die Spalten finden und die Spalten übersprungen werden.
 
 ## <a name="nettopologysuite-nts"></a>Nettopologysuite (NTS)
 
@@ -101,7 +101,7 @@ var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
 
 ### <a name="longitude-and-latitude"></a>Längen-und Breitengrad
 
-Die Koordinaten in den NTS sind X-und Y-Werte. Um Längen-und Breitengrad darzustellen, verwenden Sie X für Längengrad und Y für Breitengrad. Beachten Sie, dass **sich diese** Werte im `latitude, longitude`-Format befinden, in dem Sie normalerweise diese Werte sehen.
+Die Koordinaten in den NTS sind X-und Y-Werte. Um Längen-und Breitengrad darzustellen, verwenden Sie X für Längengrad und Y für Breitengrad. Beachten Sie, dass **sich diese** Werte nicht im `latitude, longitude` Format befinden, in dem normalerweise diese Werte angezeigt werden.
 
 ### <a name="srid-ignored-during-client-operations"></a>SRID wird bei Client Vorgängen ignoriert.
 
@@ -213,7 +213,7 @@ Wenn Sie SQL Server verwenden, müssen Sie einige zusätzliche Punkte beachten.
 
 ### <a name="geography-or-geometry"></a>Geography oder Geometry
 
-Standardmäßig werden räumliche Eigenschaften `geography`-Spalten in SQL Server zugeordnet. Um `geometry` zu verwenden, [Konfigurieren Sie den Spaltentyp](xref:core/modeling/relational/data-types) in Ihrem Modell.
+Standardmäßig werden räumliche Eigenschaften `geography` Spalten in SQL Server zugeordnet. Um `geometry`zu verwenden, [Konfigurieren Sie den Spaltentyp](xref:core/modeling/relational/data-types) in Ihrem Modell.
 
 ### <a name="geography-polygon-rings"></a>Polygon-Polygon Ringe
 
@@ -221,7 +221,7 @@ Wenn Sie den Spaltentyp `geography` verwenden, setzt SQL Server zusätzliche Anf
 
 ### <a name="fullglobe"></a>FullGlobe
 
-SQL Server weist einen nicht standardmäßigen Geometry-Typ auf, der den vollständigen Globus darstellt, wenn der `geography`-Spaltentyp verwendet wird. Außerdem bietet es eine Möglichkeit, Polygone auf der ganzen Welt (ohne äußeren Ring) darzustellen. Keines dieser beiden wird von NTS unterstützt.
+SQL Server weist einen nicht standardmäßigen Geometry-Typ auf, der den vollständigen Globus darstellt, wenn der `geography` Spaltentyp verwendet wird. Außerdem bietet es eine Möglichkeit, Polygone auf der ganzen Welt (ohne äußeren Ring) darzustellen. Keines dieser beiden wird von NTS unterstützt.
 
 > [!WARNING]
 > Fullglobe und Polygone, die darauf basieren, werden von NTS nicht unterstützt.
@@ -271,7 +271,7 @@ Geometry. AsBinary () | ✔ | ✔ | ✔ | ✔
 Geometry. AsText () | ✔ | ✔ | ✔ | ✔
 Geometry. Boundary | ✔ | | ✔ | ✔
 Geometry. Buffer (Double) | ✔ | ✔ | ✔ | ✔
-Geometry. Buffer (Double, int) | | | ✔
+Geometry. Buffer (Double, int) | | | ✔ | ✔
 Geometry. Centroid | ✔ | | ✔ | ✔
 Geometry. enthält (Geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. config-Hülle () | ✔ | ✔ | ✔ | ✔
@@ -287,17 +287,17 @@ Geometry. EqualsExact (Geometrie) | | | | ✔
 Geometry. equalstopologisch (Geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. geometrytype | ✔ | ✔ | ✔ | ✔
 Geometry. getgeometryn (int) | ✔ | | ✔ | ✔
-Geometry. interiorpoint | ✔ | | ✔
+Geometry. interiorpoint | ✔ | | ✔ | ✔
 Geometry. Schnittmenge (Geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. intersekten (Geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. IsEmpty | ✔ | ✔ | ✔ | ✔
 Geometry. IsSimple | ✔ | | ✔ | ✔
 Geometry. IsValid | ✔ | ✔ | ✔ | ✔
-Geometry. iswithindistance (Geometry, Double) | ✔ | | ✔
+Geometry. iswithindistance (Geometry, Double) | ✔ | | ✔ | ✔
 Geometry. length | ✔ | ✔ | ✔ | ✔
 Geometry. numgeometries | ✔ | ✔ | ✔ | ✔
 Geometry. NumPoints | ✔ | ✔ | ✔ | ✔
-Geometry. ogcgeometrytype | ✔ | ✔ | ✔
+Geometry. ogcgeometrytype | ✔ | ✔ | ✔ | ✔
 Geometry. Überlappung (Geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. pointonsurface | ✔ | | ✔ | ✔
 Geometry. in Beziehung (Geometrie, Zeichenfolge) | ✔ | | ✔ | ✔
@@ -307,7 +307,7 @@ Geometry. symmetricdifference (Geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. $ Binary () | ✔ | ✔ | ✔ | ✔
 Geometry.-Text () | ✔ | ✔ | ✔ | ✔
 Geometry. touches (Geometrie) | ✔ | | ✔ | ✔
-Geometry. Union () | | | ✔
+Geometry. Union () | | | ✔ | ✔
 Geometry. Union (Geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. within (Geometry) | ✔ | ✔ | ✔ | ✔
 GeometryCollection. Count | ✔ | ✔ | ✔ | ✔

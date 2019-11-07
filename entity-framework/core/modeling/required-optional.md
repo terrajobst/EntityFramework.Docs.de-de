@@ -4,27 +4,27 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ddaa0a54-9f43-4c34-aae3-f95c96c69842
 uid: core/modeling/required-optional
-ms.openlocfilehash: fd9e96e6f79965e63b07c21217edd004fd5c4d54
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 62b2b3f5a761c0aacece986ecd0b2dd2f958d048
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197849"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655661"
 ---
 # <a name="required-and-optional-properties"></a>Erforderliche und optionale Eigenschaften
 
-Eine Eigenschaft wird als optional eingestuft, `null`Wenn Sie gültig ist. Wenn `null` kein gültiger Wert ist, der einer Eigenschaft zugewiesen werden soll, wird er als erforderliche Eigenschaft betrachtet.
+Eine Eigenschaft wird als optional eingestuft, wenn Sie `null`enthalten soll. Wenn `null` kein gültiger Wert ist, der einer Eigenschaft zugewiesen werden soll, wird er als erforderliche Eigenschaft betrachtet.
 
 Bei der Zuordnung zu einem relationalen Datenbankschema werden erforderliche Eigenschaften als Spalten erstellt, die keine NULL-Werte zulassen, und optionale Eigenschaften werden als Spalten erstellt, die NULL-Werte zulassen.
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention wird eine Eigenschaft, deren .NET-Typ NULL enthalten kann, als optional konfiguriert, wohingegen Eigenschaften, deren .NET-Typ keinen NULL-Wert enthalten darf, als erforderlich konfiguriert werden. Beispielsweise werden alle Eigenschaften mit .net-Werttypen `decimal`( `bool``int`,, usw.) als erforderlich konfiguriert, und alle Eigenschaften mit .net-Werttypen,`int?`die NULL `bool?`-Werte zulassen (, `decimal?`, usw.) sind als optional konfiguriert.
+Gemäß der Konvention wird eine Eigenschaft, deren .NET-Typ NULL enthalten kann, als optional konfiguriert, wohingegen Eigenschaften, deren .NET-Typ keinen NULL-Wert enthalten darf, als erforderlich konfiguriert werden. Beispielsweise werden alle Eigenschaften mit .net-Werttypen (`int`, `decimal`, `bool`usw.) als erforderlich konfiguriert, und alle Eigenschaften mit .net-Werttypen, die NULL-Werte zulassen (`int?`, `decimal?`, `bool?`usw.), werden als optional konfiguriert.
 
 C#in 8 wurde ein neues Feature namens " [Werte zulässt Reference Types](/dotnet/csharp/tutorials/nullable-reference-types)" eingeführt, mit dem Verweis Typen mit Anmerkungen versehen werden können. Dies gibt an, ob es zulässig ist, dass NULL-Werte enthalten sind. Diese Funktion ist standardmäßig deaktiviert. Wenn Sie aktiviert ist, ändert Sie das Verhalten der EF Core auf folgende Weise:
 
-* Wenn NULL-Werte zulässig sind (Standardeinstellung), werden alle Eigenschaften mit .net-Verweis Typen gemäß Konvention (z. b. `string`) als optional konfiguriert.
-* Wenn Verweis Typen, die NULL-Werte zulassen, aktiviert sind, werden die C# Eigenschaften basierend auf der NULL-Zulässigkeit `string?` Ihres .net-Typs konfiguriert: wird `string` als optional konfiguriert, während als erforderlich konfiguriert wird.
+* Wenn NULL-Werte zulassen (Standardeinstellung), werden alle Eigenschaften mit .net-Verweis Typen gemäß der Konvention (z. b. `string`) als optional konfiguriert.
+* Wenn Verweis Typen, die NULL-Werte zulassen, aktiviert sind, werden die C# Eigenschaften basierend auf der NULL-Zulässigkeit ihres .net-Typs konfiguriert: `string?` als optional konfiguriert werden, während `string` als erforderlich konfiguriert wird.
 
 Das folgende Beispiel zeigt einen Entitätstyp mit erforderlichen und optionalen Eigenschaften, wobei die Verweis Funktion NULL-Werte ist deaktiviert (Standard) und aktiviert ist:
 
@@ -53,7 +53,7 @@ Eine Eigenschaft, die gemäß der Konvention optional ist, kann so konfiguriert 
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Required.cs?highlight=14)]
 
-# <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api) 
+# <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Required.cs?highlight=11-13)]
 

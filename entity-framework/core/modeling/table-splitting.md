@@ -5,14 +5,14 @@ ms.author: ansvyryd
 ms.date: 04/10/2019
 ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 684fcfbb66debfd1b89e23c8aaf0a32909378c6b
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: a3a2e5842a6c6b4b490084d205a0d44bb46c17ee
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149192"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656042"
 ---
-# <a name="table-splitting"></a>Tabellen Aufteilung
+# <a name="table-splitting"></a>Tabellenaufteilung
 
 >[!NOTE]
 > Diese Funktion ist neu in EF Core 2,0.
@@ -25,13 +25,13 @@ Zur Verwendung der Tabellen Aufteilung müssen die Entitäts Typen derselben Tab
 
 Ein häufiges Szenario für die Tabellen Aufteilung ist die Verwendung einer Teilmenge der Spalten in der Tabelle, um eine höhere Leistung oder Kapselung zu erzielen.
 
-In diesem Beispiel `Order` stellt eine Teilmenge von `DetailedOrder`dar.
+In diesem Beispiel `Order` eine Teilmenge `DetailedOrder`darstellt.
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-Zusätzlich zur erforderlichen Konfiguration wird aufgerufen `Property(o => o.Status).HasColumnName("Status")` `DetailedOrder.Status` , um derselben Spalte wie `Order.Status`zuzuordnen.
+Zusätzlich zur erforderlichen Konfiguration werden `Property(o => o.Status).HasColumnName("Status")` aufgerufen, um `DetailedOrder.Status` derselben Spalte wie `Order.Status`zuzuordnen.
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
 
@@ -40,7 +40,7 @@ Zusätzlich zur erforderlichen Konfiguration wird aufgerufen `Property(o => o.St
 
 ## <a name="usage"></a>Verwendung
 
-Das Speichern und Abfragen von Entitäten mithilfe von Tabellen Aufteilung erfolgt auf die gleiche Weise wie andere Entitäten. Und beginnend mit EF Core 3,0 kann der abhängige Entitäts Verweis `null`sein. Wenn alle von der abhängigen Entität verwendeten Spalten die Datenbank `NULL` sind, wird bei der Abfrage keine Instanz für Sie erstellt. Dies würde auch vorkommen, dass alle Eigenschaften optional sind und auf `null`festgelegt werden, was nicht erwartet wird.
+Das Speichern und Abfragen von Entitäten mithilfe von Tabellen Aufteilung erfolgt auf die gleiche Weise wie andere Entitäten. Und ab EF Core 3,0 kann der abhängige Entitäts Verweis `null`werden. Wenn alle von der abhängigen Entität verwendeten Spalten `NULL` die Datenbank ist, wird keine Instanz für Sie erstellt, wenn Sie abgefragt wird. Dies würde auch vorkommen, dass alle Eigenschaften optional sind und auf `null`festgelegt werden, was nicht erwartet wird.
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 
