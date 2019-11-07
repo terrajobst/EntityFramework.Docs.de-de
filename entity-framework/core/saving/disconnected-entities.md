@@ -5,12 +5,12 @@ ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 070f2ad396ec21858096c29413ac80bdf8547328
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 88c3fa8ea5b8246a932f5cf21e674bc7cc71c0ea
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197810"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656268"
 ---
 # <a name="disconnected-entities"></a>Getrennte Entitäten
 
@@ -18,11 +18,13 @@ Eine DbContext-Instanz verfolgt automatisch Entitäten nach, die von der Datenba
 
 Entitäten werden jedoch manchmal mit einer Kontextinstanz abgefragt und anschließend mit einer anderen Instanz gespeichert. Dies geschieht häufig in „getrennten“ Szenarios, wie z.B. einer Webanwendung, in welcher die Entitäten abgefragt werden, an den Client gesendet werden, geändert werden, in einer Anforderung zurück an den Server gesendet werden und anschließend gespeichert werden. In diesem Fall muss der zweiten Kontextinstanz bekannt sein, ob die Entitäten neu (Einfügung erforderlich) oder bereits vorhanden (Aktualisierung erforderlich) sind.
 
-> [!TIP]  
+<!-- markdownlint-disable MD028 -->
+> [!TIP]
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) finden Sie auf GitHub.
 
 > [!TIP]
 > EF Core kann nur eine Instanz einer Entität mit einem bestimmten primären Schlüsselwert nachverfolgen. Dass dies ein Problem darstellt, kann verhindert werden, indem für die einzelnen Arbeitseinheiten kurzlebiger Kontext verwendet wird, wie z.B. dass der Kontext leer beginnt, über angefügte Entitäten verfügt, diese Entitäten speichert und der Kontext anschließend verworfen wird.
+<!-- markdownlint-enable MD028 -->
 
 ## <a name="identifying-new-entities"></a>Identifizieren neuer Entitäten
 
@@ -50,8 +52,9 @@ EF verfügt jedoch auch über eine integrierte Möglichkeit, diesen Vorgang für
 ### <a name="with-other-keys"></a>Mit anderen Schlüsseln
 
 Zum Identifizieren neuer Entitäten sind einige andere Mechanismen erforderlich, wenn Schlüsselwerte nicht automatisch generiert werden. Hierfür gibt es zwei allgemeine Ansätze:
- * Abfrage für die Entität
- * Übergeben eines Flags vom Client
+
+* Abfrage für die Entität
+* Übergeben eines Flags vom Client
 
 Verwenden Sie für eine Abfrage für die Entität einfach die Find-Methode:
 
@@ -79,6 +82,7 @@ Wenn die Entität keine automatisch generierten Schlüssel verwendet, muss die A
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
 Folgende Schritte müssen ausgeführt werden:
+
 * Wenn die Find-Methode NULL zurückgibt, enthält die Datenbank den Blog mit dieser ID noch nicht. Daher wird die Add-Methode aufgerufen, um die Datenbank für eine Einfügung zu markieren.
 * Wenn die Find-Methode eine Entität zurückgibt, ist diese in der Datenbank vorhanden, und der Kontext verfolgt nun die vorhandene Entität nach
   * Anschließend werden die Werte für sämtliche Eigenschaften dieser Entität mit der SetValues-Methode auf die vom Client stammenden Werte festgelegt.

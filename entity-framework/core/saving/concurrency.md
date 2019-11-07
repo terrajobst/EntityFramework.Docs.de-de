@@ -3,12 +3,12 @@ title: Handhaben von Nebenläufigkeitskonflikten
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: 4d6ff24e58caa0b228e9c1e4313beda78d1025fc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: b72fa472698e76e18f155cf96b738b0e193eee0f
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197831"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654620"
 ---
 # <a name="handling-concurrency-conflicts"></a>Behandlung von Parallelitätskonflikten
 
@@ -56,11 +56,9 @@ Dazu müssen Sie die ausstehenden Änderungen aus dem aktuellen `DbContext` mit 
 
 **Nebenläufigkeitskonflikte können mit drei verschiedenen Wertetypen gelöst werden:**
 
-* **Aktuelle Werte** sind die Werte, die die Anwendung in die Datenbank schreiben wollte.
-
-* **Ursprüngliche Werte** sind die Werte, die vor den Änderungen aus der Datenbank abgerufen wurden.
-
-* **Datenbankwerte** sind die Werte, die derzeit in der Datenbank gespeichert sind.
+- **Aktuelle Werte** sind die Werte, die die Anwendung in die Datenbank schreiben wollte.
+- **Ursprüngliche Werte** sind die Werte, die vor den Änderungen aus der Datenbank abgerufen wurden.
+- **Datenbankwerte** sind die Werte, die derzeit in der Datenbank gespeichert sind.
 
 Nebenläufigkeitskonflikte werden im Allgemeinen folgendermaßen behoben:
 

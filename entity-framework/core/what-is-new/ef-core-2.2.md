@@ -4,25 +4,26 @@ author: divega
 ms.date: 11/14/2018
 ms.assetid: 998C04F3-676A-4FCF-8450-CFB0457B4198
 uid: core/what-is-new/ef-core-2.2
-ms.openlocfilehash: 5fcf7c6dfb4d8cb7928ef974af6deb52df7c63eb
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: fb9de799753bebd7b4092cd8f4af74703dee3e45
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181376"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656186"
 ---
 # <a name="new-features-in-ef-core-22"></a>Neue Features in EF Core 2.2
 
 ## <a name="spatial-data-support"></a>Unterstützung räumlicher Daten
 
 Räumliche Daten können verwendet werden, um die physische Position und die Form von Objekten darzustellen.
-Viele Datenbanken können räumliche Daten nativ speichern, indizieren und abfragen. Häufige Szenarien sind das Abfragen von Objekten mit einer bestimmten Distanz und das Testen, ob ein Polygon eine bestimmte Position enthält.
+Viele Datenbanken können räumliche Daten nativ speichern, indizieren und abfragen.
+Häufige Szenarien sind das Abfragen von Objekten mit einer bestimmten Distanz und das Testen, ob ein Polygon eine bestimmte Position enthält.
 EF Core 2.2 unterstützt nun das Arbeiten mit räumlichen Daten aus verschiedenen Datenbanken mit Typen aus der [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite)-Bibliothek (NTS-Bibliothek).
 
 Die Unterstützung räumlicher Daten wird als eine Reihe von anbieterspezifischen Erweiterungspaketen implementiert.
 Jedes dieser Pakete stellt Mappings für NTS-Typen und -Methoden sowie die entsprechenden räumlichen Typen und Funktionen in der Datenbank bereit.
 Diese Anbietererweiterungen sind nun für [SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/), [SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/) und [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/) (aus dem [Npgsql-Projekt](https://www.npgsql.org/)) verfügbar.
-Räumliche Typen können direkt mit dem [EF Core-In-Memory-Anbieter](https://docs.microsoft.com/en-us/ef/core/providers/in-memory/) ohne zusätzliche Erweiterungen verwendet werden.
+Räumliche Typen können direkt mit dem [EF Core-In-Memory-Anbieter](xref:core/providers/in-memory/index) ohne zusätzliche Erweiterungen verwendet werden.
 
 Wenn die Anbietererweiterung installiert ist, können Sie Ihren Entitäten Eigenschaften der unterstützten Typen hinzufügen. Beispiel:
 
@@ -40,7 +41,7 @@ namespace MyApp
     public Point Location { get; set; }
   }
 }
-``` 
+```
 
 Dann können Entitäten neben räumlichen Daten bestehen:
 
@@ -56,6 +57,7 @@ using (var context = new MyDbContext())
     context.SaveChanges();
 }
 ```
+
 Außerdem können Sie Datenbankabfragen auf Grundlage von räumlichen Daten und Vorgängen ausführen:
 
 ``` csharp
@@ -65,7 +67,7 @@ Außerdem können Sie Datenbankabfragen auf Grundlage von räumlichen Daten und 
       select f).Take(5).ToList();
 ```
 
-Weitere Informationen zu diesem Feature finden Sie in der [Dokumentation über räumliche Typen](xref:core/modeling/spatial). 
+Weitere Informationen zu diesem Feature finden Sie in der [Dokumentation über räumliche Typen](xref:core/modeling/spatial).
 
 ## <a name="collections-of-owned-entities"></a>Sammlungen von nicht eigenständigen Entitäten
 
@@ -74,7 +76,8 @@ EF Core 2.2 erweitert die Funktion, die Eigentümerschaft in 1:n-Zuordnungen aus
 Besitzer können einschränken, wie Entitäten verwendet werden.
 
 Nicht eigenständige Entitäten:
-- Können immer nur in Navigationseigenschaften anderer Entitätstypen angezeigt werden 
+
+- Können immer nur in Navigationseigenschaften anderer Entitätstypen angezeigt werden
 - Werden automatisch geladen und können nur von einem „DbContext“-Objekt vom Besitzer verfolgt werden
 
 In relationalen Datenbanken werden Sammlungen mit Besitzern separaten Tabellen des Besitzers zugeordnet, wie normale 1:n-Zuordnungen.
@@ -112,4 +115,4 @@ FROM [Friends] AS [f]
 ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 ```
 
-Weitere Informationen finden Sie in der [Dokumentation über Abfragetags](xref:core/querying/tags). 
+Weitere Informationen finden Sie in der [Dokumentation über Abfragetags](xref:core/querying/tags).

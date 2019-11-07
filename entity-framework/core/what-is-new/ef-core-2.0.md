@@ -4,16 +4,17 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 781578d9de05895cdbc777aa53c3f6d6f9777869
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 72393e96c195af1df5a169025ca2ce7a7acb16bb
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149044"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656224"
 ---
 # <a name="new-features-in-ef-core-20"></a>Neue Features in EF Core 2.0
 
 ## <a name="net-standard-20"></a>.NET-Standard 2.0
+
 Für EF Core wird nun die Zielversion für .NET Standard 2.0 festgelegt, was bedeutet, dass EF Core mit .NET Core 2.0, .NET Framework 4.6.1 und anderen Bibliotheken, die.NET Standard 2.0 implementieren, kompatibel ist.
 Weitere Informationen zu unterstützten Implementierungen finden Sie unter [Unterstützte .NET-Implementierungen](../platforms/index.md).
 
@@ -32,6 +33,7 @@ modelBuilder.Entity<Product>()
 modelBuilder.Entity<Product>().ToTable("Products");
 modelBuilder.Entity<ProductDetails>().ToTable("Products");
 ```
+
 Weitere Informationen zu dieser Funktion finden Sie im [Abschnitt zur Tabellenaufteilung](xref:core/modeling/table-splitting).
 
 ### <a name="owned-types"></a>Eigene Typen
@@ -65,6 +67,7 @@ public class StreetAddress
     public string City { get; set; }
 }
 ```
+
 Weitere Informationen zu dieser Funktion finden Sie im [Abschnitt zu Entitätstypen im Besitz](xref:core/modeling/owned-entities).
 
 ### <a name="model-level-query-filters"></a>Abfragefilter auf Modellebene
@@ -92,6 +95,7 @@ public class BloggingContext : DbContext
     }
 }
 ```
+
 Wir definieren einen Filter auf Modellebene, der Mehrinstanzenfähigkeit sowie das vorläufige Löschen für Instanzen des Entitätstyps `Post` implementiert. Beachten Sie die Verwendung einer DbContext-Instanzeigenschaft: `TenantId`. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz (d.h. der Kontextinstanz, die die Abfrage ausführt).
 
 Filter können für einzelne LINQ-Abfragen mit dem IgnoreQueryFilters()-Operator deaktiviert werden.
@@ -298,9 +302,11 @@ public class MyPluralizer : IPluralizer
 ## <a name="others"></a>Sonstige
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>Migrieren des ADO.NET SQLite-Anbieters nach SQLitePCL.raw
+
 Dies bietet uns eine zuverlässigere Lösung in „Microsoft.Data.Sqlite“ für die Verteilung von nativen SQLite-Binärdateien auf verschiedene Plattformen.
 
 ### <a name="only-one-provider-per-model"></a>Verwenden von nur einem Anbieter pro Modell
+
 Dies erweitert erheblich die Möglichkeiten der Anbieter bezüglich der Interaktion mit dem Modell und vereinfacht die Verwendung von Konventionen, Anmerkungen und Fluent-APIs mit verschiedenen Anbietern.
 
 EF Core 2.0 erstellt nun eine andere [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs)-Klasse für die verschiedenen verwendeten Anbieter. Dies geschieht in der Regel auf eine für die Anwendung transparente Weise. Dies hat eine Vereinfachung der untergeordneten Metadaten-APIs ermöglicht, sodass Zugriffe auf *gemeinsame relationale Metadatenkonzepte* immer durch Aufrufen von `.Relational` statt `.SqlServer`, `.Sqlite` usw. erfolgen.

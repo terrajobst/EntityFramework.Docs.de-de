@@ -4,16 +4,17 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 4e4ba21cd099daab4db8a8f358800fde26980c14
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: bfabe8fd5b0a64edd5d97baff3beab9d712f1c20
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813578"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654631"
 ---
 # <a name="loading-related-data"></a>Laden zugehöriger Daten
 
 Mit Entity Framework Core können Sie die Navigationseigenschaften in Ihrem Modell zum Laden zugehöriger Entitäten verwenden. Es gibt drei allgemeine O/RM-Muster für das Laden zugehöriger Daten.
+
 * **Eager Loading** bedeutet, dass die zugehörigen Daten als Teil der ersten Abfrage aus der Datenbank geladen werden.
 * **Explizites Laden** bedeutet, dass die zugehörigen Daten zu einem späteren Zeitpunkt explizit aus der Datenbank geladen werden.
 * **Lazy Loading** bedeutet, dass die zugehörigen Daten bei Zugriff auf die Navigationseigenschaft transparent aus der Datenbank geladen werden.
@@ -57,7 +58,7 @@ Für eine der Entitäten, die eingeschlossen wird, sollten Sie mehrere zugehöri
 
 ### <a name="include-on-derived-types"></a>Einschließen in abgeleiteten Typen
 
-Sie können zugehörige Daten aus Navigationen einschließen, die nur in einem abgeleiteten Typ mit `Include` und `ThenInclude` definiert werden. 
+Sie können zugehörige Daten aus Navigationen einschließen, die nur in einem abgeleiteten Typ mit `Include` und `ThenInclude` definiert werden.
 
 Betrachten Sie das folgende Modell:
 
@@ -95,17 +96,20 @@ public class School
 
 Inhalte der `School`-Navigation für alle Personen, die Studenten sind, können mit einer Reihe von Mustern vorzeitig geladen werden:
 
-- Mit cast
+* Mit cast
+
   ```csharp
   context.People.Include(person => ((Student)person).School).ToList()
   ```
 
-- Mit dem Operator `as`
+* Mit dem Operator `as`
+
   ```csharp
   context.People.Include(person => (person as Student).School).ToList()
   ```
 
-- Mit einer Überladung von `Include`, die Parameter vom Typ `string` akzeptiert
+* Mit einer Überladung von `Include`, die Parameter vom Typ `string` akzeptiert
+
   ```csharp
   context.People.Include("School").ToList()
   ```
@@ -140,6 +144,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         .UseLazyLoadingProxies()
         .UseSqlServer(myConnectionString);
 ```
+
 Oder bei Verwendung von AddDbContext:
 
 ```csharp

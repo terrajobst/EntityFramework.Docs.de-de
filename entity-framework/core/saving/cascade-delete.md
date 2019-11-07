@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: af86383bad52c87d2874fa4f8eb247a656601312
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 51c8b6f4517a3f87821ed1e4e2d60549e06ed39d
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182012"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656057"
 ---
 # <a name="cascade-delete"></a>Kaskadierendes Delete
 
@@ -18,9 +18,11 @@ Kaskadierendes Delete wird in der Datenbankterminologie häufig für die Beschre
 EF Core implementiert mehrere unterschiedliche Verhaltensweisen zum Löschen und ermöglicht die Konfiguration dieser Verhaltensweisen für einzelne Beziehungen. Darüber hinaus implementiert EF Core Konventionen, mit denen basierend auf der [Erforderlichkeit der Beziehung](../modeling/relationships.md#required-and-optional-relationships) automatisch hilfreiches Standardlöschverhalten für die einzelnen Beziehungen konfiguriert wird.
 
 ## <a name="delete-behaviors"></a>Löschverhalten
+
 Das Löschverhalten wird im Enumeratortyp *DeleteBehavior* definiert und kann an die Fluent-API *OnDelete* übergeben werden, um zu steuern, ob das Löschen einer Prinzipalentität/übergeordneten Entität oder die Trennung der Beziehung zu abhängigen/untergeordneten Entitäten eine Nebenwirkung auf die abhängigen/untergeordneten Entitäten haben soll.
 
 EF kann drei Aktionen ausführen, wenn eine Prinzipalentität/übergeordnete Entität gelöscht oder die Beziehung zur untergeordneten Entität gelöscht wird:
+
 * Die untergeordnete/abhängige Entität kann gelöscht werden
 * Die Fremdschlüsselwerte der untergeordneten Entität können auf NULL festgelegt werden
 * Die untergeordnete Entität bleibt unverändert
@@ -33,6 +35,7 @@ Bei der zweiten, oben aufgeführten Aktion ist das Festlegen eines Fremdschlüss
 Es gibt vier Verhaltensweisen zum Löschen, die in der nachfolgenden Tabelle aufgeführt werden.
 
 ### <a name="optional-relationships"></a>Optionale Beziehungen
+
 Bei optionalen Beziehungen (NULL-Werte zulassender Fremdschlüssel) _kann_ ein NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
 
 | Name des Verhaltens               | Auswirkung auf abhängige/untergeordnete Entität im Speicher    | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank  |
@@ -43,6 +46,7 @@ Bei optionalen Beziehungen (NULL-Werte zulassender Fremdschlüssel) _kann_ ein N
 | **Restrict**                | Keine                                   | Keine                                   |
 
 ### <a name="required-relationships"></a>Erforderliche Beziehungen
+
 Bei erforderlichen Beziehungen (keine NULL-Werte zulassender Fremdschlüssel) kann _kein_ NULL-Fremdschlüsselwert gespeichert werden. Dies hat folgende Auswirkungen:
 
 | Name des Verhaltens         | Auswirkung auf abhängige/untergeordnete Entität im Speicher | Auswirkung auf abhängige/untergeordnete Entität in der Datenbank |
@@ -55,6 +59,7 @@ Bei erforderlichen Beziehungen (keine NULL-Werte zulassender Fremdschlüssel) ka
 In den obigen Tabellen kann *Keiner* zu einer Einschränkungsverletzung führen. Wenn beispielsweise eine Prinzipalentität/untergeordnete Entität gelöscht wird, jedoch keine Maßnahmen zum Ändern des Fremdschlüssels einer abhängigen/untergeordneten Entität ergriffen werden, ist die Wahrscheinlichkeit groß, dass es in der Datenbank aufgrund einer Einschränkungsverletzung zu einer Auslösung durch SaveChanges kommt.
 
 Allgemein:
+
 * Verwenden Sie *Cascade*, wenn es Entitäten gibt, die ohne übergeordnete Entität nicht vorhanden sein können und EF die untergeordnete Entität automatisch löschen soll.
   * Entitäten, die ohne übergeordnete Entität nicht vorhanden sein können, verwenden in der Regel erforderliche Beziehungen. Hierfür gilt *Cascade* als Standard.
 * Verwenden Sie *ClientSetNull*, wenn es Entitäten gibt, die möglicherweise über eine übergeordnete Entität verfügen und EF den Fremdschlüssel für Sie auf NULL festlegen soll
@@ -107,7 +112,7 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit erforderlicher Beziehung
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -130,7 +135,7 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit optionaler Beziehung
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -160,7 +165,7 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict mit erforderlicher oder optionaler Beziehung
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -189,7 +194,7 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade mit erforderlicher oder optionaler Beziehung
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -217,7 +222,7 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit erforderlicher Beziehung
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -240,7 +245,7 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull oder DeleteBehavior.SetNull mit optionaler Beziehung
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -268,7 +273,7 @@ Zum Verständnis werden die einzelnen Variationen im Folgenden ausführlich betr
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict mit erforderlicher oder optionaler Beziehung
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
