@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 09/26/2018
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/how-query-works
-ms.openlocfilehash: bc085755f39b1288f092a8b2df892c1bf82a89f1
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: ba0d68469530e6272ffbb51946d7856122a261c7
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72186239"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656243"
 ---
 # <a name="how-queries-work"></a>Funktionsweise von Abfragen
 
@@ -40,6 +40,7 @@ Nachstehend finden Sie eine grobe Übersicht über die verschiedenen Phasen des 
 Wenn Sie LINQ-Operatoren aufrufen, erstellen Sie einfach eine speicherinterne Darstellung der Abfrage. Die Abfrage wird nur an die Datenbank gesendet, wenn die Ergebnisse verarbeitet werden.
 
 Dies sind die üblichsten Vorgänge, aufgrund derer die Abfrage wird an die Datenbank gesendet wird:
+
 * Durchlaufen die Ergebnisse in einer `for`-Schleife
 * Verwenden eines Operators wie `ToList`, `ToArray`, `Single` oder `Count`
 * Datenbindung der Ergebnisse einer Abfrage an eine Benutzeroberfläche
