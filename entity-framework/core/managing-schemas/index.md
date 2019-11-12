@@ -2,14 +2,15 @@
 title: Verwalten von Datenbankschemas – EF Core
 author: bricelam
 ms.date: 10/30/2017
-ms.openlocfilehash: c1ebe33b5575cab76a54721ef86ecbcb7ff8b98b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2da17865cb0192fb3e6e3396e4ca5f31fde9c52a
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994384"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655646"
 ---
 # <a name="managing-database-schemas"></a>Verwalten von Datenbankschemas
+
 EF Core bietet zwei wesentliche Möglichkeiten, wie Sie Ihr EF Core-Modell und Ihr Datenbankschema synchron halten können. Um zwischen den beiden Optionen zu wählen, legen Sie fest, ob Ihr EF Core-Modell oder das Datenbankschema die einzige zuverlässige Datenquelle darstellt.
 
 Wenn das EF Core-Modell die einzige zuverlässige Datenquelle darstellen soll, verwenden Sie [Migrationen][1]. Wenn Sie Änderungen an Ihrem EF Core-Modell vornehmen, werden bei dieser Vorgehensweise schrittweise die entsprechenden Schemaänderungen an Ihrer Datenbank vorgenommen, um die Kompatibilität mit Ihrem EF Core-Modell aufrechtzuerhalten.
