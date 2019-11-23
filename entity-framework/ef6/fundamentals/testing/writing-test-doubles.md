@@ -102,7 +102,7 @@ namespace TestingDemo
 
 Beachten Sie, dass unser Kontext die ibloggingcontext-Schnittstelle implementiert.  
 
-Wenn Sie Code First verwenden, können Sie den Kontext direkt bearbeiten, um die-Schnittstelle zu implementieren. Wenn Sie den EF-Designer verwenden, müssen Sie die T4-Vorlage bearbeiten, mit der ihr Kontext generiert wird. Öffnen Sie die \<model_name @ no__t-1. Context.tt-Datei, die unter der EDMX-Datei gespeichert ist, das folgende Code Fragment suchen und wie gezeigt in der-Schnittstelle hinzufügen.  
+Wenn Sie Code First verwenden, können Sie den Kontext direkt bearbeiten, um die-Schnittstelle zu implementieren. Wenn Sie den EF-Designer verwenden, müssen Sie die T4-Vorlage bearbeiten, mit der ihr Kontext generiert wird. Öffnen Sie die \<MODEL_NAME\>. Context.tt-Datei, die unter der EDMX-Datei gespeichert ist, das folgende Code Fragment suchen und wie gezeigt in der-Schnittstelle hinzufügen.  
 
 ``` csharp  
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IBloggingContext

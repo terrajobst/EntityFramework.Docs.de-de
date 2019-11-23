@@ -15,7 +15,7 @@ Neben der Produktdokumentation können diese Blogs eine Quelle nützlicher Infor
 
 ## <a name="ef-team-blogs"></a>EF-Teamblogs
 
-- [.net Blog-Tag: Entity Framework @ no__t-0
+- [.Net-Blog-Tag: Entity Framework](https://blogs.msdn.microsoft.com/dotnet/tag/entity-framework/)
 - [ADO.net-Blog (nicht mehr verwendet)](https://blogs.msdn.microsoft.com/adonet/)
 - [EF-Entwurfs Blog (nicht mehr verwendet)](https://blogs.msdn.microsoft.com/efdesign/)
 
@@ -24,7 +24,7 @@ Neben der Produktdokumentation können diese Blogs eine Quelle nützlicher Infor
 - [Arthur-vicker](https://blog.oneunicorn.com/tag/entity-framework/)
 - [Mit Brice Lambson](https://www.bricelam.net/)
 - [Diego Vega](https://blogs.msdn.microsoft.com/diego/)
-- [Rowan-Miller](https://romiller.com/category/entity-framework/)
+- [Rowan Miller](https://romiller.com/category/entity-framework/)
 - [Pawel kadluczka](https://blog.3d-logic.com/category/entity-framework/)
 - [Alex James](https://blogs.msdn.microsoft.com/alexj/tag/entity-framework/)
 - [Zlatko Michailov](https://blogs.msdn.microsoft.com/esql/tag/entity-framework/)

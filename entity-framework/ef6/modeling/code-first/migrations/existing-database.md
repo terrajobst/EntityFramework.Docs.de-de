@@ -38,7 +38,7 @@ Der erste Schritt besteht darin, ein Code First Modell zu erstellen, das Ihre vo
 >[!NOTE]
 > Es ist wichtig, die restlichen Schritte in diesem Thema auszuführen, bevor Sie Änderungen am Modell vornehmen, die Änderungen am Datenbankschema erfordern. Die folgenden Schritte erfordern, dass das Modell mit dem Datenbankschema synchron ist.
 
-## <a name="step-2-enable-migrations"></a>Schritt 2: Migrationen aktivieren
+## <a name="step-2-enable-migrations"></a>Schritt 2: Aktivieren von Migrationen
 
 Der nächste Schritt besteht darin, Migrationen zu aktivieren. Hierzu können Sie den Befehl **enable-Migrationen** in der Paket-Manager-Konsole ausführen.
 
@@ -48,23 +48,23 @@ Mit diesem Befehl wird ein Ordner in der Projekt Mappe mit dem Namen Migrationen
 
 Nachdem Migrationen erstellt und auf die lokale Datenbank angewendet wurden, können Sie diese Änderungen auch auf andere Datenbanken anwenden. Beispielsweise kann die lokale Datenbank eine Testdatenbank sein, und Sie können die Änderungen letztendlich auch auf eine Produktionsdatenbank und/oder andere Entwickler Testdatenbanken anwenden. Es gibt zwei Optionen für diesen Schritt, und Sie sollten auswählen, ob das Schema anderer Datenbanken leer ist oder derzeit mit dem Schema der lokalen Datenbank übereinstimmt.
 
--   **-Option 1: Vorhandenes Schema als Ausgangspunkt verwenden.** Sie sollten diesen Ansatz verwenden, wenn in Zukunft andere Datenbanken, auf die Migrationen angewendet werden, das gleiche Schema wie Ihre lokale Datenbank haben. Beispielsweise können Sie diese verwenden, wenn die lokale Testdatenbank derzeit V1 der Produktionsdatenbank entspricht und Sie diese Migrationen später anwenden, um die Produktionsdatenbank auf v2 zu aktualisieren.
--   **option 2: Leere Datenbank als Ausgangspunkt verwenden.** Sie sollten diesen Ansatz verwenden, wenn andere Datenbanken, auf die in Zukunft migriert wird, leer sind (oder noch nicht vorhanden sind). Beispielsweise können Sie diese verwenden, wenn Sie mit der Entwicklung ihrer Anwendung mit einer Testdatenbank, aber ohne Migrationen begonnen haben und später eine Produktionsdatenbank von Grund auf neu erstellen möchten.
+-   **Option 1: vorhandenes Schema als Ausgangspunkt verwenden.** Sie sollten diesen Ansatz verwenden, wenn in Zukunft andere Datenbanken, auf die Migrationen angewendet werden, das gleiche Schema wie Ihre lokale Datenbank haben. Beispielsweise können Sie diese verwenden, wenn die lokale Testdatenbank derzeit V1 der Produktionsdatenbank entspricht und Sie diese Migrationen später anwenden, um die Produktionsdatenbank auf v2 zu aktualisieren.
+-   **Option 2: Verwenden Sie eine leere Datenbank als Ausgangspunkt.** Sie sollten diesen Ansatz verwenden, wenn andere Datenbanken, auf die in Zukunft migriert wird, leer sind (oder noch nicht vorhanden sind). Beispielsweise können Sie diese verwenden, wenn Sie mit der Entwicklung ihrer Anwendung mit einer Testdatenbank, aber ohne Migrationen begonnen haben und später eine Produktionsdatenbank von Grund auf neu erstellen möchten.
 
-### <a name="option-one-use-existing-schema-as-a-starting-point"></a>Option 1: Vorhandenes Schema als Ausgangspunkt verwenden
+### <a name="option-one-use-existing-schema-as-a-starting-point"></a>Option 1: vorhandenes Schema als Ausgangspunkt verwenden
 
 Code First-Migrationen verwendet eine Momentaufnahme des Modells, das in der letzten Migration gespeichert ist, um Änderungen am Modell zu erkennen (Ausführliche Informationen hierzu finden Sie in [Code First-Migrationen in Team Umgebungen](~/ef6/modeling/code-first/migrations/teams.md)). Da wir davon ausgehen, dass die Datenbanken bereits über das Schema des aktuellen Modells verfügen, generieren wir eine leere Migration (No-OP), die das aktuelle Modell als Momentaufnahme hat.
 
 1.  Führen Sie den Befehl **Add-Migration InitialCreate – ignorechanges** in der Paket-Manager-Konsole aus. Dadurch wird eine leere Migration mit dem aktuellen Modell als Momentaufnahme erstellt.
-2.  Führen Sie den Befehl **Update-Database** in der Paket-Manager-Konsole aus. Dadurch wird die InitialCreate-Migration auf die Datenbank angewendet. Da die tatsächliche Migration keine Änderungen enthält, wird der \_ @ no__t-1migrationshistory-Tabelle einfach eine Zeile hinzugefügt, die anzeigt, dass diese Migration bereits angewendet wurde.
+2.  Führen Sie den Befehl **Update-Database** in der Paket-Manager-Konsole aus. Dadurch wird die InitialCreate-Migration auf die Datenbank angewendet. Da die tatsächliche Migration keine Änderungen enthält, wird der \_\_migrationshistory-Tabelle eine Zeile hinzugefügt, die anzeigt, dass diese Migration bereits angewendet wurde.
 
-### <a name="option-two-use-empty-database-as-a-starting-point"></a>Option 2: Leere Datenbank als Ausgangspunkt verwenden
+### <a name="option-two-use-empty-database-as-a-starting-point"></a>Option 2: leere Datenbank als Ausgangspunkt verwenden
 
 In diesem Szenario sind Migrationen erforderlich, um die gesamte Datenbank von Grund auf neu erstellen zu können – einschließlich der Tabellen, die bereits in der lokalen Datenbank vorhanden sind. Wir generieren eine InitialCreate-Migration, die Logik zum Erstellen des vorhandenen Schemas enthält. Anschließend wird die vorhandene Datenbank so aussehen, wie diese Migration bereits angewendet wurde.
 
 1.  Führen Sie den Befehl **Add-Migration InitialCreate** in der Paket-Manager-Konsole aus. Dadurch wird eine Migration erstellt, um das vorhandene Schema zu erstellen.
 2.  Kommentieren Sie den gesamten Code in der up-Methode der neu erstellten Migration aus. Auf diese Weise können wir die Migration auf die lokale Datenbank anwenden, ohne zu versuchen, alle Tabellen neu zu erstellen usw., die bereits vorhanden sind.
-3.  Führen Sie den Befehl **Update-Database** in der Paket-Manager-Konsole aus. Dadurch wird die InitialCreate-Migration auf die Datenbank angewendet. Da die tatsächliche Migration keine Änderungen enthält (da wir Sie vorübergehend auskommentieren), wird der \_ @ no__t-1migrationshistory-Tabelle lediglich eine Zeile hinzugefügt, die anzeigt, dass diese Migration bereits angewendet wurde.
+3.  Führen Sie den Befehl **Update-Database** in der Paket-Manager-Konsole aus. Dadurch wird die InitialCreate-Migration auf die Datenbank angewendet. Da die tatsächliche Migration keine Änderungen enthält (da wir Sie vorübergehend auskommentiert haben), wird der \_\_migrationshistory-Tabelle eine Zeile hinzugefügt, die anzeigt, dass diese Migration bereits angewendet wurde.
 4.  Kommentieren Sie den Code in der up-Methode aus. Dies bedeutet, dass beim Anwenden dieser Migration auf zukünftige Datenbanken das Schema, das bereits in der lokalen Datenbank vorhanden war, durch Migrationen erstellt wird.
 
 ## <a name="things-to-be-aware-of"></a>Dinge, die Sie beachten sollten
@@ -77,12 +77,12 @@ Migrationen geben explizit Namen für Spalten und Tabellen an, wenn ein Gerüst 
 
 Im folgenden finden Sie einige Beispiele für den Fall, dass Sie sich Folgendes bewusst sein müssen:
 
-**bei Verwendung von "Option 1: Vorhandenes Schema als Ausgangspunkt aus Schritt 3:**  verwenden
+**Wenn Sie "Option 1: vorhandenes Schema als Ausgangspunkt verwenden" aus Schritt 3 verwendet haben:**
 
 -   Wenn zukünftige Änderungen im Modell eine Änderung oder Löschung eines Datenbankobjekts erfordern, das anders benannt ist, müssen Sie die Gerüst Migration ändern, um den richtigen Namen anzugeben. Die Migrations-APIs verfügen über einen optionalen Name-Parameter, mit dem Sie dies tun können.
-    Beispielsweise kann Ihr vorhandenes Schema über eine Post-Tabelle mit einer BlogId-Fremdschlüssel Spalte verfügen, die einen Index namens indexfk @ no__t-0blogid hat. Standardmäßig erwarten Migrationen jedoch, dass dieser Index den Namen "IX @ no__t-0blogid" hat. Wenn Sie eine Änderung an Ihrem Modell vornehmen, die dazu führt, dass dieser Index gelöscht wird, müssen Sie den aufgerücherten DropIndex-Befehl so ändern, dass er den indexfk @ no__t-0blogid-Namen angibt.
+    Beispielsweise kann Ihr vorhandenes Schema über eine Post-Tabelle mit einer BlogId-Fremdschlüssel Spalte verfügen, die einen Index namens indexfk\_BlogId aufweist. Standardmäßig erwarten Migrationen jedoch, dass dieser Index den Namen "IX\_BlogId hat. Wenn Sie eine Änderung an Ihrem Modell vornehmen, die dazu führt, dass dieser Index gelöscht wird, müssen Sie den aufgerücherten DropIndex-Aufrufwert ändern, um den indexfk-\_BlogId-Namen anzugeben.
 
-**bei Verwendung von "Option 2: Leere Datenbank als Ausgangspunkt aus Schritt 3:**  verwenden
+**Wenn Sie "Option 2: leere Datenbank als Ausgangspunkt verwenden" aus Schritt 3 verwendet haben:**
 
 -   Wenn Sie versuchen, die Down-Methode der anfänglichen Migration (d. h. das Zurücksetzen auf eine leere Datenbank) für die lokale Datenbank auszuführen, tritt möglicherweise ein Fehler auf, weil bei der Migration versucht wird, Indizes und Fremdschlüssel Einschränkungen mithilfe falscher Namen zu löschen. Dies wirkt sich nur auf die lokale Datenbank aus, da andere Datenbanken mithilfe der up-Methode der anfänglichen Migration von Grund auf neu erstellt werden.
     Wenn Sie die vorhandene lokale Datenbank auf einen leeren Zustand herabstufen möchten, ist es am einfachsten, dies manuell durchzuführen, indem Sie entweder die Datenbank löschen oder alle Tabellen löschen. Nach dieser anfänglichen Herabstufung werden alle Datenbankobjekte mit den Standardnamen neu erstellt, sodass dieses Problem nicht mehr auftritt.
@@ -97,5 +97,5 @@ Datenbankobjekte, die nicht Teil des Modells sind, werden nicht von Migrationen 
 Im folgenden finden Sie einige Beispiele für den Fall, dass Sie sich Folgendes bewusst sein müssen:
 
 -   Unabhängig von der Option, die Sie in "Schritt 3" gewählt haben, ist es bei zukünftigen Änderungen im Modell erforderlich, diese zusätzlichen Objekte zu ändern oder zu löschen. Wenn Sie z. b. eine Spalte mit einem zusätzlichen Index löschen, wissen Migrationen nicht, ob der Index gelöscht werden soll. Sie müssen diese manuell der Gerüst Migration hinzufügen.
--   Bei Verwendung von "Option 2: Leere Datenbank als Ausgangspunkt verwenden: Diese zusätzlichen Objekte werden von der up-Methode der anfänglichen Migration nicht erstellt.
+-   Wenn Sie "Option 2: leere Datenbank als Ausgangspunkt verwenden" verwendet haben, werden diese zusätzlichen Objekte nicht von der up-Methode der anfänglichen Migration erstellt.
     Sie können die nach-oben-und die nach-unten-Methode ändern, um diese zusätzlichen Objekte bei Bedarf zu übernehmen. Für Objekte, die in der Migrations-API nicht unterstützt werden – z. b. Ansichten – können Sie die [SQL](https://msdn.microsoft.com/library/system.data.entity.migrations.dbmigration.sql.aspx) -Methode verwenden, um unformatierten SQL-Daten auszuführen und zu erstellen/zu löschen.

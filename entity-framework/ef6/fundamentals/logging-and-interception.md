@@ -100,7 +100,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 Wenn die Log-Eigenschaft festgelegt ist, wird Folgendes protokolliert:  
 
-- SQL für alle unterschiedlichen Arten von Befehlen. Zum Beispiel:  
+- SQL für alle unterschiedlichen Arten von Befehlen. Beispiel:  
     - Abfragen, einschließlich normaler LINQ-Abfragen, ESQL-Abfragen und unformatierte Abfragen von Methoden wie sqlQuery  
     - Einfügungen, Updates und Löschungen, die im Rahmen von SaveChanges generiert werden  
     - Beziehungen zum Laden von Abfragen, z. b. die von generierten Lazy Loading  
@@ -227,7 +227,7 @@ Zum Protokollieren der Ausgabe können Sie einfach die Write-Methode abrufen, di
 
 ### <a name="setting-the-databaselogformatter"></a>Festlegen von databaselogformatter  
 
-Nachdem eine neue databaselogformatter-Klasse erstellt wurde, muss Sie bei EF registriert werden. Dies erfolgt mithilfe der Code basierten Konfiguration. Kurz gesagt bedeutet dies, dass Sie eine neue Klasse erstellen, die von dbconfiguration in derselben Assembly wie die dbcontext-Klasse abgeleitet ist, und dann setdatabaselogformatter im Konstruktor dieser neuen Klasse aufrufen. Zum Beispiel:  
+Nachdem eine neue databaselogformatter-Klasse erstellt wurde, muss Sie bei EF registriert werden. Dies erfolgt mithilfe der Code basierten Konfiguration. Kurz gesagt bedeutet dies, dass Sie eine neue Klasse erstellen, die von dbconfiguration in derselben Assembly wie die dbcontext-Klasse abgeleitet ist, und dann setdatabaselogformatter im Konstruktor dieser neuen Klasse aufrufen. Beispiel:  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration
@@ -261,11 +261,11 @@ Der Abfang Code basiert auf dem Konzept der Abfang Schnittstellen. Diese Schnitt
 
 ### <a name="the-interception-context"></a>Der Abfang Kontext  
 
-Wenn Sie sich die Methoden ansehen, die für eine der Interceptor Schnittstellen definiert sind, ist es offensichtlich, dass jeder-Befehl ein Objekt vom Typ "dbinterceptioncontext" oder einen von diesem abgeleiteten Typ erhält, z. b. dbcommandinterceptioncontext @ no__t-0 @ no__t-1. Dieses Objekt enthält Kontextinformationen zu der Aktion, die EF durch nimmt. Wenn die Aktion z. b. im Namen eines dbcontext ausgeführt wird, ist dbcontext im dbinterceptioncontext enthalten. Analog dazu wird für Befehle, die asynchron ausgeführt werden, das IsAsync-Flag für dbcommandinterceptioncontext festgelegt.  
+Wenn Sie sich die Methoden ansehen, die für eine der Interceptor Schnittstellen definiert sind, ist es offensichtlich, dass jedem-Befehl ein Objekt vom Typ "dbinterceptioncontext" oder ein von diesem abgeleiteter Typ, wie z. b. dbcommandinterceptioncontext\<\> Dieses Objekt enthält Kontextinformationen zu der Aktion, die EF durch nimmt. Wenn die Aktion z. b. im Namen eines dbcontext ausgeführt wird, ist dbcontext im dbinterceptioncontext enthalten. Analog dazu wird für Befehle, die asynchron ausgeführt werden, das IsAsync-Flag für dbcommandinterceptioncontext festgelegt.  
 
 ### <a name="result-handling"></a>Ergebnis Behandlung  
 
-Die dbcommandinterceptioncontext @ no__t-0 @ no__t-1-Klasse enthält die Eigenschaften "result", "originalresult", "Exception" und "originalexception". Diese Eigenschaften werden für Aufrufe der Abfang Methoden, die vor der Ausführung des Vorgangs aufgerufen werden, auf Null/0 (null) festgelegt – d. h. für die... Ausführen von Methoden. Wenn der Vorgang ausgeführt wird und erfolgreich ist, werden result und originalresult auf das Ergebnis des Vorgangs festgelegt. Diese Werte können dann in den Abfang Methoden beobachtet werden, die nach der Ausführung des Vorgangs aufgerufen werden – d. h. auf dem... Ausgeführte Methoden. Ebenso werden, wenn der Vorgang ausgelöst wird, die Eigenschaften Exception und originalexception festgelegt.  
+Die dbcommandinterceptioncontext-\<\>-Klasse enthält die Eigenschaften "result", "originalresult", "Exception" und "originalexception". Diese Eigenschaften werden für Aufrufe der Abfang Methoden, die vor der Ausführung des Vorgangs aufgerufen werden, auf Null/0 (null) festgelegt – d. h. für die... Ausführen von Methoden. Wenn der Vorgang ausgeführt wird und erfolgreich ist, werden result und originalresult auf das Ergebnis des Vorgangs festgelegt. Diese Werte können dann in den Abfang Methoden beobachtet werden, die nach der Ausführung des Vorgangs aufgerufen werden – d. h. auf dem... Ausgeführte Methoden. Ebenso werden, wenn der Vorgang ausgelöst wird, die Eigenschaften Exception und originalexception festgelegt.  
 
 #### <a name="suppressing-execution"></a>Unterdrücken der Ausführung  
 
@@ -289,7 +289,7 @@ Die Eigenschaften originalresult und originalexception sind schreibgeschützt un
 
 ### <a name="registering-interceptors"></a>Interceptors werden registriert  
 
-Sobald eine Klasse, die eine oder mehrere der Abfang Schnittstellen implementiert, erstellt wurde, kann Sie mithilfe der dbintercep-Klasse bei EF registriert werden. Zum Beispiel:  
+Sobald eine Klasse, die eine oder mehrere der Abfang Schnittstellen implementiert, erstellt wurde, kann Sie mithilfe der dbintercep-Klasse bei EF registriert werden. Beispiel:  
 
 ``` csharp
 DbInterception.Add(new NLogCommandInterceptor());

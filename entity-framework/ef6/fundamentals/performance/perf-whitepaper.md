@@ -13,7 +13,7 @@ ms.locfileid: "72181678"
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Überlegungen zur Leistung von EF 4, 5 und 6
 Von David Obando, Eric erttinger und anderen
 
-Enes 2012. April
+Veröffentlicht: April 2012
 
 Letzte Aktualisierung: Mai 2014
 
@@ -31,7 +31,7 @@ Aus praktischen Gründen wird in diesem Dokument davon ausgegangen, dass Entity 
 
 Entity Framework 6 ist ein Out-of-Band-Release und ist nicht von den Entity Framework Komponenten abhängig, die mit .net ausgeliefert werden. Entity Framework 6 funktioniert sowohl mit .NET 4,0 als auch mit .NET 4,5 und bietet einen großen Leistungsvorteil für diejenigen, die kein Upgrade von .NET 4,0 durchgeführt haben, aber die neuesten Entity Framework Bits in Ihrer Anwendung benötigen. Wenn in diesem Dokument Entity Framework 6 erwähnt wird, verweist es auf die neueste Version, die zum Zeitpunkt der Erstellung dieses Artikels verfügbar ist: Version 6.1.0.
 
-## <a name="2-cold-vs-warm-query-execution"></a>2. Kalt und Ausführung von warmen Abfragen
+## <a name="2-cold-vs-warm-query-execution"></a>2. kalte und warm-Abfrage Ausführung
 
 Das erste Mal, wenn eine Abfrage für ein bestimmtes Modell durchgeführt wird, führt die Entity Framework viel Arbeit im Hintergrund aus, um das Modell zu laden und zu überprüfen. Diese erste Abfrage wird häufig als "kalte" Abfrage bezeichnet.  Weitere Abfragen für ein bereits geladenes Modell werden als "warm"-Abfragen bezeichnet und sind viel schneller.
 
@@ -43,7 +43,7 @@ Betrachten wir einen Überblick über die Zeit, die beim Ausführen einer Abfrag
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | Kontext Erstellung          | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                        | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Erstellung von Abfrage Ausdrücken | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                           | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `  var c1 = q1.First();`                                                                             | LINQ-Abfrage Ausführung      | -Das Laden von Metadaten: Hoch, aber zwischengespeichert <br/> -Generierung anzeigen: Potenziell sehr hoch, aber zwischengespeichert <br/> -Parameter Auswertung: Mittel <br/> -Abfrage Übersetzung: Mittel <br/> -Materializer-Generierung: Mittel, aber zwischengespeichert <br/> -Datenbankabfrage Ausführung: Potenziell hoch <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Das Laden von Metadaten: Hoch, aber zwischengespeichert <br/> -Generierung anzeigen: Potenziell sehr hoch, aber zwischengespeichert <br/> -Parameter Auswertung: Niedrig <br/> -Abfrage Übersetzung: Mittel, aber zwischengespeichert <br/> -Materializer-Generierung: Mittel, aber zwischengespeichert <br/> -Datenbankabfrage Ausführung: Potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Das Laden von Metadaten: Hoch, aber zwischengespeichert <br/> -Generierung anzeigen: Mittel, aber zwischengespeichert <br/> -Parameter Auswertung: Niedrig <br/> -Abfrage Übersetzung: Mittel, aber zwischengespeichert <br/> -Materializer-Generierung: Mittel, aber zwischengespeichert <br/> -Datenbankabfrage Ausführung: Potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel (schneller als EF5) <br/> -Identitätssuche: Mittel |
+| `  var c1 = q1.First();`                                                                             | LINQ-Abfrage Ausführung      | -Das Laden von Metadaten: hoch, aber zwischengespeichert <br/> -Generierung anzeigen: potenziell sehr hoch, aber zwischengespeichert <br/> -Parameter Auswertung: Mittel <br/> -Abfrage Übersetzung: Mittel <br/> -Materializer-Generierung: Mittel, aber zwischengespeichert <br/> -Datenbankabfrage Ausführung: potenziell hoch <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Das Laden von Metadaten: hoch, aber zwischengespeichert <br/> -Generierung anzeigen: potenziell sehr hoch, aber zwischengespeichert <br/> -Parameter Auswertung: niedrig <br/> -Abfrage Übersetzung: Mittel, aber zwischengespeichert <br/> -Materializer-Generierung: Mittel, aber zwischengespeichert <br/> -Datenbankabfrage Ausführung: potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Das Laden von Metadaten: hoch, aber zwischengespeichert <br/> -Sicht Generierung: Mittel, aber zwischengespeichert <br/> -Parameter Auswertung: niedrig <br/> -Abfrage Übersetzung: Mittel, aber zwischengespeichert <br/> -Materializer-Generierung: Mittel, aber zwischengespeichert <br/> -Datenbankabfrage Ausführung: potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel (schneller als EF5) <br/> -Identitätssuche: Mittel |
 | `}`                                                                                                  | Verbindung. Schließen          | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                           | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 
@@ -53,7 +53,7 @@ Betrachten wir einen Überblick über die Zeit, die beim Ausführen einer Abfrag
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | Kontext Erstellung          | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Mittel                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Erstellung von Abfrage Ausdrücken | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `  var c1 = q1.First();`                                                                             | LINQ-Abfrage Ausführung      | -Die Suche nach dem ~~metadatenlade Vorgang~~ : ~~Hoch, aber zwischengespeichert~~ Preis <br/> -Ansicht ~~Generierungs~~ Suche: ~~Potenziell sehr hoch, aber zwischengespeichert~~ Preis <br/> -Parameter Auswertung: Mittel <br/> -Abfrage ~~Übersetzungs~~ Suche: Mittel <br/> -Materializer ~~Generierungs~~ Suche: ~~Mittel, aber zwischengespeichert~~ Preis <br/> -Datenbankabfrage Ausführung: Potenziell hoch <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Die Suche nach dem ~~metadatenlade Vorgang~~ : ~~Hoch, aber zwischengespeichert~~ Preis <br/> -Ansicht ~~Generierungs~~ Suche: ~~Potenziell sehr hoch, aber zwischengespeichert~~ Preis <br/> -Parameter Auswertung: Niedrig <br/> -Abfrage ~~Übersetzungs~~ Suche: ~~Mittel, aber zwischengespeichert~~ Preis <br/> -Materializer ~~Generierungs~~ Suche: ~~Mittel, aber zwischengespeichert~~ Preis <br/> -Datenbankabfrage Ausführung: Potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Die Suche nach dem ~~metadatenlade Vorgang~~ : ~~Hoch, aber zwischengespeichert~~ Preis <br/> -Ansicht ~~Generierungs~~ Suche: ~~Mittel, aber zwischengespeichert~~ Preis <br/> -Parameter Auswertung: Niedrig <br/> -Abfrage ~~Übersetzungs~~ Suche: ~~Mittel, aber zwischengespeichert~~ Preis <br/> -Materializer ~~Generierungs~~ Suche: ~~Mittel, aber zwischengespeichert~~ Preis <br/> -Datenbankabfrage Ausführung: Potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel (schneller als EF5) <br/> -Identitätssuche: Mittel |
+| `  var c1 = q1.First();`                                                                             | LINQ-Abfrage Ausführung      | -Das Suchen nach dem ~~metadatenlade Vorgang~~ : ~~hoch, aber zwischengespeichert~~ <br/> -Ansicht ~~Generierungs~~ Suche: ~~potenziell sehr hoch, aber zwischengespeichert~~ <br/> -Parameter Auswertung: Mittel <br/> -Abfrage ~~Übersetzungs~~ Suche: Mittel <br/> -Materializer ~~Generierungs~~ Suche: ~~Mittel, aber niedrig zwischengespeichert~~ <br/> -Datenbankabfrage Ausführung: potenziell hoch <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Das Suchen nach dem ~~metadatenlade Vorgang~~ : ~~hoch, aber zwischengespeichert~~ <br/> -Ansicht ~~Generierungs~~ Suche: ~~potenziell sehr hoch, aber zwischengespeichert~~ <br/> -Parameter Auswertung: niedrig <br/> -Abfrage ~~Übersetzungs~~ Suche: ~~Mittel, aber niedrig zwischengespeichert~~ <br/> -Materializer ~~Generierungs~~ Suche: ~~Mittel, aber niedrig zwischengespeichert~~ <br/> -Datenbankabfrage Ausführung: potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel <br/> -Identitätssuche: Mittel | -Das Suchen nach dem ~~metadatenlade Vorgang~~ : ~~hoch, aber zwischengespeichert~~ <br/> -Ansicht ~~Generierungs~~ Suche: ~~Mittel, aber niedrig zwischengespeichert~~ <br/> -Parameter Auswertung: niedrig <br/> -Abfrage ~~Übersetzungs~~ Suche: ~~Mittel, aber niedrig zwischengespeichert~~ <br/> -Materializer ~~Generierungs~~ Suche: ~~Mittel, aber niedrig zwischengespeichert~~ <br/> -Datenbankabfrage Ausführung: potenziell hoch (bessere Abfragen in einigen Situationen) <br/> + Verbindung. Öffnen <br/> + Command. ExecuteReader <br/> + DataReader.Read <br/> Objektmaterialisierung: Mittel (schneller als EF5) <br/> -Identitätssuche: Mittel |
 | `}`                                                                                                  | Verbindung. Schließen          | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Niedrig                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
@@ -68,7 +68,7 @@ Um zu verstehen, welche Sicht Generierung ist, müssen wir zuerst verstehen, was
 
 Beachten Sie, dass das konzeptionelle Modell auf unterschiedliche Weise vom Datenbankschema abweichen kann. Beispielsweise kann eine einzelne Tabelle zum Speichern der Daten für zwei verschiedene Entitäts Typen verwendet werden. Vererbung und nicht triviale Zuordnungen spielen bei der Komplexität der Zuordnungs Sichten eine Rolle.
 
-Das Berechnen dieser Sichten auf der Grundlage der Spezifikation der Zuordnung ist das, was wir als Ansichts Generierung bezeichnen. Die Ansichts Generierung kann entweder dynamisch erfolgen, wenn ein Modell geladen wird, oder zur Buildzeit mithilfe von "vorgenerierten Sichten"; Letztere werden in Form von Entity SQL-Anweisungen in eine C @ no__t-0-oder VB-Datei serialisiert.
+Das Berechnen dieser Sichten auf der Grundlage der Spezifikation der Zuordnung ist das, was wir als Ansichts Generierung bezeichnen. Die Ansichts Generierung kann entweder dynamisch erfolgen, wenn ein Modell geladen wird, oder zur Buildzeit mithilfe von "vorgenerierten Sichten"; Letztere werden in Form von Entity SQL-Anweisungen in eine C\#-oder VB-Datei serialisiert.
 
 Wenn Sichten generiert werden, werden Sie ebenfalls überprüft. Aus Sicht der Leistung ist der Großteil der Kosten der Ansichts Generierung tatsächlich die Validierung der Sichten, die sicherstellt, dass die Verbindungen zwischen den Entitäten sinnvoll sind und über die richtige Kardinalität für alle unterstützten Vorgänge verfügen.
 
@@ -96,7 +96,7 @@ Mit der [Entity Framework 6 Power Tools Community Edition](https://marketplace.v
 
 #### <a name="232-how-to-use-pre-generated-views-with-a-model-created-by-edmgen"></a>2.3.2 verwenden vorgenerierter Sichten mit einem von EdmGen erstellten Modell
 
-EdmGen ist ein Hilfsprogramm, das mit .net ausgeliefert wird und mit Entity Framework 4 und 5, aber nicht mit Entity Framework 6 funktioniert. Mit EdmGen können Sie eine Modelldatei, die Objektebene und die Ansichten von der Befehlszeile aus generieren. Eine der Ausgaben ist eine Ansichts Datei in der Sprache Ihrer Wahl, VB oder C @ no__t-0. Dies ist eine Codedatei, die Entity SQL Ausschnitte für jede Entitätenmenge enthält. Um vorab generierte Sichten zu aktivieren, schließen Sie einfach die Datei in Ihr Projekt ein.
+EdmGen ist ein Hilfsprogramm, das mit .net ausgeliefert wird und mit Entity Framework 4 und 5, aber nicht mit Entity Framework 6 funktioniert. Mit EdmGen können Sie eine Modelldatei, die Objektebene und die Ansichten von der Befehlszeile aus generieren. Bei einer der Ausgaben handelt es sich um eine Ansichts Datei in Ihrer bevorzugten Sprache, VB-oder C-\#. Dies ist eine Codedatei, die Entity SQL Ausschnitte für jede Entitätenmenge enthält. Um vorab generierte Sichten zu aktivieren, schließen Sie einfach die Datei in Ihr Projekt ein.
 
 Wenn Sie Änderungen an den Schema Dateien für das Modell manuell vornehmen, müssen Sie die Ansichts Datei erneut generieren. Hierfür können Sie EdmGen mit dem Flag **/Mode: viewgene Ration** ausführen.
 
@@ -106,7 +106,7 @@ Sie können EdmGen auch zum Generieren von Sichten für eine EDMX-Datei verwende
 
 ADO.NET-Teamblog hat einen Beitrag, der beschreibt, wie Sie mit einer T4-Vorlage für das Generieren von Sichten ( \<http://blogs.msdn.com/b/adonet/archive/2008/06/20/how-to-use-a-t4-template-for-view-generation.aspx>). Dieser Beitrag enthält eine Vorlage, die heruntergeladen und dem Projekt hinzugefügt werden kann. Die Vorlage wurde für die erste Version von Entity Framework geschrieben, sodass Sie mit den neuesten Versionen von Entity Framework nicht sicher funktionieren. Sie können jedoch einen aktuellere Satz von Ansichts Generierungs Vorlagen für Entity Framework 4 und 5 aus der Visual Studio Gallery herunterladen:
 
--   VB.NET: \< @ NO__T-1
+-   VB.net: \<http://visualstudiogallery.msdn.microsoft.com/118b44f2-1b91-4de2-a584-7a680418941d>
 -   C\#: \<http://visualstudiogallery.msdn.microsoft.com/ae7730ce-ddab-470f-8456-1b313cd2c44d>
 
 Bei Verwendung von Entity Framework 6 erhalten Sie die Ansicht Generation T4-Vorlagen aus Visual Studio Gallery unter \<http://visualstudiogallery.msdn.microsoft.com/18a7db90-6705-4d19-9dd1-0a6c23d0751f>.
@@ -145,7 +145,7 @@ Wenn Sie über ein großes Code First Modell verfügen, hat die Verwendung unabh
 
 Wenn Ihr Modell direkt in das Projekt Ihrer Anwendung eingefügt wird und Sie Sichten über ein Präbuildereignis oder eine T4-Vorlage generieren, werden die Ansichts Generierung und-Validierung immer dann durchgeführt, wenn das Projekt neu erstellt wird, auch wenn das Modell nicht geändert wurde. Wenn Sie das Modell in eine separate Assembly verschieben und aus dem Projekt Ihrer Anwendung darauf verweisen, können Sie andere Änderungen an Ihrer Anwendung vornehmen, ohne das Projekt neu erstellen zu müssen, das das Modell enthält.
 
-*Hinweis:*  Wenn Sie das Modell in separate Assemblys verschieben, denken Sie daran, die Verbindungs Zeichenfolgen für das Modell in die Anwendungs Konfigurationsdatei des Client Projekts zu kopieren.
+*Hinweis:* Wenn Sie das Modell in separate Assemblys verschieben  , müssen Sie die Verbindungs Zeichenfolgen für das Modell in die Anwendungs Konfigurationsdatei des Client Projekts kopieren.
 
 #### <a name="243-disable-validation-of-an-edmx-based-model"></a>2.4.3 Deaktivieren der Überprüfung eines edmx-basierten Modells
 
@@ -191,7 +191,7 @@ Bei der Verwendung der Find-Methode müssen Sie Folgendes beachten:
 1.  Wenn sich das Objekt nicht im Cache befindet, werden die Vorteile von Find negiert, aber die Syntax ist noch einfacher als eine Abfrage nach Schlüssel.
 2.  Wenn die Option zum automatischen Erkennen von Änderungen aktiviert ist, können die Kosten der Find-Methode je nach Komplexität des Modells und der Menge der Entitäten im Objekt Cache in einer Größenordnung zunehmen.
 
-Beachten Sie außerdem, dass Find nur die Entität zurückgibt, nach der Sie suchen, und die zugehörigen Entitäten nicht automatisch lädt, wenn Sie sich nicht bereits im Objekt Cache befinden. Wenn Sie zugehörige Entitäten abrufen müssen, können Sie eine Abfrage nach Schlüssel mit Eager Loading verwenden. Weitere Informationen finden Sie unter **8,1 Lazy Load im Vergleich zu Unverzügliches Laden von @ no__t-0.
+Beachten Sie außerdem, dass Find nur die Entität zurückgibt, nach der Sie suchen, und die zugehörigen Entitäten nicht automatisch lädt, wenn Sie sich nicht bereits im Objekt Cache befinden. Wenn Sie zugehörige Entitäten abrufen müssen, können Sie eine Abfrage nach Schlüssel mit Eager Loading verwenden. Weitere Informationen finden Sie unter **8,1 Lazy Load im Vergleich zum unverwollten laden**.
 
 #### <a name="312-performance-issues-when-the-object-cache-has-many-entities"></a>3.1.2 Leistungsprobleme, wenn der Objekt Cache über viele Entitäten verfügt
 
@@ -207,9 +207,9 @@ Der Abfrageplan Cache wird über ObjectContext-Instanzen innerhalb derselben App
 
 #### <a name="321-some-notes-about-query-plan-caching"></a>3.2.1 einige Hinweise zum Zwischenspeichern von Abfrage Plänen
 
--   Der Abfrageplan Cache wird für alle Abfrage Typen freigegeben: Die Objekte Entity SQL, LINQ to Entities und CompiledQuery.
+-   Der Abfrageplan Cache wird für alle Abfrage Typen freigegeben: Entity SQL, LINQ to Entities und CompiledQuery-Objekten.
 -   Standardmäßig ist das Zwischenspeichern von Abfrage Plänen für Entity SQL Abfragen aktiviert, unabhängig davon, ob diese über einen EntityCommand oder durch eine ObjectQuery ausgeführt werden. Sie ist auch standardmäßig für LINQ to Entities Abfragen in Entity Framework unter .NET 4,5 und Entity Framework 6 aktiviert.
-    -   Das Zwischenspeichern von Abfrage Plänen kann deaktiviert werden, indem die EnablePlanCaching-Eigenschaft (für EntityCommand oder ObjectQuery) auf false festgelegt wird. Zum Beispiel:
+    -   Das Zwischenspeichern von Abfrage Plänen kann deaktiviert werden, indem die EnablePlanCaching-Eigenschaft (für EntityCommand oder ObjectQuery) auf false festgelegt wird. Beispiel:
 ``` csharp
                     var query = from customer in context.Customer
                                 where customer.CustomerId == id
@@ -247,8 +247,8 @@ Um die Auswirkung der Zwischenspeicherung von Abfrage Plänen auf die Leistung I
 | Test                                                                   | EF5 kein Cache | EF5 zwischengespeichert | EF6 kein Cache | EF6 zwischengespeichert |
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
 | Auflisten aller 18723-Abfragen                                          | 124          | 125,4      | 124,3        | 125,3      |
-| Vermeiden von Sweep (nur die ersten 800-Abfragen, unabhängig von der Komplexität)  | 41,7         | 5.5        | 40,5         | 5.4        |
-| Nur die aggregatingsubsummen-Abfragen (178 Total, wodurch das Sweep vermieden wird) | 39,5         | 4.5        | 38,1         | 4.6        |
+| Vermeiden von Sweep (nur die ersten 800-Abfragen, unabhängig von der Komplexität)  | 41,7         | 5,5        | 40,5         | 5.4        |
+| Nur die aggregatingsubsummen-Abfragen (178 Total, wodurch das Sweep vermieden wird) | 39,5         | 4,5        | 38,1         | 4.6        |
 
 *Alle Uhrzeiten in Sekunden.*
 
@@ -410,7 +410,7 @@ Diese Implementierung des zwischen Speicherns auf zweiter Ebene ist eine eingef�
 
 #### <a name="351-additional-references-for-results-caching-with-the-wrapping-provider"></a>3.5.1 zusätzliche Verweise für das Zwischenspeichern von Ergebnissen mit dem Wrapping Anbieter
 
--   Julie Lerman hat im MSDN-Artikel "Caching der zweiten Ebene in Entity Framework und Windows Azure" das Aktualisieren des Beispiel-Wrapping Anbieters zur Verwendung von Windows Server AppFabric Caching beschrieben: [https://msdn.microsoft.com/magazine/hh394143.aspx](https://msdn.microsoft.com/magazine/hh394143.aspx)
+-   Julie Lerman hat im MSDN-Artikel "Caching der zweiten Ebene in Entity Framework und Windows Azure" das Aktualisieren des Beispiel-Wrapping Anbieters für die Verwendung von Windows Server AppFabric Caching erläutert: [https://msdn.microsoft.com/magazine/hh394143.aspx](https://msdn.microsoft.com/magazine/hh394143.aspx)
 -   Wenn Sie mit Entity Framework 5 arbeiten, hat das Teamblog einen Beitrag, der beschreibt, wie Sie die Dinge, die mit der caching-Anbieter für Entity Framework 5 ausgeführt werden: \<http://blogs.msdn.com/b/adonet/archive/2010/09/13/ef-caching-with-jarek-kowalski-s-provider.aspx>. Außerdem enthält Sie eine T4-Vorlage, mit der Sie das Zwischenspeichern der zweiten Ebene zu Ihrem Projekt automatisieren können.
 
 ## <a name="4-autocompiled-queries"></a>4 automatisch kompilierte Abfragen
@@ -426,14 +426,14 @@ Entity Framework erkennt, wenn eine Abfrage erneut kompiliert werden muss. Dies 
 
 Andere Bedingungen können verhindern, dass Ihre Abfrage den Cache verwendet. Allgemeine Beispiele:
 
--   Verwenden von IEnumerable @ no__t-0t @ no__t-1. Enthält @ no__t-2 @ no__t-3 (t-Wert).
+-   Verwenden von IEnumerable&lt;t&gt;. Enthält&lt;&gt;(t-Wert).
 -   Verwenden von Funktionen, mit denen Abfragen mit Konstanten erzeugt werden.
 -   Verwenden der Eigenschaften eines nicht zugeordneten Objekts.
 -   Verknüpfen der Abfrage mit einer anderen Abfrage, für die eine erneute Kompilierung erforderlich ist.
 
-### <a name="41-using-ienumerablelttgtcontainslttgtt-value"></a>4,1 Using IEnumerable @ no__t-0t @ no__t-1. Enthält @ no__t-2T @ no__t-3 (t Wert)
+### <a name="41-using-ienumerablelttgtcontainslttgtt-value"></a>4,1 Verwenden von IEnumerable&lt;t&gt;. Enthält&lt;t-&gt;(t-Wert)
 
-In Entity Framework werden keine Abfragen zwischengespeichert, die IEnumerable @ no__t-0t @ no__t-1 aufrufen. Enthält @ no__t-2T @ no__t-3 (t-Wert) für eine Auflistung im Arbeitsspeicher, da die Werte der Auflistung als flüchtig angesehen werden. Die folgende Beispiel Abfrage wird nicht zwischengespeichert, sodass Sie immer vom Plan Compiler verarbeitet wird:
+In Entity Framework werden keine Abfragen zwischengespeichert, die IEnumerable&lt;t&gt;aufrufen. Enthält&lt;t&gt;(t-Wert) für eine Auflistung im Arbeitsspeicher, da die Werte der Auflistung als flüchtig angesehen werden. Die folgende Beispiel Abfrage wird nicht zwischengespeichert, sodass Sie immer vom Plan Compiler verarbeitet wird:
 
 ``` csharp
 int[] ids = new int[10000];
@@ -450,11 +450,11 @@ using (var context = new MyContext())
 
 Beachten Sie, dass die Größe des IEnumerable-Element, in dem enthalten ist, bestimmt, wie schnell oder wie langsam die Abfrage kompiliert wird. Die Leistung kann erheblich beeinträchtigt werden, wenn große Auflistungen verwendet werden, wie im obigen Beispiel gezeigt.
 
-Entity Framework 6 enthält Optimierungen wie IEnumerable @ no__t-0t @ no__t-1. Enthält @ no__t-2T @ no__t-3 (t Wert) funktioniert, wenn Abfragen ausgeführt werden. Der generierte SQL-Code ist viel schneller zu erzeugen und lesbarer zu machen, und in den meisten Fällen wird er auch schneller auf dem Server ausgeführt.
+Entity Framework 6 enthält Optimierungen, wie IEnumerable&lt;t&gt;. Enthält&lt;t&gt;(t-Wert) bei der Ausführung von Abfragen. Der generierte SQL-Code ist viel schneller zu erzeugen und lesbarer zu machen, und in den meisten Fällen wird er auch schneller auf dem Server ausgeführt.
 
 ### <a name="42-using-functions-that-produce-queries-with-constants"></a>4,2 Verwenden von Funktionen, die Abfragen mit Konstanten entwickeln
 
-Die LINQ-Operatoren Skip (), Take (), enthält () und defautifempty () erstellen keine SQL-Abfragen mit Parametern, sondern legen die an Sie übergebenen Werte als Konstanten fest. Aus diesem Grund werden Abfragen, die andernfalls identisch sein könnten, den Abfrageplan Cache sowohl auf dem EF-Stapel als auch auf dem Datenbankserver verschmutzen und werden nicht wieder hergestellt, es sei denn, in einer nachfolgenden Abfrage Ausführung werden dieselben Konstanten verwendet. Zum Beispiel:
+Die LINQ-Operatoren Skip (), Take (), enthält () und defautifempty () erstellen keine SQL-Abfragen mit Parametern, sondern legen die an Sie übergebenen Werte als Konstanten fest. Aus diesem Grund werden Abfragen, die andernfalls identisch sein könnten, den Abfrageplan Cache sowohl auf dem EF-Stapel als auch auf dem Datenbankserver verschmutzen und werden nicht wieder hergestellt, es sei denn, in einer nachfolgenden Abfrage Ausführung werden dieselben Konstanten verwendet. Beispiel:
 
 ``` csharp
 var id = 10;
@@ -508,7 +508,7 @@ for (; i < count; ++i)
 
 ### <a name="43-using-the-properties-of-a-non-mapped-object"></a>4,3 Verwenden der Eigenschaften eines nicht zugeordneten Objekts
 
-Wenn eine Abfrage die Eigenschaften eines nicht zugeordneten Objekt Typs als Parameter verwendet, wird die Abfrage nicht zwischengespeichert. Zum Beispiel:
+Wenn eine Abfrage die Eigenschaften eines nicht zugeordneten Objekt Typs als Parameter verwendet, wird die Abfrage nicht zwischengespeichert. Beispiel:
 
 ``` csharp
 using (var context = new MyContext())
@@ -613,12 +613,12 @@ Sie können den Modus einer Abfrage auf NoTracking umstellen, indem Sie in der A
 In diesem Test betrachten wir die Kosten für das Ausfüllen von objectstatus Manager, indem wir die Nachverfolgung mit NoTracking-Abfragen für das Navision-Modell vergleichen. Eine Beschreibung des Navision-Modells und der ausgeführten Abfrage Typen finden Sie im Anhang. In diesem Test durchlaufen wir die Abfrage Liste und führen jede einzelne aus. Wir haben zwei Variationen des Tests ausgeführt, einmal mit NoTracking-Abfragen und einmal mit der Standard Zusammenfassungs Option "AppendOnly". Wir haben jede Variation dreimal ausgeführt und den Mittelwert der Ausführungen übernommen. Zwischen den Tests löschen wir den Abfragecache auf dem SQL Server und verkleinern tempdb, indem wir die folgenden Befehle ausführen:
 
 1.  DBCC DROPCLEANBUFFERS
-2.  DBCC-FREIPROCCACHE
+2.  DBCC FREEPROCCACHE
 3.  DBCC SHRINKDATABASE (tempdb, 0)
 
 Testergebnisse, Median über 3 Ausführungen:
 
-|                        | KEINE NACHVERFOLGUNG – WORKINGSET | KEINE NACHVERFOLGUNG – ZEIT | NUR ANFÜGEN – WORKINGSET | NUR ANFÜGEN – ZEIT |
+|                        | keine Nachverfolgung – Workingset | keine Nachverfolgung – Zeit | Nur anfügen – Workingset | Nur anfügen – Zeit |
 |:-----------------------|:--------------------------|:-------------------|:--------------------------|:-------------------|
 | **Entity Framework 5** | 460361728                 | 1163536 MS         | 596545536                 | 1273042 MS         |
 | **Entity Framework 6** | 647127040                 | 190228 MS          | 832798720                 | 195521 MS          |
@@ -689,7 +689,7 @@ var q = context.Products.AsNoTracking()
     -   Muster, die DefaultIfEmpty für äußere joinabfragen verwenden, führen zu komplexeren Abfragen als einfache äußere JOIN-Anweisungen in Entity SQL.
     -   Sie können "like" weiterhin nicht mit dem allgemeinen Musterabgleich verwenden.
 
-Beachten Sie, dass Abfragen, die skalare Eigenschaften projizieren, auch dann nicht nachverfolgt werden, wenn NoTracking nicht angegeben ist. Zum Beispiel:
+Beachten Sie, dass Abfragen, die skalare Eigenschaften projizieren, auch dann nicht nachverfolgt werden, wenn NoTracking nicht angegeben ist. Beispiel:
 
 ``` csharp
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages").Select(p => new { p.ProductName });
@@ -857,7 +857,7 @@ Um die tatsächliche Leistung der verschiedenen Abfrage Optionen zu vergleichen,
 > [!NOTE]
 > Aus Gründen der Vollständigkeit enthalten wir eine Variation, bei der wir eine Entity SQL Abfrage für einen EntityCommand ausführen. Da die Ergebnisse für solche Abfragen jedoch nicht materialisiert werden, ist der Vergleich nicht notwendigerweise "Äpfel-zu-Äpfel". Der Test beinhaltet eine genaue Näherung, um den Vergleich zu gestalten.
 
-In diesem End-to-End-Fall Entity Framework 6 Entity Framework 5 aufgrund von Leistungsverbesserungen, die an mehreren Teilen des Stapels vorgenommen werden, einschließlich einer viel leichteren dbcontext-Initialisierung und schnelleren MetadataCollection @ no__t-0t @ no__t-1-suchen.
+In diesem End-to-End-Fall Entity Framework 6 Entity Framework 5 aufgrund von Leistungsverbesserungen, die an mehreren Teilen des Stapels vorgenommen werden, einschließlich einer wesentlich leichteren dbcontext-Initialisierung und schnelleren MetadataCollection&lt;t&gt; suchen.
 
 ## <a name="7-design-time-performance-considerations"></a>7 Überlegungen zur Entwurfszeit Leistung
 
@@ -889,10 +889,10 @@ Das Modell enthält 1005 Entitätenmengen und 4227 Zuordnungs Sätze.
 
 | Konfiguration                              | Aufschlüsselung der verbrauchten Zeit                                                                                                                                               |
 |:-------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Visual Studio 2010, Entity Framework 4     | SSDL-Generierung: 2 Stunden, 27 min. <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Generierung anzeigen: 2 Std. 14 min. |
-| Visual Studio 2010 SP1, Entity Framework 4 | SSDL-Generierung: 1 Sekunde <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Generierung anzeigen: 1 Stunde 53 min.   |
-| Visual Studio 2013, Entity Framework 5     | SSDL-Generierung: 1 Sekunde <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Generierung anzeigen: 65 Minuten    |
-| Visual Studio 2013, Entity Framework 6     | SSDL-Generierung: 1 Sekunde <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Generierung anzeigen: 28 Sekunden.   |
+| Visual Studio 2010, Entity Framework 4     | SSDL-Generierung: 2 Std. 27 min. <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Ansichts Generierung: 2 Std. 14 min. |
+| Visual Studio 2010 SP1, Entity Framework 4 | SSDL-Generierung: 1 Sekunde <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Sicht Generierung: 1 Stunde 53 min.   |
+| Visual Studio 2013, Entity Framework 5     | SSDL-Generierung: 1 Sekunde <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Ansichts Generierung: 65 Minuten    |
+| Visual Studio 2013, Entity Framework 6     | SSDL-Generierung: 1 Sekunde <br/> Mapping-Generierung: 1 Sekunde <br/> CSDL-Generierung: 1 Sekunde <br/> Objectlayer-Generierung: 1 Sekunde <br/> Sicht Generierung: 28 Sekunden.   |
 
 
 Beachten Sie, dass die Auslastung beim Erzeugen der SSDL fast vollständig für den SQL Server aufgewendet wird, während der Client Entwicklungs Computer im Leerlauf darauf wartet, dass Ergebnisse vom Server zurückgegeben werden. DBAs sollten diese Verbesserung besonders schätzen. Es ist auch erwähnenswert, dass im Wesentlichen die Gesamtkosten für die Modell Generierung in der Ansichts Generierung erfolgt sind.
@@ -925,7 +925,7 @@ Zusammenfassung: beim Erstellen des Änderungs nach Verfolgungs Proxys wird eine
 
 ## <a name="8-loading-related-entities"></a>8 Laden verwandter Entitäten
 
-### <a name="81-lazy-loading-vs-eager-loading"></a>8,1 Lazy Load im Vergleich zu Eager Loading
+### <a name="81-lazy-loading-vs-eager-loading"></a>8,1 Lazy Load im Vergleich zum unverwollten laden
 
 Entity Framework bietet verschiedene Möglichkeiten, um die Entitäten zu laden, die mit der Ziel Entität verknüpft sind. Wenn Sie z. b. Produkte Abfragen, gibt es verschiedene Möglichkeiten, wie die zugehörigen Bestellungen in den Objekt Zustands-Manager geladen werden. Aus Sicht der Leistung ist es am wichtigsten, beim Laden von verknüpften Entitäten zu beachten, ob Lazy Load oder das unverzügliches Laden verwendet werden soll.
 
@@ -1187,7 +1187,7 @@ Die Kontexte von Entity Framework sollen als kurzlebige Instanzen verwendet werd
 
 ### <a name="94-database-null-semantics"></a>9,4-Datenbank-NULL-Semantik
 
-Standardmäßig wird von Entity Framework SQL-Code generiert, der über eine NULL-Vergleichs Semantik mit C @ no__t-0 verfügt. Beachten Sie die folgende Beispiel Abfrage:
+Standardmäßig wird von Entity Framework SQL-Code generiert, der über C\# NULL-Vergleichs Semantik verfügt. Betrachten Sie die folgende Beispielabfrage:
 
 ``` csharp
             int? categoryId = 7;
@@ -1210,9 +1210,9 @@ Standardmäßig wird von Entity Framework SQL-Code generiert, der über eine NUL
             var r = q.ToList();
 ```
 
-In diesem Beispiel vergleichen wir eine Reihe von Variablen, die NULL-Werte zulassen, mit auf NULL festleg baren Eigenschaften in der Entität, z. b. SupplierID und UnitPrice. Der generierte SQL-Wert für diese Abfrage fragt, ob der Parameterwert mit dem Spaltenwert übereinstimmt oder ob der Parameter und die Spaltenwerte NULL sind. Dadurch wird die Art und Weise ausgeblendet, in der der Datenbankserver NULL-Werte verarbeitet und eine konsistente C @ no__t-0-Null-Darstellung für verschiedene Datenbankanbieter bereitstellt. Auf der anderen Seite ist der generierte Code etwas kompliziert und funktioniert möglicherweise nicht gut, wenn die Anzahl der Vergleiche in der WHERE-Anweisung der Abfrage zu einer hohen Zahl wächst.
+In diesem Beispiel vergleichen wir eine Reihe von Variablen, die NULL-Werte zulassen, mit auf NULL festleg baren Eigenschaften in der Entität, z. b. SupplierID und UnitPrice. Der generierte SQL-Wert für diese Abfrage fragt, ob der Parameterwert mit dem Spaltenwert übereinstimmt oder ob der Parameter und die Spaltenwerte NULL sind. Dadurch wird die Art und Weise ausgeblendet, in der der Datenbankserver NULL-Werte verarbeitet und eine konsistente C-\# NULL für verschiedene Datenbankanbieter bereitstellt. Auf der anderen Seite ist der generierte Code etwas kompliziert und funktioniert möglicherweise nicht gut, wenn die Anzahl der Vergleiche in der WHERE-Anweisung der Abfrage zu einer hohen Zahl wächst.
 
-Eine Möglichkeit, diese Situation zu behandeln, besteht in der Verwendung der NULL-Semantik für die Datenbank. Beachten Sie, dass sich dies möglicherweise anders als die NULL-Semantik von C @ no__t-0 verhält, da Entity Framework nun einfacheres SQL generieren, das die Verarbeitung von NULL-Werten durch die Datenbank-Engine verfügbar macht. Die NULL-Semantik der Datenbank kann pro Kontext mit einer einzelnen Konfigurationszeile für die Kontext Konfiguration aktiviert werden:
+Eine Möglichkeit, diese Situation zu behandeln, besteht in der Verwendung der NULL-Semantik für die Datenbank. Beachten Sie, dass sich dies möglicherweise anders als die Semantik der C-\# NULL verhält, da Entity Framework einfacheres SQL generiert, das die Verarbeitung von NULL-Werten durch die Datenbank-Engine verfügbar macht. Die NULL-Semantik der Datenbank kann pro Kontext mit einer einzelnen Konfigurationszeile für die Kontext Konfiguration aktiviert werden:
 
 ``` csharp
                 context.Configuration.UseDatabaseNullSemantics = true;
@@ -1226,9 +1226,10 @@ In der obigen Beispiel Abfrage war der Leistungsunterschied in einem in einer ko
 
 In Entity Framework 6 wurde die Unterstützung von asynchronen Vorgängen bei Ausführung unter .NET 4,5 oder höher eingeführt. In den meisten Fällen profitieren Anwendungen mit e/a-bezogenen Konflikten am meisten von der Verwendung von asynchronen Abfrage-und Speicher Vorgängen. Wenn Ihre Anwendung von e/a-Konflikten nicht beeinträchtigt wird, wird die Verwendung von Async in den meisten Fällen synchron ausgeführt, und das Ergebnis wird in der gleichen Zeit wie ein synchroner Aufruf zurückgegeben. andernfalls wird die Ausführung einfach auf eine asynchrone Aufgabe zurückgeführt und zusätzliches Tim hinzugefügt. e bis zum Abschluss Ihres Szenarios.
 
-Informationen zu asynchroner Programmierung Arbeit, die helfen, die Sie die Entscheidung, ob Async die Leistung Ihrer Anwendung verbessert besuchen [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Weitere Informationen zur Verwendung von asynchronen Vorgängen auf Entity Framework finden Sie unter [async Query und Save @ no__t-1.
+Informationen zu asynchroner Programmierung Arbeit, die helfen, die Sie die Entscheidung, ob Async die Leistung Ihrer Anwendung verbessert besuchen [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Weitere Informationen zur Verwendung von asynchronen Vorgängen auf Entity Framework finden Sie unter asynchrone [Abfrage und Speicherung](~/ef6/fundamentals/async.md
+).
 
-### <a name="96-ngen"></a>9,6 NGEN
+### <a name="96-ngen"></a>9,6 ngen
 
 Entity Framework 6 ist nicht in der Standardinstallation von .NET Framework enthalten. Daher sind die Entity Framework-Assemblys standardmäßig nicht ngen, was bedeutet, dass der gesamte Entity Framework Code denselben jitten Kosten wie jede andere MSIL-Assembly unterliegt. Dies kann die F5-Umgebung bei der Entwicklung und dem Kaltstart der Anwendung in der Produktionsumgebung beeinträchtigen. Um die CPU-und Arbeitsspeicher Kosten zu verringern, empfiehlt es sich, die Entity Framework Abbilder nach Bedarf zu ngen. Weitere Informationen zum Verbessern der Startleistung von Entity Framework 6 mit Ngen finden Sie unter Verbessern der [Startleistung mit Ngen](~/ef6/fundamentals/performance/ngen.md).
 
@@ -1273,7 +1274,7 @@ Wenn Sie Entity Framework 6 verwenden, sollten Sie auch die Verwendung der integ
     }
 ```
 
-In diesem Beispiel wird die Datenbankaktivität in der Konsole protokolliert, aber die Log-Eigenschaft kann so konfiguriert werden, dass jeder Action @ no__t-0string @ no__t-1-Delegat aufgerufen wird.
+In diesem Beispiel wird die Datenbankaktivität in der Konsole protokolliert, aber die Log-Eigenschaft kann so konfiguriert werden, dass Sie beliebige Aktionen&lt;Zeichenfolge&gt; Delegaten aufruft.
 
 Wenn Sie die Daten Bank Protokollierung ohne Neukompilierung aktivieren möchten, und Sie Entity Framework 6,1 oder höher verwenden, fügen Sie in der Datei "Web. config" oder "App. config" Ihrer Anwendung einen Interceptor hinzu.
 
@@ -1309,7 +1310,7 @@ In dieser Umgebung wird eine 2-Computer-Einrichtung mit der Datenbank auf einem 
 
 ##### <a name="11112-hardware-environment"></a>11.1.1.2-Hardware Umgebung
 
--   Dual Prozessor:     Intel (r) Xeon (r) CPU L5520 W3530 @ 2,27 GHz, 2261 Mhz8 GHz, 4 Kerne, 84 logische Prozessor (n).
+-   Dual Prozessor: Intel (r) Xeon (r) CPU L5520 W3530 @ 2,27 GHz, 2261 Mhz8 GHz, 4 Kerne (e), 84 logische Prozessoren.
 -   2412 GB ramram.
 -   136 GB SCSI250GB SATA 7200 rpm, 3 GB/s, in 4 Partitionen aufgeteilt.
 
@@ -1529,7 +1530,7 @@ Eine normale BI-Abfrage mit mehreren Aggregationen, aber keine Teilergebnisse (e
   </Query>
 ```
 
-Wenn MDF @ no__t-0sessionlogin @ no__t-1time @ no__t-2max () im Modell wie folgt definiert ist:
+Wenn MDF\_sessionlogin\_Time\_Max () im Modell wie folgt definiert ist:
 
 ``` xml
   <Function Name="MDF_SessionLogin_Time_Max" ReturnType="Collection(DateTime)">

@@ -16,9 +16,9 @@ Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einf�
 ## <a name="watch-the-video"></a>Video ansehen
 Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einführung in die Model First Entwicklung mit Entity Framework. Mit Model First können Sie ein neues Modell mithilfe des Entity Framework Designer erstellen und dann ein Datenbankschema aus dem Modell generieren. Das Modell wird in einer EDMX-Datei (edmx-Erweiterung) gespeichert und kann in der Entity Framework Designer angezeigt und bearbeitet werden. Die Klassen, mit denen Sie in Ihrer Anwendung interagieren, werden automatisch aus der EDMX-Datei generiert.
 
-**Präsentiert von**: [Rowan-Miller](https://romiller.com/)
+**Präsentation:** [Rowan Miller](https://romiller.com/)
 
-**Video**: [WMV](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
+**Video**: [WMV](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (zip)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
@@ -26,12 +26,12 @@ Sie müssen Visual Studio 2010 oder Visual Studio 2012 installiert haben, um die
 
 Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
 
-## <a name="1-create-the-application"></a>1. Erstellen der Anwendung
+## <a name="1-create-the-application"></a>1. Erstellen Sie die Anwendung.
 
 Um dies zu gewährleisten, erstellen wir eine einfache Konsolenanwendung, die die Model First für den Datenzugriff verwendet:
 
--   Öffnen Sie Visual Studio.
--   **Datei-&gt; New-&gt;-Projekt...**
+-   Öffnen Sie Visual Studio
+-   **Datei&gt; Projekt für neue&gt;...**
 -   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
 -   Geben Sie **modelfirstsample** als Name ein.
 -   Wählen Sie **OK** aus.
@@ -40,7 +40,7 @@ Um dies zu gewährleisten, erstellen wir eine einfache Konsolenanwendung, die di
 
 Wir verwenden Entity Framework Designer, die als Teil von Visual Studio enthalten ist, um das Modell zu erstellen.
 
--   **Project-&gt; neues Element hinzufügen...**
+-   **Projekt&gt; neues Element hinzufügen...**
 -   Wählen Sie im linken Menü **Daten** aus, und klicken Sie dann auf **ADO.NET Entity Data Model**
 -   Geben Sie **bloggingmodel** als Name ein, und klicken Sie auf **OK**. Dadurch wird der Entity Data Model-Assistent gestartet.
 -   **Leeres Modell** auswählen und auf **Fertig** stellen klicken
@@ -50,24 +50,25 @@ Wir verwenden Entity Framework Designer, die als Teil von Visual Studio enthalte
 Die Entity Framework Designer wird mit einem leeren Modell geöffnet. Nun können Sie dem Modell Entitäten, Eigenschaften und Zuordnungen hinzufügen.
 
 -   Klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie **Eigenschaften**
--   In der Eigenschaftenfenster den **Entitäts Container Namen** in **bloggingcontext**ändern 
-    *ist dies der Name des abgeleiteten Kontexts, der für Sie generiert wird, der Kontext stellt eine Sitzung mit der Datenbank dar und ermöglicht die Abfrage und Speicherung. Daten*
+-   In der Eigenschaftenfenster den **Namen des Entitäts Containers** in **bloggingcontext** ändern
+    *dies der Name des abgeleiteten Kontexts, der für Sie generiert wird. der Kontext stellt eine Sitzung mit der Datenbank dar und ermöglicht es uns, Daten abzufragen und zu speichern* .
 -   Klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie **Add New-&gt; Entity...**
 -   Geben **Sie** den Namen der Entität und die **BlogId** als Schlüssel Name ein, und klicken Sie auf **OK** .
 
     ![Blog Entität hinzufügen](~/ef6/media/addblogentity.png)
 
--   Klicken Sie mit der rechten Maustaste auf die neue Entität auf der Entwurfs Oberfläche, und wählen Sie **Add New-&gt; Scalar Property**aus, und geben Sie **Name** als Namen der Eigenschaft ein.
+-   Klicken Sie in der Entwurfs Oberfläche mit der rechten Maustaste auf die neue Entität, und wählen Sie **neue&gt; skalare Eigenschaft hinzufügen**aus, und geben Sie **Name** als Namen für die Eigenschaft ein.
 -   Wiederholen Sie diesen Vorgang, um eine **URL** -Eigenschaft hinzuzufügen.
--   Klicken Sie mit der rechten Maustaste auf die **URL** -Eigenschaft auf der Entwurfs Oberfläche, und wählen Sie **Eigenschaften**aus. in der Eigenschaftenfenster ändern Sie die Einstellung **Nullable** auf **true**
-    *Dies ermöglicht es uns, einen Blog in der Datenbank zu speichern, ohne ihm eine URL zuzuweisen. *
+-   Klicken Sie mit der rechten Maustaste auf die **URL** -Eigenschaft auf der Entwurfs Oberfläche, und wählen Sie **Eigenschaften**aus. **in der Eigenschaftenfenster** ändern Sie die Einstellung auf "true", die auf " **true** " festgelegt ist
+    *dadurch können wir einen Blog in der Datenbank speichern, ohne*
 -   Fügen Sie mit den Techniken, die Sie soeben gelernt haben, eine **Post** -Entität mit der Eigenschaft " **POSID** Key
 -   Hinzufügen von **Titel** -und **inhaltsskalaren** Eigenschaften zur **Post** -Entität
 
 Nachdem wir nun über mehrere Entitäten verfügen, ist es an der Zeit, eine Zuordnung (oder Beziehung) zwischen Ihnen hinzuzufügen.
 
--   Klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie **Add New-&gt; Association...**
--   Erstellen Sie ein Ende der Beziehung mit einer Multiplizität von **einem** und dem anderen Endpunkt, um mit einer Multiplizität von **vielen**@no__t- **4 zu** **Posten** .*Dies bedeutet, dass ein Blog viele Beiträge enthält und ein Beitrag zu einem Blog gehört* .
+-   Klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie **Hinzufügen New-&gt; Association...**
+-   Erstellen Sie ein Ende der **Beziehung mit einer** Multiplizität von **einem** und dem anderen Endpunkt, um ihn mit einer Multiplizität von **vielen**
+    zu **veröffentlichen** . *Dies bedeutet, dass ein Blog viele Beiträge enthält und ein Beitrag zu einem Blog gehört* .
 -   Stellen Sie sicher, dass das Feld **Fremdschlüssel Eigenschaften zu ' Post ' hinzufügen** aktiviert ist, und klicken Sie auf **OK**
 
     ![Association-MF hinzufügen](~/ef6/media/addassociationmf.png)
@@ -82,7 +83,7 @@ Wenn Sie in Visual Studio 2010 arbeiten, müssen Sie einige zusätzliche Schritt
 
 Zuerst müssen wir die neueste Version von Entity Framework von nuget erhalten.
 
--   **Project – &gt; nuget-Pakete verwalten...** 
+-   **Project –&gt; nuget-Pakete verwalten...** 
     *Wenn Sie nicht über die Option " **nuget-Pakete verwalten..** ." verfügen, sollten Sie die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.*
 -   Auswählen der Registerkarte " **Online** "
 -   Auswählen des " **EntityFramework** "-Pakets
@@ -92,7 +93,7 @@ Als nächstes müssen wir das Modell austauschen, um Code zu generieren, der die
 
 -   Klicken Sie mit der rechten Maustaste auf eine leere Stelle des Modells im EF-Designer, und wählen Sie **Code Generierungs Element hinzufügen... aus.**
 -   Wählen Sie im linken Menü **Online Vorlagen** aus, und suchen Sie nach **dbcontext** .
--   Wählen Sie den EF **5. x dbcontext Generator für C @ no__t-1 aus**, geben Sie **bloggingmodel** als Name ein, und klicken Sie auf **Hinzufügen** .
+-   Wählen Sie den EF **5. x dbcontext Generator für C\#aus** , geben Sie **bloggingmodel** als Name ein, und klicken Sie auf **Hinzufügen** .
 
     ![Dbcontext-Vorlage](~/ef6/media/dbcontexttemplate.png)
 
@@ -181,8 +182,8 @@ Wir beginnen mit dem Hinzufügen einer neuen Benutzer Entität zum Modell.
 
     ![Benutzer Entität hinzufügen](~/ef6/media/adduserentity.png)
 
--   Klicken Sie mit der rechten Maustaste auf die **username** -Eigenschaft auf der Entwurfs Oberfläche, und wählen Sie **Eigenschaften**aus. in der Eigenschaftenfenster ändern Sie die **MaxLength** -Einstellung auf **50**
-    .*dadurch werden die Daten, die in username gespeichert werden können, auf 50 Zeichen*
+-   Klicken Sie mit der rechten Maustaste auf die **username** -Eigenschaft auf der Entwurfs Oberfläche, und wählen Sie **Eigenschaften**aus. in der Eigenschaftenfenster ändern Sie die **MaxLength** -Einstellung in **50**
+    *damit werden die Daten, die in username gespeichert werden können, auf 50 Zeichen beschränkt*
 -   Hinzufügen einer **DisplayName** -Skalareigenschaft zur **Benutzer** Entität
 
 Wir haben jetzt ein aktualisiertes Modell, und wir können die Datenbank aktualisieren, um den neuen Benutzer Entitätstyp aufzunehmen.

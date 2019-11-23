@@ -19,7 +19,7 @@ Die folgende Abbildung zeigt die Hauptfenster, die bei der Arbeit mit dem EF-Des
 
 ![EF-Designer](~/ef6/media/efdesigner.png)
 
-## <a name="prerequisites"></a>Vorraussetzungen
+## <a name="prerequisites"></a>Erforderliche Komponenten
 
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 
@@ -32,7 +32,7 @@ In dieser exemplarischen Vorgehensweise wird Visual Studio 2012 verwendet.
 
 -   Öffnen Sie Visual Studio 2012.
 -   Zeigen Sie im Menü **Datei** auf **Neu**, und klicken Sie dann auf **Projekt**.
--   Klicken Sie im linken Bereich auf Visual C\#, und wählen Sie dann die Vorlage Konsolenanwendung aus.
+-   Klicken Sie im linken Bereich auf Visual C-\#, und wählen Sie dann die Vorlage Konsolenanwendung aus.
 -   Geben Sie **tablesplittingsample** als Namen für das Projekt ein, und klicken Sie auf **OK**.
 
 ## <a name="create-a-model-based-on-the-school-database"></a>Erstellen eines Modells auf der Grundlage der Datenbank "School"
@@ -41,9 +41,9 @@ In dieser exemplarischen Vorgehensweise wird Visual Studio 2012 verwendet.
 -   Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.
 -   Geben Sie als Dateiname **tablesplittingmodel. edmx** ein, und klicken Sie dann auf **Hinzufügen**.
 -   Wählen Sie im Dialogfeld Modell Inhalte auswählen die Option **aus Datenbank generieren aus**, und klicken Sie dann auf **Weiter.**
--   Klicken Sie auf neue Verbindung. Geben Sie im Dialogfeld Verbindungs Eigenschaften den Servernamen ein (z. b. **(localdb\\) mssqllocaldb**), wählen Sie die Authentifizierungsmethode aus, geben Sie als Datenbanknamen **School** ein, und klicken Sie dann auf **OK**.
+-   Klicken Sie auf neue Verbindung. Geben Sie im Dialogfeld Verbindungs Eigenschaften den Servernamen ein (z. b. **(localdb)\\mssqllocaldb**), wählen Sie die Authentifizierungsmethode aus, geben Sie **School** als Datenbanknamen ein, und klicken Sie dann auf **OK**.
     Das Dialogfeld Wählen Sie Ihre Datenverbindung aus wird mit Ihrer Daten bankverbindungs Einstellung aktualisiert.
--   Erweitern Sie im Dialogfeld Wählen Sie Ihre Datenbankobjekte aus den Knoten **Tabellen** , und überprüfen Sie die Tabelle **Person** . Dadurch wird die angegebene Tabelle dem Modell " **School** " hinzugefügt.
+-   Erweitern Sie im Dialogfeld Wählen Sie Ihre Datenbankobjekte aus die **Tabellen** Knoten, und überprüfen Sie die Tabelle **Person** . Dadurch wird die angegebene Tabelle dem Modell " **School** " hinzugefügt.
 -   Klicken Sie auf **Finish**.
 
 Die Entity Designer, die eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt. Alle Objekte, die Sie im Dialogfeld **Wählen Sie Ihre Datenbankobjekte** ausgewählt haben, werden dem Modell hinzugefügt.
@@ -56,21 +56,21 @@ In diesem Abschnitt teilen Sie die Entität **Person** in zwei Entitäten auf un
 > Die **Person** -Entität enthält keine Eigenschaften, die möglicherweise eine große Datenmenge enthalten. Sie wird nur als Beispiel verwendet.
 
 -   Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, zeigen Sie auf **Neu hinzufügen**, und klicken Sie auf **Entität**.
-    Das Dialogfeld **neue Entität** wird angezeigt.
--   Geben Sie als **Entitäts Name** und **PersonID** als Name der **Schlüsseleigenschaft**  **hireinfo** ein.
+    Das Dialogfeld **neue Entitäts** wird angezeigt.
+-   Geben Sie **hireinfo** für den **Entitäts Namen** und die **PersonID** für den **Schlüssel Eigenschafts** Namen ein.
 -   Klicken Sie auf **OK**.
 -   Ein neuer Entitätstyp wird erstellt und auf der Entwurfsoberfläche angezeigt.
--   Wählen Sie die **HireDate** -Eigenschaft des Entitäts Typs **Person** aus, und drücken Sie **STRG + X** -Taste.
--   Wählen Sie die **hireinfo** -Entität aus, und drücken Sie **STRG + V** Tasten.
+-   Wählen Sie die Eigenschaft **HireDate** des Entitäts Typs **Person** aus, und drücken Sie **STRG + X** -Taste.
+-   Wählen Sie die Entität **hireinfo** aus, und drücken Sie **STRG + V** -Taste.
 -   Erstellen Sie eine Zuordnung zwischen **Person** und **hireinfo**. Klicken Sie hierzu mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, zeigen Sie auf **Neu hinzufügen**, **und klicken Sie dann auf Zuordnung**.
--   Das ****  Dialogfeld Zuordnung hinzufügen wird angezeigt. Der **personhireinfo** -Name wird standardmäßig angegeben.
+-   Das Dialogfeld **Association hinzufügen** wird angezeigt. Der **personhireinfo** -Name wird standardmäßig angegeben.
 -   Geben Sie die Multiplizität **1 (eins)** an beiden Enden der Beziehung an.
 -   Klicken Sie auf **OK**.
 
 Der nächste Schritt erfordert das Fenster " **Mappingdetails** ". Wenn dieses Fenster nicht angezeigt wird, klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie **Mappingdetails**.
 
--   Wählen Sie **den hireinfo** -Entitätstyp aus, und klicken Sie   ****  **&lt;im Fenster Mappingdetails auf Tabelle oder Sicht&gt;hinzufügen**.
--   Wählen Sie in der Dropdown Liste  **&lt;Tabelle oder&gt;Sicht** hinzufügen die Option **Person** aus. Die Liste enthält Tabellen oder Sichten, denen die ausgewählte Entität zugeordnet werden kann.
+-   Wählen Sie den Entitätstyp **hireinfo** aus, und klicken Sie im Fenster **Mappingdetails** auf **&lt;Tabellen-oder Sicht&gt; hinzufügen** .
+-   Wählen Sie in der Dropdown Liste **&lt;eine Tabelle oder Sicht&gt;**  Feld die Option **Person** aus. Die Liste enthält Tabellen oder Sichten, denen die ausgewählte Entität zugeordnet werden kann.
     Die entsprechenden Eigenschaften sollten standardmäßig zugeordnet werden.
 
     ![Zuordnung](~/ef6/media/mapping.png)
@@ -126,7 +126,7 @@ Die folgenden T-SQL-Anweisungen wurden als Ergebnis der Ausführung dieser Anwen
 
 -   Der folgende **Insert-Vorgang** wurde als Ergebnis der Ausführung des Kontexts ausgeführt. SaveChanges () und kombiniert Daten aus den Entitäten **Person** und **hireinfo** .
 
-    ![Insert](~/ef6/media/insert.png)
+    ![Einfügen](~/ef6/media/insert.png)
 
 -   Die folgende **Select** -Anweisung wurde als Ergebnis der Ausführung des Kontexts ausgeführt. People. FirstOrDefault () und wählt nur die Spalten aus, die **Person** zugeordnet sind.
 

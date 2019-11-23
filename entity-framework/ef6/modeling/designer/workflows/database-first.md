@@ -16,9 +16,9 @@ Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einf�
 ## <a name="watch-the-video"></a>Video ansehen
 Dieses Video bietet eine Einführung in die Database First Entwicklung mit Entity Framework. Mit Database First können Sie ein Modell aus einer vorhandenen Datenbank umkehren. Das Modell wird in einer EDMX-Datei (edmx-Erweiterung) gespeichert und kann in der Entity Framework Designer angezeigt und bearbeitet werden. Die Klassen, mit denen Sie in Ihrer Anwendung interagieren, werden automatisch aus der EDMX-Datei generiert.
 
-**Präsentiert von**: [Rowan-Miller](https://romiller.com/)
+**Präsentation:** [Rowan Miller](https://romiller.com/)
 
-**Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
+**Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (zip)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
@@ -28,7 +28,7 @@ Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualst
 
  
 
-## <a name="1-create-an-existing-database"></a>1. Erstellen einer vorhandenen Datenbank
+## <a name="1-create-an-existing-database"></a>1. Erstellen Sie eine vorhandene Datenbank.
 
 Wenn Sie eine vorhandene Datenbank als Ziel haben, wird Sie in der Regel bereits erstellt, aber in dieser exemplarischen Vorgehensweise müssen wir eine Datenbank erstellen, auf die zugegriffen werden kann.
 
@@ -41,9 +41,9 @@ Der Datenbankserver, der mit Visual Studio installiert wird, unterscheidet sich 
 
 Nun generieren wir die Datenbank.
 
--   Öffnen Sie Visual Studio.
--   **View-&gt; Server-Explorer**
--   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen-&gt; Verbindung hinzufügen...**
+-   Öffnen Sie Visual Studio
+-   **&gt; Server-Explorer anzeigen**
+-   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen,&gt; Verbindung hinzufügen...**
 -   Wenn Sie über Server-Explorer keine Verbindung mit einer Datenbank hergestellt haben, müssen Sie Microsoft SQL Server als Datenquelle auswählen.
 
     ![Datenquelle auswählen](~/ef6/media/selectdatasource.png)
@@ -83,19 +83,19 @@ CREATE TABLE [dbo].[Posts] (
 
 Um dies zu gewährleisten, erstellen wir eine einfache Konsolenanwendung, die die Database First für den Datenzugriff verwendet:
 
--   Öffnen Sie Visual Studio.
--   **Datei-&gt; New-&gt;-Projekt...**
+-   Öffnen Sie Visual Studio
+-   **Datei&gt; Projekt für neue&gt;...**
 -   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
 -   Geben Sie **databasefirstsample** als Name ein.
 -   Wählen Sie **OK** aus.
 
  
 
-## <a name="3-reverse-engineer-model"></a>3. Reverse Engineering-Modell
+## <a name="3-reverse-engineer-model"></a>3. Reverse-Engineering-Modell
 
 Wir verwenden Entity Framework Designer, die als Teil von Visual Studio enthalten ist, um das Modell zu erstellen.
 
--   **Project-&gt; neues Element hinzufügen...**
+-   **Projekt&gt; neues Element hinzufügen...**
 -   Wählen Sie im linken Menü **Daten** aus, und klicken Sie dann auf **ADO.NET Entity Data Model**
 -   Geben Sie als Name **bloggingmodel** ein, und klicken Sie auf **OK** .
 -   Dadurch wird der **Entity Data Model-Assistent** gestartet.
@@ -123,7 +123,7 @@ Wenn Sie in Visual Studio 2010 arbeiten, müssen Sie einige zusätzliche Schritt
 
 Zuerst müssen wir die neueste Version von Entity Framework von nuget erhalten.
 
--   **Project – &gt; nuget-Pakete verwalten...** 
+-   **Project –&gt; nuget-Pakete verwalten...** 
     *Wenn Sie nicht über die Option " **nuget-Pakete verwalten..** ." verfügen, sollten Sie die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.*
 -   Auswählen der Registerkarte " **Online** "
 -   Auswählen des " **EntityFramework** "-Pakets
@@ -133,7 +133,7 @@ Als nächstes müssen wir das Modell austauschen, um Code zu generieren, der die
 
 -   Klicken Sie mit der rechten Maustaste auf eine leere Stelle des Modells im EF-Designer, und wählen Sie **Code Generierungs Element hinzufügen... aus.**
 -   Wählen Sie im linken Menü **Online Vorlagen** aus, und suchen Sie nach **dbcontext** .
--   Wählen Sie den EF **5. x dbcontext Generator für C @ no__t-1 aus**, geben Sie **bloggingmodel** als Name ein, und klicken Sie auf **Hinzufügen** .
+-   Wählen Sie den EF **5. x dbcontext Generator für C\#aus** , geben Sie **bloggingmodel** als Name ein, und klicken Sie auf **Hinzufügen** .
 
     ![Dbcontext-Vorlage](~/ef6/media/dbcontexttemplate.png)
 
@@ -215,7 +215,7 @@ Nachdem das Schema aktualisiert wurde, ist es an der Zeit, das Modell mit diesen
 
 -   Klicken Sie mit der rechten Maustaste auf eine leere Stelle des Modells im EF-Designer, und wählen Sie "Modell aus Datenbank aktualisieren..." aus. Dadurch wird der Update-Assistent gestartet.
 -   Aktivieren Sie auf der Registerkarte hinzufügen des Update-Assistenten das Kontrollkästchen neben Tabellen, was bedeutet, dass wir neue Tabellen aus dem Schema hinzufügen möchten.
-    *Die Registerkarte Aktualisieren zeigt alle vorhandenen Tabellen im Modell an, die während des Updates auf Änderungen geprüft werden. Auf den Registerkarten löschen werden alle Tabellen angezeigt, die aus dem Schema entfernt wurden. Sie werden auch als Teil des Updates aus dem Modell entfernt. Die Informationen auf diesen beiden Registerkarten werden automatisch erkannt und dienen nur zu Informationszwecken. Sie können keine Einstellungen ändern.*
+    *Auf der Registerkarte Aktualisieren werden alle vorhandenen Tabellen im Modell angezeigt, die während des Updates auf Änderungen geprüft werden. Auf den Registerkarten löschen werden alle Tabellen angezeigt, die aus dem Schema entfernt wurden. Sie werden auch als Teil des Updates aus dem Modell entfernt. Die Informationen auf diesen beiden Registerkarten werden automatisch erkannt und dienen nur zu Informationszwecken. Sie können keine Einstellungen ändern.*
 
     ![Aktualisierungs-Assistent](~/ef6/media/refreshwizard.png)
 

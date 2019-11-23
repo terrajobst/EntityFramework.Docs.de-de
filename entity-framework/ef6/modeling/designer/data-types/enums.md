@@ -27,7 +27,7 @@ In diesem Video wird gezeigt, wie Enumerationstypen mit dem Entity Framework Des
 
 **Präsentiert von**: Julia kornich
 
-**Video**: [WMV](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.wmv) | [MP4](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-mp4video-enumwithdesiger.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.zip)
+**Video**: [WMV](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.wmv) | [MP4](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-mp4video-enumwithdesiger.m4v) | [WMV (zip)](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
@@ -37,7 +37,7 @@ Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express
 
 1.  Öffnen Sie Visual Studio 2012
 2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
-3.  Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+3.  Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
 4.  Geben Sie **enumef Designer** als Namen für das Projekt ein, und klicken Sie auf **OK** .
 
 ## <a name="create-a-new-model-using-the-ef-designer"></a>Erstellen eines neuen Modells mit dem EF-Designer
@@ -58,10 +58,10 @@ Der Assistent führt die folgenden Aktionen aus:
 
 ## <a name="add-a-new-entity-type"></a>Neuen Entitätstyp hinzufügen
 
-1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, wählen Sie **Add-&gt; Entity**aus, das Dialogfeld neue Entität wird angezeigt.
+1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, und wählen Sie **Add-&gt; Entity**, das Dialogfeld neue Entität wird angezeigt.
 2.  Geben Sie die **Abteilung** für den Typnamen an, und geben Sie **DepartmentID** als Schlüssel Eigenschaftsnamen an, belassen Sie den Typ als **Int32** .
 3.  Klicken Sie auf **OK**.
-4.  Klicken Sie mit der rechten Maustaste auf die Entität, und wählen Sie **Add New-&gt; Scalar Property**
+4.  Klicken Sie mit der rechten Maustaste auf die Entität, und wählen Sie **Add New-&gt; Scalar**
 5.  Benennen Sie die neue Eigenschaft in **Name** um.
 6.  Ändern Sie den Typ der neuen Eigenschaft in **Int32** (Standardmäßig ist die neue Eigenschaft vom Typ String), um den Typ zu ändern, öffnen Sie die Eigenschaftenfenster, und ändern Sie die Type-Eigenschaft in **Int32** .
 7.  Fügen Sie eine weitere skalare Eigenschaft hinzu, und benennen Sie Sie in **Budget**um. ändern Sie den Typ in **Decimal**
@@ -72,7 +72,7 @@ Der Assistent führt die folgenden Aktionen aus:
 
     ![In Aufzählung konvertieren](~/ef6/media/converttoenum.png)
 
-2.  Geben Sie im Dialogfeld Enumeration **Hinzufügen** den Namen **departmentnames** für den Enumerationstypnamen ein, ändern Sie den zugrunde liegenden Typ in **Int32**, und fügen Sie dann die folgenden Member zum-Typ hinzu: Englisch, Mathematik und Wirtschaftlichkeit
+2.  Geben Sie im Dialogfeld Enumeration **Hinzufügen** den Namen **departmentnames** für den Enumerationstypnamen ein, ändern Sie den zugrunde liegenden Typ in **Int32**, und fügen Sie dann die folgenden Member zum-Typ hinzu: Englisch, Math und Economics.
 
     ![Umerationstyp hinzufügen](~/ef6/media/addenumtype.png)
 
@@ -95,11 +95,11 @@ Wenn Sie zum Fenstermodell Browser wechseln, sehen Sie, dass der Typ auch dem Kn
 Nun können wir eine Datenbank generieren, die auf dem Modell basiert.
 
 1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich auf der Entity Designer Oberfläche, und wählen Sie **Datenbank aus Modell generieren** .
-2.  Das Dialog Feld Datenverbindung auswählen des Assistenten zum Generieren von Datenbanken wird angezeigt. Klicken Sie auf die Schaltfläche **neue Verbindung** , und **Geben Sie** **(localdb) \\mssqllocaldb** für den Servernamen und den **enumeringwert** für die Datenbank an.
+2.  Das Dialog Feld Wählen Sie Ihre Datenverbindung aus des Assistenten zum Generieren von Datenbanken wird angezeigt. Klicken Sie auf die Schaltfläche **neue Verbindung** , und **Geben Sie** **(localdb)\\mssqllocaldb** für den Servernamen und den **enumeringwert** für die Datenbank an.
 3.  Wenn Sie in einem Dialogfeld gefragt werden, ob Sie eine neue Datenbank erstellen möchten, klicken Sie auf **Ja**.
-4.  Klicken Sie auf **weiter** , und der Assistent zum Erstellen einer Datenbank generiert die Datendefinitionssprache (DDL) zum Erstellen einer Datenbank. die generierte DDL wird im Dialog Feld Zusammenfassung und Einstellungen angezeigt. Hinweis: die DDL enthält keine Definition für eine Tabelle, die dem Enumerationstyp
+4.  Klicken Sie auf **weiter** , und der Assistent zum Erstellen einer Datenbank generiert die Datendefinitionssprache (DDL) zum Erstellen einer Datenbank. die generierte DDL wird im Dialog Feld Zusammenfassung und Einstellungen angezeigt. Hinweis: die DDL enthält keine Definition für eine Tabelle, die dem Enumerationstyp zugeordnet ist.
 5.  Klicken Sie auf **Fertig** stellen klicken Sie das DDL-Skript nicht aus.
-6.  Der Assistent zum Erstellen einer Datenbank führt folgende Schritte aus: Öffnet die Datei " **enumtest. edmx. SQL** " im T-SQL-Editor generiert die Abschnitte "Store Schema" und "Mapping" der EDMX-Datei.
+6.  Der Assistent zum Erstellen einer Datenbank führt Folgendes aus: öffnet die Datei " **enumtest. edmx. SQL** " im T-SQL-Editor, generiert die Abschnitte "Store Schema" und "Mapping" der Datei "App. config".
 7.  Klicken Sie im T-SQL-Editor auf die Rechte Maustaste, und wählen Sie das Dialogfeld Verbindung mit Server herstellen aus, und **Geben Sie** die Verbindungsinformationen aus Schritt 2 ein.
 8.  Um das generierte Schema anzuzeigen, klicken Sie in SQL Server-Objekt-Explorer mit der rechten Maustaste auf den Datenbanknamen, und wählen Sie **Aktualisieren** .
 

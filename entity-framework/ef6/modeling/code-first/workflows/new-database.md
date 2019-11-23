@@ -11,14 +11,14 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182572"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First einer neuen Datenbank
-Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einführung in Code First Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt wird, oder eine leere Datenbank, der Code First neue Tabellen hinzugefügt werden. Mit Code First können Sie das Modell mithilfe der Klassen C @ no__t-0 oder VB.net definieren. Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.
+Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einführung in Code First Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt wird, oder eine leere Datenbank, der Code First neue Tabellen hinzugefügt werden. Mit Code First können Sie das Modell mithilfe von C\#-oder VB.NET-Klassen definieren. Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.
 
 ## <a name="watch-the-video"></a>Video ansehen
 Dieses Video bietet eine Einführung in Code First Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt wird, oder eine leere Datenbank, der Code First neue Tabellen hinzugefügt werden. Mit Code First können Sie das Modell mithilfe C# von-oder VB.NET-Klassen definieren. Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.
 
-**Präsentiert von**: [Rowan-Miller](https://romiller.com/)
+**Präsentation:** [Rowan Miller](https://romiller.com/)
 
-**Video**: [WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
+**Video**: [WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (zip)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
@@ -26,12 +26,12 @@ Sie müssen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert ha
 
 Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
 
-## <a name="1-create-the-application"></a>1. Erstellen der Anwendung
+## <a name="1-create-the-application"></a>1. Erstellen Sie die Anwendung.
 
 Um die Dinge einfach zu halten, erstellen wir eine einfache Konsolenanwendung, die Code First verwendet, um Daten Zugriffe auszuführen.
 
--   Öffnen Sie Visual Studio.
--   **Datei-&gt; New-&gt;-Projekt...**
+-   Öffnen Sie Visual Studio
+-   **Datei&gt; Projekt für neue&gt;...**
 -   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
 -   Geben Sie **codefirstnewdatabasesample** als Name ein.
 -   Wählen Sie **OK** aus.
@@ -66,11 +66,11 @@ Sie werden feststellen, dass die beiden Navigations Eigenschaften (Blog. Posts u
 
 ## <a name="3-create-a-context"></a>3. Erstellen eines Kontexts
 
-Nun ist es an der Zeit, einen abgeleiteten Kontext zu definieren, der eine Sitzung mit der Datenbank darstellt, sodass wir Daten Abfragen und speichern können. Wir definieren einen Kontext, der von System. Data. Entity. dbcontext abgeleitet ist und für jede Klasse in unserem Modell ein typisiertes dbset @ no__t-0tentity @ no__t-1 verfügbar macht.
+Nun ist es an der Zeit, einen abgeleiteten Kontext zu definieren, der eine Sitzung mit der Datenbank darstellt, sodass wir Daten Abfragen und speichern können. Wir definieren einen Kontext, der von System. Data. Entity. dbcontext abgeleitet ist und für jede Klasse in unserem Modell eine typisierte dbset-&lt;TEntity-&gt; verfügbar macht.
 
 Wir beginnen jetzt mit der Verwendung von Typen aus der Entity Framework daher müssen wir das nuget-Paket "EntityFramework" hinzufügen.
 
--   **Project – &gt; nuget-Pakete verwalten...**
+-   **Project –&gt; nuget-Pakete verwalten...**
     Hinweis: Wenn Sie nicht über die **nuget-Pakete verwalten verfügen...** Option Sie sollten die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.
 -   Auswählen der Registerkarte " **Online** "
 -   Auswählen des " **EntityFramework** "-Pakets
@@ -195,7 +195,7 @@ Gemäß der Konvention hat dbcontext eine Datenbank für Sie erstellt.
 Dabei handelt es sich nur um die Standard Konventionen, und es gibt verschiedene Möglichkeiten, die Datenbank zu ändern, die Code First verwendet. Weitere Informationen finden Sie im Thema **wie dbcontext das Modell und die Datenbankverbindung** erkennt.
 Sie können mit Server-Explorer in Visual Studio eine Verbindung mit dieser Datenbank herstellen.
 
--   **View-&gt; Server-Explorer**
+-   **&gt; Server-Explorer anzeigen**
 -   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen** , und wählen Sie **Verbindung hinzufügen aus.**
 -   Wenn Sie über Server-Explorer keine Verbindung mit einer Datenbank hergestellt haben, müssen Sie Microsoft SQL Server als Datenquelle auswählen.
 
@@ -221,7 +221,7 @@ Der erste Schritt besteht darin, Code First-Migrationen für den bloggingcontext
 -   Führen Sie in der Paket-Manager-Konsole den Befehl **Enable-Migrations** aus.
 -   Dem Projekt wurde ein neuer Migrations Ordner hinzugefügt, der zwei Elemente enthält:
     -   **Configuration.cs** – diese Datei enthält die Einstellungen, die Migrationen zum Migrieren von bloggingcontext verwenden. Wir müssen nichts für diese exemplarische Vorgehensweise ändern, aber hier können Sie Seed-Daten angeben, Anbieter für andere Datenbanken registrieren, den Namespace ändern, in dem Migrationen generiert werden usw.
-    -   **&lt;timestamp @ no__t-2\_InitialCreate.cs** – Dies ist die erste Migration. Sie stellt die Änderungen dar, die bereits auf die Datenbank angewendet wurden, damit Sie aus einer leeren Datenbank zu einer Datenbank mit den Tabellen Blogs und Posts werden. Obwohl wir Code First diese Tabellen für uns automatisch erstellen lassen, haben wir nun die Migration in eine Migration durchführen. Code First wurde auch in unserer lokalen Datenbank aufgezeichnet, dass diese Migration bereits angewendet wurde. Der Zeitstempel des Datei namens wird zu bestellzwecken verwendet.
+    -   **&lt;Zeitstempel&gt;\_InitialCreate.cs** – Dies ist die erste Migration. Sie stellt die Änderungen dar, die bereits auf die Datenbank angewendet wurden, damit Sie aus einer leeren Datenbank zu einer Datenbank mit den Tabellen Blogs und Posts geführt werden. Obwohl wir Code First diese Tabellen für uns automatisch erstellen lassen, haben wir nun die Migration in eine Migration durchführen. Code First wurde auch in unserer lokalen Datenbank aufgezeichnet, dass diese Migration bereits angewendet wurde. Der Zeitstempel des Datei namens wird zu bestellzwecken verwendet.
 
     Nehmen wir nun eine Änderung an unserem Modell vor. Fügen Sie der Blog-Klasse eine URL-Eigenschaft hinzu:
 
@@ -268,7 +268,7 @@ Die neue URL-Spalte wird nun der Tabelle Blogs in der-Datenbank hinzugefügt:
 
 ![Schema mit URL](~/ef6/media/schemawithurl.png)
 
-## <a name="6-data-annotations"></a>6. Datenanmerkungen
+## <a name="6-data-annotations"></a>6. Daten Anmerkungen
 
 Bisher haben wir EF das Modell nur mit seinen Standard Konventionen ermitteln lassen, aber es gibt Zeiten, in denen unsere Klassen nicht den Konventionen folgen und eine weitere Konfiguration durchführen müssen. Hierfür gibt es zwei Optionen: Wir betrachten die Daten Anmerkungen in diesem Abschnitt und dann die fließende API im nächsten Abschnitt.
 
@@ -293,7 +293,7 @@ public class BloggingContext : DbContext
 }
 ```
 
--   Wenn wir versuchen, eine Migration hinzuzufügen, wird eine Fehlermeldung angezeigt, die besagt, dass für *entitytype ' User ' kein Schlüssel definiert ist. Hiermit wird der Schlüssel für diesen EntityType definiert. "* EF kann nicht wissen, dass der Benutzername der Primärschlüssel für den Benutzer sein sollte.
+-   Wenn wir versuchen, eine Migration hinzuzufügen, wird eine Fehlermeldung angezeigt, die besagt, dass für*EntityType ' User ' kein Schlüssel definiert ist. Hiermit wird der Schlüssel für diesen EntityType definiert. "* EF kann nicht wissen, dass der Benutzername der Primärschlüssel für den Benutzer sein sollte.
 -   Wir verwenden jetzt Daten Anmerkungen, damit wir am Anfang von Program.cs eine using-Anweisung hinzufügen müssen.
 
 ```csharp
@@ -334,13 +334,13 @@ Die vollständige Liste der von EF unterstützten Anmerkungen lautet wie folgt:
 -   [Databasegeneratedattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.databasegeneratedattribute)
 -   [Notmappeer dattribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.notmappedattribute)
 
-## <a name="7-fluent-api"></a>7. Fluent-API
+## <a name="7-fluent-api"></a>7. fließende API
 
 Im vorherigen Abschnitt haben wir uns mit der Verwendung von Daten Anmerkungen beschäftigt, um zu ergänzen oder zu überschreiben, was von der Konvention erkannt wurde. Die andere Möglichkeit, das Modell zu konfigurieren, ist über die Code First fließende API.
 
 Die meisten Modell Konfigurationen können mithilfe von einfachen Daten Anmerkungen durchgeführt werden. Die fließende API ist eine fortgeschrittenere Methode zum Angeben der Modell Konfiguration, die alles abdeckt, was Daten Anmerkungen zusätzlich zu einer erweiterten Konfiguration tun können, die mit Daten Anmerkungen nicht möglich ist. Daten Anmerkungen und die fließende API können gleichzeitig verwendet werden.
 
-Für den Zugriff auf die fließende API überschreiben Sie die onmodelcreating-Methode in dbcontext. Nehmen wir an, Sie möchten die Spalte, in der User. Display Name gespeichert ist, umbenennen, um @ no__t-0name anzuzeigen.
+Für den Zugriff auf die fließende API überschreiben Sie die onmodelcreating-Methode in dbcontext. Nehmen wir an, dass die Spalte, in der User. Display Name gespeichert ist, umbenannt werden soll, um\_Namen anzuzeigen.
 
 -   Überschreiben Sie die onmodelcreating-Methode auf bloggingcontext mit dem folgenden Code:
 
@@ -363,7 +363,7 @@ public class BloggingContext : DbContext
 -   Verwenden Sie den Befehl **Add-Migration changedisplayname** , um ein Gerüst für eine Migration zum Anwenden dieser Änderungen auf die Datenbank zu verwenden.
 -   Führen Sie den **Update-Database-** Befehl aus, um die neue Migration auf die Datenbank anzuwenden.
 
-Die Spalte Display Name wurde nun in Anzeige @ no__t-0name umbenannt:
+Die DisplayName-Spalte wurde nun in Anzeige\_namens umbenannt:
 
 ![Schema mit umbenannten anzeigen Amen](~/ef6/media/schemawithdisplaynamerenamed.png)
 

@@ -29,7 +29,7 @@ In diesem Video wird gezeigt, wie räumliche Typen mit Entity Framework Code Fir
 
 **Präsentiert von**: Julia kornich
 
-**Video**: [WMV](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
+**Video**: [WMV](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (zip)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
@@ -39,7 +39,7 @@ Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express
 
 1.  Öffnen Sie Visual Studio 2012
 2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
-3.  Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+3.  Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
 4.  Geben Sie **spatialcode First** als Namen für das Projekt ein, und klicken Sie auf **OK** .
 
 ## <a name="define-a-new-model-using-code-first"></a>Definieren eines neuen Modells mit Code First
@@ -67,7 +67,7 @@ public class University
 
 ## <a name="define-the-dbcontext-derived-type"></a>Definieren des abgeleiteten dbcontext-Typs
 
-Zusätzlich zum Definieren von Entitäten müssen Sie eine Klasse definieren, die von dbcontext abgeleitet ist und die dbset @ no__t-0tentity @ no__t-1-Eigenschaften verfügbar macht. Die dbset @ no__t-0tentity @ no__t-1-Eigenschaften lassen den Kontext wissen, welche Typen Sie in das Modell einschließen möchten.
+Zusätzlich zum Definieren von Entitäten müssen Sie eine Klasse definieren, die von dbcontext abgeleitet ist und dbset&lt;TEntity&gt; Eigenschaften verfügbar macht. Mit den Eigenschaften von dbset&lt;TEntity&gt; wird der Kontext informiert, welche Typen Sie in das Modell einschließen möchten.
 
 Eine Instanz des abgeleiteten dbcontext-Typs verwaltet die Entitäts Objekte zur Laufzeit. dazu gehören das Auffüllen von Objekten mit Daten aus einer Datenbank, die Änderungs Nachverfolgung und das Beibehalten von Daten in der Datenbank.
 
@@ -144,7 +144,7 @@ Beachten Sie Folgendes: Wenn Sie Änderungen am Modell vornehmen, nachdem die Da
 
 Gehen Sie folgendermaßen vor, um die Datenbank und die Daten anzuzeigen:
 
-1.  Wählen Sie im Hauptmenü von Visual Studio 2012 die Option **View** - @ no__t-2 **SQL Server-Objekt-Explorer**.
+1.  Wählen Sie im Hauptmenü von Visual Studio 2012 -&gt; **SQL Server-Objekt-Explorer** **anzeigen** aus.
 2.  Wenn localdb nicht in der Liste der Server enthalten ist, klicken Sie auf **SQL Server** mit der rechten Maustaste, und wählen Sie **hinzu SQL Server fügen** aus, um die Verbindung mit der localdb-Instanz mit der standardmäßigen **Windows-Authentifizierung** herzustellen.
 3.  Erweitern Sie den Knoten localdb.
 4.  Erweitern Sie den Ordner **Datenbanken** , um die neue Datenbank anzuzeigen und zur Tabelle **Universitäten** zu navigieren.

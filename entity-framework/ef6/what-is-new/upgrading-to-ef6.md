@@ -18,7 +18,7 @@ Dies sollte für Anwendungen, die dbcontext verwenden, als in EF 4,1 und höher 
 
 Hier finden Sie eine Prüfliste der Dinge, die Sie zum Aktualisieren einer vorhandenen Anwendung auf EF6 benötigen.
 
-## <a name="1-install-the-ef6-nuget-package"></a>1. Installieren des EF6-nuget-Pakets
+## <a name="1-install-the-ef6-nuget-package"></a>1. Installieren Sie das nuget-Paket EF6.
 
 Sie müssen ein Upgrade auf die neue Laufzeit von Entity Framework 6 durchführen.
 
@@ -44,7 +44,7 @@ Wenn Sie Modelle mit dem EF-Designer erstellt haben, müssen Sie die Code Generi
 > [!NOTE]
 > Zurzeit sind nur EF 6. x dbcontext Generator-Vorlagen für Visual Studio 2012 und 2013 verfügbar.
 
-1. Löschen vorhandener Code Generierungs Vorlagen. Diese Dateien werden in der Regel **@no__t -1edmx_file_name\>.tt** und **\<edmx_file_name @ no__t-5 benannt. Context.tt** und werden unter der EDMX-Datei in Projektmappen-Explorer. Sie können die Vorlagen in Projektmappen-Explorer auswählen und die ENTF **-Taste drücken** , um Sie zu löschen.  
+1. Löschen vorhandener Code Generierungs Vorlagen. Diese Dateien werden in der Regel **\<edmx_file_name\>. tt** benannt und **\<edmx_file_name\>. Context.tt** und werden unter der EDMX-Datei in Projektmappen-Explorer. Sie können die Vorlagen in Projektmappen-Explorer auswählen und die ENTF **-Taste drücken** , um Sie zu löschen.  
    > [!NOTE]
    > In Website Projekten werden die Vorlagen nicht in der EDMX-Datei, sondern in Projektmappen-Explorer aufgeführt.  
 
@@ -64,13 +64,13 @@ Die Namespaces für dbcontext und Code First Typen wurden nicht geändert. Dies 
 
 Typen wie "ObjectContext", die zuvor in "System. Data. Entity. dll" enthalten waren, wurden in neue Namespaces verschoben. Dies bedeutet, dass Sie ggf. Ihre *using* -oder *Import* -Direktiven aktualisieren müssen, um für EF6 zu erstellen
 
-Die allgemeine Regel für Änderungen am Namespace besteht darin, dass alle Typen in System. Data. * in System. Data. Entity. Core. * verschoben werden. Mit anderen Worten: Fügen Sie einfach **Entity. Core ein.** nach "System. Data". Zum Beispiel:
+Die allgemeine Regel für Änderungen am Namespace besteht darin, dass alle Typen in System. Data. * in System. Data. Entity. Core. * verschoben werden. Mit anderen Worten: Fügen Sie einfach **Entity. Core ein.** nach "System. Data". Beispiel:
 
 - System. Data. EntityException = > System. Data. **Entity. Core**. EntityException  
 - System. Data. Objects. ObjectContext = > System. Data. **Entity. Core**. Objects. ObjectContext  
 - System. Data. Objects. DataClasses. RelationshipManager = > System. Data. **Entity. Core**. Objects. DataClasses. RelationshipManager  
 
-Diese Typen befinden sich in den Kernnamespaces, da Sie für die meisten dbcontext-basierten Anwendungen nicht direkt verwendet werden. Einige Typen, die Teil von System. Data. Entity. dll waren, werden weiterhin häufig und direkt für dbcontext-basierte Anwendungen verwendet und daher nicht in die *Kernnamespaces* verschoben. Diese lauten wie folgt:
+Diese Typen befinden sich in den Kernnamespaces, da Sie für die meisten dbcontext-basierten Anwendungen nicht direkt verwendet werden. Einige Typen, die Teil von System. Data. Entity. dll waren, werden weiterhin häufig und direkt für dbcontext-basierte Anwendungen verwendet und daher nicht in die *Kernnamespaces* verschoben. Diese Herangehensweisen lauten:
 
 - System. Data. EntityState = > System. Data. **Entität**. EntityState  
 - System. Data. Objects. DataClasses. EdmFunctionAttribute = > System. Data. **Entity. dbfunctionattribute**  

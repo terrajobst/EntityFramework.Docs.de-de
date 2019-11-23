@@ -26,7 +26,7 @@ TVFs ähneln gespeicherten Prozeduren mit einem wichtigen Unterschied: das Ergeb
 
 **Präsentiert von**: Julia kornich
 
-[WMV](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
+[WMV](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (zip)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
@@ -38,15 +38,15 @@ Um diese exemplarische Vorgehensweise durchführen zu können, benötigen Sie Fo
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
-1.  Öffnen Sie Visual Studio.
+1.  Öffnen Sie Visual Studio
 2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
-3.  Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+3.  Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
 4.  Geben Sie **TVF** als Namen für das Projekt ein, und klicken Sie auf **OK** .
 
 ## <a name="add-a-tvf-to-the-database"></a>Hinzufügen einer TVF zur Datenbank
 
--   Wählen Sie **View-&gt; SQL Server-Objekt-Explorer**
--   Wenn localdb nicht in der Liste der Server enthalten ist: Klicken Sie mit der rechten Maustaste auf **SQL Server** , und wählen Sie **Hinzufügen** aus **, um eine Verbindung mit dem** localdb-Server herzustellen SQL Server
+-   Wählen Sie **Ansicht-&gt; SQL Server-Objekt-Explorer** aus.
+-   Wenn localdb nicht in der Liste der Server enthalten ist, klicken Sie mit der rechten Maustaste auf **SQL Server** , und wählen Sie **hinzu SQL Server fügen** aus, um die Verbindung zum localdb-Server mithilfe der Windows-Standard **Authentifizierung** herzustellen
 -   Erweitern Sie den Knoten localdb.
 -   Klicken Sie unter dem Knoten Datenbanken mit der rechten Maustaste auf den Datenbankknoten School, und wählen Sie **neue Abfrage aus.**
 -   Fügen Sie im T-SQL-Editor die folgende TVF-Definition ein.
@@ -78,12 +78,12 @@ RETURN
 2.  Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich **Vorlagen** die Option **ADO.NET Entity Data Model** aus.
 3.  Geben Sie als Dateiname **tvfmodel. edmx** ein, und klicken Sie dann auf **Hinzufügen** .
 4.  Wählen Sie im Dialogfeld Modell Inhalte auswählen die Option **aus Datenbank generieren aus**, und klicken Sie dann auf **weiter** .
-5.  Klicken Sie auf **neue Verbindung** eingeben **(localdb) \\mssqllocaldb** im Textfeld Server Name geben Sie **School** Für den Datenbanknamen ein, klicken Sie auf **OK** .
-6.  Wählen Sie im Dialogfeld Datenbankobjekte auswählen unter dem Knoten **Tabellen** Den Knoten **Person**, **StudentGrade**und **Course** tables aus.
-7.  Wählen Sie die Funktion **getstudentgradesforcourse** aus, die sich unter dem  node-Hinweis für **gespeicherte Prozeduren und Funktionen**befindet. ab Visual Studio 2012 können Sie mit der Entity Designer einen Batch Import gespeicherter Prozeduren und Funktionen ausführen.
+5.  Klicken Sie auf **neue Verbindung** eingeben **(localdb)\\mssqllocaldb** im Textfeld Server Name geben Sie für den Datenbanknamen **School** ein klicken Sie auf **OK** .
+6.  Wählen Sie im Dialogfeld Datenbankobjekte auswählen unter dem Knoten **Tabellen** die Tabellen **Person**, **StudentGrade**und **Course** aus.
+7.  Wählen Sie die Funktion **getstudentgradesforcourse** aus, die sich unter dem Knoten **gespeicherte Prozeduren und Funktionen** Knoten befindet, der mit der Entity Designer ab Visual Studio 2012 den Batch Import gespeicherter Prozeduren und Funktionen ermöglicht.
 8.  Klicken auf **Fertig** stellen
-9.  Die Entity Designer, die eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt. Alle Objekte, die Sie im Dialogfeld **Wählen Sie Ihre Datenbankobjekte**  ausgewählt haben, werden dem Modell hinzugefügt.
-10. Standardmäßig wird die Ergebnis Form der einzelnen importierten gespeicherten Prozeduren oder Funktionen automatisch zu einem neuen komplexen Typ im Entitäts Modell. Wir möchten jedoch die Ergebnisse der Funktion "getstudentgradesforcourse" der Entität "StudentGrade" zuordnen: Klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, und wählen Sie im Modell Browser **Modell Browser** aus, wählen Sie **Funktions Importe**aus, und doppelklicken Sie dann im Dialogfeld Funktions Import bearbeiten auf die Funktion **getstudentgradesforcourse** , wählen Sie **Entitäten** aus.  und wählen Sie **StudentGrade** aus.
+9.  Die Entity Designer, die eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt. Alle Objekte, die Sie im Dialogfeld **Wählen Sie Ihre Datenbankobjekte** ausgewählt haben, werden dem Modell hinzugefügt.
+10. Standardmäßig wird die Ergebnis Form der einzelnen importierten gespeicherten Prozeduren oder Funktionen automatisch zu einem neuen komplexen Typ im Entitäts Modell. Wir möchten jedoch die Ergebnisse der getstudentgradesforcourse-Funktion der Entität "StudentGrade" zuordnen: Klicken Sie mit der rechten Maustaste auf die Entwurfs Oberfläche, **und wählen Sie** " **Modell Browser** " im Modell Browser aus, wählen Sie " **Funktions Importe**" aus, und Doppel **Klicken Sie dann im Dialog Feld** Funktions Import bearbeiten auf die Funktion " **getstudentgradesforcourse** ".
 
 ## <a name="persist-and-retrieve-data"></a>Persistenz und Abrufen von Daten
 

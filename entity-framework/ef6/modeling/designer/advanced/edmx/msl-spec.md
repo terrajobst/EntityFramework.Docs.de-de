@@ -44,7 +44,7 @@ In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Alias**
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein **Alias** -Element, das einen Alias `c` für Typen definiert, die im konzeptionellen Modell definiert sind.
+Das folgende Beispiel zeigt ein **Alias** -Element, das einen Alias definiert, `c`für Typen, die im konzeptionellen Modell definiert sind.
 
 ``` xml
  <Mapping Space="C-S"
@@ -131,7 +131,7 @@ Betrachten Sie auch die folgende gespeicherte Prozedur:
                                 WHERE CourseID=@CourseID;
 ```
 
-Um die Update-Funktion der `Course`-Entität dieser gespeicherten Prozedur zuzuordnen, müssen Sie einen Wert für den **DepartmentID** -Parameter angeben. Der Wert für `DepartmentID` entspricht keiner Eigenschaft des Entitätstyps; er ist vielmehr in einer unabhängigen Zuordnung enthalten, deren Zuordnung hier angezeigt wird:
+Um die Aktualisierungs Funktion der `Course` Entität dieser gespeicherten Prozedur zuzuordnen, müssen Sie einen Wert für den **DepartmentID** -Parameter angeben. Der Wert für `DepartmentID` entspricht keiner Eigenschaft des Entitätstyps; er ist vielmehr in einer unabhängigen Zuordnung enthalten, deren Zuordnung hier angezeigt wird:
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -146,7 +146,7 @@ Um die Update-Funktion der `Course`-Entität dieser gespeicherten Prozedur zuzuo
  </AssociationSetMapping>
 ```
 
-Der folgende Code zeigt das **AssociationEnd** -Element, das verwendet wird, um die **DepartmentID** -Eigenschaft der " **FK @ no__t-3course @ no__t-4department"-** Zuordnung der gespeicherten **updatecourse** -Prozedur zuzuordnen (in der die Update-Funktion des Der Entitätstyp " **Course** " ist zugeordnet):
+Der folgende Code zeigt das **AssociationEnd** -Element, das verwendet wird, um die **DepartmentID** -Eigenschaft der **FK-\_Kurs\_Abteilungs** Zuordnung der gespeicherten Prozedur **updatecourse** zuzuordnen (in der die Update-Funktion des **Course** -Entitäts Typs zugeordnet ist):
 
 ``` xml
  <EntitySetMapping Name="Courses">
@@ -182,7 +182,7 @@ Der folgende Code zeigt das **AssociationEnd** -Element, das verwendet wird, um 
 
 Das **AssociationSetMapping** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert die Zuordnung zwischen einer Zuordnung im konzeptionellen Modell und den Tabellen Spalten in der zugrunde liegenden Datenbank.
 
-Zuordnungen im konzeptionellen Modell sind Typen, deren Eigenschaften Primär- und Fremdschlüsselspalten in der zugrunde liegenden Datenbank darstellen. Das **AssociationSetMapping** -Element verwendet zwei EndProperty-Elemente, um die Zuordnungen zwischen Zuordnungstyp Eigenschaften und Spalten in der Datenbank zu definieren. Sie können Bedingungen für diese Zuordnungen mit dem Condition-Element platzieren. Ordnen Sie die INSERT-, Update-und DELETE-Funktionen für Zuordnungen gespeicherten Prozeduren in der Datenbank mit dem ModificationFunctionMapping-Element zu. Definieren Sie schreibgeschützte Zuordnungen zwischen Zuordnungen und Tabellen Spalten, indem Sie eine Entity SQL Zeichenfolge in einem QueryView-Element verwenden.
+Zuordnungen im konzeptionellen Modell sind Typen, deren Eigenschaften Primär- und Fremdschlüsselspalten in der zugrunde liegenden Datenbank darstellen. Das **AssociationSetMapping** -Element verwendet zwei EndProperty-Elemente, um die Zuordnungen zwischen Zuordnungstyp Eigenschaften und Spalten in der Datenbank zu definieren. Sie können mit dem Condition-Element Bedingungen für diese Zuordnungen festlegen. Mit dem ModificationFunctionMapping-Element ordnen Sie Einfüge-, Update- und Löschfunktionen für Zuordnungen gespeicherten Prozeduren in der Datenbank zu. Definieren Sie schreibgeschützte Zuordnungen zwischen Zuordnungen und Tabellen Spalten, indem Sie eine Entity SQL Zeichenfolge in einem QueryView-Element verwenden.
 
 > [!NOTE]
 > Wenn eine referenzielle Einschränkung für eine Zuordnung im konzeptionellen Modell definiert ist, muss die Zuordnung nicht mit einem **AssociationSetMapping** -Element zugeordnet werden. Wenn ein **AssociationSetMapping** -Element für eine Zuordnung vorhanden ist, die eine referenzielle Einschränkung aufweist, werden die im **AssociationSetMapping** -Element definierten Zuordnungen ignoriert. Weitere Informationen finden Sie unter referentialeinschränkungs-Element (CSDL).
@@ -190,7 +190,7 @@ Zuordnungen im konzeptionellen Modell sind Typen, deren Eigenschaften Primär- u
 Das **AssociationSetMapping** -Element kann die folgenden untergeordneten Elemente aufweisen.
 
 -   QueryView (null oder eins)
--   EndProperty (0 (null) oder zwei)
+-   EndProperty (kein (null) oder zwei Elemente)
 -   Bedingung (0 (null) oder mehr)
 -   ModificationFunctionMapping (0 (null) oder 1)
 
@@ -206,7 +206,7 @@ In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Associa
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein **AssociationSetMapping** -Element, in dem die im konzeptionellen Modell festgelegte Zuordnung " **FK @ no__t-2course @ no__t-3department** " der **Course** -Tabelle in der-Datenbank zugeordnet ist. Zuordnungen zwischen Zuordnungstyp Eigenschaften und Tabellen Spalten werden in untergeordneten **EndProperty** -Elementen angegeben.
+Das folgende Beispiel zeigt ein **AssociationSetMapping** -Element, in dem der **FK-\_Kurs\_Abteilungs** Zuordnungs Satz im konzeptionellen Modell der **Course** -Tabelle in der-Datenbank zugeordnet ist. Zuordnungen zwischen Zuordnungstyp Eigenschaften und Tabellen Spalten werden in untergeordneten **EndProperty** -Elementen angegeben.
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -223,7 +223,7 @@ Das folgende Beispiel zeigt ein **AssociationSetMapping** -Element, in dem die i
 
 ## <a name="complexproperty-element-msl"></a>ComplexProperty-Element (MSL)
 
-Ein **ComplexProperty** -Element in der Mapping-Spezifikationssprache (MSL) definiert die Zuordnung zwischen einer komplexen Typeigenschaft in einem Entitätstyp des konzeptionellen Modells und Tabellen Spalten in der zugrunde liegenden Datenbank. Die Eigenschaften Spalten Zuordnungen werden in untergeordneten ScalarProperty-Elementen angegeben.
+Ein **ComplexProperty** -Element in der Mapping-Spezifikationssprache (MSL) definiert die Zuordnung zwischen einer komplexen Typeigenschaft in einem Entitätstyp des konzeptionellen Modells und Tabellen Spalten in der zugrunde liegenden Datenbank. Die Zuordnungen zu Eigenschaftenspalten sind in einem untergeordneten ScalarProperty-Element angegeben.
 
 Das **complexType** -Eigenschafts Element kann die folgenden untergeordneten Elemente aufweisen:
 
@@ -243,7 +243,7 @@ In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Complex
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel basiert auf dem Modell "School". Dem konzeptionellen Modell wurde der folgende komplexe Typ hinzugefügt:
+Das folgende Beispiel beruht auf dem School-Modell. Dem konzeptionellen Modell wurde der folgende komplexe Typ hinzugefügt:
 
 ``` xml
  <ComplexType Name="FullName">
@@ -291,7 +291,7 @@ Das folgende MSL zeigt das **ComplexProperty** -Element, das verwendet wird, um 
 
 ## <a name="complextypemapping-element-msl"></a>ComplexTypeMapping-Element (MSL)
 
-Das **complextypemapping** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) ist ein untergeordnetes Element des resultmapping-Elements und definiert die Zuordnung zwischen einem Funktions Import im konzeptionellen Modell und einer gespeicherten Prozedur in der zugrunde liegenden Datenbank, wenn Folgendes true:
+Das **complextypemapping** -Element in der Mapping-Spezifikationssprache (MSL) ist ein untergeordnetes Element des resultmapping-Elements und definiert die Zuordnung zwischen einem Funktions Import im konzeptionellen Modell und einer gespeicherten Prozedur in der zugrunde liegenden Datenbank, wenn Folgendes zutrifft:
 
 -   Der Funktionsimport gibt einen konzeptionellen komplexen Typ zurück.
 -   Die Namen der Spalten, die von der gespeicherten Prozedur zurückgegeben werden, entsprechen nicht genau den Namen der Eigenschaften für den komplexen Typ.
@@ -544,7 +544,7 @@ Das folgende Beispiel basiert auf dem Modell "School" und zeigt das **DeleteFunc
 
 ## <a name="endproperty-element-msl"></a>EndProperty-Element (MSL)
 
-Das **EndProperty** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert die Zuordnung zwischen einer End-oder einer Änderungs Funktion einer konzeptionellen Modell Zuordnung und der zugrunde liegenden Datenbank. Die Eigenschaften Spalten Zuordnung wird in einem untergeordneten ScalarProperty-Element angegeben.
+Das **EndProperty** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert die Zuordnung zwischen einer End-oder einer Änderungs Funktion einer konzeptionellen Modell Zuordnung und der zugrunde liegenden Datenbank. Die Zuordnung zur Eigenschaftenspalte ist in einem untergeordneten ScalarProperty-Element angegeben.
 
 Wenn ein **EndProperty** -Element verwendet wird, um die Zuordnung für das Ende einer konzeptionellen Modell Zuordnung zu definieren, ist es ein untergeordnetes Element eines AssociationSetMapping-Elements. Wenn das **EndProperty** -Element verwendet wird, um die Zuordnung für eine Änderungs Funktion einer konzeptionellen Modell Zuordnung zu definieren, ist es ein untergeordnetes Element eines InsertFunction-Elements oder eines DeleteFunction-Elements.
 
@@ -562,7 +562,7 @@ In der folgenden Tabelle werden die Attribute beschrieben, die für das **EndPro
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein **AssociationSetMapping** -Element, in dem die " **FK @ no__t-2course @ no__t-3department"-** Zuordnung im konzeptionellen Modell der **Course** -Tabelle in der-Datenbank zugeordnet ist. Zuordnungen zwischen Zuordnungstyp Eigenschaften und Tabellen Spalten werden in untergeordneten **EndProperty** -Elementen angegeben.
+Das folgende Beispiel zeigt ein **AssociationSetMapping** -Element, in dem der **FK-\_Kurs\_Abteilungs** Zuordnung im konzeptionellen Modell der **Course** -Tabelle in der-Datenbank zugeordnet ist. Zuordnungen zwischen Zuordnungstyp Eigenschaften und Tabellen Spalten werden in untergeordneten **EndProperty** -Elementen angegeben.
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -630,11 +630,11 @@ In der folgenden Tabelle werden die Attribute beschrieben, die auf das **EntityC
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Storagemodelcontainer** | Ja         | Der Name des Entitätscontainers im Speichermodell, der zugeordnet wird.                                                                                                                                                                                     |
 | **CdmEntityContainer**    | Ja         | Der Name des Entitätscontainers im konzeptionellen Modell, der zugeordnet wird.                                                                                                                                                                                  |
-| **Generateupdateviews**   | Nein          | **True** oder **false**. **False**gibt an, dass keine Update Sichten generiert werden. Dieses Attribut sollte auf **false** festgelegt werden, wenn Sie eine schreibgeschützte Zuordnung haben, die ungültig wäre, da die Daten möglicherweise nicht erfolgreich abgerundet werden. <br/> Der Standardwert ist " **true**". |
+| **Generateupdateviews**   | Nein          | **True** oder **false**. **False**gibt an, dass keine Update Sichten generiert werden. Dieses Attribut sollte auf **false** festgelegt werden, wenn Sie eine schreibgeschützte Zuordnung haben, die ungültig wäre, da die Daten möglicherweise nicht erfolgreich abgerundet werden. <br/> Der Standardwert ist **True**. |
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel zeigt ein **EntityContainerMapping** -Element, das den Container **schoolmodelentities** (der Entitäts Container des konzeptionellen Modells) dem Container **schoolmodelstorecontainer** zuordnet (die Entität Speichermodell). Container):
+Das folgende Beispiel zeigt ein **EntityContainerMapping** -Element, das den Container **schoolmodelentities** (der Entitäts Container des konzeptionellen Modells) dem Container **schoolmodelstorecontainer** (dem Entitätencontainer des Speicher Modells) zuordnet:
 
 ``` xml
  <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer"
@@ -665,7 +665,7 @@ Das folgende Beispiel zeigt ein **EntityContainerMapping** -Element, das den Con
 
 ## <a name="entitysetmapping-element-msl"></a>EntitySetMapping-Element (MSL)
 
-Das **EntitySetMapping** -Element in der Mapping-Spezifikationssprache (MSL) ordnet alle Typen in einer Entitätenmenge eines konzeptionellen Modells Entitätenmengen im Speichermodell zu. Eine Entitätenmenge im konzeptionellen Modell ist ein logischer Container für Instanzen von Entitäten desselben Typs (und von abgeleiteten Typen). Eine Entitätenmenge im Speichermodell stellt eine Tabelle oder Sicht in der zugrunde liegenden Datenbank dar. Die Entitätenmenge des konzeptionellen Modells wird durch den Wert des **Name** -Attributs des **EntitySetMapping** -Elements angegeben. Die Tabelle oder Sicht, die zugeordnet ist, wird durch das **StoreEntitySet** -Attribut in jedem untergeordneten MappingFragment-Element oder im **EntitySetMapping** -Element selbst angegeben.
+Das **EntitySetMapping** -Element in der Mapping-Spezifikationssprache (MSL) ordnet alle Typen in einer Entitätenmenge eines konzeptionellen Modells Entitätenmengen im Speichermodell zu. Eine Entitätenmenge im konzeptionellen Modell ist ein logischer Container für Instanzen der Entitäten des gleichen Typs (und abgeleiteter Typen). Eine Entitätenmenge im Speichermodell stellt eine Tabelle oder eine Ansicht in der zugrunde liegenden Datenbank dar. Die Entitätenmenge des konzeptionellen Modells wird durch den Wert des **Name** -Attributs des **EntitySetMapping** -Elements angegeben. Die Tabelle oder Sicht, die zugeordnet ist, wird durch das **StoreEntitySet** -Attribut in jedem untergeordneten MappingFragment-Element oder im **EntitySetMapping** -Element selbst angegeben.
 
 Das **EntitySetMapping** -Element kann die folgenden untergeordneten Elemente aufweisen:
 
@@ -721,9 +721,9 @@ Das folgende Beispiel zeigt ein **EntitySetMapping** -Element, das drei Typen (e
 
 ## <a name="entitytypemapping-element-msl"></a>EntityTypeMapping-Element (MSL)
 
-Das **EntityTypeMapping** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert die Zuordnung zwischen einem Entitätstyp im konzeptionellen Modell und den Tabellen oder Sichten in der zugrunde liegenden Datenbank. Informationen zu Entitäts Typen des konzeptionellen Modells und den zugrunde liegenden Datenbanktabellen oder-Sichten finden Sie unter EntityType-Element (CSDL) und EntitySet-Element (SSDL). Der Entitätstyp des konzeptionellen Modells, der zugeordnet wird, wird durch das **tykame** -Attribut des **EntityTypeMapping** -Elements angegeben. Die Tabelle oder Sicht, die zugeordnet wird, wird durch das **StoreEntitySet** -Attribut des untergeordneten MappingFragment-Elements angegeben.
+Das **EntityTypeMapping** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert die Zuordnung zwischen einem Entitätstyp im konzeptionellen Modell und den Tabellen oder Sichten in der zugrunde liegenden Datenbank. Informationen zu den Entitätstypen des konzeptionellen Modells und den zugrunde liegenden Datenbanktabellen oder Ansichten finden Sie in EntityType-Element (CSDL) und EntitySet-Element (SSDL). Der Entitätstyp des konzeptionellen Modells, der zugeordnet wird, wird durch das **tykame** -Attribut des **EntityTypeMapping** -Elements angegeben. Die Tabelle oder Sicht, die zugeordnet wird, wird durch das **StoreEntitySet** -Attribut des untergeordneten MappingFragment-Elements angegeben.
 
-Das untergeordnete ModificationFunctionMapping-Element kann verwendet werden, um die INSERT-, Update-oder DELETE-Funktionen von Entitäts Typen gespeicherten Prozeduren in der Datenbank zuzuordnen.
+Das untergeordnete ModificationFunctionMapping-Element kann verwendet werden, um gespeicherten Prozeduren in der Datenbank die Einfüge-, Aktualisierungs- oder Löschfunktionen von Entitätstypen zuzuordnen.
 
 Das **EntityTypeMapping** -Element kann die folgenden untergeordneten Elemente aufweisen:
 
@@ -836,7 +836,7 @@ In der folgenden Tabelle werden die Attribute beschrieben, die für das **Functi
 
 ### <a name="example"></a>Beispiel
 
-Das folgende Beispiel basiert auf dem Modell "School". Betrachten Sie die folgende Funktion im Speichermodell:
+Das folgende Beispiel beruht auf dem School-Modell. Betrachten Sie die folgende Funktion im Speichermodell:
 
 ``` xml
  <Function Name="GetStudentGrades" Aggregate="false"
@@ -989,7 +989,7 @@ Das Mapping-Element kann die folgenden untergeordneten Elemente aufweisen (der v
 -   Alias (0 (null) oder mehr)
 -   EntityContainerMapping (genau 1)
 
-Die Namen aller Typen des konzeptionellen Modells und Typen des Speichermodells, auf die in MSL verwiesen wird, müssen mit dem jeweiligen Namespacenamen qualifiziert werden. Weitere Informationen zum Namespace Namen des konzeptionellen Modells finden Sie unter Schema-Element (CSDL). Weitere Informationen zum Namespace Namen des Speicher Modells finden Sie unter Schema-Element (SSDL). Aliase für Namespaces, die in MSL verwendet werden, können mit dem Alias-Element definiert werden.
+Die Namen aller Typen des konzeptionellen Modells und Typen des Speichermodells, auf die in MSL verwiesen wird, müssen mit dem jeweiligen Namespacenamen qualifiziert werden. Weitere Informationen zum Namespace Namen des konzeptionellen Modells finden Sie unter Schema-Element (CSDL). Weitere Informationen zum Namespace Namen des Speicher Modells finden Sie unter Schema-Element (SSDL). Aliasnamen für Namespaces, die in MSL verwendet werden, können mit dem Alias-Element definiert werden.
 
 ### <a name="applicable-attributes"></a>Anwendbare Attribute
 
@@ -1036,7 +1036,7 @@ Das folgende Beispiel zeigt ein **Mapping** -Element, das auf einem Teil des Mod
 
 ## <a name="mappingfragment-element-msl"></a>MappingFragment-Element (MSL)
 
-Das **MappingFragment** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert die Zuordnung zwischen den Eigenschaften eines Entitäts Typs des konzeptionellen Modells und einer Tabelle oder Sicht in der Datenbank. Informationen zu Entitäts Typen des konzeptionellen Modells und den zugrunde liegenden Datenbanktabellen oder-Sichten finden Sie unter EntityType-Element (CSDL) und EntitySet-Element (SSDL). Das **MappingFragment** kann ein untergeordnetes Element des EntityTypeMapping-Elements oder des EntitySetMapping-Elements sein.
+Das **MappingFragment** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert die Zuordnung zwischen den Eigenschaften eines Entitäts Typs des konzeptionellen Modells und einer Tabelle oder Sicht in der Datenbank. Informationen zu den Entitätstypen des konzeptionellen Modells und den zugrunde liegenden Datenbanktabellen oder Ansichten finden Sie in EntityType-Element (CSDL) und EntitySet-Element (SSDL). Das **MappingFragment** kann ein untergeordnetes Element des EntityTypeMapping-Elements oder des EntitySetMapping-Elements sein.
 
 Das **MappingFragment** -Element kann die folgenden untergeordneten Elemente aufweisen:
 
@@ -1193,7 +1193,7 @@ Das folgende Beispiel zeigt die Zuordnung der Zuordnungs Sätze für den im Mode
 
 ## <a name="queryview-element-msl"></a>QueryView-Element (MSL)
 
-Das **QueryView** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert eine schreibgeschützte Zuordnung zwischen einem Entitätstyp oder einer Zuordnung im konzeptionellen Modell und einer Tabelle in der zugrunde liegenden Datenbank. Die Zuordnung wird mit einer Entity SQL Abfrage definiert, die im Speichermodell ausgewertet wird, und Sie können das Resultset in Bezug auf eine Entität oder eine Zuordnung im konzeptionellen Modell Ausdrücken. Da Abfragesichten schreibgeschützt sind, können die durch Abfragesichten definierten Typen nicht mit herkömmlichen Aktualisierungsbefehlen aktualisiert werden. Diese Typen können mithilfe von Änderungsfunktionen aktualisiert werden. Weitere Informationen finden Sie unter „Gewusst wie: Zuordnen von Änderungs Funktionen zu gespeicherten Prozeduren.
+Das **QueryView** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) definiert eine schreibgeschützte Zuordnung zwischen einem Entitätstyp oder einer Zuordnung im konzeptionellen Modell und einer Tabelle in der zugrunde liegenden Datenbank. Die Zuordnung wird mit einer Entity SQL Abfrage definiert, die im Speichermodell ausgewertet wird, und Sie können das Resultset in Bezug auf eine Entität oder eine Zuordnung im konzeptionellen Modell Ausdrücken. Da Abfragesichten schreibgeschützt sind, können die durch Abfragesichten definierten Typen nicht mit herkömmlichen Aktualisierungsbefehlen aktualisiert werden. Diese Typen können mithilfe von Änderungsfunktionen aktualisiert werden. Weitere Informationen finden Sie unter Gewusst wie: Zuordnen von Änderungs Funktionen zu gespeicherten Prozeduren.
 
 > [!NOTE]
 > Im **QueryView** -Element werden Entity SQL Ausdrücke, die **GroupBy**, Gruppen Aggregate oder Navigations Eigenschaften enthalten, nicht unterstützt.
@@ -1287,7 +1287,7 @@ Das nächste Beispiel zeigt das **QueryView** -Element als untergeordnetes Eleme
  </EntityContainerMapping>
 ```
  
-### <a name="comments"></a>Kommentare
+### <a name="comments"></a>Comments
 
 Sie können Abfragesichten definieren, um die folgenden Szenarien zu ermöglichen:
 
@@ -1315,7 +1315,7 @@ Die folgenden Aspekte gelten, wenn Sie Abfragesichten für Entitäten definieren
 
 ## <a name="resultbinding-element-msl"></a>ResultBinding-Element (MSL)
 
-Das **ResultBinding** -Element in der Mapping-Spezifikationssprache (MSL) ordnet Spaltenwerte, die von gespeicherten Prozeduren zurückgegeben werden, den Entitäts Eigenschaften im konzeptionellen Modell zu, wenn die Entitätstyp-Änderungs Funktionen gespeicherten Prozeduren im zugrunde liegende Datenbank. Wenn z. b. der Wert einer Identitäts Spalte von einer gespeicherten INSERT-Prozedur zurückgegeben wird, ordnet das **ResultBinding** -Element den zurückgegebenen Wert einer Entitätstyp Eigenschaft im konzeptionellen Modell zu.
+Das **ResultBinding** -Element in der Mapping-Spezifikationssprache (Mapping Specification Language, MSL) ordnet Spaltenwerte, die von gespeicherten Prozeduren zurückgegeben werden, den Entitäts Eigenschaften im konzeptionellen Modell zu. Wenn z. b. der Wert einer Identitäts Spalte von einer gespeicherten INSERT-Prozedur zurückgegeben wird, ordnet das **ResultBinding** -Element den zurückgegebenen Wert einer Entitätstyp Eigenschaft im konzeptionellen Modell zu.
 
 Das **ResultBinding** -Element kann ein untergeordnetes Element des InsertFunction-Elements oder des UpdateFunction-Elements sein.
 

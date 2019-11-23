@@ -29,7 +29,7 @@ In diesem Video wird gezeigt, wie räumliche Typen dem Entity Framework Designer
 
 **Präsentiert von**: Julia kornich
 
-**Video**: [WMV](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
+**Video**: [WMV](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (zip)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
@@ -39,7 +39,7 @@ Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express
 
 1.  Öffnen Sie Visual Studio 2012
 2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
-3.  Klicken Sie im linken Bereich auf **Visual C @ no__t-1**, und wählen Sie dann die **Konsolen** Vorlage aus.
+3.  Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
 4.  Geben Sie **spatialefdesigner** als Namen für das Projekt ein, und klicken Sie auf **OK** .
 
 ## <a name="create-a-new-model-using-the-ef-designer"></a>Erstellen eines neuen Modells mit dem EF-Designer
@@ -60,10 +60,10 @@ Der Assistent führt die folgenden Aktionen aus:
 
 ## <a name="add-a-new-entity-type"></a>Neuen Entitätstyp hinzufügen
 
-1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, wählen Sie **Add-&gt; Entity**aus, das Dialogfeld neue Entität wird angezeigt.
+1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, und wählen Sie **Add-&gt; Entity**, das Dialogfeld neue Entität wird angezeigt.
 2.  Geben Sie **University** **als Typnamen** an, und geben Sie für den Schlüssel Eigenschaftsnamen die Angabe " **universityid** " an.
 3.  Klicken Sie auf **OK**.
-4.  Klicken Sie mit der rechten Maustaste auf die Entität, und wählen Sie **Add New-&gt; Scalar Property**
+4.  Klicken Sie mit der rechten Maustaste auf die Entität, und wählen Sie **Add New-&gt; Scalar**
 5.  Benennen Sie die neue Eigenschaft in **Name** um.
 6.  Fügen Sie eine weitere skalare Eigenschaft hinzu, und benennen Sie Sie in **Location** um. Öffnen Sie die Eigenschaftenfenster, und ändern Sie den Typ der neuen Eigenschaft in **geography**
 7.  Speichern Sie das Modell, und erstellen Sie das Projekt.
@@ -75,11 +75,11 @@ Der Assistent führt die folgenden Aktionen aus:
 Nun können wir eine Datenbank generieren, die auf dem Modell basiert.
 
 1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich auf der Entity Designer Oberfläche, und wählen Sie **Datenbank aus Modell generieren** .
-2.  Das Dialog Feld Datenverbindung auswählen des Assistenten zum Generieren von Datenbanken wird angezeigt. Klicken Sie auf die Schaltfläche **neue Verbindung** , und geben Sie **(localdb) \\mssqllocaldb** für den Servernamen und die **University** für die Datenbank an, und klicken Sie auf **OK**
+2.  Das Dialog Feld Datenverbindung auswählen des Assistenten zum Generieren von Datenbanken wird angezeigt. Klicken Sie auf die Schaltfläche **neue Verbindung** , und geben Sie **(localdb)\\mssqllocaldb** für den Servernamen und die **University** für die Datenbank an, und klicken Sie auf **OK**
 3.  Wenn Sie in einem Dialogfeld gefragt werden, ob Sie eine neue Datenbank erstellen möchten, klicken Sie auf **Ja**.
-4.  Klicken Sie auf **weiter** , und der Assistent zum Erstellen einer Datenbank generiert die Datendefinitionssprache (DDL) zum Erstellen einer Datenbank. die generierte DDL wird im Dialog Feld Zusammenfassung und Einstellungen angezeigt. Hinweis: die DDL enthält keine Definition für eine Tabelle, die dem Enumerationstyp
+4.  Klicken Sie auf **weiter** , und der Assistent zum Erstellen einer Datenbank generiert die Datendefinitionssprache (DDL) zum Erstellen einer Datenbank. die generierte DDL wird im Dialog Feld Zusammenfassung und Einstellungen angezeigt. Hinweis: die DDL enthält keine Definition für eine Tabelle, die dem Enumerationstyp zugeordnet ist.
 5.  Klicken Sie auf **Fertig** stellen klicken Sie das DDL-Skript nicht aus.
-6.  Der Assistent zum Erstellen einer Datenbank führt folgende Schritte aus: Öffnet die Datei " **universitymodel. edmx. SQL** " im T-SQL-Editor, generiert die Abschnitte "Store Schema" und "Mapping" der EDMX-Datei und fügt der Datei "App. config" Verbindungs Zeichenfolgen
+6.  Der Assistent zum Erstellen einer Datenbank führt Folgendes aus: öffnet die Datei " **universitymodel. edmx. SQL** " im T-SQL-Editor, generiert die Abschnitte "Store Schema" und "Mapping" der EDMX-Datei.
 7.  Klicken Sie im T-SQL-Editor auf die Rechte Maustaste, und wählen Sie das Dialogfeld Verbindung mit Server herstellen aus, und **Geben Sie** die Verbindungsinformationen aus Schritt 2 ein.
 8.  Um das generierte Schema anzuzeigen, klicken Sie in SQL Server-Objekt-Explorer mit der rechten Maustaste auf den Datenbanknamen, und wählen Sie **Aktualisieren** .
 
