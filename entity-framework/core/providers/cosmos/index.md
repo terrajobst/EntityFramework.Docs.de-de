@@ -5,23 +5,23 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 6cac695288d9ba84968b7fab6361f55e9b51be67
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 162e5d387bcbfbf1e90baf27fc62dd2ed562ae58
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656092"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824549"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB-Anbieter
 
->[!NOTE]
+> [!NOTE]
 > Dieser Anbieter ist neu in EF Core 3.0.
 
 Dieser Datenbankanbieter ermöglicht die Verwendung von Entity Framework Core mit Azure Cosmos DB. Dieser Anbieter wird nicht im Rahmen des [Entity Framework Core-Projekts](https://github.com/aspnet/EntityFrameworkCore) verwaltet.
 
 Es wird dringend empfohlen, sich vor dem Lesen dieses Abschnitts mit der [Azure Cosmos DB-Dokumentation](/azure/cosmos-db/introduction) vertraut zu machen.
 
->[!NOTE]
+> [!NOTE]
 > Dieser Anbieter kann nur mit der SQL-API von Azure Cosmos DB verwendet werden.
 
 ## <a name="install"></a>Installieren
@@ -30,7 +30,7 @@ Installieren Sie das [NuGet-Paket „Microsoft.EntityFrameworkCore.Cosmos“](ht
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
-``` console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
@@ -89,7 +89,7 @@ Standardmäßig erstellt EF Core Container, bei denen der Partitionsschlüssel a
 
 [!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PartitionKey)]
 
->[!NOTE]
+> [!NOTE]
 >Als Eigenschaft des Partitionsschlüssels kann ein beliebiger Typ verwendet werden, sofern dieser in [eine Zeichenfolge konvertiert wird](xref:core/modeling/value-conversions).
 
 Nach der Konfiguration muss die Partitionsschlüsseleigenschaft immer einen Wert aufweisen, der nicht NULL ist. Beim Ausgeben einer Abfrage kann eine Bedingung hinzugefügt werden, um eine einzelne Partition zu erstellen.
