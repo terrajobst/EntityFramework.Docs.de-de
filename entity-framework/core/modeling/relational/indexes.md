@@ -1,47 +1,47 @@
 ---
 title: Indizes (relationale Datenbank)-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 4581e7ba-5e7f-452c-9937-0aaf790ba10a
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/05/2019
 uid: core/modeling/relational/indexes
-ms.openlocfilehash: 7bb74d0bfa6090b597eb988a46f00494e25f233e
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: e14615275f85ee9b6b32d080905465d33963feca
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813632"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824574"
 ---
-# <a name="indexes-relational-database"></a><span data-ttu-id="f8011-102">Indizes (relationale Datenbank)</span><span class="sxs-lookup"><span data-stu-id="f8011-102">Indexes (Relational Database)</span></span>
+# <a name="indexes-relational-database"></a><span data-ttu-id="84613-102">Indizes (relationale Datenbank)</span><span class="sxs-lookup"><span data-stu-id="84613-102">Indexes (Relational Database)</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="f8011-103">Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken.</span><span class="sxs-lookup"><span data-stu-id="f8011-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="f8011-104">Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).</span><span class="sxs-lookup"><span data-stu-id="f8011-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
+> <span data-ttu-id="84613-103">Die Konfiguration in diesem Abschnitt gilt allgemein für relationale Datenbanken.</span><span class="sxs-lookup"><span data-stu-id="84613-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="84613-104">Die hier gezeigten Erweiterungsmethoden werden verfügbar, wenn Sie einen relationalen Datenbankanbieter installieren (aufgrund des gemeinsam genutzten Pakets *Microsoft.EntityFrameworkCore.Relational*).</span><span class="sxs-lookup"><span data-stu-id="84613-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
 
-<span data-ttu-id="f8011-105">Ein Index in einer relationalen Datenbank wird dem gleichen Konzept zugeordnet wie ein Index im Kern der Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="f8011-105">An index in a relational database maps to the same concept as an index in the core of Entity Framework.</span></span>
+<span data-ttu-id="84613-105">Ein Index in einer relationalen Datenbank wird dem gleichen Konzept zugeordnet wie ein Index im Kern der Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="84613-105">An index in a relational database maps to the same concept as an index in the core of Entity Framework.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="f8011-106">Konventionen</span><span class="sxs-lookup"><span data-stu-id="f8011-106">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="84613-106">Konventionen</span><span class="sxs-lookup"><span data-stu-id="84613-106">Conventions</span></span>
 
-<span data-ttu-id="f8011-107">Gemäß der Konvention werden Indizes benannt `IX_<type name>_<property name>`.</span><span class="sxs-lookup"><span data-stu-id="f8011-107">By convention, indexes are named `IX_<type name>_<property name>`.</span></span> <span data-ttu-id="f8011-108">Bei zusammengesetzten `<property name>` Indizes wird eine durch Trennzeichen getrennte Liste mit Eigenschaftsnamen.</span><span class="sxs-lookup"><span data-stu-id="f8011-108">For composite indexes `<property name>` becomes an underscore separated list of property names.</span></span>
+<span data-ttu-id="84613-107">Gemäß der Konvention werden Indizes `IX_<type name>_<property name>`benannt.</span><span class="sxs-lookup"><span data-stu-id="84613-107">By convention, indexes are named `IX_<type name>_<property name>`.</span></span> <span data-ttu-id="84613-108">Bei zusammengesetzten Indizes `<property name>` zu einer durch Trennzeichen getrennten Liste mit Eigenschaftsnamen.</span><span class="sxs-lookup"><span data-stu-id="84613-108">For composite indexes `<property name>` becomes an underscore separated list of property names.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="f8011-109">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="f8011-109">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="84613-109">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="84613-109">Data Annotations</span></span>
 
-<span data-ttu-id="f8011-110">Indizes können nicht mithilfe von Daten Anmerkungen konfiguriert werden.</span><span class="sxs-lookup"><span data-stu-id="f8011-110">Indexes can not be configured using Data Annotations.</span></span>
+<span data-ttu-id="84613-110">Indizes können nicht mithilfe von Daten Anmerkungen konfiguriert werden.</span><span class="sxs-lookup"><span data-stu-id="84613-110">Indexes can not be configured using Data Annotations.</span></span>
 
-## <a name="fluent-api"></a><span data-ttu-id="f8011-111">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="f8011-111">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="84613-111">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="84613-111">Fluent API</span></span>
 
-<span data-ttu-id="f8011-112">Sie können die fließende API verwenden, um den Namen eines Indexes zu konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="f8011-112">You can use the Fluent API to configure the name of an index.</span></span>
+<span data-ttu-id="84613-112">Sie können die fließende API verwenden, um den Namen eines Indexes zu konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="84613-112">You can use the Fluent API to configure the name of an index.</span></span>
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexName.cs?name=Model&highlight=9)]
 
-<span data-ttu-id="f8011-113">Sie können auch einen Filter angeben.</span><span class="sxs-lookup"><span data-stu-id="f8011-113">You can also specify a filter.</span></span>
+<span data-ttu-id="84613-113">Sie können auch einen Filter angeben.</span><span class="sxs-lookup"><span data-stu-id="84613-113">You can also specify a filter.</span></span>
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexFilter.cs?name=Model&highlight=9)]
 
-<span data-ttu-id="f8011-114">Bei Verwendung des SQL Server-Anbieters fügt EF einen ' is not NULL '-Filter für alle Spalten hinzu, die NULL-Werte zulassen, die Teil eines eindeutigen Indexes sind.</span><span class="sxs-lookup"><span data-stu-id="f8011-114">When using the SQL Server provider EF adds a 'IS NOT NULL' filter for all nullable columns that are part of a unique index.</span></span> <span data-ttu-id="f8011-115">Um diese Konvention zu überschreiben, können `null` Sie einen Wert angeben.</span><span class="sxs-lookup"><span data-stu-id="f8011-115">To override this convention you can supply a `null` value.</span></span>
+<span data-ttu-id="84613-114">Bei Verwendung des SQL Server Anbieters fügt EF einen `'IS NOT NULL'` Filter für alle Spalten hinzu, die NULL-Werte zulassen, die Teil eines eindeutigen Indexes sind.</span><span class="sxs-lookup"><span data-stu-id="84613-114">When using the SQL Server provider EF adds an `'IS NOT NULL'` filter for all nullable columns that are part of a unique index.</span></span> <span data-ttu-id="84613-115">Um diese Konvention zu überschreiben, können Sie einen `null` Wert angeben.</span><span class="sxs-lookup"><span data-stu-id="84613-115">To override this convention you can supply a `null` value.</span></span>
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexNoFilter.cs?name=Model&highlight=10)]
 
-### <a name="include-columns-in-sql-server-indexes"></a><span data-ttu-id="f8011-116">Einschließen von Spalten in SQL Server Indizes</span><span class="sxs-lookup"><span data-stu-id="f8011-116">Include Columns in SQL Server Indexes</span></span>
+### <a name="include-columns-in-sql-server-indexes"></a><span data-ttu-id="84613-116">Einschließen von Spalten in SQL Server Indizes</span><span class="sxs-lookup"><span data-stu-id="84613-116">Include Columns in SQL Server Indexes</span></span>
 
-<span data-ttu-id="f8011-117">Sie können [Indizes mit inklusivspalten](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns) konfigurieren, um die Abfrageleistung erheblich zu verbessern, wenn alle Spalten in der Abfrage als Schlüssel-oder nicht Schlüssel Spalten in den Index aufgenommen werden.</span><span class="sxs-lookup"><span data-stu-id="f8011-117">You can configure [indexes with included columns](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns) to significantly improve query performance when all columns in the query are included in the index as key or non-key columns.</span></span>
+<span data-ttu-id="84613-117">Sie können [Indizes mit inklusivspalten](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns) konfigurieren, um die Abfrageleistung erheblich zu verbessern, wenn alle Spalten in der Abfrage als Schlüssel-oder nicht Schlüssel Spalten in den Index aufgenommen werden.</span><span class="sxs-lookup"><span data-stu-id="84613-117">You can configure [indexes with included columns](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns) to significantly improve query performance when all columns in the query are included in the index as key or non-key columns.</span></span>
 
-[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/ForSqlServerHasIndex.cs?name=Model)]
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexInclude.cs?name=Model)]

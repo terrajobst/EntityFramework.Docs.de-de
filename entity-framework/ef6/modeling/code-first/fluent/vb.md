@@ -3,177 +3,177 @@ title: Fließende API mit VB.net-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: df3e61fa5e2d24873336511e90231a7d78d32535
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182662"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824833"
 ---
-# <a name="fluent-api-with-vbnet"></a><span data-ttu-id="7da80-102">Fließende API mit VB.net</span><span class="sxs-lookup"><span data-stu-id="7da80-102">Fluent API with VB.NET</span></span>
-<span data-ttu-id="7da80-103">Mit Code First können Sie das Modell mithilfe von C\#-oder VB.NET-Klassen definieren.</span><span class="sxs-lookup"><span data-stu-id="7da80-103">Code First allows you to define your model using C\# or VB.NET classes.</span></span> <span data-ttu-id="7da80-104">Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.</span><span class="sxs-lookup"><span data-stu-id="7da80-104">Additional configuration can optionally be performed using attributes on your classes and properties or by using a fluent API.</span></span> <span data-ttu-id="7da80-105">Diese exemplarische Vorgehensweise veranschaulicht, wie Sie mithilfe von VB.net eine fließende API-Konfiguration ausführen.</span><span class="sxs-lookup"><span data-stu-id="7da80-105">This walkthrough shows how to perform fluent API configuration using VB.NET.</span></span>
+# <a name="fluent-api-with-vbnet"></a><span data-ttu-id="da5b5-102">Fließende API mit VB.net</span><span class="sxs-lookup"><span data-stu-id="da5b5-102">Fluent API with VB.NET</span></span>
+<span data-ttu-id="da5b5-103">Mit Code First können Sie das Modell mithilfe von C\#-oder VB.NET-Klassen definieren.</span><span class="sxs-lookup"><span data-stu-id="da5b5-103">Code First allows you to define your model using C\# or VB.NET classes.</span></span> <span data-ttu-id="da5b5-104">Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.</span><span class="sxs-lookup"><span data-stu-id="da5b5-104">Additional configuration can optionally be performed using attributes on your classes and properties or by using a fluent API.</span></span> <span data-ttu-id="da5b5-105">Diese exemplarische Vorgehensweise veranschaulicht, wie Sie mithilfe von VB.net eine fließende API-Konfiguration ausführen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-105">This walkthrough shows how to perform fluent API configuration using VB.NET.</span></span>
 
-<span data-ttu-id="7da80-106">Auf dieser Seite wird davon ausgegangen, dass Sie über grundlegende Kenntnisse Code First verfügen.</span><span class="sxs-lookup"><span data-stu-id="7da80-106">This page assumes you have a basic understanding of Code First.</span></span> <span data-ttu-id="7da80-107">Weitere Informationen zu Code First finden Sie in den folgenden exemplarischen Vorgehensweisen:</span><span class="sxs-lookup"><span data-stu-id="7da80-107">Check out the following walkthroughs for more information on Code First:</span></span>
+<span data-ttu-id="da5b5-106">Auf dieser Seite wird davon ausgegangen, dass Sie über grundlegende Kenntnisse Code First verfügen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-106">This page assumes you have a basic understanding of Code First.</span></span> <span data-ttu-id="da5b5-107">Weitere Informationen zu Code First finden Sie in den folgenden exemplarischen Vorgehensweisen:</span><span class="sxs-lookup"><span data-stu-id="da5b5-107">Check out the following walkthroughs for more information on Code First:</span></span>
 
--   [<span data-ttu-id="7da80-108">Code First einer neuen Datenbank</span><span class="sxs-lookup"><span data-stu-id="7da80-108">Code First to a New Database</span></span>](~/ef6/modeling/code-first/workflows/new-database.md)
--   [<span data-ttu-id="7da80-109">Code First an eine vorhandene Datenbank</span><span class="sxs-lookup"><span data-stu-id="7da80-109">Code First to an Existing Database</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
+-   <span data-ttu-id="da5b5-108">[Code First to a New Database](~/ef6/modeling/code-first/workflows/new-database.md) (Code First für eine neue Datenbank)</span><span class="sxs-lookup"><span data-stu-id="da5b5-108">[Code First to a New Database](~/ef6/modeling/code-first/workflows/new-database.md)</span></span>
+-   [<span data-ttu-id="da5b5-109">Code First an eine vorhandene Datenbank</span><span class="sxs-lookup"><span data-stu-id="da5b5-109">Code First to an Existing Database</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
 
-## <a name="pre-requisites"></a><span data-ttu-id="7da80-110">Voraussetzungen</span><span class="sxs-lookup"><span data-stu-id="7da80-110">Pre-Requisites</span></span>
+## <a name="pre-requisites"></a><span data-ttu-id="da5b5-110">Voraussetzungen</span><span class="sxs-lookup"><span data-stu-id="da5b5-110">Pre-Requisites</span></span>
 
-<span data-ttu-id="7da80-111">Sie müssen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert haben, um diese exemplarische Vorgehensweise abzuschließen.</span><span class="sxs-lookup"><span data-stu-id="7da80-111">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
+<span data-ttu-id="da5b5-111">Sie müssen mindestens Visual Studio 2010 oder Visual Studio 2012 installiert haben, um diese exemplarische Vorgehensweise abzuschließen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-111">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
 
-<span data-ttu-id="7da80-112">Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.</span><span class="sxs-lookup"><span data-stu-id="7da80-112">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed</span></span>
+<span data-ttu-id="da5b5-112">Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.</span><span class="sxs-lookup"><span data-stu-id="da5b5-112">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed</span></span>
 
-## <a name="create-the-application"></a><span data-ttu-id="7da80-113">Erstellen der Anwendung</span><span class="sxs-lookup"><span data-stu-id="7da80-113">Create the Application</span></span>
+## <a name="create-the-application"></a><span data-ttu-id="da5b5-113">Erstellen der Anwendung</span><span class="sxs-lookup"><span data-stu-id="da5b5-113">Create the Application</span></span>
 
-<span data-ttu-id="7da80-114">Um die Dinge einfach zu halten, erstellen wir eine einfache Konsolenanwendung, die Code First verwendet, um Daten Zugriffe auszuführen.</span><span class="sxs-lookup"><span data-stu-id="7da80-114">To keep things simple we’re going to build a basic console application that uses Code First to perform data access.</span></span>
+<span data-ttu-id="da5b5-114">Um die Dinge einfach zu halten, erstellen wir eine einfache Konsolenanwendung, die Code First verwendet, um Daten Zugriffe auszuführen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-114">To keep things simple we’re going to build a basic console application that uses Code First to perform data access.</span></span>
 
--   <span data-ttu-id="7da80-115">Öffnen Sie Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7da80-115">Open Visual Studio</span></span>
--   <span data-ttu-id="7da80-116">**Datei&gt; Projekt für neue&gt;...**</span><span class="sxs-lookup"><span data-stu-id="7da80-116">**File -&gt; New -&gt; Project…**</span></span>
--   <span data-ttu-id="7da80-117">Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.</span><span class="sxs-lookup"><span data-stu-id="7da80-117">Select **Windows** from the left menu and **Console Application**</span></span>
--   <span data-ttu-id="7da80-118">Geben Sie **codefirstvbsample** als Name ein.</span><span class="sxs-lookup"><span data-stu-id="7da80-118">Enter **CodeFirstVBSample** as the name</span></span>
--   <span data-ttu-id="7da80-119">Wählen Sie **OK** aus.</span><span class="sxs-lookup"><span data-stu-id="7da80-119">Select **OK**</span></span>
+-   <span data-ttu-id="da5b5-115">Öffnen Sie Visual Studio</span><span class="sxs-lookup"><span data-stu-id="da5b5-115">Open Visual Studio</span></span>
+-   <span data-ttu-id="da5b5-116">**Datei&gt; Projekt für neue&gt;...**</span><span class="sxs-lookup"><span data-stu-id="da5b5-116">**File -&gt; New -&gt; Project…**</span></span>
+-   <span data-ttu-id="da5b5-117">Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.</span><span class="sxs-lookup"><span data-stu-id="da5b5-117">Select **Windows** from the left menu and **Console Application**</span></span>
+-   <span data-ttu-id="da5b5-118">Geben Sie **codefirstvbsample** als Name ein.</span><span class="sxs-lookup"><span data-stu-id="da5b5-118">Enter **CodeFirstVBSample** as the name</span></span>
+-   <span data-ttu-id="da5b5-119">Wählen Sie **OK** aus.</span><span class="sxs-lookup"><span data-stu-id="da5b5-119">Select **OK**</span></span>
 
-## <a name="define-the-model"></a><span data-ttu-id="7da80-120">Definieren des Modells</span><span class="sxs-lookup"><span data-stu-id="7da80-120">Define the Model</span></span>
+## <a name="define-the-model"></a><span data-ttu-id="da5b5-120">Definieren des Modells</span><span class="sxs-lookup"><span data-stu-id="da5b5-120">Define the Model</span></span>
 
-<span data-ttu-id="7da80-121">In diesem Schritt definieren Sie VB.net poco-Entitäts Typen, die das konzeptionelle Modell darstellen.</span><span class="sxs-lookup"><span data-stu-id="7da80-121">In this step you will define VB.NET POCO entity types that represent the conceptual model.</span></span> <span data-ttu-id="7da80-122">Die Klassen müssen nicht von Basisklassen abgeleitet werden oder keine Schnittstellen implementieren.</span><span class="sxs-lookup"><span data-stu-id="7da80-122">The classes do not need to derive from any base classes or implement any interfaces.</span></span>
+<span data-ttu-id="da5b5-121">In diesem Schritt definieren Sie VB.net poco-Entitäts Typen, die das konzeptionelle Modell darstellen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-121">In this step you will define VB.NET POCO entity types that represent the conceptual model.</span></span> <span data-ttu-id="da5b5-122">Die Klassen müssen nicht von Basisklassen abgeleitet werden oder keine Schnittstellen implementieren.</span><span class="sxs-lookup"><span data-stu-id="da5b5-122">The classes do not need to derive from any base classes or implement any interfaces.</span></span>
 
--   <span data-ttu-id="7da80-123">Fügen Sie dem Projekt eine neue Klasse hinzu, geben Sie **SchoolModel** als Klassennamen ein.</span><span class="sxs-lookup"><span data-stu-id="7da80-123">Add a new class to the project, enter **SchoolModel** for the class name</span></span>
--   <span data-ttu-id="7da80-124">Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden Code:</span><span class="sxs-lookup"><span data-stu-id="7da80-124">Replace the contents of the new class with the following code</span></span>
+-   <span data-ttu-id="da5b5-123">Fügen Sie dem Projekt eine neue Klasse hinzu, geben Sie **SchoolModel** als Klassennamen ein.</span><span class="sxs-lookup"><span data-stu-id="da5b5-123">Add a new class to the project, enter **SchoolModel** for the class name</span></span>
+-   <span data-ttu-id="da5b5-124">Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden Code:</span><span class="sxs-lookup"><span data-stu-id="da5b5-124">Replace the contents of the new class with the following code</span></span>
 
 ``` vb
-   Public Class Department
-        Public Sub New()
-            Me.Courses = New List(Of Course)()
-        End Sub
+Public Class Department
+    Public Sub New()
+        Me.Courses = New List(Of Course)()
+    End Sub
 
-        ' Primary key
-        Public Property DepartmentID() As Integer
-        Public Property Name() As String
-        Public Property Budget() As Decimal
-        Public Property StartDate() As Date
-        Public Property Administrator() As Integer?
-        Public Overridable Property Courses() As ICollection(Of Course)
-    End Class
+    ' Primary key
+    Public Property DepartmentID() As Integer
+    Public Property Name() As String
+    Public Property Budget() As Decimal
+    Public Property StartDate() As Date
+    Public Property Administrator() As Integer?
+    Public Overridable Property Courses() As ICollection(Of Course)
+End Class
 
-    Public Class Course
-        Public Sub New()
-            Me.Instructors = New HashSet(Of Instructor)()
-        End Sub
+Public Class Course
+    Public Sub New()
+        Me.Instructors = New HashSet(Of Instructor)()
+    End Sub
 
-        ' Primary key
-        Public Property CourseID() As Integer
-        Public Property Title() As String
-        Public Property Credits() As Integer
+    ' Primary key
+    Public Property CourseID() As Integer
+    Public Property Title() As String
+    Public Property Credits() As Integer
 
-        ' Foreign  key that does not follow the Code First convention.
-        ' The fluent API will be used to configure DepartmentID_FK  to be the foreign key for this entity.
-        Public Property DepartmentID_FK() As Integer
+    ' Foreign  key that does not follow the Code First convention.
+    ' The fluent API will be used to configure DepartmentID_FK  to be the foreign key for this entity.
+    Public Property DepartmentID_FK() As Integer
 
-        ' Navigation properties
-         Public Overridable Property Department() As Department
-         Public Overridable Property Instructors() As ICollection(Of Instructor)
-    End Class
+    ' Navigation properties
+    Public Overridable Property Department() As Department
+    Public Overridable Property Instructors() As ICollection(Of Instructor)
+End Class
 
-    Public Class OnlineCourse
-        Inherits Course
+Public Class OnlineCourse
+    Inherits Course
 
-        Public Property URL() As String
-    End Class
+    Public Property URL() As String
+End Class
 
-    Partial Public Class OnsiteCourse
-        Inherits Course
+Partial Public Class OnsiteCourse
+    Inherits Course
 
-        Public Sub New()
-            Details = New OnsiteCourseDetails()
-        End Sub
+    Public Sub New()
+        Details = New OnsiteCourseDetails()
+    End Sub
 
-        Public Property Details() As OnsiteCourseDetails
-     End Class
+    Public Property Details() As OnsiteCourseDetails
+ End Class
 
-    ' Complex type
-    Public Class OnsiteCourseDetails
-        Public Property Time() As Date
-        Public Property Location() As String
-        Public Property Days() As String
-    End Class
+' Complex type
+Public Class OnsiteCourseDetails
+    Public Property Time() As Date
+    Public Property Location() As String
+    Public Property Days() As String
+End Class
 
-    Public Class Person
-        ' Primary key
-        Public Property PersonID() As Integer
-        Public Property LastName() As String
-        Public Property FirstName() As String
-    End Class
+Public Class Person
+    ' Primary key
+    Public Property PersonID() As Integer
+    Public Property LastName() As String
+    Public Property FirstName() As String
+End Class
 
-    Public Class Instructor
-        Inherits Person
+Public Class Instructor
+    Inherits Person
 
-        Public Sub New()
-            Me.Courses = New List(Of Course)()
-        End Sub
+    Public Sub New()
+        Me.Courses = New List(Of Course)()
+    End Sub
 
-        Public Property HireDate() As Date
+    Public Property HireDate() As Date
 
-        ' Navigation properties
-        Private privateCourses As ICollection(Of Course)
-        Public Overridable Property Courses() As ICollection(Of Course)
-        Public Overridable Property OfficeAssignment() As OfficeAssignment
-    End Class
+    ' Navigation properties
+    Private privateCourses As ICollection(Of Course)
+    Public Overridable Property Courses() As ICollection(Of Course)
+    Public Overridable Property OfficeAssignment() As OfficeAssignment
+End Class
 
-    Public Class OfficeAssignment
-        ' Primary key that does not follow the Code First convention.
-        ' The HasKey method is used later to configure the primary key for the entity.
-        Public Property InstructorID() As Integer
+Public Class OfficeAssignment
+    ' Primary key that does not follow the Code First convention.
+    ' The HasKey method is used later to configure the primary key for the entity.
+    Public Property InstructorID() As Integer
 
-        Public Property Location() As String
-        Public Property Timestamp() As Byte()
+    Public Property Location() As String
+    Public Property Timestamp() As Byte()
 
-        ' Navigation property
-        Public Overridable Property Instructor() As Instructor
-    End Class
+    ' Navigation property
+    Public Overridable Property Instructor() As Instructor
+End Class
 ```
 
-## <a name="define-a-derived-context"></a><span data-ttu-id="7da80-125">Definieren eines abgeleiteten Kontexts</span><span class="sxs-lookup"><span data-stu-id="7da80-125">Define a Derived Context</span></span>
+## <a name="define-a-derived-context"></a><span data-ttu-id="da5b5-125">Definieren eines abgeleiteten Kontexts</span><span class="sxs-lookup"><span data-stu-id="da5b5-125">Define a Derived Context</span></span>
 
-<span data-ttu-id="7da80-126">Wir beginnen mit der Verwendung von Typen aus der Entity Framework daher müssen wir das nuget-Paket "EntityFramework" hinzufügen.</span><span class="sxs-lookup"><span data-stu-id="7da80-126">We’re about to start to using types from the Entity Framework so we need to add the EntityFramework NuGet package.</span></span>
+<span data-ttu-id="da5b5-126">Wir beginnen mit der Verwendung von Typen aus der Entity Framework daher müssen wir das nuget-Paket "EntityFramework" hinzufügen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-126">We’re about to start to using types from the Entity Framework so we need to add the EntityFramework NuGet package.</span></span>
 
--   <span data-ttu-id="7da80-127">\* \* Project –&gt; **nuget-Pakete verwalten...**</span><span class="sxs-lookup"><span data-stu-id="7da80-127">\*\*Project –&gt; **Manage NuGet Packages…**</span></span>
+-   <span data-ttu-id="da5b5-127">\* \* Project –&gt; **nuget-Pakete verwalten...**</span><span class="sxs-lookup"><span data-stu-id="da5b5-127">\*\*Project –&gt; **Manage NuGet Packages…**</span></span>
 > [!NOTE]
-> <span data-ttu-id="7da80-128">Wenn Sie nicht über die **nuget-Pakete verwalten verfügen...**</span><span class="sxs-lookup"><span data-stu-id="7da80-128">If you don’t have the **Manage NuGet Packages…**</span></span> <span data-ttu-id="7da80-129">Option Sie sollten die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.</span><span class="sxs-lookup"><span data-stu-id="7da80-129">option you should install the [latest version of NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)</span></span>
--   <span data-ttu-id="7da80-130">Auswählen der Registerkarte " **Online** "</span><span class="sxs-lookup"><span data-stu-id="7da80-130">Select the **Online** tab</span></span>
--   <span data-ttu-id="7da80-131">Auswählen des " **EntityFramework** "-Pakets</span><span class="sxs-lookup"><span data-stu-id="7da80-131">Select the **EntityFramework** package</span></span>
--   <span data-ttu-id="7da80-132">Klicken Sie auf **Installieren**</span><span class="sxs-lookup"><span data-stu-id="7da80-132">Click **Install**</span></span>
+> <span data-ttu-id="da5b5-128">Wenn Sie nicht über die **nuget-Pakete verwalten verfügen...**</span><span class="sxs-lookup"><span data-stu-id="da5b5-128">If you don’t have the **Manage NuGet Packages…**</span></span> <span data-ttu-id="da5b5-129">Option Sie sollten die [neueste Version von nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installieren.</span><span class="sxs-lookup"><span data-stu-id="da5b5-129">option you should install the [latest version of NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)</span></span>
+-   <span data-ttu-id="da5b5-130">Auswählen der Registerkarte " **Online** "</span><span class="sxs-lookup"><span data-stu-id="da5b5-130">Select the **Online** tab</span></span>
+-   <span data-ttu-id="da5b5-131">Auswählen des " **EntityFramework** "-Pakets</span><span class="sxs-lookup"><span data-stu-id="da5b5-131">Select the **EntityFramework** package</span></span>
+-   <span data-ttu-id="da5b5-132">Klicken Sie auf **Installieren**</span><span class="sxs-lookup"><span data-stu-id="da5b5-132">Click **Install**</span></span>
 
-<span data-ttu-id="7da80-133">Nun ist es an der Zeit, einen abgeleiteten Kontext zu definieren, der eine Sitzung mit der Datenbank darstellt, sodass wir Daten Abfragen und speichern können.</span><span class="sxs-lookup"><span data-stu-id="7da80-133">Now it’s time to define a derived context, which represents a session with the database, allowing us to query and save data.</span></span> <span data-ttu-id="7da80-134">Wir definieren einen Kontext, der von System. Data. Entity. dbcontext abgeleitet ist und für jede Klasse in unserem Modell eine typisierte dbset-&lt;TEntity-&gt; verfügbar macht.</span><span class="sxs-lookup"><span data-stu-id="7da80-134">We define a context that derives from System.Data.Entity.DbContext and exposes a typed DbSet&lt;TEntity&gt; for each class in our model.</span></span>
+<span data-ttu-id="da5b5-133">Nun ist es an der Zeit, einen abgeleiteten Kontext zu definieren, der eine Sitzung mit der Datenbank darstellt, sodass wir Daten Abfragen und speichern können.</span><span class="sxs-lookup"><span data-stu-id="da5b5-133">Now it’s time to define a derived context, which represents a session with the database, allowing us to query and save data.</span></span> <span data-ttu-id="da5b5-134">Wir definieren einen Kontext, der von System. Data. Entity. dbcontext abgeleitet ist und für jede Klasse in unserem Modell eine typisierte dbset-&lt;TEntity-&gt; verfügbar macht.</span><span class="sxs-lookup"><span data-stu-id="da5b5-134">We define a context that derives from System.Data.Entity.DbContext and exposes a typed DbSet&lt;TEntity&gt; for each class in our model.</span></span>
 
--   <span data-ttu-id="7da80-135">Fügen Sie dem Projekt eine neue Klasse hinzu, geben Sie " **schoolContext** " als Klassennamen ein.</span><span class="sxs-lookup"><span data-stu-id="7da80-135">Add a new class to the project, enter **SchoolContext** for the class name</span></span>
--   <span data-ttu-id="7da80-136">Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden Code:</span><span class="sxs-lookup"><span data-stu-id="7da80-136">Replace the contents of the new class with the following code</span></span>
+-   <span data-ttu-id="da5b5-135">Fügen Sie dem Projekt eine neue Klasse hinzu, geben Sie " **schoolContext** " als Klassennamen ein.</span><span class="sxs-lookup"><span data-stu-id="da5b5-135">Add a new class to the project, enter **SchoolContext** for the class name</span></span>
+-   <span data-ttu-id="da5b5-136">Ersetzen Sie den Inhalt der neuen Klasse durch den folgenden Code:</span><span class="sxs-lookup"><span data-stu-id="da5b5-136">Replace the contents of the new class with the following code</span></span>
 
-``` vb
-    Imports System.Data.Entity
-    Imports System.Data.Entity.Infrastructure
-    Imports System.Data.Entity.ModelConfiguration.Conventions
-    Imports System.ComponentModel.DataAnnotations
-    Imports System.ComponentModel.DataAnnotations.Schema
+```vb
+Imports System.ComponentModel.DataAnnotations
+Imports System.ComponentModel.DataAnnotations.Schema
+Imports System.Data.Entity
+Imports System.Data.Entity.Infrastructure
+Imports System.Data.Entity.ModelConfiguration.Conventions
 
-    Public Class SchoolContext
-        Inherits DbContext
+Public Class SchoolContext
+    Inherits DbContext
 
-        Public Property OfficeAssignments() As DbSet(Of OfficeAssignment)
-        Public Property Instructors() As DbSet(Of Instructor)
-        Public Property Courses() As DbSet(Of Course)
-        Public Property Departments() As DbSet(Of Department)
+    Public Property OfficeAssignments() As DbSet(Of OfficeAssignment)
+    Public Property Instructors() As DbSet(Of Instructor)
+    Public Property Courses() As DbSet(Of Course)
+    Public Property Departments() As DbSet(Of Department)
 
-        Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
-        End Sub
-    End Class
+    Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
+    End Sub
+End Class
 ```
 
-## <a name="configuring-with-the-fluent-api"></a><span data-ttu-id="7da80-137">Konfigurieren mit der fließend-API</span><span class="sxs-lookup"><span data-stu-id="7da80-137">Configuring with the Fluent API</span></span>
+## <a name="configuring-with-the-fluent-api"></a><span data-ttu-id="da5b5-137">Konfigurieren mit der fließend-API</span><span class="sxs-lookup"><span data-stu-id="da5b5-137">Configuring with the Fluent API</span></span>
 
-<span data-ttu-id="7da80-138">In diesem Abschnitt wird veranschaulicht, wie Sie mithilfe der fließenden APIs Typen für Tabellen Zuordnung, Eigenschaften der Spalten Zuordnung und Beziehungen zwischen Tabellen\\Typ in Ihrem Modell konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="7da80-138">This section demonstrates how to use the fluent APIs to configure types to tables mapping, properties to columns mapping, and relationships between tables\\type in your model.</span></span> <span data-ttu-id="7da80-139">Die fließende API wird über den Typ " **dbmodelbuilder** " verfügbar gemacht und wird am häufigsten aufgerufen, indem die **onmodelcreating** -Methode für **dbcontext**überschrieben wird.</span><span class="sxs-lookup"><span data-stu-id="7da80-139">The fluent API is exposed through the **DbModelBuilder** type and is most commonly accessed by overriding the **OnModelCreating** method on **DbContext**.</span></span>
+<span data-ttu-id="da5b5-138">In diesem Abschnitt wird veranschaulicht, wie Sie mithilfe der fließenden APIs Typen für Tabellen Zuordnung, Eigenschaften der Spalten Zuordnung und Beziehungen zwischen Tabellen\\Typ in Ihrem Modell konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="da5b5-138">This section demonstrates how to use the fluent APIs to configure types to tables mapping, properties to columns mapping, and relationships between tables\\type in your model.</span></span> <span data-ttu-id="da5b5-139">Die fließende API wird über den Typ " **dbmodelbuilder** " verfügbar gemacht und wird am häufigsten aufgerufen, indem die **onmodelcreating** -Methode für **dbcontext**überschrieben wird.</span><span class="sxs-lookup"><span data-stu-id="da5b5-139">The fluent API is exposed through the **DbModelBuilder** type and is most commonly accessed by overriding the **OnModelCreating** method on **DbContext**.</span></span>
 
--   <span data-ttu-id="7da80-140">Kopieren Sie den folgenden Code, und fügen Sie ihn der **onmodelcreating** -Methode hinzu, die in der **schoolContext** -Klasse definiert ist</span><span class="sxs-lookup"><span data-stu-id="7da80-140">Copy the following code and add it to the **OnModelCreating** method defined on the **SchoolContext** class The comments explain what each mapping does</span></span>
+-   <span data-ttu-id="da5b5-140">Kopieren Sie den folgenden Code, und fügen Sie ihn der **onmodelcreating** -Methode hinzu, die in der **schoolContext** -Klasse definiert ist</span><span class="sxs-lookup"><span data-stu-id="da5b5-140">Copy the following code and add it to the **OnModelCreating** method defined on the **SchoolContext** class The comments explain what each mapping does</span></span>
 
 ``` vb
 ' Configure Code First to ignore PluralizingTableName convention
@@ -363,12 +363,12 @@ modelBuilder.Entity(Of Course)().
     WillCascadeOnDelete(False)
 ```
 
-## <a name="using-the-model"></a><span data-ttu-id="7da80-141">Verwenden des Modells</span><span class="sxs-lookup"><span data-stu-id="7da80-141">Using the Model</span></span>
+## <a name="using-the-model"></a><span data-ttu-id="da5b5-141">Verwenden des Modells</span><span class="sxs-lookup"><span data-stu-id="da5b5-141">Using the Model</span></span>
 
-<span data-ttu-id="7da80-142">Wir führen einige Daten Zugriffe mithilfe von **schoolContext** aus, um das Modell in Aktion zu sehen.</span><span class="sxs-lookup"><span data-stu-id="7da80-142">Let's perform some data access using the **SchoolContext** to see out model in action.</span></span>
+<span data-ttu-id="da5b5-142">Wir führen einige Daten Zugriffe mithilfe von **schoolContext** aus, um das Modell in Aktion zu sehen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-142">Let's perform some data access using the **SchoolContext** to see out model in action.</span></span>
 
--   <span data-ttu-id="7da80-143">Öffnen Sie die Datei Module1. vb, in der die Main-Funktion definiert ist.</span><span class="sxs-lookup"><span data-stu-id="7da80-143">Open the Module1.vb file where the Main function is defined</span></span>
--   <span data-ttu-id="7da80-144">Kopieren und fügen Sie die folgende Module1-Definition ein.</span><span class="sxs-lookup"><span data-stu-id="7da80-144">Copy and paste the following Module1 definition</span></span>
+-   <span data-ttu-id="da5b5-143">Öffnen Sie die Datei Module1. vb, in der die Main-Funktion definiert ist.</span><span class="sxs-lookup"><span data-stu-id="da5b5-143">Open the Module1.vb file where the Main function is defined</span></span>
+-   <span data-ttu-id="da5b5-144">Kopieren und fügen Sie die folgende Module1-Definition ein.</span><span class="sxs-lookup"><span data-stu-id="da5b5-144">Copy and paste the following Module1 definition</span></span>
 
 ``` vb
 Imports System.Data.Entity
@@ -377,7 +377,7 @@ Module Module1
 
     Sub Main()
 
-    Using context As New SchoolContext()
+        Using context As New SchoolContext()
 
             ' Create and save a new Department.
             Console.Write("Enter a name for a new Department: ")
@@ -408,7 +408,7 @@ Module Module1
 End Module
 ```
 
-<span data-ttu-id="7da80-145">Sie können die Anwendung jetzt ausführen und testen.</span><span class="sxs-lookup"><span data-stu-id="7da80-145">You can now run the application and test it out.</span></span>
+<span data-ttu-id="da5b5-145">Sie können die Anwendung jetzt ausführen und testen.</span><span class="sxs-lookup"><span data-stu-id="da5b5-145">You can now run the application and test it out.</span></span>
 
 ```console
 Enter a name for a new Department: Computing
