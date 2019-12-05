@@ -1,16 +1,16 @@
 ---
 title: Tabellen Aufteilung-EF Core
+description: Konfigurieren der Tabellen Aufteilung mithilfe von Entity Framework Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 04/10/2019
-ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: a3a2e5842a6c6b4b490084d205a0d44bb46c17ee
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 0e48c516de43cdc2b54c56f1a96f5e01f9fbbbc4
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656042"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824560"
 ---
 # <a name="table-splitting"></a>Tabellenaufteilung
 
@@ -19,7 +19,7 @@ ms.locfileid: "73656042"
 
 EF Core ermöglicht das Zuordnen von zwei oder mehr Entitäten zu einer einzelnen Zeile. Dies wird als _Tabellen Aufteilung_ oder _Tabellen Freigabe_bezeichnet.
 
-## <a name="configuration"></a>Konfiguration
+## <a name="configuration"></a>-Konfiguration
 
 Zur Verwendung der Tabellen Aufteilung müssen die Entitäts Typen derselben Tabelle zugeordnet werden, die Primärschlüssel müssen denselben Spalten zugeordnet werden, und mindestens eine Beziehung muss zwischen dem Primärschlüssel eines Entitäts Typs und einem anderen in derselben Tabelle konfiguriert werden.
 
@@ -38,7 +38,7 @@ Zusätzlich zur erforderlichen Konfiguration werden `Property(o => o.Status).Has
 > [!TIP]
 > Weitere Informationen finden Sie im [vollständigen Beispiel Projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) .
 
-## <a name="usage"></a>Verwendung
+## <a name="usage"></a>Verwendungs-
 
 Das Speichern und Abfragen von Entitäten mithilfe von Tabellen Aufteilung erfolgt auf die gleiche Weise wie andere Entitäten. Und ab EF Core 3,0 kann der abhängige Entitäts Verweis `null`werden. Wenn alle von der abhängigen Entität verwendeten Spalten `NULL` die Datenbank ist, wird keine Instanz für Sie erstellt, wenn Sie abgefragt wird. Dies würde auch vorkommen, dass alle Eigenschaften optional sind und auf `null`festgelegt werden, was nicht erwartet wird.
 

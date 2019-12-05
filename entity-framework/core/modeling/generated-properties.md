@@ -1,15 +1,16 @@
 ---
 title: Generierte Werte-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
+description: Konfigurieren der Wert Generierung für Eigenschaften bei Verwendung von Entity Framework Core
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 6643d3c5c9b3363e450e820793f449a41e2eba80
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 7fa3eae5e2edb7b4c40ed4f99ce4a29f367e622a
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655745"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824699"
 ---
 # <a name="generated-values"></a>Generierte Werte
 
@@ -53,7 +54,7 @@ Wenn Sie in einer neu hinzugefügten Instanz einer Entität einen Wert für die-
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention werden nicht zusammengesetzte Primärschlüssel vom Typ Short, int, Long oder GUID eingerichtet, sodass beim Hinzufügen Werte generiert werden. Alle anderen Eigenschaften werden ohne Wert Generierung eingerichtet.
+Standardmäßig werden nicht zusammengesetzte Primärschlüssel vom Typ Short, int, Long oder GUID so eingerichtet, dass beim Hinzufügen Werte generiert werden. Alle anderen Eigenschaften werden ohne Wert Generierung eingerichtet.
 
 ## <a name="data-annotations"></a>Datenanmerkungen
 

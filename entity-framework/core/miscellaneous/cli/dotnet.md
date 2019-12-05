@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 29434c26a503fabb16b43ee8f0c36136a0b5b745
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 5686d28e6847797130476cd858bd3fb611620140
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811975"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824480"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenz zu Entity Framework Core Tools: .net CLI
 
@@ -33,17 +33,17 @@ Das Installationsverfahren hängt vom Projekttyp und der Version ab:
 
 * `dotnet ef` müssen als globales oder lokales Tool installiert werden. Die meisten Entwickler installieren `dotnet ef` als globales Tool mit dem folgenden Befehl:
 
-  ``` console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef
   ```
 
   Sie können auch `dotnet ef` als lokales Tool verwenden. Um es als lokales Tool zu verwenden, stellen Sie die Abhängigkeiten eines Projekts wieder her, das es mithilfe einer [Tool Manifest-Datei als Tool](https://github.com/dotnet/cli/issues/10288)Abhängigkeit deklariert.
 
-* Installieren Sie den [.net Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio verfügen.
+* Installieren Sie den [.net Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0). Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio verfügen.
 
 * Installieren Sie das neueste `Microsoft.EntityFrameworkCore.Design` Paket.
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -61,7 +61,7 @@ Die `dotnet ef` Befehle sind in der .net Core SDK enthalten, um jedoch die Befeh
 
 * Installieren Sie das neueste stabile `Microsoft.EntityFrameworkCore.Design` Paket.
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -75,7 +75,7 @@ Die `dotnet ef` Befehle sind in der .net Core SDK enthalten, um jedoch die Befeh
 
 * Installieren Sie die neueste Version von 1. x des `Microsoft.EntityFrameworkCore.Design` Pakets, z. b.:
 
-  ```console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
   ```
 
@@ -105,7 +105,7 @@ Die `dotnet ef` Befehle sind in der .net Core SDK enthalten, um jedoch die Befeh
 
 Führen Sie die folgenden Befehle aus, um sicherzustellen, dass EF Core CLI-Tools ordnungsgemäß installiert sind
 
-  ``` Console
+  ```dotnetcli
   dotnet restore
   dotnet ef
   ```
@@ -126,7 +126,7 @@ Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
 <Usage documentation follows, not shown.>
 ```
 
-## <a name="using-the-tools"></a>Verwenden der Tools
+## <a name="using-the-tools"></a>Mithilfe der Tools
 
 Vor der Verwendung der Tools müssen Sie möglicherweise ein Startprojekt erstellen oder die Umgebung festlegen.
 
@@ -153,11 +153,11 @@ Warum ist ein Dummyprojekt erforderlich? Wie bereits erwähnt, müssen die Tools
 
 ### <a name="aspnet-core-environment"></a>ASP.net Core Umgebung
 
-Um die Umgebung für ASP.net Core Projekte anzugeben, legen Sie die **ASPNETCORE_ENVIRONMENT** -Umgebungsvariable vor dem Ausführen von Befehlen fest.
+Legen Sie die Umgebungsvariable **ASPNETCORE_ENVIRONMENT** vor dem Ausführen von Befehlen fest, um die Umgebung für ASP.net Core Projekte anzugeben.
 
-## <a name="common-options"></a>Allgemeine Optionen
+## <a name="common-options"></a>Häufige Optionen
 
-|                   | Option                            | Beschreibung                                                                                                                                                                                                                                                   |
+|                   | -Option                            | Beschreibung                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | JSON-Ausgabe anzeigen.                                                                                                                                                                                                                                             |
 | <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | Die `DbContext`-Klasse, die verwendet werden soll. Der Klassenname oder voll qualifiziert mit Namespaces.  Wenn diese Option weggelassen wird, wird EF Core die Kontext Klasse finden. Wenn mehrere Kontext Klassen vorhanden sind, ist diese Option erforderlich.                                            |
@@ -171,22 +171,22 @@ Um die Umgebung für ASP.net Core Projekte anzugeben, legen Sie die **ASPNETCORE
 |                   | `--no-color`                      | Ausgabe nicht einfärben.                                                                                                                                                                                                                                        |
 |                   | `--prefix-output`                 | Präfix Ausgabe mit Ebene.                                                                                                                                                                                                                                     |
 
-## <a name="dotnet-ef-database-drop"></a>DotNet EF-Datenbank löschen
+## <a name="dotnet-ef-database-drop"></a>dotnet ef database drop
 
 Löscht die Datenbank.
 
 Optionen:
 
-|                   | Option                   | Beschreibung                                              |
+|                   | -Option                   | Beschreibung                                              |
 |:------------------|:-------------------------|:---------------------------------------------------------|
 | <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Nicht bestätigen.                                           |
 |                   | <nobr>`--dry-run`</nobr> | Zeigen Sie an, welche Datenbank gelöscht werden soll, aber löschen Sie Sie nicht. |
 
-## <a name="dotnet-ef-database-update"></a>DotNet EF-Datenbankupdate
+## <a name="dotnet-ef-database-update"></a>dotnet ef database update
 
 Aktualisiert die Datenbank auf die letzte Migration oder eine angegebene Migration.
 
-Argumente:
+Arguments:
 
 | Argument      | Beschreibung                                                                                                                                                                                                                                                     |
 |:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -194,33 +194,33 @@ Argumente:
 
 In den folgenden Beispielen wird die-Datenbank auf eine angegebene Migration aktualisiert. Der erste verwendet den Migrations Namen, der zweite verwendet die Migrations-ID:
 
-```console
+```dotnetcli
 dotnet ef database update InitialCreate
 dotnet ef database update 20180904195021_InitialCreate
 ```
 
-## <a name="dotnet-ef-dbcontext-info"></a>DotNet EF dbcontext-Informationen
+## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext info
 
 Ruft Informationen zu einem `DbContext` Typs ab.
 
-## <a name="dotnet-ef-dbcontext-list"></a>DotNet EF-dbcontext-Liste
+## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext list
 
 Listet verfügbare `DbContext` Typen auf.
 
-## <a name="dotnet-ef-dbcontext-scaffold"></a>DotNet EF-dbcontext-Gerüst
+## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext scaffold
 
 Generiert Code für eine `DbContext` und Entitäts Typen für eine Datenbank. Damit dieser Befehl einen Entitätstyp generieren kann, muss die Datenbanktabelle über einen Primärschlüssel verfügen.
 
-Argumente:
+Arguments:
 
 | Argument       | Beschreibung                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Die Verbindungs Zeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name =\<Name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. |
+| `<CONNECTION>` | Die Verbindungszeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name =\<Name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. |
 | `<PROVIDER>`   | Der zu verwendende Anbieter. In der Regel ist dies der Name des nuget-Pakets, z. b. `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Optionen:
 
-|                 | Option                                   | Beschreibung                                                                                                                                                                    |
+|                 | -Option                                   | Beschreibung                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <nobr>-d</nobr> | `--data-annotations`                     | Verwenden Sie Attribute, um das Modell zu konfigurieren (sofern möglich). Wenn diese Option weggelassen wird, wird nur die fließende API verwendet.                                                                |
 | `-c`            | `--context <NAME>`                       | Der Name der zu generierenden `DbContext`-Klasse.                                                                                                                                 |
@@ -233,21 +233,21 @@ Optionen:
 
 Im folgenden Beispiel wird ein Gerüst für alle Schemas und Tabellen und die neuen Dateien im Ordner " *Models* " eingefügt.
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 ```
 
 Im folgenden Beispiel wird nur ein Gerüst für ausgewählte Tabellen erstellt, und der Kontext wird in einem separaten Ordner mit einem angegebenen Namen erstellt:
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
 ```
 
-## <a name="dotnet-ef-migrations-add"></a>DotNet EF-Migrationen hinzufügen
+## <a name="dotnet-ef-migrations-add"></a>dotnet ef migrations add
 
 Fügt eine neue Migration hinzu.
 
-Argumente:
+Arguments:
 
 | Argument | Beschreibung                |
 |:---------|:---------------------------|
@@ -255,55 +255,55 @@ Argumente:
 
 Optionen:
 
-|                   | Option                             | Beschreibung                                                                                                      |
+|                   | -Option                             | Beschreibung                                                                                                      |
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | Das zu verwendende Verzeichnis (und der untergeordnete Namespace). Pfade sind relativ zum Projektverzeichnis. Der Standardwert ist "Migrationen". |
 
-## <a name="dotnet-ef-migrations-list"></a>DotNet EF-Migrations Liste
+## <a name="dotnet-ef-migrations-list"></a>dotnet ef migrations list
 
 Listet verfügbare Migrationen auf.
 
-## <a name="dotnet-ef-migrations-remove"></a>DotNet EF-Migrationen entfernen
+## <a name="dotnet-ef-migrations-remove"></a>dotnet ef migrations remove
 
 Entfernt die letzte Migration (führt einen Rollback für die Codeänderungen aus, die für die Migration durchgeführt wurden).
 
 Optionen:
 
-|                   | Option    | Beschreibung                                                                     |
+|                   | -Option    | Beschreibung                                                                     |
 |:------------------|:----------|:--------------------------------------------------------------------------------|
 | <nobr>`-f`</nobr> | `--force` | Setzen Sie die Migration zurück (führen Sie ein Rollback der Änderungen aus, die auf die Datenbank angewendet wurden). |
 
-## <a name="dotnet-ef-migrations-script"></a>DotNet EF-Migrations Skript
+## <a name="dotnet-ef-migrations-script"></a>dotnet ef migrations script
 
 Generiert ein SQL-Skript aus Migrationen.
 
-Argumente:
+Arguments:
 
 | Argument | Beschreibung                                                                                                                                                   |
 |:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<FROM>` | Die Migration wird gestartet. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration*liegt. Der Standardwert ist 0. |
+| `<FROM>` | Die Migration wird gestartet. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration*liegt. Die Standardeinstellung ist 0. |
 | `<TO>`   | Die Beendigung der Migration. Standardmäßig wird die letzte Migration verwendet.                                                                                                         |
 
 Optionen:
 
-|                   | Option            | Beschreibung                                                        |
+|                   | -Option            | Beschreibung                                                        |
 |:------------------|:------------------|:-------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | `--output <FILE>` | Die Datei, in die das Skript geschrieben werden soll.                                   |
 | `-i`              | `--idempotent`    | Generieren Sie ein Skript, das bei jeder Migration in einer Datenbank verwendet werden kann. |
 
 Im folgenden Beispiel wird ein Skript für die InitialCreate-Migration erstellt:
 
-```console
+```dotnetcli
 dotnet ef migrations script 0 InitialCreate
 ```
 
 Im folgenden Beispiel wird nach der InitialCreate-Migration ein Skript für alle Migrationen erstellt.
 
-```console
+```dotnetcli
 dotnet ef migrations script 20180904195021_InitialCreate
 ```
 
-## <a name="additional-resources"></a>Zusätzliche Ressourcen
+## <a name="additional-resources"></a>Weitere Ressourcen
 
 * [Migrationen](xref:core/managing-schemas/migrations/index)
 * [Reverse Engineering](xref:core/managing-schemas/scaffolding)

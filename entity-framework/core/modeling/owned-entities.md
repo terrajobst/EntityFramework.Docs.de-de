@@ -1,16 +1,16 @@
 ---
 title: Eigene Entitäts Typen-EF Core
+description: Konfigurieren eigener Entitäts Typen oder Aggregate bei Verwendung von Entity Framework Core
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 02/26/2018
-ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
+ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: a0665bfa27134b8dc3eba854ff3f7b1af4b69217
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 7b6d1b3bccbfceb85f03a580ba03a45984d29c74
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655936"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824593"
 ---
 # <a name="owned-entity-types"></a>Nicht eigenständige Entitätstypen
 
@@ -19,7 +19,7 @@ ms.locfileid: "73655936"
 
 EF Core ermöglicht es Ihnen, Entitäts Typen zu modellieren, die nur in den Navigations Eigenschaften anderer Entitäts Typen angezeigt werden können. Diese werden als _eigene Entitäts Typen_bezeichnet. Die Entität, die einen eigenen Entitätstyp enthält, ist Ihr _Besitzer_.
 
-Besitzende Entitäten sind im wesentlichen Teil des Besitzers und können nicht ohne Sie vorhanden sein, Sie sind konzeptionell ähnlich wie [Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html).
+Besitzende Entitäten sind im wesentlichen Teil des Besitzers und können nicht ohne Sie vorhanden sein, Sie sind konzeptionell ähnlich wie [Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html). Dies bedeutet, dass der eigene Typ definitionsgemäß auf der abhängigen Seite der Beziehung mit dem Besitzer ist.
 
 ## <a name="explicit-configuration"></a>Explizite Konfiguration
 
@@ -74,17 +74,20 @@ So konfigurieren Sie einen anderen PK-Rückruf `HasKey`:
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
 > [!NOTE]
-> Bevor EF Core 3,0 `WithOwner()`-Methode nicht vorhanden war, sollte dieser-Befehl entfernt werden.
+> Bevor EF Core 3,0 `WithOwner()`-Methode nicht vorhanden war, sollte dieser-Befehl entfernt werden. Außerdem wurde der Primärschlüssel nicht automatisch erkannt, sodass er immer angegeben wurde.
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>Zuordnung eigener Typen mit Tabellen Aufteilung
 
 Bei der Verwendung von relationalen Datenbanken werden Verweis eigene Typen standardmäßig derselben Tabelle wie der Besitzer zugeordnet. Dies erfordert das Aufteilen der Tabelle in zwei: einige Spalten werden zum Speichern der Daten des Besitzers verwendet, und einige Spalten werden zum Speichern von Daten der Entität verwendet. Dies ist ein gängiges Feature, das als [Tabellen Aufteilung](table-splitting.md)bezeichnet wird.
 
-Standardmäßig werden EF Core die Daten Bank Spalten für die Eigenschaften des eigenen Entitäts Typs nach dem Muster _Navigation_OwnedEntityProperty_benennen. Daher werden die `StreetAddress` Eigenschaften in der Tabelle "Orders" mit den Namen "ShippingAddress_Street" und "ShippingAddress_City" angezeigt.
+Standardmäßig benennen EF Core die Daten Bank Spalten für die Eigenschaften des eigenen Entitäts Typs nach dem Muster _Navigation_OwnedEntityProperty_. Daher werden die `StreetAddress` Eigenschaften in der Tabelle Orders mit den Namen ' ShippingAddress_Street ' und ' ShippingAddress_City ' angezeigt.
 
 Sie können die `HasColumnName`-Methode verwenden, um diese Spalten umzubenennen:
 
 [!code-csharp[ColumnNames](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=ColumnNames)]
+
+> [!NOTE]
+> Die meisten der normalen Entitätstyp-Konfigurations Methoden wie [Ignore](/dotnet/api/microsoft.entityframeworkcore.metadata.builders.ownednavigationbuilder.ignore) können auf die gleiche Weise aufgerufen werden.
 
 ## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>Gemeinsame Nutzung desselben .net-Typs für mehrere eigene Typen
 
@@ -106,6 +109,8 @@ In diesem Beispiel `OrderDetails` `BillingAddress` und `ShippingAddress`, bei de
 
 [!code-csharp[OrderStatus](../../../samples/core/Modeling/OwnedEntities/OrderStatus.cs?name=OrderStatus)]
 
+Jede Navigation zu einem eigenen Typ definiert einen separaten Entitätstyp mit vollständig unabhängiger Konfiguration.
+
 Zusätzlich zu den Typen, die im Besitz eines Typs sind, kann ein eigener Typ auf eine reguläre Entität verweisen, es kann sich um den Besitzer oder eine andere Entität handeln, solange sich die zugehörige Entität auf der abhängigen Seite befindet. Diese Funktion legt eigene Entitäts Typen außer komplexen Typen in EF6 fest.
 
 [!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
@@ -114,15 +119,17 @@ Es ist möglich, die `OwnsOne`-Methode in einem fließend aufzurufenden Befehl z
 
 [!code-csharp[OwnsOneNested](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneNested)]
 
-Beachten Sie den `WithOwner`-Befehl, der zum Konfigurieren der Navigations Eigenschaft verwendet wird, die auf den Besitzer zeigt.
+Beachten Sie den `WithOwner`-Befehl, der zum Konfigurieren der Navigations Eigenschaft verwendet wird, die auf den Besitzer zeigt. Zum Konfigurieren einer Navigation zum Owner-Entitätstyp, der nicht Teil der Besitz Beziehung ist `WithOwner()` sollte ohne Argumente aufgerufen werden.
 
-Es ist möglich, das Ergebnis mithilfe von `OwnedAttribute` sowohl auf `OrderDetails` als auch `StreetAdress`zu erzielen.
+Es ist möglich, das Ergebnis mithilfe von `OwnedAttribute` sowohl auf `OrderDetails` als auch `StreetAddress`zu erzielen.
 
 ## <a name="storing-owned-types-in-separate-tables"></a>Speichern von eigenen Typen in separaten Tabellen
 
 Im Gegensatz zu komplexen EF6-Typen können eigene Typen in einer separaten Tabelle vom Besitzer gespeichert werden. Um die Konvention zu überschreiben, die einen eigenen Typ derselben Tabelle wie der Besitzer zuordnet, können Sie einfach `ToTable` aufzurufen und einen anderen Tabellennamen angeben. Im folgenden Beispiel werden `OrderDetails` und die beiden Adressen einer separaten Tabelle aus `DetailedOrder`zugeordnet:
 
 [!code-csharp[OwnsOneTable](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneTable)]
+
+Es ist auch möglich, die `TableAttribute` zu verwenden, aber beachten Sie, dass dies fehlschlägt, wenn mehrere Navigationen zum eigenen Typ vorhanden sind, da in diesem Fall mehrere Entitäts Typen derselben Tabelle zugeordnet werden.
 
 ## <a name="querying-owned-types"></a>Abfragen von eigenen Typen
 
@@ -141,7 +148,7 @@ Einige dieser Einschränkungen sind grundlegend für die Funktionsweise von Enti
 
 ### <a name="current-shortcomings"></a>Aktuelle Mängel
 
-- Vererbungs Hierarchien, die eigene Entitäts Typen einschließen, werden nicht unterstützt
+- Besitzende Entitäts Typen dürfen keine Vererbungs Hierarchien aufweisen
 - Verweis Navigation auf eigene Entitäts Typen darf nicht NULL sein, es sei denn, Sie sind explizit einer separaten Tabelle vom Besitzer zugeordnet.
 - Instanzen von eigenen Entitäts Typen können nicht von mehreren Besitzern gemeinsam genutzt werden (Dies ist ein bekanntes Szenario für Wert Objekte, das nicht mit Entitäts Typen im Besitz von Entitäten implementiert werden kann).
 

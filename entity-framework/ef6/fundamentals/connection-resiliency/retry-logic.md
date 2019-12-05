@@ -1,14 +1,14 @@
 ---
 title: Verbindungsresilienz und Wiederholungs Logik EF6
-author: divega
-ms.date: 10/23/2016
+author: AndriySvyryd
+ms.date: 11/20/2019
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: a01216c3399ca4a04943563435eacd0047337a5f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 50e65bed32d0cfcf42746da0d632f9e990424b97
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306576"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824836"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Verbindungsresilienz und Wiederholungs Logik
 > [!NOTE]
@@ -124,77 +124,14 @@ using (var db = new BloggingContext())
 
 Dies wird nicht unterstützt, wenn eine Wiederholungs Ausführungs Strategie verwendet wird, da EF keine früheren Vorgänge kennt und die Wiederholungs Versuche ausgeführt werden. Wenn beispielsweise die zweite SaveChanges fehlgeschlagen ist, verfügt EF nicht mehr über die erforderlichen Informationen, um den ersten SaveChanges-Befehl zu wiederholen.  
 
-### <a name="workaround-suspend-execution-strategy"></a>Problemumgehung: Ausführungs Strategie aussetzen  
+### <a name="solution-manually-call-execution-strategy"></a>Lösung: Manuelles Abrufen der Ausführungs Strategie  
 
-Eine mögliche Problem Umgehung besteht darin, die Wiederholungs Ausführungs Strategie für den Code anzuhalten, der eine vom Benutzer initiierte Transaktion verwenden muss. Die einfachste Möglichkeit hierzu ist das Hinzufügen eines suspendexecutionstrategy-Flags zu ihrer Code basierten Konfigurations Klasse und das Ändern des Ausführungs Strategie-Lambda-Ausdrucks, um die standardmäßige (nicht retalisierende) Ausführungs Strategie zurückzugeben, wenn das Flag festgelegt ist.  
-
-``` csharp
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.SqlServer;
-using System.Runtime.Remoting.Messaging;
-
-namespace Demo
-{
-    public class MyConfiguration : DbConfiguration
-    {
-        public MyConfiguration()
-        {
-            this.SetExecutionStrategy("System.Data.SqlClient", () => SuspendExecutionStrategy
-              ? (IDbExecutionStrategy)new DefaultExecutionStrategy()
-              : new SqlAzureExecutionStrategy());
-        }
-
-        public static bool SuspendExecutionStrategy
-        {
-            get
-            {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
-            }
-            set
-            {
-                CallContext.LogicalSetData("SuspendExecutionStrategy", value);
-            }
-        }
-    }
-}
-```  
-
-Beachten Sie, dass wir CallContext verwenden, um den Flagwert zu speichern. Dies bietet eine ähnliche Funktionalität wie der lokale Thread Speicher, kann jedoch mit asynchronem Code verwendet werden, einschließlich asynchroner Abfragen und speichern mit Entity Framework.  
-
-Wir können nun die Ausführungs Strategie für den Code Abschnitt aussetzen, der eine vom Benutzer initiierte Transaktion verwendet.  
-
-``` csharp
-using (var db = new BloggingContext())
-{
-    MyConfiguration.SuspendExecutionStrategy = true;
-
-    using (var trn = db.Database.BeginTransaction())
-    {
-        db.Blogs.Add(new Blog { Url = "http://msdn.com/data/ef" });
-        db.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-        db.SaveChanges();
-
-        db.Blogs.Add(new Blog { Url = "http://twitter.com/efmagicunicorns" });
-        db.SaveChanges();
-
-        trn.Commit();
-    }
-
-    MyConfiguration.SuspendExecutionStrategy = false;
-}
-```  
-
-### <a name="workaround-manually-call-execution-strategy"></a>Problemumgehung: Manuelles Abrufen der Ausführungs Strategie  
-
-Eine andere Möglichkeit besteht darin, die Ausführungs Strategie manuell zu verwenden und ihr den gesamten Logik Satz zuzuweisen, der ausgeführt werden soll, damit Sie alles wiederholen kann, wenn einer der Vorgänge fehlschlägt. Wir müssen die Ausführungs Strategie mithilfe der oben gezeigten Technik weiterhin aussetzen, damit alle im wiederholbaren Codeblock verwendeten Kontexte nicht versuchen, den Vorgang zu wiederholen.  
+Die Lösung besteht darin, die Ausführungs Strategie manuell zu verwenden und ihr den gesamten Logik Satz zuzuweisen, der ausgeführt werden soll, damit Sie alles wiederholen kann, wenn einer der Vorgänge fehlschlägt. Wenn eine von dbexecutionstrategy abgeleitete Ausführungs Strategie ausgeführt wird, wird die in SaveChanges verwendete implizite Ausführungs Strategie angehalten.  
 
 Beachten Sie, dass alle Kontexte innerhalb des Codeblocks erstellt werden müssen, um erneut versucht werden zu können. Dadurch wird sichergestellt, dass für jeden Wiederholungsversuch ein sauberer Zustand gestartet wird.  
 
 ``` csharp
 var executionStrategy = new SqlAzureExecutionStrategy();
-
-MyConfiguration.SuspendExecutionStrategy = true;
 
 executionStrategy.Execute(
     () =>
@@ -214,6 +151,4 @@ executionStrategy.Execute(
             }
         }
     });
-
-MyConfiguration.SuspendExecutionStrategy = false;
 ```  

@@ -1,15 +1,16 @@
 ---
 title: Vererbung (relationale Datenbank)-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
+description: Konfigurieren der Vererbung von Entitäts Typen in einer relationalen Datenbank mithilfe von Entity Framework Core
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/06/2019
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 381d1878007bb78b359eb49649f4356f1e5eb04a
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 30e25aa2968ceab03404baddb46e0ae59fc3ea6b
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655629"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824745"
 ---
 # <a name="inheritance-relational-database"></a>Vererbung (relationale Datenbank)
 
@@ -23,7 +24,7 @@ Die Vererbung im EF-Modell wird verwendet, um zu steuern, wie die Vererbung in d
 
 ## <a name="conventions"></a>Konventionen
 
-Gemäß der Konvention wird die Vererbung mithilfe des TPH-Musters (Table-per Hierarchy) zugeordnet. TPH verwendet eine einzelne Tabelle, um die Daten für alle Typen in der Hierarchie zu speichern. Eine diskriminatorspalte wird verwendet, um den Typ zu identifizieren, den jede Zeile darstellt.
+Standardmäßig wird die Vererbung mithilfe des TPH-Musters (Table-per Hierarchy) zugeordnet. TPH verwendet eine einzelne Tabelle, um die Daten für alle Typen in der Hierarchie zu speichern. Eine diskriminatorspalte wird verwendet, um den Typ zu identifizieren, den jede Zeile darstellt.
 
 EF Core wird nur dann eine Vererbung eingerichtet, wenn mindestens zwei geerbte Typen explizit in das Modell eingeschlossen werden (Weitere Informationen finden Sie unter [Vererbung](../inheritance.md) ).
 
@@ -50,48 +51,14 @@ Sie können die fließende API verwenden, um den Namen und den Typ der diskrimin
 
 In den obigen Beispielen wird der Diskriminator als [Schatten Eigenschaft](xref:core/modeling/shadow-properties) für die Basis Entität der Hierarchie erstellt. Da es sich um eine Eigenschaft im Modell handelt, kann Sie genau wie andere Eigenschaften konfiguriert werden. So legen Sie z. b. die maximale Länge fest, wenn der standardmäßige Diskriminator verwendet wird:
 
-```C#
-modelBuilder.Entity<Blog>()
-    .Property("Discriminator")
-    .HasMaxLength(200);
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/DefaultDiscriminator.cs#DiscriminatorConfiguration)]
 
-Der Diskriminator kann auch einer tatsächlichen CLR-Eigenschaft in der Entität zugeordnet werden. Beispiel:
+Der Diskriminator kann auch einer .net-Eigenschaft in der Entität zugeordnet und konfiguriert werden. Beispiel:
 
-```C#
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/NonShadowDiscriminator.cs#NonShadowDiscriminator)]
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasDiscriminator<string>("BlogType");
-    }
-}
+## <a name="shared-columns"></a>Freigegebene Spalten
 
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-    public string BlogType { get; set; }
-}
+Wenn zwei gleich geordnete Entitäts Typen über eine Eigenschaft mit demselben Namen verfügen, werden Sie standardmäßig zwei separaten Spalten zugeordnet. Wenn Sie jedoch kompatibel sind, können Sie derselben Spalte zugeordnet werden:
 
-public class RssBlog : Blog
-{
-    public string RssUrl { get; set; }
-}
-```
-
-Wenn Sie diese beiden Elemente miteinander kombinieren, ist es möglich, den Diskriminator einer echten Eigenschaft zuzuordnen und zu konfigurieren:
-
-```C#
-modelBuilder.Entity<Blog>(b =>
-{
-    b.HasDiscriminator<string>("BlogType");
-
-    b.Property(e => e.BlogType)
-        .HasMaxLength(200)
-        .HasColumnName("blog_type");
-});
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/SharedTPHColumns.cs#SharedTPHColumns)]
