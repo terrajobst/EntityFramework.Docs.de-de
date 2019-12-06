@@ -225,6 +225,8 @@
                   href: core/providers/sql-server/index.md
                 - name: Speicheroptimierte Tabellen
                   href: core/providers/sql-server/memory-optimized-tables.md
+                - name: Angeben von Azure SQL-Datenbank-Optionen
+                  href: core/providers/sql-server/azure-sql-database.md
             - name: SQLite
               items:
                 - name: Übersicht
