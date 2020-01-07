@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 7de465d483ab2c183c7f37d08c84de00ef113651
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: dc0c1ae1a03c98c6f230557dc0bdd4d29ec191dd
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824502"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502200"
 ---
 # <a name="migrations"></a>Migrationen
 
@@ -39,13 +39,13 @@ Installieren Sie die [Befehlszeilentools](xref:core/miscellaneous/cli/index):
 
 Nach dem [Definieren des Ausgangsmodells](xref:core/modeling/index) ist der Zeitpunkt gekommen, die Datenbank zu erstellen. Um eine anfängliche Migration hinzuzufügen, führen Sie den folgenden Befehl aus:
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration InitialCreate
@@ -68,13 +68,13 @@ Mit dem Zeitstempel im Dateinamen können Migrationen chronologisch angeordnet w
 
 Als Nächstes führen Sie für die Datenbank die Migration durch, um das Schema zu erstellen.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database
@@ -86,13 +86,13 @@ Update-Database
 
 Nachdem Sie Änderungen an Ihrem EF Core-Modell vorgenommen haben, ist das Datenbankschema möglicherweise nicht mehr synchron. Fügen Sie eine andere Migration hinzu, um es auf dem neuesten Stand zu bringen. Der Migrationsname kann wie eine Commitnachricht in einem Versionskontrollsystem verwendet werden. Beispielsweise können Sie einen Namen wie *AddProductReviews* wählen, wenn die Änderung eine neue Entitätsklasse für Rezensionen ist.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add AddProductReviews
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration AddProductReviews
@@ -147,13 +147,13 @@ migrationBuilder.DropColumn(
 
 Führen Sie für die Datenbank die Migration mit dem entsprechenden Befehl durch.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database
@@ -175,13 +175,13 @@ Manchmal ist es sinnvoll, eine Migration hinzuzufügen, ohne Modelländerungen v
 
 Es kann vorkommen, dass Sie eine Migration hinzufügen und feststellen, dass Sie zusätzliche Änderungen an Ihrem EF Core-Modell vornehmen müssen, bevor Sie diese durchführen. Um die letzte Migration zu entfernen, verwenden Sie diesen Befehl.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations remove
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Remove-Migration
@@ -195,13 +195,13 @@ Nachdem Sie die Migration entfernt haben, können Sie die zusätzlichen Modellä
 
 Wenn Sie bereits eine Migration (oder mehrere Migrationen) für die Datenbank durchgeführt haben, diese jedoch rückgängig machen müssen, können Sie mit demselben Befehl Migrationen durchführen, aber den Namen der Migration angeben, für die Sie ein Rollback ausführen möchten.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update LastGoodMigration
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database LastGoodMigration
@@ -213,13 +213,13 @@ Update-Database LastGoodMigration
 
 Wenn Sie Ihre Migrationen debuggen oder in einer Produktionsdatenbank bereitstellen, ist es sinnvoll, ein SQL-Skript zu generieren. Das Skript kann dann weiter auf Genauigkeit überprüft und auf die Anforderungen einer Produktionsdatenbank abgestimmt werden. Das Skript kann auch in Verbindung mit einer Bereitstellungstechnologie verwendet werden. Der grundlegende Befehl lautet wie folgt:
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core-CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations script
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Script-Migration
