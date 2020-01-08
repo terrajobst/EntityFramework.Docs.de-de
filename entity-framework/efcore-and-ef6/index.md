@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 9fe4905de5bd81fce083d620724b7fad4c6dd11b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 62f7da64bbb6289edd38b877af71fc126e03d0f6
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182053"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502288"
 ---
 # <a name="compare-ef-core--ef6"></a>Vergleichen von EF Core und EF 6
 
@@ -30,7 +30,7 @@ EF Core wurde entwickelt, um eine ähnliche Entwicklererfahrung wie EF6 bereitzu
 
 ## <a name="feature-comparison"></a>Funktionsvergleich
 
-EF Core bietet neue Funktionen, die in EF6 nicht implementiert werden (wie etwa [alternative Schlüssel](xref:core/modeling/alternate-keys), [Batchupdates](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements) und [gemischte Client-/Datenbankauswertung in LINQ-Abfragen](xref:core/querying/client-eval). Da es sich aber um eine neue Codebasis handelt, fehlen auch einige Funktionen, über die EF6 verfügt.
+EF Core bietet neue Funktionen, die in EF6 nicht implementiert werden (wie etwa [alternative Schlüssel](xref:core/modeling/keys#alternate-keys), [Batchupdates](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements) und [gemischte Client-/Datenbankauswertung in LINQ-Abfragen](xref:core/querying/client-eval). Da es sich aber um eine neue Codebasis handelt, fehlen auch einige Funktionen, über die EF6 verfügt.
 
 In den folgenden Tabellen werden die in EF Core und EF6 verfügbaren Funktionen verglichen. Das ist ein allgemeiner Vergleich, in dem nicht alle Funktionen aufgelistet und nicht alle Unterschiede zwischen der gleichen Funktion in verschiedenen EF-Versionen erläutert sind.
 
@@ -81,7 +81,7 @@ Die Spalte „EF Core“ zeigt die Produktversion, in der die Funktion zum erste
 | GroupBy-Übersetzung                                   | Ja      | 2.1                                   |
 | Laden zugehöriger Daten: Eager Loading                           | Ja      | 1.0                                   |
 | Laden zugehöriger Daten: Eager Loading für abgeleitete Typen |          | 2.1                                   |
-| Laden zugehöriger Daten: Verzögert                            | Ja      | 2.1                                   |
+| Laden zugehöriger Daten: Lazy                            | Ja      | 2.1                                   |
 | Laden zugehöriger Daten: Explicit                        | Ja      | 1.1                                   |
 | Unformatierte SQL-Abfragen: Entitätstypen                         | Ja      | 1.0                                   |
 | Unformatierte SQL-Abfragen: Schlüssellose Entitätstypen                 | Ja      | 2.1                                   |
