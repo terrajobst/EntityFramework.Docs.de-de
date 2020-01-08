@@ -5,37 +5,58 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 10/27/2016
 uid: core/modeling/inheritance
-ms.openlocfilehash: 4d43a432174c92ab7f3f9d78a234aefb0a4a17e8
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 507854e3acc0347adee612e516b3e2e0b10f55cf
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824675"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502166"
 ---
-# <a name="inheritance"></a><span data-ttu-id="2c096-103">Vererbung</span><span class="sxs-lookup"><span data-stu-id="2c096-103">Inheritance</span></span>
+# <a name="inheritance"></a><span data-ttu-id="cade5-103">Vererbung</span><span class="sxs-lookup"><span data-stu-id="cade5-103">Inheritance</span></span>
 
-<span data-ttu-id="2c096-104">Die Vererbung im EF-Modell wird verwendet, um zu steuern, wie die Vererbung in den Entitäts Klassen in der Datenbank dargestellt wird.</span><span class="sxs-lookup"><span data-stu-id="2c096-104">Inheritance in the EF model is used to control how inheritance in the entity classes is represented in the database.</span></span>
+<span data-ttu-id="cade5-104">EF kann eine .net-Typhierarchie einer Datenbank zuordnen.</span><span class="sxs-lookup"><span data-stu-id="cade5-104">EF can map a .NET type hierarchy to a database.</span></span> <span data-ttu-id="cade5-105">Dies ermöglicht es Ihnen, Ihre .NET-Entitäten wie gewohnt mit Basis-und abgeleiteten Typen in Code zu schreiben und EF nahtlos das geeignete Datenbankschema zu erstellen, Abfragen auszugeben usw. Die tatsächlichen Details, wie eine Typhierarchie zugeordnet wird, sind Anbieter abhängig. Diese Seite beschreibt die Vererbungs Unterstützung im Kontext einer relationalen Datenbank.</span><span class="sxs-lookup"><span data-stu-id="cade5-105">This allows you to write your .NET entities in code as usual, using base and derived types, and have EF seamlessly create the appropriate database schema, issue queries, etc. The actual details of how a type hierarchy is mapped are provider-dependent; this page describes inheritance support in the context of a relational database.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="2c096-105">Konventionen</span><span class="sxs-lookup"><span data-stu-id="2c096-105">Conventions</span></span>
-
-<span data-ttu-id="2c096-106">Standardmäßig liegt es an dem Datenbankanbieter, zu bestimmen, wie die Vererbung in der Datenbank dargestellt werden soll.</span><span class="sxs-lookup"><span data-stu-id="2c096-106">By default, it is up to the database provider to determine how inheritance will be represented in the database.</span></span> <span data-ttu-id="2c096-107">Informationen zur Behandlung eines relationalen Datenbankanbieters finden Sie unter [Vererbung (relationale Datenbank)](relational/inheritance.md) .</span><span class="sxs-lookup"><span data-stu-id="2c096-107">See [Inheritance (Relational Database)](relational/inheritance.md) for how this is handled with a relational database provider.</span></span>
-
-<span data-ttu-id="2c096-108">EF wird nur dann die Vererbung einrichten, wenn mindestens zwei geerbte Typen explizit im Modell enthalten sind.</span><span class="sxs-lookup"><span data-stu-id="2c096-108">EF will only setup inheritance if two or more inherited types are explicitly included in the model.</span></span> <span data-ttu-id="2c096-109">EF sucht nicht nach Basis Typen oder abgeleiteten Typen, die ansonsten nicht im Modell enthalten waren.</span><span class="sxs-lookup"><span data-stu-id="2c096-109">EF will not scan for base or derived types that were not otherwise included in the model.</span></span> <span data-ttu-id="2c096-110">Sie können Typen in das Modell einschließen, indem Sie für jeden Typ in der Vererbungs Hierarchie eine *dbset-\<TEntity->* verfügbar machen.</span><span class="sxs-lookup"><span data-stu-id="2c096-110">You can include types in the model by exposing a *DbSet\<TEntity>* for each type in the inheritance hierarchy.</span></span>
-
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/InheritanceDbSets.cs?highlight=3-4&name=Model)]
-
-<span data-ttu-id="2c096-111">Wenn Sie für eine oder mehrere Entitäten in der Hierarchie keinen *dbset-\<TEntity->* verfügbar machen möchten, können Sie die fließende API verwenden, um sicherzustellen, dass Sie im Modell enthalten sind.</span><span class="sxs-lookup"><span data-stu-id="2c096-111">If you don't want to expose a *DbSet\<TEntity>* for one or more entities in the hierarchy, you can use the Fluent API to ensure they are included in the model.</span></span>
-<span data-ttu-id="2c096-112">Wenn Sie sich nicht auf Konventionen verlassen, können Sie den Basistyp explizit mithilfe `HasBaseType`angeben.</span><span class="sxs-lookup"><span data-stu-id="2c096-112">And if you don't rely on conventions, you can specify the base type explicitly using `HasBaseType`.</span></span>
-
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/InheritanceModelBuilder.cs?highlight=7&name=Context)]
+<span data-ttu-id="cade5-106">Zurzeit unterstützt EF Core nur das TPH-Muster (Table-per Hierarchy).</span><span class="sxs-lookup"><span data-stu-id="cade5-106">At the moment, EF Core only supports the table-per-hierarchy (TPH) pattern.</span></span> <span data-ttu-id="cade5-107">TPH verwendet eine einzelne Tabelle zum Speichern der Daten für alle Typen in der Hierarchie, und eine diskriminatorspalte wird verwendet, um den Typ zu identifizieren, den jede Zeile darstellt.</span><span class="sxs-lookup"><span data-stu-id="cade5-107">TPH uses a single table to store the data for all types in the hierarchy, and a discriminator column is used to identify which type each row represents.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="2c096-113">Sie können `.HasBaseType((Type)null)` verwenden, um einen Entitätstyp aus der Hierarchie zu entfernen.</span><span class="sxs-lookup"><span data-stu-id="2c096-113">You can use `.HasBaseType((Type)null)` to remove an entity type from the hierarchy.</span></span>
+> <span data-ttu-id="cade5-108">Die Tabelle pro Typ (TPT) und "Table-per-Concrete-Type" (TPC), die von EF6 unterstützt werden, werden von EF Core noch nicht unterstützt.</span><span class="sxs-lookup"><span data-stu-id="cade5-108">The table-per-type (TPT) and table-per-concrete-type (TPC), which are supported by EF6, are not yet supported by EF Core.</span></span> <span data-ttu-id="cade5-109">TPT ist ein wichtiges Feature, das für EF Core 5,0 geplant ist.</span><span class="sxs-lookup"><span data-stu-id="cade5-109">TPT is a major feature planned for EF Core 5.0.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="2c096-114">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="2c096-114">Data Annotations</span></span>
+## <a name="entity-type-hierarchy-mapping"></a><span data-ttu-id="cade5-110">Entitätstyp-Hierarchie Zuordnung</span><span class="sxs-lookup"><span data-stu-id="cade5-110">Entity type hierarchy mapping</span></span>
 
-<span data-ttu-id="2c096-115">Zum Konfigurieren der Vererbung können keine Daten Anmerkungen verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="2c096-115">You cannot use Data Annotations to configure inheritance.</span></span>
+<span data-ttu-id="cade5-111">Gemäß der Konvention wird von EF nur die Vererbung eingerichtet, wenn mindestens zwei geerbte Typen explizit im Modell enthalten sind.</span><span class="sxs-lookup"><span data-stu-id="cade5-111">By convention, EF will only set up inheritance if two or more inherited types are explicitly included in the model.</span></span> <span data-ttu-id="cade5-112">EF scannt nicht automatisch nach Basis Typen oder abgeleiteten Typen, die ansonsten nicht im Modell enthalten sind.</span><span class="sxs-lookup"><span data-stu-id="cade5-112">EF will not automatically scan for base or derived types that are not otherwise included in the model.</span></span>
 
-## <a name="fluent-api"></a><span data-ttu-id="2c096-116">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="2c096-116">Fluent API</span></span>
+<span data-ttu-id="cade5-113">Sie können Typen in das Modell einschließen, indem Sie ein dbset für jeden Typ in der Vererbungs Hierarchie verfügbar machen:</span><span class="sxs-lookup"><span data-stu-id="cade5-113">You can include types in the model by exposing a DbSet for each type in the inheritance hierarchy:</span></span>
 
-<span data-ttu-id="2c096-117">Die fließende API für die Vererbung hängt vom verwendeten Datenbankanbieter ab.</span><span class="sxs-lookup"><span data-stu-id="2c096-117">The Fluent API for inheritance depends on the database provider you are using.</span></span> <span data-ttu-id="2c096-118">Die Konfiguration, die Sie für einen relationalen Datenbankanbieter ausführen können, finden Sie unter [Vererbung (relationale Datenbank)](relational/inheritance.md)</span><span class="sxs-lookup"><span data-stu-id="2c096-118">See [Inheritance (Relational Database)](relational/inheritance.md) for the configuration you can perform for a relational database provider.</span></span>
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/InheritanceDbSets.cs?name=InheritanceDbSets&highlight=3-4)]
+
+<span data-ttu-id="cade5-114">Dieses Modell wird dem folgenden Datenbankschema zugeordnet (Beachten Sie die implizit erstellte *diskriminatorspalte* , die identifiziert, welche Art von *Blog* in den einzelnen Zeilen gespeichert ist):</span><span class="sxs-lookup"><span data-stu-id="cade5-114">This model be mapped to the following database schema (note the implicitly-created *Discriminator* column, which identifies which type of *Blog* is stored in each row):</span></span>
+
+![Bild](_static/inheritance-tph-data.png)
+
+>[!NOTE]
+> <span data-ttu-id="cade5-116">Bei Verwendung der TPH-Zuordnung werden bei Bedarf automatisch NULL-Werte für Daten Bank Spalten festgelegt.</span><span class="sxs-lookup"><span data-stu-id="cade5-116">Database columns are automatically made nullable as necessary when using TPH mapping.</span></span> <span data-ttu-id="cade5-117">Beispielsweise kann die Spalte *rssurl* auf NULL festgelegt werden, da reguläre *Blog* Instanzen nicht über diese Eigenschaft verfügen.</span><span class="sxs-lookup"><span data-stu-id="cade5-117">For example, the *RssUrl* column is nullable because regular *Blog* instances do not have that property.</span></span>
+
+<span data-ttu-id="cade5-118">Wenn Sie kein dbset für eine oder mehrere Entitäten in der Hierarchie verfügbar machen möchten, können Sie auch die fließende API verwenden, um sicherzustellen, dass Sie im Modell enthalten sind.</span><span class="sxs-lookup"><span data-stu-id="cade5-118">If you don't want to expose a DbSet for one or more entities in the hierarchy, you can also use the Fluent API to ensure they are included in the model.</span></span>
+
+> [!TIP]
+> <span data-ttu-id="cade5-119">Wenn Sie sich nicht auf Konventionen verlassen, können Sie den Basistyp explizit mithilfe `HasBaseType`angeben.</span><span class="sxs-lookup"><span data-stu-id="cade5-119">If you don't rely on conventions, you can specify the base type explicitly using `HasBaseType`.</span></span> <span data-ttu-id="cade5-120">Sie können auch `.HasBaseType((Type)null)` verwenden, um einen Entitätstyp aus der Hierarchie zu entfernen.</span><span class="sxs-lookup"><span data-stu-id="cade5-120">You can also use `.HasBaseType((Type)null)` to remove an entity type from the hierarchy.</span></span>
+
+## <a name="discriminator-configuration"></a><span data-ttu-id="cade5-121">Diskriminatorkonfiguration</span><span class="sxs-lookup"><span data-stu-id="cade5-121">Discriminator configuration</span></span>
+
+<span data-ttu-id="cade5-122">Sie können den Namen und den Typ der diskriminatorspalte und die Werte, die zum Identifizieren der einzelnen Typen in der Hierarchie verwendet werden, konfigurieren:</span><span class="sxs-lookup"><span data-stu-id="cade5-122">You can configure the name and type of the discriminator column and the values that are used to identify each type in the hierarchy:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DiscriminatorConfiguration.cs?name=DiscriminatorConfiguration&highlight=4-6)]
+
+<span data-ttu-id="cade5-123">In den obigen Beispielen wurde der Diskriminator von EF implizit als [Schatten Eigenschaft](xref:core/modeling/shadow-properties) für die Basis Entität der Hierarchie hinzugefügt.</span><span class="sxs-lookup"><span data-stu-id="cade5-123">In the examples above, EF added the discriminator implicitly as a [shadow property](xref:core/modeling/shadow-properties) on the base entity of the hierarchy.</span></span> <span data-ttu-id="cade5-124">Diese Eigenschaft kann wie jede andere konfiguriert werden:</span><span class="sxs-lookup"><span data-stu-id="cade5-124">This property can be configured like any other:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DiscriminatorPropertyConfiguration.cs?name=DiscriminatorPropertyConfiguration&highlight=4-5)]
+
+<span data-ttu-id="cade5-125">Schließlich kann der Diskriminator auch einer regulären .net-Eigenschaft in der Entität zugeordnet werden:</span><span class="sxs-lookup"><span data-stu-id="cade5-125">Finally, the discriminator can also be mapped to a regular .NET property in your entity:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/NonShadowDiscriminator.cs?name=NonShadowDiscriminator&highlight=4)]
+
+## <a name="shared-columns"></a><span data-ttu-id="cade5-126">Freigegebene Spalten</span><span class="sxs-lookup"><span data-stu-id="cade5-126">Shared columns</span></span>
+
+<span data-ttu-id="cade5-127">Wenn zwei gleich geordnete Entitäts Typen in der Hierarchie über eine Eigenschaft mit demselben Namen verfügen, werden Sie standardmäßig zwei separaten Spalten zugeordnet.</span><span class="sxs-lookup"><span data-stu-id="cade5-127">By default, when two sibling entity types in the hierarchy have a property with the same name, they will be mapped to two separate columns.</span></span> <span data-ttu-id="cade5-128">Wenn Ihr Typ jedoch identisch ist, können Sie derselben Daten Bank Spalte zugeordnet werden:</span><span class="sxs-lookup"><span data-stu-id="cade5-128">However, if their type is identical they can be mapped to the same database column:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/SharedTPHColumns.cs?name=SharedTPHColumns&highlight=9,13)]

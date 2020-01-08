@@ -1,41 +1,65 @@
 ---
 title: Indizes-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+author: roji
+ms.date: 12/16/2019
 ms.assetid: 85b92003-b692-417d-ac1d-76d40dce664b
 uid: core/modeling/indexes
-ms.openlocfilehash: d1b5cd6853cd24f7e1aa3aace2f0a3455c657cc1
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 810fccc0c6b035f515107601b245811f7b4118a6
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655697"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502135"
 ---
-# <a name="indexes"></a><span data-ttu-id="b4b8e-102">Indizes</span><span class="sxs-lookup"><span data-stu-id="b4b8e-102">Indexes</span></span>
+# <a name="indexes"></a><span data-ttu-id="534f4-102">Indizes</span><span class="sxs-lookup"><span data-stu-id="534f4-102">Indexes</span></span>
 
-<span data-ttu-id="b4b8e-103">Indizes sind ein gängiges Konzept in vielen Daten speichern.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-103">Indexes are a common concept across many data stores.</span></span> <span data-ttu-id="b4b8e-104">Während Ihre Implementierung im Datenspeicher variieren kann, werden Sie verwendet, um Suchvorgänge auf Grundlage einer Spalte (oder einer Gruppe von Spalten) effizienter zu gestalten.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-104">While their implementation in the data store may vary, they are used to make lookups based on a column (or set of columns) more efficient.</span></span>
+<span data-ttu-id="534f4-103">Indizes sind ein gängiges Konzept in vielen Daten speichern.</span><span class="sxs-lookup"><span data-stu-id="534f4-103">Indexes are a common concept across many data stores.</span></span> <span data-ttu-id="534f4-104">Während Ihre Implementierung im Datenspeicher variieren kann, werden Sie verwendet, um Suchvorgänge auf Grundlage einer Spalte (oder einer Gruppe von Spalten) effizienter zu gestalten.</span><span class="sxs-lookup"><span data-stu-id="534f4-104">While their implementation in the data store may vary, they are used to make lookups based on a column (or set of columns) more efficient.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="b4b8e-105">Konventionen</span><span class="sxs-lookup"><span data-stu-id="b4b8e-105">Conventions</span></span>
+<span data-ttu-id="534f4-105">Indizes können nicht mithilfe von Daten Anmerkungen erstellt werden.</span><span class="sxs-lookup"><span data-stu-id="534f4-105">Indexes cannot be created using data annotations.</span></span> <span data-ttu-id="534f4-106">Sie können die fließende API verwenden, um einen Index für eine einzelne Spalte wie folgt anzugeben:</span><span class="sxs-lookup"><span data-stu-id="534f4-106">You can use the Fluent API to specify an index on a single column as follows:</span></span>
 
-<span data-ttu-id="b4b8e-106">Gemäß der Konvention wird ein Index in jeder Eigenschaft (oder einem Satz von Eigenschaften) erstellt, die als Fremdschlüssel verwendet wird.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-106">By convention, an index is created in each property (or set of properties) that are used as a foreign key.</span></span>
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Index.cs?name=Index&highlight=4)]
 
-## <a name="data-annotations"></a><span data-ttu-id="b4b8e-107">Datenanmerkungen</span><span class="sxs-lookup"><span data-stu-id="b4b8e-107">Data Annotations</span></span>
+<span data-ttu-id="534f4-107">Sie können einen Index auch über mehr als eine Spalte angeben:</span><span class="sxs-lookup"><span data-stu-id="534f4-107">You can also specify an index over more than one column:</span></span>
 
-<span data-ttu-id="b4b8e-108">Indizes können nicht mithilfe von Daten Anmerkungen erstellt werden.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-108">Indexes can not be created using data annotations.</span></span>
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexComposite.cs?name=Composite&highlight=4)]
 
-## <a name="fluent-api"></a><span data-ttu-id="b4b8e-109">Fluent-API</span><span class="sxs-lookup"><span data-stu-id="b4b8e-109">Fluent API</span></span>
+> [!NOTE]
+> <span data-ttu-id="534f4-108">Gemäß der Konvention wird ein Index in jeder Eigenschaft (oder einem Satz von Eigenschaften) erstellt, die als Fremdschlüssel verwendet wird.</span><span class="sxs-lookup"><span data-stu-id="534f4-108">By convention, an index is created in each property (or set of properties) that are used as a foreign key.</span></span>
+>
+> <span data-ttu-id="534f4-109">EF Core unterstützt nur einen Index pro eindeutigem Satz von Eigenschaften.</span><span class="sxs-lookup"><span data-stu-id="534f4-109">EF Core only supports one index per distinct set of properties.</span></span> <span data-ttu-id="534f4-110">Wenn Sie die fließende API verwenden, um einen Index für eine Gruppe von Eigenschaften zu konfigurieren, für die bereits ein Index definiert wurde (entweder durch Konvention oder vorherige Konfiguration), ändern Sie die Definition des Indexes.</span><span class="sxs-lookup"><span data-stu-id="534f4-110">If you use the Fluent API to configure an index on a set of properties that already has an index defined, either by convention or previous configuration, then you will be changing the definition of that index.</span></span> <span data-ttu-id="534f4-111">Dies ist hilfreich, wenn Sie einen von der Konvention erstellten Index weiter konfigurieren möchten.</span><span class="sxs-lookup"><span data-stu-id="534f4-111">This is useful if you want to further configure an index that was created by convention.</span></span>
 
-<span data-ttu-id="b4b8e-110">Sie können die fließende API verwenden, um einen Index für eine einzelne Eigenschaft anzugeben.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-110">You can use the Fluent API to specify an index on a single property.</span></span> <span data-ttu-id="b4b8e-111">Standardmäßig sind Indizes nicht eindeutig.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-111">By default, indexes are non-unique.</span></span>
+## <a name="index-uniqueness"></a><span data-ttu-id="534f4-112">Index Eindeutigkeit</span><span class="sxs-lookup"><span data-stu-id="534f4-112">Index uniqueness</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Index.cs?name=Index&highlight=7,8)]
+<span data-ttu-id="534f4-113">Standardmäßig sind Indizes nicht eindeutig: mehrere Zeilen dürfen für den Spalten Satz des Indexes die gleichen Werte aufweisen.</span><span class="sxs-lookup"><span data-stu-id="534f4-113">By default, indexes aren't unique: multiple rows are allowed to have the same value(s) for the index's column set.</span></span> <span data-ttu-id="534f4-114">Sie können einen Index wie folgt eindeutig gestalten:</span><span class="sxs-lookup"><span data-stu-id="534f4-114">You can make an index unique as follows:</span></span>
 
-<span data-ttu-id="b4b8e-112">Sie können auch angeben, dass ein Index eindeutig sein soll. Dies bedeutet, dass keine zwei Entitäten für die angegebene Eigenschaft (n) die gleichen Werte aufweisen dürfen.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-112">You can also specify that an index should be unique, meaning that no two entities can have the same value(s) for the given property(s).</span></span>
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexUnique.cs?name=IndexUnique&highlight=5)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexUnique.cs?name=ModelBuilder&highlight=3)]
+<span data-ttu-id="534f4-115">Wenn Sie versuchen, mehr als eine Entität mit denselben Werten für den Spalten Satz des Indexes einzufügen, wird eine Ausnahme ausgelöst.</span><span class="sxs-lookup"><span data-stu-id="534f4-115">Attempting to insert more than one entity with the same values for the index's column set will cause an exception to be thrown.</span></span>
 
-<span data-ttu-id="b4b8e-113">Sie können einen Index auch über mehr als eine Spalte angeben.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-113">You can also specify an index over more than one column.</span></span>
+## <a name="index-name"></a><span data-ttu-id="534f4-116">Indexname</span><span class="sxs-lookup"><span data-stu-id="534f4-116">Index name</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexComposite.cs?name=Composite&highlight=7,8)]
+<span data-ttu-id="534f4-117">Gemäß der Konvention werden Indizes, die in einer relationalen Datenbank erstellt werden, `IX_<type name>_<property name>`benannt.</span><span class="sxs-lookup"><span data-stu-id="534f4-117">By convention, indexes created in a relational database are named `IX_<type name>_<property name>`.</span></span> <span data-ttu-id="534f4-118">Bei zusammengesetzten Indizes wird `<property name>` zu einer durch Trennzeichen getrennten Liste mit Eigenschaftsnamen.</span><span class="sxs-lookup"><span data-stu-id="534f4-118">For composite indexes, `<property name>` becomes an underscore separated list of property names.</span></span>
 
-> [!TIP]  
-> <span data-ttu-id="b4b8e-114">Pro eindeutigem Satz von Eigenschaften gibt es nur einen Index.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-114">There is only one index per distinct set of properties.</span></span> <span data-ttu-id="b4b8e-115">Wenn Sie die fließende API verwenden, um einen Index für eine Gruppe von Eigenschaften zu konfigurieren, für die bereits ein Index definiert wurde (entweder durch Konvention oder vorherige Konfiguration), ändern Sie die Definition des Indexes.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-115">If you use the Fluent API to configure an index on a set of properties that already has an index defined, either by convention or previous configuration, then you will be changing the definition of that index.</span></span> <span data-ttu-id="b4b8e-116">Dies ist hilfreich, wenn Sie einen von der Konvention erstellten Index weiter konfigurieren möchten.</span><span class="sxs-lookup"><span data-stu-id="b4b8e-116">This is useful if you want to further configure an index that was created by convention.</span></span>
+<span data-ttu-id="534f4-119">Mit der flüssigen API können Sie den Namen des Indexes festlegen, der in der Datenbank erstellt wurde:</span><span class="sxs-lookup"><span data-stu-id="534f4-119">You can use the Fluent API to set the name of the index created in the database:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexName.cs?name=IndexName&highlight=5)]
+
+## <a name="index-filter"></a><span data-ttu-id="534f4-120">Index Filter</span><span class="sxs-lookup"><span data-stu-id="534f4-120">Index filter</span></span>
+
+<span data-ttu-id="534f4-121">Einige relationale Datenbanken ermöglichen es Ihnen, einen gefilterten oder partiellen Index anzugeben.</span><span class="sxs-lookup"><span data-stu-id="534f4-121">Some relational databases allow you to specify a filtered or partial index.</span></span> <span data-ttu-id="534f4-122">Auf diese Weise können Sie nur eine Teilmenge der Spaltenwerte indizieren, die Größe des Indexes verringern und sowohl die Leistung als auch die Speicherplatz Auslastung verbessern.</span><span class="sxs-lookup"><span data-stu-id="534f4-122">This allows you to index only a subset of a column's values, reducing the index's size and improving both performance and disk space usage.</span></span> <span data-ttu-id="534f4-123">Weitere Informationen zu SQL Server gefilterten Indizes finden Sie in [der Dokumentation](https://docs.microsoft.com/sql/relational-databases/indexes/create-filtered-indexes)zu.</span><span class="sxs-lookup"><span data-stu-id="534f4-123">For more information on SQL Server filtered indexes, [see the documentation](https://docs.microsoft.com/sql/relational-databases/indexes/create-filtered-indexes).</span></span>
+
+<span data-ttu-id="534f4-124">Sie können die fließende API verwenden, um einen Filter für einen Index anzugeben, der als SQL-Ausdruck bereitgestellt wird:</span><span class="sxs-lookup"><span data-stu-id="534f4-124">You can use the Fluent API to specify a filter on an index, provided as a SQL expression:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexFilter.cs?name=IndexFilter&highlight=5)]
+
+<span data-ttu-id="534f4-125">Bei Verwendung des SQL Server Anbieters fügt EF einen `'IS NOT NULL'` Filter für alle Spalten hinzu, die NULL-Werte zulassen, die Teil eines eindeutigen Indexes sind.</span><span class="sxs-lookup"><span data-stu-id="534f4-125">When using the SQL Server provider EF adds an `'IS NOT NULL'` filter for all nullable columns that are part of a unique index.</span></span> <span data-ttu-id="534f4-126">Um diese Konvention zu überschreiben, können Sie einen `null` Wert angeben.</span><span class="sxs-lookup"><span data-stu-id="534f4-126">To override this convention you can supply a `null` value.</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexNoFilter.cs?name=IndexNoFilter&highlight=6)]
+
+## <a name="included-columns"></a><span data-ttu-id="534f4-127">Eingeschlossene Spalten</span><span class="sxs-lookup"><span data-stu-id="534f4-127">Included columns</span></span>
+
+<span data-ttu-id="534f4-128">Mit einigen relationalen Datenbanken können Sie eine Gruppe von Spalten konfigurieren, die in den Index aufgenommen werden, aber nicht Teil Ihres "Schlüssels" sind.</span><span class="sxs-lookup"><span data-stu-id="534f4-128">Some relational databases allow you to configure a set of columns which get included in the index, but aren't part of its "key".</span></span> <span data-ttu-id="534f4-129">Dies kann die Abfrageleistung erheblich verbessern, wenn alle Spalten in der Abfrage in den Index als Schlüssel-oder nicht Schlüssel Spalten eingeschlossen werden, da auf die Tabelle selbst nicht zugegriffen werden muss.</span><span class="sxs-lookup"><span data-stu-id="534f4-129">This can significantly improve query performance when all columns in the query are included in the index either as key or nonkey columns, as the table itself doesn't need to be accessed.</span></span> <span data-ttu-id="534f4-130">Weitere Informationen zu SQL Server enthaltenen Spalten finden Sie in [der Dokumentation](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns)zu.</span><span class="sxs-lookup"><span data-stu-id="534f4-130">For more information on SQL Server included columns, [see the documentation](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns).</span></span>
+
+<span data-ttu-id="534f4-131">Im folgenden Beispiel ist die Spalte `Url` Teil des Index Schlüssels, sodass jede Abfrage Filterung für diese Spalte den Index verwenden kann.</span><span class="sxs-lookup"><span data-stu-id="534f4-131">In the following example, the `Url` column is part of the index key, so any query filtering on that column can use the index.</span></span> <span data-ttu-id="534f4-132">Außerdem müssen Abfragen, die nur auf die `Title`-und `PublishedOn` Spalten zugreifen, nicht auf die Tabelle zugreifen und effizienter ausgeführt werden:</span><span class="sxs-lookup"><span data-stu-id="534f4-132">But in addition, queries accessing only the `Title` and `PublishedOn` columns will not need to access the table and will run more efficiently:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexInclude.cs?name=IndexInclude&highlight=5-9)]
