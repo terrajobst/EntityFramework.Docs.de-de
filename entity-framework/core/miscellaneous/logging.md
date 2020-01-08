@@ -4,40 +4,40 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 6a8499f9f0220087e76f2e0b3a75ce551c4ddb80
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 1a3863ee5f508c1fd393d4ec2c25c46ab8634f00
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197504"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502096"
 ---
 # <a name="logging"></a>Protokollierung
 
 > [!TIP]  
 > Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging) finden Sie auf GitHub.
 
-## <a name="aspnet-core-applications"></a>ASP.net Core Anwendungen
+## <a name="aspnet-core-applications"></a>ASP.NET Core-Anwendungen
 
-EF Core wird automatisch in die Protokollierungsmechanismen von ASP.net Core `AddDbContext` integriert `AddDbContextPool` , wenn oder verwendet wird. Wenn Sie ASP.net Core verwenden, sollte die Protokollierung daher wie in der [ASP.net Core-Dokumentation](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)beschrieben konfiguriert werden.
+EF Core wird automatisch in die Protokollierungsmechanismen von ASP.net Core integriert, wenn `AddDbContext` oder `AddDbContextPool` verwendet wird. Wenn Sie ASP.net Core verwenden, sollte die Protokollierung daher wie in der [ASP.net Core-Dokumentation](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)beschrieben konfiguriert werden.
 
 ## <a name="other-applications"></a>Andere Anwendungen
 
 EF Core Protokollierung erfordert eine iloggerfactory, die selbst mit einem oder mehreren Protokollierungs Anbietern konfiguriert ist. Allgemeine Anbieter werden in den folgenden Paketen ausgeliefert:
 
-* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): Eine einfache Konsolen Protokollierung.
-* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Unterstützt die Funktionen "Diagnostics Logs" und "Log Stream" von Azure-App Services.
-* [Microsoft. Extensions. Logging. Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Protokolliert bei einem Debugger-Monitor mithilfe von System. Diagnostics. Debug. Write teline ().
-* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Protokolliert im Windows-Ereignisprotokoll.
-* [Microsoft. Extensions. Logging. eventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): Unterstützt eventSource/EventListener.
-* [Microsoft. Extensions. Logging. TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Protokolliert an einem Ablaufverfolgungslistener mit `System.Diagnostics.TraceSource.TraceEvent()`.
+* [Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): eine einfache Konsolen Protokollierung.
+* [Microsoft. Extensions. Logging. azureappservices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): unterstützt Azure-App Services-Funktionen "Diagnoseprotokolle" und "Log Stream".
+* [Microsoft. Extensions. Logging. Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): protokolliert mithilfe von System. Diagnostics. Debug. Write-ine () einen Debugger-Monitor.
+* [Microsoft. Extensions. Logging. EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): protokolliert im Windows-Ereignisprotokoll.
+* [Microsoft. Extensions. Logging. eventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): unterstützt eventSource/EventListener.
+* [Microsoft. Extensions. Logging. TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): protokolliert mithilfe `System.Diagnostics.TraceSource.TraceEvent()`in einem Ablaufverfolgungslistener.
 
 Nachdem Sie die entsprechenden Pakete installiert haben, sollte die Anwendung eine Singleton-/globale Instanz einer loggerfactory erstellen. Beispielsweise mithilfe der Konsolen Protokollierung:
 
-# <a name="version-30tabv3"></a>[Version 3,0](#tab/v3)
+### <a name="version-30tabv3"></a>[Version 3,0](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#DefineLoggerFactory)]
 
-# <a name="version-2xtabv2"></a>[Version 2. x](#tab/v2)
+### <a name="version-2xtabv2"></a>[Version 2.x](#tab/v2)
 
 > [!NOTE]
 > Im folgenden Codebeispiel wird ein `ConsoleLoggerProvider` Konstruktor verwendet, der in Version 2,2 veraltet ist und in 3,0 ersetzt wurde. Es ist sicher, dass die Warnungen bei Verwendung von 2,2 ignoriert und unterdrückt werden.
@@ -60,11 +60,11 @@ Diese Singleton-/globale Instanz sollte dann bei EF Core auf dem `DbContextOptio
 
 Die Anwendung kann steuern, was protokolliert wird, indem ein Filter für den iloggerprovider konfiguriert wird. Beispiel:
 
-# <a name="version-30tabv3"></a>[Version 3,0](#tab/v3)
+### <a name="version-30tabv3"></a>[Version 3,0](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContextWithFiltering.cs#DefineLoggerFactory)]
 
-# <a name="version-2xtabv2"></a>[Version 2. x](#tab/v2)
+### <a name="version-2xtabv2"></a>[Version 2.x](#tab/v2)
 
 > [!NOTE]
 > Im folgenden Codebeispiel wird ein `ConsoleLoggerProvider` Konstruktor verwendet, der in Version 2,2 veraltet ist und in 3,0 ersetzt wurde. Es ist sicher, dass die Warnungen bei Verwendung von 2,2 ignoriert und unterdrückt werden.
@@ -82,9 +82,10 @@ public static readonly LoggerFactory MyLoggerFactory
 ***
 
 In diesem Beispiel wird das Protokoll so gefiltert, dass nur Meldungen zurückgegeben werden:
- * in der Kategorie "Microsoft. entityframeworkcore. Database. Command"
- * auf der Ebene "Informationen"
 
-Bei EF Core werden Protokollierungs Kategorien in der `DbLoggerCategory` -Klasse definiert, um das Auffinden von Kategorien zu vereinfachen. Diese werden jedoch in einfache Zeichen folgen aufgelöst.
+* in der Kategorie "Microsoft. entityframeworkcore. Database. Command"
+* auf der Ebene "Informationen"
+
+Für EF Core werden Protokollierungs Kategorien in der `DbLoggerCategory`-Klasse definiert, um das Auffinden von Kategorien zu vereinfachen. Diese werden jedoch in einfache Zeichen folgen aufgelöst.
 
 Weitere Informationen zur zugrunde liegenden Protokollierungs Infrastruktur finden Sie in der [Dokumentation zur ASP.net Core Protokollierung](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).
