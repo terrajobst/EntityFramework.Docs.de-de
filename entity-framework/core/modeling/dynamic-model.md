@@ -1,26 +1,34 @@
 ---
 title: Wechsel zwischen mehreren Modellen mit demselben dbcontext-Typ-EF Core
 author: AndriySvyryd
-ms.date: 12/10/2017
+ms.date: 01/03/2020
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/dynamic-model
-ms.openlocfilehash: 034076b1595894e80b98467354f6c9f139bd7426
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 156d5666cbd9352b274ddc70c99704ca62aeb1fd
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655724"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781130"
 ---
 # <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Wechsel zwischen mehreren Modellen mit demselben dbcontext-Typ
 
-Das in `OnModelCreating` integrierte Modell könnte eine Eigenschaft im Kontext verwenden, um die Art und Weise zu ändern, wie das Modell erstellt wird. Beispielsweise könnte Sie verwendet werden, um eine bestimmte Eigenschaft auszuschließen:
+Das in `OnModelCreating` integrierte Modell kann eine Eigenschaft im Kontext verwenden, um die Art und Weise zu ändern, wie das Modell erstellt wird. Angenommen, Sie möchten eine Entität auf der Grundlage einer Eigenschaft auf unterschiedliche Weise konfigurieren:
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicContext.cs?name=Class)]
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnModelCreating)]
 
-## <a name="imodelcachekeyfactory"></a>Imodelcachekeyfactory
+Leider funktioniert dieser Code nicht unverändert, da EF das Modell erstellt und `OnModelCreating` nur einmal ausgeführt wird. das Ergebnis wird aus Leistungsgründen zwischengespeichert. Sie können jedoch einen Hook in den Mechanismus zum Zwischenspeichern von Modellen durchführen, um EF die Eigenschaft zu berücksichtigen, die verschiedene Modelle erzeugt.
 
-Wenn Sie jedoch den obigen Vorgang ohne zusätzliche Änderungen durchgeführt haben, erhalten Sie jedes Mal dasselbe Modell, wenn ein neuer Kontext für einen beliebigen Wert `IgnoreIntProperty`erstellt wird. Dies wird durch den Mechanismus zum Zwischenspeichern von Modellen verursacht, der EF verwendet, um die Leistung zu verbessern, indem nur `OnModelCreating` einmal und Zwischenspeichern des Modells aufgerufen
+## <a name="imodelcachekeyfactory"></a>IModelCacheKeyFactory
 
-Standardmäßig geht EF davon aus, dass das Modell für jeden beliebigen Kontexttyp identisch ist. Um dies zu erreichen, gibt die Standard Implementierung von `IModelCacheKeyFactory` einen Schlüssel zurück, der nur den Kontexttyp enthält. Um dies zu ändern, müssen Sie den `IModelCacheKeyFactory`-Dienst ersetzen. Die neue Implementierung muss ein Objekt zurückgeben, das mit anderen Modell Schlüsseln verglichen werden kann, wobei die `Equals`-Methode verwendet wird, die alle Variablen berücksichtigt, die sich auf das Modell auswirken:
+EF verwendet die `IModelCacheKeyFactory`, um Cache Schlüssel für Modelle zu generieren. Standardmäßig geht EF davon aus, dass das Modell für jeden beliebigen Kontexttyp identisch ist, sodass die Standard Implementierung dieses dienstantors einen Schlüssel zurückgibt, der nur den Kontexttyp enthält. Um verschiedene Modelle desselben Kontext Typs zu entwickeln, müssen Sie den `IModelCacheKeyFactory` Dienst durch die richtige Implementierung ersetzen. der generierte Schlüssel wird mithilfe der `Equals`-Methode mit anderen Modell Schlüsseln verglichen, wobei alle Variablen berücksichtigt werden, die sich auf das Modell auswirken:
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicModelCacheKeyFactory.cs?name=Class)]
+Die folgende Implementierung berücksichtigt die `IgnoreIntProperty` beim Erstellen eines Modell Cache Schlüssels:
+
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicModelCacheKeyFactory.cs?name=DynamicModel)]
+
+Registrieren Sie schließlich ihre neuen `IModelCacheKeyFactory` im `OnConfiguring`Ihres Kontexts:
+
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnConfiguring)]
+
+Weitere Informationen finden Sie im [vollständigen Beispiel Projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DynamicModel) .

@@ -5,17 +5,14 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 7b6d1b3bccbfceb85f03a580ba03a45984d29c74
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 30b91b6e66b6c0f516d1ba12485304b52770cbef
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824593"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781234"
 ---
 # <a name="owned-entity-types"></a>Nicht eigenständige Entitätstypen
-
-> [!NOTE]
-> Diese Funktion ist neu in EF Core 2,0.
 
 EF Core ermöglicht es Ihnen, Entitäts Typen zu modellieren, die nur in den Navigations Eigenschaften anderer Entitäts Typen angezeigt werden können. Diese werden als _eigene Entitäts Typen_bezeichnet. Die Entität, die einen eigenen Entitätstyp enthält, ist Ihr _Besitzer_.
 
@@ -56,7 +53,7 @@ Um zu verstehen, wie EF Core diese Objekte verfolgt, ist es hilfreich zu wissen,
 
 Verwenden Sie `OwnsMany` in `OnModelCreating`, um eine Sammlung von eigenen Typen zu konfigurieren.
 
-Für eigene Typen ist ein Primärschlüssel erforderlich. Wenn für den .NET-Typ keine guten Kandidaten Eigenschaften vorhanden sind, können EF Core versuchen, eine zu erstellen. Wenn jedoch eigene Typen durch eine Auflistung definiert werden, reicht es nicht aus, eine Schatten Eigenschaft zu erstellen, die sowohl als Fremdschlüssel für den Besitzer als auch als Primärschlüssel der eigenen Instanz fungiert, wie es bei `OwnsOne`der Fall ist: Es können mehrere eigene Typinstanzen für jede der Besitzer. Daher reicht der Schlüssel des Besitzers nicht aus, um eine eindeutige Identität für jede eigene Instanz bereitzustellen.
+Für eigene Typen ist ein Primärschlüssel erforderlich. Wenn für den .NET-Typ keine guten Kandidaten Eigenschaften vorhanden sind, können EF Core versuchen, eine zu erstellen. Wenn jedoch eigene Typen durch eine Auflistung definiert werden, reicht es nicht aus, eine Schatten Eigenschaft zu erstellen, die sowohl als Fremdschlüssel für den Besitzer als auch als Primärschlüssel der eigenen Instanz fungiert, wie es bei `OwnsOne`der Fall ist: Es können mehrere eigene Typinstanzen für jeden Besitzer vorhanden sein. Daher reicht der Besitzer nicht aus, um eine eindeutige Identität für jede eigene Instanz bereitzustellen.
 
 Die beiden einfachsten Lösungen hierfür sind:
 

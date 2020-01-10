@@ -1,15 +1,15 @@
 ---
 title: Parallelitäts Token-EF Core
-author: rowanmiller
-ms.date: 03/03/2018
+author: AndriySvyryd
+ms.date: 01/03/2020
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
-ms.openlocfilehash: db768c1de99000be91d33764ccd3c3924237f8bb
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 8a5f3aa09c2a83d5be0998a11ef2ee8100437514
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197451"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781143"
 ---
 # <a name="concurrency-tokens"></a>Parallelitätstoken
 
@@ -18,40 +18,30 @@ ms.locfileid: "71197451"
 
 Als Parallelitäts Token konfigurierte Eigenschaften werden verwendet, um die Steuerung der vollständigen Parallelität zu implementieren.
 
-## <a name="conventions"></a>Konventionen
+## <a name="configuration"></a>-Konfiguration
 
-Gemäß der Konvention werden Eigenschaften nie als Parallelitäts Token konfiguriert.
+### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
-## <a name="data-annotations"></a>Datenanmerkungen
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs?name=Concurrency&highlight=5)]
 
-Mit den Daten Anmerkungen können Sie eine Eigenschaft als Parallelitäts Token konfigurieren.
+### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs#ConfigureConcurrencyAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs?name=Concurrency&highlight=5)]
 
-## <a name="fluent-api"></a>Fluent-API
+***
 
-Sie können die fließende API verwenden, um eine Eigenschaft als Parallelitäts Token zu konfigurieren.
+## <a name="timestamprowversion"></a>Timestamp/rowversion
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs#ConfigureConcurrencyFluent)]
+Ein Timestamp/rowversion-Objekt ist eine Eigenschaft, für die ein neuer Wert automatisch von der Datenbank generiert wird, wenn eine Zeile eingefügt oder aktualisiert wird. Die-Eigenschaft wird auch als Parallelitäts Token behandelt, um sicherzustellen, dass Sie eine Ausnahme erhalten, wenn sich eine Zeile, die Sie aktualisieren, geändert hat, seit Sie Sie abgefragt haben. Die genauen Details hängen vom verwendeten Datenbankanbieter ab. für SQL Server wird normalerweise eine *Byte []* -Eigenschaft verwendet, die als *rowversion* -Spalte in der Datenbank eingerichtet wird.
 
-## <a name="timestamprow-version"></a>Zeitstempel/Zeilen Version
+Sie können eine Eigenschaft wie folgt als timestamp/rowversion konfigurieren:
 
-Ein Zeitstempel ist eine Eigenschaft, bei der jedes Mal, wenn eine Zeile eingefügt oder aktualisiert wird, ein neuer Wert von der Datenbank generiert wird. Die-Eigenschaft wird auch als Parallelitäts Token behandelt. Dadurch wird sichergestellt, dass Sie eine Ausnahme erhalten, wenn eine Zeile, die Sie aktualisieren möchten, geändert wurde, weil Sie die Daten abgefragt haben.
+### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
-Wie dies erreicht wird, ist der Datenbankanbieter, der verwendet wird. Für SQL Server wird Zeitstempel in der Regel für die Eigenschaft " *Byte []* " verwendet, die als *rowversion* -Spalte in der Datenbank eingerichtet wird.
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs?name=Timestamp&highlight=7)]
 
-### <a name="conventions"></a>Konventionen
+### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
 
-Gemäß der Konvention werden Eigenschaften nie als Zeitstempel konfiguriert.
+[! Code-CSharp [Main] (.. /.. /.. /Samples/Core/Modeling/FluentAPI/Timestamp.cs? Name = Zeitstempel & Hervorhebung = 9, 17]
 
-### <a name="data-annotations"></a>Datenanmerkungen
-
-Mithilfe von Daten Anmerkungen können Sie eine Eigenschaft als Zeitstempel konfigurieren.
-
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs#ConfigureTimestampAnnotations)]
-
-### <a name="fluent-api"></a>Fluent-API
-
-Sie können die fließende API verwenden, um eine Eigenschaft als Zeitstempel zu konfigurieren.
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Timestamp.cs#ConfigureTimestampFluent)]
+***
