@@ -3,12 +3,12 @@ title: Breaking Changes in EF Core 3.0
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: d614103169837238810fabd0a8889043c851ef14
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: cac166e9e194e512de7d730d27c061e6deaf5191
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824862"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502226"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Breaking Changes in EF Core 3.0
 
@@ -17,7 +17,7 @@ Die folgenden API-Änderungen und Behavior Changes können dazu führen, dass vo
 
 ## <a name="summary"></a>Zusammenfassung
 
-| **Wichtige Änderung**                                                                                               | **Auswirkung** |
+| **Wichtige Änderung**                                                                                               | **Auswirkungen** |
 |:------------------------------------------------------------------------------------------------------------------|------------|
 | [LINQ-Abfragen werden nicht mehr auf dem Client ausgewertet](#linq-queries-are-no-longer-evaluated-on-the-client)         | Hoch       |
 | [EF Core 3.0 zielt auf .NET Standard 2.1 und nicht auf .NET Standard 2.0 ab](#netstandard21) | Hoch      |
@@ -188,7 +188,7 @@ Vor Version 3.0 wurden in EF Core diese Methodennamen überladen, um entweder mi
 **Neues Verhalten**
 
 Ab Version 3.0 verwenden Sie in EF Core `FromSqlRaw`, `ExecuteSqlRaw` und `ExecuteSqlRawAsync`, um eine parametrisierte Abfrage zu erstellen, bei der die Parameter einzeln aus der Abfragezeichenfolge übergeben werden.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 context.Products.FromSqlRaw(
@@ -197,7 +197,7 @@ context.Products.FromSqlRaw(
 ```
 
 Verwenden Sie `FromSqlInterpolated`, `ExecuteSqlInterpolated` und `ExecuteSqlInterpolatedAsync`, um eine parametrisierte Abfrage zu erstellen, bei der die Parameter als Teil einer interpolierten Abfragezeichenfolge übergeben werden.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 context.Products.FromSqlInterpolated(
@@ -236,7 +236,7 @@ Ab EF Core 3.0 versucht EF Core nicht mehr, das SQL zu analysieren. Wenn Sie al
 
 EF Core 3.0 unterstützt die automatische Clientauswertung nicht, da diese wie [hier](#linq-queries-are-no-longer-evaluated-on-the-client) erläutert fehleranfällig war.
 
-**Lösung**
+**Entschärfung**
 
 Wenn Sie eine gespeicherte Prozedur in FromSqlRaw/FromSqlInterpolated verwenden, wissen Sie, dass diese nicht zusammengesetzt werden kann. Daher können Sie __AsEnumerable/AsAsyncEnumerable__ direkt nach dem FromSql-Methodenaufruf hinzufügen, um die Zusammensetzung auf dem Server zu vermeiden.
 
@@ -273,7 +273,7 @@ Die Angabe von `FromSql` an einer anderen Stelle als für ein `DbSet` erbrachte 
 
 **Altes Verhalten**
 
-Vor EF Core 3.0 wurde dieselbe Entitätsinstanz für jedes Vorkommen einer Entität mit einem bestimmten Typ und einer bestimmten ID verwendet. Dies entspricht dem Verhalten von Abfragen zu Nachverfolgungen. Die folgende Abfrage:
+Vor EF Core 3.0 wurde dieselbe Entitätsinstanz für jedes Vorkommen einer Entität mit einem bestimmten Typ und einer bestimmten ID verwendet. Dies entspricht dem Verhalten von Abfragen zu Nachverfolgungen. Am Beispiel dieser Abfrage:
 
 ```csharp
 var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
@@ -393,8 +393,8 @@ Diese Änderung wurde vorgenommen, um die Arbeit mit Datenbindungen und Überwac
 
 **Vorbeugende Maßnahmen**
 
-Sie können das vorherige Verhalten wiederherstellen, indem Sie für `context.ChangedTracker` die entsprechenden Einstellungen vornehmen.
-Beispiel:
+Sie können das vorherige Verhalten wiederherstellen, indem Sie für `context.ChangeTracker` die entsprechenden Einstellungen vornehmen.
+Zum Beispiel:
 
 ```csharp
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
@@ -487,7 +487,7 @@ Vor Version 3.0 wurde in EF Core die abhängige Beziehung direkt nach dem Aufruf
 **Neues Verhalten**
 
 Ab Version 3.0 von EF Core ist eine Fluent-API verfügbar, mit der über `WithOwner()` eine Navigationseigenschaft für den Besitzer konfiguriert werden kann.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
@@ -495,7 +495,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 
 Die Konfiguration für die Beziehung zwischen Besitzertyp und abhängigem Typ sollte nun ähnlich wie bei der Konfiguration anderer Beziehungen nach `WithOwner()` verkettet werden.
 Die Konfiguration für den abhängigen Typ wird jedoch weiterhin nach `OwnsOne()/OwnsMany()` verkettet.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
@@ -741,7 +741,7 @@ Wenn `Order` jedoch ein abhängiger Typ ist, wäre `CustomerId` der Primärschl�
 
 Ab Version 3.0 werden in EF Core konventionsgemäß keine Eigenschaften mehr für Fremdschlüssel verwendet, wenn diese denselben Namen wie die Prinzipaleigenschaft besitzen.
 Die Muster für den Namen des Prinzipaltyps, der mit dem Namen der Prinzipaleigenschaft verkettet wird, und für den Navigationsnamen, der mit dem Namen der Prinzipaleigenschaft verkettet wird, werden jedoch weiterhin abgeglichen.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 public class Customer
@@ -877,7 +877,7 @@ Diese Änderung wurde vorgenommen, um zu verhindern, dass in EF Core fälschlich
 **Vorbeugende Maßnahmen**
 
 Sie können das Verhalten von vor Version 3.0 wiederherstellen, indem Sie in `ModelBuilder` den Zugriffsmodus für die Eigenschaft konfigurieren.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 modelBuilder.UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruction);
@@ -1137,7 +1137,7 @@ Diese Änderung wurde vorgenommen, damit auf den oben beschriebenen Fall explizi
 
 Wenn dieser Fehler auftritt, müssen Sie die Grundursache ermitteln und die Erstellung vieler interner Dienstanbieter unterbinden.
 Sie können den Fehler allerdings auch wieder in eine Warnung konvertierten (oder ihn ignorieren), indem Sie `DbContextOptionsBuilder` konfigurieren.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -1156,7 +1156,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 **Altes Verhalten**
 
 Vor EF Core 3.0 wurde Code, der `HasOne` oder `HasMany` mit einer einzelnen Zeichenfolge aufruft, auf irritierende Weise interpretiert.
-Beispiel:
+Zum Beispiel:
 ```csharp
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
@@ -1178,7 +1178,7 @@ Das alte Verhalten war sehr verwirrend, vor allem beim Lesen des Konfigurationsc
 Dies führt nur zu Fehlern in Anwendungen, die Beziehungen explizit unter Verwendung von Zeichenfolgen für Typnamen und ohne explizite Angabe der Navigationseigenschaft konfigurieren.
 Dies ist nicht üblich.
 Das vorherige Verhalten kann durch explizite Übergabe von `null` für den Namen der Navigationseigenschaft erzielt werden.
-Beispiel:
+Zum Beispiel:
 
 ```csharp
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
@@ -1568,7 +1568,7 @@ Verwenden Sie den neuen Namen. (Beachten Sie, dass sich die Ereignis-ID-Nummer n
 
 **Altes Verhalten**
 
-Vor EF Core 3.0 wurden Einschränkungsnamen von Fremdschlüsseln einfach als „Namen“ bezeichnet. Beispiel:
+Vor EF Core 3.0 wurden Einschränkungsnamen von Fremdschlüsseln einfach als „Namen“ bezeichnet. Zum Beispiel:
 
 ```csharp
 var constraintName = myForeignKey.Name;
@@ -1576,7 +1576,7 @@ var constraintName = myForeignKey.Name;
 
 **Neues Verhalten**
 
-Ab EF Core 3.0 werden Einschränkungsnamen von Fremdschlüsseln nun als „Einschränkungsnamen“ bezeichnet. Beispiel:
+Ab EF Core 3.0 werden Einschränkungsnamen von Fremdschlüsseln nun als „Einschränkungsnamen“ bezeichnet. Zum Beispiel:
 
 ```csharp
 var constraintName = myForeignKey.ConstraintName;
@@ -1632,7 +1632,7 @@ Dieses Paket ist nur für die Verwendung zur Entwurfszeit konzipiert. Bereitgest
 
 **Vorbeugende Maßnahmen**
 
-Wenn Sie auf dieses Paket verweisen müssen, um das Verhalten von EF Core zur Entwurfszeit zu überschreiben, können Sie die Metadaten des PackageReference-Elements in Ihrem Projekt aktualisieren. Wenn transitiv über via Microsoft.EntityFrameworkCore.Tools auf das Paket verwiesen wird, müssen Sie dem Paket eine explizite PackageReference hinzufügen, um seine Metadaten zu ändern.
+Wenn Sie auf dieses Paket verweisen müssen, um das Verhalten von EF Core zur Entwurfszeit zu überschreiben, können Sie die Metadaten des PackageReference-Elements in Ihrem Projekt aktualisieren.
 
 ``` xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
@@ -1641,6 +1641,8 @@ Wenn Sie auf dieses Paket verweisen müssen, um das Verhalten von EF Core zur En
   <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
 </PackageReference>
 ```
+
+Wenn transitiv über via Microsoft.EntityFrameworkCore.Tools auf das Paket verwiesen wird, müssen Sie dem Paket eine explizite PackageReference hinzufügen, um seine Metadaten zu ändern. Ein solch expliziter Verweis muss jedem Projekt hinzugefügt werden, für das die Typen aus den Paketen benötigt werden.
 
 <a name="SQLitePCL"></a>
 
@@ -1717,7 +1719,7 @@ Wenn Ihr Code eine direkte Abhängigkeit von System.Data.SqlClient hat, müssen 
 
 **Altes Verhalten**
 
-Ein Entitätstyp, der über unidirektionale Navigationseigenschaften mit mehreren Selbstverweisen und über übereinstimmende Fremdschlüssel verfügte, wurde bislang fälschlicherweise als einfache Beziehung konfiguriert. Beispiel:
+Ein Entitätstyp, der über unidirektionale Navigationseigenschaften mit mehreren Selbstverweisen und über übereinstimmende Fremdschlüssel verfügte, wurde bislang fälschlicherweise als einfache Beziehung konfiguriert. Zum Beispiel:
 
 ```csharp
 public class User 
@@ -1740,7 +1742,7 @@ Das resultierende Modell war mehrdeutig und führte in diesem Fall üblicherweis
 
 **Vorbeugende Maßnahmen**
 
-Konfigurieren Sie die Beziehung vollständig. Beispiel:
+Konfigurieren Sie die Beziehung vollständig. Zum Beispiel:
 
 ```csharp
 modelBuilder
