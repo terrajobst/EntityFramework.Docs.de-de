@@ -3,12 +3,12 @@ title: Breaking Changes in EF Core 3.0
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: cac166e9e194e512de7d730d27c061e6deaf5191
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 0626ffe98843fbf5ee0e2de4b269da6c395c07f6
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502226"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781221"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Breaking Changes in EF Core 3.0
 
@@ -1028,7 +1028,7 @@ Diese Änderung wurde vorgenommen, um die Leistung bei der standardmäßigen Ver
 
 **Vorbeugende Maßnahmen**
 
-Rufen Sie `ChgangeTracker.DetectChanges()` explizit vor dem Aufruf von `Entry` auf, wenn das Verhalten vor Version 3.0 beibehalten werden soll.
+Rufen Sie `ChangeTracker.DetectChanges()` explizit vor dem Aufruf von `Entry` auf, wenn das Verhalten vor Version 3.0 beibehalten werden soll.
 
 ### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>Schlüssel aus Zeichenfolgen und Bytearrays werden standardmäßig nicht vom Client generiert
 
