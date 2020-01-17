@@ -4,58 +4,58 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: 288440a4494117fe59d27187e24424c4d2fd44ab
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 20cf9dc9b0d556f29680bce588bcbdc4ea48fa74
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811874"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124378"
 ---
 # <a name="backing-fields"></a>Unterstützungsfelder
 
-> [!NOTE]  
-> Diese Funktion ist neu in EF Core 1,1.
+Mit Unterstützungs Feldern kann EF anstelle einer Eigenschaft ein Feld lesen und/oder in ein Feld schreiben. Dies kann hilfreich sein, wenn die Kapselung in der-Klasse verwendet wird, um die Verwendung von zu beschränken und/oder die Semantik für den Zugriff auf die Daten durch den Anwendungscode zu verbessern. der Wert sollte jedoch aus der Datenbank gelesen und/oder in diese geschrieben werden, ohne dass diese Einschränkungen/Erweiterungen verwendet werden.
 
-Mit Unterstützungs Feldern kann EF anstelle einer Eigenschaft ein Feld lesen und/oder in ein Feld schreiben. Dies kann hilfreich sein, wenn die Kapselung in der-Klasse verwendet wird, um die Verwendung von zu beschränken und/oder die Semantik für den Zugriff auf die Daten durch den Anwendungscode zu verbessern. der Wert sollte jedoch aus der Datenbank gelesen und/oder in diese geschrieben werden, ohne dass diese Einschränkungen verwendet werden. Steigerung.
+## <a name="basic-configuration"></a>Basiskonfiguration
 
-## <a name="conventions"></a>Konventionen
-
-Gemäß der Konvention werden die folgenden Felder als Sicherungs Felder für eine bestimmte Eigenschaft (aufgelistet in der Rangfolge) erkannt. Felder werden nur für Eigenschaften erkannt, die im Modell enthalten sind. Weitere Informationen zu den Eigenschaften, die im Modell enthalten sind, finden Sie unter [einschließen & Ausschließen von Eigenschaften](included-properties.md).
+Gemäß der Konvention werden die folgenden Felder als Sicherungs Felder für eine bestimmte Eigenschaft (aufgelistet in der Rangfolge) erkannt. 
 
 * `_<camel-cased property name>`
 * `_<property name>`
 * `m_<camel-cased property name>`
 * `m_<property name>`
 
+Im folgenden Beispiel wird die `Url`-Eigenschaft so konfiguriert, dass Sie `_url` als dahinter liegendes Feld hat:
+
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/BackingField.cs#Sample)]
 
-Wenn ein dahinter liegendes Feld konfiguriert ist, schreibt EF direkt in dieses Feld, wenn Entitäts Instanzen aus der Datenbank materialisiert werden (anstatt den Eigenschaften Setter zu verwenden). Wenn EF den Wert zu einem anderen Zeitpunkt lesen oder schreiben muss, wird die-Eigenschaft, sofern möglich, verwendet. Wenn EF z. b. den Wert für eine Eigenschaft aktualisieren muss, wird der Eigenschaften Setter verwendet, wenn ein solcher definiert ist. Wenn die Eigenschaft schreibgeschützt ist, wird in das Feld geschrieben.
+Beachten Sie, dass Unterstützungs Felder nur für Eigenschaften erkannt werden, die im Modell enthalten sind. Weitere Informationen zu den Eigenschaften, die im Modell enthalten sind, finden Sie unter [einschließen & Ausschließen von Eigenschaften](included-properties.md).
 
-## <a name="data-annotations"></a>Datenanmerkungen
+Sie können auch Unterstützungs Felder explizit konfigurieren, z. b. wenn der Feldname nicht den obigen Konventionen entspricht:
 
-Unterstützungs Felder können nicht mit Daten Anmerkungen konfiguriert werden.
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs?name=BackingField&highlight=5)]
 
-## <a name="fluent-api"></a>Fluent-API
+## <a name="field-and-property-access"></a>Feld-und Eigenschaften Zugriff
 
-Sie können die fließende API verwenden, um ein Unterstützungs Feld für eine Eigenschaft zu konfigurieren.
+Standardmäßig liest EF immer das dahinter liegende Feld, wobei angenommen wird, dass ein ordnungsgemäß konfiguriert wurde, und verwendet niemals die-Eigenschaft. EF unterstützt jedoch auch andere Zugriffsmuster. Das folgende Beispiel weist EF z. b. an, nur beim Materialisieren in das Unterstützungs Feld zu schreiben und die-Eigenschaft in allen anderen Fällen zu verwenden:
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs?name=BackingFieldAccessMode&highlight=6)]
 
-### <a name="controlling-when-the-field-is-used"></a>Steuern, wann das Feld verwendet wird
+Alle unterstützten Optionen finden Sie in der [propertyaccessmode-Enumeration](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode) .
 
-Sie können konfigurieren, wann EF das Feld oder die Eigenschaft verwendet. Die unterstützten Optionen finden Sie in der [propertyaccessmode-Enumeration](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode) .
+> [!NOTE]
+> Bei EF Core 3,0 wurde der standardmäßige Eigenschaften Zugriffsmodus von `PreferFieldDuringConstruction` in `PreferField`geändert.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs#Sample)]
+## <a name="field-only-properties"></a>Feld-only-Eigenschaften
 
-### <a name="fields-without-a-property"></a>Felder ohne Eigenschaft
+Sie können auch eine konzeptionelle Eigenschaft in Ihrem Modell erstellen, die nicht über eine entsprechende CLR-Eigenschaft in der Entitäts Klasse verfügt, sondern stattdessen ein Feld zum Speichern der Daten in der Entität verwendet. Dies unterscheidet sich von den [Schatten Eigenschaften](shadow-properties.md), bei denen die Daten in der Änderungs Protokollierung und nicht im CLR-Typ der Entität gespeichert werden. Feld-only-Eigenschaften werden häufig verwendet, wenn die Entitäts Klasse Methoden anstelle von Eigenschaften verwendet, um Werte zu erhalten/festzulegen, oder in Fällen, in denen Felder überhaupt nicht im Domänen Modell (z. b. Primärschlüssel) verfügbar gemacht werden sollen.
 
-Sie können auch eine konzeptionelle Eigenschaft in Ihrem Modell erstellen, die nicht über eine entsprechende CLR-Eigenschaft in der Entitäts Klasse verfügt, sondern stattdessen ein Feld zum Speichern der Daten in der Entität verwendet. Dies unterscheidet sich von den [Schatten Eigenschaften](shadow-properties.md), bei denen die Daten in der Änderungs Nachverfolgung gespeichert werden. Dies wird normalerweise verwendet, wenn die Entitäts Klasse Methoden verwendet, um Werte zu erhalten bzw. festzulegen.
-
-Sie können EF den Namen des Felds in der `Property(...)`-API übergeben. Wenn keine Eigenschaft mit dem angegebenen Namen vorhanden ist, sucht EF nach einem Feld.
+Sie können eine nur-Feld-Eigenschaft konfigurieren, indem Sie in der `Property(...)`-API einen Namen angeben:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldNoProperty.cs#Sample)]
 
-Wenn in der Entitäts Klasse keine Eigenschaft vorhanden ist, können Sie die `EF.Property(...)`-Methode in einer LINQ-Abfrage verwenden, um auf die Eigenschaft zu verweisen, die konzeptionell Teil des Modells ist.
+EF versucht, eine CLR-Eigenschaft mit dem angegebenen Namen oder einem Feld zu finden, wenn eine Eigenschaft nicht gefunden wird. Wenn weder eine Eigenschaft noch ein Feld gefunden wird, wird stattdessen eine Schatten Eigenschaft eingerichtet.
+
+Möglicherweise müssen Sie in LINQ-Abfragen auf eine Eigenschaft vom Typ "Feld" verweisen, diese Felder sind jedoch in der Regel privat. Sie können die `EF.Property(...)`-Methode in einer LINQ-Abfrage verwenden, um auf das Feld zu verweisen:
 
 ``` csharp
 var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));

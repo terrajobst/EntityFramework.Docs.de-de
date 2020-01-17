@@ -4,12 +4,12 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 0d05902566b6b166f1267915d9f698ed29dff588
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: c16a475c363320cd18804a4efe78ccae1ae22f0d
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502066"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124352"
 ---
 # <a name="working-with-nullable-reference-types"></a>Arbeiten mit Verweis Typen, die NULL-Werte zulassen
 
@@ -38,9 +38,9 @@ Erforderliche Navigations Eigenschaften stellen eine zusätzliche Schwierigkeit 
 
 Eine Möglichkeit zum Umgang mit diesen Szenarien besteht darin, eine Eigenschaft, die keine NULL-Werte zulässt, mit einem dahinter liegenden [Feld](xref:core/modeling/backing-field)zu haben, das NULL-Werte zulässt
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Order.cs?range=12-17)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Order.cs?range=10-17)]
 
-Da die Navigations Eigenschaft keine NULL-Werte zulässt, wird eine erforderliche Navigation konfiguriert. solange die Navigation ordnungsgemäß geladen ist, kann auf den abhängigen über die-Eigenschaft zugegriffen werden. Wenn jedoch auf die Eigenschaft zugegriffen wird, ohne dass die zugehörige Entität zuvor ordnungsgemäß geladen wurde, wird eine InvalidOperationException ausgelöst, da der API-Vertrag falsch verwendet wurde.
+Da die Navigations Eigenschaft keine NULL-Werte zulässt, wird eine erforderliche Navigation konfiguriert. solange die Navigation ordnungsgemäß geladen ist, kann auf den abhängigen über die-Eigenschaft zugegriffen werden. Wenn jedoch auf die Eigenschaft zugegriffen wird, ohne dass die zugehörige Entität zuvor ordnungsgemäß geladen wurde, wird eine InvalidOperationException ausgelöst, da der API-Vertrag falsch verwendet wurde. Beachten Sie, dass EF so konfiguriert werden muss, dass immer auf das dahinter liegende Feld und nicht auf die-Eigenschaft zugegriffen wird, da es darauf basiert, dass der Wert auch dann gelesen werden kann, wenn er nicht Lesen Sie die Dokumentation zu den entsprechenden [Feldern](xref:core/modeling/backing-field) , und geben Sie `PropertyAccessMode.Field` an, um sicherzustellen, dass die Konfiguration korrekt ist.
 
 Als terser Alternative ist es möglich, die-Eigenschaft mit der Hilfe des NULL-Operator (!) einfach mit NULL zu initialisieren:
 
@@ -63,6 +63,7 @@ Ein ähnliches Problem tritt auf, wenn mehrere Beziehungs Ebenen über optionale
 
 Wenn Sie dies sehr viel tun und die fraglichen Entitäts Typen vorwiegend (oder exklusiv) in EF Core Abfragen verwendet werden, sollten Sie die Navigations Eigenschaften in Erwägung ziehen, die nicht auf NULL festgelegt werden können, und Sie über die fließende API oder Daten Anmerkungen als optional konfigurieren. Dadurch werden alle Compilerwarnungen entfernt, während die Beziehung optional bleibt. Wenn die Entitäten jedoch außerhalb EF Core durchlaufen werden, werden möglicherweise NULL-Werte beachtet, obwohl die Eigenschaften als nicht auf NULL festleg Bare Werte kommentiert werden.
 
-## <a name="scaffolding"></a>Gerüstbau
+## <a name="limitations"></a>Einschränkungen
 
-[Das C# Feature 8, das NULL-Werte](/dotnet/csharp/tutorials/nullable-reference-types) zulässt, wird derzeit in Reverse Engineering nicht unterstützt C# : EF Core generiert immer Code, der davon ausgeht, dass das Feature deaktiviert ist. So werden z. b. Textspalten, die NULL-Werte zulassen, als Eigenschaft mit dem Typ `string` erstellt, nicht `string?`, wobei entweder die fließende API oder Daten Anmerkungen verwendet werden, um zu konfigurieren, ob eine Eigenschaft erforderlich ist. Sie können den Gerüst Code bearbeiten und diese durch C# NULL-Zulässigkeit-Anmerkungen ersetzen. Die Gerüstbau Unterstützung für Verweis Typen, die NULL-Werte zulassen, wird von Issue [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)
+* Reverse Engineering unterstützt C# [ C# derzeit keine Verweis Typen (nrts)](/dotnet/csharp/tutorials/nullable-reference-types), die NULL-Werte zulassen: EF Core generiert immer Code, der davon ausgeht, dass das Feature deaktiviert ist. So werden z. b. Textspalten, die NULL-Werte zulassen, als Eigenschaft mit dem Typ `string` erstellt, nicht `string?`, wobei entweder die fließende API oder Daten Anmerkungen verwendet werden, um zu konfigurieren, ob eine Eigenschaft erforderlich ist. Sie können den Gerüst Code bearbeiten und diese durch C# NULL-Zulässigkeit-Anmerkungen ersetzen. Die Gerüstbau Unterstützung für Verweis Typen, die NULL-Werte zulassen, wird von Issue [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)
+* Die öffentliche API-Oberfläche von EF Core wurde noch nicht für NULL-Zulässigkeit mit Anmerkungen versehen (die öffentliche API ist "Null-schräg"), was manchmal umständlich ist, wenn die NRT-Funktion aktiviert ist. Dies umfasst insbesondere die asynchronen LINQ-Operatoren, die von EF Core verfügbar gemacht werden, z. b. [firstordefaultasync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_). Wir planen, dies für die Version 5,0 zu beheben.
