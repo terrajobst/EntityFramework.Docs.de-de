@@ -19,10 +19,16 @@
       items:
         - name: Übersicht
           href: core/index.md
-        - name: Neues
+        - name: Releases und Planung
           items:
             - name: Übersicht
               href: core/what-is-new/index.md
+            - name: Die Releaseplanung
+              href: core/what-is-new/release-planning.md
+            - name: "EF Core\_5.0"
+              items:
+                - name: Allgemeiner Plan
+                  href: core/what-is-new/ef-core-5.0/plan.md
             - name: EF Core 3.0
               items:
                 - name: Neue Funktionen

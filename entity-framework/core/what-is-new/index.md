@@ -1,82 +1,52 @@
 ---
-title: Neuerungen – EF Core
-author: divega
-ms.date: 02/20/2018
+title: EF Core-Releases und Planung
+author: ajcvickers
+ms.date: 01/14/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 2ca4915fca515b4bdbfeb77bc7b02f15ce1704b6
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 8d74c24021fd62c5c5d944eaf3973b344fdb1e9c
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197729"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124404"
 ---
-# <a name="whats-new-in-ef-core"></a>Neuerungen in EF Core
+# <a name="ef-core-releases-and-planning"></a>EF Core-Releases und Planung
 
-## <a name="recent-releases"></a>Aktuelle Releases
+## <a name="stable-releases"></a>Stabile Releases
 
-- **EF Core 3.0** (neuestes stabiles Release) 
-  - [Neue Features](xref:core/what-is-new/ef-core-3.0/index) 
-  - [Breaking Changes](xref:core/what-is-new/ef-core-3.0/breaking-changes), die Sie beim Upgrade beachten sollten
-- [EF Core 2.2](xref:core/what-is-new/ef-core-2.2)
-- [EF Core 2.1](xref:core/what-is-new/ef-core-2.1) (neueste Version mit langfristigem Support)
+| Freigabe | Zielframework | Support bis zum | Links
+|:--------|------------------|-----------------|------
+| [EF Core 3.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.1) | .NET-Standard 2.0 | 3\. Dezember 2022 (LTS) | [Ankündigung](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
+| [EF Core 3.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.1) | .NET Standard 2.1 | 3\. März 2020 | [Ankündigung](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [Wichtige Änderungen](ef-core-3.0/breaking-changes.md)
+| ~~[EF Core 2.2](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.6)~~ | .NET-Standard 2.0 | Am 23. Dezember 2019 abgelaufen | [Ankündigung](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-2/)
+| [EF Core 2.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.1.14) | .NET-Standard 2.0 | 21. August 2021 (LTS) | [Ankündigung](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-1/)
+| ~~[EF Core 2.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.0.3)~~ | .NET-Standard 2.0 | Am 1. Oktober 2018 abgelaufen | [Ankündigung](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-0/)
+| ~~[EF Core 1.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.1.6)~~ | .NET Standard 1.3 | Am 27. Juni 2019 abgelaufen | [Ankündigung](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-1-1/)
+| ~~[EF Core 1.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.0.6)~~ | .NET Standard 1.3 | Am 27. Juni 2019 abgelaufen | [Ankündigung](https://devblogs.microsoft.com/dotnet/entity-framework-core-1-0-0-available/)
 
-## <a name="product-roadmap"></a>Produktroadmap
+Weitere Informationen über die speziellen Plattformen, die von den jeweiligen EF Core-Releases unterstützt werden, finden Sie unter [Unterstützte Plattformen](../platforms/index.md).
 
-> [!IMPORTANT]
-> Bitte beachten Sie, dass die Featuregruppen und Zeitpläne für künftige Releases jederzeit geändert werden können. Obwohl diese Seite bestmöglich aktualisiert wird, entspricht sie nicht immer den neuesten Plänen.
+Weitere Informationen zum Ablaufdatum des Supports und zu Releases mit langfristigem Support (long-term support, LTS) finden Sie unter [Supportrichtlinie für .NET](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
 
-### <a name="future-releases"></a>Zukünftige Releases
+## <a name="guidance-on-updating-to-new-releases"></a>Anleitung zum Aktualisieren auf neue Releases
 
-- **EF Core 3.1**  
-  - In der aktiven Entwicklungsphase
-  - Wird [kleinere Verbesserungen bei Leistung, Qualität und Stabilität](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.1.0+sort%3Areactions-desc) enthalten
-  - Als Version mit Long-Term Support (LTS) geplant
-  - Derzeit für Dezember 2019 geplant
-- **EF Core "vNext"**   
-  - Nächste Hauptversion von EF Core, die zusammen mit .NET 5 ausgeliefert werden soll
-  - Die Planungsphase für diese Version hat noch nicht begonnen, und es wurden noch keine Features angekündigt.  
+* Unterstützte Releases werden auf Sicherheits- und andere kritische Fehler gepatcht. Verwenden Sie immer den aktuellen Patch eines vorhandenen Release. Bei EF Core 2.1 sollten Sie z. B. die Version 2.1.14 verwenden.
+* Aktualisierungen von Hauptversionen (z. B. EF Core 2 auf EF Core 3) beinhalten häufig wichtige Änderungen. Bei der Aktualisierung von Hauptversionen werden gründliche Tests empfohlen. Anleitungen zum Umgang mit wichtigen Änderungen finden Sie unter den Links „Wichtige Änderungen“.
+* Kleinere Versionsaktualisierungen enthalten in der Regel keine wichtigen Änderungen. Dennoch wird ein gründlicher Test empfohlen, da neue Funktionen zu Regressionen führen können.
 
-### <a name="schedule"></a>Zeitplan
+## <a name="ef-core-50"></a>EF Core 5.0
 
-Der Releasezeitplan für EF Core ist mit dem für [.NET Core](https://github.com/dotnet/core/blob/master/roadmap.md) abgestimmt.
+Die EF Core-Releases werden mit dem [Veröffentlichungsplan von .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md) abgestimmt. Der nächste stabile Release auf **EF Core 5.0** ist für November 2020 geplant.
 
-### <a name="backlog"></a>Backlog
+Mithilfe der dokumentierten [Releaseplanung](release-planning.md) wurde ein [allgemeiner Plan für EF Core 5.0](ef-core-5.0/plan.md) erstellt.
 
-Der [Backlogmeilenstein](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc) in der Problemverfolgung enthält Probleme, die wir beheben möchten oder die unserer Meinung nach Communitymitglieder lösen können.
-Wir freuen uns darüber, wenn Benutzer Kommentare und Feedback zu diesen Problemen hinterlassen.
-Mitwirkenden, die eines dieser Probleme behandeln möchten, wird empfohlen, zunächst eine Diskussion über den richtigen Ansatz anzustoßen.
+Ihr Feedback zur Planung ist wichtig. Sie können für ein Problem auf GitHub abstimmen (Daumen hoch) und so angeben, dass dieses Problem wichtig ist. Diese Daten werden dann in den Planungsprozess für das nächste Release aufgenommen.
 
-Es gibt keine Garantie, dass bestimmte Features einer bestimmten EF Core-Version bearbeitet werden.
-Wie bei allen Softwareprojekten können sich Prioritäten, Releasezeitpläne und verfügbare Ressourcen jederzeit ändern.
-Wenn wir ein Problem jedoch in einem bestimmten Zeitfenster lösen möchten, ordnen wir es einem Releasemeilenstein statt dem Backlogmeilenstein zu.
-Wir verschieben Probleme regelmäßig zwischen Backlog- und Releasemeilensteinen im Rahmen der [Releaseplanung](#release-planning-process).
+### <a name="get-it-now"></a>Jetzt herunterladen
 
-Wenn die Behandlung eines bestimmten Problems nicht geplant ist, wird dieses voraussichtlich geschlossen.
-Allerdings können wir uns einem geschlossenen Problem erneut widmen, wenn uns neue Informationen vorliegen.
+Die Pakete von EF Core 5.0 sind **jetzt** als [tägliche Builds](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md) verfügbar. 
 
-### <a name="release-planning-process"></a>Die Releaseplanung
+Mithilfe der täglichen Builds können Sie Probleme ausfindig machen und so früh wie möglich Feedback geben. Je früher wir solches Feedback erhalten, desto wahrscheinlicher ist eine Umsetzung vor dem nächsten Release. Wir bemühen uns sehr, bei den täglichen Builds eine gute Qualität aufrechtzuerhalten, indem wir für die jeweiligen Builds über 55.000 Tests pro Plattform ausführen.
 
-Benutzer fragen oftmals, wie bestimmte Features für bestimmte Releases ausgewählt werden.
-Das Backlog kann nicht automatisch in Releasepläne übersetzt werden.
-Die Features von EF6 werden auch nicht automatisch in EF Core implementiert.
-
-Es ist schwierig, den gesamten Prozess der Releaseplanung im Detail darzustellen.
-Einen Großteil macht die Diskussion über spezifische Funktionen, Möglichkeiten und Prioritäten aus. Der Prozess selbst entwickelt sich mit jedem Release weiter.
-Das ist eine Zusammenfassung der Fragen, die wir uns bei der Entscheidung stellen, womit die Arbeit weitergehen soll:
-
-1. **Wie viele Entwickler werden das Feature zukünftig verwenden, und welche Verbesserungen für die Anwendungen oder Benutzererfahrung bietet es?** Um diese Frage zu beantworten, sammeln wir Feedback aus verschiedensten Quellen, zu denen auch Kommentare und abgegebene Stimmen zählen.
-
-2. **Welche Problemumgehungen können genutzt werden, wenn dieses Feature noch nicht implementiert wird?** Viele Entwickler können z.B. eine Verknüpfungstabelle zuordnen, um die fehlende Unterstützung für native m:n-Unterstützung zu umgehen. Natürlich wollen nicht alle Entwickler diese Option nutzen, doch ausschlaggebend ist, dass viele es können.
-
-3. **Wird durch die Implementierung dieses Features die Architektur von EF Core weiterentwickelt, sodass die Implementierung anderer Features erleichtert wird?** In der Regel werden Features bevorzugt, die als Bausteine für andere Features dienen können. Beispielsweise können Eigenschaftenbehälterentitäten beim Entwickeln der m:n-Unterstützung helfen, und Entitätskonstruktoren haben unsere Lazy Loading-Unterstützung ermöglicht.
-
-4. **Ist dieses Feature ein Erweiterungspunkt?** In der Regel werden Erweiterungspunkte regulären Features vorgezogen, da Entwickler damit eigene Verhaltensweisen verknüpfen und so einen Teil der fehlenden Funktionalität ersetzen können.
-
-5. **Welche Synergien erzeugt das Feature in Kombination mit anderen Produkten?** Normalerweise werden Features bevorzugt, die die Verwendbarkeit von EF Core mit anderen Produkten wie .NET Core, der aktuellen Version von Visual Studio, Microsoft Azure usw. deutlich verbessern.
-
-6. **Welche Qualifikationen haben die Personen, die am Feature arbeiten, und wie lassen sich diese Ressourcen am besten einsetzen?** Alle Mitglieder des EF-Teams und alle Mitwirkenden aus der Community können auf unterschiedliche Erfahrungsschätze in verschiedenen Bereichen zurückgreifen. Dementsprechend muss geplant werden. Selbst wenn „alle mit anpacken“ und an einem bestimmten Feature wie GroupBy-Übersetzungen oder m:n arbeiten möchten, ist das nicht immer der beste Ansatz.
-
-Wie bereits erwähnt, entwickelt sich der Prozess mit jedem Release weiter.
-In Zukunft möchten wir für Communitymitglieder weitere Möglichkeiten hinzufügen, zu den Releaseplänen beitragen zu können.
-So möchten wir beispielsweise die Überprüfung von Featureentwürfen und des Releaseplans selbst erleichtern.
+Im Laufe des Jahres werden die Vorschaupakete für NuGet veröffentlicht.
