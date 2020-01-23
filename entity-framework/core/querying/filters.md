@@ -3,12 +3,12 @@ title: 'Globale Abfragefilter: EF Core'
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: c9bbb8a5889834ea078ddb7e432863b3d0cf2ffe
-ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
+ms.openlocfilehash: f4ee9b77411290249e763f9cb8492eea61803e91
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/04/2019
-ms.locfileid: "70271456"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124391"
 ---
 # <a name="global-query-filters"></a>Globale Abfragefilter
 
@@ -55,5 +55,4 @@ Filter können für einzelne LINQ-Abfragen mit dem `IgnoreQueryFilters()`-Operat
 
 Globale Abfragefilter unterliegen den folgenden Einschränkungen:
 
-* Filter können keine Verweise auf Navigationseigenschaften enthalten.
 * Filter können nur für den Stammentitätstyp einer Vererbungshierarchie definiert werden.
