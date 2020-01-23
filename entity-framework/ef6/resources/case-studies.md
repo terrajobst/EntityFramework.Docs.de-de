@@ -53,4 +53,4 @@ Legen mit mehr als 15 Jahren Erfahrung in der Entwicklung von POS-(POS)-Lösunge
 Verwenden die neueste Version von Entwicklungstools von Microsoft, konnten sie die neue Projektmappe, die vier Mal schneller als je zuvor zu erstellen.
 Wichtige neue Features wie LINQ und Entity Framework erleichtert Übergang von Crystal Reports zu SQL Server 2008 und SQL Server Reporting Services (SSRS) für die datenspeicherung und berichterstellungsanforderungen.
 
-> "Effektive datenverwaltung ist der Schlüssel für den Erfolg des Besteck – und daher entschieden wir, SQL Reporting zu übernehmen." -Nicholas Romanidis, Director of IT / Software Engineering
+> "Effektive Datenverwaltung ist der Schlüssel für den Erfolg von SilverWare – und daher entschieden wir, SQL Reporting zu übernehmen." -Nicholas Romanidis, Director of IT / Software Engineering
