@@ -1,15 +1,15 @@
 ---
 title: EF Core-Releases und Planung
 author: ajcvickers
-ms.date: 01/14/2020
+ms.date: 01/29/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 8d74c24021fd62c5c5d944eaf3973b344fdb1e9c
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: 0704b624a50d0736fefbb5633e9e7e657499a703
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124404"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888073"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core-Releases und Planung
 
@@ -35,18 +35,32 @@ Weitere Informationen zum Ablaufdatum des Supports und zu Releases mit langfrist
 * Aktualisierungen von Hauptversionen (z. B. EF Core 2 auf EF Core 3) beinhalten häufig wichtige Änderungen. Bei der Aktualisierung von Hauptversionen werden gründliche Tests empfohlen. Anleitungen zum Umgang mit wichtigen Änderungen finden Sie unter den Links „Wichtige Änderungen“.
 * Kleinere Versionsaktualisierungen enthalten in der Regel keine wichtigen Änderungen. Dennoch wird ein gründlicher Test empfohlen, da neue Funktionen zu Regressionen führen können.
 
+## <a name="release-planning-and-schedules"></a>Releaseplanung und Zeitpläne
+
+Die EF Core-Releases werden mit dem [Veröffentlichungsplan von .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md) abgestimmt.
+
+Patchreleases werden normalerweise monatlich ausgeliefert, haben jedoch eine lange Vorlaufzeit.
+Wir arbeiten daran, dies zu verbessern.
+
+Weitere Informationen zur Entscheidung, was in den einzelnen Releases ausgeliefert werden soll, finden Sie unter [Die Releaseplanung](release-planning.md).
+Unsere detaillierte Planung geht in der Regel nicht über die nächste Haupt- oder Nebenversion hinaus.
+
 ## <a name="ef-core-50"></a>EF Core 5.0
 
-Die EF Core-Releases werden mit dem [Veröffentlichungsplan von .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md) abgestimmt. Der nächste stabile Release auf **EF Core 5.0** ist für November 2020 geplant.
+Der nächste stabile Release auf **EF Core 5.0** ist für November 2020 geplant.
 
 Mithilfe der dokumentierten [Releaseplanung](release-planning.md) wurde ein [allgemeiner Plan für EF Core 5.0](ef-core-5.0/plan.md) erstellt.
 
-Ihr Feedback zur Planung ist wichtig. Sie können für ein Problem auf GitHub abstimmen (Daumen hoch) und so angeben, dass dieses Problem wichtig ist. Diese Daten werden dann in den Planungsprozess für das nächste Release aufgenommen.
+Ihr Feedback zur Planung ist wichtig.
+Sie können für ein Problem auf GitHub abstimmen (Daumen hoch 👍) und so angeben, dass dieses Problem wichtig ist.
+Diese Daten werden dann in den Planungsprozess für das nächste Release aufgenommen.
 
 ### <a name="get-it-now"></a>Jetzt herunterladen
 
 Die Pakete von EF Core 5.0 sind **jetzt** als [tägliche Builds](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md) verfügbar. 
 
-Mithilfe der täglichen Builds können Sie Probleme ausfindig machen und so früh wie möglich Feedback geben. Je früher wir solches Feedback erhalten, desto wahrscheinlicher ist eine Umsetzung vor dem nächsten Release. Wir bemühen uns sehr, bei den täglichen Builds eine gute Qualität aufrechtzuerhalten, indem wir für die jeweiligen Builds über 55.000 Tests pro Plattform ausführen.
+Mithilfe der täglichen Builds können Sie Probleme ausfindig machen und so früh wie möglich Feedback geben.
+Je früher wir solches Feedback erhalten, desto wahrscheinlicher ist eine Umsetzung vor dem nächsten Release.
+Wir bemühen uns sehr, bei den täglichen Builds eine gute Qualität aufrechtzuerhalten, indem wir für die jeweiligen Builds über 56.000 Tests pro Plattform ausführen.
 
 Im Laufe des Jahres werden die Vorschaupakete für NuGet veröffentlicht.

@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 12/17/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: bab725afffe1fbf9f8c0abeef58579ac9dc842d2
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 99f59153a452a2f4aad5811110ebc5b5da7717ef
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502081"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888039"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core Tools und -Erweiterungen
 
@@ -31,6 +31,12 @@ LLBLGen Pro ist eine Entitätsmodelllösung, die Entity Framework und Entity Fra
 Entity Developer ist ein leistungsstarker ORM-Designer für ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access und LINQ to SQL. Sie können damit EF Core-Modelle mithilfe von Model First oder Database First visuell entwerfen sowie C#- oder Visual Basic-Code generieren. Für EF Core: 2.
 
 [Website](https://www.devart.com/entitydeveloper/)
+
+### <a name="nhydrate-orm-for-entity-framework"></a>nHydrate ORM für Entity Framework
+
+Ein ORM, der stark typisierte, erweiterbare Klassen für Entity Framework erstellt. Der generierte Code ist Entity Framework Core. Es besteht kein Unterschied. Dies ist kein Ersatz für EF oder einen benutzerdefinierten ORM. Dabei handelt es sich um eine visuelle, Modellierungsebene, die einem Team ermöglicht, komplexe Datenbankschemas zu verwalten. Dies funktioniert gut mit SCM-Software wie Git, sodass mehrere Benutzer mit minimalen Konflikten auf Ihr Modell zugreifen können. Das Installationsprogramm verfolgt Modelländerungen und erstellt Upgradeskripts. Für EF Core: 3.
+
+[GitHub-Website](https://github.com/nHydrate/nHydrate)
 
 ### <a name="ef-core-power-tools"></a>EF Core Power Tools
 
@@ -163,3 +169,9 @@ Erweitert Ihren DbContext mit Features wie den folgenden: Include Filter, Auditi
 Erweitert Ihren DbContext mit hochleistungsfähigen Massenvorgängen: BulkSaveChanges, BulkInsert, BulkUpdate, BulkDelete, BulkMerge und vielen weiteren. Für EF Core: 2, 3.
 
 [Website](https://entityframework-extensions.net/)
+
+### <a name="expressionify"></a>Expressionify
+
+Hinzufügen von Unterstützung für das Aufrufen von Erweiterungsmethoden in LINQ-Lambdas. Für EF Core: 3.1
+
+[GitHub-Repository](https://github.com/ClaveConsulting/Expressionify)
