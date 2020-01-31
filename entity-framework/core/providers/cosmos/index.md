@@ -5,36 +5,36 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 6903aab4911f7478afe3d8987a791ae1c5ccebce
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 7451ce6e8d5d7078b3f56a6865aa7698e6fc63ca
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502213"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888121"
 ---
-# <a name="ef-core-azure-cosmos-db-provider"></a><span data-ttu-id="7e2c0-103">EF Core Azure Cosmos DB-Anbieter</span><span class="sxs-lookup"><span data-stu-id="7e2c0-103">EF Core Azure Cosmos DB Provider</span></span>
+# <a name="ef-core-azure-cosmos-db-provider"></a><span data-ttu-id="e1476-103">EF Core Azure Cosmos DB-Anbieter</span><span class="sxs-lookup"><span data-stu-id="e1476-103">EF Core Azure Cosmos DB Provider</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="7e2c0-104">Dieser Anbieter ist neu in EF Core 3.0.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-104">This provider is new in EF Core 3.0.</span></span>
+> <span data-ttu-id="e1476-104">Dieser Anbieter ist neu in EF Core 3.0.</span><span class="sxs-lookup"><span data-stu-id="e1476-104">This provider is new in EF Core 3.0.</span></span>
 
-<span data-ttu-id="7e2c0-105">Dieser Datenbankanbieter ermöglicht die Verwendung von Entity Framework Core mit Azure Cosmos DB.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-105">This database provider allows Entity Framework Core to be used with Azure Cosmos DB.</span></span> <span data-ttu-id="7e2c0-106">Dieser Anbieter wird nicht im Rahmen des [Entity Framework Core-Projekts](https://github.com/aspnet/EntityFrameworkCore) verwaltet.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-106">The provider is maintained as part of the [Entity Framework Core Project](https://github.com/aspnet/EntityFrameworkCore).</span></span>
+<span data-ttu-id="e1476-105">Dieser Datenbankanbieter ermöglicht die Verwendung von Entity Framework Core mit Azure Cosmos DB.</span><span class="sxs-lookup"><span data-stu-id="e1476-105">This database provider allows Entity Framework Core to be used with Azure Cosmos DB.</span></span> <span data-ttu-id="e1476-106">Dieser Anbieter wird nicht im Rahmen des [Entity Framework Core-Projekts](https://github.com/aspnet/EntityFrameworkCore) verwaltet.</span><span class="sxs-lookup"><span data-stu-id="e1476-106">The provider is maintained as part of the [Entity Framework Core Project](https://github.com/aspnet/EntityFrameworkCore).</span></span>
 
-<span data-ttu-id="7e2c0-107">Es wird dringend empfohlen, sich vor dem Lesen dieses Abschnitts mit der [Azure Cosmos DB-Dokumentation](/azure/cosmos-db/introduction) vertraut zu machen.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-107">It is strongly recommended to familiarize yourself with the [Azure Cosmos DB documentation](/azure/cosmos-db/introduction) before reading this section.</span></span>
+<span data-ttu-id="e1476-107">Es wird dringend empfohlen, sich vor dem Lesen dieses Abschnitts mit der [Azure Cosmos DB-Dokumentation](/azure/cosmos-db/introduction) vertraut zu machen.</span><span class="sxs-lookup"><span data-stu-id="e1476-107">It is strongly recommended to familiarize yourself with the [Azure Cosmos DB documentation](/azure/cosmos-db/introduction) before reading this section.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="7e2c0-108">Dieser Anbieter kann nur mit der SQL-API von Azure Cosmos DB verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-108">This provider only works with the SQL API of Azure Cosmos DB.</span></span>
+> <span data-ttu-id="e1476-108">Dieser Anbieter kann nur mit der SQL-API von Azure Cosmos DB verwendet werden.</span><span class="sxs-lookup"><span data-stu-id="e1476-108">This provider only works with the SQL API of Azure Cosmos DB.</span></span>
 
-## <a name="install"></a><span data-ttu-id="7e2c0-109">Installieren</span><span class="sxs-lookup"><span data-stu-id="7e2c0-109">Install</span></span>
+## <a name="install"></a><span data-ttu-id="e1476-109">Installieren</span><span class="sxs-lookup"><span data-stu-id="e1476-109">Install</span></span>
 
-<span data-ttu-id="7e2c0-110">Installieren Sie das [NuGet-Paket „Microsoft.EntityFrameworkCore.Cosmos“](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).</span><span class="sxs-lookup"><span data-stu-id="7e2c0-110">Install the [Microsoft.EntityFrameworkCore.Cosmos NuGet package](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).</span></span>
+<span data-ttu-id="e1476-110">Installieren Sie das [NuGet-Paket „Microsoft.EntityFrameworkCore.Cosmos“](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).</span><span class="sxs-lookup"><span data-stu-id="e1476-110">Install the [Microsoft.EntityFrameworkCore.Cosmos NuGet package](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).</span></span>
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[<span data-ttu-id="7e2c0-111">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="7e2c0-111">.NET Core CLI</span></span>](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[<span data-ttu-id="e1476-111">.NET Core-CLI</span><span class="sxs-lookup"><span data-stu-id="e1476-111">.NET Core CLI</span></span>](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
-### <a name="visual-studiotabvs"></a>[<span data-ttu-id="7e2c0-112">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7e2c0-112">Visual Studio</span></span>](#tab/vs)
+### <a name="visual-studiotabvs"></a>[<span data-ttu-id="e1476-112">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e1476-112">Visual Studio</span></span>](#tab/vs)
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Cosmos
@@ -42,67 +42,67 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 
 ***
 
-## <a name="get-started"></a><span data-ttu-id="7e2c0-113">Erste Schritte</span><span class="sxs-lookup"><span data-stu-id="7e2c0-113">Get started</span></span>
+## <a name="get-started"></a><span data-ttu-id="e1476-113">Erste Schritte</span><span class="sxs-lookup"><span data-stu-id="e1476-113">Get started</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="7e2c0-114">Das in diesem Artikel verwendete [Beispiel finden Sie auf GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).</span><span class="sxs-lookup"><span data-stu-id="7e2c0-114">You can view this article's [sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).</span></span>
+> <span data-ttu-id="e1476-114">Das in diesem Artikel verwendete [Beispiel finden Sie auf GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).</span><span class="sxs-lookup"><span data-stu-id="e1476-114">You can view this article's [sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).</span></span>
 
-<span data-ttu-id="7e2c0-115">Wie bei anderen Anbietern besteht der erste Schritt darin, [UseCosmos](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosDbContextOptionsExtensions.UseCosmos) aufzurufen:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-115">Like for other providers the first step is to call [UseCosmos](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosDbContextOptionsExtensions.UseCosmos):</span></span>
+<span data-ttu-id="e1476-115">Wie bei anderen Anbietern besteht der erste Schritt darin, [UseCosmos](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosDbContextOptionsExtensions.UseCosmos) aufzurufen:</span><span class="sxs-lookup"><span data-stu-id="e1476-115">Like for other providers the first step is to call [UseCosmos](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosDbContextOptionsExtensions.UseCosmos):</span></span>
 
 [!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
-> <span data-ttu-id="7e2c0-116">Der Endpunkt und der Schlüssel sind aus Gründen der Einfachheit hier hartcodiert, aber in einer Produktions-App sollten sie [sicher gespeichert werden](/aspnet/core/security/app-secrets#secret-manager).</span><span class="sxs-lookup"><span data-stu-id="7e2c0-116">The endpoint and key are hardcoded here for simplicity, but in a production app these should be [stored securily](/aspnet/core/security/app-secrets#secret-manager)</span></span>
+> <span data-ttu-id="e1476-116">Der Endpunkt und der Schlüssel sind aus Gründen der Einfachheit hier hartcodiert, aber in einer Produktions-App sollten sie [sicher gespeichert werden](/aspnet/core/security/app-secrets#secret-manager).</span><span class="sxs-lookup"><span data-stu-id="e1476-116">The endpoint and key are hardcoded here for simplicity, but in a production app these should be [stored securely](/aspnet/core/security/app-secrets#secret-manager).</span></span>
 
-<span data-ttu-id="7e2c0-117">In diesem Beispiel ist `Order` eine einfache Entität mit einem Verweis auf den [nicht eigenständigen](../../modeling/owned-entities.md) Typ `StreetAddress`.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-117">In this example `Order` is a simple entity with a reference to the [owned type](../../modeling/owned-entities.md) `StreetAddress`.</span></span>
+<span data-ttu-id="e1476-117">In diesem Beispiel ist `Order` eine einfache Entität mit einem Verweis auf den [nicht eigenständigen](../../modeling/owned-entities.md) Typ `StreetAddress`.</span><span class="sxs-lookup"><span data-stu-id="e1476-117">In this example `Order` is a simple entity with a reference to the [owned type](../../modeling/owned-entities.md) `StreetAddress`.</span></span>
 
 [!code-csharp[Order](../../../../samples/core/Cosmos/ModelBuilding/Order.cs?name=Order)]
 
 [!code-csharp[StreetAddress](../../../../samples/core/Cosmos/ModelBuilding/StreetAddress.cs?name=StreetAddress)]
 
-<span data-ttu-id="7e2c0-118">Das Speichern und Abfragen von Daten folgt dem normalen EF-Muster:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-118">Saving and quering data follows the normal EF pattern:</span></span>
+<span data-ttu-id="e1476-118">Das Speichern und Abfragen von Daten folgt dem normalen EF-Muster:</span><span class="sxs-lookup"><span data-stu-id="e1476-118">Saving and quering data follows the normal EF pattern:</span></span>
 
 [!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
-> <span data-ttu-id="7e2c0-119">Der Aufruf von [EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) ist erforderlich, um die erforderlichen Container zu erstellen und die [Seeddaten](../../modeling/data-seeding.md) einzufügen, wenn Sie im Modell vorhanden sind.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-119">Calling [EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) is necessary to create the required containers and insert the [seed data](../../modeling/data-seeding.md) if present in the model.</span></span> <span data-ttu-id="7e2c0-120">`EnsureCreatedAsync` sollte jedoch nur während der Bereitstellung und nicht im normalen Betrieb aufgerufen werden, da dies zu Leistungsproblemen führen kann.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-120">However `EnsureCreatedAsync` should only be called during deployment, not normal operation, as it may cause performance issues.</span></span>
+> <span data-ttu-id="e1476-119">Der Aufruf von [EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) ist erforderlich, um die erforderlichen Container zu erstellen und die [Seeddaten](../../modeling/data-seeding.md) einzufügen, wenn Sie im Modell vorhanden sind.</span><span class="sxs-lookup"><span data-stu-id="e1476-119">Calling [EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) is necessary to create the required containers and insert the [seed data](../../modeling/data-seeding.md) if present in the model.</span></span> <span data-ttu-id="e1476-120">`EnsureCreatedAsync` sollte jedoch nur während der Bereitstellung und nicht im normalen Betrieb aufgerufen werden, da dies zu Leistungsproblemen führen kann.</span><span class="sxs-lookup"><span data-stu-id="e1476-120">However `EnsureCreatedAsync` should only be called during deployment, not normal operation, as it may cause performance issues.</span></span>
 
-## <a name="cosmos-specific-model-customization"></a><span data-ttu-id="7e2c0-121">Cosmos-spezifische Modellanpassung</span><span class="sxs-lookup"><span data-stu-id="7e2c0-121">Cosmos-specific model customization</span></span>
+## <a name="cosmos-specific-model-customization"></a><span data-ttu-id="e1476-121">Cosmos-spezifische Modellanpassung</span><span class="sxs-lookup"><span data-stu-id="e1476-121">Cosmos-specific model customization</span></span>
 
-<span data-ttu-id="7e2c0-122">Standardmäßig werden alle Entitätstypen demselben Container zugeordnet, der nach dem abgeleiteten Kontext benannt wird (in diesem Fall `"OrderContext"`).</span><span class="sxs-lookup"><span data-stu-id="7e2c0-122">By default all entity types are mapped to the same container, named after the derived context (`"OrderContext"` in this case).</span></span> <span data-ttu-id="7e2c0-123">Verwenden Sie zum Ändern des Standardcontainernamens [HasDefaultContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosModelBuilderExtensions.HasDefaultContainer):</span><span class="sxs-lookup"><span data-stu-id="7e2c0-123">To change the default container name use [HasDefaultContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosModelBuilderExtensions.HasDefaultContainer):</span></span>
+<span data-ttu-id="e1476-122">Standardmäßig werden alle Entitätstypen demselben Container zugeordnet, der nach dem abgeleiteten Kontext benannt wird (in diesem Fall `"OrderContext"`).</span><span class="sxs-lookup"><span data-stu-id="e1476-122">By default all entity types are mapped to the same container, named after the derived context (`"OrderContext"` in this case).</span></span> <span data-ttu-id="e1476-123">Verwenden Sie zum Ändern des Standardcontainernamens [HasDefaultContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosModelBuilderExtensions.HasDefaultContainer):</span><span class="sxs-lookup"><span data-stu-id="e1476-123">To change the default container name use [HasDefaultContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosModelBuilderExtensions.HasDefaultContainer):</span></span>
 
 [!code-csharp[DefaultContainer](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=DefaultContainer)]
 
-<span data-ttu-id="7e2c0-124">Um einen Entitätstyp einem anderen Container zuzuordnen, verwenden Sie [ToContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToContainer):</span><span class="sxs-lookup"><span data-stu-id="7e2c0-124">To map an entity type to a different container use [ToContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToContainer):</span></span>
+<span data-ttu-id="e1476-124">Um einen Entitätstyp einem anderen Container zuzuordnen, verwenden Sie [ToContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToContainer):</span><span class="sxs-lookup"><span data-stu-id="e1476-124">To map an entity type to a different container use [ToContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToContainer):</span></span>
 
 [!code-csharp[Container](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Container)]
 
-<span data-ttu-id="7e2c0-125">Um den Entitätstyp zu identifizieren, den ein bestimmtes Element darstellt, fügt EF Core einen Diskriminatorwert auch dann hinzu, wenn keine abgeleiteten Entitätstypen vorhanden sind.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-125">To identify the entity type that a given item represent EF Core adds a discriminator value even if there are no derived entity types.</span></span> <span data-ttu-id="7e2c0-126">Der Name und der Wert des Diskriminators [können geändert werden](../../modeling/inheritance.md).</span><span class="sxs-lookup"><span data-stu-id="7e2c0-126">The name and value of the discriminator [can be changed](../../modeling/inheritance.md).</span></span>
+<span data-ttu-id="e1476-125">Um den Entitätstyp zu identifizieren, den ein bestimmtes Element darstellt, fügt EF Core einen Diskriminatorwert auch dann hinzu, wenn keine abgeleiteten Entitätstypen vorhanden sind.</span><span class="sxs-lookup"><span data-stu-id="e1476-125">To identify the entity type that a given item represent EF Core adds a discriminator value even if there are no derived entity types.</span></span> <span data-ttu-id="e1476-126">Der Name und der Wert des Diskriminators [können geändert werden](../../modeling/inheritance.md).</span><span class="sxs-lookup"><span data-stu-id="e1476-126">The name and value of the discriminator [can be changed](../../modeling/inheritance.md).</span></span>
 
-<span data-ttu-id="7e2c0-127">Wenn kein anderer Entitätstyp jemals im gleichen Container gespeichert wird, kann der Diskriminator durch Aufruf von [HasNoDiscriminator](/dotnet/api/Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder.HasNoDiscriminator) entfernt werden:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-127">If no other entity type will ever be stored in the same container the discriminator can be removed by calling [HasNoDiscriminator](/dotnet/api/Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder.HasNoDiscriminator):</span></span>
+<span data-ttu-id="e1476-127">Wenn kein anderer Entitätstyp jemals im gleichen Container gespeichert wird, kann der Diskriminator durch Aufruf von [HasNoDiscriminator](/dotnet/api/Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder.HasNoDiscriminator) entfernt werden:</span><span class="sxs-lookup"><span data-stu-id="e1476-127">If no other entity type will ever be stored in the same container the discriminator can be removed by calling [HasNoDiscriminator](/dotnet/api/Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder.HasNoDiscriminator):</span></span>
 
 [!code-csharp[NoDiscriminator](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=NoDiscriminator)]
 
-### <a name="partition-keys"></a><span data-ttu-id="7e2c0-128">Partitionsschlüssel</span><span class="sxs-lookup"><span data-stu-id="7e2c0-128">Partition keys</span></span>
+### <a name="partition-keys"></a><span data-ttu-id="e1476-128">Partitionsschlüssel</span><span class="sxs-lookup"><span data-stu-id="e1476-128">Partition keys</span></span>
 
-<span data-ttu-id="7e2c0-129">Standardmäßig erstellt EF Core Container, bei denen der Partitionsschlüssel auf `"__partitionKey"` festgelegt ist, ohne beim Einfügen von Elementen einen Wert dafür anzugeben.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-129">By default EF Core will create containers with the partition key set to `"__partitionKey"` without supplying any value for it when inserting items.</span></span> <span data-ttu-id="7e2c0-130">Um die Leistungsfunktionen von Azure Cosmos vollständig nutzen zu können, sollten Sie jedoch einen [sorgfältig ausgewählten Partitionsschlüssel](/azure/cosmos-db/partition-data) verwenden.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-130">But to fully leverage the performance capabilities of Azure Cosmos a [carefully selected partition key](/azure/cosmos-db/partition-data) should be used.</span></span> <span data-ttu-id="7e2c0-131">Dieser kann durch Aufrufen von [HasPartitionKey](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.HasPartitionKey) konfiguriert werden:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-131">It can be configured by calling [HasPartitionKey](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.HasPartitionKey):</span></span>
+<span data-ttu-id="e1476-129">Standardmäßig erstellt EF Core Container, bei denen der Partitionsschlüssel auf `"__partitionKey"` festgelegt ist, ohne beim Einfügen von Elementen einen Wert dafür anzugeben.</span><span class="sxs-lookup"><span data-stu-id="e1476-129">By default EF Core will create containers with the partition key set to `"__partitionKey"` without supplying any value for it when inserting items.</span></span> <span data-ttu-id="e1476-130">Um die Leistungsfunktionen von Azure Cosmos vollständig nutzen zu können, sollten Sie jedoch einen [sorgfältig ausgewählten Partitionsschlüssel](/azure/cosmos-db/partition-data) verwenden.</span><span class="sxs-lookup"><span data-stu-id="e1476-130">But to fully leverage the performance capabilities of Azure Cosmos a [carefully selected partition key](/azure/cosmos-db/partition-data) should be used.</span></span> <span data-ttu-id="e1476-131">Dieser kann durch Aufrufen von [HasPartitionKey](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.HasPartitionKey) konfiguriert werden:</span><span class="sxs-lookup"><span data-stu-id="e1476-131">It can be configured by calling [HasPartitionKey](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.HasPartitionKey):</span></span>
 
 [!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PartitionKey)]
 
 > [!NOTE]
-><span data-ttu-id="7e2c0-132">Als Eigenschaft des Partitionsschlüssels kann ein beliebiger Typ verwendet werden, sofern dieser in [eine Zeichenfolge konvertiert wird](xref:core/modeling/value-conversions).</span><span class="sxs-lookup"><span data-stu-id="7e2c0-132">The partition key property can be of any type as long as it is [converted to string](xref:core/modeling/value-conversions).</span></span>
+><span data-ttu-id="e1476-132">Als Eigenschaft des Partitionsschlüssels kann ein beliebiger Typ verwendet werden, sofern dieser in [eine Zeichenfolge konvertiert wird](xref:core/modeling/value-conversions).</span><span class="sxs-lookup"><span data-stu-id="e1476-132">The partition key property can be of any type as long as it is [converted to string](xref:core/modeling/value-conversions).</span></span>
 
-<span data-ttu-id="7e2c0-133">Nach der Konfiguration muss die Partitionsschlüsseleigenschaft immer einen Wert aufweisen, der nicht NULL ist.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-133">Once configured the partition key property should always have a non-null value.</span></span> <span data-ttu-id="7e2c0-134">Beim Ausgeben einer Abfrage kann eine Bedingung hinzugefügt werden, um eine einzelne Partition zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-134">When issuing a query a condition can be added to make it single-partition.</span></span>
+<span data-ttu-id="e1476-133">Nach der Konfiguration muss die Partitionsschlüsseleigenschaft immer einen Wert aufweisen, der nicht NULL ist.</span><span class="sxs-lookup"><span data-stu-id="e1476-133">Once configured the partition key property should always have a non-null value.</span></span> <span data-ttu-id="e1476-134">Beim Ausgeben einer Abfrage kann eine Bedingung hinzugefügt werden, um eine einzelne Partition zu erstellen.</span><span class="sxs-lookup"><span data-stu-id="e1476-134">When issuing a query a condition can be added to make it single-partition.</span></span>
 
 [!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=PartitionKey)]
 
-## <a name="embedded-entities"></a><span data-ttu-id="7e2c0-135">Eingebettete Entitäten</span><span class="sxs-lookup"><span data-stu-id="7e2c0-135">Embedded entities</span></span>
+## <a name="embedded-entities"></a><span data-ttu-id="e1476-135">Eingebettete Entitäten</span><span class="sxs-lookup"><span data-stu-id="e1476-135">Embedded entities</span></span>
 
-<span data-ttu-id="7e2c0-136">Nicht eigenständige Cosmos-Entitäten sind in das gleiche Element wie der Besitzer eingebettet.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-136">For Cosmos owned entities are embedded in the same item as the owner.</span></span> <span data-ttu-id="7e2c0-137">Verwenden Sie zum Ändern eines Eigenschaftennamens [ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty):</span><span class="sxs-lookup"><span data-stu-id="7e2c0-137">To change a property name use [ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty):</span></span>
+<span data-ttu-id="e1476-136">Nicht eigenständige Cosmos-Entitäten sind in das gleiche Element wie der Besitzer eingebettet.</span><span class="sxs-lookup"><span data-stu-id="e1476-136">For Cosmos owned entities are embedded in the same item as the owner.</span></span> <span data-ttu-id="e1476-137">Verwenden Sie zum Ändern eines Eigenschaftennamens [ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty):</span><span class="sxs-lookup"><span data-stu-id="e1476-137">To change a property name use [ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty):</span></span>
 
 [!code-csharp[PropertyNames](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PropertyNames)]
 
-<span data-ttu-id="7e2c0-138">Mit dieser Konfiguration wird die Reihenfolge des obigen Beispiels wie folgt gespeichert:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-138">With this configuration the order from the example above is stored like this:</span></span>
+<span data-ttu-id="e1476-138">Mit dieser Konfiguration wird die Reihenfolge des obigen Beispiels wie folgt gespeichert:</span><span class="sxs-lookup"><span data-stu-id="e1476-138">With this configuration the order from the example above is stored like this:</span></span>
 
 ``` json
 {
@@ -122,15 +122,15 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 }
 ```
 
-<span data-ttu-id="7e2c0-139">Sammlungen von nicht eigenständigen Entitäten werden ebenfalls eingebettet.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-139">Collections of owned entities are embedded as well.</span></span> <span data-ttu-id="7e2c0-140">Im nächsten Beispiel verwenden wir die `Distributor`-Klasse mit einer Sammlung von `StreetAddress`:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-140">For the next example we'll use the `Distributor` class with a collection of `StreetAddress`:</span></span>
+<span data-ttu-id="e1476-139">Sammlungen von nicht eigenständigen Entitäten werden ebenfalls eingebettet.</span><span class="sxs-lookup"><span data-stu-id="e1476-139">Collections of owned entities are embedded as well.</span></span> <span data-ttu-id="e1476-140">Im nächsten Beispiel verwenden wir die `Distributor`-Klasse mit einer Sammlung von `StreetAddress`:</span><span class="sxs-lookup"><span data-stu-id="e1476-140">For the next example we'll use the `Distributor` class with a collection of `StreetAddress`:</span></span>
 
 [!code-csharp[Distributor](../../../../samples/core/Cosmos/ModelBuilding/Distributor.cs?name=Distributor)]
 
-<span data-ttu-id="7e2c0-141">Die nicht eigenständigen Entitäten müssen keine expliziten Schlüsselwerte angeben, die gespeichert werden sollen:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-141">The owned entities don't need to provide explicit key values to be stored:</span></span>
+<span data-ttu-id="e1476-141">Die nicht eigenständigen Entitäten müssen keine expliziten Schlüsselwerte angeben, die gespeichert werden sollen:</span><span class="sxs-lookup"><span data-stu-id="e1476-141">The owned entities don't need to provide explicit key values to be stored:</span></span>
 
 [!code-csharp[OwnedCollection](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=OwnedCollection)]
 
-<span data-ttu-id="7e2c0-142">Sie werden auf diese Weise persistent gespeichert:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-142">They will be persisted in this way:</span></span>
+<span data-ttu-id="e1476-142">Sie werden auf diese Weise persistent gespeichert:</span><span class="sxs-lookup"><span data-stu-id="e1476-142">They will be persisted in this way:</span></span>
 
 ``` json
 {
@@ -155,22 +155,22 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 }
 ```
 
-<span data-ttu-id="7e2c0-143">Intern muss EF Core für alle nachverfolgten Entitäten immer eindeutige Schlüsselwerte aufweisen.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-143">Internally EF Core always needs to have unique key values for all tracked entities.</span></span> <span data-ttu-id="7e2c0-144">Der Primärschlüssel, der standardmäßig für Sammlungen nicht eigenständiger Typen erstellt wird, besteht aus den Fremdschlüsseleigenschaften, die auf den Besitzer verweisen, und einer `int`-Eigenschaft, die dem Index im JSON-Array entspricht.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-144">The primary key created by default for collections of owned types consists of the foreign key properties pointing to the owner and an `int` property corresponding to the index in the JSON array.</span></span> <span data-ttu-id="7e2c0-145">Zum Abrufen dieser Werte kann die Eingabe-API verwendet werden:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-145">To retrieve these values entry API could be used:</span></span>
+<span data-ttu-id="e1476-143">Intern muss EF Core für alle nachverfolgten Entitäten immer eindeutige Schlüsselwerte aufweisen.</span><span class="sxs-lookup"><span data-stu-id="e1476-143">Internally EF Core always needs to have unique key values for all tracked entities.</span></span> <span data-ttu-id="e1476-144">Der Primärschlüssel, der standardmäßig für Sammlungen nicht eigenständiger Typen erstellt wird, besteht aus den Fremdschlüsseleigenschaften, die auf den Besitzer verweisen, und einer `int`-Eigenschaft, die dem Index im JSON-Array entspricht.</span><span class="sxs-lookup"><span data-stu-id="e1476-144">The primary key created by default for collections of owned types consists of the foreign key properties pointing to the owner and an `int` property corresponding to the index in the JSON array.</span></span> <span data-ttu-id="e1476-145">Zum Abrufen dieser Werte kann die Eingabe-API verwendet werden:</span><span class="sxs-lookup"><span data-stu-id="e1476-145">To retrieve these values entry API could be used:</span></span>
 
 [!code-csharp[ImpliedProperties](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=ImpliedProperties)]
 
 > [!TIP]
-> <span data-ttu-id="7e2c0-146">Bei Bedarf kann der standardmäßige Primärschlüssel für die nicht eigenständigen Entitätstypen geändert werden. Dann sollten jedoch Schlüsselwerte explizit angegeben werden.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-146">When necessary the default primary key for the owned entity types can be changed, but then key values should be provided explicitly.</span></span>
+> <span data-ttu-id="e1476-146">Bei Bedarf kann der standardmäßige Primärschlüssel für die nicht eigenständigen Entitätstypen geändert werden. Dann sollten jedoch Schlüsselwerte explizit angegeben werden.</span><span class="sxs-lookup"><span data-stu-id="e1476-146">When necessary the default primary key for the owned entity types can be changed, but then key values should be provided explicitly.</span></span>
 
-## <a name="working-with-disconnected-entities"></a><span data-ttu-id="7e2c0-147">Arbeiten mit getrennten Entitäten</span><span class="sxs-lookup"><span data-stu-id="7e2c0-147">Working with disconnected entities</span></span>
+## <a name="working-with-disconnected-entities"></a><span data-ttu-id="e1476-147">Arbeiten mit getrennten Entitäten</span><span class="sxs-lookup"><span data-stu-id="e1476-147">Working with disconnected entities</span></span>
 
-<span data-ttu-id="7e2c0-148">Jedes Element muss über einen `id`-Wert verfügen, der für den angegebenen Partitionsschlüssel eindeutig ist.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-148">Every item needs to have an `id` value that is unique for the given partition key.</span></span> <span data-ttu-id="7e2c0-149">Standardmäßig generiert EF Core den Wert durch Verkettung der Diskriminatorwerte und der Primärschlüsselwerte, wobei „|“ als Trennzeichen verwendet wird.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-149">By default EF Core generates the value by concatenating the discriminator and the primary key values, using '|' as a delimiter.</span></span> <span data-ttu-id="7e2c0-150">Die Schlüsselwerte werden nur generiert, wenn eine Entität in den Zustand `Added` wechselt.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-150">The key values are only generated when an entity enters the `Added` state.</span></span> <span data-ttu-id="7e2c0-151">Dies kann ein Problem darstellen, wenn Sie [Entitäten anfügen](../../saving/disconnected-entities.md), wenn diese nicht über eine `id`-Eigenschaft für den .NET-Typ verfügen, um den Wert zu speichern.</span><span class="sxs-lookup"><span data-stu-id="7e2c0-151">This might pose a problem when [attaching entities](../../saving/disconnected-entities.md) if they don't have an `id` property on the .NET type to store the value.</span></span>
+<span data-ttu-id="e1476-148">Jedes Element muss über einen `id`-Wert verfügen, der für den angegebenen Partitionsschlüssel eindeutig ist.</span><span class="sxs-lookup"><span data-stu-id="e1476-148">Every item needs to have an `id` value that is unique for the given partition key.</span></span> <span data-ttu-id="e1476-149">Standardmäßig generiert EF Core den Wert durch Verkettung der Diskriminatorwerte und der Primärschlüsselwerte, wobei „|“ als Trennzeichen verwendet wird.</span><span class="sxs-lookup"><span data-stu-id="e1476-149">By default EF Core generates the value by concatenating the discriminator and the primary key values, using '|' as a delimiter.</span></span> <span data-ttu-id="e1476-150">Die Schlüsselwerte werden nur generiert, wenn eine Entität in den Zustand `Added` wechselt.</span><span class="sxs-lookup"><span data-stu-id="e1476-150">The key values are only generated when an entity enters the `Added` state.</span></span> <span data-ttu-id="e1476-151">Dies kann ein Problem darstellen, wenn Sie [Entitäten anfügen](../../saving/disconnected-entities.md), wenn diese nicht über eine `id`-Eigenschaft für den .NET-Typ verfügen, um den Wert zu speichern.</span><span class="sxs-lookup"><span data-stu-id="e1476-151">This might pose a problem when [attaching entities](../../saving/disconnected-entities.md) if they don't have an `id` property on the .NET type to store the value.</span></span>
 
-<span data-ttu-id="7e2c0-152">Um diese Einschränkung zu umgehen, können Sie den `id`-Wert manuell erstellen und festlegen oder die Entität zuerst als hinzugefügt markieren und dann in den gewünschten Zustand ändern:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-152">To work around this limitation one could create and set the `id` value manually or mark the entity as added first, then changing it to the desired state:</span></span>
+<span data-ttu-id="e1476-152">Um diese Einschränkung zu umgehen, können Sie den `id`-Wert manuell erstellen und festlegen oder die Entität zuerst als hinzugefügt markieren und dann in den gewünschten Zustand ändern:</span><span class="sxs-lookup"><span data-stu-id="e1476-152">To work around this limitation one could create and set the `id` value manually or mark the entity as added first, then changing it to the desired state:</span></span>
 
 [!code-csharp[Attach](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?highlight=4&name=Attach)]
 
-<span data-ttu-id="7e2c0-153">Dieser JSON-Code ergibt sich:</span><span class="sxs-lookup"><span data-stu-id="7e2c0-153">This is the resulting JSON:</span></span>
+<span data-ttu-id="e1476-153">Dieser JSON-Code ergibt sich:</span><span class="sxs-lookup"><span data-stu-id="e1476-153">This is the resulting JSON:</span></span>
 
 ``` json
 {
