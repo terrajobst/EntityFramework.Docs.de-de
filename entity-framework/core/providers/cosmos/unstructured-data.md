@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/unstructured-data
-ms.openlocfilehash: 0bfccbfd3af6e209967004752b5a3947d644544b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 69f979d46174ff56310b334f28438ac271f45155
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655514"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888095"
 ---
 # <a name="working-with-unstructured-data-in-ef-core-azure-cosmos-db-provider"></a>Arbeiten mit unstrukturierten Daten in EF Core Azure Cosmos DB-Anbieter
 
@@ -62,4 +62,4 @@ Im vorherigen Beispiel haben wir die `"TrackingNumber"`-Eigenschaft aus der Reih
 Die sortierte Abfrage gibt tatsächlich keine Ergebnisse zurück. Dies bedeutet, dass Sie die von EF Core zugeordneten Eigenschaften immer auffüllen müssen, wenn Sie direkt mit dem Speicher arbeiten.
 
 > [!NOTE]
-> Dieses Verhalten kann sich in zukünftigen Versionen von Cosmos ändern. Wenn die Indizierungs Richtlinie beispielsweise den zusammengesetzten Index {ID/? definiert ASC, TrackingNumber/? ASC)}. eine Abfrage, die "Order by c.ID ASC, c. Diskriminator ASC" hat, __würde__ Elemente zurückgeben, die die `"TrackingNumber"`-Eigenschaft fehlen.
+> Dieses Verhalten kann sich in zukünftigen Versionen von Cosmos ändern. Wenn die Indizierungs Richtlinie beispielsweise den zusammengesetzten Index {ID/? definiert ASC, TrackingNumber/? ASC)}, dann __würde__ eine Abfrage, die ' Order by c.ID ASC, c. Diskriminator ASC ' aufweist, Elemente zurückgeben, die die `"TrackingNumber"`-Eigenschaft fehlen.
