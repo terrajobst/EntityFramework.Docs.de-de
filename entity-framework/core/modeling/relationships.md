@@ -4,12 +4,12 @@ description: Konfigurieren von Beziehungen zwischen Entitäts Typen bei Verwendu
 author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 6b3e0636bfa266b78baafe1b6e318c9707294560
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
+ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502187"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77051406"
 ---
 # <a name="relationships"></a>Beziehungen
 
@@ -26,9 +26,9 @@ Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu bes
 
 * **Prinzipal Entität:** Dies ist die Entität, die die Eigenschaften des primären/Alternativen Schlüssels enthält. Auch "Parent" genannt.
 
-* **Fremdschlüssel:** Die Eigenschaften in der abhängigen Entität, die zum Speichern der Prinzipal Schlüsselwerte für die verknüpfte Entität verwendet werden.
-
 * **Prinzipal Schlüssel:** Die Eigenschaften, die die Prinzipal Entität eindeutig identifizieren. Dies kann ein Primär- oder Alternativschlüssel sein.
+
+* **Fremdschlüssel:** Die Eigenschaften in der abhängigen Entität, die zum Speichern der Prinzipal Schlüsselwerte für die verknüpfte Entität verwendet werden.
 
 * **Navigations Eigenschaft:** Eine für die Prinzipal-und/oder abhängige Entität definierte Eigenschaft, die auf die verknüpfte Entität verweist.
 
@@ -36,7 +36,7 @@ Es wird eine Reihe von Begriffen verwendet, um Beziehungen in Datenbanken zu bes
 
   * **Verweis Navigations Eigenschaft:** Eine Navigations Eigenschaft, die einen Verweis auf eine einzelne verknüpfte Entität enthält.
 
-  * **Inverse Navigationseigenschaft:** im Zusammenhang mit einer beliebigen anderen Navigationseigenschaft stellt diese Eigenschaft das anderen Ende der Beziehung dar.
+  * **Umgekehrte Navigations Eigenschaft:** Bei der Erörterung einer bestimmten Navigations Eigenschaft bezieht sich dieser Begriff auf die Navigations Eigenschaft am anderen Ende der Beziehung.
   
 * **Selbst verweisende Beziehung:** Eine Beziehung, in der die abhängigen und die Prinzipal Entitäts Typen identisch sind.
 
@@ -46,17 +46,17 @@ Der folgende Code zeigt eine 1: n-Beziehung zwischen `Blog` und `Post`
 
 * `Post` ist die abhängige Entität.
 
-* `Blog` ist die Prinzipalentität
+* `Blog` ist die Prinzipal Entität.
+
+* `Blog.BlogId` ist der Prinzipal Schlüssel (in diesem Fall handelt es sich um einen Primärschlüssel anstelle eines alternativen Schlüssels).
 
 * `Post.BlogId` ist der Fremdschlüssel.
 
-* `Blog.BlogId` der Prinzipalschlüssel (in diesem Fall ist es ein Primärschlüssel anstelle eines Alternativschlüssels)
+* `Post.Blog` ist eine Verweis Navigations Eigenschaft.
 
-* `Post.Blog` ist eine Verweisnavigationseigenschaft
+* `Blog.Posts` ist eine Auflistungs Navigations Eigenschaft.
 
-* `Blog.Posts` ist eine Auflistungsnavigationseigenschaft
-
-* `Post.Blog`ist die inverse Navigationseigenschaft von `Blog.Posts`(und umgekehrt)
+* `Post.Blog` ist die umgekehrte Navigations Eigenschaft `Blog.Posts` (und umgekehrt).
 
 ## <a name="conventions"></a>Konventionen
 
@@ -243,7 +243,7 @@ Beim Konfigurieren des fremd Schlüssels müssen Sie den abhängigen Entitätsty
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?name=OneToOne&highlight=11)]
 
-### <a name="many-to-many"></a>m:n
+### <a name="many-to-many"></a>n:n
 
 M:n-Beziehungen ohne Entitäts Klasse zur Darstellung der jointabelle werden noch nicht unterstützt. Sie können jedoch eine m:n-Beziehung darstellen, indem Sie eine Entitäts Klasse für die jointabelle einschließen und zwei separate 1: n-Beziehungen Mapping.
 
