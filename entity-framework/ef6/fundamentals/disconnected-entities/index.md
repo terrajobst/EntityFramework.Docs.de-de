@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
 ms.openlocfilehash: f1ce44e7b00ec4c60a81ed850ce5c9d866495e1b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181766"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413365"
 ---
 # <a name="working-with-disconnected-entities"></a>Arbeiten mit getrennten Entitäten
 In einer Anwendung, die auf Entity Framework basiert, ist eine Kontextklasse für das Erfassen von Änderungen zuständig, die an nachverfolgten Entitäten vorgenommen werden. Durch Aufruf der SaveChanges-Methode werden vom Kontext nachverfolgte Änderungen in der Datenbank gespeichert. Bei der Arbeit mit n-schichtigen Anwendungen werden Entitätsobjekte normalerweise modifiziert, wenn keine Verbindung zum Kontext besteht. Sie müssen dann entscheiden, wie Änderungen nachverfolgt und an den Kontext zurückgemeldet werden. In diesem Artikel wird beschrieben, welche Möglichkeiten Sie haben, wenn Sie Entity Framework mit getrennten Entitäten verwenden.   
