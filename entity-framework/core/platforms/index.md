@@ -1,14 +1,14 @@
 ---
 title: Unterstützte .NET-Implementierungen – EF Core
-author: rowanmiller
-ms.date: 08/30/2017
+author: bricelam
+ms.date: 03/03/2020
 uid: core/platforms/index
-ms.openlocfilehash: 6450884ea8f1b7bfd12d6b0c722b150b2574c5c3
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.openlocfilehash: 693d4cae85eddf86d01e17084415147c52a008c7
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781195"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413065"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>Von EF Core unterstützte .NET-Implementierungen
 
@@ -18,16 +18,16 @@ Wir möchten, dass EF Core für Entwickler auf allen modernen.NET-Implementierun
 
 Die folgende Tabelle enthält Anweisungen zu den einzelnen .NET-Implementierungen:
 
-| EF Core                       | 2.1        | 3.0             | 3.1        |
-|:------------------------------|:-----------|:----------------|:-----------|
-| .NET-Standard                 | 2.0        | 2.1             | 2.0        |
-| .NET Core                     | 2.0        | 3.0             | 2.0        |
-| .NET Framework<sup>(1)</sup>  | 4.7.2      | (Nicht unterstützt) | 4.7.2      |
-| Mono                          | 5.4        | 6.4             | 5.4        |
-| Xamarin.iOS<sup>(2)</sup>     | 10.14      | 12.16           | 10.14      |
-| Xamarin.Android<sup>(2)</sup> | 8.0        | 10.0            | 8.0        |
-| UWP<sup>(3)</sup>             | 10.0.16299 | Wird nachgeliefert.             | 10.0.16299 |
-| Unity<sup>(4)</sup>           | 2018.1     | Wird nachgeliefert.             | 2018.1     |
+| EF Core                       | 2.1 und 3.1 |
+|:------------------------------|:------------|
+| .NET-Standard                 | 2.0         |
+| .NET Core                     | 2.0         |
+| .NET Framework<sup>(1)</sup>  | 4.7.2       |
+| Mono                          | 5.4         |
+| Xamarin.iOS<sup>(2)</sup>     | 10.14       |
+| Xamarin.Android<sup>(2)</sup> | 8.0         |
+| UWP<sup>(3)</sup>             | 10.0.16299  |
+| Unity<sup>(4)</sup>           | 2018.1      |
 
 <sup>1</sup> Weitere Informationen finden Sie unten im Abschnitt [.NET Framework](#net-framework).
 
@@ -73,4 +73,4 @@ Bei Verwendung von EF Core unter UWP:
 
 ## <a name="report-issues"></a>Melden von Problemen
 
-Für alle Kombinationen, die nicht wie erwartet funktioniert, empfehlen wir, neue Probleme in der [EF Core-Problemverfolgung](https://github.com/aspnet/entityframeworkcore/issues/new) zu erstellen. Verwenden Sie bei Xamarin-bezogenen Problemen [Xamarin.Android](https://github.com/xamarin/xamarin-android/issues/new) oder [Xamarin.iOS](https://github.com/xamarin/xamarin-macios/issues/new).
+Für alle Kombinationen, die nicht wie erwartet funktionieren, empfehlen wir, neue Issues in der [EF Core-Problemverfolgung](https://github.com/aspnet/entityframeworkcore/issues/new) zu erstellen. Verwenden Sie bei Xamarin-bezogenen Problemen [Xamarin.Android](https://github.com/xamarin/xamarin-android/issues/new) oder [Xamarin.iOS](https://github.com/xamarin/xamarin-macios/issues/new).
