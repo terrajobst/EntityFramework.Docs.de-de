@@ -1,20 +1,20 @@
 ---
-title: Abhängigkeitsauflösung – EF6
+title: Abhängigkeitsauflösung-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
 ms.openlocfilehash: 6082124481f5795bbcb62fff2bb6a58ecdcb48e4
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490960"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414794"
 ---
 # <a name="dependency-resolution"></a>Abhängigkeitsauflösung
 > [!NOTE]
 > **Nur EF6 und höher:** Die Features, APIs usw., die auf dieser Seite erläutert werden, wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
 
-Ab EF6 enthält Entity Framework einen allgemeinen Mechanismus zum Abrufen von Implementierungen der Dienste, die es benötigt. D. h. wenn EF eine Instanz der einige Schnittstellen oder Basisklassen verwendet fragt es eine konkrete Implementierung der Schnittstelle oder Base-Klasse verwenden. Dies erfolgt durch die Verwendung der Schnittstelle "idbdependencyresolver":  
+Ab EF6 enthält Entity Framework einen allgemeinen Mechanismus zum Abrufen von erforderlichen Implementierungen von Diensten. Das heißt, wenn EF eine Instanz einiger Schnittstellen oder Basisklassen verwendet, wird eine konkrete Implementierung der-Schnittstelle oder der Basisklasse angefordert, die verwendet werden soll. Dies wird durch die Verwendung der idbdependencyresolver-Schnittstelle erreicht:  
 
 ``` csharp
 public interface IDbDependencyResolver
@@ -23,186 +23,186 @@ public interface IDbDependencyResolver
 }
 ```  
 
-Die Methode "GetService" heißt in der Regel von EF und erfolgt durch eine Implementierung von "idbdependencyresolver" von EF oder von der Anwendung bereitgestellt wird. Wenn aufgerufen, wird das Typargument der Klassentyp-Schnittstelle oder in der der angeforderte Dienst, und das Objekt ist Null oder ein Objekt, das Kontextinformationen für den angeforderten Dienst bietet.  
+Die GetService-Methode wird in der Regel von EF aufgerufen und wird von einer Implementierung von idbdependencyresolver behandelt, die entweder von EF oder der Anwendung bereitgestellt wird. Beim Aufruf ist das Typargument die Schnittstelle oder der Basis Klassentyp des angeforderten Dienstanbieter, das Schlüsselobjekt ist entweder NULL oder ein Objekt, das Kontextinformationen zum angeforderten Dienst bereitstellt.  
 
-Sofern nicht anders angegeben, alle zurückgegebene Objekt threadsicher sein muss, da er als Singleton verwendet werden kann. In vielen Fällen, die eine Factory ist in diesem Fall ist das zurückgegebene Objekt die Factory selbst threadsicher sein muss, aber das von der Factory zurückgegebene Objekt muss nicht threadsicher sein, da eine neue Instanz von der Factory für jede Verwendung angefordert wird.
+Sofern nicht anders angegeben, muss jedes zurückgegebene Objekt Thread sicher sein, da es als Singleton verwendet werden kann. In vielen Fällen ist das zurückgegebene Objekt eine Factory. in diesem Fall muss die Factory selbst Thread sicher sein, aber das von der Factory zurückgegebene Objekt muss nicht Thread sicher sein, da eine neue Instanz für jede Verwendung von der Factory angefordert wird.
 
-Dieser Artikel enthält keine ausführliche Anleitung zum Implementieren von "idbdependencyresolver", aber stattdessen dient als Referenz für die Diensttypen (d. h. die Schnittstellen und Basisklassen Klassentypen) für die EF "GetService" und die Semantik des Schlüsselobjekts für jedes dieser Aufrufe wird aufgerufen.
+Dieser Artikel enthält keine vollständigen Details zur Implementierung von idbdependencyresolver, sondern fungiert als Referenz für die Dienst Typen (d. h. die Schnittstelle und Basisklassen Typen), für die EF GetService aufruft, und die Semantik des Schlüssel Objekts für jede dieser auf.
 
-## <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
+## <a name="systemdataentityidatabaseinitializertcontext"></a>System. Data. Entity. idatabaseinitializer < tcontext\>  
 
-**Eingeführt in Version**: EF6.0.0  
+**Eingeführte Version**: EF 6.0.0  
 
-**Zurückgegebene Objekt**: einen Datenbankinitialisierer, für den angegebenen Kontext-Typ  
+**Zurück**gegebenes Objekt: ein datenbankinitialisierer für den angegebenen Kontexttyp.  
 
-**Schlüssel**: nicht verwendet wird, wird null sein.  
+**Schlüssel**: nicht verwendet; wird NULL sein.  
 
-## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
+## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func < System. Data. Entity. Migrations. SQL. migrationsqlgenerator\>  
 
-**Eingeführt in Version**: EF6.0.0
+**Eingeführte Version**: EF 6.0.0
 
-**Zurückgegebene Objekt**: eine Factory, einen SQL-Generator zu erstellen, die für Migrationen und weiteren Aktionen, die dazu führen, eine Datenbank dass erstellt werden, wie z. B. die Erstellung der Datenbank mit der Datenbankinitialisierer verwendet werden kann.  
+**Zurück**gegebenes Objekt: eine Factory zum Erstellen eines SQL-Generators, der für Migrationen und andere Aktionen verwendet werden kann, die eine Datenbank erstellen, z. b. die Erstellung von Datenbanken mit datenbankinitialisierern.  
 
-**Schlüssel**: eine Zeichenfolge mit ADO.NET invariante Name des Anbieters, die den Typ der Datenbank, die für die SQL generiert werden. Beispielsweise wird der SQL Server SQL-Generator für den Schlüssel "System.Data.SqlClient" zurückgegeben.  
-
->[!NOTE]
-> Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
-
-## <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
-
-**Eingeführt in Version**: EF6.0.0  
-
-**Zurückgegebene Objekt**: des EF-Anbieter für einen angegebenen invarianten Anbieternamen verwenden  
-
-**Schlüssel**: eine Zeichenfolge mit ADO.NET invariante Name des Anbieters, die den Typ der Datenbank, die für den ein Anbieter erforderlich ist. Beispielsweise wird der SQL Server-Anbieter für den Schlüssel "System.Data.SqlClient" zurückgegeben.  
+**Key**: eine Zeichenfolge, die den invarianten Namen des ADO.NET-Anbieters enthält, der den Typ der Datenbank angibt, für die SQL generiert wird. Beispielsweise wird der SQL Server SQL-Generator für den Schlüssel "System. Data. SqlClient" zurückgegeben.  
 
 >[!NOTE]
-> Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
+> Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
+## <a name="systemdataentitycorecommondbproviderservices"></a>System. Data. Entity. Core. Common. DbProviderServices  
 
-**Eingeführt in Version**: EF6.0.0  
+**Eingeführte Version**: EF 6.0.0  
 
-**Zurückgegebene Objekt**: der verbindungsfactory, das verwendet wird, wenn EF eine datenbankverbindung erstellt gemäß der Konvention. D. h. wenn keine Verbindung oder eine Verbindungszeichenfolge mit EF erhält und keine Verbindungszeichenfolge finden Sie in der Datei "App.config" oder "Web.config", klicken Sie dann diesen Dienst dient zum Erstellen einer Verbindung gemäß der Konvention. Ändern die verbindungsfactory können EF verwendet eine andere Art von Datenbank (z. B. SQL Server Compact Edition) in der Standardeinstellung.  
+**Zurück**gegebenes Objekt: der EF-Anbieter, der für den invarianten Namen eines angegebenen Anbieters verwendet wird.  
 
-**Schlüssel**: nicht verwendet wird, wird null sein.  
-
->[!NOTE]
-> Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
-
-## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
-
-**Eingeführt in Version**: EF6.0.0  
-
-**Zurückgegebene Objekt**: ein Dienst, der von einer Verbindung ein anbietermanifesttokens generieren kann. Dieser Dienst wird in der Regel auf zwei Arten verwendet. Zuerst kann verwendet werden, um Code First, die Verbindung zur Datenbank beim Erstellen eines Modells zu vermeiden. Zweitens kann sie verwendet werden zu erzwingen, dass Code First ein Modell für eine bestimmte Datenbank-Version – z. B. zu erstellen, um ein Modell für SQL Server 2005 zu erzwingen, auch wenn manchmal SQL Server 2008 verwendet wird.  
-
-**Objektlebensdauer**: Singleton – in das gleiche Objekt möglicherweise verwendet mehrere Wiederherstellungszeiten und gleichzeitig von unterschiedlichen Threads  
-
-**Schlüssel**: nicht verwendet wird, wird null sein.  
-
-## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
-
-**Eingeführt in Version**: EF6.0.0  
-
-**Zurückgegebene Objekt**: ein Dienst, der eine bestimmte Verbindung eine Anbieterfactory abrufen kann. In .NET 4.5 ist der Anbieter von der Verbindung öffentlich zugänglich. Von .NET 4 verwendet die standardmäßige Implementierung von diesem Dienst Teil der Heuristik, um den entsprechenden Anbieter zu finden. Wenn dann, eine neue Implementierung dieses Diensts fehlschlagen können registriert werden, um eine geeignete Lösung zu bieten.  
-
-**Schlüssel**: nicht verwendet wird, wird null sein.  
-
-## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
-
-**Eingeführt in Version**: EF6.0.0  
-
-**Zurückgegebene Objekt**: eine Factory, die einen Modell Cacheschlüssel für einen angegebenen Kontext generiert wird. Standardmäßig speichert EF ein Modell pro DbContext-Typ pro Anbieter. Eine andere Implementierung dieses Diensts kann verwendet werden, andere Informationen, z. B. Schemaname, der Cacheschlüssel hinzu.  
-
-**Schlüssel**: nicht verwendet wird, wird null sein.  
-
-## <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
-
-**Eingeführt in Version**: EF6.0.0  
-
-**Zurückgegebene Objekt**: räumliche ein EF-Anbieter, das Unterstützung für den grundlegenden EF-Anbieter für Geography und Geometry räumliche Typen.  
-
-**Schlüssel**: DbSptialServices für aufgefordert wird, gibt es zwei Möglichkeiten. Erste, anbieterspezifische räumlichen Dienste mithilfe eines Objekts DbProviderInfo angefordert werden (die invariante enthält Namen und das manifesttoken) als Schlüssel. Zweitens können DbSpatialServices ohne Schlüssel aufgefordert. Dies wird zum Auflösen des "räumlichen Anbieters" die beim Erstellen von eigenständigen DbGeography oder DbGeometry-Typen verwendet wird.  
+**Key**: eine Zeichenfolge, die den invarianten Namen des ADO.NET-Anbieters enthält, der den Typ der Datenbank angibt, für die ein Anbieter benötigt wird. Beispielsweise wird der SQL Server Anbieter für den Schlüssel "System. Data. SqlClient" zurückgegeben.  
 
 >[!NOTE]
-> Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
+> Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
+## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System. Data. Entity. Infrastructure. idbconnectionfactory  
 
-**Eingeführt in Version**: EF6.0.0  
+**Eingeführte Version**: EF 6.0.0  
 
-**Zurückgegebene Objekt**: eine Factory zum Erstellen eines Diensts, der ermöglicht, dass einen Anbieter Wiederholungen oder anderem Verhalten implementieren, wenn Abfragen und Befehlen für die Datenbank ausgeführt werden. Wenn keine Implementierung bereitgestellt wird, wird Klicken Sie dann EF einfach führen Sie die Befehle und weitergegeben werden alle ausgelösten Ausnahmen. Für SQL Server ist dieser Dienst verwendet, um eine wiederholungsrichtlinie bereitzustellen, die was besonders hilfreich ist, bei der Ausführung für Cloud-basierten Datenbankserver, z. B. SQL Azure.  
+**Zurück**gegebenes Objekt: die Verbindungsfactory, die verwendet wird, wenn EF eine Datenbankverbindung gemäß der Konvention erstellt. Das heißt, wenn EF keine Verbindung oder Verbindungs Zeichenfolge erhält und keine Verbindungs Zeichenfolge in der Datei "App. config" oder "Web. config" gefunden werden kann, wird dieser Dienst zum Erstellen einer Verbindung gemäß Konvention verwendet. Wenn Sie die Verbindungsfactory ändern, kann EF standardmäßig einen anderen Typ von Datenbank (z. b. SQL Server Compact Edition) verwenden.  
 
-**Schlüssel**: ein ExecutionStrategyKey-Objekt, das enthält, der invariante Anbietername und optional einen Servernamen ein, die für die Ausführungsstrategie verwendet werden.  
-
->[!NOTE]
-> Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
-
-## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < "DbConnection", "String", "System.Data.Entity.Migrations.History.HistoryContext\>  
-
-**Eingeführt in Version**: EF6.0.0  
-
-**Zurückgegebene Objekt**: eine Factory, die einen Anbieter so konfigurieren Sie die Zuordnung von der "historycontext" für ermöglicht die `__MigrationHistory` Tabelle, die von EF-Migrationen verwendet. Die "historycontext" ist der Code für einen ersten "DbContext" und kann mithilfe der normalen fluent-API so ändern Sie z.B. den Namen der Tabelle und den Mappingspezifikationen Spalte konfiguriert werden.  
-
-**Schlüssel**: nicht verwendet wird, wird null sein.  
+**Schlüssel**: nicht verwendet; wird NULL sein.  
 
 >[!NOTE]
-> Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
+> Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
+## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System. Data. Entity. Infrastructure. IManifestTokenService  
 
-**Eingeführt in Version**: EF6.0.0  
+**Eingeführte Version**: EF 6.0.0  
 
-**Zurückgegebene Objekt**: der ADO NET-Anbieter für einen angegebenen invarianten Anbieternamen verwenden.  
+**Zurück**gegebenes Objekt: ein Dienst, der ein Anbieter Manifest-Token aus einer Verbindung generieren kann. Dieser Dienst wird in der Regel auf zweierlei Weise verwendet. Zuerst kann Sie verwendet werden, um zu vermeiden, dass beim Entwickeln eines Modells Code First eine Verbindung mit der Datenbank hergestellt wird. Zweitens kann Sie verwendet werden, um Code First zu erzwingen, ein Modell für eine bestimmte Datenbankversion zu erstellen, z. b. um ein Modell für SQL Server 2005 zu erzwingen, auch wenn manchmal SQL Server 2008 verwendet wird.  
 
-**Schlüssel**: eine Zeichenfolge, enthält der invariante Anbietername für ADO.NET  
+**Objekt Lebensdauer**: Singleton--das gleiche Objekt kann mehrmals und gleichzeitig von verschiedenen Threads verwendet werden.  
+
+**Schlüssel**: nicht verwendet; wird NULL sein.  
+
+## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System. Data. Entity. Infrastructure. idbproviderfactoryservice  
+
+**Eingeführte Version**: EF 6.0.0  
+
+**Zurück**gegebenes Objekt: ein Dienst, der eine Anbieterfactory von einer bestimmten Verbindung abrufen kann. Unter .NET 4,5 ist der Anbieter öffentlich über die Verbindung zugänglich. In .NET 4 verwendet die Standard Implementierung dieses Dienstanbieters einige Heuristiken, um den passenden Anbieter zu suchen. Wenn diese Fehler auftreten, kann eine neue Implementierung dieses Dienstanbieter registriert werden, um eine geeignete Lösung bereitzustellen.  
+
+**Schlüssel**: nicht verwendet; wird NULL sein.  
+
+## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < dbcontext, System. Data. Entity. Infrastructure. idbmodelcachekey\>  
+
+**Eingeführte Version**: EF 6.0.0  
+
+**Zurück**gegebenes Objekt: eine Factory, die einen Modell Cache Schlüssel für einen bestimmten Kontext generiert. Standardmäßig speichert EF ein Modell pro dbcontext-Typ pro Anbieter zwischen. Eine andere Implementierung dieses Dienstanbieter kann verwendet werden, um weitere Informationen, wie z. b. den Schema Namen, zum Cache Schlüssel hinzuzufügen.  
+
+**Schlüssel**: nicht verwendet; wird NULL sein.  
+
+## <a name="systemdataentityspatialdbspatialservices"></a>System. Data. Entity. Spatial. dbspatialservices  
+
+**Eingeführte Version**: EF 6.0.0  
+
+**Zurück**gegebenes Objekt: ein EF-Anbieter für räumliche Daten, der dem einfachen EF-Anbieter Unterstützung für räumliche Geography-und geometry-Typen hinzufügt  
+
+**Schlüssel**: dbsptialservices wird auf zwei Arten angefordert. Zuerst werden anbieterspezifische räumliche Dienste mithilfe eines dbproviderinfo-Objekts (das den invarianten Namen und das Manifest-Token enthält) als Schlüssel angefordert. Zweitens können dbspatialservices ohne Schlüssel angefordert werden. Dies wird zum Auflösen des "globalen räumlichen Anbieters" verwendet, der beim Erstellen eigenständiger dbgeography-oder dbgeometry-Typen verwendet wird.  
 
 >[!NOTE]
-> Dieser Dienst wird in der Regel nicht direkt geändert, da die Standardimplementierung der normalen anbieterregistrierung ADO.NET verwendet. Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
+> Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
+## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func < System. Data. Entity. Infrastructure. idbexecutionstrategy\>  
 
-**Eingeführt in Version**: EF6.0.0  
+**Eingeführte Version**: EF 6.0.0  
 
-**Zurückgegebene Objekt**: ein Dienst, der verwendet wird, um zu bestimmen, einen invarianten Anbieternamen für einen bestimmten Typ ' DbProviderFactory '. Die standardmäßige Implementierung dieses Diensts wird die Registrierung des Anbieters ADO.NET verwendet. Dies bedeutet, dass wenn der ADO NET-Anbieter nicht auf die übliche Weise registriert ist, da der "DbProviderFactory" von EF aufgelöst wird, klicken Sie dann es außerdem erforderlich, um diesen Dienst zu beheben kann.  
+**Zurück**gegebenes Objekt: eine Factory zum Erstellen eines Dienstanbieters, der es einem Anbieter ermöglicht, Wiederholungs Versuche oder andere Verhalten zu implementieren, wenn Abfragen und Befehle für die Datenbank ausgeführt werden. Wenn keine Implementierung bereitgestellt wird, führt EF die Befehle einfach aus und verteilt alle ausgelösten Ausnahmen. Bei SQL Server dieser Dienst zum Bereitstellen einer Wiederholungs Richtlinie verwendet, die besonders nützlich ist, wenn Sie auf cloudbasierten Datenbankservern wie SQL Azure ausgeführt werden.  
 
-**Schlüssel**: der "DbProviderFactory"-Instanz, die für das invarianter Name erforderlich ist.  
+**Key**: ein executionstrategykey-Objekt, das den invarianten Namen des Anbieters und optional einen Servernamen enthält, für den die Ausführungs Strategie verwendet werden soll.  
 
 >[!NOTE]
-> Weitere Informationen zum Anbieter-bezogene Dienste in EF 6 finden Sie die [EF6-Anbietermodell](~/ef6/fundamentals/providers/provider-model.md) Abschnitt.  
+> Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
+## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < DbConnection, String, System. Data. Entity. Migrationen. History. historycontext\>  
 
-**Eingeführt in Version**: EF6.0.0  
+**Eingeführte Version**: EF 6.0.0  
 
-**Zurückgegebene Objekt**: einen Cache von Assemblys, die vorgenerierte Sichten enthalten. Eine Ersetzung wird normalerweise verwendet, um EF darüber informiert, welche Assemblys vorgenerierte Sichten enthalten, ohne alle Discovery zu ermöglichen.  
+**Zurück**gegebenes Objekt: eine Factory, mit der ein Anbieter die Zuordnung von historycontext zu der von EF-Migrationen verwendeten `__MigrationHistory` Tabelle konfigurieren kann. Der historycontext ist eine Code First dbcontext und kann mit der normalen flüssigen API konfiguriert werden, um Dinge wie den Namen der Tabelle und die Spalten Mappingspezifikationen zu ändern.  
 
-**Schlüssel**: nicht verwendet wird, wird null sein.  
+**Schlüssel**: nicht verwendet; wird NULL sein.  
 
-## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
+>[!NOTE]
+> Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-**Eingeführt in Version**: EF6.0.0  
+## <a name="systemdatacommondbproviderfactory"></a>System. Data. Common. DbProviderFactory  
 
-**Zurückgegebene Objekt**: ein Dienst, der von EF zu pluralize singularize Namen verwendet. Standardmäßig wird eine englische pluralisierungsdienst verwendet.  
+**Eingeführte Version**: EF 6.0.0  
 
-**Schlüssel**: nicht verwendet wird, wird null sein.  
+**Zurück**gegebenes Objekt: der ADO.NET-Anbieter, der für den invarianten Namen eines angegebenen Anbieters verwendet werden soll.  
 
-## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
+**Key**: eine Zeichenfolge, die den invarianten Namen des ADO.NET-Anbieters enthält  
 
-**Eingeführt in Version**: EF6.0.0
+>[!NOTE]
+> Dieser Dienst wird in der Regel nicht direkt geändert, da die Standard Implementierung die normale ADO.NET-Anbieter Registrierung verwendet. Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-**Zurückgegebene Objekte**: alle Interceptors, die beim Starten der Anwendung registriert werden soll. Beachten Sie, dass diese Objekte werden durch den Aufruf GetServices angefordert, alle Dienste, die von jedem Abhängigkeitskonfliktlöser zurückgegeben werden registriert.
+## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System. Data. Entity. Infrastructure. iproviderinvariantname  
 
-**Schlüssel**: nicht verwendet wird, wird null sein.  
+**Eingeführte Version**: EF 6.0.0  
 
-## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < System.Data.Entity.DbContext, Aktion < Zeichenfolge\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
+**Zurück**gegebenes Objekt: ein Dienst, der verwendet wird, um einen invarianten Anbieter Namen für einen bestimmten Typ von "DbProviderFactory" zu ermitteln. Die Standard Implementierung dieses Dienstanbieters verwendet die ADO.NET-Anbieter Registrierung. Dies bedeutet Folgendes: Wenn der ADO.NET-Anbieter nicht auf die normale Weise registriert ist, weil DbProviderFactory von EF aufgelöst wird, muss dieser Dienst ebenfalls aufgelöst werden.  
 
-**Eingeführt in Version**: EF6.0.0  
+**Key**: die DbProviderFactory-Instanz, für die ein invarianter Name erforderlich ist.  
 
-**Zurückgegebene Objekt**: eine Factory, die mit den Datenbank-Log-Formatierer erstellen, die verwendet wird, wenn der Kontext. "Database.log"-Eigenschaft wird für den angegebenen Kontext festgelegt.  
+>[!NOTE]
+> Weitere Informationen zu Anbieter bezogenen Diensten in EF6 finden Sie im Abschnitt [EF6 Provider Model](~/ef6/fundamentals/providers/provider-model.md) .  
 
-**Schlüssel**: nicht verwendet wird, wird null sein.  
+## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System. Data. Entity. Core. Mapping. viewgene. iviewassemblycache  
 
-## <a name="funcsystemdataentitydbcontext"></a>Func < System.Data.Entity.DbContext\>  
+**Eingeführte Version**: EF 6.0.0  
 
-**Eingeführt in Version**: EF6.1.0  
+**Zurück**gegebenes Objekt: ein Cache der Assemblys, die vorgenerierte Sichten enthalten. Ein Ersatz wird normalerweise verwendet, um EF darüber zu informieren, welche Assemblys vorab generierte Sichten enthalten, ohne dass eine Ermittlung durchgeführt wird  
 
-**Zurückgegebene Objekt**: eine Factory, die verwendet wird, um kontextinstanzen für Migrationen zu erstellen, wenn der Kontext nicht über einen zugänglichen parameterlosen Konstruktor verfügt.  
+**Schlüssel**: nicht verwendet; wird NULL sein.  
 
-**Schlüssel**: das Typobjekt für den Typ des abgeleiteten "DbContext" für den eine Factory erforderlich ist.  
+## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System. Data. Entity. Infrastructure. Pluralization. ipluralizationservice
 
-## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
+**Eingeführte Version**: EF 6.0.0  
 
-**Eingeführt in Version**: EF6.1.0  
+**Zurück**gegebenes Objekt: ein Dienst, der von EF zum pluralisieren und singularisieren von Namen verwendet wird. Standardmäßig wird ein englischer pluralisierungs Dienst verwendet.  
 
-**Zurückgegebene Objekt**: eine Factory, die Serialisierungsprogramme für die Serialisierung von benutzerdefinierten Anmerkungen mit fester typbindung erstellen, sie können serialisiert und in XML-Code für die Verwendung in Code First-Migrationen desterilized verwendet werden.  
+**Schlüssel**: nicht verwendet; wird NULL sein.  
 
-**Schlüssel**: der Name der Anmerkung, die serialisiert oder deserialisiert.  
+## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System. Data. Entity. Infrastructure. intercep. idbinterceptor  
 
-## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < System.Data.Entity.Infrastructure.TransactionHandler\>  
+**Eingeführte Version**: EF 6.0.0
 
-**Eingeführt in Version**: EF6.1.0  
+**Zurückgegebene Objekte**: alle Interceptors, die beim Starten der Anwendung registriert werden sollen. Beachten Sie, dass diese Objekte mithilfe des GetServices-Aufrufes angefordert werden und alle von einem Abhängigkeits Konflikt Löser zurückgegebenen Interceptors registriert werden.
 
-**Zurückgegebene Objekt**: eine Factory, die verwendet wird, um Handler für Transaktionen zu erstellen, sodass zum Beispiel Behandlung commitfehlern sinnvoll, spezielle Behandlung angewendet werden können.  
+**Schlüssel**: nicht verwendet; wird NULL sein.  
 
-**Schlüssel**: ein ExecutionStrategyKey-Objekt, das enthält, der invariante Anbietername und optional einen Servernamen ein, die für die der Handler für die Transaktion verwendet werden.  
+## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < System. Data. Entity. dbcontext, Action < String\>, System. Data. Entity. Infrastructure. intercep. databaselogformatter\>  
+
+**Eingeführte Version**: EF 6.0.0  
+
+**Zurück**gegebenes Objekt: eine Factory, die verwendet wird, um den Daten Bank Protokoll-Formatierer zu erstellen, der verwendet wird, wenn der Kontext verwendet wird. Die Database. Log-Eigenschaft wird für den angegebenen Kontext festgelegt.  
+
+**Schlüssel**: nicht verwendet; wird NULL sein.  
+
+## <a name="funcsystemdataentitydbcontext"></a>Func < System. Data. Entity. dbcontext\>  
+
+**Eingeführte Version**: EF 6.1.0  
+
+**Zurück**gegebenes Objekt: eine Factory, die verwendet wird, um Kontext Instanzen für Migrationen zu erstellen, wenn der Kontext keinen zugänglichen Parameter losen Konstruktor hat.  
+
+**Key**: das Type-Objekt für den Typ des abgeleiteten dbcontext, für den eine Factory benötigt wird.  
+
+## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func < System. Data. Entity. Core. Metadata. Edm. IMetadataAnnotationSerializer\>  
+
+**Eingeführte Version**: EF 6.1.0  
+
+**Zurück**gegebenes Objekt: eine Factory, die verwendet wird, um Serialisierungsprogrammen für die Serialisierung von stark typisierten benutzerdefinierten Anmerkungen zu erstellen, sodass Sie serialisiert und in XML umgewandelt werden können, um Sie in Code First-Migrationen zu verwenden.  
+
+**Key**: der Name der Anmerkung, die serialisiert oder deserialisiert wird.  
+
+## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < System. Data. Entity. Infrastructure. transaktionhandler\>  
+
+**Eingeführte Version**: EF 6.1.0  
+
+**Zurück**gegebenes Objekt: eine Factory, die zum Erstellen von Handlern für Transaktionen verwendet wird, sodass eine spezielle Behandlung für Situationen wie das Behandeln von commitfehlern angewendet werden kann.  
+
+**Key**: ein executionstrategykey-Objekt, das den invarianten Namen des Anbieters und optional einen Servernamen enthält, für den der Transaktions Handler verwendet wird.  

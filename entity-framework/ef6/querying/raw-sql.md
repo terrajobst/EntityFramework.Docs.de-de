@@ -1,21 +1,21 @@
 ---
-title: Unformatierte SQL-Abfragen – EF6
+title: RAW-SQL-Abfragen EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
 ms.openlocfilehash: 168aee67186535bf2a50705e86bfc5a88147e369
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283783"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414470"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
-Entitätsframework können Sie Abfragen mithilfe von LINQ mit Ihrer Entitätsklassen. Allerdings gibt es möglicherweise Fälle, in denen Sie Abfragen mithilfe roher SQL direkt in der Datenbank ausführen möchten. Dazu gehört das Aufrufen von gespeicherter Prozeduren, die für die Code First-Modelle hilfreich sein können, die derzeit keine Zuordnung zu gespeicherten Prozeduren unterstützen. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
+Entity Framework ermöglicht es Ihnen, mithilfe von LINQ mit ihren Entitäts Klassen abzufragen. Es kann jedoch vorkommen, dass Sie Abfragen mit unformatierten SQL-Daten direkt für die Datenbank ausführen möchten. Dies schließt das Aufrufen von gespeicherten Prozeduren ein, was für Code First Modelle hilfreich sein kann, die derzeit keine Zuordnung zu gespeicherten Prozeduren unterstützen. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
 ## <a name="writing-sql-queries-for-entities"></a>Schreiben von SQL-Abfragen für Entitäten  
 
-Die SqlQuery-Methode auf "DbSet" ermöglicht eine unformatierte SQL-Abfrage geschrieben werden, die Instanzen der Entität zurückgegeben wird. Die zurückgegebenen Objekte werden vom Kontext nachverfolgt werden, wie dies der Fall wäre, wenn sie von einer LINQ-Abfrage zurückgegeben wurden. Zum Beispiel:  
+Die sqlQuery-Methode in dbset ermöglicht das Schreiben einer unformatierten SQL-Abfrage, die Entitäts Instanzen zurückgibt. Die zurückgegebenen Objekte werden vom Kontext genau so nachverfolgt, als wären Sie durch eine LINQ-Abfrage zurückgegeben worden. Beispiel:  
 
 ``` csharp  
 using (var context = new BloggingContext())
@@ -24,15 +24,15 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass genau wie LINQ-Abfragen, die Abfrage nicht ausgeführt wird, bis die Ergebnisse aufgelistet werden, in dem Beispiel oben ist dies durch den Aufruf von "ToList".  
+Beachten Sie, dass die Abfrage wie bei LINQ-Abfragen erst ausgeführt wird, wenn die Ergebnisse aufgezählt werden – im obigen Beispiel wird dies mit dem Auflistungs Auflistungs Vorgang durchgeführt.  
 
-Vorsichtig sollte vorgenommen werden, wenn unformatierte SQL-Abfragen aus zwei Gründen geschrieben werden. Zunächst sollte die Abfrage geschrieben werden, um sicherzustellen, dass nur Entitäten zurückgegeben, die tatsächlich vom angeforderten Typ sind. Beispielsweise ist bei Verwendung von Features wie z. B. Vererbung es einfach eine Abfrage schreiben, die Entitäten erstellen, die von den falschen CLR-Typ sind.  
+Es muss sorgfältig vorgegangen werden, wenn unformatierte SQL-Abfragen aus zwei Gründen geschrieben werden. Zuerst muss die Abfrage geschrieben werden, um sicherzustellen, dass nur Entitäten zurückgegeben werden, die tatsächlich den angeforderten Typ aufweisen. Wenn z. b. Funktionen wie die Vererbung verwendet werden, ist es einfach, eine Abfrage zu schreiben, mit der Entitäten des falschen CLR-Typs erstellt werden.  
 
-Zweitens machen einige Arten von unformatierte SQL-Abfrage potenziellen Sicherheitsrisiken, insbesondere SQL Injection-Angriffe. Stellen Sie sicher, dass Sie Parameter in der Abfrage in die richtige Methode, die gegen solche Angriffe verwenden.  
+Zweitens machen einige Typen von unformatierten SQL-Abfragen potenzielle Sicherheitsrisiken offen, insbesondere bei SQL Injection-Angriffen. Stellen Sie sicher, dass Sie die Parameter in der Abfrage auf die richtige Weise verwenden, um solche Angriffe zu schützen.  
 
-### <a name="loading-entities-from-stored-procedures"></a>Laden von Entitäten von gespeicherten Prozeduren  
+### <a name="loading-entities-from-stored-procedures"></a>Entitäten aus gespeicherten Prozeduren laden  
 
-Sie können die DbSet.SqlQuery verwenden, um Entitäten aus den Ergebnissen einer gespeicherten Prozedur zu laden. Der folgende Code ruft z. B. das "Dbo". GetBlogs Prozedur in der Datenbank:  
+Mit dbset. sqlQuery können Sie Entitäten aus den Ergebnissen einer gespeicherten Prozedur laden. Der folgende Code ruft beispielsweise den dbo auf. Getblogs-Prozedur in der-Datenbank:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Sie können auch Parameter an eine gespeicherte Prozedur, die mit der folgenden Syntax übergeben:  
+Sie können Parameter auch an eine gespeicherte Prozedur übergeben, indem Sie die folgende Syntax verwenden:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,9 +52,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-## <a name="writing-sql-queries-for-non-entity-types"></a>Schreiben von SQL-Abfragen für nicht-Entitätstypen  
+## <a name="writing-sql-queries-for-non-entity-types"></a>Schreiben von SQL-Abfragen für nicht-Entitäts Typen  
 
-Eine SQL-Abfrage, die Instanzen eines beliebigen Typs, einschließlich primitiver Typen zurückzugeben, kann mithilfe der SqlQuery-Methode für die Datenbank-Klasse erstellt werden. Zum Beispiel:  
+Eine SQL-Abfrage, die Instanzen eines beliebigen Typs zurückgibt, einschließlich primitiver Typen, kann mithilfe der sqlQuery-Methode für die Datenbankklasse erstellt werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -64,11 +64,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Aus SqlQuery für Datenbank zurückgegebenen Ergebnisse werden nie vom Kontext nachverfolgt werden, auch wenn die Objekte Instanzen eines Entitätstyps sind.  
+Die von sqlQuery für die Datenbank zurückgegebenen Ergebnisse werden nie vom Kontext nachverfolgt, auch wenn die Objekte Instanzen eines Entitäts Typs sind.  
 
-## <a name="sending-raw-commands-to-the-database"></a>Raw-Befehle an die Datenbank gesendet.  
+## <a name="sending-raw-commands-to-the-database"></a>Senden von rohbefehlen an die Datenbank  
 
-Nicht-Abfragebefehle können mit der Datenbank mithilfe der ExecuteSqlCommand-Methode für die Datenbank gesendet werden. Zum Beispiel:  
+Nicht-Abfrage Befehle können mithilfe der ExecuteSqlCommand-Methode für die Datenbank an die Datenbank gesendet werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -78,8 +78,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass alle Änderungen an Daten in der Datenbank mithilfe von ExecuteSqlCommand für den Kontext nicht transparent bis Entitäten geladen oder aus der Datenbank geladen werden.  
+Beachten Sie, dass alle Änderungen, die an Daten in der Datenbank mithilfe von ExecuteSqlCommand vorgenommen werden, für den Kontext nicht transparent sind, bis Entitäten geladen oder aus der Datenbank erneut geladen werden.  
 
 ### <a name="output-parameters"></a>Ausgabeparameter  
 
-Wenn Output-Parameter verwendet werden, werden ihre Werte nicht verfügbar, bis die Ergebnisse vollständig gelesen wurden. Dies liegt an der zugrunde liegende Verhalten von DbDataReader, finden Sie unter [Abrufen von Daten mit einem DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) Weitere Details.  
+Wenn Output-Parameter verwendet werden, sind ihre Werte erst verfügbar, wenn die Ergebnisse vollständig gelesen wurden. Dies ist auf das zugrunde liegende Verhalten von DbDataReader zurückzuführen. Weitere Informationen finden [Sie unter Abrufen von Daten mithilfe eines DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) .  

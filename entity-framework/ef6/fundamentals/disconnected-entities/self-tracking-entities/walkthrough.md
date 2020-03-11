@@ -4,15 +4,15 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
 ms.openlocfilehash: 9bd644461f50a7eff1006cb8866ca9a3b08b6b8d
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181714"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416144"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>Exemplarische Vorgehensweise zur Self-Tracking
 > [!IMPORTANT]
-> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit getrennten Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](https://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
+> Es wird nicht mehr empfohlen, die Vorlage für Entitäten mit Selbstnachverfolgung zu verwenden. Die Vorlage ist nur für die Unterstützung vorhandener Anwendungen weiterhin verfügbar. Wenn für Ihre Anwendung die Arbeit mit unverbundenen Diagrammen von Entitäten erforderlich ist, sollten Sie daher Alternativen erwägen, wie z.B. [nachverfolgbare Entitäten](https://trackableentities.github.io/). Diese Technologie ähnelt den Entitäten mit Selbstnachverfolgung und wird von der Community aktiver entwickelt. Alternativ dazu können Sie auch benutzerdefinierten Code mithilfe von APIs auf niedriger Ebene zur Änderungsnachverfolgung schreiben.
 
 Diese exemplarische Vorgehensweise veranschaulicht das Szenario, in dem ein Windows Communication Foundation (WCF)-Dienst einen Vorgang verfügbar macht, der ein Entitäts Diagramm zurückgibt. Anschließend bearbeitet eine Client Anwendung dieses Diagramm und übermittelt die Änderungen an einen Dienst Vorgang, der die Updates in einer Datenbank mithilfe Entity Framework überprüft und speichert.
 
@@ -42,7 +42,7 @@ Der Datenbankserver, der mit Visual Studio installiert wird, unterscheidet sich 
 
 Nun generieren wir die Datenbank.
 
--   Öffnen Sie Visual Studio
+-   Öffnen Sie Visual Studio.
 -   **&gt; Server-Explorer anzeigen**
 -   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen,&gt; Verbindung hinzufügen...**
 -   Wenn Sie über Server-Explorer keine Verbindung mit einer Datenbank hergestellt haben, müssen Sie **Microsoft SQL Server** als Datenquelle auswählen.
@@ -271,7 +271,7 @@ Wir benötigen einen Dienst Verweis auf den WCF-Dienst.
 
 Nun können wir Code schreiben, um den Dienst zu nutzen.
 
--   Öffnen Sie **Program.cs** , und ersetzen Sie den Inhalt durch den folgenden Code.
+-   Öffnen Sie **Program.cs**, und ersetzen Sie den Inhalt durch den folgenden Code.
 
 ``` csharp
     using STESample.ConsoleTest.BloggingService;

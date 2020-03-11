@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
 ms.openlocfilehash: 2e0092b526278597e8477d47eeb642598647bb91
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182481"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415202"
 ---
 # <a name="designer-query-stored-procedures"></a>Gespeicherte Prozeduren für Designer Abfragen
 In dieser schrittweisen exemplarischen Vorgehensweise wird veranschaulicht, wie Sie mit dem Entity Framework Designer (EF-Designer) gespeicherte Prozeduren in ein Modell importieren und dann die importierten gespeicherten Prozeduren aufrufen, um Ergebnisse abzurufen. 
@@ -18,7 +18,7 @@ Beachten Sie, dass Code First keine Zuordnung zu gespeicherten Prozeduren oder F
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 ```
 
-## <a name="prerequisites"></a>Erforderliche Komponenten
+## <a name="prerequisites"></a>Voraussetzungen
 
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 
@@ -31,9 +31,9 @@ Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 -   **Datei&gt; neues&gt; Projekt** auswählen
 -   Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
 -   Geben Sie als Name **efwithsprocssample** ein.
--   Wählen Sie **OK**aus.
+-   Wählen Sie **OK** aus.
 
-## <a name="create-a-model"></a>Erstellen eines Modells
+## <a name="create-a-model"></a>Modellerstellung
 
 -   Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf das Projekt, und wählen Sie **Add-&gt; neues Element**aus.
 -   Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.

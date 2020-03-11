@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
 ms.openlocfilehash: bdb0df969c33d5ad3f103bfa9af6002c9c2bb9b3
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813558"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415142"
 ---
 # <a name="designer-cud-stored-procedures"></a>Designer-CUD-Prozeduren
 
@@ -29,7 +29,7 @@ Bei der Zuordnung der CUD-Vorgänge zu gespeicherten Prozeduren gelten die folge
 - Wenn der Server den Primärschlüssel Wert für die eingefügte Zeile generiert, müssen Sie diesen Wert wieder der Schlüsseleigenschaft der Entität zuordnen. Im folgenden Beispiel gibt die gespeicherte Prozedur **InsertPerson** den neu erstellten Primärschlüssel als Teil des Resultsets der gespeicherten Prozedur zurück. Der Primärschlüssel wird dem Entitäts Schlüssel (**PersonID**) mithilfe der **&lt;Hinzufügen von Ergebnis Bindungen&gt;**  Features des EF-Designers zugeordnet.
 - Die Aufrufe gespeicherter Prozeduren werden 1:1 mit den Entitäten im konzeptionellen Modell zugeordnet. Wenn Sie z. b. eine Vererbungs Hierarchie in ihrem konzeptionellen Modell implementieren und dann die gespeicherten CUD-Prozeduren für die übergeordneten (Basis-) **und unter** **geordneten** (abgeleiteten) Entitäten zuordnen, werden beim Speichern der unter **geordneten Änderungen nur** die gespeicherten Prozeduren **des unter** **geordneten**Elements aufgerufen.
 
-## <a name="prerequisites"></a>Erforderliche Komponenten
+## <a name="prerequisites"></a>Voraussetzungen
 
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 
@@ -42,9 +42,9 @@ Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 - **Datei&gt; neues&gt; Projekt** auswählen
 - Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
 - Geben Sie " **cudsprocssample** " als Namen ein.
-- Wählen Sie **OK**aus.
+- Wählen Sie **OK** aus.
 
-## <a name="create-a-model"></a>Erstellen eines Modells
+## <a name="create-a-model"></a>Modellerstellung
 
 - Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen, und wählen Sie **Hinzufügen-&gt; neues Element**aus.
 - Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.

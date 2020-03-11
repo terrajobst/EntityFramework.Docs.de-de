@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/teams
 ms.openlocfilehash: 6c17c56277821159962884aef72d46c624442e20
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655542"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414242"
 ---
 # <a name="migrations-in-team-environments"></a>Migrationen in Teamumgebungen
 
@@ -36,7 +36,7 @@ b.Property<int>("LoyaltyPoints");
 
 In diesen Fällen sind die Migration und die Migration Ihres Teamkollegen voneinander unabhängig. Da eine der beiden Optionen zuerst angewendet werden kann, müssen Sie keine weiteren Änderungen an der Migration vornehmen, bevor Sie Sie für Ihr Team freigeben.
 
-## <a name="resolving-conflicts"></a>Auflösen von Konflikten
+## <a name="resolving-conflicts"></a>Beheben von Konflikten
 
 Manchmal tritt beim Zusammenführen des Modell Momentaufnahme-Modells ein echter Konflikt auf. Beispielsweise können Sie und Ihr Teamkollegen die gleiche Eigenschaft umbenennen.
 
@@ -48,7 +48,7 @@ b.Property<string>("Alias");
 >>>>>>> Theirs
 ```
 
-Wenn diese Art von Konflikt auftritt, beheben Sie diese, indem Sie die Migration neu erstellen. Führen Sie folgende Schritte aus:
+Wenn diese Art von Konflikt auftritt, beheben Sie diese, indem Sie die Migration neu erstellen. Folgen Sie diesen Schritten:
 
 1. Abbrechen des Merge und Zurücksetzen auf das Arbeitsverzeichnis vor dem Merge
 2. Entfernen der Migration (behalten Sie jedoch Ihre Modelländerungen bei)

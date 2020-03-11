@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
 ms.openlocfilehash: 86389e4a3a3bac46e2a4cf2da648a4b19e29f3c3
-ms.sourcegitcommit: 299011fc4bd576eed58a4274f967639fa13fec53
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886552"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414854"
 ---
 # <a name="configuration-file-settings"></a>Konfigurationsdatei Einstellungen
 Entity Framework ermöglicht, dass eine Reihe von Einstellungen in der Konfigurationsdatei angegeben werden können. Im allgemeinen folgt EF einem Prinzip der Konvention für die Konfiguration: alle in diesem Beitrag behandelten Einstellungen haben ein Standardverhalten. Sie müssen sich lediglich um das Ändern der Einstellung kümmern, wenn die Standardeinstellung Ihre Anforderungen nicht mehr erfüllt.  
@@ -36,7 +36,7 @@ Wenn Sie das nuget-Paket "EntityFramework" installiert haben, wurde der Abschnit
 
 ## <a name="connection-strings"></a>Verbindungszeichenfolgen  
 
-Auf [dieser Seite](~/ef6/fundamentals/configuring/connection-strings.md) finden Sie weitere Details dazu, wie Entity Framework die zu verwendende Datenbank bestimmt, einschließlich der Verbindungs Zeichenfolgen in der Konfigurationsdatei.  
+Auf dieser Seite finden Sie weitere Details dazu, wie Entity Framework die zu [verwendende](~/ef6/fundamentals/configuring/connection-strings.md) Datenbank bestimmt, einschließlich der Verbindungs Zeichenfolgen in der Konfigurationsdatei.  
 
 Verbindungs Zeichenfolgen werden im standardmäßigen **connectionStrings** -Element angezeigt und benötigen nicht den Abschnitt " **EntityFramework** ".  
 
@@ -145,7 +145,7 @@ Standardmäßig bewirkt dies, dass die Protokolldatei bei jedem Start der APP mi
 </interceptors>
 ```  
 
-Weitere Informationen zu **databaselogger** und zum Registrieren von Interceptors finden Sie im Blog [Beitrag EF 6,1: Aktivieren der Protokollierung ohne erneutes Kompilieren](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)  
+Weitere Informationen zu **databaselogger** und zum Registrieren von Interceptors finden Sie im Blogbeitrag [EF 6,1: Aktivieren der Protokollierung ohne](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)erneutes Kompilieren.  
 
 ## <a name="code-first-default-connection-factory"></a>Standardverbindungsfactory Code First  
 
@@ -180,7 +180,7 @@ Beispielsweise müssen Sie für das sqlceconnectionfactory-Element, das in Entit
 </entityFramework>
 ```  
 
-Wenn Sie keine standardverbindungsfactory festlegen, verwendet Code First die sqlconnectionfactory, die `.\SQLEXPRESS`auf verweist. Sqlconnectionfactory verfügt auch über einen Konstruktor, mit dem Sie Teile der Verbindungs Zeichenfolge überschreiben können. Wenn Sie eine andere SQL Server-Instanz als `.\SQLEXPRESS` verwenden möchten, können Sie diesen Konstruktor verwenden, um den Server festzulegen.  
+Wenn Sie keine standardverbindungsfactory festlegen, wird Code First die sqlconnectionfactory verwendet, die auf `.\SQLEXPRESS`verweist. Sqlconnectionfactory verfügt auch über einen Konstruktor, mit dem Sie Teile der Verbindungs Zeichenfolge überschreiben können. Wenn Sie eine andere SQL Server-Instanz als `.\SQLEXPRESS` verwenden möchten, können Sie diesen Konstruktor verwenden, um den Server festzulegen.  
 
 Die folgende Konfiguration bewirkt, dass Code First **mydatabaseserver** für Kontexte verwendet, für die keine explizite Verbindungs Zeichenfolge festgelegt ist.  
 
@@ -240,7 +240,7 @@ Konstruktorparameter verwenden dieselbe Syntax wie standardverbindungsfactorys.
 
 Sie können einen der generischen datenbankinitialisierer konfigurieren, die in Entity Framework enthalten sind. Das **Type** -Attribut verwendet das .NET Framework-Format für generische Typen.  
 
-Wenn Sie z. b. Code First-Migrationen verwenden, können Sie die Datenbank so konfigurieren, dass Sie automatisch mit `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` dem Initialisierer migriert wird.  
+Wenn Sie z. b. Code First-Migrationen verwenden, können Sie die Datenbank so konfigurieren, dass Sie automatisch mit dem `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` Initialisierer migriert wird.  
 
 ``` xml
 <contexts>

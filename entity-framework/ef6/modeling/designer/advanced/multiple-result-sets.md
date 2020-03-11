@@ -1,38 +1,38 @@
 ---
-title: Gespeicherte Prozeduren mit mehreren Resultsets – EF6
+title: Gespeicherte Prozeduren mit mehreren Resultsets EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1b3797f9-cd3d-4752-a55e-47b84b399dc1
 ms.openlocfilehash: 098ed88ba52e211965baf3660f0e51bd74c71efd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489309"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415454"
 ---
 # <a name="stored-procedures-with-multiple-result-sets"></a>Gespeicherte Prozeduren mit mehreren Resultsets
-Legen manchmal bei der Verwendung von gespeicherten Prozeduren, die Sie benötigen, um mehr als ein Ergebnis zurückzugeben. Dieses Szenario wird häufig zum Reduzieren der Anzahl der Roundtrips erforderlich, um einen einzelnen Bildschirm zu erstellen. Vor dem EF5 Entity Framework die gespeicherte Prozedur aufgerufen werden können, aber würde nur das erste Resultset an den aufrufenden Code zurück.
+Manchmal müssen Sie, wenn Sie gespeicherte Prozeduren verwenden, mehr als ein Resultset zurückgeben. Dieses Szenario wird häufig verwendet, um die Anzahl der Daten Bank Roundtrips zu reduzieren, die zum Verfassen eines einzelnen Bildschirms erforderlich sind. Vor EF5 konnte Entity Framework die gespeicherte Prozedur aufrufen, aber nur das erste Resultset an den aufrufenden Code zurückgeben.
 
-In diesem Artikel zeigt Ihnen zwei Möglichkeiten, die Sie verwenden können, auf mehr als ein Resultset aus einer gespeicherten Prozedur im Entity Framework. Eine, die nur aus Code verwendet und funktioniert mit beiden Code zuerst und dem EF Designer und eine, die nur mit dem EF Designer funktioniert. Die Tools und die API-Unterstützung für diese sollte in zukünftigen Versionen von Entity Framework verbessern.
+In diesem Artikel werden zwei Möglichkeiten für den Zugriff auf mehr als ein Resultset aus einer gespeicherten Prozedur in Entity Framework erläutert. Eine, die nur Code verwendet und sowohl mit Code First als auch mit dem EF-Designer und einem, der nur mit dem EF-Designer funktioniert, funktioniert. Die Tools und API-Unterstützung für diese sollte in zukünftigen Versionen von Entity Framework verbessert werden.
 
 ## <a name="model"></a>Modell
 
-In die Beispielen in diesem Artikel verwenden Sie einen einfachen Blog und Beiträge-Modells, die, in denen ein Blog viele Beiträge und eines Beitrags kann, in einem einzelnen Blog gehört. Wir verwenden eine gespeicherte Prozedur in der Datenbank, die alle Blogs und Beiträgen könnte folgendermaßen aussehen zurückgibt:
+In den Beispielen in diesem Artikel wird ein grundlegender Blog verwendet, bei dem ein Blog viele Beiträge enthält und ein Beitrag zu einem einzelnen Blog gehört. Wir verwenden eine gespeicherte Prozedur in der Datenbank, die alle Blogs und Beiträge wie folgt zurückgibt:
 
 ``` SQL
     CREATE PROCEDURE [dbo].[GetAllBlogsAndPosts]
     AS
-        SELECT * FROM dbo.Blogs
-        SELECT * FROM dbo.Posts
+        SELECT * FROM dbo.Blogs
+        SELECT * FROM dbo.Posts
 ```
 
-## <a name="accessing-multiple-result-sets-with-code"></a>Legt den Zugriff auf mehrere Resultsets, mit Code
+## <a name="accessing-multiple-result-sets-with-code"></a>Zugreifen auf mehrere Resultsets mit Code
 
-Führen wir verwenden von Code zum Ausführen von eine unformatierte SQL‑Befehl aus, um unsere gespeicherte Prozedur auszuführen. Der Vorteil dieses Ansatzes ist, dass sie zuerst mit sowohl Code funktioniert und dem EF Designer.
+Mithilfe von Code können Sie einen unformatierten SQL-Befehl ausführen, um die gespeicherte Prozedur auszuführen. Der Vorteil dieses Ansatzes besteht darin, dass er sowohl mit Code First als auch mit dem EF-Designer funktioniert.
 
-Legt fest arbeiten, die wir in der ObjectContext-API durch Ablegen mithilfe der Benutzeroberfläche IObjectContextAdapter müssen, um mehrere Resultsets abzurufen.
+Damit mehrere Resultsets funktionieren, müssen wir die ObjectContext-API mithilfe der iobjectcontextadapter-Schnittstelle löschen.
 
-Nachdem wir einen ObjectContext haben können wir die Translate-Methode verwenden, um die Ergebnisse der unsere gespeicherte Prozedur in Entitäten zu übersetzen, die nachverfolgt, und wie gewohnt in EF verwendet werden können. Im folgenden Codebeispiel wird veranschaulicht, dies in Aktion.
+Nachdem wir einen ObjectContext haben, können wir die Übersetzung-Methode verwenden, um die Ergebnisse der gespeicherten Prozedur in Entitäten zu übersetzen, die in EF als normal verfolgt und verwendet werden können. Im folgenden Codebeispiel wird dies in Aktion veranschaulicht.
 
 ``` csharp
     using (var db = new BloggingContext())
@@ -82,33 +82,33 @@ Nachdem wir einen ObjectContext haben können wir die Translate-Methode verwende
     }
 ```
 
-Die Translate-Methode akzeptiert den Reader an, dem wir erhalten, wenn wir die Prozedur, ein EntitySet-Namen und eine MergeOption ausgeführt. Der EntitySet-Name wird als "DbSet"-Eigenschaft auf Ihrem abgeleiteten Kontext übereinstimmen. Die Enumeration MergeOption steuert, wie die Ergebnisse verarbeitet werden, wenn die gleiche Entität bereits im Arbeitsspeicher vorhanden ist.
+Die Translation-Methode akzeptiert den Reader, den wir beim Ausführen der Prozedur erhalten haben, einen EntitySet-Namen und eine MergeOption. Der EntitySet-Name ist identisch mit der dbset-Eigenschaft für den abgeleiteten Kontext. Die MergeOption-Aufzählung steuert, wie Ergebnisse behandelt werden, wenn die gleiche Entität bereits im Arbeitsspeicher vorhanden ist.
 
-Hier durchlaufen wir die Sammlung von Blogs, bevor wir dies ist wichtig, dem obigen Code NextResult, aufrufen, da das erste Resultset verarbeitet werden muss, bevor Sie fortfahren, um das nächste Resultset.
+Hier durchlaufen wir die Auflistung von Blogs, bevor wir NextResult nennen. Dies ist für den obigen Code wichtig, da das erste Resultset vor dem Wechsel zum nächsten Resultset verarbeitet werden muss.
 
-Nachdem die beiden übersetzt werden Methoden aufgerufen, und klicken Sie dann die Blog und Post-Entitäten genauso wie andere Einrichtungen, die von EF nachverfolgt werden, und daher geändert oder gelöscht und wie gewohnt gespeichert werden kann.
-
->[!NOTE]
-> EF wird keine Zuordnung berücksichtigt, beim Erstellen von Entitäten mit dem die Translate-Methode. Es wird einfach die Spaltennamen im Resultset mit Eigenschaftsnamen für die Klassen übereinstimmen.
+Nachdem die beiden Übersetzungsmethoden aufgerufen wurden, werden die Blog-und Post-Entitäten von EF auf die gleiche Weise wie jede andere Entität nachverfolgt und können daher geändert oder gelöscht und als normal gespeichert werden.
 
 >[!NOTE]
-> Wenn Sie lazy Loading aktiviert, haben Zugriff auf die Beiträge-Eigenschaft auf eine der Entitäten Blog dann EF eine mit der Datenbank, um alle Beiträge, verzögert zu laden Verbindung, obwohl wir alle bereits geladen wurde. Dies ist da EF nicht bekannt ist, unabhängig davon, ob Sie alle Beiträge geladen haben oder wenn es mehr in der Datenbank. Wenn Sie dieses Problem zu vermeiden möchten, müssen Sie lazy Loading deaktiviert.
-
-## <a name="multiple-result-sets-with-configured-in-edmx"></a>Mehrere Resultsets mit der Konfiguration in EDMX-Datei
+> EF nimmt beim Erstellen von Entitäten mithilfe der Translation-Methode keine Zuordnung zu einem Konto vor. Es werden einfach die Spaltennamen im Resultset mit Eigenschaftsnamen für Ihre Klassen abgeglichen.
 
 >[!NOTE]
-> Sie müssen als Ziel .NET Framework 4.5, um mehrere Resultsets in EDMX-Datei konfigurieren zu können. Wenn Sie .NET 4.0 verwenden möchten, können Sie die codebasierte-Methode, die im vorherigen Abschnitt gezeigt.
+> Wenn Sie Lazy Loading aktiviert haben und auf die Posts-Eigenschaft für eine der Blog Entitäten zugreifen, stellt EF eine Verbindung mit der Datenbank her, um alle Beiträge verzögert zu laden, obwohl wir Sie bereits alle geladen haben. Dies liegt daran, dass EF nicht weiß, ob Sie alle Beiträge geladen haben oder ob in der Datenbank weitere vorhanden sind. Wenn Sie dies vermeiden möchten, müssen Sie Lazy Loading deaktivieren.
 
-Wenn Sie dem EF Designer verwenden, können Sie Ihr Modell auch ändern, damit bekannt ist, Informationen zu den verschiedenen Resultsets, die zurückgegeben werden. Dabei ist zu wissen, bevor die Seite ist, dass die Tools nicht mehrere Resultsets festgelegt darüber im Klaren, daher Sie die Edmx-Datei manuell bearbeiten müssen. Bearbeiten die Edmx-Datei an, wie dies funktioniert, aber sie auch die Überprüfung des Modells in Visual Studio verlieren. Und wenn Sie überprüfen, das Modell ob immer Fehler.
+## <a name="multiple-result-sets-with-configured-in-edmx"></a>Mehrere Resultsets mit Konfiguration in EDMX
 
--   Zu diesem Zweck müssen Sie die gespeicherte Prozedur wie bei der ein einzelnes Ergebnis Festlegen der Abfrage aus dem Modell hinzufügen.
--   Sobald Sie dies haben, müssen Sie ein, klicken Sie mit der rechten Maustaste auf das Modell, und wählen Sie **Öffnen mit...** Klicken Sie dann **Xml**
+>[!NOTE]
+> Sie müssen .NET Framework 4,5 als Ziel festlegen, um mehrere Resultsets in edmx konfigurieren zu können. Wenn Sie .NET 4,0 als Ziel verwenden, können Sie die im vorherigen Abschnitt gezeigte Code basierte Methode verwenden.
 
-    ![Öffnen Sie als](~/ef6/media/openas.png)
+Wenn Sie den EF-Designer verwenden, können Sie das Modell auch so ändern, dass es die unterschiedlichen Resultsets kennt, die zurückgegeben werden. Ein wichtiger Aspekt ist, dass die Tools nicht mehrere Resultsets unterstützen, sodass Sie die EDMX-Datei manuell bearbeiten müssen. Wenn Sie die EDMX-Datei wie folgt bearbeiten, wird auch die Überprüfung des Modells in vs nicht unterbricht. Wenn Sie also das Modell validieren, erhalten Sie immer Fehler.
 
-Sobald Sie haben das Modell im XML-Format geöffnet wird, müssen Sie die folgenden Schritte ausführen:
+-   Um dies zu erreichen, müssen Sie die gespeicherte Prozedur wie bei einer einzelnen resultsetabfrage zum Modell hinzufügen.
+-   Wenn Sie diese haben, klicken Sie mit der rechten Maustaste auf das Modell, und wählen Sie **Öffnen mit aus.** **XML** -Datei
 
--   Suchen Sie den komplexen Typ und Funktion Import in Ihrem Modell:
+    ![Öffnen als](~/ef6/media/openas.png)
+
+Nachdem Sie das Modell als XML geöffnet haben, müssen Sie die folgenden Schritte ausführen:
+
+-   Suchen Sie den komplexen Typ und den Funktions Import in Ihrem Modell:
 
 ``` xml
     <!-- CSDL content -->
@@ -131,10 +131,10 @@ Sobald Sie haben das Modell im XML-Format geöffnet wird, müssen Sie die folgen
     </edmx:ConceptualModels>
 ```
 
- 
+ 
 
--   Entfernen Sie den komplexen Typ
--   Aktualisieren Sie die Funktion zu importieren, sodass es für Ihre Entitäten, in unserem Fall es zugeordnet ist wie folgt aussehen:
+-   Entfernen des komplexen Typs
+-   Aktualisieren Sie den Funktions Import so, dass er ihren Entitäten zugeordnet wird. in diesem Fall sieht er wie folgt aus:
 
 ``` xml
     <FunctionImport Name="GetAllBlogsAndPosts">
@@ -143,9 +143,9 @@ Sobald Sie haben das Modell im XML-Format geöffnet wird, müssen Sie die folgen
     </FunctionImport>
 ```
 
-Dies weist dem Modell, dass die gespeicherte Prozedur zwei Auflistungen, Blogeinträge und der Post-Einträge zurückgegeben wird.
+Dadurch wird dem Modell mitgeteilt, dass die gespeicherte Prozedur zwei Auflistungen zurückgibt: einen der Blogeinträge und einen der Post-Einträge.
 
--   Suchen Sie die Funktion Mapping-Element:
+-   Suchen Sie das Funktions Zuordnungs Element:
 
 ``` xml
     <!-- C-S mapping content -->
@@ -168,7 +168,7 @@ Dies weist dem Modell, dass die gespeicherte Prozedur zwei Auflistungen, Blogein
     </edmx:Mappings>
 ```
 
--   Ersetzen Sie die Ergebnis-Zuordnung durch eine für jede Entität, die zurückgegeben wird, wie z. B. Folgendes ein:
+-   Ersetzen Sie die Ergebnis Zuordnung durch eine für jede Entität, die zurückgegeben wird, wie z. b. Folgendes:
 
 ``` xml
     <ResultMapping>
@@ -188,9 +188,9 @@ Dies weist dem Modell, dass die gespeicherte Prozedur zwei Auflistungen, Blogein
     </ResultMapping>
 ```
 
-Es ist auch möglich, komplexe Typen, z. B. die, die standardmäßig erstellt das Resultset mit Vorwärtscursor zuzuordnen. Dazu müssen Sie einen neuen komplexen Typ, statt zu entfernen, erstellen und verwenden Sie die komplexen Typen überall, dass Sie die Namen der Entitäten in den Beispielen oben verwendet haben.
+Es ist auch möglich, die Resultsets komplexen Typen zuzuordnen, z. b. der standardmäßig erstellten. Zu diesem Zweck erstellen Sie einen neuen komplexen Typ, anstatt ihn zu entfernen, und verwenden die komplexen Typen überall dort, wo Sie die Entitäts Namen in den obigen Beispielen verwendet haben.
 
-Sobald diese Zuordnungen können Sie das Modell speichern und führen Sie den folgenden Code zum Verwenden der gespeicherten Prozedur geändert wurden:
+Nachdem diese Zuordnungen geändert wurden, können Sie das Modell speichern und den folgenden Code ausführen, um die gespeicherte Prozedur zu verwenden:
 
 ``` csharp
     using (var db = new BlogEntities())
@@ -214,8 +214,8 @@ Sobald diese Zuordnungen können Sie das Modell speichern und führen Sie den fo
 ```
 
 >[!NOTE]
-> Wenn Sie die Edmx-Datei für Ihr Modell manuell bearbeiten wird sie überschrieben werden, wenn Sie das Modell aus der Datenbank immer neu generieren.
+> Wenn Sie die EDMX-Datei für das Modell manuell bearbeiten, wird sie überschrieben, wenn Sie das Modell jemals aus der Datenbank generieren.
 
 ## <a name="summary"></a>Zusammenfassung
 
-Hier haben wir gezeigt, zwei verschiedene Methoden für den Zugriff auf mehrere Sätze unter Verwendung von Entity Framework. Beide Angaben sind gleichermaßen gültig ist, je nach Situation und Einstellungen, und Sie sollten auswählen, die für Ihre Situation am besten geeignet ist. Es ist geplant, dass die Unterstützung für mehrere Resultsets, die Gruppen werden in zukünftigen Versionen von Entity Framework verbessert und den Schritten in diesem Dokument nicht mehr notwendig sein werden.
+Hier haben wir zwei verschiedene Methoden für den Zugriff auf mehrere Resultsets mit Entity Framework gezeigt. Beide sind abhängig von ihrer Situation und ihren Vorlieben gleichermaßen gültig, und Sie sollten den Wert auswählen, der für ihre Umstände am besten geeignet ist. Es ist geplant, dass die Unterstützung für mehrere Resultsets in zukünftigen Versionen von Entity Framework verbessert wird und dass das Ausführen der Schritte in diesem Dokument nicht mehr erforderlich ist.

@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
 ms.openlocfilehash: a9ce6d5b5f36a72e3715a9de787f1f00e989a58c
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811903"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414200"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Referenz zur Entity Framework Core Tools-Paket-Manager-Konsole in Visual Studio
 
@@ -94,7 +94,7 @@ SHORT DESCRIPTION
 <A list of available commands follows, omitted here.>
 ```
 
-## <a name="using-the-tools"></a>Verwenden der Tools
+## <a name="using-the-tools"></a>Mithilfe der Tools
 
 Vor der Verwendung der Tools:
 
@@ -131,7 +131,7 @@ Wenn Sie die Umgebung für ASP.net Core Projekte angeben möchten, legen Sie **E
 
 In der folgenden Tabelle sind die Parameter aufgeführt, die für alle EF Core-Befehle gelten:
 
-| Parameter                 | Beschreibung                                                                                                                                                                                                          |
+| Parameter                 | BESCHREIBUNG                                                                                                                                                                                                          |
 |:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | -Kontext \<Zeichenfolge >        | Die `DbContext`-Klasse, die verwendet werden soll. Der Klassenname oder voll qualifiziert mit Namespaces.  Wenn dieser Parameter ausgelassen wird, wird EF Core die Kontext Klasse findet. Wenn mehrere Kontext Klassen vorhanden sind, ist dieser Parameter erforderlich. |
 | -Projekt \<Zeichenfolge >        | Das Ziel Projekt. Wenn dieser Parameter ausgelassen wird, wird das **Standard Projekt** für die **Paket-Manager-Konsole** als Ziel Projekt verwendet.                                                                             |
@@ -149,7 +149,7 @@ Fügt eine neue Migration hinzu.
 
 Parameter:
 
-| Parameter                         | Beschreibung                                                                                                             |
+| Parameter                         | BESCHREIBUNG                                                                                                             |
 |:----------------------------------|:------------------------------------------------------------------------------------------------------------------------|
 | <nobr>Name \<Zeichenfolge ><nobr>       | Der Name der Migration. Dies ist ein Positions Parameter, der erforderlich ist.                                              |
 | <nobr>-OutputDir \<Zeichenfolge ></nobr> | Das zu verwendende Verzeichnis (und der untergeordnete Namespace). Pfade sind relativ zum Ziel Projektverzeichnis. Der Standardwert ist "Migrationen". |
@@ -160,7 +160,7 @@ Löscht die Datenbank.
 
 Parameter:
 
-| Parameter | Beschreibung                                              |
+| Parameter | BESCHREIBUNG                                              |
 |:----------|:---------------------------------------------------------|
 | -WhatIf   | Zeigen Sie an, welche Datenbank gelöscht werden soll, aber löschen Sie Sie nicht. |
 
@@ -174,19 +174,19 @@ Entfernt die letzte Migration (führt einen Rollback für die Codeänderungen au
 
 Parameter:
 
-| Parameter | Beschreibung                                                                     |
+| Parameter | BESCHREIBUNG                                                                     |
 |:----------|:--------------------------------------------------------------------------------|
 | -Force    | Setzen Sie die Migration zurück (führen Sie ein Rollback der Änderungen aus, die auf die Datenbank angewendet wurden). |
 
-## <a name="scaffold-dbcontext"></a>Gerüst-dbcontext
+## <a name="scaffold-dbcontext"></a>Scaffold-DbContext
 
 Generiert Code für eine `DbContext` und Entitäts Typen für eine Datenbank. Damit `Scaffold-DbContext` einen Entitätstyp generieren kann, muss die Datenbanktabelle über einen Primärschlüssel verfügen.
 
 Parameter:
 
-| Parameter                          | Beschreibung                                                                                                                                                                                                                                                             |
+| Parameter                          | BESCHREIBUNG                                                                                                                                                                                                                                                             |
 |:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-Verbindungs \<Zeichenfolge ></nobr> | Die Verbindungs Zeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name =\<Name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. Dies ist ein Positions Parameter, der erforderlich ist. |
+| <nobr>-Verbindungs \<Zeichenfolge ></nobr> | Die Verbindungszeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name =\<Name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. Dies ist ein Positions Parameter, der erforderlich ist. |
 | <nobr>-Anbieter \<Zeichenfolge ></nobr>   | Der zu verwendende Anbieter. In der Regel ist dies der Name des nuget-Pakets, z. b. `Microsoft.EntityFrameworkCore.SqlServer`. Dies ist ein Positions Parameter, der erforderlich ist.                                                                                           |
 | -OutputDir \<Zeichenfolge >               | Das Verzeichnis, in dem Dateien abgelegt werden sollen. Pfade sind relativ zum Projektverzeichnis.                                                                                                                                                                                             |
 | -Contextdir \<Zeichenfolge >              | Das Verzeichnis, in das die `DbContext` Datei eingefügt werden soll. Pfade sind relativ zum Projektverzeichnis.                                                                                                                                                                              |
@@ -194,7 +194,7 @@ Parameter:
 | -Schemas \<Zeichenfolge [] >               | Die Schemas von Tabellen, für die Entitäts Typen generiert werden sollen. Wenn dieser Parameter ausgelassen wird, werden alle Schemas eingeschlossen.                                                                                                                                                             |
 | -Tabellen \<Zeichenfolge [] >                | Die Tabellen, für die Entitäts Typen generiert werden sollen. Wenn dieser Parameter ausgelassen wird, werden alle Tabellen eingeschlossen.                                                                                                                                                                         |
 | -DataAnnotations                   | Verwenden Sie Attribute, um das Modell zu konfigurieren (sofern möglich). Wenn dieser Parameter ausgelassen wird, wird nur die fließende API verwendet.                                                                                                                                                      |
-| -Usedatabasenames                  | Verwenden Sie Tabellen-und Spaltennamen genau so, wie Sie in der Datenbank angezeigt werden. Wenn dieser Parameter ausgelassen wird, werden die Datenbanknamen entsprechend den C# Namensformat Konventionen genauer angepasst.                                                                                       |
+| -UseDatabaseNames                  | Verwenden Sie Tabellen-und Spaltennamen genau so, wie Sie in der Datenbank angezeigt werden. Wenn dieser Parameter ausgelassen wird, werden die Datenbanknamen entsprechend den C# Namensformat Konventionen genauer angepasst.                                                                                       |
 | -Force                             | Überschreibt vorhandene Dateien.                                                                                                                                                                                                                                               |
 
 Beispiel:
@@ -215,7 +215,7 @@ Generiert ein SQL-Skript, mit dem alle Änderungen von einer ausgewählten Migra
 
 Parameter:
 
-| Parameter                | Beschreibung                                                                                                                                                                                                                |
+| Parameter                | BESCHREIBUNG                                                                                                                                                                                                                |
 |:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | *-From* \<Zeichenfolge >        | Die Migration wird gestartet. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration*liegt. Der Standardwert ist 0.                                                              |
 | *-To* \<Zeichenfolge >          | Die Beendigung der Migration. Standardmäßig wird die letzte Migration verwendet.                                                                                                                                                                      |
@@ -241,7 +241,7 @@ Script-Migration -From 20180904195021_InitialCreate
 
 Aktualisiert die Datenbank auf die letzte Migration oder eine angegebene Migration.
 
-| Parameter                           | Beschreibung                                                                                                                                                                                                                                                     |
+| Parameter                           | BESCHREIBUNG                                                                                                                                                                                                                                                     |
 |:------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <nobr> *-Migrations* \<Zeichenfolge ></nobr> | Die Ziel Migration. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration* steht und bewirkt, dass alle Migrationen rückgängig gemacht werden. Wenn keine Migration angegeben ist, wird für den Befehl standardmäßig die letzte Migration verwendet. |
 

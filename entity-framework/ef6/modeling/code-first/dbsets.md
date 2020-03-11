@@ -1,21 +1,21 @@
 ---
-title: Definieren von "dbsets" – EF6
+title: Definieren von dbsets-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4528a509-ace7-4dfb-8065-1b833f5e03a0
 ms.openlocfilehash: 045b22d2b9d26804948689dd7c9dd694baadda7e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488997"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415778"
 ---
-# <a name="defining-dbsets"></a>Definieren von "dbsets"
-Bei der Entwicklung mit Code First-Workflow definieren Sie einen abgeleiteten "DbContext", das von der Sitzung mit der Datenbank, und stellt einen "DbSet" für jeden Typ im Modell. Dieses Thema behandelt die verschiedenen Möglichkeiten, die Sie die Eigenschaften "DbSet" definieren können.  
+# <a name="defining-dbsets"></a>Definieren von dbsets
+Wenn Sie mit dem Code First-Workflow entwickeln, definieren Sie einen abgeleiteten dbcontext, der Ihre Sitzung mit der Datenbank repräsentiert und ein dbset für jeden Typ im Modell verfügbar macht. In diesem Thema werden die verschiedenen Möglichkeiten beschrieben, wie Sie die dbset-Eigenschaften definieren können.  
 
-## <a name="dbcontext-with-dbset-properties"></a>"DbContext" mit "DbSet"-Eigenschaften  
+## <a name="dbcontext-with-dbset-properties"></a>Dbcontext mit dbset-Eigenschaften  
 
-Meistens in Code First-Beispielen gezeigt ist, um einen "DbContext" mit öffentlichen automatische "DbSet"-Eigenschaften für die Entitätstypen des Modells zu erhalten. Zum Beispiel:  
+Der gängige Fall, der in Code First Beispielen gezeigt wird, besteht darin, einen dbcontext mit öffentlichen automatischen dbset-Eigenschaften für die Entitäts Typen des Modells zu erhalten. Beispiel:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -25,11 +25,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Bei Verwendung in Code First-Modus wird dieses Blogs und Beiträgen als Entitätstypen sowie die Konfiguration anderer Endpunkttypen, die von diesen erreichbar konfiguriert. Darüber hinaus ruft "DbContext" automatisch den Setter für jede dieser Eigenschaften, die eine Instanz der entsprechenden "DbSet" festgelegt.  
+Bei der Verwendung im Code First Modus werden Blogs und Beiträge als Entitäts Typen konfiguriert und andere Typen konfiguriert, die von diesen verwendet werden können. Außerdem ruft dbcontext automatisch den Setter für jede dieser Eigenschaften auf, um eine Instanz des entsprechenden dbsets festzulegen.  
 
-## <a name="dbcontext-with-idbset-properties"></a>"DbContext" mit IDbSet-Eigenschaften  
+## <a name="dbcontext-with-idbset-properties"></a>Dbcontext mit idbset-Eigenschaften  
 
-Es gibt Situationen, z. B. beim Erstellen oder mocks fakes, in denen es sinnvoller, Ihre Eigenschaften festlegen, die mit einer Schnittstelle deklariert ist. In solchen Fällen die IDbSet kann Schnittstelle anstelle von "DbSet" verwendet werden. Zum Beispiel:  
+Es gibt Situationen, z. b. beim Erstellen von Pseudo-oder Fakes, bei denen es nützlicher ist, die festgelegten Eigenschaften mithilfe einer Schnittstelle zu deklarieren. In solchen Fällen kann die idbset-Schnittstelle anstelle von dbset verwendet werden. Beispiel:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -39,11 +39,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Dieser Kontext funktioniert in genau die gleiche Weise wie der Kontext, der die "DbSet"-Klasse für die festgelegte Eigenschaften verwendet.  
+Dieser Kontext funktioniert auf genau dieselbe Weise wie der Kontext, der die dbset-Klasse für seine Set-Eigenschaften verwendet.  
 
-## <a name="dbcontext-with-read-only-set-properties"></a>"DbContext" mit schreibgeschützten Eigenschaften festlegen.  
+## <a name="dbcontext-with-read-only-set-properties"></a>Dbcontext mit schreibgeschützten Set-Eigenschaften  
 
-Wenn Sie nicht möchten, um öffentliche Setter für die Eigenschaften "DbSet" oder IDbSet verfügbar zu machen, Sie stattdessen schreibgeschützte Eigenschaften erstellen und die Instanzen selbst erstellen. Zum Beispiel:  
+Wenn Sie keine öffentlichen Setter für die dbset-oder idbset-Eigenschaften verfügbar machen möchten, können Sie stattdessen schreibgeschützte Eigenschaften erstellen und die Set-Instanzen selbst erstellen. Beispiel:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -60,6 +60,6 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Beachten Sie, dass "DbContext" speichert die Instanz von "DbSet" von der Set-Methode zurückgegeben wird, sodass jede dieser Eigenschaften wird die gleiche Instanz zurückgeben, jedes Mal, wenn sie aufgerufen wird.  
+Beachten Sie, dass dbcontext die Instanz von dbset zwischenspeichert, die von der Set-Methode zurückgegeben wird, sodass jede dieser Eigenschaften bei jedem Aufruf dieselbe Instanz zurückgibt.  
 
-Ermittlung von Entitätstypen für Code First funktioniert hier genauso, wie er für Eigenschaften mit öffentlichen Getter und Setter ist.  
+Die Ermittlung von Entitäts Typen für Code First funktioniert auf dieselbe Weise wie bei Eigenschaften mit öffentlichen Getter und Settern.  

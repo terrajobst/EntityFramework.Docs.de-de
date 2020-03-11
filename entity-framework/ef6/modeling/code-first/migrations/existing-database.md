@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
 ms.openlocfilehash: eb7948eafb1322cabcf69b47bd5411f762fe8498
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182580"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415694"
 ---
 # <a name="code-first-migrations-with-an-existing-database"></a>Code First-Migrationen mit einer vorhandenen Datenbank
 > [!NOTE]
@@ -67,7 +67,7 @@ In diesem Szenario sind Migrationen erforderlich, um die gesamte Datenbank von G
 3.  Führen Sie den Befehl **Update-Database** in der Paket-Manager-Konsole aus. Dadurch wird die InitialCreate-Migration auf die Datenbank angewendet. Da die tatsächliche Migration keine Änderungen enthält (da wir Sie vorübergehend auskommentiert haben), wird der \_\_migrationshistory-Tabelle eine Zeile hinzugefügt, die anzeigt, dass diese Migration bereits angewendet wurde.
 4.  Kommentieren Sie den Code in der up-Methode aus. Dies bedeutet, dass beim Anwenden dieser Migration auf zukünftige Datenbanken das Schema, das bereits in der lokalen Datenbank vorhanden war, durch Migrationen erstellt wird.
 
-## <a name="things-to-be-aware-of"></a>Dinge, die Sie beachten sollten
+## <a name="things-to-be-aware-of"></a>Worauf Sie achten sollten
 
 Es gibt einige Dinge, die Sie beachten müssen, wenn Sie Migrationen für eine vorhandene Datenbank verwenden.
 

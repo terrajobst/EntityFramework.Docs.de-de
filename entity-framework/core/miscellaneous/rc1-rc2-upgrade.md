@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 6d75b229-cc79-4d08-88cd-3a1c1b24d88f
 uid: core/miscellaneous/rc1-rc2-upgrade
 ms.openlocfilehash: 887b7cd539b9c0f5a680398f5039757420228710
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181288"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414110"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>Upgrade von EF Core 1,0 rc1 auf 1,0 rc2
 
@@ -35,11 +35,11 @@ Zwischen RC1 und RC2 wurde von "Entity Framework 7" in "Entity Framework Core" g
 
 ## <a name="namespaces"></a>Namespaces
 
-Neben den Paketnamen wurden die Namespaces von `Microsoft.Data.Entity.*` in `Microsoft.EntityFrameworkCore.*` geändert. Sie können diese Änderung mit einem Suchen/Ersetzen von `using Microsoft.Data.Entity` mit `using Microsoft.EntityFrameworkCore` behandeln.
+Neben den Paketnamen wurden Namespaces von `Microsoft.Data.Entity.*` in `Microsoft.EntityFrameworkCore.*`geändert. Sie können diese Änderung mit einem Suchen/Ersetzen von `using Microsoft.Data.Entity` mit `using Microsoft.EntityFrameworkCore`behandeln.
 
 ## <a name="table-naming-convention-changes"></a>Änderungen der Tabellen Benennungs Konvention
 
-Eine bedeutende funktionale Änderung in RC2 bestand darin, den Namen der `DbSet<TEntity>`-Eigenschaft für eine bestimmte Entität als den Tabellennamen zu verwenden, dem Sie zugeordnet ist, anstatt nur den Klassennamen zu verwenden. Weitere Informationen zu dieser Änderung finden Sie im [zugehörigen Ankündigungs Problem](https://github.com/aspnet/Announcements/issues/167).
+Eine bedeutende funktionale Änderung in RC2 bestand darin, den Namen der `DbSet<TEntity>` Eigenschaft für eine bestimmte Entität als den Tabellennamen zu verwenden, dem Sie zugeordnet ist, anstatt nur den Klassennamen zu verwenden. Weitere Informationen zu dieser Änderung finden Sie im [zugehörigen Ankündigungs Problem](https://github.com/aspnet/Announcements/issues/167).
 
 Für vorhandene RC1-Anwendungen wird empfohlen, den folgenden Code am Anfang der `OnModelCreating`-Methode hinzuzufügen, um die RC1-Benennungs Strategie beizubehalten:
 
@@ -54,7 +54,7 @@ Wenn Sie die neue Benennungs Strategie übernehmen möchten, empfehlen wir, die 
 
 ## <a name="adddbcontext--startupcs-changes-aspnet-core-projects-only"></a>Adddbcontext/Startup.cs-Änderungen (nur ASP.net Core-Projekte)
 
-In RC1 mussten Sie dem Anwendungs Dienstanbieter Entity Framework Dienste hinzufügen, in `Startup.ConfigureServices(...)`:
+In RC1 mussten Sie dem Anwendungs Dienstanbieter in `Startup.ConfigureServices(...)`Entity Framework Dienste hinzufügen:
 
 ``` csharp
 services.AddEntityFramework()
@@ -63,7 +63,7 @@ services.AddEntityFramework()
     options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 ```
 
-In RC2 können Sie die Aufrufe von `AddEntityFramework()`, `AddSqlServer()` usw. entfernen:
+In RC2 können Sie die Aufrufe von `AddEntityFramework()`, `AddSqlServer()`usw. entfernen:
 
 ``` csharp
 services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,9 +81,9 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 ## <a name="passing-in-an-iserviceprovider"></a>Übergeben von IServiceProvider
 
-Wenn Sie RC1-Code haben, der eine `IServiceProvider` an den Kontext übergibt, wurde dieser nun zu `DbContextOptions` verschoben, anstatt einen separaten Konstruktorparameter zu sein. Verwenden Sie `DbContextOptionsBuilder.UseInternalServiceProvider(...)`, um den Dienstanbieter festzulegen.
+Wenn Sie über RC1-Code verfügen, der eine `IServiceProvider` an den Kontext übergibt, wurde dieser jetzt in `DbContextOptions`verschoben, anstatt einen separaten Konstruktorparameter zu sein. Verwenden Sie `DbContextOptionsBuilder.UseInternalServiceProvider(...)`, um den Dienstanbieter festzulegen.
 
-### <a name="testing"></a>Test
+### <a name="testing"></a>Testen
 
 Das häufigste Szenario hierfür war, den Umfang einer inMemory-Datenbank beim Testen zu steuern. Ein Beispiel für die Verwendung von rc2 finden Sie im Artikel aktualisierte [Tests](testing/index.md) .
 
@@ -105,7 +105,7 @@ services.AddEntityFrameworkSqlServer()
 
 Wenn Sie zuvor die `dnx ef`-Befehle für ASP.net 5-Projekte verwendet haben, wurden diese jetzt in `dotnet ef`-Befehle verschoben. Dieselbe Befehlssyntax gilt weiterhin. Sie können `dotnet ef --help` für Syntax Informationen verwenden.
 
-Die Art und Weise, in der Befehle registriert werden, wurde in RC2 geändert, weil DNX durch die .net CLI ersetzt wurde. Befehle sind nun in einem `tools`-Abschnitt in `project.json` registriert:
+Die Art und Weise, in der Befehle registriert werden, wurde in RC2 geändert, weil DNX durch die .net CLI ersetzt wurde. Befehle werden jetzt in einem `tools` Abschnitt in `project.json`registriert:
 
 ``` json
 "tools": {
@@ -120,7 +120,7 @@ Die Art und Weise, in der Befehle registriert werden, wurde in RC2 geändert, we
 ```
 
 > [!TIP]  
-> Wenn Sie Visual Studio verwenden, können Sie jetzt die Paket-Manager-Konsole verwenden, um EF-Befehle für ASP.net Core Projekte auszuführen (Dies wurde in RC1 nicht unterstützt). Um dies zu tun, müssen Sie die Befehle im Abschnitt `tools` von `project.json` registrieren.
+> Wenn Sie Visual Studio verwenden, können Sie jetzt die Paket-Manager-Konsole verwenden, um EF-Befehle für ASP.net Core Projekte auszuführen (Dies wurde in RC1 nicht unterstützt). Um dies zu tun, müssen Sie die Befehle im Abschnitt `tools` des `project.json` registrieren.
 
 ## <a name="package-manager-commands-require-powershell-5"></a>Paket-Manager-Befehle erfordern PowerShell 5
 

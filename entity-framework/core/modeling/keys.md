@@ -6,13 +6,13 @@ ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/keys
 ms.openlocfilehash: abd65a5ea079a49fd7a3bbc84a9337f6ee19fab1
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502005"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413990"
 ---
-# <a name="keys"></a>Tasten
+# <a name="keys"></a>Schlüssel
 
 Ein Schlüssel dient als eindeutiger Bezeichner für jede Entitäts Instanz. Die meisten Entitäten in EF verfügen über einen einzelnen Schlüssel, der dem Konzept eines *Primärschlüssels* in relationalen Datenbanken zugeordnet ist (für Entitäten ohne Schlüssel siehe [Keyless Entities](xref:core/modeling/keyless-entity-types)). Entitäten können über den Primärschlüssel hinaus zusätzliche Schlüssel aufweisen (Weitere Informationen finden Sie in den [Alternativen Schlüsseln](#alternate-keys) ).
 
@@ -25,11 +25,11 @@ Gemäß der Konvention wird eine Eigenschaft mit dem Namen `Id` oder `<type name
 
 Sie können eine einzelne Eigenschaft wie folgt als Primärschlüssel einer Entität konfigurieren:
 
-## <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+## <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/KeySingle.cs?name=KeySingle&highlight=3)]
 
-## <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+## <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeySingle.cs?name=KeySingle&highlight=4)]
 

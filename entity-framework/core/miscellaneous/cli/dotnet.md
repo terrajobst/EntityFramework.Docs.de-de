@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 5686d28e6847797130476cd858bd3fb611620140
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 7dc7a4404820a7c935648169cc6ff8d0f0118d87
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824480"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414224"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenz zu Entity Framework Core Tools: .net CLI
 
@@ -39,7 +39,7 @@ Das Installationsverfahren hängt vom Projekttyp und der Version ab:
 
   Sie können auch `dotnet ef` als lokales Tool verwenden. Um es als lokales Tool zu verwenden, stellen Sie die Abhängigkeiten eines Projekts wieder her, das es mithilfe einer [Tool Manifest-Datei als Tool](https://github.com/dotnet/cli/issues/10288)Abhängigkeit deklariert.
 
-* Installieren Sie den [.net Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0). Das SDK muss installiert werden, auch wenn Sie über die neueste Version von Visual Studio verfügen.
+* Installieren Sie das [.NET Core SDK](https://www.microsoft.com/net/download/core).
 
 * Installieren Sie das neueste `Microsoft.EntityFrameworkCore.Design` Paket.
 
@@ -157,7 +157,7 @@ Legen Sie die Umgebungsvariable **ASPNETCORE_ENVIRONMENT** vor dem Ausführen vo
 
 ## <a name="common-options"></a>Häufige Optionen
 
-|                   | -Option                            | Beschreibung                                                                                                                                                                                                                                                   |
+|                   | Option                            | BESCHREIBUNG                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | JSON-Ausgabe anzeigen.                                                                                                                                                                                                                                             |
 | <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | Die `DbContext`-Klasse, die verwendet werden soll. Der Klassenname oder voll qualifiziert mit Namespaces.  Wenn diese Option weggelassen wird, wird EF Core die Kontext Klasse finden. Wenn mehrere Kontext Klassen vorhanden sind, ist diese Option erforderlich.                                            |
@@ -165,7 +165,7 @@ Legen Sie die Umgebungsvariable **ASPNETCORE_ENVIRONMENT** vor dem Ausführen vo
 | `-s`              | `--startup-project <PROJECT>`     | Relativer Pfad zum Projektordner des Start Projekts. Der Standardwert ist der aktuelle Ordner.                                                                                                                                                              |
 |                   | `--framework <FRAMEWORK>`         | Der [zielframeworkmoniker](/dotnet/standard/frameworks#supported-target-framework-versions) für das [Ziel Framework](/dotnet/standard/frameworks).  Verwenden Sie, wenn die Projektdatei mehrere Ziel-Frameworks angibt, und wählen Sie eine davon aus. |
 |                   | `--configuration <CONFIGURATION>` | Die Buildkonfiguration, z. b. `Debug` oder `Release`.                                                                                                                                                                                                   |
-|                   | `--runtime <IDENTIFIER>`          | Der Bezeichner der Ziel Laufzeit, für die Pakete wieder hergestellt werden sollen. Eine Liste der Runtime-IDs (RIDs) finden Sie unter [RID-Katalog](/dotnet/core/rid-catalog).                                                                                                      |
+|                   | `--runtime <IDENTIFIER>`          | Der Bezeichner der Ziel Laufzeit, für die Pakete wieder hergestellt werden sollen. Eine Liste der Runtime-IDs (RIDs) finden Sie im [RID-Katalog](/dotnet/core/rid-catalog).                                                                                                      |
 | `-h`              | `--help`                          | Anzeigen von Hilfe Informationen.                                                                                                                                                                                                                                        |
 | `-v`              | `--verbose`                       | Zeigt eine ausführliche Ausgabe an.                                                                                                                                                                                                                                          |
 |                   | `--no-color`                      | Ausgabe nicht einfärben.                                                                                                                                                                                                                                        |
@@ -177,7 +177,7 @@ Löscht die Datenbank.
 
 Optionen:
 
-|                   | -Option                   | Beschreibung                                              |
+|                   | Option                   | BESCHREIBUNG                                              |
 |:------------------|:-------------------------|:---------------------------------------------------------|
 | <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Nicht bestätigen.                                           |
 |                   | <nobr>`--dry-run`</nobr> | Zeigen Sie an, welche Datenbank gelöscht werden soll, aber löschen Sie Sie nicht. |
@@ -186,9 +186,9 @@ Optionen:
 
 Aktualisiert die Datenbank auf die letzte Migration oder eine angegebene Migration.
 
-Arguments:
+Argumente:
 
-| Argument      | Beschreibung                                                                                                                                                                                                                                                     |
+| Argument      | BESCHREIBUNG                                                                                                                                                                                                                                                     |
 |:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<MIGRATION>` | Die Ziel Migration. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration* steht und bewirkt, dass alle Migrationen rückgängig gemacht werden. Wenn keine Migration angegeben ist, wird für den Befehl standardmäßig die letzte Migration verwendet. |
 
@@ -211,16 +211,16 @@ Listet verfügbare `DbContext` Typen auf.
 
 Generiert Code für eine `DbContext` und Entitäts Typen für eine Datenbank. Damit dieser Befehl einen Entitätstyp generieren kann, muss die Datenbanktabelle über einen Primärschlüssel verfügen.
 
-Arguments:
+Argumente:
 
-| Argument       | Beschreibung                                                                                                                                                                                                             |
+| Argument       | BESCHREIBUNG                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<CONNECTION>` | Die Verbindungszeichenfolge für die Datenbank. Bei ASP.net Core 2. x-Projekten kann der Wert *Name =\<Name der Verbindungs Zeichenfolge >* sein. In diesem Fall stammt der Name aus den Konfigurations Quellen, die für das Projekt eingerichtet sind. |
 | `<PROVIDER>`   | Der zu verwendende Anbieter. In der Regel ist dies der Name des nuget-Pakets, z. b. `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Optionen:
 
-|                 | -Option                                   | Beschreibung                                                                                                                                                                    |
+|                 | Option                                   | BESCHREIBUNG                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <nobr>-d</nobr> | `--data-annotations`                     | Verwenden Sie Attribute, um das Modell zu konfigurieren (sofern möglich). Wenn diese Option weggelassen wird, wird nur die fließende API verwendet.                                                                |
 | `-c`            | `--context <NAME>`                       | Der Name der zu generierenden `DbContext`-Klasse.                                                                                                                                 |
@@ -247,15 +247,15 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 Fügt eine neue Migration hinzu.
 
-Arguments:
+Argumente:
 
-| Argument | Beschreibung                |
+| Argument | BESCHREIBUNG                |
 |:---------|:---------------------------|
 | `<NAME>` | Der Name der Migration. |
 
 Optionen:
 
-|                   | -Option                             | Beschreibung                                                                                                      |
+|                   | Option                             | BESCHREIBUNG                                                                                                      |
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | Das zu verwendende Verzeichnis (und der untergeordnete Namespace). Pfade sind relativ zum Projektverzeichnis. Der Standardwert ist "Migrationen". |
 
@@ -269,7 +269,7 @@ Entfernt die letzte Migration (führt einen Rollback für die Codeänderungen au
 
 Optionen:
 
-|                   | -Option    | Beschreibung                                                                     |
+|                   | Option    | BESCHREIBUNG                                                                     |
 |:------------------|:----------|:--------------------------------------------------------------------------------|
 | <nobr>`-f`</nobr> | `--force` | Setzen Sie die Migration zurück (führen Sie ein Rollback der Änderungen aus, die auf die Datenbank angewendet wurden). |
 
@@ -277,16 +277,16 @@ Optionen:
 
 Generiert ein SQL-Skript aus Migrationen.
 
-Arguments:
+Argumente:
 
-| Argument | Beschreibung                                                                                                                                                   |
+| Argument | BESCHREIBUNG                                                                                                                                                   |
 |:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<FROM>` | Die Migration wird gestartet. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration*liegt. Die Standardeinstellung ist 0. |
+| `<FROM>` | Die Migration wird gestartet. Migrationen können anhand des Namens oder der ID identifiziert werden. Die Zahl 0 (null) ist ein Sonderfall, der *vor der ersten Migration*liegt. Der Standardwert ist 0. |
 | `<TO>`   | Die Beendigung der Migration. Standardmäßig wird die letzte Migration verwendet.                                                                                                         |
 
 Optionen:
 
-|                   | -Option            | Beschreibung                                                        |
+|                   | Option            | BESCHREIBUNG                                                        |
 |:------------------|:------------------|:-------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | `--output <FILE>` | Die Datei, in die das Skript geschrieben werden soll.                                   |
 | `-i`              | `--idempotent`    | Generieren Sie ein Skript, das bei jeder Migration in einer Datenbank verwendet werden kann. |
@@ -303,7 +303,7 @@ Im folgenden Beispiel wird nach der InitialCreate-Migration ein Skript für alle
 dotnet ef migrations script 20180904195021_InitialCreate
 ```
 
-## <a name="additional-resources"></a>Weitere Ressourcen
+## <a name="additional-resources"></a>Zusätzliche Ressourcen
 
 * [Migrationen](xref:core/managing-schemas/migrations/index)
 * [Reverse Engineering](xref:core/managing-schemas/scaffolding)

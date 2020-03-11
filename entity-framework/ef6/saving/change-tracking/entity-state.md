@@ -1,44 +1,44 @@
 ---
-title: Arbeiten mit Status von Entitäten – EF6
+title: Arbeiten mit Entitäts Zuständen EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: acb27f46-3f3a-4179-874a-d6bea5d7120c
 ms.openlocfilehash: ef0e8d5a5a9d66adab7046088c49d8cd472edc8a
-ms.sourcegitcommit: e5f9ca4aa41e64141fa63a1e5fcf4d4775d67d24
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52899651"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416252"
 ---
-# <a name="working-with-entity-states"></a>Arbeiten mit Status von Entitäten
-In diesem Thema wird behandelt, das Hinzufügen und Anfügen von Entitäten an einen Kontext und wie Entity Framework diese während SaveChanges verarbeitet.
-Entitätsframework übernimmt Überwachung, die der Zustand der Entitäten, während sie mit einem Kontext verbunden sind, aber in nicht verbundenen oder N-Tier-Szenarien Sie EF wissen, welcher Zustand Ihrer Entitäten können auf sein soll.
+# <a name="working-with-entity-states"></a>Arbeiten mit Entitäts Zuständen
+In diesem Thema wird das Hinzufügen und Anfügen von Entitäten zu einem Kontext und die Art und Weise beschrieben, wie Entity Framework diese während SaveChanges verarbeitet.
+Entity Framework übernimmt die Überwachung des Zustands von Entitäten, während Sie mit einem Kontext verbunden sind, aber in getrennten oder N-Tier-Szenarios können Sie EF wissen, in welchem Zustand sich Ihre Entitäten befinden sollten.
 Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
-## <a name="entity-states-and-savechanges"></a>Status von Entitäten und "SaveChanges"
+## <a name="entity-states-and-savechanges"></a>Entitäts Zustände und SaveChanges
 
-Eine Entität kann einen der fünf Status sein, wie durch die "EntityState"-Enumeration definiert. Folgende Status sind möglich:  
+Eine Entität kann einen von fünf Zuständen aufweisen, wie von der EntityState-Enumeration definiert. Folgende Status sind möglich:  
 
-- Hinzugefügt: die Entität vom Kontext nachverfolgt wird, aber noch nicht in der Datenbank vorhanden  
-- Unchanged: die Entität vom Kontext nachverfolgt wird, und in der Datenbank vorhanden ist und die Eigenschaftswerte nicht aus den Werten in der Datenbank geändert haben  
-- Geänderte: die Entität vom Kontext nachverfolgt wird, und in der Datenbank vorhanden ist, und einige oder alle der Eigenschaftswerte geändert wurden  
-- Gelöschte: die Entität vom Kontext nachverfolgt wird, und in der Datenbank vorhanden, aber wurde zum Löschen aus der Datenbank das nächste Mal, das aufgerufen wird, "SaveChanges" markiert  
-- Getrennt: die Entität wird nicht vom Kontext nachverfolgt wird  
+- Hinzugefügt: die Entität wird vom Kontext nachverfolgt, ist aber noch nicht in der Datenbank vorhanden.  
+- Unverändert: die Entität wird vom Kontext nachverfolgt und ist in der Datenbank vorhanden, und die Eigenschaftswerte wurden aus den Werten in der Datenbank nicht geändert.  
+- Geändert: die Entität wird vom Kontext nachverfolgt und ist in der Datenbank vorhanden, und einige oder alle Eigenschaftswerte wurden geändert.  
+- Gelöscht: die Entität wird vom Kontext nachverfolgt und ist in der Datenbank vorhanden, wurde aber beim nächsten Aufrufen von SaveChanges zum Löschen aus der Datenbank markiert.  
+- Getrennt: die Entität wird nicht vom Kontext nachverfolgt.  
 
-"SaveChanges" führt verschiedene Dinge für Entitäten in unterschiedlichen Zuständen:  
+"SaveChanges" unterscheidet sich für Entitäten in unterschiedlichen Zuständen:  
 
-- Unveränderte Entitäten werden nicht von "SaveChanges" berührt werden. Updates werden nicht in der Datenbank für Entitäten in den Status "Unchanged" gesendet.  
-- Hinzugefügt von Entitäten, die in die Datenbank eingefügt werden, und klicken Sie dann werden nicht verändert, wenn "SaveChanges" zurückgegeben.  
-- Geänderte Entitäten werden in der Datenbank aktualisiert und dann werden nicht verändert, wenn "SaveChanges" zurückgegeben.  
-- Gelöschte Entitäten aus der Datenbank gelöscht werden, und klicken Sie dann aus dem Kontext getrennt sind.  
+- Nicht geänderte Entitäten werden von SaveChanges nicht berührt. Für Entitäten mit dem Status "unverändert" werden keine Updates an die Datenbank gesendet.  
+- Hinzugefügte Entitäten werden in die Datenbank eingefügt und dann bei Rückgabe von SaveChanges unverändert.  
+- Geänderte Entitäten werden in der Datenbank aktualisiert und werden bei Rückgabe von SaveChanges unverändert.  
+- Gelöschte Entitäten werden aus der Datenbank gelöscht und dann vom Kontext getrennt.  
 
-Die folgenden Beispiele zeigen die Möglichkeiten, die in denen der Zustand einer Entität oder ein Diagramm für die Entität geändert werden kann.  
+In den folgenden Beispielen wird veranschaulicht, wie der Zustand einer Entität oder eines Entitäts Diagramms geändert werden kann.  
 
-## <a name="adding-a-new-entity-to-the-context"></a>Hinzufügen einer neuen Entität in den Kontext  
+## <a name="adding-a-new-entity-to-the-context"></a>Hinzufügen einer neuen Entität zum Kontext  
 
-Eine neue Entität kann in den Kontext hinzugefügt werden, indem Sie die Add-Methode für "DbSet" aufrufen.
-Dies versetzt die Entität auf, in dem Status "Added", Sie dies bedeutet, dass es in der Datenbank das nächste Mal eingefügt wird, das "SaveChanges" aufgerufen wird.
-Zum Beispiel:  
+Eine neue Entität kann dem Kontext hinzugefügt werden, indem die Add-Methode für dbset aufgerufen wird.
+Dadurch wird die Entität in den hinzugefügten Zustand versetzt, was bedeutet, dass Sie beim nächsten Aufruf von SaveChanges in die Datenbank eingefügt wird.
+Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -49,7 +49,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Eine weitere Möglichkeit zum Hinzufügen einer neuen Entität in den Kontext ist, dessen Zustand Added zu ändern. Zum Beispiel:  
+Eine weitere Möglichkeit zum Hinzufügen einer neuen Entität zum Kontext besteht darin, den Zustand in hinzugefügt zu ändern. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -60,8 +60,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Schließlich können Sie eine neue Entität in den Kontext hinzufügen, indem Sie binden es in einer anderen Entität, die bereits nachverfolgt wird.
-Dies kann durch die auflistungsnavigationseigenschaft einer anderen Entität die neue Entität hinzugefügt oder durch Festlegen einer Verweiseigenschaft für die Navigation von einer anderen Entität, zeigen Sie auf die neue Entität sein. Zum Beispiel:  
+Schließlich können Sie dem Kontext eine neue Entität hinzufügen, indem Sie Sie mit einer anderen Entität verknüpfen, die bereits nachverfolgt wird.
+Dazu kann die neue Entität der Auflistungs Navigations Eigenschaft einer anderen Entität hinzugefügt werden oder indem eine Verweis Navigations Eigenschaft einer anderen Entität festgelegt wird, um auf die neue Entität zu verweisen. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -77,11 +77,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, die für alle diese Beispiele aus, wenn die Entität, die hinzuzufügenden Verweise auf andere Entitäten verfügt, die nicht noch klicken Sie dann diese neuen Entitäten nachverfolgt wird auch zum Kontext hinzugefügt werden und wird eingefügt werden in die Datenbank das nächste Mal, das "SaveChanges" aufgerufen wird.  
+Beachten Sie, dass für alle diese Beispiele, wenn die hinzugefügte Entität Verweise auf andere Entitäten aufweist, die noch nicht nachverfolgt werden, diese neuen Entitäten ebenfalls dem Kontext hinzugefügt werden und beim nächsten Aufruf von SaveChanges in die Datenbank eingefügt werden.  
 
-## <a name="attaching-an-existing-entity-to-the-context"></a>Eine vorhandene Entität anzufügen an den Kontext.  
+## <a name="attaching-an-existing-entity-to-the-context"></a>Anfügen einer vorhandenen Entität an den Kontext  
 
-Wenn man eine Entität, die Sie bereits wissen, in der Datenbank, aber die nicht derzeit vom Kontext nachverfolgt wird und Sie, den Kontext erkennen können, der die Entität, die mithilfe der Attach-Methode für "DbSet" Nachverfolgen vorhanden ist. Die Entität werden im Zustand Unchanged im Kontext. Zum Beispiel:  
+Wenn Sie bereits über eine Entität verfügen, die bereits in der Datenbank vorhanden ist, die aber zurzeit nicht vom Kontext nachverfolgt wird, können Sie den Kontext darüber informieren, dass die Entität mithilfe der Attach-Methode in dbset nachverfolgt wird. Die Entität befindet sich im Zustand "unverändert" im Kontext. Beispiel:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -96,9 +96,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass keine Änderungen in der Datenbank vorgenommen werden, werden wenn SaveChanges aufgerufen wird, ohne andere Änderungen an den angefügten Entität. Dies ist, da die Entität im Zustand Unchanged ist.  
+Beachten Sie, dass keine Änderungen an der Datenbank vorgenommen werden, wenn SaveChanges aufgerufen wird, ohne dass eine andere Bearbeitung der angefügten Entität erfolgt. Dies liegt daran, dass sich die Entität im unveränderten Zustand befindet.  
 
-Eine weitere Möglichkeit zum Anfügen einer vorhandenen Entität an den Kontext ist so ändern Sie den Zustand auf Unchanged. Zum Beispiel:  
+Eine andere Möglichkeit, eine vorhandene Entität an den Kontext anzufügen, besteht darin, den Zustand in unverändert zu ändern. Beispiel:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -113,12 +113,12 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass für diesen beiden Beispielen verfügt die Entität angefügt werden Verweise auf andere Entitäten, die noch nicht verfolgt werden dann diese neuen Entitäten wird auch an der der Kontext, in dem Status "Unchanged".  
+Beachten Sie, dass in beiden Beispielen, wenn die angefügte Entität Verweise auf andere Entitäten enthält, die noch nicht nachverfolgt werden, diese neuen Entitäten ebenfalls im unveränderten Zustand an den Kontext angefügt werden.  
 
-## <a name="attaching-an-existing-but-modified-entity-to-the-context"></a>Anfügen einer vorhandenen geänderte Entität an den Kontext  
+## <a name="attaching-an-existing-but-modified-entity-to-the-context"></a>Anfügen einer vorhandenen, aber geänderten Entität an den Kontext  
 
-Wenn man ist eine Entität, die bereits vorhanden, in der Datenbank jedoch, welche Änderungen möglicherweise vorgenommen wurden und Sie, dass den Kontext feststellen können, fügen Sie die Entität aus, und legen seinen Status auf "geändert".
-Zum Beispiel:  
+Wenn Sie bereits über eine Entität verfügen, die bereits in der Datenbank vorhanden ist, für die jedoch möglicherweise Änderungen vorgenommen wurden, können Sie den Kontext anfügen, um die Entität anzufügen und ihren Status auf "geändert" festzulegen.
+Beispiel:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -133,14 +133,14 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Wenn Sie den Status in "geändert" ändern, alle Eigenschaften der Entität als geändert markiert, und alle Eigenschaftswerte werden an die Datenbank gesendet werden, wenn SaveChanges aufgerufen wird.  
+Wenn Sie den Status in geändert ändern, werden alle Eigenschaften der Entität als geändert markiert, und alle Eigenschaftswerte werden an die Datenbank gesendet, wenn SaveChanges aufgerufen wird.  
 
-Beachten Sie, dass wenn die Entität, die angefügt werden Verweise auf andere Entitäten verfügt, die noch nicht nachverfolgt werden, klicken Sie dann diese neuen Entitäten wird an der der Kontext, in dem Status "Unchanged" – sie werden nicht automatisch durchgeführt "geändert".
-Wenn Sie über mehrere Entitäten verfügen, die müssen "geändert" markiert werden, sollten Sie den Status für jede dieser Entitäten einzeln festlegen.  
+Beachten Sie Folgendes: Wenn die anzufügende Entität Verweise auf andere Entitäten enthält, die noch nicht nachverfolgt werden, werden diese neuen Entitäten im unveränderten Zustand an den Kontext angefügt – Sie werden nicht automatisch geändert.
+Wenn Sie über mehrere Entitäten verfügen, die als geändert markiert werden müssen, sollten Sie den Status für jede dieser Entitäten einzeln festlegen.  
 
-## <a name="changing-the-state-of-a-tracked-entity"></a>Ändern des Status einer verfolgten Entität  
+## <a name="changing-the-state-of-a-tracked-entity"></a>Ändern des Status einer nach verfolgten Entität  
 
-Sie können den Status einer Entität ändern, die bereits nachverfolgt wird durch Festlegen der State-Eigenschaft auf den Eintrag. Zum Beispiel:  
+Sie können den Zustand einer Entität, die bereits nachverfolgt wird, ändern, indem Sie die State-Eigenschaft für Ihren Eintrag festlegen. Beispiel:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -156,13 +156,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass aufrufen hinzufügen oder Anfügen einer Entität, das bereits nachverfolgt wird auch verwendet werden kann, den Entitätszustand ändern. Beispielsweise wird durch Aufrufen von Anfügen für eine Entität, die derzeit im Zustand Added wird seinen Zustand auf Unchanged geändert.  
+Beachten Sie, dass das Aufrufen von Add oder Attach für eine Entität, die bereits nachverfolgt ist, auch zum Ändern des Entitäts Zustands verwendet werden kann. Wenn z. b. Attach für eine Entität aufgerufen wird, die sich derzeit im hinzugefügten Zustand befindet, ändert sich der Status in unverändert.  
 
-## <a name="insert-or-update-pattern"></a>Einfügen oder Aktualisieren der Muster  
+## <a name="insert-or-update-pattern"></a>INSERT-oder Update-Muster  
 
-Ein häufiges Muster für einige Anwendungen ist eine Entität als neue (wodurch das Einfügen einer Datenbank) hinzufügen oder Anfügen einer Entität wie vorhandene und markieren Sie ihn als geändert (was in einem Datenbankupdate) je nach dem Wert des Primärschlüssels.
-Beispielsweise ist bei Verwendung der Datenbank generierte Primärschlüsseln ganzer Zahlen als es üblich, eine Entität mit einem NULL-Schlüssel als neu und einer Entität mit einem NULL-Schlüssel wie vorhandene behandelt werden sollen.
-Dieses Muster kann erreicht werden, durch Festlegen den Entitätszustand basierend auf dem Wert des Primärschlüssels zu überprüfen. Zum Beispiel:  
+Ein gängiges Muster für einige Anwendungen besteht darin, entweder eine Entität als neu hinzuzufügen (was zu einer Daten Bank Einfügung führt) oder eine Entität als vorhanden anzufügen und Sie als geändert (d. h. ein Datenbankupdate) zu kennzeichnen, je nach dem Wert des Primärschlüssels.
+Wenn z. b. Daten Bank generierte ganzzahlige Primärschlüssel verwendet werden, wird eine Entität mit einem NULL-Schlüssel als neu und eine Entität mit einem Schlüssel ungleich 0 (null) als vorhanden behandelt.
+Dieses Muster kann erreicht werden, indem der Entitäts Zustand basierend auf einer Überprüfung des Primärschlüssel Werts festgelegt wird. Beispiel:  
 
 ``` csharp
 public void InsertOrUpdate(Blog blog)
@@ -178,4 +178,4 @@ public void InsertOrUpdate(Blog blog)
 }
 ```  
 
-Beachten Sie, dass wenn Sie den Status in "geändert" ändern, werden alle Eigenschaften der Entität als geändert markiert, und alle Eigenschaftswerte werden an die Datenbank gesendet werden, wenn SaveChanges aufgerufen wird.  
+Beachten Sie, dass beim Ändern des Zustands in geändert alle Eigenschaften der Entität als geändert gekennzeichnet werden und alle Eigenschaftswerte an die Datenbank gesendet werden, wenn SaveChanges aufgerufen wird.  

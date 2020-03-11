@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 9/13/2019
 uid: core/modeling/keyless-entity-types
-ms.openlocfilehash: 129e24b154ba32583435aeb742dbf478350344e8
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 520c9ed93240c05deee36fa527a3757490fd7082
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824661"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414644"
 ---
 # <a name="keyless-entity-types"></a>Schlüssellose Entitätstypen
 
@@ -36,7 +36,7 @@ Sie unterscheiden sich jedoch von regulären Entitäts Typen darin, dass Sie:
 - Muss mit `.HasNoKey()` Methoden Aufrufes konfiguriert werden.
 - Kann einer _definierenden Abfrage_zugeordnet werden. Eine definierende Abfrage ist eine im Modell deklarierte Abfrage, die als Datenquelle für einen schlüssellosen Entitätstyp fungiert.
 
-## <a name="usage-scenarios"></a>Verwendungsszenarien
+## <a name="usage-scenarios"></a>Verwendungsszenarios
 
 Einige der wichtigsten Verwendungs Szenarien für Typen von schlüssellosen Entitäten sind:
 
@@ -47,7 +47,7 @@ Einige der wichtigsten Verwendungs Szenarien für Typen von schlüssellosen Enti
 
 ## <a name="mapping-to-database-objects"></a>Zuordnen von Datenbankobjekten
 
-Die Zuordnung eines Entitäts Typs mit einer anderen Tastatur zu einem Datenbankobjekt wird mithilfe der `ToTable` oder `ToView` flüssigen API erreicht. Aus der Perspektive von EF Core, das Datenbankobjekt, das in dieser Methode wird ein _Ansicht_, was bedeutet, dass es als eine nur-Lese Query-Datenquelle behandelt wird kann nicht Ziel von Updates, insert oder delete-Operationen. Dies bedeutet jedoch nicht, dass das Datenbankobjekt tatsächlich eine Daten Bank Sicht sein muss. Alternativ kann es sich um eine Datenbanktabelle handeln, die als schreibgeschützt behandelt wird. Im Gegensatz dazu geht EF Core bei regulären Entitäts Typen davon aus, dass ein in der `ToTable`-Methode festgelegtes Datenbankobjekt als _Tabelle_behandelt werden kann. Dies bedeutet, dass es als Abfrage Quelle verwendet werden kann, aber auch für Update-, DELETE-und INSERT-Vorgänge vorgesehen ist. In der Tat können Sie angeben, den Namen einer Datenbanksicht in `ToTable` und alles sollte gut funktionieren, solange die Ansicht für die für die Datenbank aktualisierbar sein, konfiguriert ist.
+Die Zuordnung eines Entitäts Typs mit einer anderen Tastatur zu einem Datenbankobjekt wird mithilfe der `ToTable` oder `ToView` flüssigen API erreicht. Aus Sicht der EF Core ist das in dieser Methode angegebene Datenbankobjekt eine _Sicht_. Dies bedeutet, dass es als schreibgeschützte Abfrage Quelle behandelt wird und nicht das Ziel von Aktualisierungs-, Einfüge-oder Lösch Vorgängen sein kann. Dies bedeutet jedoch nicht, dass das Datenbankobjekt tatsächlich eine Daten Bank Sicht sein muss. Alternativ kann es sich um eine Datenbanktabelle handeln, die als schreibgeschützt behandelt wird. Im Gegensatz dazu geht EF Core bei regulären Entitäts Typen davon aus, dass ein in der `ToTable`-Methode festgelegtes Datenbankobjekt als _Tabelle_behandelt werden kann. Dies bedeutet, dass es als Abfrage Quelle verwendet werden kann, aber auch für Update-, DELETE-und INSERT-Vorgänge vorgesehen ist. In der Tat können Sie den Namen einer Daten Bank Sicht in `ToTable` angeben. alles sollte einwandfrei funktionieren, solange die Sicht so konfiguriert ist, dass Sie für die Datenbank aktualisierbar ist.
 
 > [!NOTE]
 > `ToView` geht davon aus, dass das Objekt bereits in der Datenbank vorhanden ist, und wird nicht durch Migrationen erstellt.
@@ -57,7 +57,7 @@ Die Zuordnung eines Entitäts Typs mit einer anderen Tastatur zu einem Datenbank
 Das folgende Beispiel zeigt, wie Sie schlüssellose Entitäts Typen verwenden, um eine Daten Bank Sicht abzufragen.
 
 > [!TIP]
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) finden Sie auf GitHub.
 
 Zuerst definieren wir ein einfaches Blog und Post-Modell:
 

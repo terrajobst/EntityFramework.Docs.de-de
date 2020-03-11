@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 uid: core/miscellaneous/rc2-rtm-upgrade
 ms.openlocfilehash: 779caad7883d13684b389dab7515be44bc42e1ef
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655816"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414038"
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Aktualisieren von EF Core 1,0 rc2 auf RTM
 
@@ -36,12 +36,12 @@ Für alle vorhandenen Migrationen, die vor der Verwendung von RTM erstellt wurde
 Diese Änderung wirkt sich auf Projekte aus, die ASP.net Identity verwenden und aus einer Pre-RTM-Projektvorlage erstellt wurden. Die Projektvorlage enthält eine Migration, mit der die Datenbank erstellt wird. Diese Migration muss bearbeitet werden, um für die folgenden Spalten eine maximale Länge von `256` anzugeben.
 
 * **Aspnettroles**
-  * -Name
+  * Name
   * Normalizedname
 * **AspNetUsers**
-  * E-Mail
+  * Email
   * Normalizedebug
-  * Normalizedusername
+  * NormalizedUserName
   * UserName
 
 Wenn Sie diese Änderung nicht vornehmen, wird die folgende Ausnahme ausgelöst, wenn die anfängliche Migration auf eine Datenbank angewendet wird.

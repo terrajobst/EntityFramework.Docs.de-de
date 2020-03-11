@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
 ms.openlocfilehash: 28ec5446ce9faf98fb8fff141832236d70b29daf
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181580"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413978"
 ---
 # <a name="testability-and-entity-framework-40"></a>Testability und Entity Framework 4,0
 Scott allen
@@ -417,13 +417,13 @@ Wir können "Mitarbeiter Controller TestBase" als Basisklasse für eine Reihe vo
 
 ![EF-test_03](~/ef6/media/eftest-03.png)
 
-**Abbildung 3**
+**Abbildung 3**
 
 Die hier dargestellten Benennungs Konventionen und teststile sind für testbaren Code nicht erforderlich – es handelt sich nur um einen Ansatz. Abbildung 4 zeigt die Tests, die im Jet Brains reschärfere Test Runner-Plug-in für Visual Studio 2010 ausgeführt werden.
 
 ![EF-test_04](~/ef6/media/eftest-04.png)
 
-**Abbildung 4**
+**Abbildung 4**
 
 Mit einer Basisklasse zur Handhabung des freigegebenen Setup Codes sind die Komponententests für die einzelnen Controller Aktionen klein und leicht zu schreiben. Die Tests werden schnell ausgeführt (da wir in-Memory-Vorgänge durchführen) und sollten aufgrund von nicht verknüpften Infrastrukturen oder umweltbezogenen Belangen fehlschlagen (da wir die zu testende Einheit isoliert haben).
 
@@ -497,7 +497,7 @@ Später befassen wir uns mit Interaktions basierten Tests. Durch Interaktions ba
 
 An einem bestimmten Punkt in der ASP.NET MVC-Webanwendung möchten wir möglicherweise die Informationen eines Mitarbeiters anzeigen und die zugeordneten Zeitkarten des Mitarbeiters einschließen. Beispielsweise kann eine Zeitkarten-Übersichts Anzeige angezeigt werden, in der der Name des Mitarbeiters und die Gesamtzahl der Zeitkarten im System angezeigt werden. Es gibt mehrere Ansätze, die wir zur Implementierung dieser Funktion verwenden können.
 
-### <a name="projection"></a>Projection
+### <a name="projection"></a>Projektion
 
 Ein einfacher Ansatz zum Erstellen der Zusammenfassung besteht darin, ein Modell zu erstellen, das für die Informationen vorgesehen ist, die in der Ansicht angezeigt werden sollen. In diesem Szenario könnte das Modell wie folgt aussehen.
 
@@ -959,7 +959,7 @@ Die Wahl zwischen den Mocken oder Fakes hängt größtenteils von dem System ab,
 
 In diesem Whitepaper haben wir verschiedene Ansätze zum Erstellen von testbarem Code gezeigt, während wir die ADO.NET-Entity Framework für die Daten Persistenz verwenden. Wir können integrierte Abstraktionen wie IObjectSet&lt;t&gt;nutzen oder eigene Abstraktionen wie IRepository&lt;t&gt;erstellen.  In beiden Fällen ermöglicht die poco-Unterstützung im ADO.NET-Entity Framework 4,0, dass die Consumer dieser Abstraktionen permanent ignoriert werden und hochgradig testfähig bleiben. Zusätzliche EF4-Features wie implizites Lazy Loading ermöglichen, dass Geschäfts-und Anwendungs Dienst Code funktionieren, ohne sich Gedanken über die Details eines relationalen Datenspeicher zu machen. Schließlich können die von uns erstellten Abstraktionen leicht in Komponententests hinein oder gefälscht werden, und wir können diese Test Doubles verwenden, um schnelle, hochgradig isolierte und zuverlässige Tests zu erzielen.
 
-### <a name="additional-resources"></a>Zusätzliche Ressourcen
+### <a name="additional-resources"></a>Weitere Ressourcen
 
 -   Robert C. Martin " [das Prinzip der einzelnen Verantwortung](https://www.objectmentor.com/resources/articles/srp.pdf)"
 -   Martin Fowler, [Katalog mit Mustern](https://www.martinfowler.com/eaaCatalog/index.html) aus *Mustern der Unternehmens Anwendungsarchitektur*

@@ -1,24 +1,24 @@
 ---
-title: Code zuerst einfügen, aktualisieren und Löschen von gespeicherten Prozeduren – EF6
+title: Code First gespeicherte Prozeduren INSERT, Update und DELETE-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9a7ae7f9-4072-4843-877d-506dd7eef576
 ms.openlocfilehash: bfc56671814aec1965ac054ff901297e5cdbbecb
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489621"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415772"
 ---
-# <a name="code-first-insert-update-and-delete-stored-procedures"></a>Code zuerst einfügen, aktualisieren und Löschen von gespeicherten Prozeduren
+# <a name="code-first-insert-update-and-delete-stored-procedures"></a>Code First gespeicherte Prozeduren INSERT, Update und DELETE
 > [!NOTE]
 > **Nur EF6 und höher:** Die Features, APIs usw., die auf dieser Seite erläutert werden, wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
 
-Standardmäßig wird Code First konfiguriert alle Entitäten für Insert ausführen, aktualisieren und löschen die Befehle mithilfe der direkten Tabellenzugriff. Ab EF6 Sie können Ihre Code First-Modell zur Verwendung gespeicherter Prozeduren für einige oder alle Entitäten in Ihrem Modell konfigurieren.  
+Standardmäßig konfiguriert Code First alle Entitäten so, dass INSERT-, Update-und DELETE-Befehle mithilfe des direkten Tabellen Zugriffs durchgeführt werden. Beginnend mit EF6 können Sie das Code First Modell so konfigurieren, dass es gespeicherte Prozeduren für einige oder alle Entitäten im Modell verwendet.  
 
-## <a name="basic-entity-mapping"></a>Grundlegende Entitätszuordnung  
+## <a name="basic-entity-mapping"></a>Grundlegende Entitäts Zuordnung  
 
-Sie können festlegen, verwenden von gespeicherten Prozeduren für Einfüge-, aktualisieren und löschen Sie mithilfe der Fluent-API.  
+Sie können gespeicherte Prozeduren für INSERT, Update und DELETE mithilfe der fließend-API verwenden.  
 
 ``` csharp
 modelBuilder
@@ -26,17 +26,17 @@ modelBuilder
   .MapToStoredProcedures();
 ```  
 
-Dies bewirkt Code First einige Konventionen zu verwenden, um die erwartete Form der gespeicherten Prozeduren in der Datenbank zu erstellen.  
+Dies führt dazu, dass Code First einige Konventionen verwenden, um die erwartete Form der gespeicherten Prozeduren in der Datenbank zu erstellen.  
 
-- Drei gespeicherte Prozeduren, die mit dem Namen  **\<Type_name\>e_infügen**,  **\<Type_name\>_Update** und  **\<Type_ Namen\>_temporäre** (z. B. Blog_Insert, Blog_Update und Blog_Delete).  
-- Parameternamen entsprechen den Eigenschaftennamen.  
+- Drei gespeicherte Prozeduren mit dem Namen **\<TYPE_NAME\>_INSERT** **,\<TYPE_NAME\>** _Update und **\<** TYPE_NAME\>_Delete (z. b. Blog_Insert, Blog_Update und Blog_Delete).  
+- Parameter Namen entsprechen den Eigenschaftsnamen.  
   > [!NOTE]
-  > Wenn Sie zum Umbenennen der Spalte für eine bestimmte Eigenschaft HasColumnName() oder Column-Attribut verwenden, wird dieser Name für Parameter anstelle des Namens der Eigenschaft verwendet.  
-- **Die Insert-Prozedur** weist einen Parameter für jede Eigenschaft, mit Ausnahme der als speichern generierter gekennzeichnet (Identität oder berechnet). Die gespeicherte Prozedur sollte es sich um ein Resultset mit einer Spalte für jede Eigenschaft speichern generierter zurückgeben.  
-- **Das Update gespeicherte Prozedur** weist einen Parameter für jede Eigenschaft, außer denen mit einem generierten speichern-Muster von "Berechnet" gekennzeichnet. Einige parallelitätstoken einen Parameter für den ursprünglichen Wert erfordern, finden Sie unter den *Parallelitätstoken* Informationen weiter unten im Abschnitt. Die gespeicherte Prozedur sollte es sich um ein Resultset mit einer Spalte für jede berechnete Eigenschaft zurückgeben.  
-- **Der Löschvorgang gespeicherte Prozedur** müssen einen Parameter für den Schlüsselwert, der die Entität (oder mehrere Parameter, wenn die Entität einen zusammengesetzten Schlüssel verfügt). Darüber hinaus muss die Prozedur Delete auch verfügen über Parameter für alle Fremdschlüssel unabhängige Zuordnung für die Zieltabelle (Beziehungen, die keine entsprechende Fremdschlüsseleigenschaften, die in der Entität deklariert haben). Einige parallelitätstoken einen Parameter für den ursprünglichen Wert erfordern, finden Sie unter den *Parallelitätstoken* Informationen weiter unten im Abschnitt.  
+  > Wenn Sie hascolumnname () oder das Column-Attribut verwenden, um die Spalte für eine bestimmte Eigenschaft umzubenennen, wird dieser Name für Parameter anstelle des Eigenschafts namens verwendet.  
+- **Die gespeicherte Prozedur INSERT** verfügt über einen Parameter für jede Eigenschaft, mit Ausnahme derjenigen, die als vom Store generiert (Identität oder berechnet) gekennzeichnet sind. Die gespeicherte Prozedur sollte ein Resultset mit einer Spalte für jede vom Speicher generierte Eigenschaft zurückgeben.  
+- **Die gespeicherte Update Prozedur** verfügt über einen Parameter für jede Eigenschaft, mit Ausnahme derjenigen, die mit einem vom Speicher generierten Muster "berechnet" gekennzeichnet sind. Einige Parallelitäts Token erfordern einen Parameter für den ursprünglichen Wert. Weitere Informationen finden Sie im Abschnitt Parallelitäts *Token* weiter unten. Die gespeicherte Prozedur sollte ein Resultset mit einer Spalte für jede berechnete Eigenschaft zurückgeben.  
+- **Die gespeicherte DELETE-Prozedur** muss über einen Parameter für den Schlüsselwert der Entität verfügen (oder mehrere Parameter, wenn die Entität über einen zusammengesetzten Schlüssel verfügt). Außerdem sollte die Delete-Prozedur auch über Parameter für alle unabhängigen Zuordnungs Fremdschlüssel in der Ziel Tabelle verfügen (Beziehungen, die keine entsprechenden Fremdschlüssel Eigenschaften haben, die in der Entität deklariert sind). Einige Parallelitäts Token erfordern einen Parameter für den ursprünglichen Wert. Weitere Informationen finden Sie im Abschnitt Parallelitäts *Token* weiter unten.  
 
-Verwenden Sie die folgende Klasse als Beispiel an:  
+Verwenden Sie die folgende Klasse als Beispiel:  
 
 ``` csharp
 public class Blog  
@@ -47,7 +47,7 @@ public class Blog
 }
 ```  
 
-Die standardmäßige gespeicherte Prozeduren würde folgendermaßen lauten:  
+Die gespeicherten Standard Prozeduren lauten wie folgt:  
 
 ``` SQL
 CREATE PROCEDURE [dbo].[Blog_Insert]  
@@ -75,11 +75,11 @@ AS
   WHERE BlogId = @BlogId
 ```  
 
-### <a name="overriding-the-defaults"></a>Die Standardwerte außer Kraft setzen  
+### <a name="overriding-the-defaults"></a>Überschreiben der Standardwerte  
 
-Sie können überschreiben, teilweise oder ganz wie standardmäßig konfiguriert wurde.  
+Sie können einen Teil oder alle der standardmäßig konfigurierten Einstellungen außer Kraft setzen.  
 
-Sie können den Namen des einen oder mehrere gespeicherte Prozeduren ändern. In diesem Beispiel wird die gespeicherte Updateprozedur nur.  
+Sie können den Namen einer oder mehrerer gespeicherter Prozeduren ändern. In diesem Beispiel wird nur die gespeicherte Update Prozedur umbenannt.  
 
 ``` csharp
 modelBuilder  
@@ -88,7 +88,7 @@ modelBuilder
     s.Update(u => u.HasName("modify_blog")));
 ```  
 
-In diesem Beispiel wird alle drei gespeicherte Prozeduren.  
+In diesem Beispiel werden alle drei gespeicherten Prozeduren umbenannt.  
 
 ``` csharp
 modelBuilder  
@@ -99,7 +99,7 @@ modelBuilder
      .Insert(i => i.HasName("insert_blog")));
 ```  
 
-In diesen Beispielen die Aufrufe verkettet werden, aber Sie können auch die Syntax von Lambda-Block.  
+In diesen Beispielen werden die Aufrufe miteinander verkettet, aber Sie können auch die Lambda-Block Syntax verwenden.  
 
 ``` csharp
 modelBuilder  
@@ -112,7 +112,7 @@ modelBuilder
     });
 ```  
 
-In diesem Beispiel wird den Parameter für die BlogId-Eigenschaft für die gespeicherte Updateprozedur.  
+In diesem Beispiel wird der-Parameter für die BlogId-Eigenschaft der gespeicherten Update-Prozedur umbenannt.  
 
 ``` csharp
 modelBuilder  
@@ -121,7 +121,7 @@ modelBuilder
     s.Update(u => u.Parameter(b => b.BlogId, "blog_id")));
 ```  
 
-Diese Aufrufe sind verkettbare und zusammensetzbar. Hier ist ein Beispiel, das alle drei gespeicherten Prozeduren und deren Parameter benennt.  
+Diese Aufrufe sind alle verkettbar und zusammensetzbar. Es folgt ein Beispiel, das alle drei gespeicherten Prozeduren und ihre Parameter umbenennt.  
 
 ``` csharp
 modelBuilder  
@@ -138,7 +138,7 @@ modelBuilder
                    .Parameter(b => b.Url, "blog_url")));
 ```  
 
-Sie können auch den Namen der Spalten im Resultset ändern, die generiert Datenbankwerte enthält.  
+Sie können auch den Namen der Spalten im Resultset ändern, das von der Datenbank generierte Werte enthält.  
 
 ``` csharp
 modelBuilder
@@ -160,11 +160,11 @@ BEGIN
 END
 ```  
 
-## <a name="relationships-without-a-foreign-key-in-the-class-independent-associations"></a>Beziehungen ohne ein Fremdschlüssel in der Klasse (unabhängigen Zuordnungen)  
+## <a name="relationships-without-a-foreign-key-in-the-class-independent-associations"></a>Beziehungen ohne Fremdschlüssel in der Klasse (unabhängige Zuordnungen)  
 
-Wenn eine foreign Key-Eigenschaft in der Klassendefinition enthalten ist, kann der entsprechende Parameter in die gleiche Weise wie jede andere Eigenschaft umbenannt werden. Wenn eine Beziehung, ohne eine Fremdschlüsseleigenschaft in der Klasse vorhanden ist, wird der Standardname für den Parameter  **\<Navigation_property_name\>_\<Primary_key_name\>**.  
+Wenn eine Fremdschlüssel Eigenschaft in der Klassendefinition enthalten ist, kann der entsprechende Parameter auf dieselbe Weise wie jede andere Eigenschaft umbenannt werden. Wenn eine Beziehung ohne Fremdschlüssel Eigenschaft in der Klasse vorhanden ist, wird der Standardparameter Name **\<navigation_property_name\>_\<primary_key_name\>** .  
 
-Beispielsweise führt die folgenden Klassendefinitionen in einem Blog_BlogId-Parameter, die in den gespeicherten Prozeduren zum Einfügen und aktualisieren die Beiträge erwartet wird.  
+Beispielsweise würden die folgenden Klassendefinitionen dazu führen, dass in den gespeicherten Prozeduren ein Blog_BlogId-Parameter erwartet wird, um Beiträge einzufügen und zu aktualisieren.  
 
 ``` csharp
 public class Blog  
@@ -186,9 +186,9 @@ public class Post
 }
 ```  
 
-### <a name="overriding-the-defaults"></a>Die Standardwerte außer Kraft setzen  
+### <a name="overriding-the-defaults"></a>Überschreiben der Standardwerte  
 
-Sie können Parameter für die Fremdschlüssel ändern, die nicht in der Klasse enthalten sind, durch die Angabe des Pfads zur Eigenschaft primären Schlüssels für die Parameter-Methode.  
+Sie können Parameter für Fremdschlüssel, die nicht in der-Klasse enthalten sind, ändern, indem Sie der-Parameter Methode den Pfad zur Primary Key-Eigenschaft bereitstellen.  
 
 ``` csharp
 modelBuilder
@@ -197,7 +197,7 @@ modelBuilder
     s.Insert(i => i.Parameter(p => p.Blog.BlogId, "blog_id")));
 ```  
 
-Wenn Sie eine Navigationseigenschaft für die abhängige Entität (d.h. haben keine Post.Blog-Eigenschaft) können Sie die Zuordnungsmethode verwenden, um das andere Ende der Beziehung zu identifizieren und konfigurieren Sie dann die Parameter, die jeweils die Schlüsseleigenschaften entsprechen.  
+Wenn Sie nicht über eine Navigations Eigenschaft für die abhängige Entität verfügen (d. h. No Post. Blog-Eigenschaft) Anschließend können Sie die Association-Methode verwenden, um das andere Ende der Beziehung zu identifizieren und dann die Parameter zu konfigurieren, die den einzelnen Schlüsseleigenschaften entsprechen.  
 
 ``` csharp
 modelBuilder
@@ -210,15 +210,15 @@ modelBuilder
 
 ## <a name="concurrency-tokens"></a>Parallelitätstoken  
 
-Aktualisieren und löschen, die gespeicherten Prozeduren müssen möglicherweise auch für den Umgang mit Parallelität:  
+Die gespeicherten Prozeduren Update und DELETE müssen möglicherweise auch die Parallelität behandeln:  
 
-- Wenn die Entität parallelitätstoken enthält, kann die gespeicherte Prozedur optional einen Output-Parameter aufweisen, der die Anzahl der Zeilen aktualisiert/gelöscht (Zeilen betroffen) zurückgibt. Solcher Parameter muss mit der Methode RowsAffectedParameter konfiguriert werden.  
-EF verwendet standardmäßig den Rückgabewert von ExecuteNonQuery, um zu bestimmen, wie viele Zeilen betroffen sind. Angeben ein Output-Parameter für betroffene Zeilen ist nützlich, wenn Sie keinerlei Logik in Ihrem Sproc ausführen, die den Rückgabewert der ExecuteNonQuery wird falsch (aus Sicht des EF) verursachen würde am Ende der Ausführung.  
-- Für die einzelnen Parallelität werden Token gibt es einen Parameter namens  **\<Property_name\>_Original** (z. B. Timestamp_Original). Dadurch wird den ursprünglichen Wert dieser Eigenschaft: der Wert, wenn die Abfrage aus der Datenbank übergeben werden.  
-    - Parallelitätstoken, die von der Datenbank – z. B. Zeitstempel – berechnet werden, haben nur einen ursprünglichen-Parameter.  
-    - Nicht berechneten Eigenschaften, die als parallelitätstoken festgelegt werden müssen auch einen Parameter für den neuen Wert in der Updateprozedur. Hierbei werden die Benennungskonventionen, die bereits erläuterten für neue Werte verwendet. Ein derartiges Token Beispiel würde die URL eines Blogs als ein parallelitätstoken verwenden, der neue Wert ist erforderlich, da dies kann durch Ihren Code (im Gegensatz zu einer Timestamp-Token die nur von der Datenbank aktualisiert wird) einen neuen Wert aktualisiert werden.  
+- Wenn die Entität Parallelitäts Token enthält, kann die gespeicherte Prozedur optional über einen Output-Parameter verfügen, der die Anzahl der aktualisierten/gelöschten Zeilen (betroffene Zeilen) zurückgibt. Ein solcher Parameter muss mithilfe der rowsaffectedparameter-Methode konfiguriert werden.  
+Standardmäßig verwendet EF den Rückgabewert von ExecuteNonQuery, um zu bestimmen, wie viele Zeilen betroffen sind. Das Angeben eines betroffenen Rows-Ausgabe Parameters ist nützlich, wenn Sie eine Logik in Ihrem SPROC ausführen, die dazu führt, dass der Rückgabewert von ExecuteNonQuery beim Ende der Ausführung falsch ist (aus EF-Sicht).  
+- Für jedes Parallelitäts Token gibt es einen Parameter mit dem Namen **\<property_name\>_Original** (z. b. Timestamp_Original). Diesem wird der ursprüngliche Wert dieser Eigenschaft – der Wert, wenn er aus der Datenbank abgefragt wird.  
+    - Parallelitäts Token, die von der Datenbank berechnet werden – z. b. Zeitstempel – verfügen nur über einen ursprünglichen value-Parameter.  
+    - Nicht berechnete Eigenschaften, die als Parallelitäts Token festgelegt werden, verfügen ebenfalls über einen Parameter für den neuen Wert in der Aktualisierungs Prozedur. Dabei werden die Benennungs Konventionen verwendet, die bereits für neue Werte erläutert wurden. Ein Beispiel für ein solches Token wäre die Verwendung einer Blog-URL als Parallelitäts Token. der neue Wert ist erforderlich, da dies durch Ihren Code auf einen neuen Wert aktualisiert werden kann (im Gegensatz zu einem Timestamp-Token, das nur von der Datenbank aktualisiert wird).  
 
-Dies ist ein Beispiel-Klasse und die gespeicherte Prozedur mit einem Zeitstempel Concurrency Token zu aktualisieren.  
+Dies ist eine Beispiel Klasse und eine gespeicherte Aktualisierungs Prozedur mit einem Zeitstempel-Parallelitäts Token.  
 
 ``` csharp
 public class Blog  
@@ -243,7 +243,7 @@ AS
   WHERE BlogId = @BlogId AND [Timestamp] = @Timestamp_Original
 ```  
 
-Hier ist ein Beispiel für Klasse, und aktualisieren Sie die gespeicherte Prozedur mit Token für nicht berechnete Parallelität.  
+Im folgenden finden Sie eine Beispiel Klasse und eine gespeicherte Aktualisierungs Prozedur mit einem nicht berechneten Parallelitäts Token.  
 
 ``` csharp
 public class Blog  
@@ -267,9 +267,9 @@ AS
   WHERE BlogId = @BlogId AND [Url] = @Url_Original
 ```  
 
-### <a name="overriding-the-defaults"></a>Die Standardwerte außer Kraft setzen  
+### <a name="overriding-the-defaults"></a>Überschreiben der Standardwerte  
 
-Sie können optional einen Parameter für betroffene Zeilen einführen.  
+Optional können Sie den Parameter "betroffene Zeilen" einführen.  
 
 ``` csharp
 modelBuilder  
@@ -278,7 +278,7 @@ modelBuilder
     s.Update(u => u.RowsAffectedParameter("rows_affected")));
 ```  
 
-Für die Datenbank berechnet parallelitätstoken –, bei dem nur der ursprüngliche Wert übergeben wird – können nur die Standardparameter umbenennen Mechanismus Sie so benennen Sie den Parameter für den ursprünglichen Wert um.  
+Für berechnete Parallelitäts Token für die Datenbank – Wenn nur der ursprüngliche Wert übergeben wird – können Sie einfach den Standardparameter Umbenennungs Mechanismus verwenden, um den Parameter für den ursprünglichen Wert umzubenennen.  
 
 ``` csharp
 modelBuilder  
@@ -287,7 +287,7 @@ modelBuilder
     s.Update(u => u.Parameter(b => b.Timestamp, "blog_timestamp")));
 ```  
 
-Für nicht berechnete parallelitätstoken –, bei dem sowohl die ursprünglichen und neuen Wert übergeben werden – können Sie eine Überladung des Parameters, die Ihnen ermöglicht, einen Namen für jeden Parameter angeben.  
+Bei nicht berechneten Parallelitäts Token – wobei sowohl der ursprüngliche als auch der neue Wert übergeben werden – können Sie eine Überladung des Parameters verwenden, mit der Sie für jeden Parameter einen Namen angeben können.  
 
 ``` csharp
 modelBuilder
@@ -295,9 +295,9 @@ modelBuilder
  .MapToStoredProcedures(s => s.Update(u => u.Parameter(b => b.Url, "blog_url", "blog_original_url")));
 ```  
 
-## <a name="many-to-many-relationships"></a>Viele-zu-viele-Beziehungen  
+## <a name="many-to-many-relationships"></a>M:n-Beziehungen  
 
-In diesem Abschnitt als Beispiel verwenden wir die folgenden Klassen.  
+Wir verwenden die folgenden Klassen als Beispiel in diesem Abschnitt.  
 
 ``` csharp
 public class Post  
@@ -318,7 +318,7 @@ public class Tag
 }
 ```  
 
-Gespeicherte Prozeduren mit der folgenden Syntax können viele zu viele Beziehungen zugeordnet werden.  
+Viele zu viele Beziehungen können gespeicherten Prozeduren mit der folgenden Syntax zugeordnet werden.  
 
 ``` csharp
 modelBuilder  
@@ -328,12 +328,12 @@ modelBuilder
   .MapToStoredProcedures();
 ```  
 
-Wenn keine andere Konfiguration bereitgestellt wird, ist die folgende gespeicherte Prozedur Form standardmäßig verwendet.  
+Wenn keine andere Konfiguration bereitgestellt wird, wird standardmäßig die folgende Form der gespeicherten Prozedur verwendet.  
 
-- Zwei gespeicherte Prozeduren, die mit dem Namen  **\<Type_one\>\<Type_two\>e_infügen** und  **\<Type_one\>\<Type_two \>_Temporäre** (z. B. PostTag_Insert und PostTag_Delete).  
-- Die Parameter werden die wichtigsten Werte für jeden Typ. Der Name der einzelnen Parameter wird **\<Type_name\>_\<Property_name\>** (z. B. Post_PostId und Tag_TagId).
+- Es gibt zwei gespeicherte Prozeduren namens **\<type_one\>\<type_two**\>_INSERT und **\<** type_one\>\<type_two\>_Delete (z. b. PostTag_Insert und PostTag_Delete).  
+- Bei den Parametern handelt es sich um die Schlüsselwerte für jeden Typ. Der Name jedes Parameters, der **\<TYPE_NAME\>_\<property_name\>** ist (z. b. Post_PostId und Tag_TagId).
 
-Hier einige Beispiele für einfügen und Aktualisieren von gespeicherten Prozeduren.  
+Im folgenden finden Sie Beispiel gespeicherte Prozeduren zum Einfügen und aktualisieren.  
 
 ``` SQL
 CREATE PROCEDURE [dbo].[PostTag_Insert]  
@@ -350,9 +350,9 @@ AS
   WHERE Post_PostId = @Post_PostId AND Tag_TagId = @Tag_TagId
 ```  
 
-### <a name="overriding-the-defaults"></a>Die Standardwerte außer Kraft setzen  
+### <a name="overriding-the-defaults"></a>Überschreiben der Standardwerte  
 
-Die Namen der Prozedur und Parameter können auf ähnliche Weise Entität, die gespeicherten Prozeduren konfiguriert werden.  
+Die Prozedur-und Parameternamen können auf ähnliche Weise wie gespeicherte Prozeduren für Entitäten konfiguriert werden.  
 
 ``` csharp
 modelBuilder  

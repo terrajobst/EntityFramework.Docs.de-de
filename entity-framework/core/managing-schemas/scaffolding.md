@@ -6,17 +6,17 @@ ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
 ms.openlocfilehash: 1ba9352d261f1c131b0d70f8cdad2128d9afaefe
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824471"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414236"
 ---
 # <a name="reverse-engineering"></a>Reverse Engineering
 
 Reverse Engineering ist der Prozess der Gerüstbau von Entitäts Typen Klassen und einer dbcontext-Klasse auf Grundlage eines Datenbankschemas. Dies kann mit dem Befehl `Scaffold-DbContext` der EF Core Package Manager Console (PMC)-Tools oder mit dem Befehl `dotnet ef dbcontext scaffold` der .net-Befehlszeilenschnittstelle (CLI) ausgeführt werden.
 
-## <a name="installing"></a>Installieren von
+## <a name="installing"></a>Installation
 
 Bevor Reverse Engineering, müssen Sie entweder die [PMC-Tools](xref:core/miscellaneous/cli/powershell) (nur Visual Studio) oder die CLI- [Tools](xref:core/miscellaneous/cli/dotnet)installieren. Weitere Informationen finden Sie unter Links.
 
@@ -113,7 +113,7 @@ Scaffold-DbContext ... -ContextDir Data -OutputDir Models
 dotnet ef dbcontext scaffold ... --context-dir Data --output-dir Models
 ```
 
-## <a name="how-it-works"></a>So funktioniert's
+## <a name="how-it-works"></a>Funktionsweise
 
 Reverse Engineering beginnt mit dem Lesen des Datenbankschemas. Er liest Informationen zu Tabellen, Spalten, Einschränkungen und Indizes.
 

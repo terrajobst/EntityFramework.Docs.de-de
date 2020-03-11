@@ -1,34 +1,34 @@
 ---
-title: Definieren von Abfrage - Designer, EF - EF6
+title: Definieren von Query-EF-Designer-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
 ms.openlocfilehash: b1589dc12ccb50754c2e950932a2d82bc4869f6b
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489472"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415532"
 ---
-# <a name="defining-query---ef-designer"></a>Definieren der Abfrage – EF-Designer
-In dieser exemplarischen Vorgehensweise veranschaulicht das Hinzufügen eine definierende Abfrage und eine entsprechende Entität Geben Sie auf ein Modell mit dem EF Designer. Eine definierende Abfrage wird häufig verwendet, um Funktionen wie mit einer Datenbankansicht bereitzustellen, aber die Ansicht im Modell nicht in der Datenbank definiert ist. Einer definierenden Abfrage können Sie eine SQL-Anweisung ausführen, die im angegebenen die **DefiningQuery** Element eine EDMX-Datei. Weitere Informationen finden Sie unter **DefiningQuery** in die [SSDL-Spezifikation](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
+# <a name="defining-query---ef-designer"></a>Definieren einer Abfrage (EF-Designer)
+In dieser exemplarischen Vorgehensweise wird veranschaulicht, wie mit dem EF-Designer eine definierende Abfrage und ein entsprechender Entitätstyp zu einem Modell hinzugefügt werden. Eine definierende Abfrage wird häufig verwendet, um ähnliche Funktionen wie in einer Daten Bank Ansicht bereitzustellen, aber die Sicht wird im Modell und nicht in der Datenbank definiert. Eine definierende Abfrage ermöglicht das Ausführen einer SQL-Anweisung, die im **DefiningQuery** - -Element einer EDMX-Datei angegeben ist. Weitere Informationen finden Sie unter **DefiningQuery** in der [SSDL-Spezifikation](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
 
-Wenn definierende Abfragen verwenden, müssen Sie auch in Ihrem Modell einen Entitätstyp definiert. Der Entitätstyp wird verwendet, Anzeigen von Daten, die von der definierenden Abfrage verfügbar gemacht werden. Beachten Sie, dass Daten über diesen Entitätstyp verfügbar gemacht ist schreibgeschützt.
+Wenn Sie die Definition von Abfragen verwenden, müssen Sie auch einen Entitätstyp in Ihrem Modell definieren. Der Entitätstyp wird verwendet, um von der definierenden Abfrage verfügbar gemachte Daten zu übernehmen. Beachten Sie, dass Daten, die über diesen Entitätstyp über gestellt werden, schreibgeschützt sind.
 
-Parametrisierte Abfragen können nicht als definierende Abfragen ausgeführt werden. Die Daten können jedoch aktualisiert werden, indem die Insert-, Update- und Delete-Funktionen des Entitätstyps, der die Daten zugänglich macht, gespeicherten Prozeduren zugeordnet werden. Weitere Informationen finden Sie unter [INSERT-, Update- und Delete mit gespeicherten Prozeduren](~/ef6/modeling/designer/stored-procedures/cud.md).
+Parametrisierte Abfragen können nicht als definierende Abfragen ausgeführt werden. Die Daten können jedoch aktualisiert werden, indem die Insert-, Update- und Delete-Funktionen des Entitätstyps, der die Daten zugänglich macht, gespeicherten Prozeduren zugeordnet werden. Weitere Informationen finden Sie unter [Einfügen, aktualisieren und Löschen mit gespeicherten Prozeduren](~/ef6/modeling/designer/stored-procedures/cud.md).
 
-In diesem Thema wird gezeigt, wie Sie die folgenden Aufgaben ausführen.
+In diesem Thema wird gezeigt, wie die folgenden Aufgaben ausgeführt werden.
 
 -   Hinzufügen einer definierenden Abfrage
--   Hinzufügen eines Entitätstyps zum Modell
--   Ordnen Sie den Entitätstyp der definierenden Abfrage
+-   Hinzufügen eines Entitäts Typs zum Modell
+-   Zuordnen der definierenden Abfrage zum Entitätstyp
 
-## <a name="prerequisites"></a>Erforderliche Komponenten
+## <a name="prerequisites"></a>Voraussetzungen
 
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 
 - Eine aktuelle Version von Visual Studio.
-- Die [Beispieldatenbank ' School '](~/ef6/resources/school-database.md).
+- Die [Beispieldatenbank "School](~/ef6/resources/school-database.md)".
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
@@ -36,40 +36,40 @@ In dieser exemplarischen Vorgehensweise wird Visual Studio 2012 oder höher verw
 
 -   Öffnen Sie Visual Studio.
 -   Zeigen Sie im Menü **Datei** auf **Neu**, und klicken Sie dann auf **Projekt**.
--   Klicken Sie im linken Bereich auf **Visual C\#**, und wählen Sie dann die **Konsolenanwendung** Vorlage.
--   Geben Sie **DefiningQuerySample** als Namen für das Projekt und auf **OK**.
+-   Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die Vorlage **Konsolenanwendung** aus.
+-   Geben Sie **definingquerysample** als Namen für das Projekt ein, und klicken Sie auf **OK**.
 
- 
+ 
 
-## <a name="create-a-model-based-on-the-school-database"></a>Erstellen Sie ein Modell basierend auf der Datenbank "School"
+## <a name="create-a-model-based-on-the-school-database"></a>Erstellen eines Modells auf der Grundlage der Datenbank "School"
 
--   Mit der rechten Maustaste des Projektnamen im Projektmappen-Explorer, zeigen Sie auf **hinzufügen**, und klicken Sie dann auf **neues Element**.
--   Wählen Sie **Daten** aus dem linken Menü und wählen Sie dann **ADO.NET Entity Data Model** im Bereich Vorlagen.
--   Geben Sie **DefiningQueryModel.edmx** für den Dateinamen ein, und klicken Sie dann auf **hinzufügen**.
--   Wählen Sie im Dialogfeld "Modellinhalte" **aus Datenbank generieren**, und klicken Sie dann auf **Weiter**.
--   Klicken Sie auf die neue Verbindung. Geben Sie den Servernamen, klicken Sie im Dialogfeld "Verbindungseigenschaften" (z. B. **(Localdb)\\Mssqllocaldb**), wählen die Authentifizierungsmethode, Typ **School** für den Datenbanknamen, und klicken Sie dann Klicken Sie auf **OK**.
-    Das Dialogfeld "Wählen Sie Ihre Datenverbindung" wird mit Ihrem datenbankverbindungseinstellung aktualisiert.
--   Klicken Sie im Dialogfeld "Datenbankobjekte auswählen" Überprüfen der **Tabellen** Knoten. Hiermit werden alle Tabellen aus, die **School** Modell.
--   Klicken Sie auf **Fertig stellen**.
--   Klicken Sie im Projektmappen-Explorer mit der Maustaste der **DefiningQueryModel.edmx** und wählen Sie **Öffnen mit...** .
--   Wählen Sie **XML (Text)-Editor**.
+-   Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen, zeigen Sie auf **Hinzufügen**, und klicken Sie dann auf **Neues Element**.
+-   Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.
+-   Geben Sie **definingquerymodel. edmx** als Dateiname ein, und klicken Sie dann auf **Hinzufügen**.
+-   Wählen Sie im Dialogfeld Modell Inhalte auswählen die Option **aus Datenbank generieren aus**, und klicken Sie dann auf **weiter**.
+-   Klicken Sie auf neue Verbindung. Geben Sie im Dialogfeld Verbindungs Eigenschaften den Servernamen ein (z. b. **(localdb)\\mssqllocaldb**), wählen Sie die Authentifizierungsmethode aus, geben Sie **School** als Datenbanknamen ein, und klicken Sie dann auf **OK**.
+    Das Dialogfeld Wählen Sie Ihre Datenverbindung aus wird mit Ihrer Daten bankverbindungs Einstellung aktualisiert.
+-   Überprüfen Sie im Dialogfeld Datenbankobjekte auswählen den Knoten **Tabellen** . Dadurch werden alle Tabellen dem Modell " **School** " hinzugefügt.
+-   Klicken Sie auf **Finish**.
+-   Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf die Datei **definingquerymodel. edmx** , und wählen Sie **Öffnen mit...** aus.
+-   Wählen Sie den **XML-Editor (Text)** aus.
 
     ![XML-Editor](~/ef6/media/xmleditor.png)
 
--   Klicken Sie auf **Ja** , wenn die folgende Meldung angezeigt:
+-   Klicken Sie auf **Ja** , wenn Sie mit der folgenden Meldung aufgefordert werden:
 
     ![Warnung 2](~/ef6/media/warning2.png)
 
- 
+ 
 
 ## <a name="add-a-defining-query"></a>Hinzufügen einer definierenden Abfrage
 
-In diesem Schritt aus der XML-Editor Hinzufügen eine definierende Abfrage aus, und geben Sie eine Entität, die SSDL-Abschnitt der EDMX-Datei. 
+In diesem Schritt wird der XML-Editor verwendet, um dem SSDL-Abschnitt der EDMX-Datei eine definierende Abfrage und einen Entitätstyp hinzuzufügen. 
 
--   Hinzufügen einer **EntitySet** Element die SSDL-Abschnitt der EDMX-Datei (Zeile 5 bis 13). Geben Sie Folgendes an:
-    -   Nur die **Namen** und **EntityType** Attribute der **EntitySet** -Element angegeben werden.
-    -   Der vollqualifizierte Name des Entitätstyps wird verwendet, der **EntityType** Attribut.
-    -   Die SQL-Anweisung ausgeführt werden wird angegeben, der **DefiningQuery** Element.
+-   Fügen Sie dem SSDL-Abschnitt der EDMX-Datei ein **EntitySet** - Element hinzu (Zeile 5 bis 13). Geben Sie Folgendes an:
+    -   Es werden nur die Attribute **Name** und **EntityType** der **EntitySet** - Element angegeben.
+    -   Der voll qualifizierte Name des Entitäts Typs wird im **EntityType** - Attribut verwendet.
+    -   Die auszuführende SQL-Anweisung wird im **DefiningQuery** - -Element angegeben.
 
 ``` xml
     <!-- SSDL content -->
@@ -88,9 +88,9 @@ In diesem Schritt aus der XML-Editor Hinzufügen eine definierende Abfrage aus, 
           <EntitySet Name="Course" EntityType="SchoolModel.Store.Course" store:Type="Tables" Schema="dbo" />
 ```
 
--   Hinzufügen der **EntityType** Element die SSDL-Abschnitt der EDMX-Datei. Datei siehe unten. Beachten Sie Folgendes:
-    -   Den Wert des der **Namen** Attribut entspricht dem Wert des der **EntityType** -Attribut in der **EntitySet** Element oben zwar den vollqualifizierten Namen des der Entitätstyp wird verwendet, der **EntityType** Attribut.
-    -   Die Eigenschaftennamen entsprechen, die von SQL-Anweisung im zurückgegebenen Spaltennamen die **DefiningQuery** -Element (oben).
+-   Fügen Sie das **EntityType** -Element dem SSDL-Abschnitt der EDMX-Datei hinzu. Datei wie unten gezeigt. Beachten Sie Folgendes:
+    -   Der Wert des Attributs " **Name** " entspricht dem Wert des Attributs " **EntityType** " im obigen **EntitySet** -Element, obwohl der voll qualifizierte Name des Entitäts Typs im **EntityType** -Attribut verwendet wird.
+    -   Die Eigenschaftsnamen entsprechen den Spaltennamen, die von der SQL-Anweisung im **DefiningQuery** -Element (oben) zurückgegeben werden.
     -   In diesem Beispiel wird durch einen aus drei Eigenschaften bestehenden Entitätsschlüssel sichergestellt, dass der Schlüsselwert eindeutig ist.
 
 ``` xml
@@ -119,40 +119,40 @@ In diesem Schritt aus der XML-Editor Hinzufügen eine definierende Abfrage aus, 
 ```
 
 >[!NOTE]
-> Wenn Sie später ausführen, die **Modellaktualisierungs-Assistent** Dialogfeld alle am Speichermodell, einschließlich der definierenden Abfragen vorgenommenen Änderungen überschrieben werden.
+> Wenn Sie später den **Modellaktualisierungs-Assistenten** ausführen, werden alle Änderungen, die am Speichermodell vorgenommen werden, einschließlich der Definition von Abfragen, überschrieben.
 
- 
+ 
 
-## <a name="add-an-entity-type-to-the-model"></a>Hinzufügen eines Entitätstyps zum Modell
+## <a name="add-an-entity-type-to-the-model"></a>Hinzufügen eines Entitäts Typs zum Modell
 
-In diesem Schritt fügen wir der Entitätstyp am konzeptionellen Modell mit dem EF Designer hinzu.  Beachten Sie Folgendes:
+In diesem Schritt fügen wir den Entitätstyp mit dem EF-Designer dem konzeptionellen Modell hinzu.  Beachten Sie Folgendes:
 
--   Die **Namen** der Entität entspricht dem Wert von der **EntityType** -Attribut in der **EntitySet** Element oben.
--   Die Eigenschaftennamen entsprechen, die von SQL-Anweisung im zurückgegebenen Spaltennamen die **DefiningQuery** Element oben.
+-   Der **Name** der Entität entspricht dem Wert des Attributs **EntityType** im obigen **EntitySet** -Element.
+-   Die Eigenschaftsnamen entsprechen den Spaltennamen, die von der SQL-Anweisung im obigen **DefiningQuery** -Element zurückgegeben werden.
 -   In diesem Beispiel wird durch einen aus drei Eigenschaften bestehenden Entitätsschlüssel sichergestellt, dass der Schlüsselwert eindeutig ist.
 
-Öffnen Sie das Modell im EF Designer.
+Öffnen Sie das Modell im EF-Designer.
 
--   Doppelklicken Sie auf die DefiningQueryModel.edmx.
--   Sagen Sie **Ja** , die folgende Meldung angezeigt:
+-   Doppelklicken Sie auf definingquerymodel. edmx.
+-   Sagen Sie **Ja** , dass die folgende Meldung angezeigt wird:
 
     ![Warnung 2](~/ef6/media/warning2.png)
 
- 
+ 
 
-Im Entity Designer, der bietet eine Entwurfsoberfläche zum Bearbeiten des Modells, wird angezeigt.
+Die Entity Designer, die eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt.
 
--   Mit der rechten Maustaste in des Designers-Entwurfsoberfläche, und wählen **Add New**-&gt;**Entität...** .
--   Geben Sie **GradeReport** für den Namen der Entität und **CourseID** für die **Schlüsseleigenschaft**.
--   Mit der rechten Maustaste die **GradeReport** Entität, und wählen **Add New** - &gt; **Skalareigenschaft**.
--   Ändern Sie den Standardnamen der Eigenschaft, die **FirstName**.
--   Fügen Sie eine andere skalare Eigenschaft hinzu, und geben Sie **"LastName"** für den Namen.
--   Fügen Sie eine andere skalare Eigenschaft hinzu, und geben Sie **auf Unternehmensniveau** für den Namen.
--   In der **Eigenschaften** Ändern der **auf Unternehmensniveau**des **Typ** Eigenschaft **Decimal**.
--   Wählen Sie die **FirstName** und **"LastName"** Eigenschaften.
--   In der **Eigenschaften** Ändern der **EntityKey** Eigenschaftswert **"true"**.
+-   Klicken Sie mit der rechten Maustaste auf die Designer Oberfläche, und wählen Sie neue-&gt;**Entität** **Hinzufügen** aus.
+-   Geben Sie für den Entitäts Namen und den **CourseID** für die **Schlüsseleigenschaft**den Wert **gradereport** an.
+-   Klicken Sie mit der rechten Maustaste auf die Entität **gradereport** , und wählen Sie neue-&gt; **skalare Eigenschaft** **Hinzufügen**
+-   Ändern Sie den Standardnamen der Eigenschaft in **FirstName**.
+-   Fügen Sie eine weitere skalare Eigenschaft hinzu, und geben Sie **LastName** als Name an.
+-   Fügen Sie eine weitere skalare Eigenschaft hinzu, und geben Sie **Grade** für den Namen an.
+-   Ändern Sie im **Eigenschaften** Fenster die **Type** -Eigenschaft der **Klasse**in **Decimal**.
+-   Wählen Sie die Eigenschaften **FirstName** und **LastName** aus.
+-   Ändern Sie im **Eigenschaften** Fenster den Wert der **EntityKey** -Eigenschaft in **true**.
 
-Daher wurden die folgenden Elemente hinzugefügt, um die **CSDL** Abschnitt der EDMX-Datei.
+Folglich wurden dem **CSDL** -Abschnitt der EDMX-Datei die folgenden Elemente hinzugefügt.
 
 ``` xml
     <EntitySet Name="GradeReport" EntityType="SchoolModel.GradeReport" />
@@ -162,19 +162,19 @@ Daher wurden die folgenden Elemente hinzugefügt, um die **CSDL** Abschnitt der 
     </EntityType>
 ```
 
- 
+ 
 
-## <a name="map-the-defining-query-to-the-entity-type"></a>Ordnen Sie den Entitätstyp der definierenden Abfrage
+## <a name="map-the-defining-query-to-the-entity-type"></a>Zuordnen der definierenden Abfrage zum Entitätstyp
 
-In diesem Schritt verwenden wir das Fenster "Mappingdetails" Zuordnen der konzeptionellen Entitätstypen und speicherentitätstypen.
+In diesem Schritt wird das Fenster Mappingdetails verwendet, um die konzeptionellen Entitäts Typen und Speicher Entitäts Typen zuzuordnen.
 
--   Mit der rechten Maustaste die **GradeReport** Entität auf die Entwurfsoberfläche, und wählen **Tabellenzuordnung**.  
-    Die **Mappingdetails** Fenster wird angezeigt.
--   Wählen Sie **GradeReport** aus der **&lt;Hinzufügen einer Tabelle oder Sicht&gt;** Dropdown-Liste (befindet sich im **Tabelle**s).  
-    Zuordnungen zwischen dem konzeptionellen Standard und Storage **GradeReport** Entitätstyp angezeigt werden.  
-    ![Zuordnen von Details3](~/ef6/media/mappingdetails.png)
+-   Klicken Sie mit der rechten Maustaste auf die Entität **gradereport** auf der Entwurfs Oberfläche, und wählen Sie **Tabellen Zuordnung**.  
+    Das Fenster **Mappingdetails** wird angezeigt.
+-   Wählen Sie in der Dropdown Liste **&lt;eine Tabelle oder Sicht hinzufügen&gt;** (unter **Tabelle**s) die Option **gradereport** aus.  
+    Standard Zuordnungen zwischen dem Entitätstyp "konzeptionell" und "Speicher" werden angezeigt.  
+    ![Zuordnung Details3](~/ef6/media/mappingdetails.png)
 
-Daher die **EntitySetMapping** Element dem mappingabschnitt der EDMX-Datei hinzugefügt wird. 
+Folglich wird das **EntitySetMapping** - Element dem Mapping-Abschnitt der EDMX-Datei hinzugefügt. 
 
 ``` xml
     <EntitySetMapping Name="GradeReports">
@@ -191,11 +191,11 @@ Daher die **EntitySetMapping** Element dem mappingabschnitt der EDMX-Datei hinzu
 
 -   Kompilieren Sie die Anwendung.
 
- 
+ 
 
-## <a name="call-the-defining-query-in-your-code"></a>Die definierende Abfrage im Code aufrufen.
+## <a name="call-the-defining-query-in-your-code"></a>Die definierende Abfrage im Code aufzurufen
 
-Sie können jetzt die definierende Abfrage ausführen, mit der **GradeReport** Entitätstyp. 
+Sie können jetzt die definierende Abfrage ausführen, indem Sie den Entitätstyp **gradereportierung** verwenden. 
 
 ``` csharp
     using (var context = new SchoolEntities())

@@ -1,29 +1,29 @@
 ---
-title: Behandlung von Fehlern für den Commit Transaction - EF6
+title: Behandeln von Fehlern bei Transaktionscommit EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
 ms.openlocfilehash: 27e75e6a1919ee2300fe76cfcdf67cceaad887b3
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283653"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414674"
 ---
-# <a name="handling-transaction-commit-failures"></a>Behandeln Fehler bei commit
+# <a name="handling-transaction-commit-failures"></a>Behandeln von transaktionscommitfehlern
 > [!NOTE]
-> **EF6.1 oder höher, nur** -APIs, die Funktionen erläutert, die auf dieser Seite usw. in Entity Framework 6.1 eingeführt wurden. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
+> **Nur EF 6.1** : die Features, APIs usw., die auf dieser Seite erläutert wurden, wurden in Entity Framework 6,1 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.  
 
-Als Teil des 6.1 werden wir eine neue verbindungsstabilitätsfeature für EF eingeführt: die Möglichkeit zum Erkennen und automatisch wiederhergestellt, vorübergehenden verbindungsausfällen führen in der Bestätigung der Transaktion ein Commit ausgeführt haben. Die vollständigen Details des Szenarios sind am besten im Blogbeitrag beschrieben [SQL-Datenbankverbindungen und das Problem Idempotenz](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Zusammenfassend lässt sich sagen ist das Szenario an, dass wenn eine Ausnahme, während ein Transaktionscommit ausgelöst wird es zwei mögliche Ursachen gibt:  
+Als Teil von 6,1 wird ein neues Feature für die Verbindungs Resilienz für EF eingeführt: die Möglichkeit, automatisch zu erkennen und wiederherzustellen, wenn vorübergehende Verbindungsfehler die Bestätigung von Transaktionscommits beeinflussen. Die vollständigen Details des Szenarios werden am besten im Blogbeitrag [SQL-Datenbankkonnektivität und das Idempotenz-Problem](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)beschrieben.  Zusammenfassend gilt: Wenn eine Ausnahme während eines Transaktionscommits ausgelöst wird, gibt es zwei mögliche Ursachen:  
 
-1. Fehler bei das Commit der Transaktion auf dem server
-2. Das Commit der Transaktion, die auf dem Server war erfolgreich, aber ein Verbindungsproblem verhindert die Benachrichtigung über den Client erreicht  
+1. Fehler beim Commit der Transaktion auf dem Server.
+2. Der Transaktionscommit war auf dem Server erfolgreich, aber aufgrund eines Konnektivitätsproblems wurde die Erfolgs Benachrichtigung an den Client  
 
-Wenn die erste Situation der Anwendung oder den Benutzer geschieht, können Sie den Vorgang wiederholen. Wenn jedoch die zweite Situation tritt auf, Wiederholungen sollten vermieden werden und die Anwendung kann automatisch wiederhergestellt. Die Herausforderung besteht, die ohne die Fähigkeit zum erkennen, was die tatsächliche Ursache, die während des Commits, eine Ausnahme gemeldet wurde, die Anwendung nicht die richtige Vorgehensweise wählen kann. Das neue Feature in EF 6.1 ermöglicht EF mit der Datenbank zu überprüfen, ob die Transaktion erfolgreich war, und führen Sie die richtige Vorgehensweise transparent.  
+Bei der ersten Situation kann die Anwendung oder der Benutzer den Vorgang wiederholen, aber wenn die zweite Situation eintritt, sollten Wiederholungs Versuche vermieden werden, und die Anwendung kann automatisch wieder hergestellt werden. Die Herausforderung besteht darin, dass die Anwendung nicht die richtige Vorgehensweise auswählen kann, ohne zu erkennen, was der tatsächliche Grund ist, warum eine Ausnahme während des Commit gemeldet wurde. Das neue Feature in EF 6,1 ermöglicht EF, sich mit der Datenbank zu überprüfen, wenn die Transaktion erfolgreich war, und die richtige Vorgehensweise zur transparenten Ausführung zu treffen.  
 
-## <a name="using-the-feature"></a>Mithilfe der Funktion  
+## <a name="using-the-feature"></a>Verwenden der Funktion  
 
-Damit können das Feature müssen Sie einen Aufruf von einschließen [SetTransactionHandler](https://msdn.microsoft.com/library/system.data.entity.dbconfiguration.setdefaulttransactionhandler.aspx) im Konstruktor der Ihre **"dbconfiguration"**. Wenn Sie keine Erfahrung mit sind **"dbconfiguration"**, finden Sie unter [Code-basierte Konfiguration](~/ef6/fundamentals/configuring/code-based.md). Dieses Feature kann in Kombination mit der automatischen Wiederholungsversuchen, die wir in EF6 eingeführt verwendet werden, die in der Situation dabei helfen, in dem die Transaktion tatsächlich beim commit auf dem Server aufgrund eines vorübergehenden Fehlers Fehler:  
+Um die Funktion zu aktivieren, die Sie benötigen, müssen Sie im Konstruktor von **dbconfiguration**einen [calltransaktionshandlerbefehl](https://msdn.microsoft.com/library/system.data.entity.dbconfiguration.setdefaulttransactionhandler.aspx) einfügen. Wenn Sie mit **dbconfiguration**nicht vertraut sind, finden Sie unter [Code basierte Konfiguration](~/ef6/fundamentals/configuring/code-based.md)Weitere Informationen. Diese Funktion kann in Kombination mit den automatischen Wiederholungen verwendet werden, die wir in EF6 eingeführt haben, was zu einer Situation beiträgt, in der die Transaktion aufgrund eines vorübergehenden Fehlers tatsächlich keinen Commit auf dem Server ausgeführt hat:  
 
 ``` csharp
 using System.Data.Entity;
@@ -40,33 +40,33 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-## <a name="how-transactions-are-tracked"></a>Wie werden Transaktionen nachverfolgt.  
+## <a name="how-transactions-are-tracked"></a>Nachverfolgen von Transaktionen  
 
-Wenn das Feature aktiviert ist, fügen EF eine neue Tabelle für die Datenbank namens **__Transactions**. Eine neue Zeile wird in dieser Tabelle eingefügt, jedes Mal, wenn eine Transaktion von EF erstellt und diese Zeile wird auf Vorhandensein geprüft, ob es sich bei einem Transaktionsfehler während des Commits.  
+Wenn das Feature aktiviert ist, fügt EF der Datenbank automatisch eine neue Tabelle mit dem Namen **__Transactions**hinzu. Wenn eine Transaktion von EF erstellt wird, wird in diese Tabelle eine neue Zeile eingefügt, und diese Zeile wird auf vorhanden sein überprüft, wenn während des Commits ein Transaktionsfehler auftritt.  
 
-Obwohl EF ist bemüht sich, löscht Zeilen aus der Tabelle aus, wenn sie nicht mehr benötigt werden, kann die Tabelle vergrößert, wenn die Anwendung beendet wird, vorzeitig und aus diesem Grund müssen Sie möglicherweise die Tabelle manuell in einigen Fällen zu löschen.  
+Obwohl EF den besten Aufwand zum Löschen von Zeilen aus der Tabelle durchführt, wenn Sie nicht mehr benötigt werden, kann die Tabelle vergrößert werden, wenn die Anwendung vorzeitig beendet wird. aus diesem Grund müssen Sie die Tabelle in einigen Fällen manuell löschen.  
 
-## <a name="how-to-handle-commit-failures-with-previous-versions"></a>Gewusst wie: Behandeln von commitfehlern mit früheren Versionen
+## <a name="how-to-handle-commit-failures-with-previous-versions"></a>Behandeln von commitfehlern mit früheren Versionen
 
-Vor dem EF 6.1 war nicht Mechanismus zum Commit-Fehler in der EF-Produkt zu behandeln. Es gibt mehrere Möglichkeiten, die in dieser Situation, die mit früheren Versionen von EF6 angewendet werden kann:  
+Vor EF 6,1 gab es keinen Mechanismus zum Behandeln von commitfehlern im EF-Produkt. Es gibt mehrere Möglichkeiten, diese Situation zu behandeln, die auf frühere Versionen von EF6 angewendet werden kann:  
 
-* Option 1: keine Aktion durchführen  
+* Option 1-nichts tun  
 
-  Die Wahrscheinlichkeit für einen Verbindungsfehler während des Transaktionscommits ist gering, sodass es für die Anwendung nur fehlschlägt, wenn diese Bedingung, tatsächlich eintritt gültig sein kann.  
+  Die Wahrscheinlichkeit eines Verbindungsfehlers bei einem Transaktionscommit ist niedrig, sodass es für Ihre Anwendung möglicherweise nicht zu einem Fehler kommt, wenn diese Bedingung tatsächlich auftritt.  
 
-* Option 2: Verwenden Sie die Datenbank, um Status zurückzusetzen  
+* Option 2: Verwenden der Datenbank zum Zurücksetzen des Zustands  
 
-  1. Verwerfen der aktuellen "DbContext"  
-  2. Erstellen Sie einen neuen "DbContext" und Wiederherstellen Sie des Zustands Ihrer Anwendung aus der Datenbank  
-  3. Informieren Sie den Benutzer, dass der letzte Vorgang nicht erfolgreich abgeschlossen wurde haben kann  
+  1. Aktuellen dbcontext verwerfen  
+  2. Erstellen Sie einen neuen dbcontext, und stellen Sie den Status der Anwendung aus der Datenbank wieder her.  
+  3. Informieren Sie den Benutzer darüber, dass der letzte Vorgang möglicherweise nicht erfolgreich abgeschlossen wurde.  
 
-* Option 3: die Transaktion manuell nachverfolgen  
+* Option 3: Manuelles Nachverfolgen der Transaktion  
 
-  1. Fügen Sie eine Tabelle nicht nachverfolgt, mit der Datenbank verwendet, um den Status der Transaktionen nachzuverfolgen.  
-  2. Eine Zeile in der Tabelle am Anfang jeder Transaktion eingefügt.  
-  3. Wenn die Verbindung während des Commits fehlschlägt, überprüfen Sie das Vorhandensein der entsprechenden Zeile in der Datenbank.  
-     - Wenn die Zeile vorhanden ist, weiterhin normal ausgeführt, da die Transaktion erfolgreich durchgeführt wurde  
-     - Wenn die Zeile nicht vorhanden ist, verwenden Sie eine Ausführungsstrategie, um den aktuellen Vorgang wiederholen.  
-  4. Wenn der Commit erfolgreich ausgeführt wird, löschen Sie die entsprechende Zeile aus, um die Vergrößerung der Tabelle zu vermeiden.  
+  1. Fügen Sie der Datenbank, die zum Nachverfolgen des Status der Transaktionen verwendet wird, eine nicht nach verfolgte Tabelle hinzu.  
+  2. Fügen Sie am Anfang jeder Transaktion eine Zeile in die Tabelle ein.  
+  3. Wenn die Verbindung während des Commit fehlschlägt, überprüfen Sie, ob die entsprechende Zeile in der Datenbank vorhanden ist.  
+     - Wenn die Zeile vorhanden ist, fahren Sie normal fort, da für die Transaktion erfolgreich ein Commit ausgeführt wurde.  
+     - Wenn die Zeile nicht vorhanden ist, verwenden Sie eine Ausführungs Strategie, um den aktuellen Vorgang zu wiederholen.  
+  4. Wenn der Commit erfolgreich ausgeführt wurde, löschen Sie die entsprechende Zeile, um das Wachstum der Tabelle zu vermeiden.  
 
-[In diesem Blogbeitrag](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) enthält Beispielcode, um dies zu erreichen unter SQL Azure.  
+[Dieser Blogbeitrag](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) enthält Beispielcode zum Erreichen dieser SQL Azure.  

@@ -1,157 +1,157 @@
 ---
-title: Komplexe Typen - EF Designer - EF6
+title: 'Komplexe Typen: EF-Designer-EF6'
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9a8228ef-acfd-4575-860d-769d2c0e18a1
 ms.openlocfilehash: a3c5578acee23688c04772d2dd0a2221779af562
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489907"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415424"
 ---
-# <a name="complex-types---ef-designer"></a>Komplexe Typen - EF-Designer
-In diesem Thema wird gezeigt, wie komplexe Typen mit dem Entity Framework Designer (EF-Designer) zugeordnet und für Entitäten Abfragen, die Eigenschaften des komplexen Typs enthalten.
+# <a name="complex-types---ef-designer"></a>Komplexe Typen: EF-Designer
+In diesem Thema wird gezeigt, wie komplexe Typen mit dem Entity Framework Designer (EF-Designer) zugeordnet werden und wie Entitäten abgefragt werden, die Eigenschaften des komplexen Typs enthalten.
 
-Die folgende Abbildung zeigt die wichtigsten Windows, die bei der Arbeit mit dem EF Designer verwendet werden.
+Die folgende Abbildung zeigt die Hauptfenster, die bei der Arbeit mit dem EF-Designer verwendet werden.
 
 ![EF-Designer](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
-> Wenn Sie das konzeptionelle Modell erstellen, können Warnungen zu nicht zugeordneten Entitäten und Zuordnungen in der Fehlerliste angezeigt. Sie können diese Warnungen ignorieren, da nach der Auswahl, um die Datenbank aus dem Modell zu generieren, die Fehler verschwinden werden.
+> Beim Erstellen des konzeptionellen Modells können Warnungen zu nicht zugeordneten Entitäten und Zuordnungen in der Fehlerliste angezeigt werden. Sie können diese Warnungen ignorieren, da die Fehler nach dem Generieren der Datenbank aus dem Modell entfernt werden.
 
-## <a name="what-is-a-complex-type"></a>Was ist ein komplexer Typ
+## <a name="what-is-a-complex-type"></a>Was ist ein komplexer Typ?
 
 Komplexe Typen sind nicht skalare Eigenschaften von Entitätstypen, mit deren Hilfe skalare Eigenschaften in Entitäten organisiert werden können. Wie Entitäten bestehen komplexe Typen aus skalaren Eigenschaften oder anderen Eigenschaften von komplexem Typ.
 
-Wenn Sie mit Objekten, die komplexe Typen darstellen arbeiten, werden Sie folgende Punkte zu beachten:
+Beachten Sie Folgendes, wenn Sie mit Objekten arbeiten, die komplexe Typen darstellen:
 
--   Komplexe Typen verfügen über keine Schlüssel, und daher nicht unabhängig sein. Komplexe Typen können nur Eigenschaften von Entitätstypen oder anderen komplexen Typen sein.
--   Komplexe Typen können nicht an Zuordnungen beteiligt und können keine Navigationseigenschaften enthalten.
--   Eigenschaften eines komplexen Typs darf nicht sein **null**. Ein ** "InvalidOperationException" ** tritt auf, wenn **"DbContext.SaveChanges"** aufgerufen wird und ein null-komplexeres Objekt festgestellt wird. Skalare Eigenschaften komplexer Objekte möglich **null**.
+-   Komplexe Typen verfügen über keine Schlüssel und können daher nicht unabhängig vorhanden sein. Komplexe Typen können nur Eigenschaften von Entitätstypen oder anderen komplexen Typen sein.
+-   Komplexe Typen können nicht an Zuordnungen teilnehmen und keine Navigations Eigenschaften enthalten.
+-   Eigenschaften komplexer Typen dürfen nicht **null**sein. Eine **InvalidOperationException **tritt auf, wenn **dbcontext. SaveChanges** aufgerufen wird und ein komplexes NULL-Objekt gefunden wird. Skalare Eigenschaften komplexer Objekte können **null**sein.
 -   Komplexe Typen können nicht von anderen komplexen Typen erben.
--   Sie müssen den komplexen Typ als definieren eine **Klasse**. 
--   EF erkennt Änderungen an Elemente in ein komplexes Typobjekt beim **DbContext.DetectChanges** aufgerufen wird. Entitätsframework ruft **DetectChanges** automatisch die folgenden Elemente werden aufgerufen: **DbSet.Find**, **DbSet.Local**, **DbSet.Remove**, **"DbSet.Add"**, **DbSet.Attach**, **"DbContext.SaveChanges"**, **DbContext.GetValidationErrors**, **"DbContext.Entry"**, **DbChangeTracker.Entries**.
+-   Sie müssen den komplexen Typ als **Klasse**definieren. 
+-   EF erkennt Änderungen an Membern für ein Objekt komplexer Typen, wenn **dbcontext. DetectChanges** aufgerufen wird. Entity Framework ruft **DetectChanges** automatisch auf, wenn die folgenden Member aufgerufen werden: **dbset. Find**, **dbset. local**, **dbset. Remove**, **dbset. Add**, **dbset. Attach**, **dbcontext. SaveChanges**, **dbcontext. getvalidationerrors**, **dbcontext. Entry**, **dbchangetracker. Entries**.
 
-## <a name="refactor-an-entitys-properties-into-new-complex-type"></a>Umgestalten Sie Eigenschaften einer Entität in neuen komplexen Typ
+## <a name="refactor-an-entitys-properties-into-new-complex-type"></a>Umgestalten der Eigenschaften einer Entität in einen neuen komplexen Typ
 
-Wenn Sie bereits eine Entität im konzeptionellen Modell, die möglicherweise möchten Sie einige der Eigenschaften in eine Eigenschaft eines komplexen Typs umzugestalten haben.
+Wenn Sie bereits über eine Entität im konzeptionellen Modell verfügen, können Sie einige der Eigenschaften in eine komplexe Typeigenschaft umgestalten.
 
-Wählen Sie auf die Designeroberfläche, eine oder mehrere Eigenschaften (keine Navigationseigenschaften) einer Entität, klicken Sie dann mit der rechten Maustaste und wählen Sie **Umgestalten -&gt; verschieben in neuen komplexen Typ**.
+Wählen Sie auf der Designer Oberfläche eine oder mehrere Eigenschaften (mit Ausnahme der Navigations Eigenschaften) einer Entität aus, klicken Sie dann mit der rechten Maustaste, und wählen Sie **umgestalten-&gt; in neuen komplexen Typ verschieben**.
 
-![Umgestalten](~/ef6/media/refactor.png)
+![Refactoring](~/ef6/media/refactor.png)
 
-Ein neuer komplexer Typ mit den ausgewählten Eigenschaften wird hinzugefügt, um die **Modellbrowser**. Dem komplexen Typ wird ein Standardname zugewiesen.
+Ein neuer komplexer Typ mit den ausgewählten Eigenschaften wird dem **Modell Browser**hinzugefügt. Dem komplexen Typ wird ein Standardname zugewiesen.
 
 Die ausgewählten Eigenschaften werden durch eine komplexe Eigenschaft des neu erstellten Typs ersetzt. Alle Eigenschaftenzuordnungen werden beibehalten.
 
-![Umgestalten von 2](~/ef6/media/refactor2.png)
+![Umgestalten 2](~/ef6/media/refactor2.png)
 
-## <a name="create-a-new-complex-type"></a>Erstellen Sie einen neuen komplexen Typ
+## <a name="create-a-new-complex-type"></a>Neuen komplexen Typ erstellen
 
 Sie können auch einen neuen komplexen Typ erstellen, der keine Eigenschaften einer vorhandenen Entität enthält.
 
-Mit der rechten Maustaste die **komplexe Typen** Ordner zeigen Sie im Modellbrowser auf **AddNew komplexen Typs...** . Alternativ können Sie auswählen der **komplexe Typen** Ordner, und drücken Sie die **einfügen** auf der Tastatur die Taste.
+Klicken Sie im Modell Browser mit der rechten Maustaste auf den Ordner **Complex Types** , und zeigen Sie auf **AddNew Complex Type...** . Alternativ können Sie den Ordner **komplexe Typen** auswählen und auf der Tastatur auf die **Eingabe** Taste klicken.
 
-![Hinzufügen von neuen komplexen Typ](~/ef6/media/addnewcomplextype.png)
+![Neuen komplexen Typ hinzufügen](~/ef6/media/addnewcomplextype.png)
 
-Dem Ordner wird ein neuer komplexer Typ mit einem Standardnamen hinzugefügt. Jetzt können Sie Eigenschaften in den Typ hinzufügen.
+Dem Ordner wird ein neuer komplexer Typ mit einem Standardnamen hinzugefügt. Sie können dem Typ jetzt Eigenschaften hinzufügen.
 
-## <a name="add-properties-to-a-complex-type"></a>Fügen Sie Eigenschaften in einen komplexen Typ hinzu.
+## <a name="add-properties-to-a-complex-type"></a>Hinzufügen von Eigenschaften zu einem komplexen Typ
 
-Bei den Eigenschaften eines komplexen Typs kann es sich um skalare Typen oder vorhandene komplexe Typen handeln. Für die Eigenschaften eines komplexen Typs können jedoch keine Zirkelverweise verwendet werden. Z. B. einen komplexen Typ **OnsiteCourseDetails** eine Eigenschaft eines komplexen Typs sind keine **OnsiteCourseDetails**.
+Bei den Eigenschaften eines komplexen Typs kann es sich um skalare Typen oder vorhandene komplexe Typen handeln. Für die Eigenschaften eines komplexen Typs können jedoch keine Zirkelverweise verwendet werden. Beispielsweise kann ein komplexer Typ " **onsitecourmendetails** " nicht über eine Eigenschaft des komplexen Typs " **onsitecourtendetails**" verfügen.
 
 Einem komplexen Typ können anhand der unten aufgeführten Methoden Eigenschaften hinzugefügt werden.
 
--   Mit der rechten Maustaste im Modellbrowser eines komplexen Typs, zeigen Sie auf **hinzufügen**, zeigen Sie dann auf **Skalareigenschaft** oder **komplexe Eigenschaft**, wählen Sie dann den gewünschten Eigenschaftentyp. Alternativ können Sie wählen einen komplexen Typ und drücken Sie dann die **einfügen** auf der Tastatur die Taste.  
+-   Klicken Sie im Modell Browser mit der rechten Maustaste auf einen komplexen Typ, zeigen Sie auf **Hinzufügen**, zeigen Sie auf **skalare Eigenschaft** oder **komplexe Eigenschaft**, und wählen Sie dann den gewünschten Eigenschaftentyp aus. Alternativ können Sie einen komplexen Typ auswählen und dann die **Eingabe** Taste auf der Tastatur drücken.  
 
-    ![Fügen Sie Eigenschaften in komplexen Typ hinzu.](~/ef6/media/addpropertiestocomplextype.png)
+    ![Hinzufügen von Eigenschaften zu einem komplexen Typ](~/ef6/media/addpropertiestocomplextype.png)
 
     Dem komplexen Typ wird eine neue Eigenschaft mit einem Standardnamen hinzugefügt.
 
-- OR-
+- \- ODER -
 
--   Mit der rechten Maustaste einer Entitätseigenschaft auf der **EF Designer** Entwurfsoberfläche, und wählen **Kopie**, per Rechtsklick komplexen Typs in der **Modellbrowser** , und wählen Sie  **Fügen Sie**.
+-   Klicken Sie mit der rechten Maustaste auf eine Entitäts Eigenschaft auf der **EF-Designer** -Oberfläche, und wählen Sie **Kopieren** **aus. Klicken Sie dann**mit der rechten Maustaste auf den komplexen Typ im **Modell Browser**
 
 ## <a name="rename-a-complex-type"></a>Umbenennen eines komplexen Typs
 
 Wenn Sie einen komplexen Typ umbenennen, werden alle Verweise auf den Typ im gesamten Projekt aktualisiert.
 
--   Doppelklicken Sie langsam auf einen komplexen Typ in der **Modellbrowser**.
+-   Doppelklicken Sie im **Modell Browser**langsam auf einen komplexen Typ.
     Der Name wird markiert und kann bearbeitet werden.
 
-- OR-
+- \- ODER -
 
--   Mit der rechten Maustaste in eines komplexen Typs in der **Modellbrowser** , und wählen Sie **umbenennen**.
+-   Klicken Sie im **Modell Browser** mit der rechten Maustaste auf einen komplexen Typ, und wählen Sie **Umbenennen**.
 
-- OR-
+- \- ODER -
 
 -   Markieren Sie im Modellbrowser einen komplexen Typ, und drücken Sie die F2-TASTE.
 
-- OR-
+- \- ODER -
 
--   Mit der rechten Maustaste in eines komplexen Typs in der **Modellbrowser** , und wählen Sie **Eigenschaften**. Bearbeiten Sie den Namen in der **Eigenschaften** Fenster.
+-   Klicken Sie im **Modell Browser** mit der rechten Maustaste auf einen komplexen Typ, und wählen Sie **Eigenschaften**aus. Bearbeiten Sie den Namen im Fenster **Eigenschaften** .
 
-## <a name="add-an-existing-complex-type-to-an-entity-and-map-its-properties-to-table-columns"></a>Fügen Sie einen vorhandenen komplexen Typ auf eine Entität hinzu, und ordnen Sie seine Eigenschaften zu Tabellenspalten
+## <a name="add-an-existing-complex-type-to-an-entity-and-map-its-properties-to-table-columns"></a>Fügen Sie einer Entität einen vorhandenen komplexen Typ hinzu, und ordnen Sie die zugehörigen Eigenschaften Tabellen Spalten zu.
 
-1.  Mit der rechten Maustaste einer Entitätstyps, zeigen Sie auf **Add New**, und wählen Sie **komplexe Eigenschaft**.
+1.  Klicken Sie mit der rechten Maustaste auf eine Entität, zeigen Sie auf **Neu hinzufügen**, und wählen Sie **komplexe Eigenschaft**
     Der Entität wird eine Eigenschaft eines komplexen Typs mit einem Standardnamen hinzugefügt. Der Eigenschaft wird ein Standardtyp zugewiesen (ausgewählt aus den vorhandenen komplexen Typen).
-2.  Weisen Sie den gewünschten Typ der Eigenschaft in der **Eigenschaften** Fenster.
+2.  Weisen Sie der-Eigenschaft im Fenster **Eigenschaften** den gewünschten Typ zu.
     Nachdem Sie einer Entität eine Eigenschaft eines komplexen Typs hinzugefügt haben, müssen Sie die zugehörigen Eigenschaften Tabellenspalten zuordnen.
-3.  Mit der rechten Maustaste in eines Entitätstyps auf der Entwurfsoberfläche oder in der **Modellbrowser** , und wählen Sie **Tabellenzuordnungen**.
-    Die tabellenzuordnungen werden angezeigt, der **Mappingdetails** Fenster.
-4.  Erweitern Sie die **ordnet &lt;Tabellenname&gt;**  Knoten.
-    Ein **Spaltenzuordnungen** Knoten angezeigt wird.
-5.  Erweitern Sie die **Spaltenzuordnungen** Knoten.
-    Eine Liste aller Spalten in der Tabelle wird angezeigt. Die Standardeigenschaften (sofern vorhanden), denen die Spalten zugeordnet sind aufgeführt, unter dem **Wert/Eigenschaft** Überschrift.
-6.  Wählen Sie die Spalte, die Sie zuordnen möchten und dann auf den entsprechenden **Wert/Eigenschaft** Feld.
+3.  Klicken Sie mit der rechten Maustaste auf einen Entitätstyp auf der Entwurfs Oberfläche oder im **Modell Browser** und wählen Sie **Tabellen**Zuordnungen aus.
+    Die Tabellen Zuordnungen werden im Fenster **Mappingdetails** angezeigt.
+4.  Erweitern Sie den Knoten **maps to &lt;Table Name&gt;**  .
+    Eine **Spalten** Zuordnung Knoten wird angezeigt.
+5.  Erweitern Sie die **Spalten** Zuordnungen Knoten.
+    Eine Liste aller Spalten in der Tabelle wird angezeigt. Die Standardeigenschaften (sofern vorhanden), denen die Spalten zugeordnet sind, werden unter der Überschrift **Wert/Eigenschaft** aufgeführt.
+6.  Wählen Sie die Spalte aus, die Sie zuordnen möchten, und klicken Sie dann mit der rechten Maustaste auf das entsprechende Feld **Wert/Eigenschaft** .
     Eine Dropdownliste aller skalaren Eigenschaften wird angezeigt.
 7.  Wählen Sie die entsprechende Eigenschaft aus.
 
-    ![Ordnen komplexen Typ zu](~/ef6/media/mapcomplextype.png)
+    ![Komplexer Kartentyp](~/ef6/media/mapcomplextype.png)
 
 8.  Wiederholen Sie die Schritte 6 und 7 für jede Tabellenspalte.
 
 >[!NOTE]
-> Um eine spaltenzuordnung zu löschen, wählen Sie die Spalte, die Sie verwenden möchten, ordnen, und klicken Sie dann auf die **Wert/Eigenschaft** Feld. Wählen Sie dann **löschen** aus der Dropdown-Liste.
+> Um eine Spalten Zuordnung zu löschen, wählen Sie die Spalte aus, die Sie zuordnen möchten, und klicken Sie dann auf das Feld **Wert/Eigenschaft** . Wählen Sie dann in der Dropdown Liste die Option **Löschen** aus.
 
-## <a name="map-a-function-import-to-a-complex-type"></a>Zuordnen eines Funktionsimports zu einem komplexen Typ
+## <a name="map-a-function-import-to-a-complex-type"></a>Zuordnen eines Funktions Imports zu einem komplexen Typ
 
 Funktionsimporte basieren auf gespeicherten Prozeduren. Um einen Funktionsimport einem komplexen Typ zuzuordnen, muss die Zahl der von der entsprechenden gespeicherten Prozedur zurückgegebenen Spalten der Zahl der Eigenschaften des komplexen Typs entsprechen, und die Spalten müssen einen Speichertyp aufweisen, der mit den Typen der Eigenschaften kompatibel ist.
 
--   Doppelklicken Sie auf einer importierten Funktion, die Sie in einen komplexen Typ zuordnen möchten.
+-   Doppelklicken Sie auf eine importierte Funktion, die einem komplexen Typ zugeordnet werden soll.
 
-    ![Funktionsimporte](~/ef6/media/functionimports.png)
+    ![Funktions Importe](~/ef6/media/functionimports.png)
 
 -   Geben Sie wie folgt die Einstellungen für den neuen Funktionsimport ein:
-    -   Geben Sie die gespeicherte Prozedur, die für die Sie einen Funktionsimport im Erstellen der **Name der gespeicherten Prozedur** Feld. Dieses Feld wird als Dropdownliste angezeigt, die alle gespeicherten Prozeduren im Speichermodell enthält.
-    -   Geben Sie den Namen des Funktionsimports im der **Funktionsnamen importieren** Feld.
-    -   Wählen Sie **komplexe** als Rückgabetyp geben, und geben Sie dann den speziellen komplexen Rückgabetyp durch Auswählen des entsprechenden Typs aus der Dropdown-Liste.
+    -   Geben Sie im Feld **Name der gespeicherten Prozedur** die gespeicherte Prozedur an, für die Sie einen Funktions Import erstellen. Dieses Feld wird als Dropdownliste angezeigt, die alle gespeicherten Prozeduren im Speichermodell enthält.
+    -   Geben Sie den Namen des Funktions Imports im Feld **Funktions Import Name** an.
+    -   Wählen Sie **komplexe** als Rückgabetyp aus, und geben Sie dann den spezifischen komplexen Rückgabetyp an, indem Sie den entsprechenden Typ aus der Dropdown Liste auswählen.
 
-        ![Funktionsimport bearbeiten](~/ef6/media/editfunctionimport.png)
+        ![Funktions Import bearbeiten](~/ef6/media/editfunctionimport.png)
 
--   Klicken Sie auf **OK**.
+-   Klicken Sie auf **OK**.
     Der Funktionsimport-Eintrag wird im konzeptionellen Modell erstellt.
 
-### <a name="customize-column-mapping-for-function-import"></a>Anpassen der Spaltenzuordnung für den Funktionsimport
+### <a name="customize-column-mapping-for-function-import"></a>Anpassen der Spalten Zuordnung für den Funktions Import
 
--   Den Funktionsimport im Modellbrowser Maustaste und wählen Sie **Funktionsimportmapping**.
-    Die **Mappingdetails** Fenster angezeigt, und zeigt die standardzuordnung für den Funktionsimport. Pfeilsymbole geben die Zuordnungen der Spaltenwerte zu den Eigenschaftswerten an. Standardmäßig wird angenommen, dass die Spaltennamen mit den Namen der Eigenschaften des komplexen Typs identisch sind. Die Standardspaltennamen werden in grauem Text angezeigt.
+-   Klicken Sie im Modell Browser mit der rechten Maustaste auf den Funktions Import, und wählen Sie **Funktions Import Zuordnung**aus.
+    Das Fenster **Mappingdetails** wird angezeigt und zeigt die Standard Zuordnung für den Funktions Import an. Pfeilsymbole geben die Zuordnungen der Spaltenwerte zu den Eigenschaftswerten an. Standardmäßig wird angenommen, dass die Spaltennamen mit den Namen der Eigenschaften des komplexen Typs identisch sind. Die Standardspaltennamen werden in grauem Text angezeigt.
 -   Ändern Sie, falls erforderlich, die Spaltennamen so, dass sie mit den Spaltennamen übereinstimmen, die von der gespeicherten Prozedur zurückgegeben werden, die dem Funktionsimport entspricht.
 
 ## <a name="delete-a-complex-type"></a>Löschen eines komplexen Typs
 
-Wenn Sie einen komplexen Typ löschen, wird der Typ aus dem konzeptionellen Modell gelöscht, und die Mappings für alle Instanzen des Typs werden gelöscht. Verweise auf den Typ werden jedoch nicht aktualisiert. Angenommen, eine Entität hat die Eigenschaft eines komplexen Typs complexType1 verfügt und ComplexType1 im gelöscht wird die **Modellbrowser**, die entsprechende Entitätseigenschaft nicht aktualisiert. Das Modell wird nicht überprüft werden, da es sich um eine Entität enthält, die auf einen gelöschten komplexen Typ verweist. Verweise auf gelöschte komplexe Typen können mit dem Entity Designer aktualisiert werden.
+Wenn Sie einen komplexen Typ löschen, wird der Typ aus dem konzeptionellen Modell gelöscht, und die Mappings für alle Instanzen des Typs werden gelöscht. Verweise auf den Typ werden jedoch nicht aktualisiert. Wenn eine Entität z. b. über eine komplexe Typeigenschaft vom Typ ComplexType1 und ComplexType1 im **Modell Browser**gelöscht wird, wird die zugehörige Entitäts Eigenschaft nicht aktualisiert. Das Modell wird nicht überprüft, weil es eine Entität enthält, die auf einen gelöschten komplexen Typ verweist. Verweise auf gelöschte komplexe Typen können mit dem Entity Designer aktualisiert werden.
 
--   Mit der rechten Maustaste im Modellbrowser eines komplexen Typs, und wählen Sie **löschen**.
+-   Klicken Sie im Modell Browser mit der rechten Maustaste auf einen komplexen Typ, und wählen Sie **Löschen**aus.
 
-- OR-
+- \- ODER -
 
 -   Markieren Sie im Modellbrowser einen komplexen Typ, und drücken Sie dann die ENTF-TASTE auf der Tastatur.
 
-## <a name="query-for-entities-containing-properties-of-complex-type"></a>Abfragen von Entitäten, die Eigenschaften des komplexen Typs enthält.
+## <a name="query-for-entities-containing-properties-of-complex-type"></a>Abfragen von Entitäten mit Eigenschaften des komplexen Typs
 
-Der folgende Code zeigt, wie Sie eine Abfrage auszuführen, die eine Auflistung der Entität zurückgibt, die Eigenschaft eines komplexen Typs enthalten.
+Der folgende Code zeigt, wie eine Abfrage ausgeführt wird, die eine Auflistung von Entitätstyp Objekten zurückgibt, die eine Eigenschaft eines komplexen Typs enthalten.
 
 ``` csharp
     using (SchoolEntities context = new SchoolEntities())

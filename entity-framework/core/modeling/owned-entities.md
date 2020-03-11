@@ -5,18 +5,18 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 30b91b6e66b6c0f516d1ba12485304b52770cbef
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.openlocfilehash: da4a459fbc40010fc14190204c8ed66fe0495b84
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781234"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413984"
 ---
 # <a name="owned-entity-types"></a>Nicht eigenständige Entitätstypen
 
 EF Core ermöglicht es Ihnen, Entitäts Typen zu modellieren, die nur in den Navigations Eigenschaften anderer Entitäts Typen angezeigt werden können. Diese werden als _eigene Entitäts Typen_bezeichnet. Die Entität, die einen eigenen Entitätstyp enthält, ist Ihr _Besitzer_.
 
-Besitzende Entitäten sind im wesentlichen Teil des Besitzers und können nicht ohne Sie vorhanden sein, Sie sind konzeptionell ähnlich wie [Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html). Dies bedeutet, dass der eigene Typ definitionsgemäß auf der abhängigen Seite der Beziehung mit dem Besitzer ist.
+Besitzende Entitäten sind im wesentlichen Teil des Besitzers und können nicht ohne Sie vorhanden sein, Sie sind konzeptionell ähnlich wie [Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html). Dies bedeutet, dass die eigene Entität definitionsgemäß auf der abhängigen Seite der Beziehung mit dem Besitzer ist.
 
 ## <a name="explicit-configuration"></a>Explizite Konfiguration
 
@@ -38,7 +38,7 @@ Wenn die `ShippingAddress`-Eigenschaft im `Order`-Typ privat ist, können Sie di
 
 [!code-csharp[OwnsOneString](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneString)]
 
-Weitere Informationen finden Sie im [vollständigen Beispiel Projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) .
+Weitere Informationen finden Sie im [vollständigen Beispiel Projekt](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) .
 
 ## <a name="implicit-keys"></a>Implizite Schlüssel
 
@@ -100,7 +100,7 @@ Um zu verstehen, wie EF Core überwachte Instanzen dieser Objekte unterscheiden,
 
 ## <a name="nested-owned-types"></a>Im Besitz befindliche Typen
 
-In diesem Beispiel `OrderDetails` `BillingAddress` und `ShippingAddress`, bei denen es sich um `StreetAddress` Typen handelt. Dann besitzt der `DetailedOrder`-Typ `OrderDetails`.
+In diesem Beispiel `OrderDetails` `BillingAddress` und `ShippingAddress`, bei denen es sich um `StreetAddress` Typen handelt. Dann besitzt der `OrderDetails`-Typ `DetailedOrder`.
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/OwnedEntities/DetailedOrder.cs?name=DetailedOrder)]
 

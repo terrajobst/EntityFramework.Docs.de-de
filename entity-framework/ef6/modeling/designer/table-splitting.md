@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
 ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921784"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415010"
 ---
 # <a name="designer-table-splitting"></a>Aufteilen von Designer Tabellen
 In dieser exemplarischen Vorgehensweise wird veranschaulicht, wie Sie mehrere Entitäts Typen einer einzelnen Tabelle zuordnen, indem Sie ein Modell mit dem Entity Framework Designer (EF-Designer) ändern.
@@ -19,7 +19,7 @@ Die folgende Abbildung zeigt die Hauptfenster, die bei der Arbeit mit dem EF-Des
 
 ![EF-Designer](~/ef6/media/efdesigner.png)
 
-## <a name="prerequisites"></a>Erforderliche Komponenten
+## <a name="prerequisites"></a>Voraussetzungen
 
 Um die exemplarische Vorgehensweise nachzuvollziehen, benötigen Sie Folgendes:
 

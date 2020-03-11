@@ -5,11 +5,11 @@ ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
 ms.openlocfilehash: ddfaa8eebde388a9d3309f21b8891de593077956
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811894"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414650"
 ---
 # <a name="entity-types-with-constructors"></a>Entitäts Typen mit Konstruktoren
 
@@ -87,7 +87,7 @@ public class Post
 }
 ```
 
-Beachten Sie Folgendes:
+Hinweise, die Sie beachten sollten:
 
 * Nicht alle Eigenschaften müssen über Konstruktorparameter verfügen. Beispielsweise wird die Post. Content-Eigenschaft nicht von einem Konstruktorparameter festgelegt, sodass EF Core Sie nach dem Aufrufen des Konstruktors auf die normale Weise festgelegt wird.
 * Die Parametertypen und-Namen müssen mit den Eigenschafts Typen und-Namen identisch sein, mit dem Unterschied, dass die Eigenschaften in Pascal-Schreibweise angegeben werden können, während die Parameter
@@ -202,7 +202,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-Beachten Sie Folgendes:
+Hinweise:
 
 * Der Schlüssel "Property" ist jetzt ein Feld. Es handelt sich nicht um ein `readonly` Feld, sodass vom Speicher generierte Schlüssel verwendet werden können.
 * Die anderen Eigenschaften sind schreibgeschützte Eigenschaften, die nur im Konstruktor festgelegt sind.

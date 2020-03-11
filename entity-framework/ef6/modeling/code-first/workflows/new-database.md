@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
 ms.openlocfilehash: d540fc6e84049f345ae22998f94c309e0be73fc3
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182572"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415544"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First einer neuen Datenbank
 Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einführung in Code First Entwicklung für eine neue Datenbank. Dieses Szenario umfasst das Ziel einer Datenbank, die nicht vorhanden ist und Code First erstellt wird, oder eine leere Datenbank, der Code First neue Tabellen hinzugefügt werden. Mit Code First können Sie das Modell mithilfe von C\#-oder VB.NET-Klassen definieren. Die zusätzliche Konfiguration kann optional mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.
@@ -30,11 +30,11 @@ Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch [nuget](https://visualst
 
 Um die Dinge einfach zu halten, erstellen wir eine einfache Konsolenanwendung, die Code First verwendet, um Daten Zugriffe auszuführen.
 
--   Öffnen Sie Visual Studio
+-   Öffnen Sie Visual Studio.
 -   **Datei&gt; Projekt für neue&gt;...**
 -   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
 -   Geben Sie **codefirstnewdatabasesample** als Name ein.
--   Wählen Sie **OK** aus.
+-   Klicken Sie auf **OK**.
 
 ## <a name="2-create-the-model"></a>2. Erstellen des Modells
 

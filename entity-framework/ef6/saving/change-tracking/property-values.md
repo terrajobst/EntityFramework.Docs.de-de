@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
 ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182147"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414374"
 ---
 # <a name="working-with-property-values"></a>Arbeiten mit Eigenschafts Werten
 In den meisten Fällen übernimmt Entity Framework die Nachverfolgung des Zustands, der ursprünglichen Werte und der aktuellen Werte der Eigenschaften der Entitäts Instanzen. Es gibt jedoch einige Fälle, z. b. getrennte Szenarios, in denen Sie die Informationen anzeigen oder bearbeiten möchten, die EF über die Eigenschaften verfügt. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
@@ -55,7 +55,7 @@ Wenn ein Eigenschafts Wert auf diese Weise festgelegt wird, wird die Änderung a
 
 ## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>Der aktuelle Wert einer nicht zugeordneten Eigenschaft wird erhalten und festgelegt.  
 
-Der aktuelle Wert einer Eigenschaft, die nicht der Datenbank zugeordnet ist, kann ebenfalls gelesen werden. Ein Beispiel für eine nicht zugeordnete Eigenschaft könnte eine rsslink-Eigenschaft im Blog sein. Dieser Wert kann basierend auf der BlogId berechnet werden und muss daher nicht in der Datenbank gespeichert werden. Zum Beispiel:  
+Der aktuelle Wert einer Eigenschaft, die nicht der Datenbank zugeordnet ist, kann ebenfalls gelesen werden. Ein Beispiel für eine nicht zugeordnete Eigenschaft könnte eine rsslink-Eigenschaft im Blog sein. Dieser Wert kann basierend auf der BlogId berechnet werden und muss daher nicht in der Datenbank gespeichert werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -71,7 +71,7 @@ using (var context = new BloggingContext())
 
 Der aktuelle Wert kann auch festgelegt werden, wenn die-Eigenschaft einen Setter verfügbar macht.  
 
-Das Lesen der Werte nicht zugeordneter Eigenschaften ist nützlich, wenn Entity Framework Überprüfung nicht zugeordneter Eigenschaften durchgeführt wird. Aus demselben Grund können aktuelle Werte gelesen und für Eigenschaften von Entitäten festgelegt werden, die derzeit nicht durch den Kontext verfolgt werden. Zum Beispiel:  
+Das Lesen der Werte nicht zugeordneter Eigenschaften ist nützlich, wenn Entity Framework Überprüfung nicht zugeordneter Eigenschaften durchgeführt wird. Aus demselben Grund können aktuelle Werte gelesen und für Eigenschaften von Entitäten festgelegt werden, die derzeit nicht durch den Kontext verfolgt werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -167,7 +167,7 @@ Die aktuellen Werte sind die Werte, die die Eigenschaften der Entität derzeit e
 
 ## <a name="setting-current-or-original-values-from-another-object"></a>Festlegen aktueller oder ursprünglicher Werte aus einem anderen Objekt  
 
-Die aktuellen oder ursprünglichen Werte einer nach verfolgten Entität können aktualisiert werden, indem Werte aus einem anderen Objekt kopiert werden. Zum Beispiel:  
+Die aktuellen oder ursprünglichen Werte einer nach verfolgten Entität können aktualisiert werden, indem Werte aus einem anderen Objekt kopiert werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -214,7 +214,7 @@ Beachten Sie, dass nur Eigenschaften, die auf verschiedene Werte festgelegt sind
 
 ## <a name="setting-current-or-original-values-from-a-dictionary"></a>Festlegen aktueller oder ursprünglicher Werte aus einem Wörterbuch  
 
-Die aktuellen oder ursprünglichen Werte einer nach verfolgten Entität können aktualisiert werden, indem Werte aus einem Wörterbuch oder einer anderen Datenstruktur kopiert werden. Zum Beispiel:  
+Die aktuellen oder ursprünglichen Werte einer nach verfolgten Entität können aktualisiert werden, indem Werte aus einem Wörterbuch oder einer anderen Datenstruktur kopiert werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -242,7 +242,7 @@ Verwenden Sie die OriginalValues-Eigenschaft anstelle der CurrentValues-Eigensch
 
 ## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>Festlegen aktueller oder ursprünglicher Werte aus einem Wörterbuch mithilfe der-Eigenschaft  
 
-Eine Alternative zur Verwendung von CurrentValues oder OriginalValues, wie oben gezeigt, besteht darin, die-Eigenschaften Methode zum Festlegen des Werts der einzelnen Eigenschaften zu verwenden. Dies ist vorzuziehen, wenn Sie die Werte komplexer Eigenschaften festlegen müssen. Zum Beispiel:  
+Eine Alternative zur Verwendung von CurrentValues oder OriginalValues, wie oben gezeigt, besteht darin, die-Eigenschaften Methode zum Festlegen des Werts der einzelnen Eigenschaften zu verwenden. Dies ist vorzuziehen, wenn Sie die Werte komplexer Eigenschaften festlegen müssen. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -270,7 +270,7 @@ Im obigen Beispiel erfolgt der Zugriff auf komplexe Eigenschaften mithilfe von p
 
 ## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>Erstellen eines geklonten Objekts mit aktuellen, ursprünglichen oder Daten bankwerten  
 
-Das von CurrentValues, OriginalValues oder getdatabasevalues zurückgegebene dbpropertyvalues-Objekt kann verwendet werden, um einen Klon der Entität zu erstellen. Dieser Klon enthält die Eigenschaftswerte aus dem dbpropertyvalues-Objekt, das zur Erstellung verwendet wird. Zum Beispiel:  
+Das von CurrentValues, OriginalValues oder getdatabasevalues zurückgegebene dbpropertyvalues-Objekt kann verwendet werden, um einen Klon der Entität zu erstellen. Dieser Klon enthält die Eigenschaftswerte aus dem dbpropertyvalues-Objekt, das zur Erstellung verwendet wird. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -287,7 +287,7 @@ Das geklonte Objekt kann nützlich sein, um Probleme im Zusammenhang mit gleichz
 
 ## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Erhalten und Festlegen der aktuellen oder ursprünglichen Werte komplexer Eigenschaften  
 
-Der Wert eines gesamten komplexen Objekts kann mithilfe der-Eigenschaften Methode gelesen und festgelegt werden, so wie es für eine primitive Eigenschaft möglich ist. Außerdem können Sie einen Drilldown in das komplexe Objekt durchführen und die Eigenschaften des Objekts oder sogar ein geschieetes Objekt lesen oder festlegen. Hier einige Beispiele:  
+Der Wert eines gesamten komplexen Objekts kann mithilfe der-Eigenschaften Methode gelesen und festgelegt werden, so wie es für eine primitive Eigenschaft möglich ist. Außerdem können Sie einen Drilldown in das komplexe Objekt durchführen und die Eigenschaften des Objekts oder sogar ein geschieetes Objekt lesen oder festlegen. Im Folgenden finden Sie einige Beispiele:  
 
 ``` csharp
 using (var context = new BloggingContext())

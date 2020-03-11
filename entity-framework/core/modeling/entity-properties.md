@@ -6,11 +6,11 @@ ms.date: 12/10/2019
 ms.assetid: e9dff604-3469-4a05-8f9e-18ac281d82a9
 uid: core/modeling/entity-properties
 ms.openlocfilehash: b67603fbffd1f1c8506bc21f8972c851eb8eef29
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502426"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414566"
 ---
 # <a name="entity-properties"></a>Entitätseigenschaften
 
@@ -22,11 +22,11 @@ Gemäß der Konvention werden alle öffentlichen Eigenschaften mit einem Getter 
 
 Bestimmte Eigenschaften können wie folgt ausgeschlossen werden:
 
-### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/IgnoreProperty.cs?name=IgnoreProperty&highlight=6)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IgnoreProperty.cs?name=IgnoreProperty&highlight=3,4)]
 
@@ -38,11 +38,11 @@ Gemäß der Konvention werden bei Verwendung einer relationalen Datenbank Entit�
 
 Wenn Sie Ihre Spalten lieber mit unterschiedlichen Namen konfigurieren möchten, können Sie dies wie folgt tun:
 
-### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ColumnName.cs?Name=ColumnName&highlight=3)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnName.cs?Name=ColumnName&highlight=3-5)]
 
@@ -56,11 +56,11 @@ SQL Server ordnet z. b. `DateTime` Eigenschaften `datetime2(7)` Spalten zu und `
 
 Sie können auch die Spalten so konfigurieren, dass Sie einen exakten Datentyp für eine Spalte angeben. Der folgende Code konfiguriert z. b. `Url` als nicht-Unicode-Zeichenfolge mit maximaler Länge von `200` und `Rating` als Dezimal Länge mit der Genauigkeit `5` und der `2`Skala:
 
-### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ColumnDataType.cs?name=ColumnDataType&highlight=4,6)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnDataType.cs?name=ColumnDataType&highlight=5-6)]
 
@@ -75,11 +75,11 @@ Das Konfigurieren einer maximalen Länge gibt dem Datenbankanbieter einen Hinwei
 
 Im folgenden Beispiel bewirkt das Konfigurieren einer maximalen Länge von 500, dass eine Spalte vom Typ "`nvarchar(500)`" in SQL Server erstellt wird:
 
-#### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+#### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/MaxLength.cs?name=MaxLength&highlight=4)]
 
-#### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+#### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/MaxLength.cs?name=MaxLength&highlight=3-5)]
 
@@ -100,11 +100,11 @@ C#in 8 wurde ein neues Feature namens " [Werte zulässt Reference Types](/dotnet
 
 Das folgende Beispiel zeigt einen Entitätstyp mit erforderlichen und optionalen Eigenschaften, wobei die Verweis Funktion NULL-Werte ist deaktiviert (Standard) und aktiviert ist:
 
-#### <a name="without-nullable-reference-types-defaulttabwithout-nrt"></a>[Ohne Verweis Typen, die NULL-Werte zulassen (Standard)](#tab/without-nrt)
+#### <a name="without-nullable-reference-types-default"></a>[Ohne Verweis Typen, die NULL-Werte zulassen (Standard)](#tab/without-nrt)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/CustomerWithoutNullableReferenceTypes.cs?name=Customer&highlight=4-8)]
 
-#### <a name="with-nullable-reference-typestabwith-nrt"></a>[Mit auf NULL festleg baren Verweis Typen](#tab/with-nrt)
+#### <a name="with-nullable-reference-types"></a>[Mit auf NULL festleg baren Verweis Typen](#tab/with-nrt)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Customer.cs?name=Customer&highlight=4-6)]
 
@@ -121,11 +121,11 @@ Weitere Informationen zu Verweis Typen, die NULL-Werte zulassen, und deren Verwe
 
 Eine Eigenschaft, die gemäß der Konvention optional ist, kann so konfiguriert werden, dass Sie wie folgt erforderlich ist:
 
-#### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+#### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Required.cs?name=Required&highlight=4)]
 
-#### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+#### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Required.cs?name=Required&highlight=3-5)]
 

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 06baa6e1-d680-4a95-845b-81305c87a962
 ms.openlocfilehash: a9c54fbc14dd02ce5d4d91449a0d5f9e72f7f0f7
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182501"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415328"
 ---
 # <a name="spatial---ef-designer"></a>Räumlich: EF-Designer
 > [!NOTE]
@@ -48,7 +48,7 @@ Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express
 2.  Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich Vorlagen die Option **ADO.NET Entity Data Model** aus.
 3.  Geben Sie für den Dateinamen " **universitymodel. edmx** " ein, und klicken Sie auf **Hinzufügen** .
 4.  Wählen Sie auf der Seite des Entity Data Model-Assistenten im Dialogfeld Modell Inhalte auswählen die Option **leeres Modell** aus.
-5.  Klicken auf **Fertig** stellen
+5.  Klicken Sie auf **Fertig stellen**.
 
 Die Entity Designer, die eine Entwurfs Oberfläche zum Bearbeiten des Modells bereitstellt, wird angezeigt.
 
@@ -62,7 +62,7 @@ Der Assistent führt die folgenden Aktionen aus:
 
 1.  Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Entwurfs Oberfläche, und wählen Sie **Add-&gt; Entity**, das Dialogfeld neue Entität wird angezeigt.
 2.  Geben Sie **University** **als Typnamen** an, und geben Sie für den Schlüssel Eigenschaftsnamen die Angabe " **universityid** " an.
-3.  Klicken Sie auf **OK**.
+3.  Klicken Sie auf **OK**
 4.  Klicken Sie mit der rechten Maustaste auf die Entität, und wählen Sie **Add New-&gt; Scalar**
 5.  Benennen Sie die neue Eigenschaft in **Name** um.
 6.  Fügen Sie eine weitere skalare Eigenschaft hinzu, und benennen Sie Sie in **Location** um. Öffnen Sie die Eigenschaftenfenster, und ändern Sie den Typ der neuen Eigenschaft in **geography**

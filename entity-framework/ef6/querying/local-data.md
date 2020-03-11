@@ -4,18 +4,18 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 2eda668b-1e5d-487d-9a8c-0e3beef03fcb
 ms.openlocfilehash: efd646348d8a18bbeed2d0a0e708d4d36eb26eac
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182431"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414482"
 ---
 # <a name="local-data"></a>Lokale Daten
 Wenn Sie eine LINQ-Abfrage direkt für ein dbset ausführen, wird immer eine Abfrage an die Datenbank gesendet. Sie können jedoch auf die Daten zugreifen, die derzeit im Arbeitsspeicher vorhanden sind, indem Sie die dbset. Local-Eigenschaft verwenden. Sie können auch auf die zusätzlichen Informationen zugreifen, die EF über die Entitäten nachverfolgt, indem Sie die Methoden dbcontext. Entry und dbcontext. ChangeTracker. Entries verwenden. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
 ## <a name="using-local-to-look-at-local-data"></a>Verwenden von local, um lokale Daten zu untersuchen  
 
-Die Local-Eigenschaft von dbset bietet einfachen Zugriff auf die Entitäten der Menge, die zurzeit vom Kontext nachverfolgt werden und nicht als gelöscht markiert wurden. Der Zugriff auf die lokale Eigenschaft bewirkt nie, dass eine Abfrage an die Datenbank gesendet wird. Dies bedeutet, dass Sie normalerweise verwendet wird, wenn bereits eine Abfrage durchgeführt wurde. Die Load-Erweiterungsmethode kann verwendet werden, um eine Abfrage auszuführen, sodass der Kontext die Ergebnisse nachverfolgt. Zum Beispiel:  
+Die Local-Eigenschaft von dbset bietet einfachen Zugriff auf die Entitäten der Menge, die zurzeit vom Kontext nachverfolgt werden und nicht als gelöscht markiert wurden. Der Zugriff auf die lokale Eigenschaft bewirkt nie, dass eine Abfrage an die Datenbank gesendet wird. Dies bedeutet, dass Sie normalerweise verwendet wird, wenn bereits eine Abfrage durchgeführt wurde. Die Load-Erweiterungsmethode kann verwendet werden, um eine Abfrage auszuführen, sodass der Kontext die Ergebnisse nachverfolgt. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -73,7 +73,7 @@ Dies veranschaulicht drei Punkte:
 
 ## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>Verwenden von local zum Hinzufügen und Entfernen von Entitäten aus dem Kontext  
 
-Die Local-Eigenschaft in dbset gibt eine [ObservableCollection](https://msdn.microsoft.com/library/ms668604.aspx) mit gehockten Ereignissen zurück, sodass Sie mit dem Inhalt des Kontexts synchron bleibt. Dies bedeutet, dass Entitäten entweder der lokalen Auflistung oder dem dbset hinzugefügt oder daraus entfernt werden können. Dies bedeutet auch, dass Abfragen, die neue Entitäten in den Kontext bringen, dazu führen, dass die lokale Sammlung mit diesen Entitäten aktualisiert wird. Zum Beispiel:  
+Die Local-Eigenschaft in dbset gibt eine [ObservableCollection](https://msdn.microsoft.com/library/ms668604.aspx) mit gehockten Ereignissen zurück, sodass Sie mit dem Inhalt des Kontexts synchron bleibt. Dies bedeutet, dass Entitäten entweder der lokalen Auflistung oder dem dbset hinzugefügt oder daraus entfernt werden können. Dies bedeutet auch, dass Abfragen, die neue Entitäten in den Kontext bringen, dazu führen, dass die lokale Sammlung mit diesen Entitäten aktualisiert wird. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -155,7 +155,7 @@ Dies ist kein geeigneter Ort für ein vollständiges WPF-Daten Bindungs Beispiel
 
 ## <a name="wpf-binding-to-navigation-properties"></a>WPF-Bindung an Navigations Eigenschaften  
 
-Wenn Sie die Master/Detail-Datenbindung durchgeführt haben, möchten Sie möglicherweise die Detailansicht an eine Navigations Eigenschaft einer ihrer Entitäten binden. Eine einfache Möglichkeit, dies zu tun, ist die Verwendung einer ObservableCollection für die Navigations Eigenschaft. Zum Beispiel:  
+Wenn Sie die Master/Detail-Datenbindung durchgeführt haben, möchten Sie möglicherweise die Detailansicht an eine Navigations Eigenschaft einer ihrer Entitäten binden. Eine einfache Möglichkeit, dies zu tun, ist die Verwendung einer ObservableCollection für die Navigations Eigenschaft. Beispiel:  
 
 ``` csharp
 public class Blog
@@ -175,7 +175,7 @@ public class Blog
 
 ## <a name="using-local-to-clean-up-entities-in-savechanges"></a>Verwenden von local zum Bereinigen von Entitäten in SaveChanges  
 
-In den meisten Fällen werden Entitäten, die aus einer Navigations Eigenschaft entfernt werden, im Kontext nicht automatisch als gelöscht markiert. Wenn Sie z. b. ein Post-Objekt aus der Blog. Posts-Sammlung entfernen, wird dieser Beitrag nicht automatisch gelöscht, wenn SaveChanges aufgerufen wird. Wenn Sie den Löschvorgang benötigen, müssen Sie möglicherweise diese verbleibenden Entitäten suchen und als gelöscht markieren, bevor Sie SaveChanges oder als Teil einer überschriebenen SaveChanges aufrufen. Zum Beispiel:  
+In den meisten Fällen werden Entitäten, die aus einer Navigations Eigenschaft entfernt werden, im Kontext nicht automatisch als gelöscht markiert. Wenn Sie z. b. ein Post-Objekt aus der Blog. Posts-Sammlung entfernen, wird dieser Beitrag nicht automatisch gelöscht, wenn SaveChanges aufgerufen wird. Wenn Sie den Löschvorgang benötigen, müssen Sie möglicherweise diese verbleibenden Entitäten suchen und als gelöscht markieren, bevor Sie SaveChanges oder als Teil einer überschriebenen SaveChanges aufrufen. Beispiel:  
 
 ``` csharp
 public override int SaveChanges()
@@ -208,7 +208,7 @@ Dies ist kein geeigneter Ort für ein vollständiges Windows Forms Daten Bindung
 
 Viele der Beispiele in dieser Reihe verwenden die Entry-Methode, um eine dbentityentry-Instanz für eine Entität zurückzugeben. Dieses Einstiegs Objekt fungiert dann als Ausgangspunkt für das Sammeln von Informationen über die Entität, z. b. den aktuellen Status, sowie für das Ausführen von Vorgängen für die Entität, z. b. das explizite Laden einer verknüpften Entität  
 
-Die Entries-Methoden geben dbentityentry-Objekte für viele oder alle Entitäten zurück, die vom Kontext nachverfolgt werden. Dies ermöglicht es Ihnen, Informationen zu sammeln oder Vorgänge für viele Entitäten statt nur für einen einzelnen Eintrag auszuführen. Zum Beispiel:  
+Die Entries-Methoden geben dbentityentry-Objekte für viele oder alle Entitäten zurück, die vom Kontext nachverfolgt werden. Dies ermöglicht es Ihnen, Informationen zu sammeln oder Vorgänge für viele Entitäten statt nur für einen einzelnen Eintrag auszuführen. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())

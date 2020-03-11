@@ -1,35 +1,35 @@
 ---
-title: Automatisches Erkennen von Änderungen – EF6
+title: Automatisches Erkennen von Änderungen EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: a8d1488d-9a54-4623-a76b-e81329ff2756
 ms.openlocfilehash: 9af85fd7ca48a14432a1f33c59079fc438ef8810
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490986"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414380"
 ---
 # <a name="automatic-detect-changes"></a>Automatisches Erkennen von Änderungen
-Bei Verwendung von POCO-Entitäten, die meisten erfolgt die Bestimmung der wie eine Entität geändert wurde (und aus diesem Grund müssen die Updates an die Datenbank gesendet werden), durch den Algorithmus für die Änderungen zu erkennen. Erkennen von Änderungen funktioniert durch das Erkennen von den Unterschieden zwischen der aktuellen Eigenschaftswerte der Entität und die ursprünglichen Eigenschaftswerte, die in einer Momentaufnahme gespeichert werden, wenn die Entität abgefragt oder angefügt wurde. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
+Bei der Verwendung der meisten poco-Entitäten wird die Bestimmung, wie sich eine Entität geändert hat (und somit, welche Updates an die Datenbank gesendet werden müssen) vom Algorithmus zum Erkennen von Änderungen behandelt. Erkennen von Änderungen funktioniert, indem die Unterschiede zwischen den aktuellen Eigenschafts Werten der Entität und den ursprünglichen Eigenschafts Werten erkannt werden, die in einer Momentaufnahme gespeichert werden, wenn die Entität abgefragt oder angefügt wurde. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
-Standardmäßig führt Entity Framework erkennt Änderungen automatisch, wenn die folgenden Methoden aufgerufen werden:  
+Standardmäßig erkennen Entity Framework Änderungen automatisch, wenn die folgenden Methoden aufgerufen werden:  
 
 - DbSet.Find  
-- DbSet.Local  
-- "DbSet.Add"  
-- "DbSet.AddRange"
-- DbSet.Remove  
-- DbSet.RemoveRange
-- DbSet.Attach  
+- Dbset. local  
+- Dbset. Add  
+- Dbset. AddRange
+- Dbset. Remove  
+- Dbset. RemoveRange
+- Dbset. Attach  
 - DbContext.SaveChanges  
-- DbContext.GetValidationErrors  
+- Dbcontext. getvalidationerrors  
 - DbContext.Entry  
-- DbChangeTracker.Entries  
+- Dbchangetracker. Entries  
 
-## <a name="disabling-automatic-detection-of-changes"></a>Deaktivieren die automatischen Erkennung von Änderungen  
+## <a name="disabling-automatic-detection-of-changes"></a>Deaktivieren der automatischen Erkennung von Änderungen  
 
-Wenn Sie eine Vielzahl von Entities im Kontext Ihrer verfolgen und Sie eine dieser Methoden oft in einer Schleife aufrufen, können Sie erhebliche Leistungssteigerungen durch Deaktivieren der Erkennung von Änderungen für die Dauer der Schleife abrufen. Zum Beispiel:  
+Wenn Sie viele Entitäten in ihrem Kontext nachverfolgen und eine dieser Methoden mehrmals in einer Schleife aufzurufen, können Sie erhebliche Leistungsverbesserungen erzielen, indem Sie die Erkennung von Änderungen für die Dauer der Schleife deaktivieren. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -51,8 +51,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Vergessen Sie nicht die Erkennung von Änderungen nach der Schleife erneut zu aktivieren – wir haben einen Try/finally verwendet, um sicherzustellen, ist immer wieder aktiviert, auch wenn Code in der Schleife eine Ausnahme auslöst.  
+Vergessen Sie nicht, die Erkennung von Änderungen nach der Schleife erneut zu aktivieren – wir haben einen try/after-Vorgang verwendet, um sicherzustellen, dass Sie immer erneut aktiviert wird, auch wenn der Code in der Schleife eine Ausnahme auslöst.  
 
-Eine Alternative zu deaktivieren und erneut aktiviert ist, die automatischen Erkennung von Änderungen auf alle Uhrzeiten und entweder Aufrufkontext deaktiviert zu lassen. ChangeTracker.DetectChanges explizit, oder verwenden ändern Änderungsnachverfolgungsproxys sorgfältig. Beide Optionen sind erweiterte und kann es zu schwer erkennbaren Fehlern in Ihrer Anwendung verwenden sie daher mit Vorsicht.  
+Eine Alternative zum Deaktivieren und erneuten Aktivieren von besteht darin, die automatische Erkennung von Änderungen jederzeit und entweder den Kontext aufzurufen. ChangeTracker. DetectChanges wird explizit verwendet oder verwendet Proxys für die Änderungs Nachverfolgung. Beide Optionen sind erweitert und können einfache Fehler in Ihre Anwendung einführen. verwenden Sie Sie daher mit Bedacht.  
 
-Bei Bedarf hinzufügen oder Entfernen von zahlreichen Objekten aus einem Kontext, erwägen Sie die Verwendung von "DbSet.AddRange" und DbSet.RemoveRange an. Diese Methoden erkennen Änderungen automatisch nur einmal, wenn die Add- oder Remove-Vorgänge abgeschlossen sind. 
+Wenn Sie viele Objekte aus einem Kontext hinzufügen oder entfernen müssen, sollten Sie die Verwendung von dbset. AddRange und dbset. RemoveRange in Erwägung ziehen. Diese Methoden erkennen Änderungen automatisch nur einmal, nachdem die hinzu füge-oder Entfernungs Vorgänge abgeschlossen wurden. 

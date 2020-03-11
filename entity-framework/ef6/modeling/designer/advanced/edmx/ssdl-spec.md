@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
 ms.openlocfilehash: b20d1f99f1da9c53a8a164fccc461e07d19c879d
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182546"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415472"
 ---
 # <a name="ssdl-specification"></a>SSDL-Spezifikation
 Die Datenspeicherschema-Definitionssprache (Store Schema Definition Language, SSDL) ist eine XML-basierte Sprache, die das Speichermodell einer Entity Framework-Anwendung beschreibt.
@@ -40,7 +40,7 @@ Das **Association** -Element kann die folgenden untergeordneten Elemente aufweis
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Association** -Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                                                            |
+| Attributname | Ist erforderlich | value                                                                            |
 |:---------------|:------------|:---------------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name der entsprechenden Fremdschlüsseleinschränkung in der zugrunde liegenden Datenbank. |
 
@@ -86,7 +86,7 @@ Das **AssociationSet** -Element kann über die folgenden untergeordneten Element
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **AssociationSet** -Element angewendet werden können.
 
-| Attributname  | Ist erforderlich | Wert                                                                                                |
+| Attributname  | Ist erforderlich | value                                                                                                |
 |:----------------|:------------|:-----------------------------------------------------------------------------------------------------|
 | **Name**        | Ja         | Der Name der Fremdschlüsseleinschränkung, die der Zuordnungssatz darstellt.                          |
 | **Anwalt** | Ja         | Der Name der Zuordnung, die die Spalten definiert, die an der Fremdschlüsseleinschränkung teilnehmen. |
@@ -197,9 +197,9 @@ Das **abhängige** Element kann die folgenden untergeordneten Elemente aufweisen
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **abhängige** Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                                                                                                                                       |
+| Attributname | Ist erforderlich | value                                                                                                                                                       |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Spielen**       | Ja         | Der gleiche Wert wie das **Role** -Attribut (sofern verwendet) des entsprechenden End-Elements. andernfalls der Name der Tabelle, die die verweisende Spalte enthält. |
+| **Rolle**       | Ja         | Der gleiche Wert wie das **Role** -Attribut (sofern verwendet) des entsprechenden End-Elements. andernfalls der Name der Tabelle, die die verweisende Spalte enthält. |
 
 > [!NOTE]
 > Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **abhängige** Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
@@ -276,11 +276,11 @@ Ein **Endelement** kann die folgenden untergeordneten Elemente aufweisen (in der
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **End** -Element angewendet werden können, wenn es sich um das untergeordnete Element eines **Association** -Elements handelt.
 
-| Attributname   | Ist erforderlich | Wert                                                                                                                                                                                                                                                                                                                                                                                      |
+| Attributname   | Ist erforderlich | value                                                                                                                                                                                                                                                                                                                                                                                      |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**         | Ja         | Der vollqualifizierte Name der SSDL-Entitätenmenge, die sich am Ende der Fremdschlüsseleinschränkung befindet.                                                                                                                                                                                                                                                                                          |
-| **Spielen**         | Nein          | Der Wert des **Role** -Attributs im Prinzipal-oder abhängigen Element des entsprechenden referentialeinschränkung-Elements (sofern verwendet).                                                                                                                                                                                                                                             |
-| **Deu** | Ja         | **1**, **0.. 1**oder **\*** , abhängig von der Anzahl der Zeilen, die am Ende der FOREIGN KEY-Einschränkung liegen können. <br/> der Wert **1** gibt an, dass genau eine Zeile am Ende der Fremdschlüssel Einschränkung vorhanden ist. <br/> **0.. 1** gibt an, dass keine oder eine Zeile am Ende der Fremdschlüssel Einschränkung vorhanden ist. <br/> **\*** gibt an, dass keine, eine oder mehrere Zeilen am Ende der FOREIGN KEY-Einschränkung vorhanden sind. |
+| **Rolle**         | Nein          | Der Wert des **Role** -Attributs im Prinzipal-oder abhängigen Element des entsprechenden referentialeinschränkung-Elements (sofern verwendet).                                                                                                                                                                                                                                             |
+| **Multiplizität** | Ja         | **1**, **0.. 1**oder **\*** , abhängig von der Anzahl der Zeilen, die am Ende der FOREIGN KEY-Einschränkung liegen können. <br/> der Wert **1** gibt an, dass genau eine Zeile am Ende der Fremdschlüssel Einschränkung vorhanden ist. <br/> **0.. 1** gibt an, dass keine oder eine Zeile am Ende der Fremdschlüssel Einschränkung vorhanden ist. <br/> **\*** gibt an, dass keine, eine oder mehrere Zeilen am Ende der FOREIGN KEY-Einschränkung vorhanden sind. |
 
 > [!NOTE]
 > Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **End** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
@@ -321,10 +321,10 @@ Ein **Endelement** kann die folgenden untergeordneten Elemente aufweisen (in der
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **End** -Element angewendet werden können, wenn es sich um das untergeordnete Element eines **AssociationSet** -Elements handelt.
 
-| Attributname | Ist erforderlich | Wert                                                                                                                  |
+| Attributname | Ist erforderlich | value                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------|
 | **EntitySet**  | Ja         | Der Name der SSDL-Entitätenmenge, die sich am Ende der Fremdschlüsseleinschränkung befindet.                                      |
-| **Spielen**       | Nein          | Der Wert eines der **Rollen** Attribute, der in einem **Endelement** des entsprechenden Association-Elements angegeben ist. |
+| **Rolle**       | Nein          | Der Wert eines der **Rollen** Attribute, der in einem **Endelement** des entsprechenden Association-Elements angegeben ist. |
 
 > [!NOTE]
 > Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **End** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
@@ -365,7 +365,7 @@ Ein **EntityContainer** -Element kann über 0 (null) oder mehrere der folgenden 
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **EntityContainer** -Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                                                   |
+| Attributname | Ist erforderlich | value                                                                   |
 |:---------------|:------------|:------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name des Entitätscontainers. Dieser Name darf keine Punkte (.) enthalten. |
 
@@ -409,7 +409,7 @@ In der folgenden Tabelle werden die Attribute beschrieben, die auf das **EntityS
 > [!NOTE]
 > Einige (hier nicht aufgelistete) Attribute können mit dem **Store** -Alias qualifiziert werden. Diese Attribute werden vom Modellaktualisierungs-Assistenten beim Aktualisieren eines Modells verwendet.
 
-| Attributname | Ist erforderlich | Wert                                                                                    |
+| Attributname | Ist erforderlich | value                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name der Entitätssammlung.                                                              |
 | **EntityType** | Ja         | Der vollqualifizierte Name des Entitätstyps, für den der Entitätssatz Instanzen enthält. |
@@ -453,7 +453,7 @@ Das **EntityType** -Element kann die folgenden untergeordneten Elemente aufweise
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **EntityType** -Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                                                                                                                                                  |
+| Attributname | Ist erforderlich | value                                                                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name des Entitätstyps. Dieser Wert ist normalerweise der gleiche wie der Name der Tabelle, in der der Entitätstyp eine Zeile darstellt. Dieser Wert darf keine Punkte (.) enthalten. |
 
@@ -501,13 +501,13 @@ In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Functio
 > [!NOTE]
 > Einige (hier nicht aufgelistete) Attribute können mit dem **Store** -Alias qualifiziert werden. Diese Attribute werden vom Modellaktualisierungs-Assistenten beim Aktualisieren eines Modells verwendet.
 
-| Attributname             | Ist erforderlich | Wert                                                                                                                                                                                                              |
+| Attributname             | Ist erforderlich | value                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Name**                   | Ja         | Der Name der gespeicherten Prozedur.                                                                                                                                                                                  |
+| **Name**                   | Ja         | Name der gespeicherten Prozedur                                                                                                                                                                                  |
 | **ReturnType**             | Nein          | Der Rückgabetyp der gespeicherten Prozedur.                                                                                                                                                                           |
 | **Aggregat**              | Nein          | **True** , wenn die gespeicherte Prozedur einen Aggregatwert zurückgibt. andernfalls **false**.                                                                                                                                  |
 | **Builtin**                | Nein          | **True** , wenn es sich bei der Funktion um eine integrierte<sup>1</sup> -Funktion handelt. andernfalls **false**.                                                                                                                                  |
-| **Storefunctionname**      | Nein          | Der Name der gespeicherten Prozedur.                                                                                                                                                                                  |
+| **Storefunctionname**      | Nein          | Name der gespeicherten Prozedur                                                                                                                                                                                  |
 | **NiladicFunction**        | Nein          | **True** , wenn es sich bei der Funktion um eine NILADIC<sup>2</sup> -Funktion handelt. Andernfalls **false** .                                                                                                                                   |
 | **IsComposable**           | Nein          | **True** , wenn die Funktion eine Zusammensetz Bare<sup>3</sup> -Funktion ist. Andernfalls **false** .                                                                                                                                |
 | **Das** | Nein          | Die Enumeration, die die Typsemantik definiert, die zum Auflösen von Funktionsüberladungen verwendet wird. Die Enumeration ist im Anbietermanifest für jede Funktionsdefinition definiert. Der Standardwert ist " **zuzubemplicitconversion**". |
@@ -581,7 +581,7 @@ Ein **OnDelete** -Element kann die folgenden untergeordneten Elemente aufweisen 
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **OnDelete** -Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                                                                               |
+| Attributname | Ist erforderlich | value                                                                                               |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
 | **Aktion**     | Ja         | **Cascade** oder **None**. (Der Wert " **restricted** " ist gültig, hat jedoch das gleiche Verhalten wie " **None**".) |
 
@@ -624,14 +624,14 @@ Das **Parameter** -Element kann die folgenden untergeordneten Elemente aufweisen
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Parameter** -Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                                                                                                                                                                                                           |
+| Attributname | Ist erforderlich | value                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Name**       | Ja         | Der Name des Parameters.                                                                                                                                                                                                      |
-| **Typ**       | Ja         | Der Typ des Parameters.                                                                                                                                                                                                             |
-| **Modus**       | Nein          | **In**, out oder **INOUT** , je nachdem, ob der Parameter ein Eingabe-, Ausgabe-oder Eingabe- **/Ausgabeparameter**ist.                                                                                                                |
+| **Typ**       | Ja         | Der Parametertyp.                                                                                                                                                                                                             |
+| **Mode**       | Nein          | **In**, out oder **INOUT** , je nachdem, ob der Parameter ein Eingabe-, Ausgabe-oder Eingabe- **/Ausgabeparameter**ist.                                                                                                                |
 | **MaxLength**  | Nein          | Die maximale Länge des Parameters.                                                                                                                                                                                            |
 | **Genauigkeit**  | Nein          | Die Genauigkeit des Parameters.                                                                                                                                                                                                 |
-| **Scale** (Skalieren)      | Nein          | Die Skalierung des Parameters.                                                                                                                                                                                                     |
+| **Skalieren**      | Nein          | Der Maßstab des Parameters.                                                                                                                                                                                                     |
 | **SRID**       | Nein          | Verweis Bezeichner für räumliche Systeme. Nur für Parameter räumlicher Typen gültig. Weitere Informationen finden Sie unter [SRID](https://en.wikipedia.org/wiki/SRID) und [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
 > [!NOTE]
@@ -667,9 +667,9 @@ Das **Principal** -Element kann über die folgenden untergeordneten Elemente ver
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Principal** -Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                                                                                                                                      |
+| Attributname | Ist erforderlich | value                                                                                                                                                      |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Spielen**       | Ja         | Der gleiche Wert wie das **Role** -Attribut (sofern verwendet) des entsprechenden End-Elements. andernfalls der Name der Tabelle, die die Spalte enthält, auf die verwiesen wird. |
+| **Rolle**       | Ja         | Der gleiche Wert wie das **Role** -Attribut (sofern verwendet) des entsprechenden End-Elements. andernfalls der Name der Tabelle, die die Spalte enthält, auf die verwiesen wird. |
 
 > [!NOTE]
 > Eine beliebige Anzahl von Anmerkung-Attributen (benutzerdefinierte XML-Attribute) kann auf das **Principal** -Element angewendet werden. Benutzerdefinierte Attribute dürfen jedoch zu keinem XML-Namespace gehören, der für CSDL reserviert ist. Die vollqualifizierten Namen für zwei benutzerdefinierte Attribute dürfen nicht übereinstimmen.
@@ -707,7 +707,7 @@ Ein **Property** -Element kann keine untergeordneten Elemente aufweisen.
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Property** -Element angewendet werden können.
 
-| Attributname            | Ist erforderlich | Wert                                                                                                                                                                                                                           |
+| Attributname            | Ist erforderlich | value                                                                                                                                                                                                                           |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Name**                  | Ja         | Der Name der zugehörigen Spalte.                                                                                                                                                                                           |
 | **Typ**                  | Ja         | Der Typ der zugehörigen Spalte.                                                                                                                                                                                           |
@@ -716,9 +716,9 @@ In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Propert
 | **MaxLength**             | Nein          | Maximale Länge der zugehörigen Spalte.                                                                                                                                                                                 |
 | **FixedLength**           | Nein          | **True** oder **false** , abhängig davon, ob der entsprechende Spaltenwert als Zeichenfolge mit fester Länge gespeichert wird.                                                                                                              |
 | **Genauigkeit**             | Nein          | Die Genauigkeit der zugehörigen Spalte.                                                                                                                                                                                      |
-| **Scale** (Skalieren)                 | Nein          | Die Dezimalstellenanzahl der zugehörigen Spalte.                                                                                                                                                                                          |
+| **Skalieren**                 | Nein          | Die Dezimalstellenanzahl der zugehörigen Spalte.                                                                                                                                                                                          |
 | **Unicode**               | Nein          | **True** oder **false** , abhängig davon, ob der entsprechende Spaltenwert als Unicode-Zeichenfolge gespeichert wird.                                                                                                                   |
-| **Sortierung**             | Nein          | Eine Zeichenfolge, die die Sortierreihenfolge angibt, die in der Datenquelle verwendet werden soll.                                                                                                                                                   |
+| **Sortierung**             | Nein          | Eine Zeichenfolge, die angibt, welche Sortierreihenfolge in der Datenquelle verwendet wird.                                                                                                                                                   |
 | **SRID**                  | Nein          | Verweis Bezeichner für räumliche Systeme. Nur für Eigenschaften räumlicher Typen gültig. Weitere Informationen finden Sie unter [SRID](https://en.wikipedia.org/wiki/SRID) und [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **StoreGeneratedPattern** | Nein          | **None**, **Identity** (wenn der entsprechende Spaltenwert eine in der Datenbank generierte Identität ist) oder **berechnet** (wenn der entsprechende Spaltenwert in der Datenbank berechnet wird). Ungültig für RowType-Eigenschaften. |
 
@@ -759,7 +759,7 @@ Das **PropertyRef** -Element kann nur die folgenden untergeordneten Elemente auf
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **PropertyRef** -Element angewendet werden können.
 
-| Attributname | Ist erforderlich | Wert                                |
+| Attributname | Ist erforderlich | value                                |
 |:---------------|:------------|:-------------------------------------|
 | **Name**       | Ja         | Der Name der referenzierten Eigenschaft. |
 
@@ -908,7 +908,7 @@ Ein Speichermodell-Namespace unterscheidet sich vom XML-Namespace des **Schema**
 
 In der folgenden Tabelle werden die Attribute beschrieben, die auf das **Schema** Element angewendet werden können.
 
-| Attributname            | Ist erforderlich | Wert                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Attributname            | Ist erforderlich | value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Namespace**             | Ja         | Der Namespace für das Speichermodell. Der Wert des **Namespace** -Attributs wird verwendet, um den voll qualifizierten Namen eines Typs zu bilden. Wenn sich beispielsweise ein **EntityType** mit dem Namen *Customer* im examplemodel. Store-Namespace befindet, ist der voll qualifizierte Name von **EntityType** examplemodel. Store. Customer. <br/> Die folgenden Zeichen folgen können nicht als Wert für das **Namespace** -Attribut verwendet werden: **System**, **transient**oder **EDM**. Der Wert für das **Namespace** -Attribut darf nicht mit dem Wert für das **Namespace** -Attribut im CSDL-Schema Element identisch sein. |
 | **Alias**                 | Nein          | Ein anstelle der Namespacebezeichnung verwendeter Bezeichner. Wenn sich z. b. ein **EntityType** mit dem Namen *Customer* im examplemodel. Store-Namespace und der Wert des **Alias** -Attributs *storagemodel*befindet, können Sie storagemodel. Customer als voll qualifizierten Namen des **EntityType verwenden.**                                                                                                                                                                                                                                                                                    |
@@ -1068,11 +1068,11 @@ Facets stellen in der Datenspeicherschema-Definitionssprache (Store Schema Defin
 
 In der folgenden Tabelle werden die in SSDL unterstützten Facets beschrieben:
 
-| Facette           | Beschreibung                                                                                                                                                                                                                                                 |
+| Facet           | BESCHREIBUNG                                                                                                                                                                                                                                                 |
 |:----------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Sortierung**   | Gibt die bei Vergleich- und Sortiervorgängen zu verwendende Sortierreihenfolge für die Werte der Eigenschaft an.                                                                                                             |
 | **FixedLength** | Gibt an, ob sich die Länge des Spaltenwerts ändern kann.                                                                                                                                                                                                  |
 | **MaxLength**   | Gibt die maximale Länge des Spaltenwerts an.                                                                                                                                                                                                           |
 | **Genauigkeit**   | Gibt bei Eigenschaften vom Typ **Decimal**die Anzahl der Ziffern an, die ein Eigenschafts Wert aufweisen kann. Bei Eigenschaften vom Typ **time**, **DateTime**und **DateTimeOffset**wird die Anzahl von Ziffern für die Sekundenbruchteile des Spaltenwerts angegeben. |
-| **Scale** (Skalieren)       | Gibt die Anzahl der Dezimalstellen für den Spaltenwert an.                                                                                                                                                                      |
+| **Skalieren**       | Gibt die Anzahl der Dezimalstellen für den Spaltenwert an.                                                                                                                                                                      |
 | **Unicode**     | Gibt an, ob der Spaltenwert als Unicode gespeichert wird.                                                                                                                                                                                                    |

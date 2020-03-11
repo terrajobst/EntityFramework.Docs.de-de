@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
 ms.openlocfilehash: 9c616e157ff1bdb9700f436a7ae2788330fe5d45
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502031"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413900"
 ---
 # <a name="generated-values"></a>Generierte Werte
 
@@ -58,11 +58,11 @@ Gemäß der Konvention sind nicht zusammengesetzte Primärschlüssel vom Typ Sho
 
 Sie können jede Eigenschaft so konfigurieren, dass ihr Wert für eingefügte Entitäten wie folgt generiert wird:
 
-### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
@@ -87,11 +87,11 @@ Wenn Sie einen Standardwert angeben, wird die Eigenschaft implizit als Wert konf
 
 ## <a name="value-generated-on-add-or-update"></a>Beim Hinzufügen oder aktualisieren generierter Wert
 
-### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
@@ -113,11 +113,11 @@ In einigen relationalen Datenbanken kann eine Spalte so konfiguriert werden, das
 
 Die Deaktivierung der Wert Generierung für eine Eigenschaft ist in der Regel erforderlich, wenn eine Konvention für die Generierung von Werten konfiguriert wird. Wenn Sie z. b. über einen Primärschlüssel vom Typ "int" verfügen, wird dieser implizit als Wert festgelegt, der beim Hinzufügen generiert wird. Dies kann über Folgendes deaktiviert werden:
 
-### <a name="data-annotationstabdata-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datenanmerkungen](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
 

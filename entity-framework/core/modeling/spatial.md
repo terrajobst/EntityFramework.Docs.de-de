@@ -6,11 +6,11 @@ ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
 ms.openlocfilehash: 5b45f83ca7f02665f52ccfe16b5af506a6046a62
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124430"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414704"
 ---
 # <a name="spatial-data"></a>Räumliche Daten
 
@@ -19,18 +19,18 @@ ms.locfileid: "76124430"
 
 Räumliche Daten repräsentieren den physischen Speicherort und die Form von Objekten. Viele Datenbanken unterstützen diese Art von Daten, damit Sie zusammen mit anderen Daten indiziert und abgefragt werden können. Häufige Szenarien umfassen das Abfragen von Objekten in einer bestimmten Entfernung von einem Speicherort oder das Auswählen des Objekts, dessen Rahmen eine bestimmte Position enthält. EF Core unterstützt die Zuordnung räumlicher Datentypen mithilfe der räumlichen Bibliothek [nettopologysuite](https://github.com/NetTopologySuite/NetTopologySuite) .
 
-## <a name="installing"></a>Installieren von
+## <a name="installing"></a>Installation
 
 Um räumliche Daten mit EF Core verwenden zu können, müssen Sie das entsprechende unterstützende nuget-Paket installieren. Welches Paket installiert werden muss, hängt vom verwendeten Anbieter ab.
 
-EF Core-Anbieter                        | Räumliches nuget-Paket
+EF Core Anbieter                        | Räumliches nuget-Paket
 --------------------------------------- | ---------------------
 Microsoft.EntityFrameworkCore.SqlServer | [Microsoft. entityframeworkcore. SqlServer. nettopologysuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
 Microsoft.EntityFrameworkCore.Sqlite    | [Microsoft. entityframeworkcore. sqlite. nettopologysuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
 Microsoft.EntityFrameworkCore.InMemory  | [Nettopologysuite](https://www.nuget.org/packages/NetTopologySuite)
 Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. entityframeworkcore. PostgreSQL. nettopologysuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
 
-## <a name="reverse-engineering"></a>Reverse-Engineering
+## <a name="reverse-engineering"></a>Reverse Engineering
 
 Die räumlichen nuget-Pakete ermöglichen auch das [Reverse Engineering](../managing-schemas/scaffolding.md) von Modellen mit räumlichen Eigenschaften. Sie müssen das Paket jedoch ***vor*** dem Ausführen `Scaffold-DbContext` oder `dotnet ef dbcontext scaffold`installieren. Wenn Sie dies nicht tun, erhalten Sie Warnungen, wenn Sie keine Typzuordnungen für die Spalten finden und die Spalten übersprungen werden.
 
@@ -49,7 +49,7 @@ optionsBuilder.UseSqlServer(
 Es gibt mehrere räumliche Datentypen. Welcher Typ Sie verwenden, hängt von den Formen der Formen ab, die Sie zulassen möchten. Hier ist die Hierarchie der NTS-Typen, die Sie für Eigenschaften im Modell verwenden können. Sie befinden sich im `NetTopologySuite.Geometries`-Namespace.
 
 * Geometrie
-  * punkt
+  * Point
   * LineString
   * Polygon
   * GeometryCollection
@@ -343,7 +343,7 @@ Polygon. ExteriorRing | ✔ | ✔ | ✔ | ✔
 Polygon. getinteriorringn (int) | ✔ | ✔ | ✔ | ✔
 Polygon. numinteriorrings | ✔ | ✔ | ✔ | ✔
 
-## <a name="additional-resources"></a>Weitere Ressourcen
+## <a name="additional-resources"></a>Zusätzliche Ressourcen
 
 * [Räumliche Daten in SQL Server](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [Spatialite-Homepage](https://www.gaia-gis.it/fossil/libspatialite)

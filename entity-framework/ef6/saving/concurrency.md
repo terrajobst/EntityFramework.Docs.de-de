@@ -1,29 +1,29 @@
 ---
-title: 'Behandlung von Nebenläufigkeitskonflikten: EF 6'
+title: Behandeln von Parallelitäts Konflikten EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
 ms.openlocfilehash: 81ae186201fdfac331b1d4e7836b222545fe78b5
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489153"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416246"
 ---
 # <a name="handling-concurrency-conflicts"></a>Behandlung von Parallelitätskonflikten
-Die optimistische Parallelität umfasst das optimistisch versuchen, Ihre Entität in der Datenbank in der Hoffnung zu speichern, die die Daten nicht, da die Entität geändert hat geladen wurde. Wenn es sich, dass stellte sich verfügt über die Daten geändert, und klicken Sie dann eine Ausnahme ausgelöst, und Sie den Konflikt beheben müssen, bevor Sie versuchen, erneut zu speichern. In diesem Thema wird beschrieben, wie solche Ausnahmen im Entity Framework behandelt wird. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
+Die optimistische Parallelität erfordert den optimistischen Versuch, ihre Entität in der Datenbank zu speichern, in der Hoffnung, dass sich die Daten seit dem Laden der Entität nicht geändert haben. Wenn sich herausstellt, dass sich die Daten geändert haben, wird eine Ausnahme ausgelöst, und Sie müssen den Konflikt beheben, bevor Sie versuchen, die Daten erneut zu speichern. In diesem Thema wird erläutert, wie solche Ausnahmen in Entity Framework behandelt werden. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
-Dieser Beitrag ist nicht der geeignete Ort dafür eine umfassende Erläuterung der vollständigen Parallelität. In den folgenden Abschnitten wird davon ausgegangen Grundkenntnisse der Auflösung von Parallelität und zeigen anhand von Mustern für allgemeine Aufgaben.  
+Dieser Beitrag ist nicht der richtige Ort, um eine vollständige Erläuterung der vollständigen Parallelität zu erörtern. In den folgenden Abschnitten wird davon ausgegangen, dass Sie die Parallelitäts Auflösung kennen und Muster für häufige Aufgaben anzeigen.  
 
-Viele dieser Muster verwenden, der in erläuterten Themen [arbeiten mit Eigenschaftswerten](~/ef6/saving/change-tracking/property-values.md).  
+Viele dieser Muster nutzen die Themen, die unter [Arbeiten mit Eigenschafts Werten](~/ef6/saving/change-tracking/property-values.md)erläutert werden.  
 
-Auflösen von Parallelitätsproblemen, bei der Verwendung unabhängiger Zuordnungen (, denen der Fremdschlüssel nicht auf eine Eigenschaft in der Entität zugeordnet ist) ist sehr viel schwieriger als bei fremdschlüsselzuordnungen Verwendung. Aus diesem Grund, wenn Sie vorhaben, Concurrency-Lösung in Ihre Anwendung wird empfohlen, dass Sie immer über Fremdschlüssel in Ihren Entitäten zuordnen. Allen folgenden Beispielen wird davon ausgegangen, dass Sie fremdschlüsselzuordnungen verwenden.  
+Das Beheben von Parallelitäts Problemen bei der Verwendung unabhängiger Zuordnungen (wobei der Fremdschlüssel nicht einer Eigenschaft in der Entität zugeordnet ist) ist weitaus schwieriger als bei der Verwendung von Fremdschlüssel Zuordnungen. Wenn Sie in Ihrer Anwendung Parallelitäts Auflösung durchführen möchten, wird empfohlen, dass Sie den Entitäten immer Fremdschlüssel zuordnen. Bei allen folgenden Beispielen wird davon ausgegangen, dass Sie Fremdschlüssel Zuordnungen verwenden.  
 
-Von "SaveChanges" wird eine DbUpdateConcurrencyException ausgelöst, wenn eine Ausnahme für die vollständige Parallelität erkannt wird, bei dem Versuch, eine Entität zu speichern, die fremdschlüsselzuordnungen verwendet.  
+Eine dbupdateconcurrency cyexception wird von SaveChanges ausgelöst, wenn beim Versuch, eine Entität zu speichern, die Fremdschlüssel Zuordnungen verwendet, eine Ausnahme der vollständigen Parallelität festgestellt wird.  
 
-## <a name="resolving-optimistic-concurrency-exceptions-with-reload-database-wins"></a>Beheben von Ausnahmen bzgl. vollständiger Parallelität mit neu laden (Datenbank-gewinnt)  
+## <a name="resolving-optimistic-concurrency-exceptions-with-reload-database-wins"></a>Auflösen von Ausnahmen der vollständigen Parallelität durch erneutes Laden (Datenbank gewinnt)  
 
-Die Reload-Methode kann verwendet werden, um die aktuellen Werte der Entität mit den Werten in der Datenbank zu überschreiben. Die Entität in der Regel erhält anschließend zurück an den Benutzer in irgendeiner Form, und sie müssen ihre Änderungen erneut vornehmen, und speichern Sie erneut versuchen. Zum Beispiel:  
+Die Methode zum erneuten Laden kann verwendet werden, um die aktuellen Werte der Entität mit den aktuellen Werten in der Datenbank zu überschreiben. Die Entität wird dann normalerweise in irgendeiner Form an den Benutzer zurückgegeben, und Sie müssen versuchen, Ihre Änderungen erneut vorzunehmen und erneut zu speichern. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,18 +52,18 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Eine gute Möglichkeit zum Simulieren einer Parallelitätsausnahme ist, legen Sie einen Haltepunkt im Aufruf von "SaveChanges", und ändern Sie eine Entität, die mit einem anderen Tool wie SQL Management Studio in der Datenbank gespeichert wird. Sie können auch eine Zeile vor "SaveChanges" zum Aktualisieren der Datenbank, die direkt mit SqlCommand einfügen. Zum Beispiel:  
+Eine gute Möglichkeit, eine Parallelitäts Ausnahme zu simulieren, besteht darin, einen Haltepunkt für den SaveChanges-Befehl festzulegen und anschließend eine Entität, die in der Datenbank gespeichert wird, mithilfe eines anderen Tools wie z. b. SQL Management Studio zu ändern. Sie können auch eine Zeile vor "SaveChanges" einfügen, um die Datenbank direkt mithilfe von "SqlCommand" zu aktualisieren. Beispiel:  
 
 ``` csharp
 context.Database.SqlCommand(
     "UPDATE dbo.Blogs SET Name = 'Another Name' WHERE BlogId = 1");
 ```  
 
-Die Einträge-Methode für DbUpdateConcurrencyException gibt zurück, die "dbentityentry"-Instanzen für die Entitäten, die Fehler beim Aktualisieren. (Diese Eigenschaft gibt zurzeit immer einen einzelnen Wert für Parallelitätsprobleme auftreten. Sie können mehrere Werte für die allgemeinen Ausnahmen zurückgegeben.) Eine Alternative für einige Situationen ist möglicherweise Einträge für alle Entitäten zu erhalten, die aus der Datenbank erneut geladen werden müssen, und für jedes dieser Aufruf erneut zu laden.  
+Die Entries-Methode für dbupdateconaccesscyexception gibt die dbentityentry-Instanzen für die Entitäten zurück, die nicht aktualisiert werden konnten. (Diese Eigenschaft gibt derzeit immer einen einzelnen Wert für Parallelitäts Probleme zurück. Es können mehrere Werte für allgemeine Update Ausnahmen zurückgegeben werden.) Eine Alternative kann in einigen Situationen darin bestehen, Einträge für alle Entitäten abzurufen, die möglicherweise aus der Datenbank erneut geladen werden müssen, und für jede dieser Elemente den Befehl zum erneuten Laden aufzurufen.  
 
-## <a name="resolving-optimistic-concurrency-exceptions-as-client-wins"></a>Beheben von Ausnahmen bzgl. vollständiger Parallelität als Client gewinnt  
+## <a name="resolving-optimistic-concurrency-exceptions-as-client-wins"></a>Auflösen von Ausnahmen der vollständigen Parallelität als Client gewinnt  
 
-Das obige Beispiel, das erneute Laden verwendet, wird auch als Datenbank Wins bezeichnet, oder Speicher gewinnt, da die Werte in der Entität von Werten aus der Datenbank überschrieben werden. Manchmal möchten Sie möglicherweise das Gegenteil machen, und überschreiben die Werte in der Datenbank mit den aktuellen Werten in der Entität. Dies wird auch als Client gewinnt bezeichnet und kann von den aktuellen Datenbankwerten abrufen und Festlegen von ihnen als die ursprünglichen Werte für die Entität ausgeführt werden. (Finden Sie unter [arbeiten mit Eigenschaftswerten](~/ef6/saving/change-tracking/property-values.md) Informationen zu aktuellen und ursprünglichen Werte.) Zum Beispiel:  
+Das obige Beispiel, das das erneute Laden verwendet, wird manchmal als Database WINS oder Store WINS bezeichnet, da die Werte in der Entität durch Werte aus der Datenbank überschrieben werden. Manchmal möchten Sie möglicherweise das Gegenteil durchführen und die Werte in der Datenbank mit den Werten überschreiben, die sich derzeit in der Entität befinden. Dies wird auch als Client WINS bezeichnet und kann durch das erhalten der aktuellen Daten Bank Werte und durch Festlegen der ursprünglichen Werte für die Entität erreicht werden. (Weitere Informationen zu aktuellen und ursprünglichen Werten finden Sie [unter Arbeiten mit Eigenschafts Werten](~/ef6/saving/change-tracking/property-values.md) .) Zum Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -92,9 +92,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-## <a name="custom-resolution-of-optimistic-concurrency-exceptions"></a>Benutzerdefinierte Auflösung der Ausnahmen bzgl. vollständiger Parallelität  
+## <a name="custom-resolution-of-optimistic-concurrency-exceptions"></a>Benutzerdefinierte Auflösung von Ausnahmen bei optimistischer Parallelität  
 
-In einigen Fällen empfiehlt es sich um den aktuellen Werten in der Datenbank mit den aktuellen Werten in der Entität zu kombinieren. Dies ist in der Regel einige benutzerdefinierte Logik oder Benutzerinteraktion erforderlich. Beispielsweise können Sie ein Formular für dem Benutzer, die die aktuellen Werte, die Werte in der Datenbank darstellen, und eine Standardsammlung von aufgelösten Werte. Der Benutzer klicken Sie dann die aufgelösten Werte nach Bedarf bearbeiten, und es wäre diese aufgelösten Werte, die in der Datenbank gespeichert. Dies kann erfolgen mithilfe der Objekte DbPropertyValues CurrentValues und GetDatabaseValues auf der Entität Eintrag zurückgegeben. Zum Beispiel:  
+Manchmal möchten Sie möglicherweise die Werte in der Datenbank mit den Werten kombinieren, die derzeit in der Entität gespeichert sind. Dies erfordert in der Regel eine benutzerdefinierte Logik oder eine Benutzerinteraktion. Beispielsweise können Sie dem Benutzer ein Formular mit den aktuellen Werten, den Werten in der Datenbank und einem Standardsatz von aufgelösten Werten präsentieren. Der Benutzer bearbeitet dann die aufgelösten Werte nach Bedarf, und es wären diese aufgelösten Werte, die in der Datenbank gespeichert werden. Dies kann mit den dbpropertyvalues-Objekten erfolgen, die von CurrentValues und getdatabasevalues für den Eintrag der Entität zurückgegeben werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -143,9 +143,9 @@ public void HaveUserResolveConcurrency(DbPropertyValues currentValues,
 }
 ```  
 
-## <a name="custom-resolution-of-optimistic-concurrency-exceptions-using-objects"></a>Benutzerdefinierte Auflösung der Ausnahmen bzgl. vollständiger Parallelität, die mithilfe von Objekten  
+## <a name="custom-resolution-of-optimistic-concurrency-exceptions-using-objects"></a>Benutzerdefinierte Auflösung von Ausnahmen mit optimistischer Parallelität mithilfe von Objekten  
 
-Der obige Code verwendet die DbPropertyValues-Instanzen für die Weitergabe der aktuellen Datenbank und aufgelösten Werte. Manchmal kann es einfacher, verwenden Instanzen des Entitätstyps für diesen sein. Dies kann erfolgen mithilfe der ToObject und SetValues von DbPropertyValues. Zum Beispiel:  
+Der obige Code verwendet dbpropertyvalues-Instanzen, um aktuelle, Datenbank-und aufgelöste Werte zu übergeben. Manchmal ist es möglicherweise einfacher, Instanzen des Entitäts Typs für dieses zu verwenden. Dies kann mithilfe der Methoden "-Objekt" und "SetValues" von dbpropertyvalues erreicht werden. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())

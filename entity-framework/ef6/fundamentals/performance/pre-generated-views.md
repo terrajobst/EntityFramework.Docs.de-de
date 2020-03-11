@@ -1,43 +1,43 @@
 ---
-title: Vorab generierte Mapping-Ansichten – EF6
+title: Vorab generierte Mapping-Sichten-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
 ms.openlocfilehash: 1fda9fe9638adce9b24a6b81aa081effeb0def81
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459525"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416030"
 ---
-# <a name="pre-generated-mapping-views"></a>Vorab generierte Mapping-Ansichten
-Bevor das Entity Framework einer Abfrage ausführen oder Änderungen an der Datenquelle speichern können, müssen sie einen Satz von Ansichten der Zuordnung Zugriff auf die Datenbank erstellen. Diese Zuordnung Ansichten sind eine Reihe von Entity SQL-Anweisung, die die Datenbank auf abstrakte Weise darstellen, und sind Teil der Metadaten, die pro Anwendungsdomäne zwischengespeichert wird. Wenn Sie mehrere Instanzen desselben Kontexts in der gleichen Anwendungsdomäne erstellen, werden diese Zuordnung Ansichten aus objektkontextinstanzen, statt die zwischengespeicherten Metadaten wiederverwendet. Da Zuordnung Generieren von Sichten einen signifikanten Teil der Gesamtkosten der Ausführung der ersten Abfrage ist, ermöglicht dem Entity Framework vorgenerieren von Ansichten der Zuordnung, und schließen Sie sie in das kompilierte Projekt an. Weitere Informationen finden Sie unter [Überlegungen zur Leistung (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
+# <a name="pre-generated-mapping-views"></a>Vorab generierte Mapping-Sichten
+Bevor die Entity Framework eine Abfrage ausführen oder Änderungen an der Datenquelle speichern kann, muss Sie einen Satz von zuordnungssichten generieren, um auf die Datenbank zuzugreifen. Diese Zuweisungs Sichten sind eine Reihe von Entity SQL-Anweisungen, die die Datenbank auf abstrakte Weise darstellen. Sie sind Teil der Metadaten, die pro Anwendungsdomäne zwischengespeichert werden. Wenn Sie mehrere Instanzen desselben Kontexts in derselben Anwendungsdomäne erstellen, werden die Zuordnung von Sichten aus den zwischengespeicherten Metadaten wieder verwendet, anstatt Sie neu zu generieren. Da die Generierung der Ansichts Generierung ein wesentlicher Bestandteil der Gesamtkosten für die Ausführung der ersten Abfrage ist, ermöglicht Ihnen die Entity Framework, die Zuordnung von Sichten vorab zu generieren und Sie in das kompilierte Projekt einzubeziehen. Weitere Informationen finden Sie unter  [Überlegungen zur Leistung (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
 
-## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>Generieren von Zuordnen von Ansichten mit der EF Power Tools-Community-Edition
+## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>Erstellen von zuordnungssichten mit der Entity Edition von EF Power Tools
 
-Die einfachste Möglichkeit zum vorgenerieren von Ansichten ist die Verwendung der [EF Power Tools-Community-Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition). Nachdem Sie die Power-Tools installiert haben, müssen Sie eine Menüoption zum Generieren von Sichten, wie unten gezeigt.
+Die einfachste Möglichkeit zum vorab Generieren von Ansichten ist die Verwendung der [EF Power Tools Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition). Nachdem Sie die Power Tools installiert haben, verfügen Sie über eine Menüoption zum Generieren von Ansichten, wie unten beschrieben.
 
--   Für **Code First** Modelle mit der rechten Maustaste auf die Codedatei, die Ihr "DbContext"-Klasse enthält.
--   Für **EF Designer** Modelle mit der rechten Maustaste auf die EDMX-Datei.
+-   Klicken Sie für **Code First** Modelle mit der rechten Maustaste auf die Codedatei, in der die dbcontext-Klasse enthalten ist.
+-   Klicken Sie bei **EF-Designer** -Modellen mit der rechten Maustaste auf die EDMX-Datei.
 
 ![Generieren von Sichten](~/ef6/media/generateviews.png)
 
-Sobald der Vorgang abgeschlossen ist, müssen Sie eine Klasse, die etwa wie folgt generiert
+Nachdem der Vorgang abgeschlossen ist, verfügen Sie über eine Klasse, die der folgenden generierten ähnelt:
 
-![generierte Ansichten](~/ef6/media/generatedviews.png)
+![generierte Sichten](~/ef6/media/generatedviews.png)
 
-Jetzt beim Ausführen verwendet Ihrer Anwendung EF diese Klasse Ansichten nach Bedarf geladen. Wenn Ihr Modell ändert und Sie nicht diese Klasse erneut generieren, wird EF eine Ausnahme ausgelöst.
+Wenn Sie nun die Anwendung ausführen, verwendet EF diese Klasse, um Ansichten nach Bedarf zu laden. Wenn sich das Modell ändert und Sie diese Klasse nicht erneut generieren, löst EF eine Ausnahme aus.
 
-## <a name="generating-mapping-views-from-code---ef6-onwards"></a>Generieren von Zuordnen von Ansichten von Code – EF6 oder höher
+## <a name="generating-mapping-views-from-code---ef6-onwards"></a>Erstellen von Mapping-Sichten aus Code EF6 ab
 
-Die andere Möglichkeit zum Generieren von Sichten ist zur Verwendung der APIs, die EF bereitstellt. Bei Verwendung dieser Methode müssen Sie die Freiheit gibt, die Ansichten zu serialisieren, aber wie Sie allerdings Sie auch die Ansichten selbst laden müssen.
+Die andere Möglichkeit zum Generieren von Sichten besteht darin, die von EF bereitgestellten APIs zu verwenden. Wenn Sie diese Methode verwenden, haben Sie die Möglichkeit, die Ansichten beliebig zu serialisieren. Sie müssen die Ansichten jedoch auch selbst laden.
 
 > [!NOTE]
-> **EF6 oder höher, nur** -der APIs, die in diesem Abschnitt gezeigten in Entity Framework 6 eingeführt wurden. Diese Informationen gelten nicht, wenn Sie eine frühere Version verwenden.
+> **Nur EF6** : die in diesem Abschnitt gezeigten APIs wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten diese Informationen nicht.
 
-### <a name="generating-views"></a>Generieren von Sichten
+### <a name="generating-views"></a>Generieren von Ansichten
 
-Die APIs zum Generieren von Ansichten sind für die System.Data.Entity.Core.Mapping.StorageMappingItemCollection-Klasse. Sie können eine StorageMappingCollection für einen Kontext abrufen, mit der MetadataWorkspace von ObjectContext. Wenn Sie die neueren DbContext-API verwenden, können Sie dies mithilfe von auf zugreifen können der IObjectContextAdapter wie die folgende, in diesem Code haben wir eine Instanz von Ihr abgeleiteten "DbContext" und "DbContext" aufgerufen:
+Die APIs zum Generieren von Sichten befinden sich in der System. Data. Entity. Core. Mapping. StorageMappingItemCollection-Klasse. Sie können eine storagemappingcollection für einen Kontext abrufen, indem Sie die MetadataWorkspace eines ObjectContext verwenden. Wenn Sie die neuere dbcontext-API verwenden, können Sie mit dem iobjectcontextadapter wie unten darauf zugreifen. in diesem Code verfügen wir über eine Instanz des abgeleiteten dbcontext namens dbcontext:
 
 ``` csharp
     var objectContext = ((IObjectContextAdapter) dbContext).ObjectContext;
@@ -45,31 +45,31 @@ Die APIs zum Generieren von Ansichten sind für die System.Data.Entity.Core.Mapp
                                                                         .GetItemCollection(DataSpace.CSSpace);
 ```
 
-Nachdem Sie die StorageMappingItemCollection haben, erhalten Sie Zugriff auf die GenerateViews und ComputeMappingHashValue-Methoden.
+Sobald Sie über die StorageMappingItemCollection verfügen, können Sie Zugriff auf die Methoden GenerateViews und computemappinghashvalue erhalten.
 
 ``` csharp
     public Dictionary\<EntitySetBase, DbMappingView> GenerateViews(IList<EdmSchemaError> errors)
     public string ComputeMappingHashValue()
 ```
 
-Die erste Methode erstellt ein Wörterbuch mit einem Eintrag für jede Ansicht in der Zuordnung des Containers. Die zweite Methode berechnet einen Hashwert für die Zuordnung eines einzelnen Containers und dient zur Laufzeit zum Überprüfen, dass das Modell nicht geändert wurde, da die Ansichten vorab generiert wurden. Überschreibungen der beiden Methoden werden für komplexe Szenarien im Zusammenhang mit mehreren schutzcontainerzuordnungen bereitgestellt.
+Die erste Methode erstellt ein Wörterbuch mit einem Eintrag für jede Ansicht in der Container Zuordnung. Die zweite Methode berechnet einen Hashwert für die einzelne Container Zuordnung und wird zur Laufzeit verwendet, um zu überprüfen, ob das Modell nicht geändert wurde, seit die Ansichten vorab generiert wurden. Über schreibungen der beiden Methoden werden für komplexe Szenarien mit mehreren Container Zuordnungen bereitgestellt.
 
-Beim Generieren von Sichten, die Sie GenerateViews Methode aufrufen, und klicken Sie dann die resultierende EntitySetBase und DbMappingView schreiben werden. Sie müssen auch die von der-Methode ComputeMappingHashValue generierten Hash speichern.
+Beim Generieren von Sichten rufen Sie die GenerateViews-Methode auf und schreiben dann die resultierenden EntitySetBase und dbmappingview. Außerdem müssen Sie den von der computemappinghashvalue-Methode generierten Hash speichern.
 
-### <a name="loading-views"></a>Laden von Ansichten
+### <a name="loading-views"></a>Sichten werden geladen
 
-Um die von der-Methode GenerateViews generierten Ansichten zu laden, können Sie EF mit einer Klasse bereitstellen, die von der abstrakten DbMappingViewCache-Klasse erbt. DbMappingViewCache gibt zwei Methoden, die Sie implementieren müssen:
+Um die von der GenerateViews-Methode generierten Sichten zu laden, können Sie EF eine Klasse bereitstellen, die von der abstrakten Klasse dbmappingviewcache erbt. Dbmappingviewcache gibt zwei Methoden an, die Sie implementieren müssen:
 
 ``` csharp
     public abstract string MappingHashValue { get; }
     public abstract DbMappingView GetView(EntitySetBase extent);
 ```
 
-Die MappingHashValue-Eigenschaft muss den von der-Methode ComputeMappingHashValue generierten Hash zurückgeben. Wenn EF ist jetzt für Ansichten stellen sie zunächst generiert und vergleichen den Hashwert des Modells mit dem Hashwert, der von dieser Eigenschaft zurückgegebene. Wenn sie nicht übereinstimmen dann löst EF EntityCommandCompilationException eine Ausnahme.
+Die mappinghashvalue-Eigenschaft muss den von der computemappinghashvalue-Methode generierten Hash zurückgeben. Wenn EF nach Sichten fragt, wird zunächst der Hashwert des Modells mit dem von dieser Eigenschaft zurückgegebenen Hash generiert und verglichen. Wenn keine Entsprechung gefunden wird, löst EF eine EntityCommandCompilationException-Ausnahme aus.
 
-Die GetView-Methode akzeptiert eine EntitySetBase aus, und Sie müssen zurückgegeben, dass eine DbMappingVIew, enthält die EntitySql, die dafür generiert wurde der angegebene EntitySetBase in das Wörterbuch, das von der-Methode GenerateViews generiert zugeordnet war. Eine Ansicht, dass Sie nicht dann GetView verfügen sollte null zurückgeben, wenn EF anfordert.
+Die GetView-Methode akzeptiert ein EntitySetBase-Objekt, und Sie müssen eine dbmappingview mit der EntitySql-ID zurückgeben, die für generiert wurde, die dem angegebenen EntitySetBase in dem von der GenerateViews-Methode generierten Wörterbuch zugeordnet ist. Wenn EF nach einer Ansicht fragt, die Sie nicht haben, sollte GetView NULL zurückgeben.
 
-Im folgenden finden einen Auszug aus der DbMappingViewCache, die wie oben beschrieben sehen Sie eine Möglichkeit zum Speichern und Abrufen der EntitySql erforderlich sind, sich mit den Power Tools generiert wird.
+Im folgenden finden Sie eine Extraktion aus dbmappingviewcache, die mit den oben beschriebenen Power Tools generiert wird. darin wird eine Möglichkeit zum Speichern und Abrufen des erforderlichen EntitySql-Werts angezeigt.
 
 ``` csharp
     public override string MappingHashValue
@@ -117,10 +117,10 @@ Im folgenden finden einen Auszug aus der DbMappingViewCache, die wie oben beschr
     }
 ```
 
-Damit EF verwenden Ihre DbMappingViewCache, die Sie hinzufügen, verwenden Sie die DbMappingViewCacheTypeAttribute, Angeben des Kontexts, dem sie für erstellt wurde. Im folgenden Code ordnen wir den BlogContext, mit der MyMappingViewCache-Klasse.
+Damit EF ihren dbmappingviewcache verwenden kann, fügen Sie das dbmappingviewcachetypeattribute-Attribut hinzu, indem Sie den Kontext angeben, für den es erstellt wurde. Im folgenden Code ordnen wir den blogcontext der mymappingviewcache-Klasse zu.
 
 ``` csharp
     [assembly: DbMappingViewCacheType(typeof(BlogContext), typeof(MyMappingViewCache))]
 ```
 
-Für komplexere Szenarien können Zuordnung anzeigen-Cache-Instanzen bereitgestellt werden, durch Angeben einer Zuordnung Ansicht Cache-Factory. Dies kann durch die Implementierung der abstrakten Klasse System.Data.Entity.Infrastructure.MappingViews.DbMappingViewCacheFactory erfolgen. Die Instanz der Zuordnung anzeigen Cache-Factory, die verwendet wird, kann abgerufen oder mithilfe der StorageMappingItemCollection.MappingViewCacheFactoryproperty festgelegt werden.
+Für komplexere Szenarien können Zuordnungs Ansichts Cache Instanzen bereitgestellt werden, indem eine Zuordnungs Ansichts Cache-Factory angegeben wird. Dies kann durch Implementieren der abstrakten Klasse System. Data. Entity. Infrastructure. mappingviews. dbmappingviewcachefactory erreicht werden. Die Instanz der Cache Factory der Zuordnungs Ansicht, die verwendet wird, kann mithilfe von StorageMappingItemCollection. mappingviewcachefactoryproperty abgerufen oder festgelegt werden.

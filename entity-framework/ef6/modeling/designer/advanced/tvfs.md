@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: f019c97b-87b0-4e93-98f4-2c539f77b2dc
 ms.openlocfilehash: 35684196dcd7b708a8feeb1eca3096e8d4e555ec
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182535"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415448"
 ---
 # <a name="table-valued-functions-tvfs"></a>Tabellenwert Funktionen (TVFs)
 > [!NOTE]
@@ -38,7 +38,7 @@ Um diese exemplarische Vorgehensweise durchführen zu können, benötigen Sie Fo
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
-1.  Öffnen Sie Visual Studio
+1.  Öffnen Sie Visual Studio.
 2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
 3.  Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
 4.  Geben Sie **TVF** als Namen für das Projekt ein, und klicken Sie auf **OK** .
@@ -72,7 +72,7 @@ RETURN
 
  
 
-## <a name="create-a-model"></a>Erstellen eines Modells
+## <a name="create-a-model"></a>Modellerstellung
 
 1.  Klicken Sie mit der rechten Maustaste auf den Projektnamen Projektmappen-Explorer, zeigen Sie auf **Hinzufügen**, und klicken Sie dann auf **Neues Element**
 2.  Wählen Sie im linken Menü **Daten** aus, und wählen Sie dann im Bereich **Vorlagen** die Option **ADO.NET Entity Data Model** aus.

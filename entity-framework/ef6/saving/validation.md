@@ -4,13 +4,13 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
 ms.openlocfilehash: 2c5e6f1b3f60862124bafcac42e8859a7591f8e6
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812149"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414368"
 ---
-# <a name="data-validation"></a>Datenvalidierung
+# <a name="data-validation"></a>Datenüberprüfung
 > [!NOTE]
 > **EF 4.1** und höher: die Features, APIs usw., die auf dieser Seite erläutert wurden, wurden in Entity Framework 4,1 eingeführt. Wenn Sie eine frühere Version verwenden, werden einige oder alle Informationen nicht angewendet.
 
@@ -158,7 +158,7 @@ Anders als bei der Überprüfung, die von der reflüssigen API bereitgestellt wi
 
 ![Abbildung 2](~/ef6/media/figure02.png)
 
-## <a name="dbcontextvalidateentity"></a>Dbcontext. validateentity
+## <a name="dbcontextvalidateentity"></a>DbContext.ValidateEntity
 
 `DbContext` verfügt über eine über schreibbare Methode namens `ValidateEntity`. Wenn Sie `SaveChanges`aufrufen, wird Entity Framework diese Methode für jede Entität im Cache aufrufen, deren Zustand nicht `Unchanged`ist. Sie können die Validierungs Logik direkt in diese einfügen oder sogar mit dieser Methode aufzurufen, z. b. die `Blog.Validate` Methode, die im vorherigen Abschnitt hinzugefügt wurde.
 

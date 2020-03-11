@@ -1,54 +1,54 @@
 ---
-title: Unterstützung von Enumerationen – Code First – EF6
+title: Aufzählungs Unterstützung-Code First-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 77a42501-27c9-4f4b-96df-26c128021467
 ms.openlocfilehash: 1cecbf7065367deb3d202977fe39187bd907d824
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283719"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415790"
 ---
-# <a name="enum-support---code-first"></a>Unterstützung von Enumerationen – Code First
+# <a name="enum-support---code-first"></a>Aufzählungs Unterstützung-Code First
 > [!NOTE]
-> **EF5 oder höher, nur** -APIs, die Funktionen erläutert, die auf dieser Seite usw. in Entity Framework 5 eingeführt wurden. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
+> **Nur EF5** : die Features, APIs usw., die auf dieser Seite erläutert wurden, wurden in Entity Framework 5 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
 
-Dieses video und schrittweise exemplarische Vorgehensweise zeigt die Verwendung von Enumerationstypen mit Entity Framework Code First. Es wird veranschaulicht, wie Enumerationen in einer LINQ-Abfrage verwendet wird.
+In diesem Video und der schrittweisen exemplarischen Vorgehensweise wird die Verwendung von Enumerationstypen mit Entity Framework Code First erläutert. Außerdem wird veranschaulicht, wie Sie-auf--Aufstände in einer LINQ-Abfrage verwenden.
 
-In dieser exemplarischen Vorgehensweise wird Code First verwenden, um eine neue Datenbank zu erstellen, aber Sie können auch [Code First mit einer vorhandenen Datenbank zuordnen](~/ef6/modeling/code-first/workflows/existing-database.md).
+In dieser exemplarischen Vorgehensweise wird Code First verwendet, um eine neue Datenbank zu erstellen, aber Sie können Code First auch verwenden, um eine Zuordnung [zu einer vorhandenen Datenbank](~/ef6/modeling/code-first/workflows/existing-database.md)herzustellen.
 
-Enum-Unterstützung wurde in Entity Framework 5 eingeführt. Um die neuen Features wie Enumerationen, räumliche Datentypen und Tabellenwertfunktionen zu verwenden, müssen Sie .NET Framework 4.5 ausrichten. Visual Studio 2012 ist standardmäßig die Zielversion .NET 4.5.
+Die Aufzählungs Unterstützung wurde in Entity Framework 5 eingeführt. Wenn Sie die neuen Funktionen wie Enumerationstypen, räumliche Datentypen und Tabellenwert Funktionen verwenden möchten, müssen Sie .NET Framework 4,5-Zielversion verwenden. Visual Studio 2012 hat standardmäßig .NET 4,5 als Ziel.
 
-Im Entity Framework kann eine Enumeration der folgenden zugrunde liegende Typen aufweisen: **Byte**, **Int16**, **Int32**, **Int64** , oder **SByte**.
+In Entity Framework kann eine Enumeration die folgenden zugrunde liegenden Typen aufweisen: **Byte**, **Int16**, **Int32**, **Int64** oder **SByte**.
 
 ## <a name="watch-the-video"></a>Video ansehen
-Dieses Video zeigt, wie Sie Enum-Typen mit Entity Framework Code First zu verwenden. Es wird veranschaulicht, wie Enumerationen in einer LINQ-Abfrage verwendet wird.
+In diesem Video wird gezeigt, wie Enumerationstypen mit Entity Framework Code First verwendet werden. Außerdem wird veranschaulicht, wie Sie-auf--Aufstände in einer LINQ-Abfrage verwenden.
 
-**Präsentiert von**: Julia Kornich
+**Präsentiert von**: Julia kornich
 
-**Video**: [WMV](https://download.microsoft.com/download/A/5/8/A583DEE8-FD5C-47EE-A4E1-966DDF39D1DA/HDI-ITPro-MSDN-winvideo-enumwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/A/5/8/A583DEE8-FD5C-47EE-A4E1-966DDF39D1DA/HDI-ITPro-MSDN-mp4video-enumwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/A/5/8/A583DEE8-FD5C-47EE-A4E1-966DDF39D1DA/HDI-ITPro-MSDN-winvideo-enumwithcodefirst.zip)
+**Video**: [WMV](https://download.microsoft.com/download/A/5/8/A583DEE8-FD5C-47EE-A4E1-966DDF39D1DA/HDI-ITPro-MSDN-winvideo-enumwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/A/5/8/A583DEE8-FD5C-47EE-A4E1-966DDF39D1DA/HDI-ITPro-MSDN-mp4video-enumwithcodefirst.m4v) | [WMV (zip)](https://download.microsoft.com/download/A/5/8/A583DEE8-FD5C-47EE-A4E1-966DDF39D1DA/HDI-ITPro-MSDN-winvideo-enumwithcodefirst.zip)
 
 ## <a name="pre-requisites"></a>Voraussetzungen
 
-Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express Edition installiert, um diese exemplarische Vorgehensweise abgeschlossen haben.
+Sie müssen Visual Studio 2012, Ultimate, Premium, Professional oder Web Express Edition installiert haben, um diese exemplarische Vorgehensweise abzuschließen.
 
- 
+ 
 
 ## <a name="set-up-the-project"></a>Einrichten des Projekts
 
-1.  Visual Studio 2012 öffnen
-2.  Auf der **Datei** Startmenü **neu**, und klicken Sie dann auf **Projekt**
-3.  Klicken Sie im linken Bereich auf **Visual C\#**, und wählen Sie dann die **Konsole** Vorlage
-4.  Geben Sie **EnumCodeFirst** als Namen für das Projekt und auf **OK**
+1.  Öffnen Sie Visual Studio 2012
+2.  Zeigen Sie im Menü **Datei** auf **neu**, und klicken Sie dann auf **Projekt** .
+3.  Klicken Sie im linken Bereich auf **Visual C-\#** , und wählen Sie dann die **Konsolen** Vorlage aus.
+4.  Geben Sie " **enumcodefirst** " als Namen des Projekts ein, und klicken Sie auf **OK** .
 
-## <a name="define-a-new-model-using-code-first"></a>Definieren Sie ein neues Modell mit Code First
+## <a name="define-a-new-model-using-code-first"></a>Definieren eines neuen Modells mit Code First
 
-Bei Verwendung von Code First-Entwicklung beginnen Sie in der Regel durch das Schreiben von .NET Framework-Klassen, die das konzeptionelle (Domäne)-Modell zu definieren. Der folgende Code definiert die Department-Klasse.
+Wenn Sie Code First Entwicklung verwenden, schreiben Sie in der Regel .NET Framework Klassen, die ihr konzeptionelles (Domänen-) Modell definieren. Der folgende Code definiert die Department-Klasse.
 
-Der Code definiert außerdem die DepartmentNames-Enumeration. Die Enumeration wird standardmäßig der **Int** Typ. Die Name-Eigenschaft für die Abteilung-Klasse ist die DepartmentNames-Typs.
+Der Code definiert auch die departmentnames-Enumeration. Standardmäßig ist die Enumeration vom Typ **int** . Die Name-Eigenschaft für die Department-Klasse ist vom Typ "departmentnames".
 
-Öffnen Sie die Datei "Program.cs" ein, und fügen Sie die folgenden Klassendefinitionen.
+Öffnen Sie die Datei Program.cs, und fügen Sie die folgenden Klassendefinitionen ein.
 
 ``` csharp
 public enum DepartmentNames
@@ -65,30 +65,30 @@ public partial class Department
     public decimal Budget { get; set; }
 }
 ```
- 
+ 
 
-## <a name="define-the-dbcontext-derived-type"></a>Definieren Sie die "DbContext" abgeleiteten Typ
+## <a name="define-the-dbcontext-derived-type"></a>Definieren des abgeleiteten dbcontext-Typs
 
-Zusätzlich zum Definieren von Entitäten, müssen Sie eine Klasse definieren, die von "DbContext" abgeleitet und stellt "DbSet"&lt;TEntity&gt; Eigenschaften. "DbSet"&lt;TEntity&gt; Eigenschaften können Sie den Kontext, die wissen, welche Typen im Modell enthalten sein sollen.
+Zusätzlich zum Definieren von Entitäten müssen Sie eine Klasse definieren, die von dbcontext abgeleitet ist und dbset&lt;TEntity&gt; Eigenschaften verfügbar macht. Mit den Eigenschaften von dbset&lt;TEntity&gt; wird der Kontext informiert, welche Typen Sie in das Modell einschließen möchten.
 
-Eine Instanz des Typs "DbContext" abgeleitet verwaltet die Entitätsobjekte während der Laufzeit, einschließlich ausfüllenden Objekten mit Daten aus einer Datenbank, verfolgen und Speichern von Daten in der Datenbank zu ändern.
+Eine Instanz des abgeleiteten dbcontext-Typs verwaltet die Entitäts Objekte zur Laufzeit. dazu gehören das Auffüllen von Objekten mit Daten aus einer Datenbank, die Änderungs Nachverfolgung und das Beibehalten von Daten in der Datenbank.
 
-Die "DbContext" und "DbSet"-Typen werden in der EntityFramework-Assembly definiert. Es wird einen Verweis auf diese DLL-Datei mit EntityFramework NuGet-Paket hinzufügen.
+Die Typen "dbcontext" und "dbset" werden in der EntityFramework-Assembly definiert. Wir fügen mit dem nuget-Paket "EntityFramework" einen Verweis auf diese dll hinzu.
 
-1.  Im Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen.
-2.  Wählen Sie **NuGet-Pakete verwalten...**
-3.  Wählen Sie in das Dialogfeld "NuGet-Pakete verwalten" die **Online** Registerkarte, und wählen Sie die **EntityFramework** Paket.
-4.  Klicken Sie auf **installieren**
+1.  Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf den Projektnamen.
+2.  Wählen Sie **nuget-Pakete verwalten... aus.**
+3.  Wählen Sie im Dialogfeld nuget-Pakete verwalten die Registerkarte **Online** aus, und wählen Sie das Paket **EntityFramework** aus.
+4.  Klicken Sie auf **Installieren**
 
-Beachten Sie, dass zusätzlich zu den EntityFramework-Assembly, sowie Verweise auf Assemblys System.ComponentModel.DataAnnotations und System.Data.Entity hinzugefügt werden.
+Beachten Sie, dass neben der EntityFramework-Assembly auch Verweise auf System. ComponentModel. DataAnnotations und System. Data. Entity-Assemblys hinzugefügt werden.
 
-Fügen Sie am Anfang der Datei "Program.cs" die folgenden using-Anweisung:
+Fügen Sie am Anfang der Program.cs-Datei die folgende using-Anweisung hinzu:
 
 ``` csharp
 using System.Data.Entity;
 ```
 
-Fügen Sie die Kontextdefinition in "Program.cs" hinzu. 
+Fügen Sie in Program.cs die Kontext Definition hinzu. 
 
 ``` csharp
 public partial class EnumTestContext : DbContext
@@ -96,11 +96,11 @@ public partial class EnumTestContext : DbContext
     public DbSet<Department> Departments { get; set; }
 }
 ```
- 
+ 
 
-## <a name="persist-and-retrieve-data"></a>Speichern und Abrufen von Daten
+## <a name="persist-and-retrieve-data"></a>Persistenz und Abrufen von Daten
 
-Öffnen Sie die Datei "Program.cs", die, in die Main-Methode definiert ist. Fügen Sie der Main-Funktion mit den folgenden Code. Der Code Fügt ein neues Objekt für die Abteilung, in den Kontext. Klicken Sie dann die Daten gespeichert. Der Code führt auch eine LINQ-Abfrage, die eine Abteilung zurückgibt, wobei der Name DepartmentNames.English ist.
+Öffnen Sie die Datei Program.cs, in der die Main-Methode definiert ist. Fügen Sie der Main-Funktion den folgenden Code hinzu. Der Code fügt dem Kontext ein neues Abteilungs Objekt hinzu. Anschließend werden die Daten gespeichert. Der Code führt außerdem eine LINQ-Abfrage aus, die eine Abteilung zurückgibt, in der der Name departmentnames. English lautet.
 
 ``` csharp
 using (var context = new EnumTestContext())
@@ -125,22 +125,22 @@ Kompilieren Sie die Anwendung, und führen Sie sie aus. Das Programm erzeugt die
 ``` csharp
 DepartmentID: 1 Name: English
 ```
- 
+ 
 
-## <a name="view-the-generated-database"></a>Anzeigen der generierten Datenbank.
+## <a name="view-the-generated-database"></a>Anzeigen der generierten Datenbank
 
-Wenn Sie die Anwendung zum ersten Mal ausführen, erstellt Entity Framework eine Datenbank für Sie. Da wir Visual Studio 2012 installiert haben, wird die Datenbank für die LocalDB-Instanz erstellt werden. In der Standardeinstellung benennt Entity Framework die Datenbank nach der vollqualifizierte Name des abgeleiteten Kontexts (in diesem Beispiel, das **EnumCodeFirst.EnumTestContext**). Die nachfolgende, wie oft die vorhandene Datenbank verwendet wird.  
+Wenn Sie die Anwendung zum ersten Mal ausführen, erstellt die Entity Framework eine Datenbank für Sie. Da Visual Studio 2012 installiert ist, wird die Datenbank auf der localdb-Instanz erstellt. Standardmäßig benennt der Entity Framework die Datenbank nach dem voll qualifizierten Namen des abgeleiteten Kontexts (in diesem Beispiel **enumcodefirst. enumtestcontext**). Nachfolgend wird die vorhandene Datenbank verwendet.  
 
-Beachten Sie, dass wenn Sie Änderungen an Ihrem Modell vornehmen, nachdem die Datenbank erstellt wurde, sollten Sie Code First-Migrationen verwenden, um das Datenbankschema aktualisieren. Finden Sie unter [Code First in eine neue Datenbank](~/ef6/modeling/code-first/workflows/new-database.md) ein Beispiel für die Verwendung von Migrationen.
+Beachten Sie Folgendes: Wenn Sie Änderungen am Modell vornehmen, nachdem die Datenbank erstellt wurde, sollten Sie Code First-Migrationen zum Aktualisieren des Datenbankschemas verwenden. Ein Beispiel für die Verwendung von Migrationen finden Sie [unter Code First einer neuen Datenbank](~/ef6/modeling/code-first/workflows/new-database.md) .
 
-Um die Datenbank und die Daten anzuzeigen, führen Sie folgende Schritte aus:
+Gehen Sie folgendermaßen vor, um die Datenbank und die Daten anzuzeigen:
 
-1.  Wählen Sie im Hauptmenü von Visual Studio 2012 **Ansicht**  - &gt; **Objekt-Explorer von SQL Server**.
-2.  Wenn LocalDB nicht in der Liste der Server ist, klicken Sie auf die rechten Maustaste **SQL Server** , und wählen Sie **SQL Server hinzufügen** verwenden Sie die Standardeinstellung **Windows-Authentifizierung** zum Herstellen einer Verbindung mit der LocalDB-Instanz
-3.  Erweitern Sie den Knoten für LocalDB
-4.  Erweitern der **Datenbanken** Ordner finden Sie unter der neuen Datenbank aus, und navigieren Sie zu der **Abteilung** Tabelle Beachten Sie, dass, die Code First keine Tabelle erstellt wird, der den Enumerationstyp zugeordnet
-5.  Daten anzeigen, mit der rechten Maustaste auf die Tabelle aus, und wählen Sie **Anzeigedaten**
+1.  Wählen Sie im Hauptmenü von Visual Studio 2012 -&gt; **SQL Server-Objekt-Explorer** **anzeigen** aus.
+2.  Wenn localdb nicht in der Liste der Server enthalten ist, klicken Sie auf **SQL Server** mit der rechten Maustaste, und wählen Sie **Hinzufügen** aus, um eine Verbindung mit der localdb-Instanz herzustellen SQL Server die Standard **Authentifizierung** zu verwenden.
+3.  Erweitern Sie den Knoten localdb.
+4.  Erweitern Sie den Ordner **Datenbanken** , um die neue Datenbank anzuzeigen, und navigieren Sie zu der **Abteilungs** Tabelle, Code First keine Tabelle erstellt, die dem Enumerationstyp zugeordnet ist.
+5.  Um Daten anzuzeigen, klicken Sie mit der rechten Maustaste auf die Tabelle, und wählen Sie **Daten anzeigen**
 
 ## <a name="summary"></a>Zusammenfassung
 
-In dieser exemplarischen Vorgehensweise erläutert, wie Sie Enum-Typen mit Entity Framework Code First zu verwenden. 
+In dieser exemplarischen Vorgehensweise haben wir uns mit der Verwendung von Enumerationstypen mit Entity Framework Code First beschäftigt. 

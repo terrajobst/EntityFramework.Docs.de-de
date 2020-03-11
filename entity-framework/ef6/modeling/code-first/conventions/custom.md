@@ -1,33 +1,33 @@
 ---
-title: Benutzerdefinierte Code First-Konventionen - EF6
+title: Benutzerdefinierte Code First Konventionen-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
 ms.openlocfilehash: cfd7f7cad532dca5227793c04d7d91e977ea5e4e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489843"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415892"
 ---
-# <a name="custom-code-first-conventions"></a>Benutzerdefinierte Code First-Konventionen
+# <a name="custom-code-first-conventions"></a>Benutzerdefinierte Code First Konventionen
 > [!NOTE]
 > **Nur EF6 und höher:** Die Features, APIs usw., die auf dieser Seite erläutert werden, wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
 
-Wenn Sie Code First verwenden das Modell aus den Klassen, die mit einem Satz von Konventionen berechnet wird. Der Standardwert [Code First-Konventionen](~/ef6/modeling/code-first/conventions/built-in.md) wie die Eigenschaft wird der Primärschlüssel einer Entität, die den Namen des in der Tabelle eine Entität zugeordnet und welche Genauigkeit und Dezimalstellenanzahl verfügt über Spalten im Dezimalformat standardmäßig zu ermitteln.
+Wenn Sie Code First verwenden, wird das Modell aus ihren Klassen mithilfe eines Satzes von Konventionen berechnet. Die standardmäßigen [Code First Konventionen](~/ef6/modeling/code-first/conventions/built-in.md) bestimmen Dinge, wie z. b. welche Eigenschaft zum Primärschlüssel einer Entität wird, den Namen der Tabelle, der eine Entität zugeordnet ist, und welche Genauigkeit und Dezimalstellen eine Dezimal Spalte Standardmäßig besitzt.
 
-Dieser Standardkonventionen sind manchmal nicht optimal geeignet für Ihr Modell, und Sie diese umgehen, indem viele einzelne Elemente, die mithilfe von Datenanmerkungen oder der Fluent-API konfigurieren müssen. Benutzerdefinierte Code First-Konventionen können Sie Ihre eigenen Konventionen zu definieren, die Standardeinstellungen der Konfiguration für Ihr Modell bereitstellen. In dieser exemplarischen Vorgehensweise erforschen wir die verschiedenen Typen von benutzerdefinierten Konventionen und wie Sie jeweils zu erstellen.
+Manchmal sind diese Standard Konventionen nicht ideal für Ihr Modell, und Sie müssen Sie umgehen, indem Sie viele einzelne Entitäten mithilfe von Daten Anmerkungen oder der flüssigen API konfigurieren. Mit benutzerdefinierten Code First Konventionen können Sie eigene Konventionen definieren, die Konfigurations Standardwerte für das Modell bereitstellen. In dieser exemplarischen Vorgehensweise werden die unterschiedlichen Typen von benutzerdefinierten Konventionen erläutert und erläutert, wie diese erstellt werden.
 
 
-## <a name="model-based-conventions"></a>Modellbasierten Konventionen
+## <a name="model-based-conventions"></a>Modellbasierte Konventionen
 
-Auf dieser Seite werden der DbModelBuilder-API für benutzerdefinierte Konventionen behandelt. Diese API sollte für die Erstellung von den meisten benutzerdefinierter Konventionen ausreichend sein. Es ist jedoch auch die Möglichkeit zum Erstellen von modellbasierten Konventionen - Konventionen, die das endgültige Modell bearbeiten, nachdem es erstellt wurde – erweiterte Szenarien behandelt. Weitere Informationen finden Sie unter [modellbasierten Konventionen](~/ef6/modeling/code-first/conventions/model.md).
+Auf dieser Seite wird die dbmodelbuilder-API für benutzerdefinierte Konventionen behandelt. Diese API sollte für die Erstellung der meisten benutzerdefinierten Konventionen ausreichen. Es gibt jedoch auch die Möglichkeit, modellbasierte Konventionen zu verfassen, die das endgültige Modell nach der Erstellung verändern, um erweiterte Szenarien zu verarbeiten. Weitere Informationen finden Sie unter [modellbasierte Konventionen](~/ef6/modeling/code-first/conventions/model.md).
 
- 
+ 
 
 ## <a name="our-model"></a>Unser Modell
 
-Zuerst definieren wir ein einfaches Modell, das wir mit unserer Konventionen verwenden können. Fügen Sie Ihrem Projekt die folgenden Klassen hinzu.
+Zunächst definieren wir ein einfaches Modell, das wir mit unseren Konventionen verwenden können. Fügen Sie dem Projekt die folgenden Klassen hinzu.
 
 ``` csharp
     using System;
@@ -62,13 +62,13 @@ Zuerst definieren wir ein einfaches Modell, das wir mit unserer Konventionen ver
     }
 ```
 
- 
+ 
 
 ## <a name="introducing-custom-conventions"></a>Einführung in benutzerdefinierte Konventionen
 
-Schreiben wir nun eine Konvention, die eine Eigenschaft mit dem Namen Taste, um den primären Schlüssel für den Entitätstyp werden konfiguriert.
+Wir schreiben eine Konvention, die jede Eigenschaft mit dem Namen Key als Primärschlüssel für den Entitätstyp konfiguriert.
 
-Konventionen sind auf den Modell-Generator aktiviert, die durch das Überschreiben von "onmodelcreating" im Kontext zugegriffen werden kann. Aktualisieren Sie die ProductContext-Klasse wie folgt:
+Konventionen sind für den Modell-Generator aktiviert, auf den durch das Überschreiben von onmodelcreating im Kontext zugegriffen werden kann. Aktualisieren Sie die productcontext-Klasse wie folgt:
 
 ``` csharp
     public class ProductContext : DbContext
@@ -89,9 +89,9 @@ Konventionen sind auf den Modell-Generator aktiviert, die durch das Überschreib
     }
 ```
 
-Jetzt wird jede Eigenschaft in unserem Modell benannten Schlüssel konfiguriert als primären Schlüssel für beliebige Entität seinen Teil.
+Nun wird jede Eigenschaft in unserem Modell mit dem Namen Key als Primärschlüssel einer beliebigen Entität konfiguriert, von der Sie gehört.
 
-Wir konnten stellen Sie außerdem unsere Konventionen spezifischere durch den Typ der Eigenschaft, die an das Konfigurieren von Filtern:
+Wir könnten unsere Konventionen auch spezifischer gestalten, indem wir nach dem Typ der Eigenschaft filtern, die wir konfigurieren werden:
 
 ``` csharp
     modelBuilder.Properties<int>()
@@ -99,9 +99,9 @@ Wir konnten stellen Sie außerdem unsere Konventionen spezifischere durch den Ty
                 .Configure(p => p.IsKey());
 ```
 
-Dadurch wird konfiguriert, dass alle Eigenschaften, die aufgerufen werden Schlüssel, um den primären Schlüssel, der die Entität, jedoch nur, wenn sie eine ganze Zahl sind.
+Dadurch werden alle Eigenschaften, die als "Key" bezeichnet werden, als Primärschlüssel der Entität konfiguriert, aber nur, wenn es sich um eine ganze Zahl handelt.
 
-Ein interessantes Feature der IsKey-Methode besteht darin, dass additiv. Das bedeutet, dass, wenn Sie mehrere Eigenschaften IsKey aufrufen und alle Teil eines zusammengesetzten Schlüssels werden. Ein Nachteil dafür ist, dass wenn Sie mehrere Eigenschaften für einen Schlüssel angeben, auch einen Auftrag für diese Eigenschaften angeben müssen. Dazu können Sie die Methode wie die folgende HasColumnOrder aufrufen:
+Ein interessantes Feature der IsKey-Methode ist, dass es Additiv ist. Dies bedeutet, wenn Sie "IsKey" für mehrere Eigenschaften anrufen und alle Teil eines zusammengesetzten Schlüssels werden. Der einzige Nachteil hierfür ist, dass Sie beim Angeben mehrerer Eigenschaften für einen Schlüssel auch eine Bestellung für diese Eigenschaften angeben müssen. Dies können Sie erreichen, indem Sie die hascolumnorder-Methode wie folgt aufrufen:
 
 ``` csharp
     modelBuilder.Properties<int>()
@@ -113,24 +113,24 @@ Ein interessantes Feature der IsKey-Methode besteht darin, dass additiv. Das bed
                 .Configure(x => x.IsKey().HasColumnOrder(2));
 ```
 
-Dieser Code konfiguriert die Typen in unserem Modell haben Sie einen zusammengesetzten Schlüssel, der aus die Int-Key-Spalte und die Namensspalte Zeichenfolge besteht. Wenn wir das Modell im Designer anzuzeigen, würde es folgendermaßen aussehen:
+Dieser Code konfiguriert die Typen in unserem Modell so, dass Sie über einen zusammengesetzten Schlüssel verfügen, der aus der int-Schlüssel Spalte und der Zeichen folgen Name-Spalte besteht. Wenn das Modell im Designer angezeigt wird, sieht es wie folgt aus:
 
 ![zusammengesetzter Schlüssel](~/ef6/media/compositekey.png)
 
-Ein weiteres Beispiel für Eigenschaft Konventionen ist so konfigurieren Sie alle Eigenschaften von "DateTime" in meinem Modell in den datetime2-Typ in SQL Server anstelle von "DateTime" zugeordnet. Sie erreichen dies durch den folgenden:
+Ein weiteres Beispiel für Eigenschafts Konventionen besteht darin, alle DateTime-Eigenschaften in meinem Modell so zu konfigurieren, dass Sie dem datetime2-Typ in SQL Server anstelle von DateTime zugeordnet werden. Dies kann mit folgendem erreicht werden:
 
 ``` csharp
     modelBuilder.Properties<DateTime>()
                 .Configure(c => c.HasColumnType("datetime2"));
 ```
 
- 
+ 
 
-## <a name="convention-classes"></a>Konvention-Klassen
+## <a name="convention-classes"></a>Konventionen-Klassen
 
-Eine weitere Möglichkeit zum Definieren von Konventionen ist eine Konvention-Klasse verwendet, um Ihre Konvention zu kapseln. Bei Verwendung einer Konvention-Klasse erstellen Sie einen Typ, der von der Konvention-Klasse im Namespace System.Data.Entity.ModelConfiguration.Conventions erbt.
+Eine andere Möglichkeit zum Definieren von Konventionen besteht darin, eine Konvention-Klasse zu verwenden, um Ihre Konvention zu kapseln. Wenn Sie eine Konventionen-Klasse verwenden, erstellen Sie einen Typ, der von der Konvention-Klasse im Namespace System. Data. Entity. modelconfiguration. Conventions erbt.
 
-Wir können eine Konvention-Klasse mit der datetime2-Konvention erstellen, die wir weiter oben gezeigt habe, wie folgt:
+Wir können eine Konvention-Klasse mit der datetime2-Konvention erstellen, die wir zuvor gezeigt haben, indem wir die folgenden Schritte durchführen:
 
 ``` csharp
     public class DateTime2Convention : Convention
@@ -143,7 +143,7 @@ Wir können eine Konvention-Klasse mit der datetime2-Konvention erstellen, die w
     }
 ```
 
-Informieren von EF diese Konvention verwenden Sie es der Konventionen-Auflistung in "OnModelCreating" hinzufügen, wenn Sie zusammen mit der exemplarischen Vorgehensweise durchgearbeitet haben so aussieht:
+Damit EF diese Konvention verwenden kann, fügen Sie es der Conventions-Auflistung in onmodelcreating hinzu. Wenn Sie die exemplarische Vorgehensweise verwendet haben, sieht die exemplarische Vorgehensweise wie folgt aus:
 
 ``` csharp
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -156,13 +156,13 @@ Informieren von EF diese Konvention verwenden Sie es der Konventionen-Auflistung
     }
 ```
 
-Wie Sie, dass wir eine Instanz von unserem Konvention der Konventionen Auflistung hinzufügen sehen können. Erben von Konvention bietet eine bequeme Möglichkeit, einer Gruppierung und Konventionen für Teams oder Projekte freigegeben. Sie könnten z. B. eine Klassenbibliothek mit einem gemeinsamen Satz von Konventionen, dass alle von Ihrer Organisation Projekte haben.
+Wie Sie sehen können, fügen wir der Konventionen-Auflistung eine Instanz der Konvention hinzu. Die Vererbung von der Konvention stellt eine bequeme Möglichkeit dar, Konventionen zwischen Teams und Projekten zu gruppieren und zu teilen. Sie könnten z. b. über eine Klassenbibliothek mit einem gemeinsamen Satz von Konventionen verfügen, die von all ihren Organisationen verwendet werden.
 
- 
+ 
 
 ## <a name="custom-attributes"></a>Benutzerdefinierte Attribute
 
-Weiteres können Sie Konventionen ist so aktivieren Sie neue Attribute verwendet werden, wenn Sie ein Modell zu konfigurieren. Um dies zu veranschaulichen, wir erstellen ein Attribut, das wir zum Markieren von Zeichenfolgeneigenschaften als nicht-Unicode verwenden können.
+Eine weitere großartige Verwendung von Konventionen besteht darin, neue Attribute für die Konfiguration eines Modells zu aktivieren. Um dies zu veranschaulichen, erstellen wir ein Attribut, das zum Markieren von Zeichen folgen Eigenschaften als nicht-Unicode verwendet werden kann.
 
 ``` csharp
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
@@ -171,7 +171,7 @@ Weiteres können Sie Konventionen ist so aktivieren Sie neue Attribute verwendet
     }
 ```
 
-Nun erstellen wir eine Konvention, um dieses Attribut auf unserem Modell anwenden:
+Nun erstellen wir eine Konvention zum Anwenden dieses Attributs auf unser Modell:
 
 ``` csharp
     modelBuilder.Properties()
@@ -179,13 +179,13 @@ Nun erstellen wir eine Konvention, um dieses Attribut auf unserem Modell anwende
                 .Configure(c => c.IsUnicode(false));
 ```
 
-Diese Konvention können wir hinzufügen, dass das nicht-Unicode-Attribut auf unsere Zeichenfolgeneigenschaften, was bedeutet die Spalte in der Datenbank als Varchar, anstatt Nvarchar gespeichert wird.
+Mit dieser Konvention können wir das nonUnicode-Attribut zu einer unserer Zeichen folgen Eigenschaften hinzufügen. Dies bedeutet, dass die Spalte in der Datenbank als VARCHAR anstelle von nvarchar gespeichert wird.
 
-Informationen zu dieser Konvention zu beachten ist, die, wenn Sie das nicht-Unicode-Attribut für etwas anderes als eine String-Eigenschaft festlegen, und klicken Sie dann eine Ausnahme ausgelöst wird. Es liegt daran, dass Sie nicht auf einem anderen Typ als eine Zeichenfolge IsUnicode konfigurieren können. In diesem Fall können Sie Ihre Konvention genauer gesagt ausführen, damit es etwas herausfiltert, die nicht von einer Zeichenfolge.
+Diese Konvention sollte beachtet werden, wenn Sie das nicht-Unicode-Attribut nicht auf eine Zeichen folgen Eigenschaft setzen, sondern eine Ausnahme auslöst. Dies liegt daran, dass isunicode nicht für einen anderen Typ als eine Zeichenfolge konfiguriert werden kann. Wenn dies der Fall ist, können Sie Ihre Konvention spezifischer gestalten, damit alles, was keine Zeichenfolge ist, herausgefiltert wird.
 
-Die oben genannten Konvention zum Definieren von benutzerdefinierter Attributs funktioniert wird es eine andere API, die viel einfacher zu verwenden, insbesondere wenn Sie möchten die Eigenschaften der Attributklasse verwenden werden können.
+Obwohl die obige Konvention zum Definieren von benutzerdefinierten Attributen funktioniert, gibt es eine andere API, die viel einfacher zu verwenden ist, insbesondere, wenn Sie Eigenschaften aus der Attribut Klasse verwenden möchten.
 
-In diesem Beispiel werden wir unseren Attribut aktualisieren und ändern Sie ihn in ein IsUnicode-Attribut, sodass sie wie folgt aussieht:
+In diesem Beispiel aktualisieren wir das Attribut und ändern es in ein isunicode-Attribut. Daher sieht es wie folgt aus:
 
 ``` csharp
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
@@ -200,7 +200,7 @@ In diesem Beispiel werden wir unseren Attribut aktualisieren und ändern Sie ihn
     }
 ```
 
-Sobald wir dies haben, können wir einen booleschen Wert festlegen, auf unsere Attribut der Konvention mitteilen, ob eine Eigenschaft Unicode sein sollte. Wir könnten dies in der Konvention haben wir bereits durch den Zugriff auf die ClrProperty der Configuration-Klasse wie folgt vorgehen:
+Nachdem dies geschehen ist, können wir einen booleschen Wert für unser Attribut festlegen, um der Konvention mitzuteilen, ob eine Eigenschaft Unicode sein soll. Wir könnten dies in der Konvention durchführen, indem wir wie folgt auf die clrproperty der Konfigurations Klasse zugreifen:
 
 ``` csharp
     modelBuilder.Properties()
@@ -208,7 +208,7 @@ Sobald wir dies haben, können wir einen booleschen Wert festlegen, auf unsere A
                 .Configure(c => c.IsUnicode(c.ClrPropertyInfo.GetCustomAttribute<IsUnicode>().Unicode));
 ```
 
-Dies ist recht einfach, aber es ist eine kompaktere Möglichkeit zum erreichen Sie dies mithilfe der Having-Methode der den API-Konventionen. Die Having Methode hat einen Parameter vom Typ Func&lt;PropertyInfo, T&gt; akzeptiert der PropertyInfo identisch mit der Where-Methode, aber erwartet wird, um ein Objekt zurückzugeben. Wenn das zurückgegebene Objekt null ist, und klicken Sie dann die Eigenschaft nicht konfiguriert werden soll, das bedeutet, dass Eigenschaften, die mit ihm wie Where filtern kann, aber es unterscheidet sich auch das zurückgegebene Objekt zu erfassen und an die Configure-Methode übergeben wird. Dies funktioniert folgendermaßen:
+Dies ist leicht genug, aber es gibt eine kompaktere Möglichkeit, dies mit der-Methode der Conventions-API zu erreichen. Die "has"-Methode hat einen Parameter vom Typ "Func&lt;PropertyInfo, t&gt; der die PropertyInfo akzeptiert, identisch mit der Where-Methode, erwartet jedoch, dass ein Objekt zurückgegeben wird. Wenn das zurückgegebene Objekt NULL ist, wird die Eigenschaft nicht konfiguriert, d. h., Sie können Eigenschaften wie in der Where-Methode filtern, aber Sie unterscheiden sich darin, dass auch das zurückgegebene Objekt erfasst und an die Configure-Methode übergeben wird. Dies funktioniert wie folgt:
 
 ``` csharp
     modelBuilder.Properties()
@@ -216,15 +216,15 @@ Dies ist recht einfach, aber es ist eine kompaktere Möglichkeit zum erreichen S
                 .Configure((config, att) => config.IsUnicode(att.Unicode));
 ```
 
-Benutzerdefinierte Attribute sind nicht der einzige Grund für das Verwenden der Having-Methode, es ist nützlich, überall, die etwas befassen müssen, die Sie beim Konfigurieren Ihrer Typen oder Eigenschaften filtern möchten.
+Benutzerdefinierte Attribute sind nicht der einzige Grund für die Verwendung der Methode, die Sie bei der Konfiguration ihrer Typen oder Eigenschaften durch Filtern müssen.
 
- 
+ 
 
 ## <a name="configuring-types"></a>Konfigurieren von Typen
 
-Bisher wurden aller unserer Konventionen für Eigenschaften, aber einen anderen Bereich der Konventionen API besteht, für die Konfiguration der Typen im Modell. Die Benutzeroberfläche ähnelt der Konventionen, die wir eben gesehen haben, aber die Optionen innerhalb konfigurieren, findet sich auf der Entität anstatt nach Eigenschaft auf.
+Bisher waren alle Konventionen für Eigenschaften vorgesehen, aber es gibt einen weiteren Bereich der Konventionen-API für die Konfiguration der Typen in Ihrem Modell. Die Erfahrung ähnelt den Konventionen, die bisher aufgetreten sind, aber die Optionen in configure befinden sich in der Entität anstelle der Eigenschafts Ebene.
 
-Eines der Dinge, denen Ebene für Parametertypen besonders nützlich sein können wird die Tabelle-Namenskonvention gilt, um ein vorhandenes Schema zuzuordnen, die von den EF-Standard abweicht oder zum Erstellen einer neuen Datenbank mit einer anderen Namenskonvention geändert. Zu diesem Zweck benötigen wir zuerst eine Methode, die akzeptieren die TypeInfo für einen Typ in unserem Modell kann, und zurückgeben, was der Tabellennamen für diesen Typ werden soll:
+Eine der Dinge, mit denen typebenenkonventionen sehr nützlich sein können, ist die Änderung der Benennungs Konvention für Tabellen, entweder für die Zuordnung zu einem vorhandenen Schema, das von EF default abweicht, oder um eine neue Datenbank mit einer anderen Benennungs Konvention zu erstellen. Zu diesem Zweck benötigen wir zuerst eine Methode, die die TypeInfo für einen Typ in unserem Modell akzeptieren kann und den Tabellennamen für diesen Typ zurückgibt:
 
 ``` csharp
     private string GetTableName(Type type)
@@ -235,20 +235,20 @@ Eines der Dinge, denen Ebene für Parametertypen besonders nützlich sein könne
     }
 ```
 
-Diese Methode akzeptiert einen Typ und gibt eine Zeichenfolge, die Kleinbuchstaben mit Unterstrichen anstelle von CamelCase verwendet. In unserem Modell bedeutet dies, dass die ProductCategory-Klasse, eine Tabelle namens Produkt zugeordnet werden soll\_Kategorie anstelle von ProductCategories.
+Diese Methode nimmt einen-Typ an und gibt eine Zeichenfolge zurück, die Kleinbuchstaben mit unterstrichen anstelle von "CamelCase" verwendet. In unserem Modell bedeutet dies, dass die ProductCategory-Klasse einer Tabelle namens Product\_Category anstelle von productcategories zugeordnet wird.
 
-Nachdem wir diese Methode erstellt haben, können wir es in eine Konvention wie folgt aufrufen:
+Sobald wir diese Methode haben, können wir Sie in einer Konvention wie der folgenden nennen:
 
 ``` csharp
     modelBuilder.Types()
                 .Configure(c => c.ToTable(GetTableName(c.ClrType)));
 ```
 
-Diese Konvention konfiguriert jeden Typ in unserem Modell auf den Namen der Tabelle zugeordnet, die von unseren GetTableName-Methode zurückgegeben wird. Diese Konvention entspricht dem Aufruf der ToTable-Methode für jede Entität im Modell mithilfe der Fluent-API.
+Diese Konvention konfiguriert jeden Typ in unserem Modell so, dass er dem Tabellennamen zugeordnet wird, der von der GetTableName-Methode zurückgegeben wird. Diese Konvention entspricht dem Aufrufen der ToTable-Methode für jede Entität im Modell mithilfe der flüssigen API.
 
-Informationen hierzu zu beachten ist aus, dass beim Aufrufen ToTable EF die Zeichenfolge, die Sie als genaue Tabellennamen, ohne die Pluralisierung bereitstellen, die sie normalerweise, beim Tabellennamen zu bestimmen ausführen würden. Daher ist der Tabellenname aus unserer Konvention Produkt\_Kategorie anstelle von Produkt\_Kategorien. Wir können, die in unserer Konvention Anruf an den pluralisierungsdienst selbst beheben.
+Beachten Sie hierbei Folgendes: Wenn Sie "ToTable" verwenden, wird die Zeichenfolge, die Sie als exakten Tabellennamen angeben, ohne die Pluralisierung übernommen, die normalerweise beim Bestimmen von Tabellennamen verwendet wird. Aus diesem Grund ist der Tabellenname aus unserer Konvention Produkt\_Kategorie anstelle von Product\_Kategorien. Wir können dies in unserer Konvention auflösen, indem wir den pluralisierungs Dienst selbst anrufen.
 
-In den folgenden Code verwenden wir die [Abhängigkeitsauflösung](~/ef6/fundamentals/configuring/dependency-resolution.md) Feature hinzugefügt, die in EF6 die Pluralisierung abrufen, die EF verwendet haben, wird in den Singular unsere Tabellenname und.
+Im folgenden Code verwenden wir die Funktion zur [Abhängigkeitsauflösung](~/ef6/fundamentals/configuring/dependency-resolution.md) , die in EF6 hinzugefügt wird, um den pluralisierungs Dienst abzurufen, den EF verwendet hätte, und den Tabellennamen zu pluralisieren.
 
 ``` csharp
     private string GetTableName(Type type)
@@ -264,11 +264,11 @@ In den folgenden Code verwenden wir die [Abhängigkeitsauflösung](~/ef6/fundame
 ```
 
 > [!NOTE]
-> Die generische Version von "GetService" ist eine Erweiterungsmethode im System.Data.Entity.Infrastructure.DependencyResolution-Namespace, müssen Sie zum Hinzufügen einer using-Anweisung den Kontext, um sie zu verwenden.
+> Bei der generischen Version von GetService handelt es sich um eine Erweiterungsmethode im System. Data. Entity. Infrastructure. dependencyresolution-Namespace. Sie müssen ihrem Kontext eine using-Anweisung hinzufügen, um Sie zu verwenden.
 
-### <a name="totable-and-inheritance"></a>ToTable und Vererbung
+### <a name="totable-and-inheritance"></a>Zu Tabelle und Vererbung
 
-Ein weiterer wichtiger Aspekt der ToTable ist, sofern explizit eines Typs für eine bestimmte Tabelle zuordnen, und klicken Sie dann Sie die Zuordnungsstrategie für die ändern können, die EF verwenden. Wenn Sie für jeden Typ in einer Vererbungshierarchie ToTable aufrufen, werden der Typname als den Namen der Tabelle übergeben wird, wie oben, Sie Zuordnung die Standardstrategie-Tabelle pro Hierarchie (TPH), Tabelle pro Typ (TPT) ändern. Die beste Möglichkeit, dies ist innerhalb eines konkreten Beispiels:
+Ein weiterer wichtiger Aspekt bei der Inhalts Zuordnung besteht darin, dass Sie die von EF verwendete Zuordnungs Strategie ändern können, wenn Sie einen Typ explizit einer bestimmten Tabelle zuordnen. Wenn Sie für jeden Typ in einer Vererbungs Hierarchie "detable" aufzurufen und den Typnamen wie oben beschrieben als Namen der Tabelle übergeben, ändern Sie die standardmäßige Tabelle pro Hierarchie (TPH)-Mapping-Strategie in "Tabelle pro Typ" (TPT). Die beste Möglichkeit, dies zu beschreiben, ist ein konkretes Beispiel:
 
 ``` csharp
     public class Employee
@@ -283,27 +283,27 @@ Ein weiterer wichtiger Aspekt der ToTable ist, sofern explizit eines Typs für e
     }
 ```
 
-Standardmäßig sind sowohl Mitarbeiter und Manager, die der gleichen Tabelle (Mitarbeiter) in der Datenbank zugeordnet. Die Tabelle enthält, Mitarbeitern und Managern mit der eine Unterscheidungsspalte, die Sie darüber informiert, welche Art von Instanz, die in jeder Zeile gespeichert ist. Dies ist eine TPH-Zuordnung, wie eine einzelne Tabelle für die Hierarchie vorhanden ist. Allerdings, wenn Sie für beide Classe ToTable aufrufen, wird Klicken Sie dann jeden Typ stattdessen zugeordnet werden, auch bekannt als TPT, da jeder eine eigene Tabelle verfügt über eine eigene Tabelle.
+Standardmäßig werden sowohl der Employee als auch der Manager derselben Tabelle (Employees) in der Datenbank zugeordnet. Die Tabelle enthält sowohl Mitarbeiter als auch Manager mit einer diskriminatorspalte, die Aufschluss darüber gibt, welcher Instanztyp in den einzelnen Zeilen gespeichert wird. Dies ist die TPH-Zuordnung, da eine einzelne Tabelle für die Hierarchie vorhanden ist. Wenn Sie jedoch "detable" für beide "Classe" aufzurufen, wird jeder Typ stattdessen einer eigenen Tabelle zugeordnet, auch als "TPT" bezeichnet, da jeder Typ eine eigene Tabelle hat.
 
 ``` csharp
     modelBuilder.Types()
                 .Configure(c=>c.ToTable(c.ClrType.Name));
 ```
 
-Der obige Code wird die Struktur einer Tabelle zugeordnet sein, die wie folgt aussieht:
+Der obige Code wird einer Tabellenstruktur zugeordnet, die wie folgt aussieht:
 
 ![TPT-Beispiel](~/ef6/media/tptexample.jpg)
 
-Sie können dies verhindern, und die standardmäßig TPH-Zuordnung, auf unterschiedliche Weise verwalten:
+Sie können dies vermeiden und die standardmäßige TPH-Zuordnung auf verschiedene Weise beibehalten:
 
-1.  Rufen Sie ToTable, mit dem gleichen Tabellennamen für jeden Typ in der Hierarchie.
-2.  Rufen Sie ToTable nur für die Basisklasse der Hierarchie, in unserem Beispiel, die Mitarbeiter sind.
+1.  Ruft die Tabelle mit demselben Tabellennamen für jeden Typ in der Hierarchie auf.
+2.  Wird nur für die Basisklasse der Hierarchie aufgerufen, in unserem Beispiel Mitarbeiter.
 
- 
+ 
 
 ## <a name="execution-order"></a>Ausführungsreihenfolge
 
-Konventionen, die in letzten Wins Weise identisch mit der Fluent-API ausgeführt werden. Das bedeutet, ist, wenn Sie zwei Konventionen, die die gleiche Möglichkeit, die gleiche Eigenschaft konfigurieren, und klicken Sie dann auf die letzte Lektion zum Ausführen von Wins schreiben. Beispielsweise können in den folgenden Code wird die maximale Länge aller Zeichenfolgen auf 500 festgelegt, aber wir konfigurieren Sie dann alle Eigenschaften, die mit dem Namen Name im Modell zu eine maximale Länge von 250 haben.
+Konventionen wirken sich auf die letzte WINS-Weise aus, die mit der flüssigen API identisch ist. Dies bedeutet, dass beim Schreiben von zwei Konventionen, die dieselbe Option der gleichen Eigenschaft konfigurieren, der letzte, der ausgeführt werden muss, gewinnt. Im folgenden Code wird beispielsweise die maximale Länge aller Zeichen folgen auf 500 festgelegt, aber wir konfigurieren alle Eigenschaften namens Name im Modell so, dass Sie eine maximale Länge von 250 haben.
 
 ``` csharp
     modelBuilder.Properties<string>()
@@ -314,23 +314,23 @@ Konventionen, die in letzten Wins Weise identisch mit der Fluent-API ausgeführt
                 .Configure(c => c.HasMaxLength(250));
 ```
 
-Da Konvention, die die maximalen Länge auf 250 festgelegt nach der ist, die alle Zeichenfolgen auf 500 festgelegt, werden alle Eigenschaften, die mit dem Namen Name in unserem Modell weist eine maximale Länge 250, während andere Zeichenfolgen, z. B. Beschreibungen, wäre 500. Mithilfe von Konventionen auf diese Weise bedeutet, dass Sie eine allgemeine Konvention für Typen oder Eigenschaften in Ihr Modell und erstellt dann einen override aufgenommen bereitstellen, können Sie Teilmengen, die unterschiedlich sind.
+Da die Konvention, die maximale Länge auf 250 festzulegen, hinter der Konvention liegt, die alle Zeichen folgen auf 500 festlegt, haben alle Eigenschaften namens Name in unserem Modell einen maxLength-Wert von 250, während alle anderen Zeichen folgen, wie z. b. Beschreibungen, 500 sind. Die Verwendung von Konventionen auf diese Weise bedeutet, dass Sie eine allgemeine Konvention für Typen oder Eigenschaften im Modell bereitstellen und diese dann für unterschiedliche Teilmengen überschreiben können.
 
-Die Fluent-API und die Datenanmerkungen kann auch verwendet werden, um eine Konvention in bestimmten Fällen zu überschreiben. Im Beispiel oben hätten wir die Fluent-API verwendet, legen Sie die maximale Länge einer Eigenschaft konnte klicken Sie dann wir es vor oder nach der Konvention eingefügt haben, da die spezifischere Fluent-API über die allgemeine Konfiguration Konvention gewinnen wird.
+Die fließende API und Daten Anmerkungen können auch verwendet werden, um eine Konvention in bestimmten Fällen zu überschreiben. Wenn wir in unserem obigen Beispiel die überflüssige API verwendet haben, um die maximale Länge einer Eigenschaft festzulegen, haben wir Sie möglicherweise vor oder nach der Konvention eingefügt, da die spezifischere, fließende API die allgemeinere Konfigurations Konvention gewinnt.
 
- 
+ 
 
 ## <a name="built-in-conventions"></a>Integrierte Konventionen
 
-Da benutzerdefinierte Konventionen von den Standardkonventionen für Code First auswirken könnten, kann es nützlich, um das Hinzufügen von Konventionen, die vor oder nach einem anderen Konvention ausgeführt sein. Zu diesem Zweck können Sie die Methoden "AddBefore" und AddAfter des der Auflistung der Konventionen in Ihrer abgeleiteten DbContext. Der folgende Code würde fügen Sie die Konvention-Klasse, die wir zuvor erstellt haben, damit er vor den integrierten ausgeführt wird in der Ermittlung des Konvention.
+Da benutzerdefinierte Konventionen durch die standardmäßigen Code First Konventionen beeinträchtigt werden können, kann es hilfreich sein, Konventionen hinzuzufügen, die vor oder nach einer anderen Konvention ausgeführt werden. Zu diesem Zweck können Sie die AddBefore-Methode und die AddAfter-Methode der Conventions-Auflistung in Ihrem abgeleiteten dbcontext verwenden. Der folgende Code fügt die zuvor erstellte Konventionen-Klasse hinzu, sodass Sie vor der integrierten Schlüssel Ermittlungs Konvention ausgeführt wird.
 
 ``` csharp
     modelBuilder.Conventions.AddBefore<IdKeyDiscoveryConvention>(new DateTime2Convention());
 ```
 
-Hier werden die meisten nützlich sein, wenn Konventionen hinzufügen, die vor oder nach der integrierten Konventionen ausführen müssen, eine Liste der integrierten Konventionen finden Sie hier: [System.Data.Entity.ModelConfiguration.Conventions Namespace](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx) .
+Dies wird beim Hinzufügen von Konventionen, die vor oder nach den integrierten Konventionen ausgeführt werden müssen, am meisten verwendet. eine Liste der integrierten Konventionen finden Sie hier: [System. Data. Entity. modelconfiguration. Conventions-Namespace](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).
 
-Sie können auch entfernen Konventionen, die Sie nicht möchten, auf das Modell angewendet. Um eine Konvention zu entfernen, verwenden Sie die Remove-Methode. Hier ist ein Beispiel für die PluralizingTableNameConvention entfernen.
+Sie können auch Konventionen entfernen, die nicht auf das Modell angewendet werden sollen. Verwenden Sie zum Entfernen einer Konvention die Remove-Methode. Im folgenden finden Sie ein Beispiel für das Entfernen von pluralizingtablenameconvention.
 
 ``` csharp
     protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -3,19 +3,20 @@ title: Beziehungen, Navigations Eigenschaften und Fremdschlüssel-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: cc7160f2d0ab7ac0c6009f820441c88590cacfaf
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 892e872e3cb11ea95084cf6d9ab43c8d500bc0de
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655863"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416000"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Beziehungen, Navigations Eigenschaften und Fremdschlüssel
-Dieses Thema bietet einen Überblick darüber, wie Entity Framework Beziehungen zwischen Entitäten verwaltet. Außerdem erhalten Sie eine Anleitung zum Zuordnen und Bearbeiten von Beziehungen.
+
+Dieser Artikel bietet einen Überblick darüber, wie Entity Framework Beziehungen zwischen Entitäten verwaltet. Außerdem erhalten Sie eine Anleitung zum Zuordnen und Bearbeiten von Beziehungen.
 
 ## <a name="relationships-in-ef"></a>Beziehungen in EF
 
-In relationalen Datenbanken werden Beziehungen (auch als Zuordnungen bezeichnet) zwischen Tabellen durch Fremdschlüssel definiert. Ein Fremdschlüssel (FK) ist eine Spalte oder eine Kombination von Spalten, die zum Einrichten und Erzwingen einer Verknüpfung zwischen den Daten in zwei Tabellen verwendet wird. Im Allgemeinen gibt es drei Typen von Beziehungen: eins-zu-eins, 1: n und m:n-. In einer 1: n-Beziehung wird der Fremdschlüssel für die Tabelle definiert, die das viele Ende der Beziehung darstellt. Die m:n-Beziehung umfasst das Definieren einer dritten Tabelle (als Verknüpfung oder jointabelle bezeichnet), deren Primärschlüssel aus den Fremdschlüsseln aus beiden verknüpften Tabellen besteht. In einer eins-zu-eins-Beziehung agiert der Primärschlüssel zusätzlich als Fremdschlüssel, und für beide Tabellen gibt es keine separate Fremdschlüssel Spalte.
+In relationalen Datenbanken werden Beziehungen (auch als Zuordnungen bezeichnet) zwischen Tabellen durch Fremdschlüssel definiert. Ein Fremdschlüssel (FS) ist eine Spalte oder eine Kombination von Spalten, mit deren Hilfe ein Link zwischen den Daten in zwei Tabellen eingerichtet und erzwungen wird. Im Allgemeinen gibt es drei Typen von Beziehungen: eins-zu-eins, 1: n und m:n-. In einer 1: n-Beziehung wird der Fremdschlüssel für die Tabelle definiert, die das viele Ende der Beziehung darstellt. Die m:n-Beziehung umfasst das Definieren einer dritten Tabelle (als Verknüpfung oder jointabelle bezeichnet), deren Primärschlüssel aus den Fremdschlüsseln aus beiden verknüpften Tabellen besteht. In einer eins-zu-eins-Beziehung agiert der Primärschlüssel zusätzlich als Fremdschlüssel, und für beide Tabellen gibt es keine separate Fremdschlüssel Spalte.
 
 Die folgende Abbildung zeigt zwei Tabellen, die an einer 1: n-Beziehung beteiligt sind. Die **Kurs** Tabelle ist die abhängige Tabelle, da Sie die **DepartmentID** -Spalte enthält, die Sie mit der **Abteilungs** Tabelle verknüpft.
 
@@ -166,7 +167,7 @@ In Entity Framework Sie häufig Navigations Eigenschaften verwenden, um Entität
 
 In einer unabhängigen Zuordnung wird das verknüpfte Ende eines abhängigen Objekts auf der Grundlage des Fremdschlüsselwerts abgefragt, der sich gerade in der Datenbank befindet. Wenn jedoch die Beziehung geändert wurde und die Verweis Eigenschaft des abhängigen Objekts auf ein anderes Prinzipal Objekt verweist, das in den Objekt Kontext geladen wird, wird Entity Framework versucht, eine Beziehung zu erstellen, die auf dem Client definiert ist.
 
-## <a name="managing-concurrency"></a>Verwalten von Parallelität
+## <a name="managing-concurrency"></a>Verwalten von Nebenläufigkeit
 
 Sowohl in Fremdschlüssel-als auch in unabhängigen Zuordnungen basieren Parallelitäts Überprüfungen auf den Entitäts Schlüsseln und anderen Entitäts Eigenschaften, die im Modell definiert sind. Wenn Sie den EF-Designer verwenden, um ein Modell zu erstellen, legen Sie das `ConcurrencyMode`-Attribut auf **Fixed** fest, um anzugeben, dass die-Eigenschaft auf Parallelität geprüft werden soll. Wenn Sie Code First verwenden, um ein Modell zu definieren, verwenden Sie die `ConcurrencyCheck` Anmerkung für Eigenschaften, die auf Parallelität geprüft werden sollen. Wenn Sie mit Code First arbeiten, können Sie auch die `TimeStamp` Anmerkung verwenden, um anzugeben, dass die-Eigenschaft auf Parallelität geprüft werden soll. In einer bestimmten Klasse kann nur eine Zeitstempel-Eigenschaft vorhanden sein. Code First ordnet diese Eigenschaft einem Feld, das keine NULL-Werte zulässt, in der Datenbank zu.
 

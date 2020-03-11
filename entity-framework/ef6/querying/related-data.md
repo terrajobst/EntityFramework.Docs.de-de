@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: c8417e18-a2ee-499c-9ce9-2a48cc5b468a
 ms.openlocfilehash: c359d8d32a88049213fd5e98e99fe49d7e3121a3
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005475"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414464"
 ---
 # <a name="loading-related-entities"></a>Laden verwandter Entitäten
 
@@ -102,7 +102,7 @@ public class Blog
 
 ### <a name="turn-lazy-loading-off-for-serialization"></a>Lazy Loading für Serialisierung deaktivieren
 
-Lazy Load und Serialisierung sind nicht gut gemischt, und wenn Sie nicht vorsichtig sind, können Sie die Abfrage für Ihre gesamte Datenbank durchzuführen, da Lazy Loading aktiviert ist. Die meisten serialisierungsinitialisierer funktionieren, indem Sie auf jede Eigenschaft einer Instanz eines Typs zugreifen. Eigenschaften Zugriffs Trigger Lazy Loading, sodass weitere Entitäten serialisiert werden. Auf diesen Entitäten wird zugegriffen, und es werden sogar weitere Entitäten geladen. Es empfiehlt sich, Lazy Loading zu deaktivieren, bevor Sie eine Entität serialisieren. In den folgenden Abschnitten wird gezeigt, wie dies geschieht.
+Lazy Load und Serialisierung sind nicht gut gemischt, und wenn Sie nicht vorsichtig sind, können Sie die Abfrage für Ihre gesamte Datenbank durchzuführen, da Lazy Loading aktiviert ist. Die meisten serialisierungsinitialisierer funktionieren, indem Sie auf jede Eigenschaft einer Instanz eines Typs zugreifen. Eigenschaften Zugriffs Trigger Lazy Loading, sodass weitere Entitäten serialisiert werden. Auf diesen Entitäten wird zugegriffen, und es werden sogar weitere Entitäten geladen. Es empfiehlt sich, Lazy Loading zu deaktivieren, bevor Sie eine Entität serialisieren. Dies wird in den folgenden Abschnitte gezeigt.
 
 ### <a name="turning-off-lazy-loading-for-specific-navigation-properties"></a>Ausschalten Lazy Loading für bestimmte Navigations Eigenschaften
 

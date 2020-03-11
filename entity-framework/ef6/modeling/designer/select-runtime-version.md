@@ -1,51 +1,51 @@
 ---
-title: Auswählen der Version von Entity Framework-Laufzeit für EF-Designer-Modelle – EF6
+title: Auswählen Entity Framework Lauf Zeit Version für EF-Designer-Modelle EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 7ace90a6-46f8-4f55-a88c-7cad9620085c
 ms.openlocfilehash: 40ad05c1f015e6a51150d04eee8d9aa581d72c33
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488490"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414992"
 ---
-# <a name="selecting-entity-framework-runtime-version-for-ef-designer-models"></a>Auswählen der Version von Entity Framework-Common Language Runtime für Entity Framework-Modellen-Designer
+# <a name="selecting-entity-framework-runtime-version-for-ef-designer-models"></a>Auswählen Entity Framework Lauf Zeit Version für EF-Designer-Modelle
 > [!NOTE]
 > **Nur EF6 und höher:** Die Features, APIs usw., die auf dieser Seite erläutert werden, wurden in Entity Framework 6 eingeführt. Wenn Sie eine frühere Version verwenden, gelten manche Informationen nicht.
 
-Ab EF6 wurde der folgende Bildschirm hinzugefügt, um dem EF Designer es Ihnen ermöglichen, wählen Sie die Version der Runtime, die Sie auswählen, wenn Sie ein Modell erstellen möchten. Der Bildschirm wird angezeigt, wenn die neueste Version von Entity Framework nicht bereits im Projekt installiert ist. Wenn die aktuelle Version bereits installiert ist er wird nur in der Standardeinstellung verwendet.
+Beginnend mit EF6 wurde dem EF-Designer der folgende Bildschirm hinzugefügt, damit Sie die Version der Laufzeit auswählen können, die Sie beim Erstellen eines Modells als Ziel auswählen möchten. Der Bildschirm wird angezeigt, wenn die neueste Version von Entity Framework nicht bereits im Projekt installiert ist. Wenn die neueste Version bereits installiert ist, wird Sie standardmäßig verwendet.
 
 ![Bildschirm](~/ef6/media/screen.png)
 
 
-## <a name="targeting-ef6x"></a>Für EF 6.x
+## <a name="targeting-ef6x"></a>Ziel EF6. x
 
-EF6 können Sie auf dem Bildschirm "Wählen Sie Ihre Version", die EF6-Laufzeit zu Ihrem Projekt hinzufügen. Nachdem Sie EF 6 hinzugefügt haben, müssen Sie beenden, sehen diesen Bildschirm im aktuellen Projekt.
+Sie können EF6 auf dem Bildschirm "wählen Sie Ihre Version" auswählen, um dem Projekt die EF6-Laufzeit hinzuzufügen. Nachdem Sie EF6 hinzugefügt haben, wird dieser Bildschirm im aktuellen Projekt nicht mehr angezeigt.
 
-EF6 wird deaktiviert werden, wenn Sie bereits über eine ältere Version von Entity Framework installiert wird (da Sie mehrere Versionen der Laufzeit aus demselben Projekt können nicht als Ziel) verfügen. Gehen folgendermaßen Sie vor, um Ihr Projekt auf EF6 zu aktualisieren, wenn der EF6-Option hier nicht aktiviert ist, haben:
+EF6 wird deaktiviert, wenn Sie bereits eine ältere Version von EF installiert haben (da Sie nicht mehrere Versionen der Laufzeit aus demselben Projekt ausrichten können). Wenn die EF6-Option hier nicht aktiviert ist, führen Sie die folgenden Schritte aus, um Ihr Projekt auf EF6 zu aktualisieren:
 
-1.  Mit der rechten Maustaste auf das Projekt im Projektmappen-Explorer, und wählen Sie **NuGet-Pakete verwalten...**
-2.  Wählen Sie **Updates**
-3.  Wählen Sie **EntityFramework** (Stellen Sie sicher, dass geht es auf die Version aktualisiert werden sollen)
-4.  Klicken Sie auf **aktualisieren**
+1.  Klicken Sie in Projektmappen-Explorer mit der rechten Maustaste auf das Projekt, und wählen Sie **nuget-Pakete verwalten aus.**
+2.  **Updates** auswählen
+3.  Wählen Sie **EntityFramework** aus (stellen Sie sicher, dass es auf die gewünschte Version aktualisiert wird).
+4.  Klicken Sie auf **Aktualisieren**.
 
- 
+ 
 
-## <a name="targeting-ef5x"></a>Für die Zielgruppenadressierung EF5.x
+## <a name="targeting-ef5x"></a>Ziel EF5. x
 
-EF5 können Sie vom Bildschirm "Wählen Sie Ihre Version" auf die Laufzeit-EF5 zu Ihrem Projekt hinzugefügt. Nachdem Sie EF5 hinzugefügt haben, sehen Sie weiterhin den Bildschirm mit der EF6-Option deaktiviert.
+Sie können EF5 auf dem Bildschirm "wählen Sie Ihre Version" auswählen, um dem Projekt die EF5-Laufzeit hinzuzufügen. Nachdem Sie EF5 hinzugefügt haben, wird der Bildschirm mit deaktivierter EF6-Option angezeigt.
 
-Wenn Sie eine EF4.x-Version der Laufzeit bereits installiert haben sehen Sie diese Version von EF in den Bildschirm anstelle von EF5 aufgeführt dann. In diesem Fall können Sie auf EF5 aktualisieren verwenden Sie die folgenden Schritte aus:
+Wenn Sie eine EF4. x-Version der Laufzeit bereits installiert haben, sehen Sie, dass die EF-Version auf dem Bildschirm anstelle von EF5 aufgeführt wird. In dieser Situation können Sie ein Upgrade auf EF5 ausführen, indem Sie die folgenden Schritte ausführen:
 
-1.  Wählen Sie **Tools –&gt; Bibliothekspaket-Manager -&gt; -Paket-Manager-Konsole**
-2.  Führen Sie **Install-Package EntityFramework-Version 5.0.0**
+1.  Wählen Sie **Tools-&gt; Bibliothekspaket-Manager-&gt; Paket-Manager-Konsole**
+2.  Ausführen von " **install-Package" EntityFramework-Version 5.0.0**
 
- 
+ 
 
-## <a name="targeting-ef4x"></a>Für die Zielgruppenadressierung EF4.x
+## <a name="targeting-ef4x"></a>Ziel EF4. x
 
-Sie können die Laufzeit EF4.x zu Ihrem Projekt mit den folgenden Schritten installieren:
+Mithilfe der folgenden Schritte können Sie die EF4. x-Laufzeit für Ihr Projekt installieren:
 
-1.  Wählen Sie **Tools –&gt; Bibliothekspaket-Manager -&gt; -Paket-Manager-Konsole**
-2.  Führen Sie **Install-Package EntityFramework-Version 4.3.0**
+1.  Wählen Sie **Tools-&gt; Bibliothekspaket-Manager-&gt; Paket-Manager-Konsole**
+2.  Ausführen von " **install-Package" EntityFramework-Version 4.3.0**

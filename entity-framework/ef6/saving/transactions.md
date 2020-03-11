@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
 ms.openlocfilehash: 7030dc675993339f72c935f6b430cead85fecb7f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306525"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416240"
 ---
 # <a name="working-with-transactions"></a>Arbeiten mit Transaktionen
 > [!NOTE]
@@ -32,21 +32,21 @@ Einige Benutzer benötigen jedoch eine bessere Kontrolle über Ihre Transaktione
 
 ## <a name="how-the-apis-work"></a>Funktionsweise der APIs  
 
-Vor EF6 Entity Framework das Öffnen der Datenbankverbindung selbst bestanden (es wurde eine Ausnahme ausgelöst, wenn eine bereits geöffnete Verbindung bestanden wurde). Da eine Transaktion nur für eine geöffnete Verbindung gestartet werden kann, bedeutete dies, dass ein Benutzer nur mehrere Vorgänge in eine Transaktion einschließen konnte, indem er entweder einen [transaktionscope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) verwendet oder die **ObjectContext. Connection** -Eigenschaft verwendet und den Start Aufrufen von " **Open ()** " und " **BeginTransaction ()** " direkt auf dem zurückgegebenen **EntityConnection** -Objekt. Außerdem würden API-Aufrufe, die die Datenbank kontaktiert haben, fehlschlagen, wenn Sie eine Transaktion auf der zugrunde liegenden Datenbankverbindung selbst gestartet haben.  
+Vor EF6 Entity Framework das Öffnen der Datenbankverbindung selbst bestanden (es wurde eine Ausnahme ausgelöst, wenn eine bereits geöffnete Verbindung bestanden wurde). Da eine Transaktion nur für eine geöffnete Verbindung gestartet werden kann, bedeutete dies, dass ein Benutzer nur mehrere Vorgänge in eine Transaktion einschließen konnte, indem er entweder einen [transaktionscope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) verwendet oder die **ObjectContext. Connection** -Eigenschaft verwendet und mit dem Aufrufen von **Open ()** und **BeginTransaction ()** direkt auf dem zurückgegebenen **EntityConnection** -Objekt beginnt. Außerdem würden API-Aufrufe, die die Datenbank kontaktiert haben, fehlschlagen, wenn Sie eine Transaktion auf der zugrunde liegenden Datenbankverbindung selbst gestartet haben.  
 
 > [!NOTE]
 > Die Einschränkung, dass nur geschlossene Verbindungen akzeptiert werden, wurde in Entity Framework 6 entfernt. Weitere Informationen finden Sie unter [Verbindungs Verwaltung](~/ef6/fundamentals/connection-management.md).  
 
 Ab EF6 bietet das Framework nun Folgendes:  
 
-1. **Database. BeginTransaction ()** : Eine einfachere Methode für einen Benutzer, Transaktionen selbst innerhalb eines vorhandenen dbcontext zu starten und abzuschließen – dadurch können mehrere Vorgänge innerhalb der gleichen Transaktion kombiniert werden, und es muss entweder ein Commit oder ein Rollback als ein Commit ausgeführt werden. Außerdem kann der Benutzer die Isolationsstufe für die Transaktion leichter angeben.  
+1. **Database. BeginTransaction ()** : eine einfachere Methode für einen Benutzer, Transaktionen selbst innerhalb eines vorhandenen dbcontext zu starten und abzuschließen – so können mehrere Vorgänge in der gleichen Transaktion kombiniert werden, und es muss entweder ein Commit oder ein Rollback als ein Commit ausgeführt werden. Außerdem kann der Benutzer die Isolationsstufe für die Transaktion leichter angeben.  
 2. **Database. UseTransaction ()** : Hiermit kann dbcontext eine Transaktion verwenden, die außerhalb der Entity Framework gestartet wurde.  
 
 ### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Kombinieren mehrerer Vorgänge zu einer Transaktion innerhalb desselben Kontexts  
 
 **Database. BeginTransaction ()** verfügt über zwei über schreibungen – eine, die einen expliziten [IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx) annimmt und einen, der keine Argumente annimmt und den standardmäßigen IsolationLevel des zugrunde liegenden Datenbankanbieters verwendet. Beide über schreibungen geben ein **dbcontexttransaction** -Objekt zurück, das **Commit ()** -und **Rollback ()** -Methoden bereitstellt, die Commit und Rollback für die zugrunde liegende Speicher Transaktion ausführen.  
 
-**Dbcontexttransaction** soll verworfen werden, nachdem ein Commit oder ein Rollback ausgeführt wurde. Eine einfache Möglichkeit, dies zu erreichen, ist die **Verwendung von (...) {...}** Syntax, die "verwerfen **()** " automatisch aufruft, wenn der using-Block abgeschlossen wird:  
+**Dbcontexttransaction** soll verworfen werden, nachdem ein Commit oder ein Rollback ausgeführt wurde. Eine einfache Möglichkeit hierfür ist die Verwendung von **(...) {...}** Syntax, die "verwerfen **()** " automatisch aufruft, wenn der using-Block abgeschlossen wird:  
 
 ``` csharp
 using System;
@@ -178,18 +178,18 @@ Es wird eine Ausnahme von Database. UseTransaction () angezeigt, wenn Sie eine T
 
 In diesem Abschnitt wird erläutert, wie die obigen Transaktionen mit interagieren:  
 
-- Verbindungsresilienz  
+- Verbindungsstabilität  
 - Asynchrone Methoden  
 - Transaktionscope-Transaktionen  
 
-### <a name="connection-resiliency"></a>Verbindungsresilienz  
+### <a name="connection-resiliency"></a>Verbindungsstabilität  
 
 Das neue Feature für die Verbindungs Resilienz funktioniert nicht mit vom Benutzer initiierten Transaktionen. Weitere Informationen finden Sie unter [Wiederholungs Versuche für Ausführungs Strategien](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported).  
 
 ### <a name="asynchronous-programming"></a>Asynchrone Programmierung  
 
-Der Ansatz, der in den vorherigen Abschnitten beschrieben wird, benötigt keine weiteren Optionen oder Einstellungen [für die Verwendung der asynchronen](~/ef6/fundamentals/async.md
-)Abfrage-und Speichermethoden. Beachten Sie jedoch, dass dies in Abhängigkeit davon, was Sie in den asynchronen Methoden tun, dazu führen kann, dass Transaktionen mit langer Ausführungszeit ausgeführt werden – was wiederum zu Deadlocks oder Blockierungen führen kann, was für die Leistung der gesamten Anwendung schlecht ist.  
+Der Ansatz, der in den vorherigen Abschnitten beschrieben wird, benötigt keine weiteren Optionen oder Einstellungen für die Verwendung der [asynchronen Abfrage-und Speichermethoden](~/ef6/fundamentals/async.md
+). Beachten Sie jedoch, dass dies in Abhängigkeit davon, was Sie in den asynchronen Methoden tun, dazu führen kann, dass Transaktionen mit langer Ausführungszeit ausgeführt werden – was wiederum zu Deadlocks oder Blockierungen führen kann, was für die Leistung der gesamten Anwendung schlecht ist.  
 
 ### <a name="transactionscope-transactions"></a>Transaktionscope-Transaktionen  
 

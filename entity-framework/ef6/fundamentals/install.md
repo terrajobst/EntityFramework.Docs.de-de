@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
 ms.openlocfilehash: 2bdec6a9be228fbe934d0f46aa1bfafdfb2c971c
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181738"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416096"
 ---
 # <a name="get-entity-framework"></a>Abrufen von Entity Framework
 Entity Framework besteht aus den EF-Tools für Visual Studio und der EF-Laufzeit.
@@ -27,7 +27,7 @@ Die neueste Version von Entity Framework ist als das [nuget-Paket "EntityFramewo
 
 Sie können das Paket "EntityFramework" installieren, indem Sie mit der rechten Maustaste auf den Ordner " **Verweise** " des Projekts klicken und **nuget-Pakete verwalten auswählen.**
 
-![Verwalten von nuget-Paketen](~/ef6/media/managenugetpackages.png)
+![NuGet-Pakete verwalten](~/ef6/media/managenugetpackages.png)
 
 ### <a name="installing-from-package-manager-console"></a>Installieren über die Paket-Manager-Konsole
 
@@ -45,7 +45,7 @@ Ab EF 4,1 wurden neue Versionen der EF-Laufzeit als das [nuget-Paket "EntityFram
 Install-Package EntityFramework -Version <number>
 ```
 
-Beachten Sie, dass `<number>` die spezifische Version von EF darstellt, die installiert werden soll. Beispielsweise ist 6.2.0 die Version der Zahl für EF 6,2.   
+Beachten Sie, dass `<number>` die spezielle zu installierenden EF-Version darstellt. Beispielsweise ist 6.2.0 die Version der Zahl für EF 6,2.   
 
 EF-Laufzeiten vor 4,1 waren Teil .NET Framework und können nicht separat installiert werden.
 

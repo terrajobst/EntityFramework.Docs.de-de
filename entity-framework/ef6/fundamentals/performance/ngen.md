@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: dc6110a0-80a0-4370-8190-cea942841cee
 ms.openlocfilehash: 841aec645abdb2a56076d0b70bfb2614b0acafb4
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72446009"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416090"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>Verbessern der Startleistung mit Ngen
 > [!NOTE]
@@ -24,7 +24,7 @@ Empirische Beobachtungen zeigen, dass systemeigene Images der EF-Laufzeitassembl
 
 Die grundlegendste Funktion des Tools ngen. exe besteht darin, systemeigene Images für eine Assembly und alle direkten Abhängigkeiten zu installieren (d. h., um Datenträger zu erstellen und auf dem Datenträger zu speichern). So können Sie dies erreichen:  
 
-1. Öffnen Sie ein Eingabe Aufforderungs Fenster als Administrator.
+1. Öffnen Sie ein Eingabeaufforderungsfenster als ein Administrator.
 2. Ändern Sie das aktuelle Arbeitsverzeichnis in den Speicherort der Assemblys, für die Sie Native Images generieren möchten:
 
    ``` console
@@ -56,7 +56,7 @@ Wenn Sie entscheiden, welche Assemblys für die Generierung System eigener Image
 
 - **Die Hauptversion der EF-Runtime (EntityFramework. dll**): eine typische EF-basierte Anwendung führt beim Start oder beim ersten Zugriff auf die Datenbank eine beträchtliche Menge an Code aus dieser Assembly aus. Folglich führt das Erstellen von systemeigenen Images dieser Assembly zu den größten Vorteilen bei der Startleistung.  
 - **Eine beliebige EF-Anbieterassembly, die von Ihrer Anwendung verwendet wird**: die Startzeit kann auch leicht von der Generierung System eigener Images profitieren. Wenn die Anwendung z. b. den EF-Anbieter für SQL Server verwendet, sollten Sie ein System eigenes Image für "EntityFramework. SqlServer. dll" generieren.  
-- Die **Assemblys der Anwendung und andere Abhängigkeiten**: in der Dokumentation zu " [Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) " werden allgemeine Kriterien für die Auswahl der Assemblys, für die systemeigene Images generiert werden sollen, sowie die Auswirkung von systemeigenen Images auf Sicherheit, erweiterte Optionen wie " Bindung ", Szenarien wie die Verwendung nativer Images in Debug-und Profil Erstellungs Szenarien usw.  
+- Die **Assemblys der Anwendung und andere Abhängigkeiten**: in der Dokumentation zu " [Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) " werden allgemeine Kriterien für die Auswahl der Assemblys, für die systemeigene Images generiert werden sollen, sowie die Auswirkungen von systemeigenen Images auf die Sicherheit, erweiterte Optionen wie "feste Bindung", Szenarios wie die Verwendung von systemeigenen Images in Debug-  
 
 > [!TIP]
 > Stellen Sie sicher, dass Sie die Auswirkungen der Verwendung System eigener Images auf die Startleistung und die Gesamtleistung Ihrer Anwendung sorgfältig messen, und vergleichen Sie Sie mit den tatsächlichen Anforderungen. Während Native Images in der Regel dabei helfen, die Leistung beim Start zu verbessern und in einigen Fällen die Speicherauslastung zu reduzieren, sind nicht alle Szenarien gleichermaßen vorteilhaft. Beispielsweise kann der vom JIT-Compiler generierte Code bei der stabilen Zustands Ausführung (d. h., nachdem alle Methoden, die von der Anwendung verwendet werden, mindestens einmal aufgerufen wurde) eine etwas bessere Leistung als systemeigene Images erzielen.  

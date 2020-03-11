@@ -1,27 +1,27 @@
 ---
-title: Fluent-API - Konfiguration und Zuordnen von Eigenschaften und Typen - EF6
+title: Fließende Eigenschaften und Typen für die API-Konfiguration und-Zuordnung EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
 ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
-ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/27/2018
-ms.locfileid: "52339802"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415754"
 ---
-# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fluent-API – konfigurieren und Zuordnen von Eigenschaften und Typen
-Beim Arbeiten mit Entity Framework Code First ist das Standardverhalten, Tabellen, die mit einem Satz von Konventionen, die in EF integriert die POCO-Klassen zugeordnet. In einigen Fällen jedoch, Sie können nicht oder möchten, befolgen diese Konventionen und Zuordnen von Entitäten mit etwas anderem als Was vorgeben, dass die Konventionen müssen nicht.  
+# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fließende Eigenschaften und Typen für die API-Konfiguration und-Zuordnung
+Beim Arbeiten mit Entity Framework Code First das Standardverhalten das Zuordnen Ihrer poco-Klassen zu Tabellen mithilfe eines Satzes von Konventionen, die in EF gebacken werden. Manchmal ist es jedoch nicht möglich, diese Konventionen einzuhalten, und die Entitäten müssen einem anderen als dem von den Konventionen vorgegeben werden.  
 
-Es gibt zwei Hauptmethoden, Sie können konfigurieren, dass EF Verwendung einen anderen Wert als Konventionen, d. h. [Anmerkungen](~/ef6/modeling/code-first/data-annotations.md) oder EFs fluent-API. Die Anmerkungen werden nur eine Teilmenge der fluent-API-Funktionen behandelt, daher gibt es zuordnungsszenarien, die mithilfe von Anmerkungen erreicht werden können. In diesem Artikel dient zu zeigen, wie die fluent-API verwenden, um Eigenschaften zu konfigurieren.  
+Es gibt zwei Hauptmethoden zum Konfigurieren von EF, um etwas anderes als Konventionen zu verwenden, nämlich [Anmerkungen](~/ef6/modeling/code-first/data-annotations.md) oder eine EFS-fließende API. Die Anmerkungen decken nur eine Teilmenge der Funktionen der fließenden API ab, daher gibt es zuordnungsszenarien, die mithilfe von Anmerkungen nicht erreicht werden können. In diesem Artikel wird veranschaulicht, wie Sie die fließende API zum Konfigurieren von Eigenschaften verwenden.  
 
-Die erste fluent-API des Codes erfolgt meist durch Überschreiben der ["onmodelcreating"](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx) Methode für Ihre abgeleiteten ["DbContext"](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx). Die folgenden Beispiele zeigen, wie verschiedene Aufgaben mit der fluent-api und ermöglichen es Ihnen, kopieren Sie den Code und passen sie Ihr Modell entsprechend an, wenn Sie möchten das Modell, das sie als mit verwendet werden können, finden Sie unter sollen – ist es am Ende dieses Artikels bereitgestellt wird.  
+Der Zugriff auf die Code First-fließend-API wird am häufigsten durch Überschreiben der [onmodelcreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx) -Methode für den abgeleiteten [dbcontext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx)erreicht. Die folgenden Beispiele veranschaulichen, wie verschiedene Aufgaben mit der fließend-API ausgeführt werden können und wie Sie den Code kopieren und an Ihr Modell anpassen können. Wenn Sie sehen möchten, wie das Modell, mit dem Sie arbeiten können, unverändert verwendet werden kann, wird es am Ende dieses Artikels bereitgestellt.  
 
-## <a name="model-wide-settings"></a>Einstellungen für den gesamten Model  
+## <a name="model-wide-settings"></a>Modell weite Einstellungen  
 
-### <a name="default-schema-ef6-onwards"></a>Standardschema (EF6 oder höher)  
+### <a name="default-schema-ef6-onwards"></a>Standard Schema (EF6 oder höher)  
 
-Ab mit EF6 können Sie die "hasdefaultschema"-Methode auf DbModelBuilder verwenden, geben Sie das Datenbankschema für alle Tabellen, gespeicherten Prozeduren usw. verwendet. Für alle Objekte, die Sie explizit ein anderes Schema für konfigurieren, wird diese Standardeinstellung überschrieben werden.  
+Beginnend mit EF6 können Sie mit der hasdefaultschema-Methode von dbmodelbuilder das Datenbankschema angeben, das für alle Tabellen, gespeicherten Prozeduren usw. verwendet werden soll. Diese Standardeinstellung wird für alle Objekte, für die Sie explizit ein anderes Schema konfigurieren, überschrieben.  
 
 ``` csharp
 modelBuilder.HasDefaultSchema("sales");
@@ -29,45 +29,45 @@ modelBuilder.HasDefaultSchema("sales");
 
 ### <a name="custom-conventions-ef6-onwards"></a>Benutzerdefinierte Konventionen (EF6 oder höher)  
 
-Starten mit EF6 können Sie Ihre eigenen Konventionen zur Ergänzung der enthaltenen in Code First erstellen. Weitere Informationen finden Sie unter [benutzerdefinierte Code First-Konventionen](~/ef6/modeling/code-first/conventions/custom.md).  
+Beginnend mit EF6 können Sie eigene Konventionen erstellen, um die in Code First enthaltenen Konventionen zu ergänzen. Weitere Informationen finden Sie unter [benutzerdefinierte Code First Konventionen](~/ef6/modeling/code-first/conventions/custom.md).  
 
 ## <a name="property-mapping"></a>Eigenschaftszuordnung  
 
-Die [Eigenschaft](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx) Methode dient zum Konfigurieren von Attributen für jede Eigenschaft, die für eine Entität oder einen komplexen Typ gehören. Die Property-Methode wird verwendet, um ein Konfigurationsobjekt für eine bestimmte Eigenschaft abzurufen. Die Optionen auf das Konfigurationsobjekt sind spezifisch für den Typ, der konfiguriert wird. IsUnicode sind z. B. nur Zeichenfolgeneigenschaften verfügbar.  
+Die [Property](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx) -Methode wird verwendet, um Attribute für jede Eigenschaft zu konfigurieren, die zu einer Entität oder einem komplexen Typ gehört. Die-Eigenschaften Methode wird verwendet, um ein Konfigurationsobjekt für eine bestimmte Eigenschaft abzurufen. Die Optionen für das Konfigurationsobjekt sind spezifisch für den konfigurierten Typ. Isunicode ist beispielsweise nur für Zeichen folgen Eigenschaften verfügbar.  
 
-### <a name="configuring-a-primary-key"></a>Konfigurieren einen Primärschlüssel  
+### <a name="configuring-a-primary-key"></a>Konfigurieren eines Primärschlüssels  
 
-Entity Framework wird für Primärschlüssel verwendet:  
+Die Entity Framework Konvention für Primärschlüssel lautet wie folgt:  
 
-1. Die Klasse definiert eine Eigenschaft, deren Name "ID" oder "Id" ist.  
-2. oder einen Klassennamen gefolgt von "ID" oder "Id"  
+1. Ihre Klasse definiert eine Eigenschaft mit dem Namen "ID" oder "ID".  
+2. oder einen Klassennamen, gefolgt von "ID" oder "ID".  
 
-Um explizit eine Eigenschaft als Primärschlüssel festzulegen, können Sie die HasKey-Methode verwenden. Im folgenden Beispiel wird die HasKey-Methode verwendet, konfigurieren Sie den Primärschlüssel InstructorID für die "OfficeAssignment".  
+Um explizit eine Eigenschaft als Primärschlüssel festzulegen, können Sie die Haskey-Methode verwenden. Im folgenden Beispiel wird die Haskey-Methode verwendet, um den "InstructorID"-Primärschlüssel für den officezuweisungstyp zu konfigurieren.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>().HasKey(t => t.InstructorID);
 ```  
 
-### <a name="configuring-a-composite-primary-key"></a>Konfigurieren einen zusammengesetzten Primärschlüssel  
+### <a name="configuring-a-composite-primary-key"></a>Konfigurieren eines zusammengesetzten Primärschlüssels  
 
-Im folgenden Beispiel konfiguriert die Eigenschaften "DepartmentID" und den Namen der zusammengesetzte Primärschlüssel der den Typ der Abteilung werden.  
+Im folgenden Beispiel werden die Eigenschaften "DepartmentID" und "Name" als zusammengesetzter Primärschlüssel des Abteilungs Typs konfiguriert.  
 
 ``` csharp
 modelBuilder.Entity<Department>().HasKey(t => new { t.DepartmentID, t.Name });
 ```  
 
-### <a name="switching-off-identity-for-numeric-primary-keys"></a>Identität abschalten für numerische Primärschlüssel  
+### <a name="switching-off-identity-for-numeric-primary-keys"></a>Ausschalten der Identität für numerische Primärschlüssel  
 
-Im folgenden Beispiel wird die Eigenschaft "DepartmentID", um System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None, um anzugeben, dass der Wert nicht von der Datenbank generiert wird.  
+Im folgenden Beispiel wird die DepartmentID-Eigenschaft auf System. ComponentModel. DataAnnotations. databasegeneratedoption. None festgelegt, um anzugeben, dass der Wert nicht von der Datenbank generiert wird.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.DepartmentID)
     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 ```  
 
-### <a name="specifying-the-maximum-length-on-a-property"></a>Die maximale Länge angeben für eine Eigenschaft.  
+### <a name="specifying-the-maximum-length-on-a-property"></a>Angeben der maximalen Länge für eine Eigenschaft  
 
-Im folgenden Beispiel soll die Name-Eigenschaft nicht mehr als 50 Zeichen sein. Wenn Sie den Wert mit mehr als 50 Zeichen haben, erhalten Sie eine [DbEntityValidationException](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx) Ausnahme. Wenn Code First eine Datenbank aus diesem Modell erstellt, wird es auch die maximale Länge der Spalte "Name" auf 50 Zeichen festgelegt.  
+Im folgenden Beispiel sollte die Name-Eigenschaft nicht länger als 50 Zeichen sein. Wenn Sie den Wert länger als 50 Zeichen machen, wird eine [dbentityvalidationexception](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx) -Ausnahme ausgelöst. Wenn Code First eine Datenbank aus diesem Modell erstellt, wird auch die maximale Länge der Spalte Name auf 50 Zeichen festgelegt.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).HasMaxLength(50);
@@ -75,23 +75,23 @@ modelBuilder.Entity<Department>().Property(t => t.Name).HasMaxLength(50);
 
 ### <a name="configuring-the-property-to-be-required"></a>Konfigurieren der Eigenschaft als erforderlich  
 
-Im folgenden Beispiel ist die Name-Eigenschaft erforderlich. Wenn Sie nicht den Namen angeben, erhalten Sie eine DbEntityValidationException-Ausnahme. Wenn Code First eine Datenbank aus diesem Modell erstellt wird die Spalte verwendet, um diese Eigenschaft gespeichert in der Regel nicht auf NULL festlegbare sein.  
+Im folgenden Beispiel ist die Name-Eigenschaft erforderlich. Wenn Sie den Namen nicht angeben, wird eine dbentityvalidationexception-Ausnahme ausgelöst. Wenn Code First eine Datenbank aus diesem Modell erstellt, ist die Spalte, die zum Speichern dieser Eigenschaft verwendet wird, in der Regel keine NULL-Werte zulässig.  
 
 > [!NOTE]
-> In einigen Fällen kann es nicht möglich für die Spalte in der Datenbank NULL-Werte zulässt, obwohl die Eigenschaft erforderlich ist. Beispielsweise wird bei Verwendung einer TPH-Vererbung Strategie für die Datentyps für mehrere Typen in einer einzelnen Tabelle gespeichert. Wenn ein abgeleiteter Typ eine erforderliche Eigenschaft, die die Spalte NULL-hergestellt werden kann enthält, da nicht alle Typen in der Hierarchie dieser Eigenschaft hat.  
+> In einigen Fällen ist es möglicherweise nicht möglich, dass die Spalte in der Datenbank keine NULL-Werte zulässt, auch wenn die-Eigenschaft erforderlich ist. Wenn z. b. eine TPH-Vererbungs Strategie verwendet wird, werden Daten für mehrere Typen in einer einzelnen Tabelle gespeichert. Wenn ein abgeleiteter Typ eine erforderliche Eigenschaft enthält, kann die Spalte nicht auf NULL festleg Bare Werte festgelegt werden, da nicht alle Typen in der Hierarchie über diese Eigenschaft verfügen.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).IsRequired();
 ```  
 
-### <a name="configuring-an-index-on-one-or-more-properties"></a>Konfigurieren einen Index für eine oder mehrere Eigenschaften  
+### <a name="configuring-an-index-on-one-or-more-properties"></a>Konfigurieren eines Indexes für eine oder mehrere Eigenschaften  
 
 > [!NOTE]
-> **EF6.1 oder höher, nur** -der Index-Attribut wurde in Entity Framework 6.1 eingeführt. Die Informationen in diesem Abschnitt gelten nicht, wenn Sie eine frühere Version verwenden.  
+> **Nur ab EF 6.1** : das Index Attribut wurde in Entity Framework 6,1 eingeführt. Wenn Sie eine frühere Version verwenden, gelten die Informationen in diesem Abschnitt nicht.  
 
-Erstellen von Indizes wird nicht systemeigen von der Fluent-API unterstützt, Sie können jedoch mithilfe der Unterstützung für **IndexAttribute** über die Fluent-API. Indexattribute werden verarbeitet, dazu eine Modell-Anmerkung auf das Modell, das dann in einen Index in der Datenbank später in der Pipeline aktiviert ist. Sie können diese gleiche manuell Anmerkungen, die mithilfe der Fluent-API hinzufügen.  
+Das Erstellen von Indizes wird von der fließenden API nicht nativ unterstützt, aber Sie können die Unterstützung von **Indexattribute** über die fließende API nutzen. Index Attribute werden verarbeitet, indem eine Modell Anmerkung in das Modell eingeschlossen wird, die dann später in der Pipeline in einen Index in der Datenbank umgewandelt wird. Sie können dieselben Anmerkungen mithilfe der fließend-API manuell hinzufügen.  
 
-Die einfachste Möglichkeit hierzu ist die Erstellung von einer Instanz von **IndexAttribute** , die alle Einstellungen für den neuen Index enthält. Anschließend können Sie erstellen eine Instanz von **IndexAnnotation** Dies ist eine spezifische EF-Typ, der konvertiert die **IndexAttribute** Einstellungen in einem Modell-Anmerkung, die auf das EF-Modell gespeichert werden können. Diese können anschließend zum Übergeben der **HasColumnAnnotation** Methode für die Fluent-API, Angeben des Namens **Index** für die Anmerkung.  
+Die einfachste Möglichkeit hierfür ist das Erstellen einer Instanz von **Indexattribute** , die alle Einstellungen für den neuen Index enthält. Anschließend können Sie eine Instanz der **Indexnotation** erstellen, bei der es sich um einen EF-spezifischen Typ handelt, der die **Indexattribute** -Einstellungen in eine Modell Anmerkung konvertiert, die im EF-Modell gespeichert werden kann. Diese können dann an die **hascolumnannotation** -Methode für die fließende API weitergegeben werden, wobei der namens **Index** für die Anmerkung angegeben wird.  
 
 ``` csharp
 modelBuilder
@@ -100,9 +100,9 @@ modelBuilder
     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
 ```  
 
-Eine vollständige Liste von den Einstellungen in **IndexAttribute**, finden Sie unter den *Index* Abschnitt [Code der ersten Datenanmerkungen](~/ef6/modeling/code-first/data-annotations.md). Dies schließt den Namen des Indexes anpassen, Erstellen eindeutiger Indizes und Indizes mit mehreren Spalten erstellen.  
+Eine umfassende Liste der in " **Indexattribute**" verfügbaren Einstellungen finden Sie im Abschnitt " *Index* " der [Code First Daten Anmerkungen](~/ef6/modeling/code-first/data-annotations.md). Dies umfasst das Anpassen des Index namens, das Erstellen eindeutiger Indizes und das Erstellen von mehrspaltigen Indizes.  
 
-Sie können mehrere Index Anmerkungen für eine einzelne Eigenschaft angeben, durch Übergeben eines Arrays von **IndexAttribute** an den Konstruktor der **IndexAnnotation**.  
+Sie können mehrere Index Anmerkungen für eine einzelne Eigenschaft angeben, indem Sie ein Array von " **Indexattribute** " an den Konstruktor von " **indexannotation**" übergeben.  
 
 ``` csharp
 modelBuilder
@@ -117,17 +117,17 @@ modelBuilder
             })));
 ```  
 
-### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>Angeben nicht um eine CLR-Eigenschaft einer Spalte in der Datenbank zuzuordnen  
+### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>Angeben, dass eine CLR-Eigenschaft einer Spalte in der Datenbank nicht zugeordnet werden soll  
 
-Das folgende Beispiel zeigt, wie Sie angeben, dass eine Eigenschaft für einen CLR-Typ nicht auf eine Spalte in der Datenbank zugeordnet ist.  
+Im folgenden Beispiel wird gezeigt, wie angegeben wird, dass eine Eigenschaft eines CLR-Typs keiner Spalte in der Datenbank zugeordnet ist.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Ignore(t => t.Budget);
 ```  
 
-### <a name="mapping-a-clr-property-to-a-specific-column-in-the-database"></a>Eine CLR-Eigenschaft zuordnen zu einer bestimmten Spalte in der Datenbank  
+### <a name="mapping-a-clr-property-to-a-specific-column-in-the-database"></a>Mapping einer CLR-Eigenschaft zu einer bestimmten Spalte in der Datenbank  
 
-Das folgende Beispiel ordnet die Namen von CLR-Eigenschaft in der Datenbankspalte DepartmentName.  
+Im folgenden Beispiel wird die Name CLR-Eigenschaft der DepartmentName-Daten Bank Spalte zugeordnet.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -135,9 +135,9 @@ modelBuilder.Entity<Department>()
     .HasColumnName("DepartmentName");
 ```  
 
-### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>Umbenennen von einem Fremdschlüssel, die nicht im Modell definiert ist  
+### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>Umbenennen eines fremd Schlüssels, der nicht im Modell definiert ist  
 
-Wenn Sie keinen Fremdschlüssel für einen CLR-Typ definieren, aber welchen Namen verfügen sollte in der Datenbank angeben möchten, führen Sie folgende Schritte aus:  
+Wenn Sie keinen Fremdschlüssel für einen CLR-Typ definieren, aber angeben möchten, welcher Name in der Datenbank enthalten sein soll, gehen Sie wie folgt vor:  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -146,9 +146,9 @@ modelBuilder.Entity<Course>()
     .Map(m => m.MapKey("ChangedDepartmentID"));
 ```  
 
-### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>Konfigurieren, ob eine Zeichenfolgeneigenschaft Unicode unterstützt.  
+### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>Konfigurieren, ob eine Zeichen folgen Eigenschaft Unicode-Inhalt unterstützt  
 
-Standardmäßig werden Zeichenfolgen mit Unicode-(Nvarchar in SQL Server). Die IsUnicode-Methode können angeben, dass eine Zeichenfolge des Varchar-Typ werden soll.  
+Standardmäßig sind Zeichen folgen Unicode (nvarchar in SQL Server). Sie können die isunicode-Methode verwenden, um anzugeben, dass eine Zeichenfolge vom Typ varchar sein soll.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -156,9 +156,9 @@ modelBuilder.Entity<Department>()
     .IsUnicode(false);
 ```  
 
-### <a name="configuring-the-data-type-of-a-database-column"></a>Konfigurieren den Datentyp einer Datenbankspalte  
+### <a name="configuring-the-data-type-of-a-database-column"></a>Konfigurieren des Datentyps einer Daten Bank Spalte  
 
-Die [HasColumnType](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx) Methode ermöglicht die Zuordnung auf unterschiedliche Darstellungen des gleichen Typs basic. Mit dieser Methode kann nicht zum Ausführen der Konvertierung der Daten zur Laufzeit werden. Beachten Sie, dass IsUnicode die bevorzugte Methode der Einstellung Spalten für Varchar, da sie die Datenbank unabhängig ist.  
+Die [hascolumntype](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx) -Methode ermöglicht die Zuordnung zu verschiedenen Darstellungen desselben Basistyp. Wenn Sie diese Methode verwenden, können Sie die Daten nicht zur Laufzeit konvertieren. Beachten Sie, dass isunicode die bevorzugte Methode zum Festlegen von Spalten auf varchar ist, da dies Daten Bank agnostisch ist.  
 
 ``` csharp
 modelBuilder.Entity<Department>()   
@@ -170,7 +170,7 @@ modelBuilder.Entity<Department>()
 
 Es gibt zwei Möglichkeiten, skalare Eigenschaften für einen komplexen Typ zu konfigurieren.  
 
-Sie können die Eigenschaft für ComplexTypeConfiguration aufrufen.  
+Sie können die-Eigenschaft für complextypeconfiguration aufzurufen.  
 
 ``` csharp
 modelBuilder.ComplexType<Details>()
@@ -178,7 +178,7 @@ modelBuilder.ComplexType<Details>()
     .HasMaxLength(20);
 ```  
 
-Sie können auch die punktierte Schreibweise verwenden, Zugriff auf eine Eigenschaft eines komplexen Typs.  
+Sie können auch die Punkt Notation verwenden, um auf eine Eigenschaft eines komplexen Typs zuzugreifen.  
 
 ``` csharp
 modelBuilder.Entity<OnsiteCourse>()
@@ -186,9 +186,9 @@ modelBuilder.Entity<OnsiteCourse>()
     .HasMaxLength(20);
 ```  
 
-### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>Konfigurieren eine Eigenschaft als Token für vollständige Parallelität verwendet werden soll  
+### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>Konfigurieren einer Eigenschaft, die als Token für die vollständige Parallelität verwendet werden soll  
 
-Um anzugeben, dass eine Eigenschaft in einer Entität ein parallelitätstoken darstellt, können Sie das Attribut ConcurrencyCheck oder die IsConcurrencyToken-Methode.  
+Um anzugeben, dass eine Eigenschaft in einer Entität ein Parallelitäts Token darstellt, können Sie entweder das Attribut "-Attribut" oder die iskonaccesscytoken-Methode verwenden.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -196,7 +196,7 @@ modelBuilder.Entity<OfficeAssignment>()
     .IsConcurrencyToken();
 ```  
 
-Sie können auch die IsRowVersion-Methode verwenden, so konfigurieren Sie die Eigenschaft als Zeilenversion in der Datenbank. Festlegen der Eigenschaft sein, dass eine Zeilenversion, um ein Token für vollständige Parallelität werden automatisch konfiguriert.  
+Sie können auch die IsRowVersion-Methode verwenden, um die Eigenschaft als Zeilen Version in der Datenbank zu konfigurieren. Wenn die Eigenschaft auf eine Zeilen Version festgelegt wird, wird Sie automatisch als Token für die vollständige Parallelität konfiguriert.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -206,41 +206,41 @@ modelBuilder.Entity<OfficeAssignment>()
 
 ## <a name="type-mapping"></a>Typzuordnung  
 
-### <a name="specifying-that-a-class-is-a-complex-type"></a>Gibt an, dass eine Klasse einen komplexen Typ handelt.  
+### <a name="specifying-that-a-class-is-a-complex-type"></a>Angeben, dass eine Klasse ein komplexer Typ ist  
 
-Gemäß der Konvention ist ein Typ, der keinen primären Schlüssel angegeben hat, als komplexer Typ behandelt. Es gibt einige Szenarien, in denen Code First keinen komplexen Typ erkannt wird (z. B., wenn Sie müssen eine Eigenschaft namens-ID, aber Sie bedeutet nicht, dass es kein primärer Schlüssel sein). In solchen Fällen verwenden Sie die fluent-API explizit angeben, dass ein Typ eines komplexen Typs ist.  
+Gemäß der Konvention wird ein Typ, der keinen Primärschlüssel enthält, als komplexer Typ behandelt. Es gibt einige Szenarien, in denen Code First einen komplexen Typ nicht erkennt (wenn Sie z. b. über eine Eigenschaft mit dem Namen "ID" verfügen, aber nicht bedeuten, dass es sich um einen Primärschlüssel handelt). In solchen Fällen verwenden Sie die fließende API, um explizit anzugeben, dass ein Typ ein komplexer Typ ist.  
 
 ``` csharp
 modelBuilder.ComplexType<Details>();
 ```  
 
-### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>Angeben nicht um eine CLR-Entitätstyp in eine Tabelle in der Datenbank zugeordnet wird.  
+### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>Angeben, dass kein CLR-Entitätstyp einer Tabelle in der Datenbank zugeordnet werden soll  
 
-Das folgende Beispiel zeigt, wie Sie ausschließen, dass einen CLR-Typ in eine Tabelle in der Datenbank zugeordnet wird.  
+Im folgenden Beispiel wird gezeigt, wie ein CLR-Typ von der Zuordnung zu einer Tabelle in der-Datenbank ausgeschlossen wird.  
 
 ``` csharp
 modelBuilder.Ignore<OnlineCourse>();
 ```  
 
-### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>Mapping eines Entitätstyps zu einer bestimmten Tabelle in der Datenbank  
+### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>Zuordnung eines Entitäts Typs zu einer bestimmten Tabelle in der Datenbank  
 
-Alle Eigenschaften der Abteilung werden auf Spalten in einer Tabelle mit T_ Abteilung zugeordnet werden.  
+Alle Eigenschaften der Abteilung werden Spalten in einer Tabelle mit dem Namen T_ Abteilung zugeordnet.  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department");
 ```  
 
-Sie können auch den Schemanamen, wie folgt angeben:  
+Sie können auch den Schema Namen wie folgt angeben:  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department", "school");
 ```  
 
-### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>Die Tabelle pro Hierarchie (TPH)-Vererbung zuordnen  
+### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>Zuordnung der "Tabelle pro Hierarchie"-Vererbung (TPH)  
 
-In diesem Szenario TPH-Zuordnung werden alle Typen in einer Vererbungshierarchie einer einzelnen Tabelle zugeordnet. Eine Diskriminatorspalte wird verwendet, um den Typ der einzelnen Zeilen zu identifizieren. Wenn Sie Ihr Modell mit Code First zu erstellen, ist der TPH die Standardstrategie für die Typen, die in der Vererbungshierarchie beteiligt sind. In der Standardeinstellung die Diskriminatorspalte wird hinzugefügt, auf die Tabelle mit dem Namen "Discriminator genannt", und die CLR-Typnamen jedes Typs in der Hierarchie Diskriminatorwerte verwendet wird. Sie können das Standardverhalten ändern, mit der fluent-API.  
+Im TPH-Zuordnungsszenario werden alle Typen in einer Vererbungs Hierarchie einer einzelnen Tabelle zugeordnet. Eine diskriminatorspalte wird verwendet, um den Typ der einzelnen Zeilen zu identifizieren. Wenn Sie Ihr Modell mit Code First erstellen, ist TPH die Standardstrategie für die Typen, die an der Vererbungs Hierarchie teilnehmen. Standardmäßig wird die diskriminatorspalte der Tabelle mit dem Namen "Diskriminator" hinzugefügt, und der CLR-Typname jedes Typs in der Hierarchie wird für die diskriminatorwerte verwendet. Sie können das Standardverhalten mithilfe der flüssigen API ändern.  
 
 ``` csharp
 modelBuilder.Entity<Course>()  
@@ -248,23 +248,23 @@ modelBuilder.Entity<Course>()
     .Map<OnsiteCourse>(m => m.Requires("Type").HasValue("OnsiteCourse"));
 ```  
 
-### <a name="mapping-the-table-per-type-tpt-inheritance"></a>Die Tabelle pro Typ (TPT)-Vererbung zuordnen  
+### <a name="mapping-the-table-per-type-tpt-inheritance"></a>Zuordnung der "Tabelle pro Typ"-Vererbung (TPT)  
 
-In diesem Szenario TPT-Zuordnung werden alle Typen einzelnen Tabellen zugeordnet. Eigenschaften, die nur zu einem Basistyp oder einem abgeleiteten Typ gehören, werden in einer Tabelle gespeichert, die diesem Typ zugeordnet ist. Tabellen, die für abgeleitete Typen zuordnen Speichern auch Fremdschlüssel, der die abgeleitete Tabelle mit der Basistabelle verknüpft.  
+Im TPT-Zuordnungsszenario werden alle Typen einzelnen Tabellen zugeordnet. Eigenschaften, die nur zu einem Basistyp oder einem abgeleiteten Typ gehören, werden in einer Tabelle gespeichert, die diesem Typ zugeordnet ist. Tabellen, die abgeleiteten Typen zugeordnet sind, speichern auch einen Fremdschlüssel, der die abgeleitete Tabelle mit der Basistabelle verbindet.  
 
 ``` csharp
 modelBuilder.Entity<Course>().ToTable("Course");  
 modelBuilder.Entity<OnsiteCourse>().ToTable("OnsiteCourse");
 ```  
 
-### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>Die Tabelle pro konkreter Klasse (TPC)-Vererbung zuordnen  
+### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>Zuordnung der TPC-Vererbung (Tabelle pro konkrete Klasse)  
 
-In diesem Szenario TPC-Zuordnung werden einzelne Tabellen alle nicht abstrakten Typen in der Hierarchie zugeordnet. Die Tabellen, die die abgeleiteten Klassen zugeordnet, haben keine Beziehung zur Tabelle, die die Basisklasse in der Datenbank zugeordnet ist. Alle Eigenschaften einer Klasse, einschließlich der geerbten Eigenschaften sind Spalten der entsprechenden Tabelle zugeordnet.  
+Im TPC-Zuordnungsszenario werden alle nicht abstrakten Typen in der Hierarchie einzelnen Tabellen zugeordnet. Die Tabellen, die den abgeleiteten Klassen zugeordnet sind, haben keine Beziehung zu der Tabelle, die der Basisklasse in der Datenbank zugeordnet ist. Alle Eigenschaften einer Klasse, einschließlich der geerbten Eigenschaften, werden den Spalten der entsprechenden Tabelle zugeordnet.  
 
-Rufen Sie die MapInheritedProperties-Methode, um jedem abgeleiteten Typ zu konfigurieren. MapInheritedProperties zugeordnet, alle Eigenschaften, die zu neuen Spalten in der Tabelle für die abgeleitete Klasse von der Basisklasse geerbt wurden.  
+Ruft die mapinheritedproperties-Methode auf, um jeden abgeleiteten Typ zu konfigurieren. Mapinheritedproperties ordnet alle Eigenschaften, die von der Basisklasse geerbt wurden, neuen Spalten in der Tabelle für die abgeleitete Klasse zu.  
 
 > [!NOTE]
-> Beachten Sie, dass da TPC-Vererbungshierarchie an keinen aufweisen gibt es ein Primärschlüssel doppelte Entitätsschlüssel beim Einfügen von in Tabellen, die Unterklassen zugeordnet sind, wenn Sie die generiert Datenbankwerte, mit der gleichen ID-Ausgangswert verfügen. Zur Lösung dieses Problems können Sie einen anderen Ausgangswert für die einzelnen Tabellen festlegen oder Identität auf die Primärschlüsseleigenschaft abschalten. Identität ist der Standardwert für Schlüsseleigenschaften ganze Zahl, bei der Arbeit mit Code First.  
+> Beachten Sie Folgendes: da die an der TPC-Vererbungs Hierarchie beteiligten Tabellen keinen Primärschlüssel gemeinsam verwenden, gibt es beim Einfügen in Tabellen, die Unterklassen zugeordnet sind, doppelte Entitäts Schlüssel, wenn von der Datenbank generierte Werte mit dem gleichen identitätsseed vorhanden sind. Um dieses Problem zu beheben, können Sie entweder für jede Tabelle einen anderen ursprünglichen Startwert angeben oder die Identität der Primärschlüssel Eigenschaft ausschalten. Identity ist der Standardwert für ganzzahlige Schlüsseleigenschaften beim Arbeiten mit Code First.  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -284,9 +284,9 @@ modelBuilder.Entity<OnlineCourse>().Map(m =>
 });
 ```  
 
-### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>Zuordnen von Eigenschaften eines Entitätstyps zu mehreren Tabellen in der Datenbank (Entitätsaufteilung)  
+### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>Zuordnung von Eigenschaften eines Entitäts Typs zu mehreren Tabellen in der Datenbank (Entitäts Aufteilung)  
 
-Entitätsaufteilung kann die Eigenschaften eines Entitätstyps über mehrere Tabellen verteilt werden. Im folgenden Beispiel wird die Entität "Department" in zwei Tabellen unterteilt: Abteilung und DepartmentDetails. Die entitätsaufteilung verwendet mehrere Aufrufe an die Map-Methode, um eine Teilmenge der Eigenschaften einer bestimmten Tabelle zuzuordnen.  
+Durch die Entitäts Aufteilung können die Eigenschaften eines Entitäts Typs auf mehrere Tabellen verteilt werden. Im folgenden Beispiel ist die Abteilungs Entität in zwei Tabellen aufgeteilt: Department und departmentdetails. Bei der Entitäts Aufteilung werden mehrere Aufrufe der Map-Methode verwendet, um einer bestimmten Tabelle eine Teilmenge von Eigenschaften zuzuordnen.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -302,9 +302,9 @@ modelBuilder.Entity<Department>()
     });
 ```  
 
-### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>Zuordnen von mehreren Entitätstypen zur Verfügung zu einer Tabelle in der Datenbank (Tabelle teilen)  
+### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>Zuordnung mehrerer Entitäts Typen zu einer Tabelle in der Datenbank (Tabellen Aufteilung)  
 
-Das folgende Beispiel ordnet zwei Entitätstypen, die einen Primärschlüssel für eine Tabelle gemeinsam nutzen.  
+Im folgenden Beispiel werden zwei Entitäts Typen, die einen Primärschlüssel gemeinsam verwenden, einer Tabelle zugeordnet.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -319,13 +319,13 @@ modelBuilder.Entity<Instructor>().ToTable("Instructor");
 modelBuilder.Entity<OfficeAssignment>().ToTable("Instructor");
 ```  
 
-### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>Mapping eines Entitätstyps zu gespeicherten Insert/Update/Delete-Prozeduren (EF6 oder höher)  
+### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>Zuordnung eines Entitäts Typs zu gespeicherten Prozeduren zum Einfügen/Aktualisieren/Löschen (EF6 oder höher)  
 
-Starten Sie mit EF6 kann eine Entität zum Verwenden von gespeicherten Prozeduren für Insert, Update, und Löschen von zuordnen. Weitere Informationen finden Sie unter [Code erste Insert/Update/Delete gespeicherte Prozeduren](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md).  
+Beginnend mit EF6 können Sie eine Entität zuordnen, um gespeicherte Prozeduren für Insert Update und DELETE zu verwenden. Weitere Informationen finden Sie unter [Code First gespeicherten Prozeduren INSERT/UPDATE/DELETE](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md).  
 
-## <a name="model-used-in-samples"></a>In den Beispielen verwendete Modell  
+## <a name="model-used-in-samples"></a>In Beispielen verwendetes Modell  
 
-Der folgende Code First-Modell wird für die Beispiele auf dieser Seite verwendet.  
+Das folgende Code First Modell wird für die Beispiele auf dieser Seite verwendet.  
 
 ``` csharp
 using System.Data.Entity;

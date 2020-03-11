@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
 ms.openlocfilehash: 4b3eee20ff238864b94ef4edfb97c1bae0713300
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181785"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416204"
 ---
 # <a name="databinding-with-winforms"></a>Datenbindung mit WinForms
 In dieser schrittweisen exemplarischen Vorgehensweise wird veranschaulicht, wie poco-Typen an Windows Forms-Steuerelemente (WinForms) in einem Master-Detail-Formular gebunden werden. Die Anwendung verwendet Entity Framework zum Auffüllen von Objekten mit Daten aus der Datenbank, zum Nachverfolgen von Änderungen und zum persistenten Speichern von Daten in der Datenbank.
@@ -25,11 +25,11 @@ Wenn Sie Visual Studio 2010 verwenden, müssen Sie auch nuget installieren. Weit
 
 ## <a name="create-the-application"></a>Erstellen der Anwendung
 
--   Öffnen Sie Visual Studio
+-   Öffnen Sie Visual Studio.
 -   **Datei&gt; Projekt für neue&gt;....**
 -   Wählen Sie im linken Bereich **Fenster** und im rechten Bereich **Windows formsapplication** aus.
 -   Geben Sie **winformswitef Sample** als Name ein.
--   Wählen Sie **OK** aus.
+-   Klicken Sie auf **OK**.
 
 ## <a name="install-the-entity-framework-nuget-package"></a>Installieren des Entity Framework nuget-Pakets
 
@@ -189,7 +189,7 @@ Nun generieren wir die Datenbank.
 
 -   Wählen Sie **OK** aus, und Sie werden gefragt, ob Sie eine neue Datenbank erstellen möchten, und wählen Sie **Ja** aus.
 
-    ![Datenbank erstellen](~/ef6/media/createdatabase.png)
+    ![Erstellen einer Datenbank](~/ef6/media/createdatabase.png)
 
 -   Die neue Datenbank wird nun in Server-Explorer angezeigt, klicken Sie mit der rechten Maustaste darauf, und wählen Sie **neue Abfrage** aus.
 -   Kopieren Sie den folgenden SQL-Befehl in die neue Abfrage, klicken Sie mit der rechten Maustaste auf die Abfrage, und wählen Sie **Ausführen** .
@@ -278,7 +278,7 @@ Fügen Sie die Klassen, die im Modell definiert sind, als Datenquellen für dies
 -   Wählen Sie im Fenster Daten Quellentyp auswählen die Option **Objekt** aus, und klicken Sie auf **weiter** .
 -   Erweitern Sie im Dialogfeld Wählen Sie die Datenobjekte aus das **winformswiderfsample** -Objekt zweimal, und wählen Sie die **Kategorie** aus. es ist nicht erforderlich, die Produktdaten Quelle auszuwählen, da wir Sie über die-Eigenschaft des Produkts in der Kategorie Datenquelle erhalten.
 
-    ![Datenquelle](~/ef6/media/datasource.png)
+    ![Data source](~/ef6/media/datasource.png)
 
 -   Klicken Sie auf **Fertig stellen**.
     Wenn das Fenster Datenquellen nicht angezeigt wird, wählen Sie **Ansicht-&gt; andere Windows-&gt; Datenquellen** aus.

@@ -1,209 +1,209 @@
 ---
-title: Entity Framework Designer-Tastenkombinationen - EF6
+title: Entity Framework Designer Tastenkombinationen-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3c76cdd5-17c5-4c54-a6a5-cf21b974636b
 ms.openlocfilehash: c75eafcca0863faa1ad64202e98b61832827377c
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490245"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415310"
 ---
-# <a name="entity-framework-designer-keyboard-shortcuts"></a>Entity Framework Designer-Tastenkombinationen
-Diese Seite enthält eine Liste der Tastatur zahlreiche programmierbare, die in verschiedenen Bildschirme in den die Entity Framework-Tools für Visual Studio verfügbar sind.
+# <a name="entity-framework-designer-keyboard-shortcuts"></a>Entity Framework Designer Tastenkombinationen
+Diese Seite enthält eine Liste der Tastenkombinationen, die in den verschiedenen Bildschirmen der Entity Framework Tools für Visual Studio verfügbar sind.
 
-## <a name="adonet-entity-data-model-wizard"></a>ADO.NET Entity Data Model-Assistenten
+## <a name="adonet-entity-data-model-wizard"></a>ADO.NET Entity Data Model-Assistent
 
-### <a name="step-one-choose-model-contents"></a>Schritt 1: Auswählen von Modellinhalten
+### <a name="step-one-choose-model-contents"></a>Schritt 1: Auswählen des Modell Inhalts
 
-![Assistent 1](~/ef6/media/wizardone.png)
+![Assistent eines](~/ef6/media/wizardone.png)
 
-| Verknüpfung  | Aktion                                                     | Hinweise                                               |
+| Tastenkombination  | Action                                                     | Notizen                                               |
 |:----------|:-----------------------------------------------------------|:----------------------------------------------------|
-| **ALT + n** | Zum nächsten Bildschirm zu verschieben                                        | Für die gesamte Auswahl der Modellinhalt nicht verfügbar. |
-| **ALT + f** | Beenden Sie Assistenten                                              | Für die gesamte Auswahl der Modellinhalt nicht verfügbar. |
-| **ALT + w** | Schaltet den Fokus "sollte den wie das Modell enthalten?" im Bereich. |                                                     |
+| **Alt + n** | Zum nächsten Bildschirm wechseln                                        | Nicht für alle Auswahlmöglichkeiten des Modell Inhalts verfügbar. |
+| **Alt + f** | Beenden Sie den Assistenten.                                              | Nicht für alle Auswahlmöglichkeiten des Modell Inhalts verfügbar. |
+| **Alt + w** | Wechseln Sie zu "Was soll das Modell enthalten?". schlugen. |                                                     |
 
-### <a name="step-two-choose-your-connection"></a>Schritt 2: Wählen Sie die Verbindung
+### <a name="step-two-choose-your-connection"></a>Schritt 2: Auswählen der Verbindung
 
 ![Assistent 2](~/ef6/media/wizardtwo.png)
 
-| Verknüpfung  | Aktion                                                     | Hinweise                                                   |
+| Tastenkombination  | Action                                                     | Notizen                                                   |
 |:----------|:-----------------------------------------------------------|:--------------------------------------------------------|
-| **ALT + n** | Zum nächsten Bildschirm zu verschieben                                        |                                                         |
-| **ALT + p** | Zum vorherigen Bildschirm verschieben                                    |                                                         |
-| **ALT + w** | Schaltet den Fokus "sollte den wie das Modell enthalten?" im Bereich. |                                                         |
-| **Alt + c** | Öffnen Sie das Fenster "Connection Properties"                    | Ermöglicht die Definition einer neuen Datenbank-Verbindung. |
-| **ALT + e** | Vertrauliche Daten aus der Verbindungszeichenfolge ausschließen.          |                                                         |
-| **ALT + i** | Einbeziehung vertraulicher Daten in der Verbindungszeichenfolge            |                                                         |
-| **ALT + s** | Schalten Sie die Option "Speichern von Verbindungseinstellungen in" App.config "" |                                                         |
+| **Alt + n** | Zum nächsten Bildschirm wechseln                                        |                                                         |
+| **Alt + p** | Zum vorherigen Bildschirm wechseln                                    |                                                         |
+| **Alt + w** | Wechseln Sie zu "Was soll das Modell enthalten?". schlugen. |                                                         |
+| **Alt + c** | Öffnen Sie das Fenster "Verbindungs Eigenschaften".                    | Ermöglicht die Definition einer neuen Datenbankverbindung. |
+| **Alt + e** | Sensible Daten aus der Verbindungs Zeichenfolge ausschließen          |                                                         |
+| **Alt + i** | Einbeziehen von sensiblen Daten in die Verbindungs Zeichenfolge            |                                                         |
+| **Alt + s** | Option "Verbindungseinstellungen in app. config speichern" umschalten |                                                         |
 
-### <a name="step-three-choose-your-version"></a>Schritt 3: Wählen Sie Ihre Version
+### <a name="step-three-choose-your-version"></a>Schritt 3: Wählen Sie Ihre Version aus.
 
-![Assistenten drei](~/ef6/media/wizardthree.png)
+![Assistent 3](~/ef6/media/wizardthree.png)
 
-| Verknüpfung  | Aktion                                             | Hinweise                                                                                 |
+| Tastenkombination  | Action                                             | Notizen                                                                                 |
 |:----------|:---------------------------------------------------|:--------------------------------------------------------------------------------------|
-| **ALT + n** | Zum nächsten Bildschirm zu verschieben                                |                                                                                       |
-| **ALT + p** | Zum vorherigen Bildschirm verschieben                            |                                                                                       |
-| **ALT + w** | Wechseln Sie den Fokus zur Auswahl der Entity Framework-version | Ermöglicht die Angabe einer anderen Version von Entity Framework für die Verwendung im Projekt. |
+| **Alt + n** | Zum nächsten Bildschirm wechseln                                |                                                                                       |
+| **Alt + p** | Zum vorherigen Bildschirm wechseln                            |                                                                                       |
+| **Alt + w** | Fokus auf Entity Framework Versions Auswahl wechseln | Ermöglicht das Angeben einer anderen Version von Entity Framework für die Verwendung im Projekt. |
 
-### <a name="step-four-choose-your-database-objects-and-settings"></a>Schritt 4: Wählen Sie Ihre Datenbankobjekte und Einstellungen
+### <a name="step-four-choose-your-database-objects-and-settings"></a>Schritt 4: Auswählen der Datenbankobjekte und-Einstellungen
 
-![Assistenten vier](~/ef6/media/wizardfour.png)
+![Assistent vier](~/ef6/media/wizardfour.png)
 
-| Verknüpfung  | Aktion                                                                                    | Hinweise                                                               |
+| Tastenkombination  | Action                                                                                    | Notizen                                                               |
 |:----------|:------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
-| **ALT + f** | Beenden Sie Assistenten                                                                             |                                                                     |
-| **ALT + p** | Zum vorherigen Bildschirm verschieben                                                                   |                                                                     |
-| **ALT + w** | Schaltet den Fokus Bereichs "Auswahl" der Datenbank-Objekt                                            | Angeben von Datenbankobjekten, um reverse Engineering ermöglicht.    |
-| **ALT + s** | Umschalten der "in den Singular oder Plural setzen generierte Objektnamen" Option                       |                                                                     |
-| **ALT + k** | Schalten Sie die Option "Include foreign Key-Spalten im Modell."                              | Für die gesamte Auswahl der Modellinhalt nicht verfügbar.                 |
-| **ALT + i** | Schalten Sie die Option "Import ausgewählte gespeicherte Prozeduren und Funktionen in Entity Model" | Für die gesamte Auswahl der Modellinhalt nicht verfügbar.                 |
-| **ALT + m** | Ändert den Fokus auf das Textfeld "Model-Namespace"                                        | Für die gesamte Auswahl der Modellinhalt nicht verfügbar.                 |
-| **LEERTASTE** | Auswahl für Element ein-/ausblenden                                                               | Wenn das Element untergeordnete Elemente verfügt, werden alle untergeordneten Elemente sowie ein-und ausgeschaltet werden |
-| **Links**  | Die untergeordnete Struktur reduzieren                                                                       |                                                                     |
-| **Rechts** | Erweitern Sie die untergeordnete Struktur                                                                         |                                                                     |
-| **Nach-oben**    | Navigieren Sie zum vorherigen Element in Struktur                                                      |                                                                     |
-| **Nach unten**  | Navigieren Sie zum nächsten Element in Struktur                                                          |                                                                     |
+| **Alt + f** | Beenden Sie den Assistenten.                                                                             |                                                                     |
+| **Alt + p** | Zum vorherigen Bildschirm wechseln                                                                   |                                                                     |
+| **Alt + w** | Fokus auf Auswahlbereich des Datenbankobjekts wechseln                                            | Ermöglicht das Angeben von Datenbankobjekten, die umgekehrt werden sollen.    |
+| **Alt + s** | Aktivieren Sie die Option "generierte Objektnamen in pluralisieren oder einblenden".                       |                                                                     |
+| **Alt + k** | Option "Fremdschlüssel Spalten in das Modell einschließen" umschalten                              | Nicht für alle Auswahlmöglichkeiten des Modell Inhalts verfügbar.                 |
+| **Alt + i** | Option "ausgewählte gespeicherte Prozeduren und Funktionen in das Entitäts Modell importieren" umschalten | Nicht für alle Auswahlmöglichkeiten des Modell Inhalts verfügbar.                 |
+| **Alt + m** | Schaltet den Fokus auf das Textfeld "Modell Namespace".                                        | Nicht für alle Auswahlmöglichkeiten des Modell Inhalts verfügbar.                 |
+| **LEERTASTE** | Auswahl für Element umschalten                                                               | Wenn das Element über untergeordnete Elemente verfügt, werden alle untergeordneten Elemente ebenfalls ein-und ausgeschaltet. |
+| **Left**  | Untergeordnete Struktur zuklappen                                                                       |                                                                     |
+| **Right** | Untergeordnete Struktur erweitern                                                                         |                                                                     |
+| **Up**    | Zum vorherigen Element in der Struktur navigieren                                                      |                                                                     |
+| **Nach unten**  | Zum nächsten Element in der Struktur navigieren                                                          |                                                                     |
 
-## <a name="ef-designer-surface"></a>EF-Designer-Oberfläche
+## <a name="ef-designer-surface"></a>EF-Designer Oberfläche
 
 ![Designeroberfläche](~/ef6/media/designersurface.png)
 
-| Verknüpfung                                                                                | Aktion                      | Hinweise                                                                                                                                                                                                                               |
+| Tastenkombination                                                                                | Action                      | Notizen                                                                                                                                                                                                                               |
 |:----------------------------------------------------------------------------------------|:----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Geben Sie Speicherplatz /**                                                                         | Auswahl ein-/ausblenden            | Schaltet die Auswahl für das Objekt den Fokus besitzt.                                                                                                                                                                                         |
-| **ESC**                                                                                 | Auswahl aufheben            | Bricht die aktuelle Auswahl ab.                                                                                                                                                                                                      |
-| **STRG + A**                                                                            | Alles auswählen                  | Wählt alle Formen auf der Entwurfsoberfläche angezeigt.                                                                                                                                                                                       |
-| **Pfeil nach oben**                                                                            | Nach oben                     | Die ausgewählten Entität in einer Rasterseite Inkrement verschoben werden. <br/> Wenn Sie sich in eine Liste verschiebt zum vorherigen gleichgeordneten.                                                                                                                            |
-| **Pfeil nach unten**                                                                          | Nach unten                   | Die ausgewählten Entität nach unten Schrittweite von einer Rasterseite verschoben. <br/> Wenn Sie sich in eine Liste verschiebt zum nächsten gleichgeordneten.                                                                                                                              |
-| **NACH-LINKS-TASTE**                                                                          | Nach links                   | Die ausgewählten Entität linken einer Rasterseite Inkrement verschoben werden. <br/> Wenn Sie sich in eine Liste verschiebt zum vorherigen gleichgeordneten.                                                                                                                          |
-| **NACH-RECHTS-TASTE**                                                                         | Nach rechts verschieben                  | Die ausgewählten Entität nach rechts ein Raster Inkrement verschoben werden. <br/> Wenn Sie sich in eine Liste verschiebt zum nächsten gleichgeordneten.                                                                                                                             |
-| **UMSCHALT + nach-links**                                                                  | Größe Form nach links             | Reduziert die Breite der ausgewählten Entität von einer Rasterseite Inkrement an.                                                                                                                                                                     |
-| **UMSCHALT + nach-rechts**                                                                 | Richtige Größe-Form            | Erhöht die Breite der ausgewählten Entität von einer Rasterseite Inkrement an.                                                                                                                                                                   |
-| **Home**                                                                                | Erste Peer                  | Verschiebt den Fokus und Auswahl auf das erste Objekt auf der Entwurfsoberfläche auf der gleichen Ebene.                                                                                                                                         |
-| **ENDE**                                                                                 | Letzte Peer                   | Verschiebt den Fokus und Auswahl, um das letzte Objekt auf der Entwurfsoberfläche auf der gleichen Ebene.                                                                                                                                          |
-| **STRG + POS1**                                                                         | Erste Peer (Fokus)          | Identisch mit dem ersten Peer, aber anstatt Fokus und Auswahl der Fokus verschoben.                                                                                                                                                          |
-| **STRG + Ende**                                                                          | Letzte Peer (Fokus)           | Identisch mit dem letzten per Peering verknüpfen, aber Sie müssen nicht mehr verschoben, Fokus und Auswahl den Fokus.                                                                                                                                                           |
-| **TAB**                                                                                 | Nächsten Peer                   | Verschiebt den Fokus und Auswahl auf das nächste Objekt auf der Entwurfsoberfläche auf der gleichen Ebene.                                                                                                                                          |
-| **UMSCHALT+TAB**                                                                           | Vorherige Peer               | Verschiebt den Fokus und Auswahl auf das vorherige Objekt auf der Entwurfsoberfläche auf der gleichen Ebene.                                                                                                                                      |
-| **ALT-Taste + Strg + Tab**                                                                        | Nächsten Peer (Fokus)           | Identisch mit dem nächsten peer, aber anstatt Fokus und Auswahl den Fokus.                                                                                                                                                           |
-| **ALT-Taste + Strg + Umschalt + Tab**                                                                  | Vorherige Peer (Fokus)       | Identisch mit der vorherigen Peer, aber anstatt Fokus und Auswahl der Fokus verschoben.                                                                                                                                                       |
-| **&lt;**                                                                                | Ascend                      | Wechselt zum nächsten Objekt auf der Entwurfsoberfläche ein auf der Ebene in der Hierarchie höher. Wenn es keine Formen über dieser Form in der Hierarchie sind (d. h. das Objekt direkt auf der Entwurfsoberfläche platziert ist), das Diagramm ausgewählt ist. |
-| **&gt;**                                                                                | Verzweigen                     | Wechselt zum nächsten enthaltene Objekt auf der Entwurfsoberfläche ein auf der Ebene unter diesem Thema in der Hierarchie. Wenn keine darin enthaltenen Objekte sind, ist dies keine Aktion aus.                                                                              |
-| **STRG + &lt;**                                                                         | Ascend (Fokus)              | Identisch mit ascend Befehl, doch das Verschieben des Fokus ohne Auswahl.                                                                                                                                                                          |
-| **STRG + &gt;**                                                                         | Verzweigen (Fokus)             | Identisch mit Befehl, doch das Verschieben des Fokus ohne Auswahl abgeleitet werden.                                                                                                                                                                         |
-| **Umschalt + Ende**                                                                         | Führen Sie die in verbundenen         | Verschiebt von einer Entität in einer Entität, die diese Entität verbunden ist.                                                                                                                                                               |
-| **ENTF**                                                                                 | Löschen                      | Löschen Sie ein Objekt oder den Connector aus dem Diagramm.                                                                                                                                                                                     |
-| **Ins**                                                                                 | Insert                      | Fügt eine neue Eigenschaft zu einer Entität an, wenn entweder der Depot-Header "Skalareigenschaften" oder eine Eigenschaft selbst ausgewählt ist.                                                                                                           |
-| **Bild-auf**                                                                               | Diagramm der führen Sie einen Bildlauf nach oben           | Führt einen Bildlauf durch die Entwurfsoberfläche, in Schritten von 75 % der die Höhe der aktuell sichtbaren Entwurfsoberfläche gleich.                                                                                                                    |
-| **Bild-ab**                                                                             | Diagramm der führen Sie einen Bildlauf nach unten         | Führt einen Bildlauf die Entwurfsoberfläche nach unten ein.                                                                                                                                                                                                    |
-| **Umschalt + Bild-ab**                                                                     | Führen Sie einen Bildlauf Diagramm rechts        | Führt einen Bildlauf die Entwurfsoberfläche nach rechts.                                                                                                                                                                                            |
-| **Umschalt + Bild-auf**                                                                       | Führen Sie einen Bildlauf Diagramm links         | Führt einen Bildlauf die Entwurfsoberfläche auf der linken Seite.                                                                                                                                                                                             |
-| **F2**                                                                                  | Geben Sie den Bearbeitungsmodus             | Standardmäßige Tastenkombination für einen Text-Steuerelement in den Bearbeitungsmodus wechselt.                                                                                                                                                               |
-| **UMSCHALT + F10**                                                                         | Anzeigen des Kontextmenüs       | Standardmäßige Tastenkombination für das Kontextmenü eines ausgewählten Elements anzeigen.                                                                                                                                                          |
-| **STRG + UMSCHALTTASTE + Maus Linksklick**  <br/> **STRG + UMSCHALT + Mausrad vorwärts**  | Semantischer Zoom In            | Der Bereich der Diagrammsicht anzuzeigen, unter dem Mauszeiger auf vergrößert.                                                                                                                                                                 |
-| **STRG + UMSCHALTTASTE + Maus mit der rechten Maustaste** <br/> **STRG + UMSCHALT + Mausrad rückwärts** | Der semantische Zoom           | Verkleinert die aus dem Bereich der in der Diagrammansicht unter dem Mauszeiger auf. Es Zentriert das Diagramm erneut, wenn Sie sich zu weit für das aktuelle Diagramm Center verkleinern.                                                                          |
-| **STRG + UMSCHALTTASTE + '+'** <br/> **STRG + Mausrad vorwärts**                        | Vergrößern                     | Vergrößert den Mittelpunkt der in der Diagrammansicht.                                                                                                                                                                                         |
-| **STRG + UMSCHALTTASTE + '-'** <br/> **STRG + Mausrad rückwärts**                       | Verkleinern                    | Verkleinert die aus dem Bereich der Diagrammansicht auf den geklickt wurde. Es Zentriert das Diagramm erneut, wenn Sie sich zu weit für das aktuelle Diagramm Center verkleinern.                                                                                            |
-| **STRG + UMSCHALTTASTE + zeichnen ein Rechteck mit der linken Maustaste unten**                  | Zoombereich                   | Vergrößert die Bewältigung des Bereichs, den Sie ausgewählt haben. Wenn Sie die STRG + UMSCHALT gedrückt halten, sehen Sie sich, dass der Cursor in einem Lupensymbol dargestellt Änderungen, Sie definieren den Bereich zu vergrößern können.                        |
-| **Kontextmenü-Taste + bin "**                                                              | Öffnen Sie die Mappingdetails (Fenster) | Öffnet das Fenster "Mappingdetails", um die Zuordnungen für die ausgewählte Entität bearbeiten                                                                                                                                                               |
+| **Leerraum/EINGABETASTE**                                                                         | Auswahl umschalten            | Schaltet die Auswahl für das-Objekt mit dem Fokus um.                                                                                                                                                                                         |
+| **ESC**                                                                                 | Auswahl Abbrechen            | Bricht die aktuelle Auswahl ab.                                                                                                                                                                                                      |
+| **STRG + A**                                                                            | Alles auswählen                  | Wählt alle Formen auf der Entwurfs Oberfläche aus.                                                                                                                                                                                       |
+| **Pfeil nach oben**                                                                            | Nach oben                     | Verschiebt die ausgewählte Entität um ein Raster Inkrement nach oben. <br/> Wechselt in einer Liste zum vorherigen neben geordneten Subfeld.                                                                                                                            |
+| **Pfeil nach unten**                                                                          | Nach unten                   | Verschiebt die ausgewählte Entität um ein Raster Inkrement nach unten. <br/> Wechselt in einer Liste zum nächsten neben geordneten Unterfeld.                                                                                                                              |
+| **NACH-LINKS-TASTE**                                                                          | Nach links verschieben                   | Verschiebt die ausgewählte Entität um ein Raster Inkrement nach links. <br/> Wechselt in einer Liste zum vorherigen neben geordneten Subfeld.                                                                                                                          |
+| **NACH-RECHTS-TASTE**                                                                         | Nach rechts verschieben                  | Verschiebt die ausgewählte Entität um ein Raster Inkrement nach rechts. <br/> Wechselt in einer Liste zum nächsten neben geordneten Unterfeld.                                                                                                                             |
+| **UMSCHALT + nach-links-Taste**                                                                  | Größe der Form Links             | Verringert die Breite der ausgewählten Entität um ein Raster Inkrement.                                                                                                                                                                     |
+| **UMSCHALT + nach-rechts-Taste**                                                                 | Shape-Größe rechts            | Erhöht die Breite der ausgewählten Entität um ein Raster Inkrement.                                                                                                                                                                   |
+| **Startseite**                                                                                | Erster Peer                  | Verschiebt den Fokus und die Auswahl auf das erste Objekt auf der Entwurfs Oberfläche auf der gleichen Peer Ebene.                                                                                                                                         |
+| **Ende**                                                                                 | Letzter Peer                   | Verschiebt den Fokus und die Auswahl auf das letzte-Objekt auf der Entwurfs Oberfläche auf der gleichen Peer Ebene.                                                                                                                                          |
+| **STRG + Startseite**                                                                         | Erster Peer (Fokus)          | Identisch mit dem ersten Peer, jedoch wird der Fokus verschoben, anstatt den Fokus und die Auswahl zu verschieben.                                                                                                                                                          |
+| **STRG + Ende**                                                                          | Letzter Peer (Fokus)           | Identisch mit dem letzten Peer, verschiebt aber den Fokus, anstatt den Fokus und die Auswahl zu verschieben.                                                                                                                                                           |
+| **TAB**                                                                                 | Nächster Peer                   | Verschiebt den Fokus und die Auswahl auf das nächste Objekt auf der Entwurfs Oberfläche auf der gleichen Peer Ebene.                                                                                                                                          |
+| **UMSCHALT+TAB**                                                                           | Vorheriger Peer               | Verschiebt den Fokus und die Auswahl auf das vorherige Objekt auf der Entwurfs Oberfläche auf der gleichen Peer Ebene.                                                                                                                                      |
+| **Alt + Strg + Tab**                                                                        | Nächster Peer (Fokus)           | Identisch mit dem nächsten Peer, verschiebt aber den Fokus, anstatt den Fokus und die Auswahl zu verschieben.                                                                                                                                                           |
+| **ALT + STRG + UMSCHALT + TAB**                                                                  | Vorheriger Peer (Fokus)       | Identisch mit dem vorherigen Peer, aber Verschiebt den Fokus, anstatt den Fokus und die Auswahl zu verschieben.                                                                                                                                                       |
+| **&lt;**                                                                                | Auff                      | Wechselt zum nächsten-Objekt auf der Entwurfs Oberfläche in der-Hierarchie um eine Ebene höher. Wenn in der Hierarchie keine Formen oberhalb dieser Form vorhanden sind (d. h., das Objekt wird direkt auf der Entwurfs Oberfläche platziert), wird das Diagramm ausgewählt. |
+| **&gt;**                                                                                | Kandidat                     | Wechselt zum nächsten enthaltenen Objekt auf der Entwurfs Oberfläche, eine Ebene unterhalb dieses in der Hierarchie. Wenn kein eigenständiges Objekt vorhanden ist, handelt es sich hierbei um einen No-op-Vorgang.                                                                              |
+| **STRG + &lt;**                                                                         | Aufsteigerückt (Fokus)              | Identisch mit dem Befehl "Ascend", verschiebt den Fokus jedoch ohne Auswahl.                                                                                                                                                                          |
+| **STRG + &gt;**                                                                         | Abstieg (Fokus)             | Identisch mit dem Befehl "descen", aber Verschiebt den Fokus ohne Auswahl.                                                                                                                                                                         |
+| **Umschalt + Ende**                                                                         | Zum Verbinden folgen         | Wechselt von einer Entität zu einer Entität, mit der diese Entität verbunden ist.                                                                                                                                                               |
+| **ENTF**                                                                                 | Löschen                      | Löschen Sie ein Objekt oder einen Connector aus dem Diagramm.                                                                                                                                                                                     |
+| **ELine**                                                                                 | Einfügen                      | Fügt einer Entität eine neue Eigenschaft hinzu, wenn entweder der Depot Header "Scalar Properties" oder eine Eigenschaft selbst ausgewählt ist.                                                                                                           |
+| **PG-up**                                                                               | Diagramm nach oben scrollen           | Führt einen Bildlauf nach oben in Schritten von 75% der Höhe der aktuell sichtbaren Entwurfs Oberfläche durch.                                                                                                                    |
+| **PG-Down**                                                                             | Bildlauf nach unten         | Führt einen Bildlauf nach unten durch.                                                                                                                                                                                                    |
+| **UMSCHALT + PG nach unten**                                                                     | Diagramm nach rechts scrollen        | Führt einen Bildlauf zur Entwurfs Oberfläche nach rechts durch.                                                                                                                                                                                            |
+| **UMSCHALT + PG nach oben**                                                                       | Diagramm nach links scrollen         | Führt einen Bildlauf zur Entwurfs Oberfläche nach links durch.                                                                                                                                                                                             |
+| **F2**                                                                                  | In den Bearbeitungsmodus wechseln             | Standard Tastenkombination zum Wechseln in den Bearbeitungsmodus für ein Text Steuerelement.                                                                                                                                                               |
+| **UMSCHALT + F10**                                                                         | Kontextmenü anzeigen       | Standard Tastenkombination zum Anzeigen des Kontextmenüs eines ausgewählten Elements.                                                                                                                                                          |
+| **STRG + UMSCHALT + Maus Links klicken**  <br/> **STRG + UMSCHALT + mousrad vorwärts**  | Semantischer Zoom            | Zoomt in den Bereich der Diagramm Ansicht unterhalb des Mauszeigers.                                                                                                                                                                 |
+| **STRG + UMSCHALT + Maus mit der rechten Maustaste** <br/> **STRG + UMSCHALT + mousrad rückwärts** | Semantische Vergrößerung           | Zoomt aus dem Bereich der Diagramm Ansicht unterhalb des Mauszeigers. Das Diagramm wird neu zentriert, wenn Sie für das aktuelle Diagramm Center zu weit zoomen.                                                                          |
+| **Control + Shift + ' + '** <br/> **Steuerelement + mousrad vorwärts**                        | Vergrößern                     | Zoomt in der Mitte der Diagramm Ansicht.                                                                                                                                                                                         |
+| **STRG + UMSCHALT + '-'** <br/> **Steuerelement + mousrad rückwärts**                       | Verkleinern                    | Zoomt aus dem angeklickten Bereich der Diagramm Ansicht. Das Diagramm wird neu zentriert, wenn Sie für das aktuelle Diagramm Center zu weit zoomen.                                                                                            |
+| **STRG + UMSCHALT + Zeichnen eines Rechtecks mit der linken Maustaste**                  | Zoom Bereich                   | Zoomt in zentriert auf den Bereich, den Sie ausgewählt haben. Wenn Sie die Tasten STRG + UMSCHALT gedrückt halten, sehen Sie, dass sich der Cursor in eine Lupe ändert, sodass Sie den Bereich definieren können, in den Sie Zoomen können.                        |
+| **Kontextmenü-Taste + 'm '**                                                              | Fenster "Mappingdetails öffnen" | Öffnet das Fenster Mappingdetails zum Bearbeiten von Zuordnungen für die ausgewählte Entität.                                                                                                                                                               |
 
 ## <a name="mapping-details-window"></a>Mappingdetails (Fenster)
 
-![Zuordnung werden Verknüpfungen](~/ef6/media/mappingdetailsshortcuts.png)
+![Tastenkombinationen für die Zuordnung](~/ef6/media/mappingdetailsshortcuts.png)
 
-| Verknüpfung                  | Aktion         | Hinweise                                                                                                                                 |
+| Tastenkombination                  | Action         | Notizen                                                                                                                                 |
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|
-| **TAB**                   | Wechseln Sie den Kontext | Wechselt zwischen den Bereich des Hauptfensters und in der Symbolleiste auf der linken Seite                                                                     |
-| **Pfeiltasten**            | Navigation     | Verschieben Sie nach oben oder unten Zeilen oder rechts und Links, über die Spalten im Bereich Hauptfensters. Verschieben Sie zwischen den Schaltflächen auf der Symbolleiste auf der linken Seite. |
-| **EINGABETASTE** <br/> **LEERTASTE** | Auswählen         | Eine Schaltfläche auswählt, auf der Symbolleiste auf der linken Seite.                                                                                          |
-| **ALT + nach-unten-Taste**      | Öffnen der Liste      | Löschen Sie eine Liste, wenn eine Zelle ausgewählt wird, die über eine Dropdownliste verfügt.                                                                     |
-| **EINGABETASTE**                 | Liste auswählen    | Wählt ein Element in einer Dropdownliste.                                                                                               |
-| **ESC**                   | Liste schließen     | Schließt eine Dropdownliste an.                                                                                                              |
+| **TAB**                   | Kontext wechseln | Wechselt zwischen dem Hauptfenster Bereich und der Symbolleiste auf der linken Seite.                                                                     |
+| **Pfeiltasten**            | Navigation     | Verschieben Sie Zeilen nach oben und nach unten oder nach rechts und Links über Spalten im Hauptfenster Bereich. Wechseln Sie zwischen den Schaltflächen in der Symbolleiste auf der linken Seite. |
+| **EINGABETASTE** <br/> **LEERTASTE** | Select         | Wählt in der Symbolleiste auf der linken Seite eine Schaltfläche aus.                                                                                          |
+| **Alt + nach-unten-Taste**      | Liste öffnen      | Dropdown Liste, wenn eine Zelle ausgewählt ist, die eine Dropdown Liste enthält.                                                                     |
+| **EINGABETASTE**                 | Liste auswählen    | Wählt ein Element in einer Dropdown Liste aus.                                                                                               |
+| **ESC**                   | Liste schließen     | Schließt eine Dropdown Liste.                                                                                                              |
 
 ## <a name="visual-studio-navigation"></a>Visual Studio-Navigation
 
-Entitätsframework stellt außerdem eine Reihe von Aktionen, die benutzerdefinierte Tastenkombinationen zugeordnet haben kann (keine Verknüpfungen werden standardmäßig zugeordnet). Um diese benutzerdefinierte Tastenkombinationen erstellen möchten, klicken Sie auf das Menü "Extras", und klicken Sie auf Optionen.  Wählen Sie unter Umgebung Tastatur ein.  Weisen Sie den Bildlauf nach unten in der Liste in der Mitte, bis Sie können den gewünschten Befehl auswählen, geben Sie die Tastenkombination in das Textfeld "Tastenkombination drücken", und klicken Sie auf. Die möglichen Tastenkombinationen sind wie folgt:
+Entity Framework bietet auch eine Reihe von Aktionen, für die benutzerdefinierte Tastenkombinationen zugeordnet werden können (Standardmäßig sind keine Verknüpfungen zugeordnet). Um diese benutzerdefinierten Verknüpfungen zu erstellen, klicken Sie auf das Menü Extras und dann auf Optionen.  Wählen Sie unter Umgebung die Option Tastatur aus.  Scrollen Sie in der Liste in der Mitte nach unten, bis Sie den gewünschten Befehl auswählen können, geben Sie die Verknüpfung in das Textfeld "Tastenkombinationen drücken" ein, und klicken Sie auf zuweisen. Die möglichen Tastenkombinationen lauten wie folgt:
 
-| Verknüpfung                                                                                       |
+| Tastenkombination                                                                                       |
 |:-----------------------------------------------------------------------------------------------|
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Add.ComplexProperty.ComplexTypes**        |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddCodeGenerationItem**                   |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddFunctionImport**                       |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.AddEnumType**                      |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.Association**                      |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.ComplexProperty**                  |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.ComplexType**                      |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.Entity**                           |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.FunctionImport**                   |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.Inheritance**                      |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.NavigationProperty**               |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNew.ScalarProperty**                   |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddNewDiagram**                           |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.AddtoDiagram**                            |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Close**                                   |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Collapse**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.ConverttoEnum**                           |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Diagram.CollapseAll**                     |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Diagram.ExpandAll**                       |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Diagram.ExportasImage**                   |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Diagram.LayoutDiagram**                   |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Edit**                                    |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.EntityKey**                               |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Expand**                                  |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.FunctionImportMapping**                   |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.GenerateDatabasefromModel**               |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.GoToDefinition**                          |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Grid.ShowGrid**                           |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Grid.SnaptoGrid**                         |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.IncludeRelated**                          |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MappingDetails**                          |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.ModelBrowser**                            |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MoveDiagramstoSeparateFile**              |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MoveProperties.Down**                     |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MoveProperties.Down5**                    |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MoveProperties.ToBottom**                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MoveProperties.ToTop**                    |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MoveProperties.Up**                       |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MoveProperties.Up5**                      |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.MovetonewDiagram**                        |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Open**                                    |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Refactor.MovetoNewComplexType**           |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Refactor.Rename**                         |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.RemovefromDiagram**                       |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Rename**                                  |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.ScalarPropertyFormat.DisplayName**        |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.ScalarPropertyFormat.DisplayNameandType** |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Select.BaseType**                         |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Select.Entity**                           |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Select.Property**                         |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Select.Subtype**                          |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.SelectAll**                               |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.SelectAssociation**                       |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.ShowinDiagram**                           |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.ShowinModelBrowser**                      |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.StoredProcedureMapping**                  |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.TableMapping**                            |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.UpdateModelfromDatabase**                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Validate**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.10**                                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.100**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.125**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.150**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.200**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.25**                                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.300**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.33**                                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.400**                                |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.50**                                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.66**                                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.75**                                 |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.Custom**                             |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.ZoomIn**                             |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.ZoomOut**                            |
-| **OtherContextMenus.MicrosoftDataEntityDesignContext.Zoom.ZoomtoFit**                          |
-| **View.EntityDataModelBrowser**                                                                |
-| **View.EntityDataModelMappingDetails**                                                         |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Add. ComplexProperty. complexTypes**        |
+| **Othercontextmenus. microsoftdataentitydesigncontext. addcodegenerationitem**                   |
+| **Othercontextmenus. microsoftdataentitydesigncontext. addfunctionimport**                       |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. addenumschlag Type**                      |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. Association**                      |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. ComplexProperty**                  |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. ComplexType**                      |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. Entity**                           |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. FunctionImport**                   |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. Vererbung**                      |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. NavigationProperty**               |
+| **Othercontextmenus. microsoftdataentitydesigncontext. AddNew. ScalarProperty**                   |
+| **Othercontextmenus. microsoftdataentitydesigncontext. addnewdiagram**                           |
+| **Othercontextmenus. microsoftdataentitydesigncontext. adddediagram**                            |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Close**                                   |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Collapse**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. convertteum**                           |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Diagram. redualall**                     |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Diagram. ExpandAll**                       |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Diagram. exportasimage**                   |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Diagram. layoutdiagram**                   |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Edit**                                    |
+| **Othercontextmenus. microsoftdataentitydesigncontext. EntityKey**                               |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Expand**                                  |
+| **Othercontextmenus. microsoftdataentitydesigncontext. FunctionImportMapping**                   |
+| **Othercontextmenus. microsoftdataentitydesigncontext. generatedatabasefrommodel**               |
+| **Othercontextmenus. microsoftdataentitydesigncontext. godedefinition**                          |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Grid. ShowGrid**                           |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Grid. snapto Grid**                         |
+| **Othercontextmenus. microsoftdataentitydesigncontext. includerelated**                          |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Mappingdetails**                          |
+| **Othercontextmenus. microsoftdataentitydesigncontext. modelbrowser**                            |
+| **Othercontextmenus. microsoftdataentitydesigncontext. muvediagramstoseparatefile**              |
+| **Othercontextmenus. microsoftdataentitydesigncontext. muveproperties. Down**                     |
+| **Othercontextmenus. microsoftdataentitydesigncontext. muveproperties. Down5**                    |
+| **Othercontextmenus. microsoftdataentitydesigncontext. muveproperties. in Bottom**                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. muveproperties. "Top"**                    |
+| **Othercontextmenus. microsoftdataentitydesigncontext. muveproperties. up**                       |
+| **Othercontextmenus. microsoftdataentitydesigncontext. muveproperties. UP5**                      |
+| **Othercontextmenus. microsoftdataentitydesigncontext. wvetonewdiagram**                        |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Open**                                    |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Refactor. muvetonewcomplextype**           |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Refactor. rename**                         |
+| **Othercontextmenus. microsoftdataentitydesigncontext. removefromdiagram**                       |
+| **Othercontextmenus. microsoftdataentitydesigncontext. rename**                                  |
+| **Othercontextmenus. microsoftdataentitydesigncontext. scalarpropertyformat. Display Name**        |
+| **Othercontextmenus. microsoftdataentitydesigncontext. scalarpropertyformat. displaynameandtype** |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Select. BaseType**                         |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Select. Entity**                           |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Select. Property**                         |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Select. SubType**                          |
+| **Othercontextmenus. microsoftdataentitydesigncontext. SelectAll**                               |
+| **Othercontextmenus. microsoftdataentitydesigncontext. selectassociation**                       |
+| **Othercontextmenus. microsoftdataentitydesigncontext. showindiagram**                           |
+| **Othercontextmenus. microsoftdataentitydesigncontext. showinmodelbrowser**                      |
+| **Othercontextmenus. microsoftdataentitydesigncontext. storedproceduremapping**                  |
+| **Othercontextmenus. microsoftdataentitydesigncontext. TableMapping**                            |
+| **Othercontextmenus. microsoftdataentitydesigncontext. updatemodelfromdatabase**                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Validate**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 10**                                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 100**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 125**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 150**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 200**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 25**                                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 300**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 33**                                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 400**                                |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 50**                                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 66**                                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. 75**                                 |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. Custom**                             |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. ZoomIn**                             |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. ZoomOut**                            |
+| **Othercontextmenus. microsoftdataentitydesigncontext. Zoom. zoomdefit**                          |
+| **View. entitydatamodelta Browser**                                                                |
+| **View. entitydatamodelta Mappingdetails**                                                         |

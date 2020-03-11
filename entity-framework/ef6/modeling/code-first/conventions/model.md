@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
 ms.openlocfilehash: c873e9a216bd9bd1934f2149ae6af602072f3608
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656166"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415844"
 ---
 # <a name="model-based-conventions"></a>Modellbasierte Konventionen
 > [!NOTE]
@@ -83,7 +83,7 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 
 Ein weiteres komplizierteres Beispiel für modellbasierte Konventionen in Aktion besteht darin, die Art und Weise zu konfigurieren, in der unabhängige Zuordnungen (IAS) benannt werden.  Dies ist eine Situation, in der Modell Konventionen zutreffen, da IAS von EF generiert wird und nicht im Modell vorhanden ist, auf das die dbmodelbuilder-API zugreifen kann.  
 
-Wenn EF eine IA generiert, wird eine Spalte mit dem Namen EntityType_KeyName erstellt. Beispielsweise würde für eine Zuordnung mit dem Namen Customer und einer Schlüssel Spalte mit dem Namen CustomerID eine Spalte mit dem Namen Customer_CustomerId generiert. In der folgenden Konvention wird das Zeichen "\_" aus dem für die IA generierten Spaltennamen entfernt.  
+Wenn EF eine IA generiert, erstellt es eine Spalte mit dem Namen EntityType_KeyName. Beispielsweise würde für eine Zuordnung mit dem Namen Customer und einer Schlüssel Spalte mit dem Namen CustomerID eine Spalte mit dem Namen Customer_CustomerId generiert werden. In der folgenden Konvention wird das Zeichen "\_" aus dem für die IA generierten Spaltennamen entfernt.  
 
 ``` csharp
 using System.Data.Entity;

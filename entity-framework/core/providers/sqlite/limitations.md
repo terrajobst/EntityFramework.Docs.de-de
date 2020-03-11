@@ -5,11 +5,11 @@ ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
 ms.openlocfilehash: 2f80dc195265787318ac4925dd937da45ffad011
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179769"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414758"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>Einschränkungen für SQLite EF Core-Datenbankanbieter
 
@@ -19,7 +19,7 @@ Der SQLite-Anbieter hat eine Reihe von Migrations Einschränkungen. Die meisten 
 
 Die gemeinsame relationale Bibliothek (die von Entity Framework relationalen Datenbankanbietern gemeinsam verwendet wird) definiert APIs zum Modellieren von Konzepten, die für die meisten relationalen Daten Bank Engines Einige dieser Konzepte werden vom SQLite-Anbieter nicht unterstützt.
 
-* Schemata
+* Schemas
 * Sequenzen
 * Berechnete Spalten
 
@@ -32,9 +32,9 @@ SQLite unterstützt die folgenden Datentypen nicht nativ. EF Core können Werte 
 * TimeSpan
 * UInt64
 
-Anstelle von `DateTimeOffset` empfiehlt es sich, DateTime-Werte zu verwenden. Wenn Sie mehrere Zeitzonen verarbeiten, empfiehlt es sich, die Werte vor dem Speichern in die UTC zu umrechnen und dann wieder in die entsprechende Zeitzone umzuwandeln.
+Anstelle `DateTimeOffset`empfiehlt es sich, DateTime-Werte zu verwenden. Wenn Sie mehrere Zeitzonen verarbeiten, empfiehlt es sich, die Werte vor dem Speichern in die UTC zu umrechnen und dann wieder in die entsprechende Zeitzone umzuwandeln.
 
-Der `Decimal`-Typ bietet eine hohe Genauigkeit. Wenn Sie diese Genauigkeits Stufe nicht benötigen, empfiehlt sich stattdessen die Verwendung von Double. Sie können einen [Wert Konverter](../../modeling/value-conversions.md) verwenden, um in ihren Klassen weiterhin Decimal zu verwenden.
+Der `Decimal`-Typ bietet ein hohes Maß an Genauigkeit. Wenn Sie diese Genauigkeits Stufe nicht benötigen, empfiehlt sich stattdessen die Verwendung von Double. Sie können einen [Wert Konverter](../../modeling/value-conversions.md) verwenden, um in ihren Klassen weiterhin Decimal zu verwenden.
 
 ``` csharp
 modelBuilder.Entity<MyEntity>()
@@ -66,8 +66,8 @@ Die SQLite-Datenbank-Engine unterstützt keine Reihe von Schema Vorgängen, die 
 | RenameTable          | ✔          | 1.0              |
 | Ensureschema         | ✔ (No-OP)  | 2.0              |
 | DropSchema           | ✔ (No-OP)  | 2.0              |
-| Insert               | ✔          | 2.0              |
-| Update               | ✔          | 2.0              |
+| Einfügen               | ✔          | 2.0              |
+| Aktualisieren               | ✔          | 2.0              |
 | Löschen               | ✔          | 2.0              |
 
 ## <a name="migrations-limitations-workaround"></a>Problem Umgehung der Migrations Einschränkungen

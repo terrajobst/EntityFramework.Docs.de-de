@@ -1,29 +1,29 @@
 ---
-title: Verbindungszeichenfolgen und -Modelle – EF6
+title: Verbindungs Zeichenfolgen und Modelle EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 294bb138-978f-4fe2-8491-fdf3cd3c60c4
 ms.openlocfilehash: 2c9f084107e4de7f5439bf0082b46a3b538496e0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490744"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415952"
 ---
-# <a name="connection-strings-and-models"></a>Verbindungszeichenfolgen und Modelle
-Dieses Thema behandelt wie Entity Framework die, die zu verwendende datenbankverbindung ermittelt und wie Sie sie ändern können. Mit Code First und dem EF Designer erstellte Modelle, die beide in diesem Thema behandelt werden.  
+# <a name="connection-strings-and-models"></a>Verbindungs Zeichenfolgen und Modelle
+In diesem Thema wird erläutert, wie Entity Framework ermittelt, welche Datenbankverbindung verwendet werden soll, und wie Sie Sie ändern können. Die Modelle, die mit Code First und dem EF-Designer erstellt wurden, werden in diesem Thema behandelt.  
 
-Eine Entity Framework-Anwendung verwendet in der Regel eine von DbContext abgeleitete Klasse. Diese abgeleitete Klasse ruft einer der Konstruktoren für die DbContext-Basisklasse, um zu steuern:  
+In der Regel verwendet eine Entity Framework Anwendung eine von dbcontext abgeleitete Klasse. Diese abgeleitete Klasse ruft einen der Konstruktoren für die Basisklasse "dbcontext" auf, um Folgendes zu steuern:  
 
-- Wie der Kontext mit einer Datenbank hergestellt werden – gefunden "/" verwendet, also wie eine Verbindungszeichenfolge ist  
-- Unabhängig davon, ob der Kontext wird Berechnen eines Modells mit Code First oder ein Modell erstellt, mit dem EF Designer laden  
-- Zusätzliche erweiterte Optionen  
+- Wie der Kontext eine Verbindung mit einer Datenbank herstellt – d. h., wie eine Verbindungs Zeichenfolge gefunden bzw. verwendet wird  
+- Ob der Kontext das Berechnen eines Modells mithilfe von Code First oder das Laden eines Modells verwendet, das mit dem EF-Designer erstellt wurde  
+- Weitere Erweiterte Optionen  
 
-Die folgenden Fragmente zeigen, dass einige der Möglichkeiten der "DbContext"-Konstruktor verwendet werden kann.  
+Die folgenden Fragmente zeigen einige Möglichkeiten, wie die dbcontext-Konstruktoren verwendet werden können.  
 
-## <a name="use-code-first-with-connection-by-convention"></a>Code First mit Verbindung gemäß der Konvention verwenden  
+## <a name="use-code-first-with-connection-by-convention"></a>Code First mit Verbindung nach Konvention verwenden  
 
-Wenn Sie eine beliebige andere Konfiguration in Ihrer Anwendung noch nicht getan haben, verursacht die rufen Sie dann des parameterlosen Konstruktors, klicken Sie auf "DbContext", dass "DbContext" mit einer Verbindung mit Datenbank gemäß der Konvention erstellt im Code-First-Modus ausgeführt. Zum Beispiel:  
+Wenn Sie in der Anwendung keine andere Konfiguration ausgeführt haben, führt das Aufrufen des Parameter losen Konstruktors in dbcontext dazu, dass dbcontext im Code First Modus mit einer Datenbankverbindung ausgeführt wird, die von der Konvention erstellt wurde. Beispiel:  
 
 ``` csharp  
 namespace Demo.EF
@@ -38,13 +38,13 @@ namespace Demo.EF
 }
 ```  
 
-In diesem Beispiel "DbContext" verwendet einen Namespace gekennzeichneten Namen von Ihrem abgeleiteten Kontext class—Demo.EF.BloggingContext—as der Name der Datenbank und erstellt eine Verbindungszeichenfolge für diese Datenbank mit SQL Express oder LocalDB. Wenn beide installiert werden, wird SQL Express verwendet werden.  
+In diesem Beispiel verwendet dbcontext den qualifizierten Namespace Namen ihrer abgeleiteten Kontext Klasse – Demo. EF. bloggingcontext – als Datenbanknamen und erstellt eine Verbindungs Zeichenfolge für diese Datenbank mithilfe von SQL Express oder localdb. Wenn beides installiert ist, wird SQL Express verwendet.  
 
-Visual Studio 2010 enthält SQL Express, indem Sie Standard- und Visual Studio 2012 und höher umfasst LocalDB. Während der Installation überprüft EntityFramework NuGet-Paket an, welche Datenbankserver verfügbar ist. Das NuGet-Paket aktualisiert dann die Konfigurationsdatei durch Festlegen der Standarddatenbankserver, die Code First verwendet, wenn Sie eine Verbindung gemäß der Konvention zu erstellen. Wenn Sie SQL Express ausgeführt wird, wird er verwendet werden. Wenn Sie SQL Express nicht verfügbar ist wird LocalDB stattdessen als Standard registriert. In der Konfigurationsdatei werden keine Änderungen vorgenommen, wenn sie bereits über eine Einstellung für die standardverbindungsfactory enthält.  
+Visual Studio 2010 enthält standardmäßig SQL Express, und Visual Studio 2012 und höher enthalten localdb. Während der Installation überprüft das nuget-Paket "EntityFramework", welcher Datenbankserver verfügbar ist. Das nuget-Paket aktualisiert dann die Konfigurationsdatei, indem der von Code First verwendete Standarddaten Bankserver beim Erstellen einer Verbindung per Konvention festgelegt wird. Wenn SQL Express ausgeführt wird, wird es verwendet. Wenn SQL Express nicht verfügbar ist, wird localdb stattdessen als Standard registriert. An der Konfigurationsdatei werden keine Änderungen vorgenommen, wenn Sie bereits eine Einstellung für die standardverbindungsfactory enthält.  
 
-## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>Verwenden Sie Code First mit einer Verbindung von der Aufrufkonvention und der angegebene Datenbankname  
+## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>Code First mit Verbindung gemäß Konvention und angegebenem Datenbanknamen verwenden  
 
-Wenn Sie eine beliebige andere Konfiguration in Ihrer Anwendung noch nicht getan haben, bewirkt rufen Sie dann die String-Konstruktors, auf "DbContext", mit dem Datenbanknamen, die, den Sie verwenden möchten "DbContext" im Code-First-Modus ausgeführt, mit einer Verbindung mit Datenbank erstellt, die gemäß der Konvention, mit der Datenbank des, dass Dieser Name. Zum Beispiel:  
+Wenn Sie in der Anwendung keine andere Konfiguration ausgeführt haben, führt der Aufruf des zeichenfolgenkonstruktors in dbcontext mit dem Datenbanknamen, den Sie verwenden möchten, dazu, dass dbcontext in Code First Modus mit einer Datenbankverbindung ausgeführt wird, die von der Konvention für die-Datenbank erstellt wurde. Dieser Name. Beispiel:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -56,11 +56,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-In diesem Beispiel "DbContext" verwendet "BloggingDatabase" als Namen der Datenbank und erstellt eine Verbindungszeichenfolge für diese Datenbank mit SQL Express (installiert mit Visual Studio 2010) oder LocalDB (installiert mit Visual Studio 2012). Wenn beide installiert werden, wird SQL Express verwendet werden.  
+In diesem Beispiel verwendet dbcontext "bloggingdatabase" als Datenbanknamen und erstellt eine Verbindungs Zeichenfolge für diese Datenbank entweder mithilfe von SQL Express (installiert mit Visual Studio 2010) oder localdb (installiert mit Visual Studio 2012). Wenn beides installiert ist, wird SQL Express verwendet.  
 
-## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>Verwenden Sie Code First, mit der Verbindungszeichenfolge in app.config/web.config-Datei  
+## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>Verwenden Sie Code First mit der Verbindungs Zeichenfolge in der Datei app. config/Web. config.  
 
-Sie können auswählen, um eine Verbindungszeichenfolge in der Datei "App.config" oder "Web.config" einfügen. Zum Beispiel:  
+Sie können eine Verbindungs Zeichenfolge in der Datei "App. config" oder "Web. config" platzieren. Beispiel:  
 
 ``` xml  
 <configuration>
@@ -72,9 +72,9 @@ Sie können auswählen, um eine Verbindungszeichenfolge in der Datei "App.config
 </configuration>
 ```  
 
-Dies ist eine einfache Möglichkeit zum Teilen von "DbContext" einen Datenbankserver als SQL Express oder LocalDB verwenden – das obige Beispiel gibt eine SQL Server Compact Edition-Datenbank an.  
+Dies ist eine einfache Möglichkeit, dbcontext anzuweisen, einen anderen Datenbankserver als SQL Express oder localdb zu verwenden – das obige Beispiel gibt eine SQL Server Compact Edition-Datenbank an.  
 
-Wenn der Name der Verbindungszeichenfolge den Namen Ihres Kontexts (mit oder ohne namespacenennung) übereinstimmt wird dann es von "DbContext" gefunden bei der parameterlose Konstruktor verwendet wird. Wenn der Name der Verbindungszeichenfolge den Namen Ihres Kontexts unterscheidet, können Sie "DbContext", um diese Verbindung in Code First-Modus zu verwenden, indem der Name der Verbindungszeichenfolge an den "DbContext"-Konstruktor übergeben feststellen. Zum Beispiel:  
+Wenn der Name der Verbindungs Zeichenfolge mit dem Namen Ihres Kontexts übereinstimmt (entweder mit oder ohne Namespace Qualifizierung), wird er von dbcontext gefunden, wenn der Parameter lose Konstruktor verwendet wird. Wenn sich der Name der Verbindungs Zeichenfolge vom Namen Ihres Kontexts unterscheidet, können Sie dbcontext anweisen, diese Verbindung im Code First Modus zu verwenden, indem Sie den Namen der Verbindungs Zeichenfolge an den dbcontext-Konstruktor übergeben. Beispiel:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -86,7 +86,7 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Alternativ können Sie die Form "Name =\<Verbindungszeichenfolgenname\>" für die Zeichenfolge, die an den "DbContext"-Konstruktor übergeben. Zum Beispiel:  
+Alternativ können Sie das Format "Name =\<Name der Verbindungs Zeichenfolge\>" für die Zeichenfolge verwenden, die an den dbcontext-Konstruktor übergeben wird. Beispiel:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -98,13 +98,13 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Dieses Formular vereinfacht die explizite Sie erwarten, dass die Verbindungszeichenfolge in der Config-Datei gefunden werden. Wenn eine Verbindungszeichenfolge mit dem angegebenen Namen nicht gefunden wird, wird eine Ausnahme ausgelöst werden.  
+Dieses Formular macht es explizit, dass die Verbindungs Zeichenfolge in der Konfigurationsdatei zu finden ist. Eine Ausnahme wird ausgelöst, wenn keine Verbindungs Zeichenfolge mit dem angegebenen Namen gefunden wird.  
 
-## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>Datenbankmodell/erste Verbindungszeichenfolge in app.config/web.config-Datei  
+## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>Datenbank/Model First mit Verbindungs Zeichenfolge in der Datei "App. config/Web. config"  
 
-Mit dem EF Designer erstellte Modelle unterscheiden sich von Code First, darin, dass Ihr Modell bereits vorhanden und nicht aus Code generiert wird, wenn die Anwendung ausgeführt wird. Das Modell ist in der Regel als eine EDMX-Datei in Ihrem Projekt vorhanden.  
+Modelle, die mit dem EF-Designer erstellt wurden, unterscheiden sich von Code First darin, dass das Modell bereits vorhanden ist und nicht aus Code generiert wird, wenn die Anwendung ausgeführt wird Das Modell ist in der Regel als EDMX-Datei in Ihrem Projekt vorhanden.  
 
-Der Designer Fügt eine EF-Verbindungszeichenfolge zu Ihrer Datei "App.config" oder "Web.config". Diese Verbindungszeichenfolge Sonderregeln darin, dass es sich um Informationen zur Verwendung finden Sie die Informationen in der EDMX-Datei enthält. Zum Beispiel:  
+Der Designer fügt eine EF-Verbindungs Zeichenfolge zu Ihrer Datei "App. config" oder "Web. config" hinzu. Diese Verbindungs Zeichenfolge ist insofern speziell, als Sie Informationen darüber enthält, wie Sie die Informationen in der EDMX-Datei finden. Beispiel:  
 
 ``` xml  
 <configuration>  
@@ -124,7 +124,7 @@ Der Designer Fügt eine EF-Verbindungszeichenfolge zu Ihrer Datei "App.config" o
 </configuration>
 ```  
 
-Die EF-Designer generiert außerdem Code, der angibt, "DbContext", um diese Verbindung verwendet werden, indem der Name der Verbindungszeichenfolge an die "DbContext"-Konstruktor übergeben. Zum Beispiel:  
+Der EF-Designer generiert außerdem Code, der dbcontext mitteilt, dass diese Verbindung verwendet werden soll, indem der Name der Verbindungs Zeichenfolge an den dbcontext-Konstruktor übergeben wird. Beispiel:  
 
 ``` csharp  
 public class NorthwindContext : DbContext
@@ -136,13 +136,13 @@ public class NorthwindContext : DbContext
 }
 ```  
 
-DbContext weiß, um das vorhandene Modell (statt in Code berechnet mithilfe von Code First) zu laden, da die Verbindungszeichenfolge einer EF-Verbindungszeichenfolge, enthält die Details des Modells verwendet wird.  
+Dbcontext weiß, dass das vorhandene Modell geladen werden soll (anstatt Code First zu verwenden, um es aus Code zu berechnen), da die Verbindungs Zeichenfolge eine EF-Verbindungs Zeichenfolge mit Details des zu verwendenden Modells ist.  
 
-## <a name="other-dbcontext-constructor-options"></a>Andere Optionen für "DbContext"-Konstruktor  
+## <a name="other-dbcontext-constructor-options"></a>Weitere dbcontext-konstruktoroptionen  
 
-Die DbContext-Klasse enthält andere Konstruktoren und die Verwendungsmuster, die einige erweiterte Szenarios zu ermöglichen. Einige davon sind:  
+Die dbcontext-Klasse enthält andere Konstruktoren und Verwendungs Muster, die einige erweiterte Szenarien ermöglichen. Einige davon sind:  
 
-- Sie können die DbModelBuilder-Klasse verwenden, ein Code First-Modell zu erstellen, ohne einen "DbContext"-Instanz instanziieren. Das Ergebnis davon ist ein DbModel-Objekt. Sie können dieses DbModel-Objekt klicken Sie dann auf eine der "DbContext"-Konstruktoren übergeben, wenn Sie bereit sind, Ihr "DbContext"-Instanz zu erstellen.  
-- Sie können eine vollständige Verbindungszeichenfolge auf "DbContext" statt nur für die Verwendung der Datenbank oder die Verbindung Zeichenfolgenname übergeben. Standardmäßig wird diese Verbindungszeichenfolge mit den Anbieter "System.Data.SqlClient" verwendet. Dies kann geändert werden, indem Sie eine andere Implementierung der IConnectionFactory auf Kontext festlegen. Database.DefaultConnectionFactory.  
-- Sie können ein vorhandenes DbConnection-Objekt durch Übergabe an einen "DbContext"-Konstruktor verwenden. Wenn das Verbindungsobjekt eine Instanz des EntityConnection-Objekt, und klicken Sie dann das Modell in der Verbindung angegebene werden verwendet, anstatt die Berechnung eines Modells mit Code First. Wenn das Objekt eine Instanz eines anderen Typs ist – z. B. SqlConnection, der Kontext für Code First-Modus verwendet.  
-- Sie können einen vorhandenen ObjectContext an einen "DbContext"-Konstruktor zum Erstellen eines "DbContext" umschließen die vorhandene Kontextfilter übergeben. Dies kann verwendet werden für vorhandene Anwendungen, die ObjectContext verwenden, aber die "DbContext" in einige Teile der Anwendung nutzen möchten.  
+- Sie können die dbmodelbuilder-Klasse verwenden, um ein Code First Modell zu erstellen, ohne eine dbcontext-Instanz zu instanziieren. Das Ergebnis dieses Objekts ist ein dbmodel-Objekt. Sie können dieses dbmodel-Objekt dann an einen der dbcontext-Konstruktoren übergeben, wenn Sie bereit sind, die dbcontext-Instanz zu erstellen.  
+- Sie können eine vollständige Verbindungs Zeichenfolge an dbcontext übergeben, anstatt nur den Namen der Datenbank oder der Verbindungs Zeichenfolge. Diese Verbindungs Zeichenfolge wird standardmäßig mit dem System. Data. SqlClient-Anbieter verwendet. Dies kann geändert werden, indem eine andere iconnectionfactory-Implementierung auf den Kontext festgelegt wird. Database. defaultconnectionfactory.  
+- Sie können ein vorhandenes DbConnection-Objekt verwenden, indem Sie es an einen dbcontext-Konstruktor übergeben. Wenn das Verbindungs Objekt eine Instanz von EntityConnection ist, wird das in der Verbindung angegebene Modell verwendet, anstatt ein Modell mithilfe von Code First zu berechnen. Wenn das Objekt eine Instanz eines anderen Typs ist – z. b. SqlConnection –, wird der Kontext ihn für Code First Modus verwenden.  
+- Sie können einen vorhandenen ObjectContext an einen dbcontext-Konstruktor übergeben, um einen dbcontext zu erstellen, der den vorhandenen Kontext umwickelt. Dies kann für vorhandene Anwendungen verwendet werden, die ObjectContext verwenden, aber in einigen Teilen der Anwendung dbcontext nutzen möchten.  

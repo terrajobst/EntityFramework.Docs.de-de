@@ -6,13 +6,13 @@ ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/sql-server/azure-sql-database
 ms.openlocfilehash: c4f7b91110a0e700ed06130661e611cf45bee05f
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824789"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414812"
 ---
-# <a name="specifying-azure-sql-database-options"></a>Angeben von Azure SQL-Daten Bankoptionen
+# <a name="specifying-azure-sql-database-options"></a>Angeben von Azure SQL-Datenbank-Optionen
 
 >[!NOTE]
 > Diese API ist neu in EF Core 3,1.

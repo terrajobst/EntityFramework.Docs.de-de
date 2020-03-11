@@ -3,12 +3,12 @@ title: Code First zu einer vorhandenen Datenbank EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: 61980bbd1f236f496a9d4fd92aa52264f1454615
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 0a51f826422d7e2bff33b968605eace1e754c425
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182620"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415598"
 ---
 # <a name="code-first-to-an-existing-database"></a>Code First an eine vorhandene Datenbank
 Dieses Video und die schrittweise exemplarische Vorgehensweise bieten eine Einführung in Code First Entwicklung für eine vorhandene Datenbank. Mit Code First können Sie das Modell mithilfe von C\#-oder VB.NET-Klassen definieren. Optional kann eine zusätzliche Konfiguration mithilfe von Attributen in ihren Klassen und Eigenschaften oder mithilfe einer fließenden API ausgeführt werden.
@@ -28,7 +28,7 @@ Wenn Sie eine vorhandene Datenbank als Ziel haben, wird Sie in der Regel bereits
 
 Nun generieren wir die Datenbank.
 
--   Öffnen Sie Visual Studio
+-   Öffnen Sie Visual Studio.
 -   **&gt; Server-Explorer anzeigen**
 -   Klicken Sie mit der rechten Maustaste auf **Datenverbindungen,&gt; Verbindung hinzufügen...**
 -   Wenn Sie über **Server-Explorer** keine Verbindung mit einer Datenbank hergestellt haben, müssen Sie **Microsoft SQL Server** als Datenquelle auswählen.
@@ -72,19 +72,19 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 
 ## <a name="2-create-the-application"></a>2. Erstellen der Anwendung
 
-Um dies zu gewährleisten, erstellen wir eine einfache Konsolenanwendung, die Code First für den Datenzugriff verwendet:
+Um dies zu gewährleisten, wird eine einfache Konsolenanwendung erstellt, die Code First für den Datenzugriff verwendet:
 
--   Öffnen Sie Visual Studio
+-   Öffnen Sie Visual Studio.
 -   **Datei&gt; Projekt für neue&gt;...**
 -   Wählen Sie im Menü auf der linken Seite und **Konsolenanwendung** **Windows** aus.
 -   Geben Sie **codefirstexistingdatabasesample** als Name ein.
--   Wählen Sie **OK** aus.
+-   Klicken Sie auf **OK**.
 
  
 
 ## <a name="3-reverse-engineer-model"></a>3. Reverse-Engineering-Modell
 
-Wir verwenden die Entity Framework Tools für Visual Studio, um uns dabei zu unterstützen, Code zu generieren, der der Datenbank zugeordnet werden soll. Diese Tools erzeugen lediglich Code, den Sie bei Bedarf auch per Hand eingeben können.
+Wir verwenden die Entity Framework Tools für Visual Studio, um uns dabei zu unterstützen, Code zu generieren, der der Datenbank zugeordnet wird. Diese Tools erzeugen lediglich Code, den Sie bei Bedarf auch per Hand eingeben können.
 
 -   **Projekt&gt; neues Element hinzufügen...**
 -   Wählen Sie im linken Menü **Daten** aus, und klicken Sie dann auf **ADO.NET Entity Data Model**

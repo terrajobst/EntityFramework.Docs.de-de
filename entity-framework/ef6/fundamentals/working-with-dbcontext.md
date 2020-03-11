@@ -1,31 +1,31 @@
 ---
-title: Arbeiten mit "DbContext" - EF6
+title: Arbeiten mit dbcontext-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b0e6bddc-8a87-4d51-b1cb-7756df938c23
 ms.openlocfilehash: d961ffd8bed7f5b2f82dcfa30fc0241b7437be50
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489062"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413882"
 ---
-# <a name="working-with-dbcontext"></a>Arbeiten mit "DbContext"
+# <a name="working-with-dbcontext"></a>Arbeiten mit DbContext
 
-Um Entity Framework zum Abfragen, einfügen, aktualisieren und Löschen von Daten mithilfe von .NET-Objekten verwenden, müssen Sie zuerst [erstellen Sie ein Modell](~/ef6/modeling/index.md) der zugeordnet werden, die Entitäten und Beziehungen, die in Ihrem Modell, Tabellen in einer Datenbank definiert sind.
+Um Entity Framework zum Abfragen, einfügen, aktualisieren und Löschen von Daten mithilfe von .NET-Objekten verwenden zu können, müssen Sie zunächst [ein Modell erstellen](~/ef6/modeling/index.md) , das die im Modell definierten Entitäten und Beziehungen den Tabellen in einer Datenbank zuordnet.
 
-Sobald Sie ein Modell verfügen, ist die primäre Klasse, die Ihre Anwendung interagiert mit `System.Data.Entity.DbContext` (häufig als der Context-Klasse bezeichnet). Sie können einen "DbContext", die ein Modell zugeordnet sind:
+Sobald Sie über ein Modell verfügen, wird die primäre Klasse, mit der Ihre Anwendung interagiert, `System.Data.Entity.DbContext` (häufig als Kontext Klasse bezeichnet). Sie können einen mit einem Modell verknüpften dbcontext für Folgendes verwenden:
 - Schreiben und Ausführen von Abfragen   
-- Abfrageergebnisse als Entitätsobjekte zu materialisieren.
-- Nachverfolgen von Änderungen, die mit diesen Objekten vorgenommen werden
-- Speichern von objektänderungen an die Datenbank
-- Binden von Objekten im Arbeitsspeicher, an der UI-Steuerelemente
+- Materialisieren von Abfrage Ergebnissen als Entitäts Objekte
+- An diesen Objekten vorgenommene Änderungen nachverfolgen
+- Objektänderungen in der Datenbank beibehalten
+- Binden von Objekten im Arbeitsspeicher an UI-Steuerelemente
 
-Diese Seite bietet hilfreiche Informationen zur Verwaltung der Context-Klasse.  
+Diese Seite enthält eine Anleitung zum Verwalten der Kontext Klasse.  
 
-## <a name="defining-a-dbcontext-derived-class"></a>Definieren einer Klasse "DbContext" abgeleitet  
+## <a name="defining-a-dbcontext-derived-class"></a>Definieren einer von dbcontext abgeleiteten Klasse  
 
-Die empfohlene Methode zum Arbeiten mit Kontext ist eine Klasse definiert, die von "DbContext" abgeleitet und stellt "DbSet"-Eigenschaften, die Auflistungen der angegebenen Entitäten im Kontext darstellen. Wenn Sie mit dem EF Designer arbeiten, wird der Kontext für Sie generiert. Wenn Sie mit Code First arbeiten, werden Sie in der Regel den Kontext selbst schreiben.  
+Die empfohlene Vorgehensweise, um mit Kontext zu arbeiten, besteht darin, eine Klasse zu definieren, die von dbcontext abgeleitet ist und dbset-Eigenschaften verfügbar macht, die Sammlungen der angegebenen Entitäten im Kontext darstellen. Wenn Sie mit dem EF-Designer arbeiten, wird der Kontext für Sie generiert. Wenn Sie mit Code First arbeiten, schreiben Sie den Kontext in der Regel selbst.  
 
 ``` csharp
 public class ProductContext : DbContext
@@ -35,16 +35,16 @@ public class ProductContext : DbContext
 }
 ```  
 
-Nachdem Sie einen Kontext haben, würden Sie für Abfragen, hinzufügen (mithilfe von `Add` oder `Attach` Methoden) oder zu entfernen (mit `Remove`) Entitäten im Zusammenhang mit diesen Eigenschaften. Zugreifen auf eine `DbSet` Eigenschaft auf ein Context-Objekt darstellt, eine Startabfrage, die alle Entitäten des angegebenen Typs zurückgibt. Beachten Sie, dass nur Zugriff auf eine Eigenschaft der Abfrage nicht ausgeführt werden soll. Abfrage wird ausgeführt, wenn:  
+Wenn Sie über einen Kontext verfügen, können Sie über diese Eigenschaften Abfragen, hinzufügen (mit `Add` oder `Attach` Methoden) oder (mithilfe von `Remove`) Entitäten im Kontext entfernen. Der Zugriff auf eine `DbSet`-Eigenschaft für ein Kontext Objekt stellt eine Start Abfrage dar, die alle Entitäten des angegebenen Typs zurückgibt. Beachten Sie, dass beim Zugreifen auf eine Eigenschaft die Abfrage nicht ausgeführt wird. Eine Abfrage wird ausgeführt, wenn Folgendes gilt:  
 
 - Sie wird durch eine `foreach` (C#)-Anweisung oder eine `For Each` (Visual Basic)-Anweisung aufgezählt.  
-- Es aufgezählt wird durch einen Auflistungsvorgang z. B. `ToArray`, `ToDictionary`, oder `ToList`.  
-- LINQ-Operatoren, z. B. `First` oder `Any` im äußersten Teil der Abfrage angegeben sind.  
-- Eine der folgenden Methoden aufgerufen werden: die `Load` Erweiterungsmethode `DbEntityEntry.Reload`, `Database.ExecuteSqlCommand`, und `DbSet<T>.Find`, wenn eine Entität mit dem angegebenen Schlüssel nicht bereits geladen, im Kontext gefunden wird.  
+- Sie wird durch einen Auflistungs Vorgang, z. b. `ToArray`, `ToDictionary`oder `ToList`, aufgezählt.  
+- LINQ-Operatoren, wie z. b. `First` oder `Any`, werden im äußersten Teil der Abfrage angegeben.  
+- Eine der folgenden Methoden wird aufgerufen: die `Load`-Erweiterungsmethode, `DbEntityEntry.Reload`, `Database.ExecuteSqlCommand`und `DbSet<T>.Find`, wenn eine Entität mit dem angegebenen Schlüssel nicht gefunden wurde, die bereits im Kontext geladen wurde.  
 
-## <a name="lifetime"></a>Lebensdauer  
+## <a name="lifetime"></a>Gültigkeitsdauer  
 
-Die Lebensdauer des Kontexts beginnt, wenn die Instanz erstellt wird, und endet, wenn die Instanz freigegeben oder Garbage Collection durchgeführt wird. Verwendung **mit** sollten Sie alle Ressourcen, die vom Kontext gesteuerten am Ende des Blocks freigegeben werden. Bei Verwendung von **mit**, erstellt der Compiler automatisch einen Try/finally-Block und ruft dispose im der **schließlich** Block.  
+Die Lebensdauer des Kontexts beginnt, wenn die Instanz erstellt wird, und endet, wenn die Instanz entweder verworfen oder Garbage Collection durchgeführt wird. Verwenden Sie **die Verwendung von, wenn alle** Ressourcen, die die Kontext Steuerelemente haben, am Ende des Blocks verworfen werden sollen. Wenn Sie **mit**verwenden, erstellt der Compiler automatisch einen try/after-Block und ruft **die Freigabe im letzten Block auf** .  
 
 ``` csharp
 public void UseProducts()
@@ -56,20 +56,20 @@ public void UseProducts()
 }
 ```  
 
-Hier sind einige allgemeinen Richtlinien, bei der Entscheidung über die Lebensdauer des Kontexts:  
+Im folgenden finden Sie einige allgemeine Richtlinien für die Entscheidung über die Lebensdauer des Kontexts:  
 
-- Verwenden Sie bei der Arbeit mit Webanwendungen eine Context-Instanz pro Anforderung.  
-- Verwenden Sie bei der Arbeit mit Windows Presentation Foundation (WPF) oder Windows Forms eine Kontextinstanz pro Formular. Dadurch können Sie die änderungsnachverfolgung zurückgreifen, Kontext bereitstellt.  
-- Wenn die Context-Instanz, die von einem Dependency Injection-Container erstellt wird, ist es in der Regel die Verantwortung für den Container, den Kontext zu verwerfen.
-- Wenn der Kontext im Anwendungscode erstellt wird, müssen Sie Kontext freigeben, wenn es nicht mehr benötigt wird.  
-- Beim Arbeiten mit lang andauernden Kontext Folgendes:  
-    - Wenn Sie weitere Objekte und ihre Verweise in den Arbeitsspeicher laden, kann die arbeitsspeichernutzung der den Kontext schnell erhöhen. Dies kann zu Leistungseinbußen führen.  
-    - Der Kontext ist nicht threadsicher, sollte daher nicht über mehrere Threads gleichzeitig Arbeit für sie freigegeben werden.
-    - Wenn eine Ausnahme bewirkt, den Kontext dass, der nicht wiederhergestellt werden, kann die gesamte Anwendung beendet.  
+- Verwenden Sie bei der Arbeit mit Webanwendungen eine Kontext Instanz pro Anforderung.  
+- Verwenden Sie beim Arbeiten mit Windows Presentation Foundation (WPF) oder Windows Forms eine Kontext Instanz pro Formular. Auf diese Weise können Sie Funktionen zur Änderungs Nachverfolgung verwenden, die der Kontext bereitstellt.  
+- Wenn die Kontext Instanz von einem Container für die Abhängigkeitsinjektion erstellt wird, liegt es in der Regel in der Verantwortung des Containers, den Kontext zu verwerfen.
+- Wenn der Kontext im Anwendungscode erstellt wird, sollten Sie den Kontext verwerfen, wenn er nicht mehr benötigt wird.  
+- Beim Arbeiten mit einem Kontext mit langer Ausführungszeit sollten Sie Folgendes beachten:  
+    - Wenn Sie weitere Objekte und ihre Verweise in den Arbeitsspeicher laden, kann sich die Arbeitsspeicher Nutzung des Kontexts schnell erhöhen. Dies kann zu Leistungseinbußen führen.  
+    - Der Kontext ist nicht Thread sicher und sollte daher nicht für mehrere Threads freigegeben werden, die gleichzeitig daran arbeiten.
+    - Wenn eine Ausnahme bewirkt, dass sich der Kontext in einem nicht wiederherstellbaren Zustand befindet, kann die gesamte Anwendung beendet werden.  
     - Je größer der zeitliche Abstand zwischen der Abfrage der Daten und ihrer Aktualisierung, desto höher ist die Wahrscheinlichkeit, dass Parallelitätsprobleme auftreten.  
 
 ## <a name="connections"></a>Verbindungen  
 
-Standardmäßig wird der Kontext Verbindungen mit der Datenbank verwaltet. Der Kontext wird geöffnet und schließt Verbindungen nach Bedarf. Beispielsweise wird der Kontext öffnet eine Verbindung zum Ausführen einer Abfrage und schließt dann die Verbindung aus, wenn alle Resultsets verarbeitet wurden.  
+Standardmäßig verwaltet der Kontext Verbindungen mit der Datenbank. Der Kontext wird geöffnet und schließt die Verbindungen nach Bedarf. Der Kontext öffnet z. b. eine Verbindung, um eine Abfrage auszuführen, und schließt dann die Verbindung, wenn alle Resultsets verarbeitet wurden.  
 
-In bestimmten Fällen ist es erforderlich, den Zeitpunkt für das Öffnen und Schließen der Verbindung genauer zu steuern. Beispielsweise wird bei der Arbeit mit SQL Server Compact oft empfohlen, eine separate offene Verbindung zur Datenbank für die Lebensdauer der Anwendung zur Verbesserung der Leistung zu verwalten. Mit der `Connection`-Eigenschaft können Sie diesen Vorgang manuell steuern.  
+In bestimmten Fällen ist es erforderlich, den Zeitpunkt für das Öffnen und Schließen der Verbindung genauer zu steuern. Wenn Sie z. b. mit SQL Server Compact arbeiten, wird häufig empfohlen, für die Lebensdauer der Anwendung eine separate offene Verbindung mit der Datenbank beizubehalten, um die Leistung zu verbessern. Mit der `Connection`-Eigenschaft können Sie diesen Vorgang manuell steuern.  

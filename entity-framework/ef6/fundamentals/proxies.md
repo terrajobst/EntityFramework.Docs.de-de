@@ -1,21 +1,21 @@
 ---
-title: Arbeiten mit Proxys - EF6
+title: Arbeiten mit Proxys EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 869ee4dc-06f1-471d-8e0e-0a1a2bc59c30
 ms.openlocfilehash: 8f7d2e8b41ece28efe8d1df3b0679e6e4510d64a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489816"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415988"
 ---
-# <a name="working-with-proxies"></a>Arbeiten mit Proxys in
-Wenn Sie Instanzen von Typen, POCO-Entität zu erstellen, erstellt Entity Framework häufig Instanzen eines dynamisch generierten abgeleiteten Typs, das fungiert als Proxy für die Entität. Dieser Proxy überschreibt einige virtuelle Eigenschaften der Entität zum Einfügen von Hooks für Aktionen automatisch ausgeführt, wenn die Eigenschaft zugegriffen wird. Beispielsweise wird dieser Mechanismus verwendet, lazy Loading von Beziehungen unterstützt. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
+# <a name="working-with-proxies"></a>Arbeiten mit Proxys
+Beim Erstellen von Instanzen von poco-Entitäts Typen erstellt Entity Framework häufig Instanzen eines dynamisch generierten abgeleiteten Typs, der als Proxy für die Entität fungiert. Dieser Proxy überschreibt einige virtuelle Eigenschaften der Entität, um beim Zugriff auf die Eigenschaft automatisch Hooks zum Ausführen von Aktionen einzufügen. Dieser Mechanismus wird z. b. verwendet, um Lazy Loading von Beziehungen zu unterstützen. Die in diesem Thema dargestellten Techniken gelten jeweils für Modelle, die mit Code First und dem EF-Designer erstellt wurden.  
 
-## <a name="disabling-proxy-creation"></a>Deaktivieren die Erstellung von Proxys  
+## <a name="disabling-proxy-creation"></a>Proxy Erstellung wird deaktiviert.  
 
-Manchmal ist es hilfreich, um zu verhindern, dass Entity Framework-Proxyinstanzen erstellen. Beispielsweise ist das Serialisieren von nicht-Proxyinstanzen erheblich einfacher als das Serialisieren von Proxyinstanzen. Erstellung von Proxys kann deaktiviert werden, indem Sie das Flag ProxyCreationEnabled deaktivieren. Zentral dies möglich wäre, wird im Konstruktor Ihres Kontexts. Zum Beispiel:  
+Manchmal ist es hilfreich, die Erstellung von Proxy Instanzen durch Entity Framework zu verhindern. Beispielsweise ist das Serialisieren von nicht-Proxy Instanzen erheblich einfacher als das Serialisieren von Proxy Instanzen. Die Proxy Erstellung kann deaktiviert werden, indem das Flag "proxyroationaktivierte" gelöscht wird. Ein Ort, an dem Sie dies vornehmen können, ist der Konstruktor Ihres Kontexts. Beispiel:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -30,11 +30,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Beachten Sie, dass EF keine Proxys für Typen erstellt werden, wenn vorhanden "nothing" für den Proxy ist zu tun. Dies bedeutet, dass Sie auch Proxys vermeiden können, indem Sie die Typen, die sind versiegelt und/oder verfügen über keine virtuellen Eigenschaften.  
+Beachten Sie, dass EF keine Proxys für Typen erstellt, bei denen es für den Proxy nichts gibt. Dies bedeutet, dass Sie Proxys auch vermeiden können, wenn Sie über Typen verfügen, die versiegelt sind und/oder keine virtuellen Eigenschaften haben.  
 
-## <a name="explicitly-creating-an-instance-of-a-proxy"></a>Erstellen explizit eine Instanz eines Proxys  
+## <a name="explicitly-creating-an-instance-of-a-proxy"></a>Explizites Erstellen einer Instanz eines Proxys  
 
-Eine Proxyinstanz wird nicht erstellt werden, wenn Sie eine Instanz einer Entität mit dem neuen Operator erstellen. Dies eventuell nicht möglich, ein Problem, aber wenn müssen Sie eine Proxyinstanz erstellen (z. B. so, dass lazy Loading oder einem Proxyserver änderungsnachverfolgung funktionieren) klicken Sie dann erreichen Sie dies mit der Create-Methode von "DbSet". Zum Beispiel:  
+Eine Proxy Instanz wird nicht erstellt, wenn Sie mithilfe des new-Operators eine Instanz einer Entität erstellen. Dies ist möglicherweise kein Problem, aber wenn Sie eine Proxy Instanz erstellen müssen (z. b., damit Lazy Loading oder Proxy Änderungs Nachverfolgung funktioniert), können Sie dies mithilfe der Create-Methode von dbset tun. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -43,7 +43,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Die generische Version erstellen kann verwendet werden, wenn Sie eine Instanz eines abgeleiteten Entitätstyps erstellen möchten. Zum Beispiel:  
+Die generische Version von CREATE kann verwendet werden, wenn Sie eine Instanz eines abgeleiteten Entitäts Typs erstellen möchten. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,17 +52,17 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass die Create-Methode nicht hinzufügen oder die erstellte Entität in den Kontext angefügt.  
+Beachten Sie, dass die erstellte Entität durch die Create-Methode nicht dem Kontext hinzugefügt oder angefügt wird.  
 
-Beachten Sie, dass die Create-Methode erstellen Sie einen Proxytyp für die Entität nur eine Instanz des Entitätstyps selbst erstellen müssten kein Wert aus, da es keine Wirkung würden. Z. B. wenn der Typ versiegelt ist, und/oder verfügt über keine virtuellen Eigenschaften erstellt erstellen einfach eine Instanz des Entitätstyps dann.  
+Beachten Sie, dass die Create-Methode nur eine Instanz des Entitäts Typs selbst erstellt, wenn das Erstellen eines Proxytyps für die Entität keinen Wert hätte, weil Sie nichts Unternehmen würde. Wenn der Entitätstyp z. b. versiegelt ist und/oder keine virtuellen Eigenschaften aufweist, erstellt Create lediglich eine Instanz des Entitäts Typs.  
 
-## <a name="getting-the-actual-entity-type-from-a-proxy-type"></a>Abrufen des tatsächlichen Entitätstyps von einem Proxytyp  
+## <a name="getting-the-actual-entity-type-from-a-proxy-type"></a>Der tatsächliche Entitätstyp wird von einem Proxytyp erhalten.  
 
-Proxytypen haben Namen, die etwa wie folgt aussehen:  
+Proxy Typen haben Namen, die in etwa wie folgt aussehen:  
 
-System.Data.Entity.DynamicProxies.Blog_5E43C6C196972BF0754973E48C9C941092D86818CD94005E9A759B70BF6E48E6  
+System. Data. Entity. dynamicproxies. Blog_5E43C6C196972BF0754973E48C9C941092D86818CD94005E9A759B70BF6E48E6  
 
-Sie finden den Entitätstyp mithilfe der GetObjectType hat-Methode von ObjectContext für diesen Proxy. Zum Beispiel:  
+Sie können den Entitätstyp für diesen Proxytyp mithilfe der getObjectType-Methode von ObjectContext suchen. Beispiel:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -72,4 +72,4 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Beachten Sie, dass wenn der Typ an GetObjectType hat übergeben einer Instanz eines Entitätstyps, die nicht auf einen Proxytyp klicken Sie dann den Typ der Entität ist, wird weiterhin zurückgegeben. Dies bedeutet, dass Sie diese Methode immer verwenden können, um der tatsächliche Typ zu erhalten, ohne eine andere Überprüfung um festzustellen, ob der Typ einen Proxytyp oder nicht ist.  
+Beachten Sie Folgendes: Wenn der an getObjectType weiter gegebene Typ eine Instanz eines Entitäts Typs ist, der kein Proxytyp ist, wird der Entitätstyp weiterhin zurückgegeben. Dies bedeutet, dass Sie immer diese Methode verwenden können, um den eigentlichen Entitätstyp ohne andere zu überprüfen, um festzustellen, ob es sich bei dem Typ um einen Proxytyp handelt.  
