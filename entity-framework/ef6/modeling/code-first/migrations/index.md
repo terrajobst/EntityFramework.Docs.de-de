@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
 ms.openlocfilehash: e5a91af73bab9d45b0f1f4242ce503c6b6f407f6
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668699"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413305"
 ---
 # <a name="code-first-migrations"></a>Code First-Migrationen
 Code First-Migrationen ist die empfohlene Methode, das Datenbankschema einer Anwendung weiterzuentwickeln, wenn Sie den Code First-Workflow verwenden. Code First-Migrationen stellt eine Reihe von Tools bereit, mit denen Sie folgende Aktionen ausführen können:
@@ -96,7 +96,7 @@ Im Folgenden erfahren Sie, wie Sie weitere Änderungen am Modell vornehmen.
     public string Url { get; set; }
 ```
 
-Wenn Sie zu diesem Zeitpunkt die Anwendung erneut ausführen würden, würden Sie die Ausnahme „InvalidOperationException“ mit folgendem Text erhalten: *The model backing the 'BlogContext' context has changed since the database was created. Consider using Code First Migrations to update the database (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269)*) (Das Modell, das den Kontext „BlogContext“ unterstützt, wurde seit der Erstellung der Datenbank verändert. Verwenden Sie Code First-Migrationen, um die Datenbank zu aktualisieren).*
+Wenn Sie zu diesem Zeitpunkt die Anwendung erneut ausführen würden, würden Sie die Ausnahme „InvalidOperationException“ mit folgendem Text erhalten: *The model backing the 'BlogContext' context has changed since the database was created. Consider using Code First Migrations to update the database (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *) (Das Modell, das den Kontext „BlogContext“ unterstützt, wurde seit der Erstellung der Datenbank verändert. Verwenden Sie Code First-Migrationen, um die Datenbank zu aktualisieren.).*
 
 Beginnen Sie daher mit der Verwendung von Code First-Migrationen. Aktivieren Sie dafür zunächst Migrationen für den Kontext.
 
@@ -298,7 +298,7 @@ Verwenden Sie zum Zurücksetzen auf eine leere Datenbank den Befehl **Update-Dat
 
 Andere Entwickler können diese Änderungen auf ihren Computer übertragen, indem sie eine Synchronisierung durchführen, nachdem Sie die Änderungen in die Quellcodeverwaltung eingecheckt haben. Sobald die neuen Migrationen bei ihnen angekommen sind, müssen sie nur noch den Befehl „Update-Database“ ausführen, um die Änderungen lokal zu übernehmen. Wenn Sie jedoch diese Änderungen auf einen Testserver und eventuell zur Produktion weiterleiten möchten, benötigen Sie vermutlich ein SQL-Skript, das Sie an den DBA übergeben können.
 
--   Führen Sie den Befehl **Update-Database** aus, doch geben Sie dieses Mal das Flag **–Script** an, damit die Änderungen nicht übernommen, sondern in ein Skript geschrieben werden. Geben Sie zudem eine Quell- und Zielmigration an, für die das Skript generiert werden soll. Das Skript sollte von einer leeren Datenbank (**$InitialDatabase**) bis zur neuesten Version (**AddPostAbstract**-Migration) reichen.
+-   Führen Sie den Befehl **Update-Database** aus, doch geben Sie dieses Mal das Flag **–Script** an, damit die Änderungen nicht übernommen, sondern in ein Skript geschrieben werden. Geben Sie zudem eine Quell- und Zielmigration an, für die das Skript generiert werden soll. Das Skript sollte von einer leeren Datenbank ( **$InitialDatabase**) bis zur neuesten Version (**AddPostAbstract**-Migration) reichen.
     *Wenn Sie keine Zielmigration angeben, verwendet Code First-Migrationen die neueste Migration als Ziel. Wenn Sie keine Quellmigrationen angeben, verwendet Code First-Migrationen den aktuellen Zustand der Datenbank.*
 -   Führen Sie den Befehl **Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract** in der Paket-Manager-Konsole aus.
 

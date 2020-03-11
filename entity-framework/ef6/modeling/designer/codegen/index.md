@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
 ms.openlocfilehash: e4e99a86e7c273682c85eba06042af9a2a837d12
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283861"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413285"
 ---
 # <a name="designer-code-generation-templates"></a>Designer-Vorlagen für die Codegenerierung
 Bei der Erstellung eines Modells mit dem Entity Framework Designer werden die Klassen und der abgeleitete Kontext automatisch für Sie generiert. Zusätzlich zur Standardcodegenerierung bieten wir auch verschiedene Vorlagen, mit denen sich der generierte Code anpassen lässt. Diese Vorlagen werden als T4-Textvorlagen bereitgestellt und sind daher bei Bedarf anpassbar.
@@ -30,11 +30,11 @@ Die folgenden Vorlagen werden vom Entity Framework-Team bereitgestellt:
 
 Mit dieser Vorlage werden einfache POCO-Entitätsklassen und ein Kontext generiert, der mit EF6 von DbContext abgeleitet wird.
 Dies ist die empfohlene Vorlage, es sei denn, Sie haben einen Grund, eine der anderen unten aufgeführten Vorlagen zu verwenden.
-Dies ist auch die Codegenerierungsvorlage, die Sie standardmäßig erhalten, wenn Sie neuere Versionen von Visual Studio verwenden (Visual Studio 2013 oder höher): Wenn Sie ein neues Modell erstellen, wird diese Vorlage standardmäßig verwendet, und die T4-Dateien (.tt) werden unter der EDMX-Datei geschachtelt.
+Es handelt sich auch um eine Vorlage zur Codegenerierung, die Sie standardmäßig erhalten, wenn Sie neuere Versionen von Visual Studio verwenden (ab Visual Studio 2013): Wenn Sie ein neues Modell erstellen, wird diese Vorlage standardmäßig verwendet, und die T4-Dateien (.tt) werden unter der EDMX-Datei geschachtelt.
 
 #### <a name="older-versions-of-visual-studio"></a>Ältere Visual Studio-Versionen
-- **Visual Studio 2012:** Um die **EF 6.x DbContext Generator**-Vorlagen abzurufen, müssen Sie die neuesten **Entity Framework Tools für Visual Studio** installieren. Weitere Informationen finden Sie auf der Seite [Get Entity Framework](~/ef6/fundamentals/install.md) (Beziehen von Entity Framework).
-- **Visual Studio 2010:** Die **EF 6.x DbContext Generator**-Vorlagen sind für Visual Studio 2010 nicht verfügbar.
+- **Visual Studio 2012:** Sie müssen die neuesten **Entity Framework Tools für Visual Studio** installieren, um die **EF 6.x-DbContextGenerator**-Vorlagen abzurufen. Weitere Informationen finden Sie auf der Seite [Herunterladen von Entity Framework](~/ef6/fundamentals/install.md).
+- **Visual Studio 2010:** Die **EF 6.x-DbContextGenerator**-Vorlagen sind für Visual Studio 2010 nicht verfügbar.
 
 #### <a name="dbcontext-generator-for-ef-5x"></a>DbContext Generator für EF 5.x
 
@@ -159,15 +159,15 @@ Wenn Sie die Vorlage, die Sie verwenden möchten, bereits installiert haben (ode
 
 Wenn Sie die Vorlage noch nicht installiert haben, klicken Sie im linken Menü auf **Online**, und suchen Sie nach der gewünschten Vorlage.
 
-![Suchen](~/ef6/media/search.png) 
+![Suchen](~/ef6/media/search.png) 
 
 Wenn Sie Visual Studio 2012 verwenden, werden die neue TT-Dateien unter der EDMX-Datei geschachtelt.*
 
 > [!NOTE]
-> Bei Modellen, die in Visual Studio 2012 erstellt wurden, müssen Sie die für die Standardcodegenerierung verwendeten Vorlagen löschen. Andernfalls werden doppelte Klassen und Kontexte generiert. Die Standarddateien sind **&lt;Modellname&gt;.tt** und **&lt;Modellname&gt;.context.tt**. 
+> Bei Modellen, die in Visual Studio 2012 erstellt wurden, müssen Sie die für die Standardcodegenerierung verwendeten Vorlagen löschen. Andernfalls werden doppelte Klassen und Kontexte generiert. Die Standarddateien sind **&lt;Modellname&gt;.tt** und **&lt;Modellname&gt;.context.tt**. 
 
 ![VS2012-Vorlagen](~/ef6/media/vs2012-templates.png)
 
-Wenn Sie Visual Studio 2010 verwenden, werden die TT-Dateien direkt zu Ihrem Projekt hinzugefügt.  
+Wenn Sie Visual Studio 2010 verwenden, werden die TT-Dateien direkt zu Ihrem Projekt hinzugefügt.  
 
 ![VS2010-Vorlagen](~/ef6/media/vs2010-templates.png)
