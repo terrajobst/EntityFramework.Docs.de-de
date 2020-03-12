@@ -1,37 +1,37 @@
 ---
-title: 'Portieren von EF6 auf EF Core portieren eines Code basierten Modells: EF'
+title: 'Portieren von EF6 auf EF Core: Portieren eines codebasierten Modells'
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 2dce1a50-7d84-4856-abf6-2763dd9be99d
 uid: efcore-and-ef6/porting/port-code
 ms.openlocfilehash: 0a99eac2091c07d8bcf7d4e5e4bdc2afcaeee810
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
-ms.translationtype: MT
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181214"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413858"
 ---
-# <a name="porting-an-ef6-code-based-model-to-ef-core"></a>Portieren eines EF6-Code basierten Modells auf EF Core
+# <a name="porting-an-ef6-code-based-model-to-ef-core"></a>Portieren eines codebasierten EF6-Modells auf EF Core
 
-Wenn Sie alle Vorsichtsmaßnahmen gelesen haben und Sie zum Portieren bereit sind, finden Sie hier einige Richtlinien, die Ihnen den Einstieg erleichtern.
+Wenn Sie alle wichtigen Hinweise gelesen haben und bereit für die Portierung sind, finden Sie hier einige Richtlinien für den Anfang.
 
-## <a name="install-ef-core-nuget-packages"></a>Installieren von EF Core nuget-Paketen
+## <a name="install-ef-core-nuget-packages"></a>Installieren von EF Core-NuGet-Paketen
 
-Um EF Core zu verwenden, installieren Sie das nuget-Paket für den Datenbankanbieter, den Sie verwenden möchten. Wenn Sie z. b. auf SQL Server abzielen, würden Sie `Microsoft.EntityFrameworkCore.SqlServer` installieren. Weitere Informationen finden Sie unter [Datenbankanbieter](../../core/providers/index.md) .
+Installieren Sie das NuGet-Paket für den gewünschten Datenbankanbieter, um EF Core zu verwenden. Wenn Sie SQL Server nutzen möchten, würden Sie beispielsweise `Microsoft.EntityFrameworkCore.SqlServer` installieren. Weitere Informationen finden Sie unter [Datenbankanbieter](../../core/providers/index.md).
 
 Wenn Sie beabsichtigen, Migrationen zu verwenden, sollten Sie auch das `Microsoft.EntityFrameworkCore.Tools`-Paket installieren.
 
-Es ist in Ordnung, das EF6 nuget-Paket (EntityFramework) installiert zu lassen, da EF Core und EF6 parallel in der gleichen Anwendung verwendet werden können. Wenn Sie jedoch nicht beabsichtigen, EF6 in einem Bereich Ihrer Anwendung zu verwenden, kann das Deinstallieren des Pakets dabei helfen, Kompilier Fehler für Code Elemente zu erhalten, die eine Aufmerksamkeit erfordern.
+Sie müssen das EF6-NuGet-Paket (EntityFramework) nicht deinstallieren, da EF Core und EF6 parallel in derselben Anwendung verwendet werden können. Wenn Sie jedoch nicht beabsichtigen, EF6 in Ihrer Anwendung zu verwenden, kann das Deinstallieren des Pakets dazu beitragen, dass nur zu den Codebestandteilen Kompilierfehler ausgegeben werden, die wirklich Ihre Aufmerksamkeit erfordern.
 
-## <a name="swap-namespaces"></a>Namespaces austauschen
+## <a name="swap-namespaces"></a>Austauschen von Namespaces
 
-Die meisten APIs, die Sie in EF6 verwenden, sind im `System.Data.Entity`-Namespace (und den zugehörigen Subnamespaces) enthalten. Die erste Codeänderung besteht darin, den `Microsoft.EntityFrameworkCore`-Namespace auszutauschen. In der Regel beginnen Sie mit der abgeleiteten Kontext Codedatei und können dann von dort aus arbeiten, um Kompilierungsfehler zu beheben, sobald sie auftreten.
+Die meisten APIs, die Sie in EF6 verwenden, befinden sich im `System.Data.Entity`-Namespace (und in den zugehörigen Subnamespaces). Die erste Codeänderung besteht darin, den Namespace durch `Microsoft.EntityFrameworkCore` auszutauschen. In der Regel beginnen Sie mit der Codedatei, die den abgeleiteten Kontext enthält, und arbeiten von dort aus weiter, um Kompilierungsfehler zu beheben, sobald diese auftreten.
 
-## <a name="context-configuration-connection-etc"></a>Kontext Konfiguration (Verbindung usw.)
+## <a name="context-configuration-connection-etc"></a>Kontextkonfiguration (z. B. Verbindungen)
 
-Wie unter [sicherstellen, dass EF Core für Ihre Anwendung funktioniert](ensure-requirements.md), hat EF Core weniger Magie im Hinblick auf das Erkennen der Datenbank, mit der eine Verbindung hergestellt werden soll. Sie müssen die `OnConfiguring`-Methode in Ihrem abgeleiteten Kontext überschreiben und die Datenbankanbieter spezifische API verwenden, um die Verbindung mit der Datenbank einzurichten.
+Wie unter [Portieren von EF 6 nach EF Core](ensure-requirements.md) beschrieben wird, ist EF Core beim Erkennen der Datenbank, mit der eine Verbindung hergestellt werden soll, weniger eigenständig. Sie müssen die `OnConfiguring`-Methode in Ihrem abgeleiteten Kontext überschreiben und die datenbankanbieterspezifische API verwenden, um die Verbindung mit der Datenbank einzurichten.
 
-In den meisten EF6-Anwendungen wird die Verbindungs Zeichenfolge in der Anwendung `App/Web.config` gespeichert. In EF Core lesen Sie diese Verbindungs Zeichenfolge mit der `ConfigurationManager`-API. Sie müssen möglicherweise auf die Framework-Assembly `System.Configuration` verweisen, um diese API verwenden zu können.
+In den meisten EF6-Anwendungen wird die Verbindungszeichenfolge in der Anwendungsdatei `App/Web.config` gespeichert. In EF Core wird diese Verbindungszeichenfolge mit der `ConfigurationManager`-API gelesen. Möglicherweise müssen Sie einen Verweis auf die Frameworkassembly `System.Configuration` hinzufügen, damit diese API verwendet werden kann.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -48,14 +48,14 @@ public class BloggingContext : DbContext
 
 ## <a name="update-your-code"></a>Aktualisieren Ihres Codes
 
-An dieser Stelle ist es wichtig, Kompilierungsfehler zu beheben und Code zu überprüfen, um festzustellen, ob sich die Verhaltensänderungen auf Sie auswirken.
+An dieser Stelle ist es wichtig, Kompilierfehler zu beheben und ein Code Review durchzuführen, um festzustellen, ob die Verhaltensänderungen eine Auswirkung zeigen.
 
 ## <a name="existing-migrations"></a>Vorhandene Migrationen
 
-Es ist nicht wirklich möglich, vorhandene EF6-Migrationen auf EF Core zu portieren.
+Es gibt derzeit keine umsetzbare Möglichkeit, vorhandene EF6-Migrationen auf EF Core zu portieren.
 
-Wenn möglich, sollten Sie davon ausgehen, dass alle vorherigen Migrationen von EF6 auf die Datenbank angewendet wurden und dann EF Core mit der Migration des Schemas von diesem Punkt aus beginnen. Dazu verwenden Sie den Befehl "`Add-Migration`", um eine Migration hinzuzufügen, sobald das Modell in EF Core portiert wurde. Anschließend würden Sie den gesamten Code aus den Methoden `Up` und `Down` der Gerüst Migration entfernen. Nachfolgende Migrationen werden mit dem Modell verglichen, wenn für die anfängliche Migration ein Gerüst erstellt wurde.
+Sie sollten nach Möglichkeit davon ausgehen, dass alle vorherigen Migrationen von EF6 auf die Datenbank angewendet wurden und dann mit der Migration des Schemas von diesem Punkt aus unter Einsatz von EF Core beginnen. Hierfür können Sie den Befehl `Add-Migration` verwenden, um eine Migration hinzuzufügen, sobald das Modell auf EF Core portiert wurde. Anschließend entfernen Sie den gesamten Code aus den Methoden `Up` und `Down` der Gerüstmigration. Nachfolgende Migrationen werden mit dem Modell verglichen, wenn für die anfängliche Migration ein Gerüst erstellt wurde.
 
 ## <a name="test-the-port"></a>Testen des Ports
 
-Nur weil Ihre Anwendung kompiliert, bedeutet nicht, dass Sie erfolgreich in EF Core portiert wurde. Sie müssen alle Bereiche Ihrer Anwendung testen, um sicherzustellen, dass keine der Verhaltensänderungen Ihre Anwendung beeinträchtigt hat.
+Nur weil Ihre Anwendung erfolgreich kompiliert wird, bedeutet das nicht, dass sie auch erfolgreich auf EF Core portiert wurde. Sie müssen alle Bereiche Ihrer Anwendung testen, um sicherzustellen, dass keine der Verhaltensänderungen Ihre Anwendung beeinträchtigt hat.

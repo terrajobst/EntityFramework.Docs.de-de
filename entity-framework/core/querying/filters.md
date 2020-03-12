@@ -3,12 +3,12 @@ title: 'Globale Abfragefilter: EF Core'
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: f4ee9b77411290249e763f9cb8492eea61803e91
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: 9262ff7970b0502945480c673315071cbc3f44b9
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124391"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413762"
 ---
 # <a name="global-query-filters"></a>Globale Abfragefilter
 
@@ -25,7 +25,7 @@ Globale Abfragefilter sind LINQ-Abfrageprädikate (ein boolescher Ausdruck, der 
 Im folgenden Beispiel wird in einem einfachen Blogmodell dargestellt, wie globale Abfragefilter zum Implementieren des Abfrageverhaltens für das vorläufige Löschen und die Mehrinstanzenfähigkeit verwendet werden.
 
 > [!TIP]
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters) finden Sie auf GitHub.
 
 Definieren Sie zunächst die Entitäten:
 
