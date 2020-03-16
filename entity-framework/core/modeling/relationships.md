@@ -5,11 +5,11 @@ author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
 ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
-ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77051406"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402114"
 ---
 # <a name="relationships"></a>Beziehungen
 
@@ -118,13 +118,13 @@ Weitere Informationen zu den verschiedenen Lösch Verhalten und den von der Konv
 
 ## <a name="manual-configuration"></a>Manuelle Konfiguration
 
-### <a name="fluent-apitabfluent-api"></a>[Fließende API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fließende API](#tab/fluent-api)
 
 Um eine Beziehung in der fließenden API zu konfigurieren, müssen Sie zunächst die Navigations Eigenschaften ermitteln, die die Beziehung bilden. `HasOne` oder `HasMany` identifiziert die Navigations Eigenschaft für den Entitätstyp, für den Sie mit der Konfiguration beginnen. Anschließend verketten Sie einen aufzurufenden `WithOne` oder `WithMany`, um die umgekehrte Navigation zu ermitteln. `HasOne`/`WithOne` für die Eigenschaften der Verweis Navigation verwendet und `HasMany`/`WithMany` für Auflistungs Navigations Eigenschaften verwendet werden.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?name=NoForeignKey&highlight=8-10)]
 
-### <a name="data-annotationstabdata-annotations"></a>[Daten Anmerkungen](#tab/data-annotations)
+### <a name="data-annotations"></a>[Daten Anmerkungen](#tab/data-annotations)
 
 Mit den Daten Anmerkungen können Sie konfigurieren, wie Navigations Eigenschaften für die abhängigen und Prinzipal Entitäten gekoppelt werden. Dies erfolgt in der Regel, wenn zwischen zwei Entitäts Typen mehr als ein paar Navigations Eigenschaften vorhanden ist.
 
@@ -146,19 +146,19 @@ Wenn Sie nur über eine Navigations Eigenschaft verfügen, sind `WithOne` und `W
 
 ### <a name="foreign-key"></a>Fremdschlüssel
 
-#### <a name="fluent-api-simple-keytabfluent-api-simple-key"></a>[Fließende API (einfacher Schlüssel)](#tab/fluent-api-simple-key)
+#### <a name="fluent-api-simple-key"></a>[Fließende API (einfacher Schlüssel)](#tab/fluent-api-simple-key)
 
 Sie können die fließende API verwenden, um zu konfigurieren, welche Eigenschaft als Fremdschlüssel Eigenschaft für eine bestimmte Beziehung verwendet werden soll:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ForeignKey.cs?name=ForeignKey&highlight=11)]
 
-#### <a name="fluent-api-composite-keytabfluent-api-composite-key"></a>[Fließende API (zusammengesetzter Schlüssel)](#tab/fluent-api-composite-key)
+#### <a name="fluent-api-composite-key"></a>[Fließende API (zusammengesetzter Schlüssel)](#tab/fluent-api-composite-key)
 
 Mit der fließend-API können Sie konfigurieren, welche Eigenschaften als zusammengesetzte Fremdschlüssel Eigenschaften für eine bestimmte Beziehung verwendet werden sollen:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?name=CompositeForeignKey&highlight=13)]
 
-#### <a name="data-annotations-simple-keytabdata-annotations-simple-key"></a>[Daten Anmerkungen (einfacher Schlüssel)](#tab/data-annotations-simple-key)
+#### <a name="data-annotations-simple-key"></a>[Daten Anmerkungen (einfacher Schlüssel)](#tab/data-annotations-simple-key)
 
 Mit den Daten Anmerkungen können Sie konfigurieren, welche Eigenschaft als Fremdschlüssel Eigenschaft für eine bestimmte Beziehung verwendet werden soll. Dies erfolgt in der Regel, wenn die Fremdschlüssel Eigenschaft nicht gemäß der Konvention ermittelt wird:
 
@@ -196,11 +196,11 @@ Sie müssen nicht unbedingt eine Navigations Eigenschaft bereitstellen. Sie kön
 
 Wenn Sie möchten, dass der Fremdschlüssel auf eine andere Eigenschaft als den Primärschlüssel verweist, können Sie mit der fließend-API die Prinzipal Schlüsseleigenschaft für die Beziehung konfigurieren. Die Eigenschaft, die Sie als Prinzipal Schlüssel konfigurieren, wird automatisch als [alternativer Schlüssel](alternate-keys.md)eingerichtet.
 
-#### <a name="simple-keytabsimple-key"></a>[Einfache Taste](#tab/simple-key)
+#### <a name="simple-key"></a>[Einfache Taste](#tab/simple-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
-#### <a name="composite-keytabcomposite-key"></a>[Zusammengesetzter Schlüssel](#tab/composite-key)
+#### <a name="composite-key"></a>[Zusammengesetzter Schlüssel](#tab/composite-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=CompositePrincipalKey&highlight=11)]
 

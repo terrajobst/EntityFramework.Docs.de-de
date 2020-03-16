@@ -5,11 +5,11 @@ ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 uid: ef6/resources/glossary
 ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656155"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402144"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework Glossar
 ## <a name="code-first"></a>Code First
@@ -78,5 +78,5 @@ Eine Methode zum Zuordnen der Vererbung, in der alle Typen in der Hierarchie der
 ## <a name="table-per-type-tpt"></a>Tabelle pro Typ (TPT)
 Eine Methode zum Zuordnen der Vererbung, bei der die allgemeinen Eigenschaften aller Typen in der Hierarchie derselben Tabelle in der Datenbank zugeordnet werden, aber Eigenschaften, die für jeden Typ eindeutig sind, werden einer separaten Tabelle zugeordnet.
 
-## <a name="type-discovery"></a>Typanmittlung
+## <a name="type-discovery"></a>Typermittlung
 Der Prozess, bei dem die Typen identifiziert werden, die Teil eines Entity Framework Modells sein sollen.
