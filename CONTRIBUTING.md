@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 79a2a10cae9f8a5541bca132e407d4abbe95e093
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
-ms.translationtype: HT
-ms.contentlocale: de-DE
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929886"
----
 # <a name="contributing-to-the-entity-framework-documentation"></a>Mitwirken an der Entity Framework-Dokumentation
 
 Nachfolgend wird der Prozess erläutert, wie Sie mit Artikeln und Codebeispielen zur Entity Framework-Dokumentation beitragen können. Die Beiträge können so einfach wie das Korrigieren von Tippfehlern oder so komplex wie das Verfassen neuer Artikel sein.
@@ -18,8 +10,8 @@ Artikel werden als Markdowndateien im Repository gespeichert. Um eine einfache �
 
 Sie benötigen Grundkenntnisse zu [Git und GitHub.com](https://guides.github.com/activities/hello-world/).
 
-* Öffnen Sie ein [Problem](https://github.com/aspnet/EntityFramework.Docs/issues/new) (Thema), in dem beschrieben ist, was Sie tun möchten, z. B. Ändern eines vorhandenen Artikels oder Erstellen eines neuen Artikels. Bevor Sie zu viel Zeit investieren, warten Sie auf die Genehmigung des EF-Teams.
-* Forken Sie das Repository [aspnet/EntityFramework.Docs](https://github.com/aspnet/EntityFramework.Docs/), und erstellen Sie einen Branch für Ihre Änderungen.
+* Öffnen Sie ein [Problem](https://github.com/dotnet/EntityFramework.Docs/issues/new) (Thema), in dem beschrieben ist, was Sie tun möchten, z. B. Ändern eines vorhandenen Artikels oder Erstellen eines neuen Artikels. Bevor Sie zu viel Zeit investieren, warten Sie auf die Genehmigung des EF-Teams.
+* Forken Sie das Repository [dotnet/EntityFramework.Docs](https://github.com/dotnet/EntityFramework.Docs/), und erstellen Sie einen Branch für Ihre Änderungen.
 * Senden Sie einen Pull Request (PR) mit Ihren Änderungen an den Master.
 * Reagieren Sie auf das PR-Feedback.
 

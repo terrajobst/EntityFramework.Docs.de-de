@@ -3,12 +3,12 @@ title: Plan für Entity Framework Core 5.0
 author: ajcvickers
 ms.date: 01/14/2020
 uid: core/what-is-new/ef-core-5.0/plan.md
-ms.openlocfilehash: 0472841fdcd105ec8ea38db062c6768510b8735d
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: c5b7300c61c2f668b6f9393ae51bf9ebddf330a7
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76125355"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413822"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Plan für Entity Framework Core 5.0
 
@@ -47,11 +47,13 @@ T-Shirt-Größe: L
 
 Status: In Bearbeitung
 
-„m:n“ ist die am meisten geforderte Funktion (~407 Stimmen) im GitHub-Backlog. Die Unterstützung für m:n-Beziehungen kann in drei Hauptbereiche aufgeteilt werden:
+„m:n“ ist die am [meisten geforderte Funktion](https://github.com/aspnet/EntityFrameworkCore/issues/1368) (~407 Stimmen) im GitHub-Backlog.
 
-* Navigationseigenschaften überspringen. Dank dieser Eigenschaften kann ein Modell für Abfragen usw. verwendet werden, ohne dass ein Verweis auf die zugrunde liegende Entität „Jointabelle“ benötigt wird.
-* Entitätstypen für Eigenschaftenbehälter. Dank dieser Entitätstypen kann für Entitätsinstanzen ein Standard-CLR-Typ wie `Dictionary` verwendet werden. So ist für einen Entitätstyp kein expliziter CLR-Typ mehr notwendig.
-* Sugar für die einfache Konfiguration von m:n-Beziehungen.
+Die Unterstützung für m:n-Beziehungen in ihrer Gesamtheit wird als [#10508](https://github.com/aspnet/EntityFrameworkCore/issues/10508) nachverfolgt. Dies kann in drei Hauptbereiche aufgeteilt werden:
+
+* Navigationseigenschaften überspringen. Dank dieser Eigenschaften kann ein Modell für Abfragen usw. verwendet werden, ohne dass ein Verweis auf die zugrunde liegende Entität „Jointabelle“ benötigt wird. ([#19003](https://github.com/aspnet/EntityFrameworkCore/issues/19003))
+* Entitätstypen für Eigenschaftenbehälter. Dank dieser Entitätstypen kann für Entitätsinstanzen ein Standard-CLR-Typ wie `Dictionary` verwendet werden. So ist für einen Entitätstyp kein expliziter CLR-Typ mehr notwendig. (Stretch für 5.0: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914).)
+* Sugar für die einfache Konfiguration von m:n-Beziehungen. (Stretch für 5.0.)
 
 Unserer Meinung nach liegt der Wunsch nach m:n-Unterstützung hauptsächlich daran, dass bei Geschäftslogik wie Queries bisher keine Möglichkeit besteht, die „natürlichen“ Beziehungen zu verwenden, ohne auf die Jointabelle verweisen zu müssen. Der Entitätstyp „Jointabelle“ existiert zwar noch, sollte in Geschäftslogik aber nicht mehr verwendet werden. Deshalb haben wir uns entschieden, in der Version 5.0 das Thema „Navigationseigenschaften überspringen“ anzugehen.
 
@@ -178,7 +180,7 @@ Des Weiteren möchten wir bei Bedarf ADO.NET/EF Core-Leistungsindikatoren und an
 
 Für die Dokumentation verantwortliche Person: @ajcvickers
 
-Nachverfolgbar über [#1920](https://github.com/aspnet/EntityFramework.Docs/issues/1920)
+Nachverfolgbar über [#1920](https://github.com/dotnet/EntityFramework.Docs/issues/1920)
 
 T-Shirt-Größe: L
 
@@ -194,7 +196,7 @@ Ziel ist es, verständlicher zu machen, was in EF Core passiert. Dies kann für 
 
 Für die Dokumentation verantwortliche Person: @bricelam
 
-Nachverfolgbar über [#1675](https://github.com/aspnet/EntityFramework.Docs/issues/1675)
+Nachverfolgbar über [#1675](https://github.com/dotnet/EntityFramework.Docs/issues/1675)
 
 T-Shirt-Größe: M
 
@@ -206,7 +208,7 @@ Das EF-Team ist auch Eigentümer des Microsoft.Data.Sqlite ADO.NET-Anbieters. Wi
 
 Für die Dokumentation verantwortliche Person: @ajcvickers
 
-Nachverfolgbar über [Docs-Repository im 5.0-Meilenstein](https://github.com/aspnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
+Nachverfolgbar über [Docs-Repository im 5.0-Meilenstein](https://github.com/dotnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
 
 T-Shirt-Größe: L
 

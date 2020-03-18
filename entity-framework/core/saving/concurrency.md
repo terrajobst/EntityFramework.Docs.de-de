@@ -3,12 +3,12 @@ title: Handhaben von Nebenläufigkeitskonflikten
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: b72fa472698e76e18f155cf96b738b0e193eee0f
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: a1d1a5a11d482f9104691aa3c072dbd1c548e9f1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654620"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413648"
 ---
 # <a name="handling-concurrency-conflicts"></a>Behandlung von Parallelitätskonflikten
 
@@ -16,7 +16,7 @@ ms.locfileid: "73654620"
 > Auf dieser Seite wird erläutert, wie Parallelität in EF Core funktioniert und wie sich Nebenläufigkeitskonflikte in Ihrer Anwendung handhaben lassen. Weitere Informationen zum Konfigurieren von Parallelitätstoken in Ihrem Modell finden Sie unter [Parallelitätstoken](xref:core/modeling/concurrency).
 
 > [!TIP]
-> Das in diesem Artikel verwendete [Beispiel](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) finden Sie auf GitHub.
+> Das in diesem Artikel verwendete [Beispiel](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) finden Sie auf GitHub.
 
 _Datenbankparallelität_ ist gegeben, wenn mehrere Prozesse oder Benutzer gleichzeitig auf dieselben Daten in einer Datenbank zugreifen oder diese ändern. Mit _Parallelitätssteuerung_ sind bestimmte Mechanismen gemeint, mit denen die Datenkonsistenz bei gleichzeitigen Änderungen sichergestellt wird.
 
