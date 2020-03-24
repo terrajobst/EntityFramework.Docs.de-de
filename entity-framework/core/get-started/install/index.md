@@ -4,18 +4,18 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 987b6f38954c291f88b5167fa9b061853b15a6cb
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 6575b1ac028f8b67b49ca7f4e49d6f19500be98f
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78412855"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136170"
 ---
 # <a name="installing-entity-framework-core"></a>Installieren von Entity Framework Core
 
 ## <a name="prerequisites"></a>Voraussetzungen
 
-* EF Core ist eine [.NET Standard 2.1](/dotnet/standard/net-standard)-Bibliothek. Daher erfordert EF Core für die Ausführung eine .NET-Implementierung, die .NET Standard 2.1 unterstützt. Auf EF Core kann auch von anderen .NET Standard 2.1-Bibliotheken verwiesen werden.
+* EF Core ist eine [.NET Standard 2.0](/dotnet/standard/net-standard)-Bibliothek. D.h., dass EF Core eine .NET-Implementierung erfordert, die .NET Standard 2.0 unterstützt. Auf EF Core kann auch von anderen .NET Standard 2.0-Bibliotheken verwiesen werden.
 
 * Sie können EF Core z.B. verwenden, um Apps für .NET Core zu entwickeln. Zum Erstellen von .NET Core-Apps ist das [.NET Core SDK](https://dotnet.microsoft.com/download) erforderlich. Optional können Sie auch eine Entwicklungsumgebung wie [Visual Studio](https://visualstudio.microsoft.com/vs), [Visual Studio für Mac](https://visualstudio.microsoft.com/vs/mac) oder [Visual Studio Code](https://code.visualstudio.com) verwenden. Weitere Informationen finden Sie unter [Erste Schritte mit .NET Core](/dotnet/core/get-started).
 
