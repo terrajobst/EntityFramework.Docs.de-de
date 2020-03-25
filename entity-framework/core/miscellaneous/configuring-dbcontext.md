@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 53b38f288cd45e66d68ebcc3b6066646d59b0262
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414158"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136191"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurieren einer DbContext-Instanz
 
@@ -186,11 +186,11 @@ Asynchrone Methoden sollten immer sofort EF Core werden.
 
 Die [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) -Erweiterungsmethode registriert `DbContext` Typen standardmäßig mit einer Bereichs bezogenen Gültigkeits [Dauer](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) .
 
-Dies ist vor gleichzeitigen Zugriffsproblemen in ASP.net Core Anwendungen sicher, weil nur ein Thread zu einem bestimmten Zeitpunkt jede Client Anforderung ausführt und jede Anforderung einen separaten Abhängigkeits Injektions Bereich (und somit eine separate `DbContext` Instanz) erhält.
+Dies ist vor gleichzeitigen Zugriffsproblemen in den meisten ASP.net Core Anwendungen sicher, weil nur ein Thread zu einem bestimmten Zeitpunkt jede Client Anforderung ausführt, und weil jede Anforderung einen separaten Abhängigkeits einschleusungs Bereich (und somit eine separate `DbContext` Instanz) erhält. Für das blazor-Server Hostingmodell wird eine logische Anforderung zum Verwalten der blazor-Benutzer Verbindung verwendet. Daher ist nur eine Bereichs bezogene dbcontext-Instanz pro Benutzer Verbindung verfügbar, wenn der standardmäßige Injektions Bereich verwendet wird.
 
-Jeder Code, der explizit mehrere Threads parallel ausführt, sollte jedoch sicherstellen, dass auf `DbContext` Instanzen nicht gleichzeitig zugegriffen wird.
+Jeder Code, der explizit mehrere Threads parallel ausführt, sollte sicherstellen, dass auf `DbContext` Instanzen nicht gleichzeitig zugegriffen wird.
 
-Mithilfe von Abhängigkeitsinjektion kann dies erreicht werden, indem der Kontext entweder als Bereichs bezogen registriert und Bereiche (mit `IServiceScopeFactory`) für jeden Thread registriert werden, oder indem die `DbContext` als vorübergehender Wert registriert wird (mithilfe der Überladung von `AddDbContext`, die einen `ServiceLifetime` Parameter annimmt).
+Mithilfe der Abhängigkeitsinjektion kann dies erreicht werden, indem der Kontext als Bereichs bezogen registriert wird und Bereiche (mit `IServiceScopeFactory`) für jeden Thread erstellt werden, oder indem die `DbContext` als vorübergehender Wert registriert wird (mithilfe der Überladung von `AddDbContext`, die einen `ServiceLifetime` Parameter annimmt).
 
 ## <a name="more-reading"></a>Weitere Informationen
 
