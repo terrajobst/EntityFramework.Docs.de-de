@@ -3,12 +3,12 @@ title: Plan für Entity Framework Core 5.0
 author: ajcvickers
 ms.date: 01/14/2020
 uid: core/what-is-new/ef-core-5.0/plan.md
-ms.openlocfilehash: c5b7300c61c2f668b6f9393ae51bf9ebddf330a7
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 8b4ca32524869019c04d5a4d4d55967f68181cd7
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78413822"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136214"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Plan für Entity Framework Core 5.0
 
@@ -67,7 +67,7 @@ Nachverfolgbar über [#2266](https://github.com/aspnet/EntityFrameworkCore/issue
 
 T-Shirt-Größe: XL
 
-Status: Nicht begonnen
+Status: In Bearbeitung
 
 Wir arbeiten an der TPT-Unterstützung, weil diese Funktion sehr stark nachgefragt wurde (~254 Stimmen, 3. Platz insgesamt) und weil dafür nur wenige spezifische Änderungen erforderlich sind, die den allgemeinen Grundlagen des .NET 5-Plans entsprechen. Datenbankanbieter werden deshalb höchstwahrscheinlich Breaking Changes bemerken. Diese erfordern jedoch viel weniger Arbeit als bei der Umstellung auf Version 3.0.
 
@@ -79,7 +79,7 @@ Nachverfolgbar über [#1833](https://github.com/aspnet/EntityFrameworkCore/issue
 
 T-Shirt-Größe: M
 
-Status: Nicht begonnen
+Status: In Bearbeitung
 
 Die gefilterte Include-Funktion wurde sehr oft gewünscht (~317 Stimmen, 2. Platz insgesamt). Sie bedarf nicht viel Arbeit und ermöglicht bzw. vereinfacht viele Szenarios, für die bisher Filter auf Modellebene oder komplexere Anforderungen nötig sind.
 
@@ -91,7 +91,7 @@ Nachverfolgbar über [#17270](https://github.com/aspnet/EntityFrameworkCore/issu
 
 T-Shirt-Größe: L
 
-Status: Nicht begonnen
+Status: In Bearbeitung
 
 Bereits in früheren Versionen wurden Schritte zur Unterstützung von unformatierten SQL-Abfragen, schlüssellosen Typen sowie damit zusammenhängenden Dingen unternommen. Beim Zusammenspiel des Ganzen bestehen jedoch noch Inkonsistenzen und Verbesserungsbedarf. Ziel in Version 5.0 ist es, daran zu arbeiten und den Benutzern das Definieren, Migrieren und Verwenden verschiedener Entitätstypen sowie der dazugehörigen Abfragen und Datenbankartefakte zu erleichtern. Dafür sind ggf. auch Aktualisierungen der kompilierten Abfrage-API erforderlich.
 
@@ -184,7 +184,7 @@ Nachverfolgbar über [#1920](https://github.com/dotnet/EntityFramework.Docs/issu
 
 T-Shirt-Größe: L
 
-Status: Nicht begonnen
+Status: In Bearbeitung
 
 Ziel ist es, verständlicher zu machen, was in EF Core passiert. Dies kann für alle Personen nützlich sein, die EF Core verwenden. Das Hauptziel ist jedoch, externen Personen Folgendes zu erleichtern:
 

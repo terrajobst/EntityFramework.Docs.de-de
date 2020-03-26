@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 03/03/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 2c41f65d1fead8430a39c6230a0f22506686504e
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 7b58b4de0eb8d9575f77e0b147da017eabad1867
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78413205"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136211"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core-Releases und Planung
 
@@ -57,10 +57,12 @@ Diese Daten werden dann in den Planungsprozess für das nächste Release aufgeno
 
 ### <a name="get-it-now"></a>Jetzt herunterladen
 
-Die Pakete von EF Core 5.0 sind **jetzt** als [tägliche Builds](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md) verfügbar. 
+Die Pakete von EF Core 5.0 sind **ab sofort**
 
-Mithilfe der täglichen Builds können Sie Probleme ausfindig machen und so früh wie möglich Feedback geben.
+* als [tägliche Builds](https://github.com/dotnet/aspnetcore/blob/master/docs/DailyBuilds.md) verfügbar:
+  * Hier sind alle aktuellen Features und Fehlerbehebungen enthalten. Die Pakete sind in der Regel sehr stabil. Für jede Buildversion werden mehr als 57.000 Testläufe durchgeführt.
+* als [Vorschauversionen auf NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) verfügbar:
+  * Diese Pakete liegen zeitlich hinter den Builds zurück. Es wird aber getestet, ob sie mit den entsprechenden Vorschauversionen von ASP.NET Core und .NET Core funktionieren.
+
+Mithilfe der Vorschauversionen oder der täglichen Builds können Sie Probleme ausfindig machen und so früh wie möglich Feedback geben.
 Je früher wir solches Feedback erhalten, desto wahrscheinlicher ist eine Umsetzung vor dem nächsten Release.
-Wir bemühen uns sehr, bei den täglichen Builds eine gute Qualität aufrechtzuerhalten, indem wir für die jeweiligen Builds über 56.000 Tests pro Plattform ausführen.
-
-Im Laufe des Jahres werden die Vorschaupakete für NuGet veröffentlicht.
