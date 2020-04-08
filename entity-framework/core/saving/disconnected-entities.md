@@ -6,10 +6,10 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
 ms.openlocfilehash: 421531e68ac98c0553938f1c24892701f22fef3c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413654"
 ---
 # <a name="disconnected-entities"></a>Getrennte Entitäten
@@ -77,7 +77,7 @@ Die Update-Methode markiert die Entität normalerweise für das Update, nicht f�
 > [!TIP]  
 > Dieses Verhalten wurde in EF Core 2.0 eingeführt. Bei früheren Releases muss immer explizit die Add- oder die Update-Methode ausgewählt werden.
 
-Wenn die Entität keine automatisch generierten Schlüssel verwendet, muss die Anwendung entscheiden, ob die Entität eingefügt oder aktualisiert werden sollte: Zum Beispiel:
+Wenn die Entität keine automatisch generierten Schlüssel verwendet, muss die Anwendung entscheiden, ob die Entität eingefügt oder aktualisiert werden sollte. Beispiel:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
@@ -131,7 +131,7 @@ Wie bisher können eine Abfrage und eine Verarbeitungsschritte verwendet werden,
 
 Die Behandlung von Löschvorgängen kann kompliziert sein, da die Abwesenheit einer Entität häufig bedeutet, dass diese gelöscht werden sollte. Eine Möglichkeit für den Umgang hiermit besteht in der Verwendung von „vorläufigen Löschvorgängen“. Dabei wird die Entität als gelöscht markiert, statt tatsächlich gelöscht zu werden. Löschvorgänge entsprechen anschließend Updates. Vorläufige Löschvorgänge können mit [Abfragefiltern](xref:core/querying/filters) implementiert werden.
 
-Bei Löschvorgängen mit dem Wert „TRUE“ wird häufig eine Erweiterung des auszuführenden Abfragemusters verwendet. Dies ist im Grunde genommen eine GraphDiff-Methode. Zum Beispiel:
+Bei Löschvorgängen mit dem Wert „TRUE“ wird häufig eine Erweiterung des auszuführenden Abfragemusters verwendet. Dies ist im Grunde genommen eine GraphDiff-Methode. Beispiel:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
 

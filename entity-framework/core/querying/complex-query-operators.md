@@ -5,10 +5,10 @@ ms.date: 10/03/2019
 ms.assetid: 2e187a2a-4072-4198-9040-aaad68e424fd
 uid: core/querying/complex-query-operators
 ms.openlocfilehash: 44c2695ea003da043925740a52596fd27da638f8
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413774"
 ---
 # <a name="complex-query-operators"></a>Komplexe Abfrageoperatoren
@@ -56,7 +56,7 @@ CROSS JOIN [Posts] AS [p]
 
 ### <a name="collection-selector-references-outer-in-a-where-clause"></a>Sammlungsselektor referenziert die äußere Datenquelle in einer WHERE-Klausel
 
-Wenn der Sammlungsselektor eine WHERE-Klausel enthält, die das äußere Element referenziert, dann übersetzt EF Core sie in einen Join der Datenbank und verwendet das Prädikat als Joinbedingung. Normalerweise tritt dieser Fall auf, wenn die Sammlungsnavigation im äußeren Element als Sammlungsselektor verwendet wird. Wenn die Sammlung für ein äußeres Element leer ist, werden keine Ergebnisse für dieses generiert. Wenn `DefaultIfEmpty` jedoch auf den Sammlungsselektor angewendet wird, wird das äußere Element mit einem Standardwert des inneren Elements verknüpft. Aufgrund dieser Unterscheidung wird diese Art von Abfrage bei Abwesenheit von `DefaultIfEmpty` in `INNER JOIN` übersetzt und in `LEFT JOIN`, wenn `DefaultIfEmpty` angewendet wurde.
+Wenn der Sammlungsselektor eine WHERE-Klausel enthält, die das äußere Element referenziert, dann übersetzt EF Core sie in einen Join der Datenbank und verwendet das Prädikat als Joinbedingung. Normalerweise tritt dieser Fall auf, wenn die Sammlungsnavigation im äußeren Element als Sammlungsselektor verwendet wird. Wenn die Sammlung für ein äußeres Element leer ist, werden keine Ergebnisse für dieses generiert. Wenn `DefaultIfEmpty` jedoch auf den Sammlungsselektor angewendet wird, wird das äußere Element mit einem Standardwert des inneren Elements verknüpft. Aufgrund dieser Unterscheidung wird diese Art von Abfrage bei Abwesenheit von `INNER JOIN` in `DefaultIfEmpty` übersetzt und in `LEFT JOIN`, wenn `DefaultIfEmpty` angewendet wurde.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToJoin)]
 
@@ -72,7 +72,7 @@ LEFT JOIN [Posts] AS [p] ON [b].[BlogId] = [p].[BlogId]
 
 ### <a name="collection-selector-references-outer-in-a-non-where-case"></a>Sammlungsselektor referenziert die äußere Datenquelle in einem Fall ohne WHERE-Klausel
 
-Wenn der Sammlungsselektor das äußere Element referenziert, das sich nicht in einer WHERE-Klausel befindet (wie im obigen Fall), wird es nicht in einen Join der Datenbank übersetzt. Daher muss der Sammlungsselektor für alle äußeren Elemente ausgewertet werden. Für viele relationale Datenbanken wird dies in `APPLY`-Vorgänge übersetzt. Wenn die Sammlung für ein äußeres Element leer ist, werden keine Ergebnisse für dieses generiert. Wenn `DefaultIfEmpty` jedoch auf den Sammlungsselektor angewendet wird, wird das äußere Element mit einem Standardwert des inneren Elements verknüpft. Aufgrund dieser Unterscheidung wird diese Art von Abfrage bei Abwesenheit von `DefaultIfEmpty` in `CROSS APPLY` übersetzt und in `OUTER APPLY`, wenn `DefaultIfEmpty` angewendet wurde. Bestimmte Datenbanken wie SQLite unterstützen `APPLY`-Operatoren nicht. Daher wird diese Art von Abfrage möglicherweise nicht übersetzt.
+Wenn der Sammlungsselektor das äußere Element referenziert, das sich nicht in einer WHERE-Klausel befindet (wie im obigen Fall), wird es nicht in einen Join der Datenbank übersetzt. Daher muss der Sammlungsselektor für alle äußeren Elemente ausgewertet werden. Für viele relationale Datenbanken wird dies in `APPLY`-Vorgänge übersetzt. Wenn die Sammlung für ein äußeres Element leer ist, werden keine Ergebnisse für dieses generiert. Wenn `DefaultIfEmpty` jedoch auf den Sammlungsselektor angewendet wird, wird das äußere Element mit einem Standardwert des inneren Elements verknüpft. Aufgrund dieser Unterscheidung wird diese Art von Abfrage bei Abwesenheit von `CROSS APPLY` in `DefaultIfEmpty` übersetzt und in `OUTER APPLY`, wenn `DefaultIfEmpty` angewendet wurde. Bestimmte Datenbanken wie SQLite unterstützen `APPLY`-Operatoren nicht. Daher wird diese Art von Abfrage möglicherweise nicht übersetzt.
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToApply)]
 
@@ -88,7 +88,7 @@ OUTER APPLY [Posts] AS [p]
 
 ## <a name="groupby"></a>GroupBy
 
-LINQ-GroupBy-Operatoren erstellen ein Ergebnis vom Typ `IGrouping<TKey, TElement>`, wobei `TKey` und `TElement` einen beliebigen arbiträren Typ aufweisen können. Außerdem wird `IEnumerable<TElement>` von `IGrouping` implementiert, d. h. Sie können es nach der Gruppierung mithilfe eines beliebigen LINQ-Operators zusammensetzen. Da keine Datenbankstruktur eine `IGrouping`-Schnittstelle darstellen kann, gibt es in den meisten Fällen keine Übersetzung für GroupBy-Operatoren. Wenn ein Aggregate-Operator auf alle Gruppen angewendet wird, die einen Skalarwert zurückgeben, kann dieser für relationale Datenbanken in die SQL-Anweisung `GROUP BY` übersetzt werden. Die SQL-Anweisung `GROUP BY` ist ebenfalls einschränkend. Sie erfordert, dass Sie nur nach Skalarwerten gruppieren. Die Projektion kann nur gruppierende Schlüsselspalten oder auf eine Spalte angewendete Aggregate-Operatoren enthalten. EF Core identifiziert dieses Muster und übersetzt es wie im folgenden Beispiel für den Server:
+LINQ-GroupBy-Operatoren erstellen ein Ergebnis vom Typ `IGrouping<TKey, TElement>`, wobei `TKey` und `TElement` einen beliebigen arbiträren Typ aufweisen können. Außerdem wird `IGrouping` von `IEnumerable<TElement>` implementiert, d. h. Sie können es nach der Gruppierung mithilfe eines beliebigen LINQ-Operators zusammensetzen. Da keine Datenbankstruktur eine `IGrouping`-Schnittstelle darstellen kann, gibt es in den meisten Fällen keine Übersetzung für GroupBy-Operatoren. Wenn ein Aggregate-Operator auf alle Gruppen angewendet wird, die einen Skalarwert zurückgeben, kann dieser für relationale Datenbanken in die SQL-Anweisung `GROUP BY` übersetzt werden. Die SQL-Anweisung `GROUP BY` ist ebenfalls einschränkend. Sie erfordert, dass Sie nur nach Skalarwerten gruppieren. Die Projektion kann nur gruppierende Schlüsselspalten oder auf eine Spalte angewendete Aggregate-Operatoren enthalten. EF Core identifiziert dieses Muster und übersetzt es wie im folgenden Beispiel für den Server:
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#GroupBy)]
 
@@ -115,9 +115,9 @@ Die von EF Core unterstützten Aggregate-Operatoren lauten wie folgt:
 - Average
 - Anzahl
 - LongCount
-- Max.
-- Min.
-- Summe
+- Max
+- Min
+- SUM
 
 ## <a name="left-join"></a>Left Join
 

@@ -5,10 +5,10 @@ ms.date: 10/08/2019
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
 ms.openlocfilehash: a54bb67c0fce9d621382f6372e70fe4cdca48a20
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413714"
 ---
 # <a name="raw-sql-queries"></a>Unformatierte SQL-Abfragen
@@ -41,7 +41,7 @@ Im folgenden Beispiel wird ein einzelner Parameter an eine gespeicherte Prozedur
 
 [!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureParameter)]
 
-`FromSqlInterpolated` ähnelt `FromSqlRaw`, lässt jedoch die Verwendung der Zeichenfolgeninterpolationsyntax zu. `FromSqlInterpolated` kann wie `FromSqlRaw` nur für Abfragestämme verwendet werden. Wie im vorherigen Beispiel wird der Wert in eine `DbParameter`-Klasse konvertiert und ist nicht anfällig für die Einschleusung von SQL-Befehlen.
+`FromSqlInterpolated` ähnelt `FromSqlRaw`, lässt jedoch die Verwendung der Zeichenfolgeninterpolationsyntax zu. `FromSqlRaw` kann wie `FromSqlInterpolated` nur für Abfragestämme verwendet werden. Wie im vorherigen Beispiel wird der Wert in eine `DbParameter`-Klasse konvertiert und ist nicht anfällig für die Einschleusung von SQL-Befehlen.
 
 > [!NOTE]
 > Vor Version 3.0 waren `FromSqlRaw` und `FromSqlInterpolated` zwei Überladungen namens `FromSql`. Weitere Informationen finden Sie im [Abschnitt zu vorherigen Versionen](#previous-versions).
@@ -87,7 +87,7 @@ Für die Zusammensetzung mit LINQ muss Ihre unformatierte SQL-Abfrage zusammense
 
 SQL Server erlaubt die Zusammensetzung von Aufrufen gespeicherter Prozeduren nicht. Daher resultieren Versuche, zusätzliche Abfrageoperatoren auf solche Aufrufe anzuwenden, in ungültigem SQL. Verwenden Sie die `AsEnumerable`- oder `AsAsyncEnumerable`-Methode direkt nach der `FromSqlRaw`- oder `FromSqlInterpolated`-Methode, um sicherzustellen, dass EF Core nicht ersucht, eine gespeicherte Prozedur zusammenzusetzen.
 
-## <a name="change-tracking"></a>Änderungsnachverfolgung
+## <a name="change-tracking"></a>Change Tracking
 
 Abfragen, die die `FromSqlRaw`- oder `FromSqlInterpolated`-Methode verwenden, befolgen genau dieselben Änderungsnachverfolgungsregeln wie jede andere LINQ-Abfrage in EF Core. Wenn beispielsweise die Abfrage Entitätstypen projiziert, werden die Ergebnisse standardmäßig nachverfolgt.
 
@@ -103,6 +103,6 @@ Bei der Verwendung unformatierter SQL-Abfragen sind einige wenige Einschränkung
 - Die Spaltennamen im Resultset müssen mit den Spaltennamen übereinstimmen, denen Eigenschaften zugewiesen sind. Beachten Sie, dass sich dieses Verhalten von EF6 unterscheidet. EF6 ignoriert die Zuordnung von Eigenschaften zu Spalten bei unformatierten SQL-Abfragen, und Spaltennamen von Resultsets mussten mit den Eigenschaftennamen übereinstimmen.
 - Die SQL-Abfrage darf keine zugehörigen Daten enthalten. In vielen Fällen können Sie die Abfrage jedoch mit dem Operator `Include` zusammensetzen, damit zugehörige Daten zurückgegeben werden (siehe [Einschließen zugehöriger Daten](#including-related-data)).
 
-## <a name="previous-versions"></a>Frühere Versionen
+## <a name="previous-versions"></a>Vorgängerversionen
 
 In EF Core Version 2.2 und früher gab es zwei Überladungen für eine Methode namens `FromSql`, die sich wie die neueren Methoden `FromSqlRaw` und `FromSqlInterpolated` verhielten. Es war leicht, versehentlich die unformatierte Zeichenfolgenmethode aufzurufen, wenn eigentlich ein Aufruf der interpolierten Zeichenfolgenmethode beabsichtigt war oder umgekehrt. Versehentliche Aufrufe der falschen Überladung konnten dazu führen, dass Abfragen nicht parametrisiert wurden, wenn sie parametrisiert werden sollten.

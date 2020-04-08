@@ -4,10 +4,10 @@ author: ajcvickers
 ms.date: 01/28/2020
 uid: core/what-is-new/release_planning.md
 ms.openlocfilehash: 71045b8d49c319a73f74443612bedd84ee33ab8a
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413540"
 ---
 # <a name="release-planning-process"></a>Die Releaseplanung
@@ -55,7 +55,7 @@ Bei EF Core 3.**1**.0 handelt es sich beispielsweise um ein Release, für das V
 
 Folgendes trifft auf Nebenversionen zu:
 * Nebenversionen sollen die Qualität und Features vorheriger Releases verbessern
-* Nebenversionen enthalten in der Regel Fehlerbehebungen sowie neue Features
+* Hauptversionen enthalten in der Regel Fehlerbehebungen sowie neue Features
 * Nebenversionen enthalten keine absichtlichen Breaking Changes
 * Für Nebenversionen werden einige Vorschauversion vor dem eigentlichen Release an NuGet gepusht
 
@@ -65,7 +65,7 @@ Bei Hauptversionen ändert sich die Versionsnummer des „Hauptteils“ von EF.
 Bei EF Core **3**.0.0 handelt es sich beispielsweise um eine Hauptversion, bei der im Vergleich zu EF Core 2.2.x wesentliche Unterschiede bestehen.
 
 Folgendes trifft auf Hauptversionen zu:
-* Hauptversionen sollen die Qualität und Features vorheriger Releases verbessern
+* Nebenversionen sollen die Qualität und Features vorheriger Releases verbessern
 * Hauptversionen enthalten in der Regel Fehlerbehebungen sowie neue Features
   * Bei einigen der neuen Features kann es sich um erhebliche Änderungen der Funktionsweise von EF Core handeln
 * Hauptversionen enthalten in der Regel absichtliche Breaking Changes

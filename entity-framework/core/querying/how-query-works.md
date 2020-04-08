@@ -5,10 +5,10 @@ ms.date: 03/17/2020
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/how-query-works
 ms.openlocfilehash: e8a50efe31468ea8df211602636dd474550bc0ef
-ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "80136238"
 ---
 # <a name="how-queries-work"></a>Funktionsweise von Abfragen
@@ -41,4 +41,4 @@ Dies sind die üblichsten Vorgänge, aufgrund derer die Abfrage wird an die Date
 * Verwenden eines Operators wie `ToList`, `ToArray`, `Single`, `Count` oder die äquivalenten asynchronen Überladungen
 
 > [!WARNING]  
-> **Überprüfen Sie Benutzereingaben immer:** Zwar schützt EF Core mithilfe von Parametern und Escapezeichen für Literale in Abfragen vor Angriffen durch Einschleusung von SQL-Befehlen, jedoch werden Eingaben nicht überprüft. Geeignete Validierung gemäß den Anforderungen der Anwendung sollte erfolgen, bevor Werte aus nicht vertrauenswürdigen Quellen in LINQ-Abfragen verwendet, Entitätseigenschaften zugewiesen oder an andere EF Core-APIs übergeben werden. Dies schließt alle Benutzereingaben ein, mit denen Abfragen dynamisch erstellt werden. Wenn Sie Benutzereingaben zum Erstellen von Ausdrücken zulassen, müssen Sie selbst bei LINQ sicherstellen, dass nur beabsichtigte Ausdrücke erstellt werden können.
+> **Benutzereingaben immer überprüfen:** Zwar schützt EF Core vor SQL-Einschleusungsangriffen durch Verwendung von Parametern und das Escapen von Literalen in Abfragen, es überprüft jedoch keine Eingaben. Geeignete Validierung gemäß den Anforderungen der Anwendung sollte erfolgen, bevor Werte aus nicht vertrauenswürdigen Quellen in LINQ-Abfragen verwendet, Entitätseigenschaften zugewiesen oder an andere EF Core-APIs übergeben werden. Dies schließt alle Benutzereingaben ein, mit denen Abfragen dynamisch erstellt werden. Wenn Sie Benutzereingaben zum Erstellen von Ausdrücken zulassen, müssen Sie selbst bei LINQ sicherstellen, dass nur beabsichtigte Ausdrücke erstellt werden können.

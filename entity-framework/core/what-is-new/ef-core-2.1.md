@@ -5,10 +5,10 @@ ms.date: 02/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 uid: core/what-is-new/ef-core-2.1
 ms.openlocfilehash: ba3a26bcd76cd0b9615b13f32456e7280afe533a
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413564"
 ---
 # <a name="new-features-in-ef-core-21"></a>Neue Features in EF Core 2.1
@@ -129,7 +129,7 @@ var query = context.Customers.Select(
     c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount).ToList());
 ```
 
-Beachten Sie, dass diese Abfrage nur in zwei SQL-Abfragen übersetzt wird: Eine für Kunden, die andere für Aufträge.
+Beachten Sie, dass diese Abfrage nur in zwei SQL-Abfragen übersetzt wird: eine für Kunden und die nächste für Aufträge.
 
 ## <a name="owned-attribute"></a>Das [Owned]-Attribut
 

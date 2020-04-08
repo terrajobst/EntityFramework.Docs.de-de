@@ -5,10 +5,10 @@ ms.date: 11/14/2018
 ms.assetid: 73C7A627-C8E9-452D-9CD5-AFCC8FEFE395
 uid: core/querying/tags
 ms.openlocfilehash: e8415b237df45ce652dcd152013f4f12a992aed7
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413828"
 ---
 # <a name="query-tags"></a>Abfragetags
@@ -69,7 +69,7 @@ ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 ```
 
 Es ist auch möglich, Multi-Linienzeichenfolgen als Abfragetags zu verwenden.
-Zum Beispiel:
+Beispiel:
 
 ``` csharp
 var results = Limit(GetNearestFriends(myLocation), 25).TagWith(
@@ -94,5 +94,5 @@ ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 
 ## <a name="known-limitations"></a>Bekannte Einschränkungen
 
-**Abfragetags sind nicht parametrisierbar:** EF Core behandelt Abfragetags in LINQ-Abfragen immer als Zeichenfolgenliterale, die in der generierten SQL-Anweisung enthalten sind.
+**Abfragetags lassen sich nicht parametrisieren.** EF Core behandelt Abfragetags in LINQ-Abfragen immer als Zeichenfolgenliterale, die in der generierten SQL-Anweisung enthalten sind.
 Kompilierte Abfragen, die Abfragetags als Parameter verwenden, sind nicht zulässig.

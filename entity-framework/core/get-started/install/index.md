@@ -5,10 +5,10 @@ ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
 ms.openlocfilehash: 6575b1ac028f8b67b49ca7f4e49d6f19500be98f
-ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "80136170"
 ---
 # <a name="installing-entity-framework-core"></a>Installieren von Entity Framework Core
@@ -33,7 +33,7 @@ Wenn Sie eine ASP.NET Core-Anwendung erstellen, müssen Sie keine In-Memory- und
 
 Verwenden Sie die .NET Core-CLI (Command Line Interface, Befehlszeilenschnittstelle), das Dialogfeld für den Visual Studio-Paket-Manager oder die Visual Studio-Paket-Manager-Konsole, um NuGet-Pakete zu installieren oder zu aktualisieren.
 
-### <a name="net-core-cli"></a>.NET Core-CLI
+### <a name="net-core-cli"></a>.NET Core CLI
 
 * Verwenden Sie den folgenden .NET Core-CLI-Befehl über die Befehlszeile des Betriebssystems, um den EF Core-SQL Server-Anbieter zu installieren oder zu aktualisieren:
 
@@ -41,7 +41,7 @@ Verwenden Sie die .NET Core-CLI (Command Line Interface, Befehlszeilenschnittste
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
   ```
 
-* Mit dem Modifizierer `-v` können Sie eine bestimmte Version im Befehl `dotnet add package` angeben. Wenn Sie beispielsweise EF Core 2.2.0-Pakete installieren möchten, fügen Sie `-v 2.2.0` an den Befehl an.
+* Mit dem Modifizierer `dotnet add package` können Sie eine bestimmte Version im Befehl `-v` angeben. Wenn Sie beispielsweise EF Core 2.2.0-Pakete installieren möchten, fügen Sie `-v 2.2.0` an den Befehl an.
 
 Weitere Informationen finden Sie unter [Tools für die .NET Core-Befehlszeilenschnittstelle](/dotnet/core/tools/).
 

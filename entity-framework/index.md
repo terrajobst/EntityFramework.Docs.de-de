@@ -6,10 +6,10 @@ ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
 ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78412915"
 ---
 <div id="main" class="v2">
@@ -24,7 +24,7 @@ ms.locfileid: "78412915"
                         <ul id="entityfmwk1" class="cardsC">
                             <li>
                                 <div class="container intro">
-                                    <p>Das Entity Framework (EF) ist eine objektrelationale Zuordnung (Object-Relational Mapper, O/RM), die .NET-Entwicklern mithilfe von .NET-Objekten das Arbeiten mit einer Datenbank ermöglicht. Im EF ist der Großteil des Datenzugriffscodes, den Entwickler in der Regel schreiben müssen, nicht mehr erforderlich.</p>
+                                    <p>Das Entity Framework (EF) ist eine objektrelationale Zuordnung (Object-Relational Mapper, O/RM), die .NET-Entwicklern mithilfe von .NET-Objekten das Arbeiten mit einer Datenbank ermöglicht. Es entfällt die Notwendigkeit für den Großteil des Datenzugriffs-Codes, den Entwickler normalerweise schreiben müssen.</p>
                                 </div>
                             </li>
                             <li>

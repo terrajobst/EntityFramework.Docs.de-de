@@ -5,10 +5,10 @@ ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 uid: core/what-is-new/ef-core-1.0
 ms.openlocfilehash: 2cd2a54d75ed3f0caa8b674dfb56babcfcc13592
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413594"
 ---
 # <a name="features-included-in-ef-core-10"></a>Features in EF Core 1.0
@@ -171,7 +171,7 @@ Stellt eine Verbindung mit Microsoft SQL Server 2008 und höher her.
 
 Stellt eine Verbindung mit einer SQLite 3-Datenbank her.
 
-### <a name="in-memory"></a>Im Arbeitsspeicher
+### <a name="in-memory"></a>In-Memory
 
 Ist für das einfache Testen ohne Verbindung mit einer echten Datenbank konzipiert.
 

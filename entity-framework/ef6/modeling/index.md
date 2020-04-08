@@ -4,19 +4,19 @@ author: divega
 ms.date: 07/05/2018
 ms.assetid: 4890228E-CEA1-4595-B8AD-CA81253F8767
 ms.openlocfilehash: bd9843a93121f53518a307c9d2d43b68ae03369c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413465"
 ---
 # <a name="creating-a-model"></a>Erstellen eines Modells
 
 Ein EF-Modell speichert die Details zur Zuordnung von Anwendungsklassen und -eigenschaften zu Datenbanktabellen und-spalten. Es gibt zwei Hauptmöglichkeiten, ein EF-Modell zu erstellen:
 
-- **Verwendung von Code First:** Der Entwickler schreibt Code, um ein Modell zu entwerfen. EF generiert die Modelle und Zuordnungen zur Laufzeit basierend auf Entitätsklassen und zusätzlichen Modellkonfigurationen, die vom Entwickler bereitgestellt werden.
+- **Verwenden von Code First:** Der Entwickler schreibt Code, um ein Modell zu entwerfen. EF generiert die Modelle und Zuordnungen zur Laufzeit basierend auf Entitätsklassen und zusätzlichen Modellkonfigurationen, die vom Entwickler bereitgestellt werden.
 
-- **Verwendung des EF-Designers:** Der Entwickler zeichnet Felder und Linien, um das Modell mit dem EF-Designer zu entwerfen. Das daraus entstehende Modell wird als XML in einer Datei mit der Erweiterung EDMX gespeichert. Die Domänenobjekte der Anwendung werden normalerweise automatisch über das konzeptionelle Modell erzeugt.
+- **Verwenden des EF-Designers:** Der Entwickler zeichnet Felder und Linien, um das Modell mit dem EF-Designer zu entwerfen. Das daraus entstehende Modell wird als XML in einer Datei mit der Erweiterung EDMX gespeichert. Die Domänenobjekte der Anwendung werden normalerweise automatisch über das konzeptionelle Modell erzeugt.
 
 ## <a name="ef-workflows"></a>EF-Workflows
 
@@ -28,11 +28,11 @@ Entscheiden Sie sich für das Modell, das für Sie am geeignetsten ist:
 | **Ich erstelle eine neue Datenbank**          | [Verwenden Sie **Code First**, um Ihr Modell mit Code zu definieren und dann eine Datenbank zu erstellen.](~/ef6/modeling/code-first/workflows/new-database.md)           | [Verwenden Sie **Model First**, um Ihr Modell mit Feldern und Linien zu definieren und dann eine Datenbank zu erstellen.](~/ef6/modeling/designer/workflows/model-first.md)   |
 | **Ich muss auch eine vorhandene Daten zugreifen** | [Verwenden Sie **Code First**, um ein codebasiertes Modell zu erstellen, das eine Zuordnung zu einer bereits vorhandenen Datenbank herstellt.](~/ef6/modeling/code-first/workflows/existing-database.md) | [Verwenden Sie **Database First**, um Felder und Linien zu erstellen, die eine Zuordnung zu einer bereits vorhandenen Datenbank herstellen.](~/ef6/modeling/designer/workflows/database-first.md) |
 
-### <a name="watch-the-video-what-ef-workflow-should-i-use"></a>Sehen Sie sich das Video an: Welcher EF-Workflow eignet sich am besten für mich?
+### <a name="watch-the-video-what-ef-workflow-should-i-use"></a>Sehen Sie sich ein Video an: Welcher EF-Workflow eignet sich am besten für mich?
 
 In diesem kurzen Video werden die Unterschiede beschrieben, und Sie erfahren, wie Sie sich für den passenden Workflow entscheiden.
 
-**Präsentiert von:** [Rowan Miller](https://romiller.com/)
+**Präsentation:** [Rowan Miller](https://romiller.com/)
 
 ![Which Workflow Thumb](../media/whichworkflow-thumb.png) [WMV](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
 

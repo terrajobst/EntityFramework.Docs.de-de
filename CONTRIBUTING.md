@@ -6,14 +6,14 @@ Nachfolgend wird der Prozess erläutert, wie Sie mit Artikeln und Codebeispielen
 
 Artikel werden als Markdowndateien im Repository gespeichert. Um eine einfache Änderung am Inhalt einer Markdowndatei vorzunehmen, klicken Sie auf den Link **Bearbeiten** in der oberen rechten Ecke des Browserfensters. Möglicherweise müssen Sie die Leiste **Optionen** erweitern, um den Link **Bearbeiten** sehen zu können. Befolgen Sie die Anweisungen zum Erstellen eines Pull Requests (PR). Das EF-Team überprüft den PR und akzeptiert diesen oder schlägt Änderungen vor.
 
-## <a name="how-to-make-a-more-complex-submission"></a>So reichen Sie einen komplexeren Vorschlag ein
+## <a name="how-to-make-a-more-complex-submission"></a>Einreichen einer komplexeren Eingabe
 
 Sie benötigen Grundkenntnisse zu [Git und GitHub.com](https://guides.github.com/activities/hello-world/).
 
 * Öffnen Sie ein [Problem](https://github.com/dotnet/EntityFramework.Docs/issues/new) (Thema), in dem beschrieben ist, was Sie tun möchten, z. B. Ändern eines vorhandenen Artikels oder Erstellen eines neuen Artikels. Bevor Sie zu viel Zeit investieren, warten Sie auf die Genehmigung des EF-Teams.
 * Forken Sie das Repository [dotnet/EntityFramework.Docs](https://github.com/dotnet/EntityFramework.Docs/), und erstellen Sie einen Branch für Ihre Änderungen.
 * Senden Sie einen Pull Request (PR) mit Ihren Änderungen an den Master.
-* Reagieren Sie auf das PR-Feedback.
+* Treffen Sie entsprechende Maßnahmen bezüglich des PR-Feedbacks.
 
 ## <a name="markdown-syntax"></a>Markdownsyntax
 
@@ -45,7 +45,7 @@ Um einen Teil einer Datei als Ausschnitt mittels Zeilennummern zu rendern, führ
 
 Bei C#-Ausschnitten können Sie auf eine [C#-Region](https://msdn.microsoft.com/library/9a1ybwek.aspx) verweisen. Verwenden Sie Regionen anstelle von Zeilennummern. Zeilennummern in einer Codedatei ändern sich in der Regel und stimmen dann nicht mehr mit den Zeilennummernverweisen in der Markdowndatei überein. C#-Regionen können geschachtelt werden. Wenn Sie auf die äußere Region verweisen, werden die inneren Anweisungen `#region` und `#endregion` nicht in einem Ausschnitt gerendert.
 
-Um eine C# Region namens „snippet_Example“ zu rendern, führen Sie Folgendes aus:
+Um eine C# Region mit dem Namen „snippet_Example“ zu rendern, führen Sie Folgendes aus:
 
 ``` none
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?name=snippet_Example)]

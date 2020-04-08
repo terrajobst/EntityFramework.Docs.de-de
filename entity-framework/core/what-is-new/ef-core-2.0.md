@@ -5,10 +5,10 @@ ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
 ms.openlocfilehash: 83f6b819409d502dba17a678d44a0746a4a77f4b
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413576"
 ---
 # <a name="new-features-in-ef-core-20"></a>Neue Features in EF Core 2.0
@@ -96,7 +96,7 @@ public class BloggingContext : DbContext
 }
 ```
 
-Wir definieren einen Filter auf Modellebene, der Mehrinstanzenfähigkeit sowie das vorläufige Löschen für Instanzen des Entitätstyps `Post` implementiert. Beachten Sie die Verwendung einer `TenantId`-Eigenschaft auf der `DbContext`-Instanzebene. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz (d.h. der Kontextinstanz, die die Abfrage ausführt).
+Wir definieren einen Filter auf Modellebene, der Mehrinstanzenfähigkeit sowie das vorläufige Löschen für Instanzen des Entitätstyps `Post` implementiert. Beachten Sie die Verwendung einer `DbContext`-Eigenschaft auf der `TenantId`-Instanzebene. Filter auf Modellebene verwenden den Wert der korrekten Kontextinstanz (d.h. der Kontextinstanz, die die Abfrage ausführt).
 
 Filter können für einzelne LINQ-Abfragen mit dem IgnoreQueryFilters()-Operator deaktiviert werden.
 
@@ -133,7 +133,7 @@ var query =
     select p;
 ```
 
-Im Folgenden sollten Sie einige Aspekte berücksichtigen:
+Im Folgenden einige Hinweise, die Sie beachten sollten:
 
 - Der Name der Methode wird gemäß den Konventionen als Name einer Funktion (in diesem Fall einer benutzerdefinierten Funktion) bei der SQL-Generierung verwendet, Sie können den Namen und das Schema bei der Methodenregistrierung jedoch überschreiben.
 - Derzeit werden nur Skalarfunktionen unterstützt.
@@ -158,7 +158,7 @@ class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 builder.ApplyConfiguration(new CustomerConfiguration());
 ```
 
-## <a name="high-performance"></a>Hohe Leistung
+## <a name="high-performance"></a>Leistung
 
 ### <a name="dbcontext-pooling"></a>DbContext-Pooling
 
@@ -205,7 +205,7 @@ using (var db = new CustomerContext())
 }
 ```
 
-## <a name="change-tracking"></a>Änderungsnachverfolgung
+## <a name="change-tracking"></a>Change Tracking
 
 ### <a name="attach-can-track-a-graph-of-new-and-existing-entities"></a>Nachverfolgen eines Graphen von neuen und vorhandenen Entitäten durch Anfügen
 
@@ -225,7 +225,7 @@ Durch diese Änderungen wird das SQL-Skript verbessert, das für Gruppenverknüp
 
 Mit C# 6 wurde Zeichenfolgeninterpolation eingeführt, ein Feature, mit dem C#-Ausdrücke direkt in Zeichenfolgenliterale eingebettet werden können, was eine komfortable Möglichkeit zum Erstellen von Zeichenfolgen zur Runtime bietet. In EF Core 2.0 haben wir eine spezielle Unterstützung für interpolierte Zeichenfolgen zu unseren zwei primären APIs hinzugefügt, die SQL-Rohzeichenfolgen akzeptieren: `FromSql` und `ExecuteSqlCommand`. Diese neue Unterstützung ermöglicht die „sichere“ Verwendung von C#-Zeichenfolgeninterpolation. Das heißt, sie wird vor häufigen Fehlern durch Angriffe durch Einschleusung von SQL-Befehlen geschützt, die auftreten können, wenn SQL dynamisch zur Laufzeit erstellt wird.
 
-Im Folgenden ein Beispiel:
+Beispiel:
 
 ``` csharp
 var city = "London";
@@ -299,7 +299,7 @@ public class MyPluralizer : IPluralizer
 }
 ```
 
-## <a name="others"></a>Sonstige
+## <a name="others"></a>Andere
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>Migrieren des ADO.NET SQLite-Anbieters nach SQLitePCL.raw
 
