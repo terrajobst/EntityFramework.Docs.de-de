@@ -1,0 +1,5 @@
+# <a name="code-of-conduct"></a><span data-ttu-id="03253-101">Verhaltenskodex</span><span class="sxs-lookup"><span data-stu-id="03253-101">Code of Conduct</span></span>
+
+<span data-ttu-id="03253-102">Dieses Projekt verwendet die Verhaltensregeln der Mitwirkendenvereinbarung, in denen das gewünschte Verhalten in der Community festgehalten wird.</span><span class="sxs-lookup"><span data-stu-id="03253-102">This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.</span></span>
+
+<span data-ttu-id="03253-103">Weitere Informationen finden Sie unter [.NET Foundation Code of Conduct (.NET Foundation-Verhaltensregeln)](https://dotnetfoundation.org/code-of-conduct).</span><span class="sxs-lookup"><span data-stu-id="03253-103">For more information, see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).</span></span>
